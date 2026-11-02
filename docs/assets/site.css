@@ -122,6 +122,7 @@ img { max-width: 100%; display: block; }
 .prose table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; display: block; overflow-x: auto; }
 .prose th, .prose td { border: 1px solid var(--rim); padding: 7px 10px; text-align: left; vertical-align: top; }
 .prose th { background: var(--panel-2); }
+.prose thead:not(:has(th:not(:empty))) { display: none; }
 .prose tr:nth-child(even) td { background: rgba(255,255,255,.02); }
 .prose code { background: var(--panel-2); border: 1px solid var(--rim); border-radius: 4px; padding: 1px 5px; font-size: .9em; }
 .prose pre { background: var(--panel); border: 1px solid var(--rim); border-radius: 6px; padding: 14px; overflow-x: auto; }

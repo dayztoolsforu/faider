@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/JUCE-8.0.12-8DC63F" alt="JUCE 8.0.12">
   <img src="https://img.shields.io/badge/audio-ASIO%20%C2%B7%20WASAPI-555" alt="ASIO · WASAPI">
   <img src="https://img.shields.io/badge/plugins-VST3-555" alt="VST3">
-  <img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages">
+  <a href="https://dayztoolsforu.github.io/patchbay/manual.html"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
   <img src="https://img.shields.io/badge/licence-AGPLv3-blue" alt="AGPLv3">
 </p>
 
@@ -67,7 +67,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 |---|---|
 | Install folder | `C:\Program Files\Patchbay Console` (installer), `C:\PatchbayConsole` (built from source) |
 | Mix and settings | `%APPDATA%\PatchbayConsole` |
-| Manual | [On the website](https://dayztoolsforu.github.io/patchbay/manual.html), or [docs/PATCHBAY-CONSOLE-MANUAL.md](docs/PATCHBAY-CONSOLE-MANUAL.md), in 13 languages |
+| Manual | [Patchbay Console manual](https://dayztoolsforu.github.io/patchbay/manual.html) (13 languages) |
 | Website | [dayztoolsforu.github.io/patchbay](https://dayztoolsforu.github.io/patchbay/) |
 
 ## Features
@@ -157,7 +157,7 @@ then `python tools/manual-page/build.py`.
 ### First run
 
 A few seconds after start, PRE-FLIGHT checks the setup and points to anything that needs fixing.
-The manual's [first-time setup](docs/PATCHBAY-CONSOLE-MANUAL.md#2-first-time-setup) takes you
+The manual's [first-time setup](https://dayztoolsforu.github.io/patchbay/manual.html#2-first-time-setup) takes you
 through adding a microphone, hearing it, letting apps hear it and bringing in a program.
 
 Installing VB-CABLE makes Windows switch its default playback and recording devices to the cable.
@@ -167,7 +167,7 @@ Set your speakers and microphone back under **Settings > System > Sound**.
 
 | Document | |
 |---|---|
-| Patchbay Console user manual | [English](docs/PATCHBAY-CONSOLE-MANUAL.md) · [Español](docs/i18n/PATCHBAY-CONSOLE-MANUAL.es.md) · [Français](docs/i18n/PATCHBAY-CONSOLE-MANUAL.fr.md) · [Deutsch](docs/i18n/PATCHBAY-CONSOLE-MANUAL.de.md) · [Italiano](docs/i18n/PATCHBAY-CONSOLE-MANUAL.it.md) · [Português (Brasil)](docs/i18n/PATCHBAY-CONSOLE-MANUAL.pt-BR.md) · [Nederlands](docs/i18n/PATCHBAY-CONSOLE-MANUAL.nl.md) · [Polski](docs/i18n/PATCHBAY-CONSOLE-MANUAL.pl.md) · [Svenska](docs/i18n/PATCHBAY-CONSOLE-MANUAL.sv.md) · [Türkçe](docs/i18n/PATCHBAY-CONSOLE-MANUAL.tr.md) · [日本語](docs/i18n/PATCHBAY-CONSOLE-MANUAL.ja.md) · [한국어](docs/i18n/PATCHBAY-CONSOLE-MANUAL.ko.md) · [简体中文](docs/i18n/PATCHBAY-CONSOLE-MANUAL.zh-Hans.md) |
+| User manual, 13 languages | [Patchbay Console manual](https://dayztoolsforu.github.io/patchbay/manual.html) |
 | The app and its layout files | [console/README.md](console/README.md) |
 | Remote control: OSC, HTTP API, deck plugins | [plugins/README.md](plugins/README.md) |
 | All documentation | [docs/README.md](docs/README.md) |

@@ -1,0 +1,126 @@
+{
+  "comment": "One channel strip, top to bottom, in a 214-wide channel's pixels; every part drawn in code. Kinds: knob (x, y = its 52-across circle's top left; size), key (x, y, w, h, text, lamp), leds (a column: x, y, w, h, count, colours), label (x, y, w, h, text, size, align), line (points), fader, meter, display (text), bars (level bars).",
+  "width": 214,
+  "sections": [
+    {
+      "name": "INPUT", "height": 226,
+      "items": [
+        { "kind": "key", "id": "inputIn", "x": 15, "y": 6, "w": 34, "h": 26, "text": "IN", "lamp": "cream" },
+        { "kind": "label", "x": 56, "y": 6, "w": 140, "h": 26, "text": "INPUT", "size": 20 },
+        { "kind": "knob", "id": "trim", "x": 30, "y": 60, "size": 52, "colour": "red", "name": "IN TRIM" },
+        { "kind": "key", "id": "flip", "x": 165, "y": 60, "w": 34, "h": 34, "text": "FLIP", "lamp": "cream" },
+        { "kind": "key", "id": "polarity", "x": 165, "y": 114, "w": 34, "h": 34, "text": "Ø", "lamp": "violet" },
+        { "kind": "knob", "id": "drive", "x": 30, "y": 148, "size": 52, "colour": "grey", "name": "DRIVE" },
+        { "kind": "key", "id": "lineB", "x": 165, "y": 166, "w": 34, "h": 34, "text": "B", "lamp": "cream" }
+      ]
+    },
+    {
+      "name": "FILTERS", "height": 196,
+      "items": [
+        { "kind": "knob", "id": "lpf", "x": 30, "y": 18, "size": 52, "colour": "grey", "name": "LPF" },
+        { "kind": "key", "id": "split", "x": 166, "y": 20, "w": 34, "h": 34, "text": "SPLIT", "lamp": "cream" },
+        { "kind": "knob", "id": "hpf", "x": 132, "y": 84, "size": 52, "colour": "grey", "name": "HPF" },
+        { "kind": "label", "x": 15, "y": 152, "w": 150, "h": 26, "text": "FILTERS", "size": 20 }
+      ]
+    },
+    {
+      "name": "EQ", "height": 928,
+      "items": [
+        { "kind": "knob", "id": "hfGain", "x": 30, "y": 24, "size": 52, "colour": "red", "name": "HF" },
+        { "kind": "key", "id": "hfBell", "x": 166, "y": 20, "w": 34, "h": 34, "text": "BELL", "lamp": "cream" },
+        { "kind": "knob", "id": "hfFreq", "x": 132, "y": 94, "size": 52, "colour": "red", "name": "HF KHZ" },
+        { "kind": "label", "x": 15, "y": 126, "w": 50, "h": 22, "text": "HF", "size": 15 },
+        { "kind": "line", "points": [ [12, 159], [66, 159], [120, 213], [200, 213] ] },
+        { "kind": "label", "x": 15, "y": 170, "w": 60, "h": 22, "text": "HMF", "size": 15 },
+        { "kind": "knob", "id": "hmfGain", "x": 30, "y": 214, "size": 52, "colour": "green", "name": "HMF" },
+        { "kind": "knob", "id": "hmfFreq", "x": 132, "y": 276, "size": 52, "colour": "green", "name": "HMF KHZ" },
+        { "kind": "knob", "id": "hmfQ", "x": 30, "y": 340, "size": 52, "colour": "green", "name": "Q" },
+        { "kind": "label", "x": 12, "y": 455, "w": 40, "h": 22, "text": "EQ", "size": 15 },
+        { "kind": "line", "points": [ [48, 467], [104, 467] ] },
+        { "kind": "line", "points": [ [151, 439], [104, 439], [104, 495], [151, 495] ] },
+        { "kind": "key", "id": "eqIn", "x": 164, "y": 422, "w": 34, "h": 34, "text": "IN", "lamp": "cream" },
+        { "kind": "key", "id": "eqType", "x": 164, "y": 478, "w": 34, "h": 34, "text": "TYPE", "lamp": "cream" },
+        { "kind": "knob", "id": "lmfGain", "x": 30, "y": 500, "size": 52, "colour": "blue", "name": "LMF" },
+        { "kind": "knob", "id": "lmfFreq", "x": 132, "y": 562, "size": 52, "colour": "blue", "name": "LMF KHZ" },
+        { "kind": "knob", "id": "lmfQ", "x": 30, "y": 624, "size": 52, "colour": "blue", "name": "Q" },
+        { "kind": "line", "points": [ [12, 765], [66, 765], [118, 713], [200, 713] ] },
+        { "kind": "label", "x": 15, "y": 730, "w": 60, "h": 22, "text": "LMF", "size": 15 },
+        { "kind": "label", "x": 15, "y": 776, "w": 50, "h": 22, "text": "LF", "size": 15 },
+        { "kind": "knob", "id": "lfFreq", "x": 132, "y": 740, "size": 52, "colour": "black", "name": "LF HZ" },
+        { "kind": "knob", "id": "lfGain", "x": 30, "y": 812, "size": 52, "colour": "black", "name": "LF" },
+        { "kind": "key", "id": "lfBell", "x": 166, "y": 876, "w": 34, "h": 34, "text": "BELL", "lamp": "cream" }
+      ]
+    },
+    {
+      "name": "DYNAMICS", "height": 720,
+      "items": [
+        { "kind": "key", "id": "dynIn", "x": 15, "y": 16, "w": 34, "h": 34, "text": "IN", "lamp": "cream" },
+        { "kind": "label", "x": 56, "y": 16, "w": 150, "h": 34, "text": "DYNAMICS", "size": 20 },
+        { "kind": "key", "id": "key", "x": 15, "y": 60, "w": 184, "h": 42, "text": "KEY: OWN", "lamp": "cream" },
+        { "kind": "key", "id": "fast", "x": 165, "y": 112, "w": 34, "h": 34, "text": "FAST", "lamp": "cream" },
+        { "kind": "key", "id": "link", "x": 165, "y": 150, "w": 34, "h": 34, "text": "LINK", "lamp": "cream" },
+        { "kind": "knob", "id": "ratio", "x": 30, "y": 150, "size": 52, "colour": "grey", "name": "RATIO" },
+        { "kind": "knob", "id": "thresh", "x": 132, "y": 212, "size": 52, "colour": "grey", "name": "THRESH" },
+        { "kind": "knob", "id": "release", "x": 30, "y": 274, "size": 52, "colour": "grey", "name": "RELEASE" },
+        { "kind": "line", "points": [ [16, 380], [104, 380] ] },
+        { "kind": "line", "points": [ [114, 335], [104, 335], [104, 425], [114, 425] ] },
+        { "kind": "leds", "id": "compGr", "x": 113, "y": 322, "w": 36, "h": 114, "count": 5, "colours": [ "red", "red", "yellow", "yellow", "yellow" ] },
+        { "kind": "leds", "id": "gateGr", "x": 167, "y": 322, "w": 36, "h": 114, "count": 5, "colours": [ "green", "green", "green", "green", "green" ] },
+        { "kind": "knob", "id": "range", "x": 30, "y": 398, "size": 52, "colour": "green", "name": "RANGE" },
+        { "kind": "knob", "id": "gateThresh", "x": 132, "y": 460, "size": 52, "colour": "green", "name": "THRESH" },
+        { "kind": "knob", "id": "gateRelease", "x": 30, "y": 522, "size": 52, "colour": "green", "name": "RELEASE" },
+        { "kind": "knob", "id": "gateHold", "x": 132, "y": 584, "size": 52, "colour": "green", "name": "HOLD" },
+        { "kind": "key", "id": "gate", "x": 15, "y": 632, "w": 34, "h": 34, "text": "GATE", "lamp": "cream" },
+        { "kind": "key", "id": "gateFast", "x": 15, "y": 670, "w": 34, "h": 34, "text": "FAST", "lamp": "cream" }
+      ]
+    },
+    {
+      "name": "SENDS", "height": 700,
+      "items": [
+        { "kind": "label", "x": 60, "y": 12, "w": 139, "h": 26, "text": "SENDS", "size": 20, "align": "right" },
+        { "kind": "knob", "id": "send1", "x": 30, "y": 36, "size": 52, "colour": "grey", "name": "1" },
+        { "kind": "knob", "id": "send2", "x": 132, "y": 114, "size": 52, "colour": "grey", "name": "2" },
+        { "kind": "knob", "id": "send3", "x": 30, "y": 190, "size": 52, "colour": "grey", "name": "3" },
+        { "kind": "knob", "id": "send4", "x": 132, "y": 268, "size": 52, "colour": "grey", "name": "4" },
+        { "kind": "knob", "id": "send5", "x": 30, "y": 344, "size": 52, "colour": "grey", "name": "5" },
+        { "kind": "knob", "id": "send6", "x": 132, "y": 422, "size": 52, "colour": "grey", "name": "6" },
+        { "kind": "knob", "id": "send7", "x": 30, "y": 498, "size": 52, "colour": "grey", "name": "7" },
+        { "kind": "knob", "id": "send8", "x": 132, "y": 576, "size": 52, "colour": "grey", "name": "8" }
+      ]
+    },
+    {
+      "name": "ROUTING", "height": 276, "panel": "dark",
+      "items": [
+        { "kind": "bars", "id": "level", "x": 8, "y": 8, "w": 32, "h": 214, "count": 16 },
+        { "kind": "key", "id": "filt", "x": 50, "y": 10, "w": 46, "h": 26, "text": "FILT", "lamp": "cream" },
+        { "kind": "key", "id": "eqToDyn", "x": 102, "y": 10, "w": 46, "h": 26, "text": "EQ", "lamp": "cream" },
+        { "kind": "key", "id": "ext", "x": 154, "y": 10, "w": 46, "h": 26, "text": "EXT", "lamp": "cream" },
+        { "kind": "line", "points": [ [84, 36], [84, 92] ] },
+        { "kind": "key", "id": "route1", "x": 130, "y": 56, "w": 72, "h": 22, "text": "1", "lamp": "cream" },
+        { "kind": "key", "id": "order1", "x": 48, "y": 92, "w": 72, "h": 22, "text": "FILT", "lamp": "green" },
+        { "kind": "key", "id": "route2", "x": 130, "y": 92, "w": 72, "h": 22, "text": "2", "lamp": "cream" },
+        { "kind": "key", "id": "order2", "x": 48, "y": 128, "w": 72, "h": 22, "text": "DYN", "lamp": "green" },
+        { "kind": "key", "id": "route3", "x": 130, "y": 128, "w": 72, "h": 22, "text": "3", "lamp": "cream" },
+        { "kind": "key", "id": "order3", "x": 48, "y": 164, "w": 72, "h": 22, "text": "EQ", "lamp": "green" },
+        { "kind": "line", "points": [ [84, 186], [84, 206] ] },
+        { "kind": "line", "points": [ [72, 206], [84, 220], [96, 206] ] },
+        { "kind": "display", "id": "number", "x": 60, "y": 234, "w": 96, "h": 36, "text": "001" }
+      ]
+    },
+    {
+      "name": "FADER", "height": 612,
+      "items": [
+        { "kind": "knob", "id": "pan", "x": 30, "y": 20, "size": 52, "colour": "grey", "name": "PAN" },
+        { "kind": "knob", "id": "width", "x": 132, "y": 20, "size": 52, "colour": "grey", "name": "WIDTH" },
+        { "kind": "key", "id": "solo", "x": 24, "y": 138, "w": 66, "h": 64, "text": "SOLO", "lamp": "green" },
+        { "kind": "key", "id": "cut", "x": 24, "y": 222, "w": 66, "h": 64, "text": "CUT", "lamp": "red" },
+        { "kind": "key", "id": "sel", "x": 24, "y": 348, "w": 34, "h": 34, "text": "SEL", "lamp": "cream" },
+        { "kind": "key", "id": "rec", "x": 24, "y": 434, "w": 34, "h": 34, "text": "REC", "lamp": "red" },
+        { "kind": "fader", "id": "fader", "x": 112, "y": 138, "w": 52, "h": 408 },
+        { "kind": "meter", "id": "meter", "x": 172, "y": 138, "w": 18, "h": 408 },
+        { "kind": "key", "id": "footA", "x": 24, "y": 562, "w": 74, "h": 38, "text": "AUDITION", "lamp": "cream" },
+        { "kind": "key", "id": "footB", "x": 116, "y": 562, "w": 74, "h": 38, "text": "INSERT", "lamp": "cream" }
+      ]
+    }
+  ]
+}

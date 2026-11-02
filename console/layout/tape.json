@@ -1,0 +1,278 @@
+{
+ "comment": "A raw strip (an app's or a tool's): no built-in effects. See console/README.md.",
+ "width": 214,
+ "style": "tape",
+ "sections": [
+  {
+   "name": "HEADER",
+   "height": 314.9,
+   "items": [
+    {
+     "kind": "label",
+     "x": 1.5,
+     "y": 3.8,
+     "w": 203.3,
+     "h": 30.6,
+     "text": "{name}",
+     "size": 13,
+     "align": "centre"
+    },
+    {
+     "kind": "bars",
+     "x": 13.8,
+     "y": 49.7,
+     "w": 19.1,
+     "h": 214.0,
+     "id": "level",
+     "count": 16,
+     "single": true,
+     "colour": "orange"
+    },
+    {
+     "kind": "label",
+     "x": 41.3,
+     "y": 76.4,
+     "w": 76.4,
+     "h": 30.6,
+     "text": "RAW",
+     "size": 16,
+     "align": "centre"
+    },
+    {
+     "kind": "label",
+     "x": 41.3,
+     "y": 107.0,
+     "w": 76.4,
+     "h": 22.9,
+     "text": "TAPE AUDIO",
+     "size": 11,
+     "align": "centre"
+    },
+    {
+     "kind": "routes",
+     "x": 122.3,
+     "y": 76.4,
+     "w": 82.5,
+     "h": 187.2,
+     "id": "routes",
+     "colour": "teal"
+    },
+    {
+     "kind": "display",
+     "x": 9.9,
+     "y": 275.1,
+     "w": 194.9,
+     "h": 34.4,
+     "id": "number"
+    }
+   ],
+   "panel": "dark"
+  },
+  {
+   "name": "INPUT",
+   "height": 231.6,
+   "items": [
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 21.4,
+     "w": 194.9,
+     "h": 26.0,
+     "text": "TAPE",
+     "size": 18,
+     "align": "left"
+    }
+   ]
+  },
+  {
+   "name": "DYNAMICS",
+   "height": 729.9,
+   "items": [
+    {
+     "kind": "tape",
+     "x": 9.9,
+     "y": 22.9,
+     "w": 194.9,
+     "h": 687.9,
+     "id": "tape"
+    }
+   ]
+  },
+  {
+   "name": "FILTERS",
+   "height": 202.5,
+   "items": [
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 15.3,
+     "w": 194.9,
+     "h": 26.0,
+     "text": "PLAYLIST",
+     "size": 18,
+     "align": "left"
+    }
+   ]
+  },
+  {
+   "name": "EQ",
+   "height": 947.7,
+   "items": [
+    {
+     "kind": "playlist",
+     "x": 9.9,
+     "y": 19.1,
+     "w": 194.9,
+     "h": 428.0,
+     "id": "playlist"
+    },
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 477.7,
+     "w": 194.9,
+     "h": 26.0,
+     "text": "PLUGINS",
+     "size": 18,
+     "align": "left"
+    },
+    {
+     "kind": "pluginlist",
+     "x": 9.9,
+     "y": 512.1,
+     "w": 194.9,
+     "h": 107.0,
+     "id": "plugins"
+    },
+    {
+     "kind": "key",
+     "x": 9.9,
+     "y": 630.5,
+     "w": 194.9,
+     "h": 38.2,
+     "id": "addPlugin",
+     "text": "ADD PLUGIN",
+     "lamp": "cream"
+    }
+   ]
+  },
+  {
+   "name": "NAME",
+   "height": 48.1,
+   "items": [
+    {
+     "kind": "name",
+     "x": 1.5,
+     "y": 3.8,
+     "w": 203.3,
+     "h": 41.3,
+     "id": "name"
+    }
+   ],
+   "panel": "name"
+  },
+  {
+   "name": "FADER",
+   "height": 628.2,
+   "items": [
+    {
+     "kind": "knob",
+     "id": "pan",
+     "x": 74.1,
+     "y": 25.2,
+     "size": 65.7,
+     "colour": "blue",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 53.5,
+     "y": 98.6,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "PAN",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "key",
+     "x": 22.9,
+     "y": 142.9,
+     "w": 63.4,
+     "h": 40.5,
+     "id": "solo",
+     "text": "SOLO",
+     "lamp": "green"
+    },
+    {
+     "kind": "key",
+     "x": 22.9,
+     "y": 227.0,
+     "w": 63.4,
+     "h": 42.0,
+     "id": "cut",
+     "text": "CUT",
+     "lamp": "red",
+     "ink": "red"
+    },
+    {
+     "kind": "key",
+     "x": 22.9,
+     "y": 279.7,
+     "w": 63.4,
+     "h": 30.6,
+     "id": "sel",
+     "text": "SEL",
+     "lamp": "blue"
+    },
+    {
+     "kind": "fader",
+     "x": 113.1,
+     "y": 142.9,
+     "w": 47.4,
+     "h": 408.9,
+     "id": "fader"
+    },
+    {
+     "kind": "scale",
+     "x": 168.1,
+     "y": 146.7,
+     "w": 36.7,
+     "h": 401.2,
+     "marks": [
+      "12",
+      "6",
+      "0",
+      "5",
+      "10",
+      "20",
+      "30",
+      "40",
+      "50",
+      "∞"
+     ]
+    },
+    {
+     "kind": "screen",
+     "x": 22.9,
+     "y": 525.1,
+     "w": 81.0,
+     "h": 38.2,
+     "id": "faderDb",
+     "text": "0.0",
+     "colour": "green"
+    },
+    {
+     "kind": "label",
+     "x": 22.9,
+     "y": 567.9,
+     "w": 76.4,
+     "h": 24.5,
+     "text": "LEVEL",
+     "size": 12,
+     "align": "left"
+    }
+   ]
+  }
+ ]
+}

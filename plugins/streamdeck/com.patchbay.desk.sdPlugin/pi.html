@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Patchbay</title>
+<style>
+  body { background: #2d2d2d; color: #d8d8d8; font: 12px "Segoe UI", sans-serif; margin: 0; padding: 8px 12px; }
+  label { display: flex; align-items: center; margin: 6px 0; text-transform: uppercase; }
+  label span { width: 90px; color: #9a9a9a; }
+  select, input { flex: 1; background: #3d3d3d; color: #e8e8e8; border: 0; padding: 4px; text-transform: uppercase; }
+  .note { color: #9a9a9a; margin-top: 10px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <label id="kindRow"><span>Channel</span>
+    <select id="kind"><option value="input">Input</option><option value="bus">Bus</option><option value="output">Output</option></select></label>
+  <label><span id="nameLabel">Name</span><select id="name"></select></label>
+  <label id="levelRow"><span>Level (dB)</span><input id="level" type="number" min="-60" max="12" step="0.5" value="0"></label>
+  <label id="stepRow"><span>Dial step</span><input id="step" type="number" min="0.1" max="6" step="0.1" value="1"></label>
+  <div class="note" id="note"></div>
+<script>
+  // The Stream Deck app calls this with the socket to talk on. The plugin sends the desk's names.
+  let socket, uuid, action, settings = {}, state = null;
+  const $ = (id) => document.getElementById(id);
+  const kindOf = () => action.split('.').pop();
+
+  function save() {
+    settings = { kind: $('kind').value, name: $('name').value, level: Number($('level').value), step: Number($('step').value) };
+    socket.send(JSON.stringify({ event: 'setSettings', context: uuid, payload: settings }));
+  }
+
+  function fill() {
+    const kind = kindOf(), names = !state ? [] : kind === 'scene' ? state.scenes : kind === 'macro' ? state.macros
+      : ({ input: state.inputs, bus: state.buses, output: state.outputs }[$('kind').value] || []).map((s) => s.name);
+    const want = settings.name || '';
+    $('name').innerHTML = '';
+    for (const n of (names.includes(want) || !want ? names : [want, ...names])) $('name').add(new Option(n, n, false, n === want));
+    $('note').textContent = state ? '' : 'Patchbay isn\'t answering: start it, and switch on CONTROL > API.';
+  }
+
+  function connectElgatoStreamDeckSocket(port, inUUID, registerEvent, info, actionInfo) {
+    uuid = inUUID;
+    const a = JSON.parse(actionInfo);
+    action = a.action;
+    settings = a.payload.settings || {};
+    const kind = kindOf();
+    $('kindRow').style.display = kind === 'scene' || kind === 'macro' ? 'none' : '';
+    $('nameLabel').textContent = kind === 'scene' ? 'Scene' : kind === 'macro' ? 'Macro' : 'Name';
+    $('levelRow').style.display = $('stepRow').style.display = kind === 'fader' ? '' : 'none';
+    $('kind').value = settings.kind || 'input';
+    $('level').value = settings.level ?? 0;
+    $('step').value = settings.step ?? 1;
+    for (const id of ['kind', 'name', 'level', 'step'])
+      $(id).addEventListener('change', () => { if (id === 'kind') { settings.name = ''; fill(); } save(); });
+
+    socket = new WebSocket('ws://127.0.0.1:' + port);
+    socket.onopen = () => {
+      socket.send(JSON.stringify({ event: registerEvent, uuid }));
+      socket.send(JSON.stringify({ event: 'sendToPlugin', action, context: uuid, payload: { refresh: true } }));
+    };
+    socket.onmessage = (e) => {
+      const m = JSON.parse(e.data);
+      if (m.event === 'sendToPropertyInspector') { state = m.payload.state; fill(); if (!settings.name && $('name').value) save(); }
+    };
+  }
+</script>
+</body>
+</html>

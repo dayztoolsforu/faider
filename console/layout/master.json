@@ -1,0 +1,545 @@
+{
+ "comment": "An output's strip: see console/README.md.",
+ "width": 214,
+ "style": "master",
+ "sections": [
+  {
+   "name": "HEADER",
+   "height": 314.9,
+   "items": [
+    {
+     "kind": "label",
+     "x": 1.5,
+     "y": 3.8,
+     "w": 203.3,
+     "h": 30.6,
+     "text": "{name}",
+     "size": 13,
+     "align": "centre"
+    },
+    {
+     "kind": "bars",
+     "x": 13.8,
+     "y": 49.7,
+     "w": 19.1,
+     "h": 214.0,
+     "id": "level",
+     "count": 16,
+     "single": true,
+     "colour": "orange"
+    },
+    {
+     "kind": "label",
+     "x": 48.1,
+     "y": 45.9,
+     "w": 156.7,
+     "h": 21.4,
+     "text": "DEVICE",
+     "size": 12,
+     "align": "left"
+    },
+    {
+     "kind": "chip",
+     "x": 48.1,
+     "y": 68.8,
+     "w": 156.7,
+     "h": 30.6,
+     "id": "device",
+     "text": "",
+     "colour": "teal",
+     "lit": true
+    },
+    {
+     "kind": "switch",
+     "x": 48.1,
+     "y": 114.6,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "safe",
+     "lamp": "red",
+     "lit": false
+    },
+    {
+     "kind": "label",
+     "x": 84.1,
+     "y": 116.2,
+     "w": 45.9,
+     "h": 27.5,
+     "text": "SAFE",
+     "size": 12,
+     "align": "left"
+    },
+    {
+     "kind": "switch",
+     "x": 128.4,
+     "y": 114.6,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "mon",
+     "lamp": "cream",
+     "lit": false
+    },
+    {
+     "kind": "label",
+     "x": 164.3,
+     "y": 116.2,
+     "w": 45.9,
+     "h": 27.5,
+     "text": "MON",
+     "size": 12,
+     "align": "left"
+    },
+    {
+     "kind": "label",
+     "x": 48.1,
+     "y": 162.0,
+     "w": 156.7,
+     "h": 21.4,
+     "text": "LOUDNESS",
+     "size": 12,
+     "align": "left"
+    },
+    {
+     "kind": "screen",
+     "x": 48.1,
+     "y": 186.5,
+     "w": 156.7,
+     "h": 38.2,
+     "id": "lufs",
+     "text": "-- LUFS",
+     "colour": "orange"
+    },
+    {
+     "kind": "display",
+     "x": 9.9,
+     "y": 275.1,
+     "w": 194.9,
+     "h": 34.4,
+     "id": "number"
+    }
+   ],
+   "panel": "dark"
+  },
+  {
+   "name": "INPUT",
+   "height": 231.6,
+   "items": [
+    {
+     "kind": "label",
+     "x": 33.6,
+     "y": 13.8,
+     "w": 152.9,
+     "h": 29.0,
+     "text": "OUTPUT",
+     "size": 18,
+     "align": "left"
+    },
+    {
+     "kind": "knob",
+     "id": "width",
+     "x": 20.6,
+     "y": 80.2,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 155.9,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "WIDTH",
+     "size": 12,
+     "align": "centre"
+    }
+   ]
+  },
+  {
+   "name": "DYNAMICS",
+   "height": 729.9,
+   "items": [
+    {
+     "kind": "switch",
+     "x": 15.3,
+     "y": 20.6,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "busIn",
+     "lamp": "orange",
+     "lit": true
+    },
+    {
+     "kind": "label",
+     "x": 55.0,
+     "y": 22.2,
+     "w": 149.8,
+     "h": 29.0,
+     "text": "BUS COMP",
+     "size": 18,
+     "align": "left"
+    },
+    {
+     "kind": "vu",
+     "x": 13.8,
+     "y": 65.0,
+     "w": 185.0,
+     "h": 114.6,
+     "id": "busGr"
+    },
+    {
+     "kind": "knob",
+     "id": "busThreshold",
+     "x": 20.6,
+     "y": 215.5,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 289.7,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "THRESHOLD",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "busRatio",
+     "x": 124.6,
+     "y": 276.7,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 350.8,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "RATIO",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "busAttack",
+     "x": 20.6,
+     "y": 353.1,
+     "size": 65.7,
+     "colour": "red",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 427.2,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "ATTACK",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "busRelease",
+     "x": 124.6,
+     "y": 414.2,
+     "size": 65.7,
+     "colour": "blue",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 488.4,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "RELEASE",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "busMakeup",
+     "x": 20.6,
+     "y": 490.7,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 564.8,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "MAKE-UP",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "busMix",
+     "x": 124.6,
+     "y": 551.8,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 625.9,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "MIX",
+     "size": 12,
+     "align": "centre"
+    }
+   ]
+  },
+  {
+   "name": "FILTERS",
+   "height": 202.5,
+   "items": [
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 15.3,
+     "w": 152.9,
+     "h": 26.0,
+     "text": "MIX EQ",
+     "size": 18,
+     "align": "left"
+    },
+    {
+     "kind": "switch",
+     "x": 166.6,
+     "y": 13.8,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "eqIn",
+     "lamp": "orange",
+     "lit": true
+    }
+   ]
+  },
+  {
+   "name": "EQ",
+   "height": 947.7,
+   "items": [
+    {
+     "kind": "knob",
+     "id": "hfGain",
+     "x": 20.6,
+     "y": 16.8,
+     "size": 65.7,
+     "colour": "red",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 96.3,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "GAIN",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "hfFreq",
+     "x": 124.6,
+     "y": 81.8,
+     "size": 65.7,
+     "colour": "red",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 168.9,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "FREQ",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 129.2,
+     "w": 45.9,
+     "h": 24.5,
+     "text": "HF",
+     "size": 14,
+     "align": "left"
+    },
+    {
+     "kind": "line",
+     "points": [
+      [
+       9.9,
+       158.2
+      ],
+      [
+       105.5,
+       158.2
+      ],
+      [
+       136.0,
+       214.0
+      ],
+      [
+       201.0,
+       214.0
+      ]
+     ]
+    },
+    {
+     "kind": "label",
+     "x": 9.9,
+     "y": 167.4,
+     "w": 53.5,
+     "h": 24.5,
+     "text": "LF",
+     "size": 14,
+     "align": "left"
+    },
+    {
+     "kind": "knob",
+     "id": "lfGain",
+     "x": 20.6,
+     "y": 211.7,
+     "size": 65.7,
+     "colour": "black",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 291.2,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "GAIN",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "lfFreq",
+     "x": 124.6,
+     "y": 272.8,
+     "size": 65.7,
+     "colour": "black",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 352.3,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "FREQ",
+     "size": 12,
+     "align": "centre"
+    }
+   ]
+  },
+  {
+   "name": "NAME",
+   "height": 48.1,
+   "items": [
+    {
+     "kind": "name",
+     "x": 1.5,
+     "y": 3.8,
+     "w": 203.3,
+     "h": 41.3,
+     "id": "name"
+    }
+   ],
+   "panel": "name"
+  },
+  {
+   "name": "FADER",
+   "height": 628.2,
+   "items": [
+    {
+     "kind": "key",
+     "x": 22.9,
+     "y": 142.9,
+     "w": 63.4,
+     "h": 40.5,
+     "id": "cut",
+     "text": "CUT",
+     "lamp": "red",
+     "ink": "red"
+    },
+    {
+     "kind": "key",
+     "x": 22.9,
+     "y": 279.7,
+     "w": 63.4,
+     "h": 30.6,
+     "id": "sel",
+     "text": "SEL",
+     "lamp": "blue"
+    },
+    {
+     "kind": "fader",
+     "x": 113.1,
+     "y": 142.9,
+     "w": 47.4,
+     "h": 408.9,
+     "id": "fader"
+    },
+    {
+     "kind": "scale",
+     "x": 168.1,
+     "y": 146.7,
+     "w": 36.7,
+     "h": 401.2,
+     "marks": [
+      "12",
+      "6",
+      "0",
+      "5",
+      "10",
+      "20",
+      "30",
+      "40",
+      "50",
+      "∞"
+     ]
+    },
+    {
+     "kind": "screen",
+     "x": 22.9,
+     "y": 525.1,
+     "w": 81.0,
+     "h": 38.2,
+     "id": "faderDb",
+     "text": "0.0",
+     "colour": "orange"
+    },
+    {
+     "kind": "label",
+     "x": 22.9,
+     "y": 567.9,
+     "w": 76.4,
+     "h": 24.5,
+     "text": "LEVEL",
+     "size": 12,
+     "align": "left"
+    }
+   ]
+  }
+ ]
+}

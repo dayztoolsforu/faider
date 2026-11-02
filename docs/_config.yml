@@ -26,3 +26,5 @@ defaults:
 
 exclude:
   - README.md
+  - PATCHBAY-CONSOLE-MANUAL.md
+  - i18n

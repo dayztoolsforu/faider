@@ -67,7 +67,8 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 |---|---|
 | Install folder | `C:\Program Files\Patchbay Console` (installer), `C:\PatchbayConsole` (built from source) |
 | Mix and settings | `%APPDATA%\PatchbayConsole` |
-| Manual | [docs/PATCHBAY-CONSOLE-MANUAL.md](docs/PATCHBAY-CONSOLE-MANUAL.md), in 13 languages |
+| Manual | [On the website](https://dayztoolsforu.github.io/patchbay/manual.html), or [docs/PATCHBAY-CONSOLE-MANUAL.md](docs/PATCHBAY-CONSOLE-MANUAL.md), in 13 languages |
+| Website | [dayztoolsforu.github.io/patchbay](https://dayztoolsforu.github.io/patchbay/) |
 
 ## Features
 
@@ -148,6 +149,10 @@ To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php)
 `build\installer\PatchbayConsole-<version>-Setup.exe`. That installer puts the app in Program Files,
 adds the Microsoft Visual C++ runtime when it's missing, and offers VB-CABLE's download page when no
 VB-Audio device is found. The version comes from `CMakeLists.txt`.
+
+The website is the `docs` folder, published by GitHub Pages. Its manual page, `docs/manual.html`, is
+built from the manual and its translations: after changing them, run `pip install markdown` once,
+then `python tools/manual-page/build.py`.
 
 ### First run
 

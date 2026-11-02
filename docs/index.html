@@ -1,0 +1,139 @@
+---
+layout: null
+title: Patchbay Console
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patchbay Console: audio routing and mixing for Windows</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:title" content="Patchbay Console">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:image" content="{{ '/images/console/mixer.jpg' | absolute_url }}">
+  <link rel="icon" href="{{ '/assets/icon.png' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body class="home">
+  <header class="bar">
+    <a class="brand" href="{{ '/' | relative_url }}"><img src="{{ '/assets/icon.png' | relative_url }}" alt=""><span>PATCHBAY CONSOLE</span></a>
+    <nav>
+      <a href="#features">FEATURES</a>
+      <a href="{{ '/PATCHBAY-CONSOLE-MANUAL.html' | relative_url }}">MANUAL</a>
+      <a href="https://github.com/{{ site.repository }}">GITHUB</a>
+      <a class="key lit" data-download href="https://github.com/{{ site.repository }}/releases">DOWNLOAD</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text reveal">
+      <img class="hero-icon" src="{{ '/assets/icon.png' | relative_url }}" alt="">
+      <h1>Patchbay Console</h1>
+      <p class="tag">Audio routing and mixing for Windows. Every device, program and microphone on one console, with the controls of a studio desk.</p>
+      <div class="cta">
+        <a class="key lit big" data-download href="https://github.com/{{ site.repository }}/releases">DOWNLOAD FOR WINDOWS</a>
+        <a class="key big" href="{{ '/PATCHBAY-CONSOLE-MANUAL.html' | relative_url }}">READ THE MANUAL</a>
+      </div>
+      <p class="small"><span class="led green"></span><span data-version>Free and open source</span> · Windows 10 and 11 · 64-bit</p>
+    </div>
+    <figure class="hero-shot reveal">
+      <img src="{{ '/images/console/mixer.jpg' | relative_url }}" alt="The console: channel strips, raw strips for apps and tools, combinators and output strips">
+    </figure>
+  </section>
+
+  <section class="strip-band reveal">
+    <div><span class="led green"></span><b>One clock</b><span>Every device and program kept in time, no drift</span></div>
+    <div><span class="led amber"></span><b>Per-app capture</b><span>Any program as its own channel, no virtual driver</span></div>
+    <div><span class="led blue"></span><b>VST3 plugins</b><span>On any channel, bus or path, latency handled</span></div>
+    <div><span class="led red"></span><b>Up to 8 outputs</b><span>Headphones, stream, call: each its own mix</span></div>
+  </section>
+
+  <main id="features">
+    <article class="feature reveal">
+      <div class="copy">
+        <h2>Every source is a channel</h2>
+        <p>Interface inputs, Windows devices, a single program, a browser tab, the pads, the tape. Add it and it gets a strip on the desk. Devices are remembered by name, so unplugging a headset never moves your speakers.</p>
+      </div>
+      <img src="{{ '/images/console/raw-strips.jpg' | relative_url }}" alt="Raw strips for two apps, the pads and the tape">
+    </article>
+
+    <article class="feature flip reveal">
+      <div class="copy">
+        <h2>Route with two clicks</h2>
+        <p>The Routing page shows every strip as a block under its place on the desk. Click one block, then another, and the route goes on or off. Routes that would feed back are refused.</p>
+      </div>
+      <img src="{{ '/images/console/routing-selected.jpg' | relative_url }}" alt="The Routing page with one channel selected and its routes lit">
+    </article>
+
+    <article class="feature reveal">
+      <div class="copy">
+        <h2>A full strip on every channel</h2>
+        <p>Filters, neural noise reduction, gate and expander, a compressor with mix and peak or RMS detection, four-band EQ, de-esser, auto-level and voice effects. Choose a Light or a Dark strip per channel.</p>
+      </div>
+      <div class="pair">
+        <img src="{{ '/images/console/strip-dynamics.jpg' | relative_url }}" alt="The DYNAMICS section on two strips">
+        <img src="{{ '/images/console/strip-eq.jpg' | relative_url }}" alt="The EQ section on two strips">
+      </div>
+    </article>
+
+    <article class="feature flip reveal">
+      <div class="copy">
+        <h2>SIMPLE when you want it</h2>
+        <p>SIMPLE shows the same mix with the processing hidden: each channel's fader, meter, CUT, SOLO and a big key for every output. Flip to PRO and the whole console is back.</p>
+      </div>
+      <img src="{{ '/images/console/simple.jpg' | relative_url }}" alt="The SIMPLE desk: faders, meters and a key per output">
+    </article>
+
+    <article class="feature reveal">
+      <div class="copy">
+        <h2>Set up in four questions</h2>
+        <p>On the first start, SETUP asks where you listen, which microphones you use, how apps should hear you and which programs get a channel. Then it builds the mix.</p>
+      </div>
+      <img src="{{ '/images/console/setup.jpg' | relative_url }}" alt="SETUP asking which microphones you speak into">
+    </article>
+
+    <article class="feature flip reveal">
+      <div class="copy">
+        <h2>Pads, tape and a recorder</h2>
+        <p>Four banks of sixteen pads with trim, fades, choke groups and hotkeys. A playlist player with gapless playback. Record any channel, bus or output, or every channel at once, and keep an instant replay of the last few minutes.</p>
+      </div>
+      <img src="{{ '/images/console/pads.jpg' | relative_url }}" alt="The pads page with bank A loaded">
+    </article>
+
+    <article class="feature reveal">
+      <div class="copy">
+        <h2>Outputs that finish the mix</h2>
+        <p>Each output strip has a bus compressor, mix EQ, width, a SAFE limiter and LUFS metering. Mix-minus feeds and stems are built for you from FIND.</p>
+      </div>
+      <img class="tall" src="{{ '/images/console/outputs.jpg' | relative_url }}" alt="Two output strips with bus compressors">
+    </article>
+  </main>
+
+  <section class="more reveal">
+    <h2>And the rest</h2>
+    <ul>
+      <li>Scenes that glide, undo and redo for every change, named sessions and a timeline</li>
+      <li>Macros fired by hotkeys, pads, the API or triggers</li>
+      <li>MIDI mapping, OSC, a local HTTP API, a phone control page, Stream Deck and Loupedeck plugins</li>
+      <li>App rules, so a program gets its own channel the moment it plays</li>
+      <li>A SteamVR dashboard tab, an in-game overlay, a mini mixer and a tray mixer</li>
+      <li>PRE-FLIGHT checks the setup on start</li>
+    </ul>
+  </section>
+
+  <section class="get reveal">
+    <h2>Get Patchbay Console</h2>
+    <p>Windows 10 (2004 or later) or Windows 11, 64-bit. An audio interface is optional: with an ASIO driver it sets the clock for the lowest delay. For a microphone other apps can hear, add <a href="https://vb-audio.com/Cable/">VB-CABLE</a>.</p>
+    <a class="key lit big" data-download href="https://github.com/{{ site.repository }}/releases">DOWNLOAD</a>
+    <p class="small">The installer isn't code-signed yet, so Windows may ask first: More info, then Run anyway.</p>
+    <p class="langs-line">Manual: <a href="{{ '/PATCHBAY-CONSOLE-MANUAL.html' | relative_url }}">English</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.es.html' | relative_url }}">Español</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.fr.html' | relative_url }}">Français</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.de.html' | relative_url }}">Deutsch</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.it.html' | relative_url }}">Italiano</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.pt-BR.html' | relative_url }}">Português</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.nl.html' | relative_url }}">Nederlands</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.pl.html' | relative_url }}">Polski</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.sv.html' | relative_url }}">Svenska</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.tr.html' | relative_url }}">Türkçe</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.ja.html' | relative_url }}">日本語</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.ko.html' | relative_url }}">한국어</a> · <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.zh-Hans.html' | relative_url }}">简体中文</a></p>
+  </section>
+
+  <footer class="foot">
+    <span>Patchbay Console is free software under the GNU AGPLv3. VST and ASIO are trademarks of Steinberg Media Technologies GmbH.</span>
+    <a href="https://github.com/{{ site.repository }}">Source on GitHub</a>
+  </footer>
+  <script src="{{ '/assets/site.js' | relative_url }}"></script>
+</body>
+</html>

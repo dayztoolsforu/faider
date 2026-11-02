@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="{{ page.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="icon" href="{{ '/assets/icon.png' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body class="doc">
+  <header class="bar">
+    <a class="brand" href="{{ '/' | relative_url }}"><img src="{{ '/assets/icon.png' | relative_url }}" alt=""><span>PATCHBAY CONSOLE</span></a>
+    <nav>
+      <a href="{{ '/' | relative_url }}">HOME</a>
+      <a href="{{ '/PATCHBAY-CONSOLE-MANUAL.html' | relative_url }}">MANUAL</a>
+      <details class="langs">
+        <summary>LANGUAGE</summary>
+        <div>
+          <a href="{{ '/PATCHBAY-CONSOLE-MANUAL.html' | relative_url }}">English</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.es.html' | relative_url }}">Español</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.fr.html' | relative_url }}">Français</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.de.html' | relative_url }}">Deutsch</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.it.html' | relative_url }}">Italiano</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.pt-BR.html' | relative_url }}">Português (Brasil)</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.nl.html' | relative_url }}">Nederlands</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.pl.html' | relative_url }}">Polski</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.sv.html' | relative_url }}">Svenska</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.tr.html' | relative_url }}">Türkçe</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.ja.html' | relative_url }}">日本語</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.ko.html' | relative_url }}">한국어</a>
+          <a href="{{ '/i18n/PATCHBAY-CONSOLE-MANUAL.zh-Hans.html' | relative_url }}">简体中文</a>
+        </div>
+      </details>
+      <a href="https://github.com/{{ site.repository }}">GITHUB</a>
+      <a class="key lit" data-download href="https://github.com/{{ site.repository }}/releases">DOWNLOAD</a>
+    </nav>
+  </header>
+  <div class="docwrap">
+    <aside class="toc" aria-label="Sections"><div class="toc-title">SECTIONS</div><ol id="toc"></ol></aside>
+    <main class="prose">
+      {{ content }}
+    </main>
+  </div>
+  <footer class="foot">
+    <span>Patchbay Console is free software under the GNU AGPLv3.</span>
+    <a href="https://github.com/{{ site.repository }}">Source on GitHub</a>
+  </footer>
+  <script src="{{ '/assets/site.js' | relative_url }}"></script>
+</body>
+</html>

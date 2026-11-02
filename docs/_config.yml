@@ -1,0 +1,28 @@
+title: Patchbay Console
+description: Audio routing and mixing for Windows. Every device, program and microphone on one console.
+url: https://dayztoolsforu.github.io
+baseurl: /patchbay
+repository: dayztoolsforu/patchbay
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+  - jekyll-default-layout
+
+relative_links:
+  enabled: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - README.md

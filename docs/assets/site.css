@@ -50,8 +50,7 @@ img { max-width: 100%; display: block; }
 }
 .key:hover { text-decoration: none; transform: translateY(-1px); filter: brightness(1.06); }
 .key:active { transform: translateY(1px); filter: brightness(.92); }
-.key.lit { background: linear-gradient(#7ef0a4, #46c873); box-shadow: 0 0 18px rgba(94, 224, 138, .35), 0 3px 8px rgba(0,0,0,.45); }
-.key.lit:hover { box-shadow: 0 0 28px rgba(94, 224, 138, .55), 0 3px 8px rgba(0,0,0,.45); }
+.key.lit { background: linear-gradient(#7ef0a4, #46c873); }
 .bar .key { color: #10261a; padding: 8px 12px; }
 .key.big { padding: 14px 22px; font-size: 13px; }
 

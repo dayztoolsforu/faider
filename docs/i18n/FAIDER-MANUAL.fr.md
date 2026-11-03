@@ -219,9 +219,7 @@ joue, son fader et son vumètre.
 4. Vérifiez ce qu'elles reçoivent : **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** enregistre 5
    secondes de ce que reçoivent les applications et vous le rejoue.
 
-Un programme continue aussi de jouer sur son propre périphérique. Si c'est le périphérique sur
-lequel vous écoutez, désactivez la touche **HEADPHONES** de son canal, sinon vous l'entendez deux
-fois (PRE-FLIGHT vous en avertit).
+Si vous entendez un programme deux fois, voir [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** et **+ APP** ajoutent des canaux. **+ OUTPUT** ajoute une sortie sur un périphérique
 qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
@@ -236,14 +234,8 @@ Le commutateur **SIMPLE / PRO** de la barre du haut montre le même mix dans les
 est la console complète : l'entrée de chaque canal, les filtres, la dynamique et l'égaliseur, les
 bus et les combinateurs, les plugins.
 
-Pour façonner votre microphone en PRO :
-
-1. Montez **hp** vers 80–100 Hz pour retirer les grondements.
-2. Activez **DYNAMICS** (le commutateur avec le symbole d'alimentation) et réglez le gate et le
-   compresseur.
-3. Réglez l'**EQ**.
-
-Voir [6](#6-the-channel-strip-section-by-section). Les réglages faits en PRO continuent à
+Pour façonner votre microphone, voir [17.1](#171-hear-yourself-set-up-a-microphone). Chaque
+commande est décrite en [6](#6-the-channel-strip-section-by-section). Les réglages faits en PRO continuent à
 fonctionner en SIMPLE.
 
 <a id="step-8-run-pre-flight"></a>
@@ -300,10 +292,6 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHAN
 
 Les choix de SELECT et de METER sont mémorisés.
 
-Au-dessus des tranches se trouvent l'affichage du temps, le transport du lecteur Tape (retour,
-arrêt, lecture / pause, avance, enregistrement, boucle) et le commutateur **SIMPLE / PRO** (voir
-l'[étape 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### La barre du haut
@@ -320,6 +308,7 @@ En partant de la droite :
 | **MINI** | Une petite fenêtre de mixage toujours au premier plan |
 | **Voyant d'état** | Vert : l'audio va bien. Orange : la charge audio est élevée ou un périphérique a manqué de données récemment. Rouge : un accroc audible dans les 10 dernières secondes, ou aucun audio en marche. Le nombre est la charge audio. Cliquez dessus pour ouvrir DEVICES |
 | **SCENES** | Vos mix enregistrés. **+** en enregistre un nouveau (voir [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Le même mix, en simple ou en console complète (voir l'[étape 7](#step-7-pro-for-the-whole-console)) |
 
 Dans une fenêtre étroite, le voyant d'état disparaît en premier, puis MINI, puis HISTORY. FIND
 permet d'atteindre tout cela.
@@ -410,8 +399,7 @@ alimenter un autre bus, sans ajouter de retard.
 
 Un combinateur est un bus divisé en **chemins** parallèles (deux au départ). Chaque chemin a ses
 propres plugins, et les chemins sont additionnés au fader du combinateur. Routez une source vers un
-chemin ou vers plusieurs. La tranche du combinateur montre quelles sources alimentent chaque
-chemin.
+chemin ou vers plusieurs (voir [7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -422,10 +410,8 @@ chemin.
   immédiatement désactivée, et le journal des événements nomme la boucle.
 - **Solo** sur n'importe quelle tranche rend muette toute tranche qui n'est pas en solo, sauf celles
   marquées solo safe.
-- **Une tranche désactivée** ne laisse rien passer, quoi qu'elle soit routée.
 - **Canaux d'applications et doublon.** Un programme joue sur son propre périphérique en même temps
-  que dans son canal. Ne routez pas son canal vers une sortie du périphérique sur lequel vous
-  l'entendez déjà.
+  que dans son canal (voir [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -568,7 +554,7 @@ quand cette tranche bouge.
 | **EQ** | L'égaliseur activé ou désactivé |
 | **EXT** | La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même |
 | **Ordre de traitement** | Trois blocs (FILT, EQ, DYN), de haut en bas dans l'ordre où le canal les exécute. **Cliquez sur un bloc** pour le monter d'un cran. Celui du haut passe à la fin. Les blocs allumés sont utilisés |
-| **Cases de routage** | Une case par bus et par périphérique de sortie. Allumée : le canal y est envoyé. Cliquez pour basculer. Envoyer vers un périphérique qui n'a pas encore de sortie crée sa sortie |
+| **Cases de routage** | Une case par bus et par périphérique de sortie. Allumée : le canal y est envoyé. Cliquez pour basculer (voir [Les sorties sont des périphériques](#outputs-are-devices)) |
 | **Numéro** | La place de la tranche sur le pupitre |
 
 <a id="input"></a>
@@ -705,12 +691,8 @@ Chaque sortie (master) a sa propre tranche sombre :
 
 Clic droit sur une sortie pour **Device...**, les espaceurs, **Rename...** et **Remove**.
 
-**Les sorties sont créées pour vous.** Envoyez un canal vers un périphérique (avec une case de
-routage, la page Routing ou **Route to**) et une sortie est créée sur ce périphérique s'il n'y en a
-pas.
-
-**Un périphérique absent.** Si le périphérique d'une sortie est débranché, cette sortie devient
-silencieuse jusqu'à son retour. Rien ne bascule tout seul vers un autre périphérique.
+Les sorties sont créées pour vous, une par périphérique (voir
+[Les sorties sont des périphériques](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** construit un retour par invité (tout sauf sa propre voix) et des
 stems voix, musique et jeu.
@@ -754,8 +736,7 @@ sur cette tranche, et passe en PRO si SIMPLE est affiché. Chaque carte montre :
 - **HEAVY** : anormalement coûteux
 
 Touches de chaque carte : **BYPASS**, **OPEN** (sa fenêtre), **REMOVE**, et des flèches pour le
-placer plus tôt ou plus tard. **ADD** à la fin en ajoute un autre. Rien ne peut être modifié tant
-que la tranche est désactivée.
+placer plus tôt ou plus tard. **ADD** à la fin en ajoute un autre.
 
 ---
 
@@ -817,35 +798,14 @@ sélectionné à la place.
 | Laisser les applications entendre votre micro | MIC, puis **CABLE Input** (dans la rangée des sorties, grisé tant qu'il n'a pas de sortie) |
 | Envoyer un groupe par un bus | Le bus, puis chaque canal ; puis le bus, puis sa sortie |
 | Sortir un canal du stream | Le canal, puis la sortie du stream (la ligne disparaît) |
-| Alimenter un chemin de combinateur | La source, puis la cellule du chemin (P1, P2…) |
+| Alimenter un chemin de combinateur | La source, puis la cellule du chemin (P1, P2…). Cliquez sur d'autres cellules pour alimenter plusieurs chemins. Cliquer sur le combinateur en dehors de ses cellules alimente son premier chemin |
 
 Cliquer sur un bloc de périphérique grisé crée sa sortie, et la nouvelle sortie apparaît aussitôt
 sur le pupitre.
 
-<a id="combinators-1"></a>
-
-### Combinateurs
-
-Cliquez sur la source, puis sur la **cellule du chemin**. Une source peut alimenter plusieurs
-chemins : cliquez sur chaque cellule à tour de rôle. Cliquer sur le combinateur en dehors de ses
-cellules route vers son premier chemin. Pour ajouter des chemins ou leurs plugins, faites un clic
-droit sur le combinateur sur le pupitre > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Déplacer des canaux
-
-Faites glisser un bloc latéralement le long de sa rangée. Une barre bleue montre où il atterrit, et
-le pupitre change en conséquence. Les canaux se déplacent parmi les canaux, les bus parmi les bus,
-les sorties parmi les sorties.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Quand une liaison ne reste pas activée
-
-La liaison créerait une boucle de rétroaction, elle est donc immédiatement désactivée. Le journal
-des événements nomme la boucle. Retirez la liaison qui reboucle. Voir
-[18.8](#188-a-route-wont-switch-on).
+Faites glisser un bloc latéralement le long de sa rangée pour déplacer sa tranche (voir
+[17.4](#174-reorder-channels)). Une liaison qui se désactive aussitôt créerait une boucle de
+rétroaction (voir [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -893,7 +853,7 @@ Formats : WAV, FLAC, AIFF, OGG, MP3. Un pad dont le fichier a été déplacé af
 | **MODE** | **ONE-SHOT** joue jusqu'au bout (appuyer de nouveau le relance). **GATE** joue tant qu'on le maintient. **LOOP** démarre à un appui et s'arrête au suivant |
 | **CHOKE** | OFF ou groupe 1–8. Les pads d'un même groupe s'arrêtent les uns les autres |
 | **LEVEL** | De -INF à +12 dB |
-| **HOTKEY** | Cliquez (**LEARN...**), puis appuyez sur les touches. Doit comporter Ctrl, Alt ou une touche F. Fonctionne même quand d'autres programmes ont le focus. Échap annule, Suppr efface |
+| **HOTKEY** | Cliquez (**LEARN...**), puis appuyez sur les touches (voir [HOTKEYS](#hotkeys)) |
 | **MACRO** | Une macro à lancer avec le pad (un pad peut avoir une macro et pas de son) |
 | **TRIM** | Faites glisser les lignes de début et de fin sur la forme d'onde. Double-clic pour le fichier entier |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1066,7 +1026,7 @@ en crème quand ils sont activés.
 | Carte | Réglages |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS** : s'ouvre dans la zone de notification quand vous ouvrez votre session |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (un avis quand un micro coupé dépasse -30 dBFS). Sélectionner une tranche quand on la touche, c'est **SELECT > AUTO** de la barre latérale |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (un avis quand un micro coupé dépasse -30 dBFS) |
 | **APPS** | **APP RULES...** : vers quel bus ou quelle sortie va un programme quand il se met à jouer (aussi dans **FIND**). Retirer le canal d'un programme retire sa règle |
 | **SESSIONS** | **SAVE SESSION AS...** ; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP** ; **PRE-FLIGHT NOW...** ; **TIPS** ; **SHOW THE TIPS AGAIN** |
@@ -1119,7 +1079,7 @@ console ([5](#5-the-console)).
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Télécommande, overlay et zone de notification
 
@@ -1173,9 +1133,8 @@ désactivé) demandent elles-mêmes la permission.
 
 1. Lancez le programme et faites-le jouer du son.
 2. **ADD APP** > choisissez-le. Il reçoit un canal brut (sans effets).
-3. Routez-le là où vous voulez l'entendre. Le programme continue aussi de jouer sur son propre
-   périphérique, donc si vous entendez aussi ce périphérique, ne routez pas le canal de
-   l'application au même endroit (PRE-FLIGHT vous avertit de ce doublon).
+3. Routez-le là où vous voulez l'entendre. Si vous l'entendez deux fois, voir
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1204,9 +1163,7 @@ liaisons les suivent. SIMPLE montre les sorties dans le même ordre.
 1. **ADD BUS > COMBINATOR**. Il démarre avec deux chemins. Clic droit dessus > **Paths > Add path**
    pour en avoir plus.
 2. Sur la page Routing, routez des sources vers les cellules de chemin (**P1**, **P2**…).
-3. Clic droit > **Paths > PATH n > Add plugin...** pour chaque chemin. Les chemins sont additionnés
-   au fader du combinateur. La tranche du combinateur montre ce qui alimente chaque chemin et ouvre
-   ses plugins.
+3. Clic droit > **Paths > PATH n > Add plugin...** pour chaque chemin.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1328,9 +1285,10 @@ Suivez le chemin du signal :
 
 ### 18.7 J'entends quelque chose deux fois, ou un écho
 
-- Un canal d'application est routé vers une sortie du même périphérique que celui sur lequel
-  l'application joue déjà, donc vous entendez l'application directement et par Faider.
-  Routez le canal de l'application ailleurs, ou déplacez l'application vers un autre périphérique.
+- Un programme continue de jouer sur son propre périphérique en même temps que dans son canal. Si
+  son canal est routé vers une sortie de ce même périphérique, vous l'entendez directement et par
+  Faider. Désactivez cette liaison (en SIMPLE, la touche de la sortie sur le canal), ou déplacez le
+  programme vers un autre périphérique. PRE-FLIGHT vous en avertit.
 - Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT > **HEARD ONCE**
   le nomme.
 
@@ -1338,9 +1296,9 @@ Suivez le chemin du signal :
 
 ### 18.8 Une liaison ne s'active pas
 
-Elle créerait une **boucle de rétroaction** (un son qui revient à son point de départ), donc elle
-est immédiatement désactivée. Le journal des événements nomme la boucle. Cassez-la en retirant la
-liaison qui reboucle.
+Elle créerait une **boucle de rétroaction** (voir
+[Les règles qui assurent la sécurité](#rules-that-keep-it-safe)). Le journal des événements nomme
+la boucle. Retirez la liaison qui reboucle.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

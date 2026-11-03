@@ -215,9 +215,7 @@ suena, su fader y su medidor.
 4. Comprueba lo que reciben: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** graba 5 segundos de lo que
    reciben las aplicaciones y te lo reproduce.
 
-Un programa sigue sonando también en su propio dispositivo. Si es el dispositivo en el que
-escuchas, desactiva la tecla **HEADPHONES** de su canal, o lo oirás dos veces (PRE-FLIGHT avisa de
-esto).
+Si oyes un programa dos veces, consulta [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** y **+ APP** añaden canales. **+ OUTPUT** añade una salida en un dispositivo que no
 tiene ninguna. La tecla de dispositivo bajo el nombre de una salida cambia dónde suena. Haz clic
@@ -232,13 +230,8 @@ El conmutador **SIMPLE / PRO** de la barra superior muestra la misma mezcla en a
 es la consola entera: la entrada de cada canal, los filtros, la dinámica y el EQ, los buses y los
 combinadores, los plugins.
 
-Para dar forma a tu micrófono en PRO:
-
-1. Sube **hp** hasta unos 80–100 Hz para quitar los retumbos.
-2. Activa **DYNAMICS** (el conmutador con el símbolo de encendido) y ajusta el gate y el compresor.
-3. Ajusta el **EQ**.
-
-Consulta [6](#6-the-channel-strip-section-by-section). Los ajustes que haces en PRO siguen
+Para dar forma a tu micrófono, consulta [17.1](#171-hear-yourself-set-up-a-microphone). Todos los
+controles están en [6](#6-the-channel-strip-section-by-section). Los ajustes que haces en PRO siguen
 funcionando en SIMPLE.
 
 <a id="step-8-run-pre-flight"></a>
@@ -296,10 +289,6 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, sol
 
 Las opciones de SELECT y METER se recuerdan.
 
-Sobre los strips están la pantalla de tiempo, el transporte de la cinta (rebobinar, parar,
-reproducir / pausa, avanzar, grabar, bucle) y el conmutador **SIMPLE / PRO** (consulta el
-[paso 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### La barra superior
@@ -316,6 +305,7 @@ Desde la derecha:
 | **MINI** | Una pequeña ventana de mezclador siempre encima |
 | **Luz de estado** | Verde: el audio va bien. Ámbar: la carga de audio es alta o a un dispositivo le faltaron datos hace poco. Rojo: un fallo audible en los últimos 10 segundos, o no hay audio en marcha. El número es la carga de audio. Haz clic para ir a DEVICES |
 | **SCENES** | Tus mezclas guardadas. **+** guarda una nueva (consulta [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | La misma mezcla, simple o como la consola entera (consulta el [paso 7](#step-7-pro-for-the-whole-console)) |
 
 En una ventana estrecha desaparece primero la luz de estado, luego MINI, luego HISTORY. FIND llega
 a todos.
@@ -404,7 +394,7 @@ retardo.
 
 Un combinador es un bus dividido en **caminos** paralelos (dos al empezar). Cada camino tiene sus
 propios plugins, y los caminos se suman en el fader del combinador. Enruta una fuente a un camino o
-a varios. El strip del combinador muestra qué fuentes alimentan cada camino.
+a varios (consulta [7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -415,9 +405,8 @@ a varios. El strip del combinador muestra qué fuentes alimentan cada camino.
   desactiva de inmediato, y el registro de eventos nombra el bucle.
 - **Solo** en cualquier strip silencia todos los strips que no están en solo, salvo los marcados
   como solo safe.
-- **Un strip desactivado** no deja pasar nada, esté enrutado adonde esté.
 - **Canales de aplicaciones y duplicación.** Un programa suena en su propio dispositivo además de en
-  su canal. No enrutes su canal a una salida del dispositivo en el que ya lo oyes.
+  su canal (consulta [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -559,7 +548,7 @@ mueve.
 | **EQ** | El EQ dentro o fuera |
 | **EXT** | La dinámica escucha una señal de control externa (sidechain) en lugar del propio canal |
 | **Orden de procesamiento** | Tres bloques (FILT, EQ, DYN), de arriba abajo en el orden en que el canal los ejecuta. **Haz clic en un bloque** para subirlo un puesto. El de arriba pasa al final. Los bloques encendidos están en uso |
-| **Casillas de enrutamiento** | Una casilla por bus y por dispositivo de salida. Encendida: el canal se envía ahí. Haz clic para cambiar. Enviar a un dispositivo que aún no tiene salida crea su salida |
+| **Casillas de enrutamiento** | Una casilla por bus y por dispositivo de salida. Encendida: el canal se envía ahí. Haz clic para cambiar (consulta [Las salidas son dispositivos](#outputs-are-devices)) |
 | **Número** | El lugar del strip en la mesa |
 
 <a id="input"></a>
@@ -695,11 +684,8 @@ Cada salida (master) tiene su propio strip oscuro:
 
 Clic derecho en una salida para **Device...**, separadores, **Rename...** y **Remove**.
 
-**Las salidas se crean por ti.** Envía un canal a un dispositivo (con una casilla de enrutamiento, la
-página Routing o **Route to**) y se crea una salida en ese dispositivo si no hay ninguna.
-
-**Un dispositivo ausente.** Si se desconecta el dispositivo de una salida, esa salida queda en
-silencio hasta que vuelva. Nada pasa solo a otro dispositivo.
+Las salidas se crean por ti, una por dispositivo (consulta
+[Las salidas son dispositivos](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** construye un envío por invitado (todo menos su propia voz) y stems de
 voz, música y juego.
@@ -743,7 +729,7 @@ strip, y cambia a PRO si SIMPLE está a la vista. Cada tarjeta muestra:
 - **HEAVY**: inusualmente costoso
 
 Teclas de cada tarjeta: **BYPASS**, **OPEN** (su ventana), **REMOVE**, y flechas para moverlo antes
-o después. **ADD** al final añade otro. No se puede cambiar nada mientras el strip está apagado.
+o después. **ADD** al final añade otro.
 
 ---
 
@@ -802,35 +788,14 @@ Si los dos bloques no se pueden enrutar (dos salidas, por ejemplo), se seleccion
 | Dejar que las aplicaciones oigan tu micro | MIC, luego **CABLE Input** (en la fila de salidas, en gris hasta que tenga una salida) |
 | Enviar un grupo por un bus | El bus, luego cada canal; después el bus, luego su salida |
 | Sacar un canal del stream | El canal, luego la salida del stream (la línea desaparece) |
-| Alimentar un camino de combinador | La fuente, luego la celda del camino (P1, P2…) |
+| Alimentar un camino de combinador | La fuente, luego la celda del camino (P1, P2…). Haz clic en más celdas para alimentar varios caminos. Hacer clic en el combinador fuera de sus celdas alimenta su primer camino |
 
 Hacer clic en un bloque de dispositivo gris crea su salida, y la nueva salida aparece de inmediato
 en la mesa.
 
-<a id="combinators-1"></a>
-
-### Combinadores
-
-Haz clic en la fuente y luego en la **celda del camino**. Una fuente puede alimentar varios caminos:
-haz clic en cada celda por turno. Hacer clic en el combinador fuera de sus celdas enruta a su
-primer camino. Para añadir caminos o sus plugins, haz clic derecho en el combinador en la mesa >
-**Paths**.
-
-<a id="moving-channels"></a>
-
-### Mover canales
-
-Arrastra un bloque de lado a lo largo de su fila. Una barra azul muestra dónde cae, y la mesa
-cambia para coincidir. Los canales se mueven entre canales, los buses entre buses, las salidas
-entre salidas.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Cuando una ruta no se queda activada
-
-La ruta crearía un bucle de realimentación, así que se desactiva de inmediato. El registro de
-eventos nombra el bucle. Quita la ruta que realimenta. Consulta
-[18.8](#188-a-route-wont-switch-on).
+Arrastra un bloque de lado a lo largo de su fila para mover su strip (consulta
+[17.4](#174-reorder-channels)). Una ruta que se desactiva de inmediato crearía un bucle de
+realimentación (consulta [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -877,7 +842,7 @@ Formatos: WAV, FLAC, AIFF, OGG, MP3. Un pad cuyo archivo se ha movido muestra **
 | **MODE** | **ONE-SHOT** suena hasta el final (pulsar otra vez lo reinicia). **GATE** suena mientras se mantiene. **LOOP** empieza con una pulsación y se detiene con la siguiente |
 | **CHOKE** | OFF o grupo 1–8. Los pads de un mismo grupo se detienen entre sí |
 | **LEVEL** | De -INF a +12 dB |
-| **HOTKEY** | Haz clic (**LEARN...**), luego pulsa las teclas. Debe incluir Ctrl, Alt o una tecla F. Funciona mientras otros programas tienen el foco. Esc cancela, Supr borra |
+| **HOTKEY** | Haz clic (**LEARN...**), luego pulsa las teclas (consulta [HOTKEYS](#hotkeys)) |
 | **MACRO** | Una macro que se ejecuta con el pad (un pad puede tener una macro y ningún sonido) |
 | **TRIM** | Arrastra las líneas de inicio y fin sobre la forma de onda. Doble clic para el archivo entero |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1046,7 +1011,7 @@ cuadrados que brillan en color crema cuando están activados.
 | Tarjeta | Ajustes |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: se abre en la bandeja cuando inicias sesión |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (un aviso cuando un micro silenciado supera -30 dBFS). Seleccionar un strip al tocarlo es **SELECT > AUTO** de la barra lateral |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (un aviso cuando un micro silenciado supera -30 dBFS) |
 | **APPS** | **APP RULES...**: a qué bus o salida va un programa cuando empieza a sonar (también en **FIND**). Quitar el canal de un programa quita su regla |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1098,7 +1063,7 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Control remoto, overlay y bandeja
 
@@ -1152,9 +1117,8 @@ apagado) piden permiso por sí mismos.
 
 1. Inicia el programa y haz que reproduzca sonido.
 2. **ADD APP** > elígelo. Recibe un canal en bruto (sin efectos).
-3. Enrútalo adonde quieras oírlo. El programa sigue sonando también en su propio dispositivo, así
-   que si además oyes ese dispositivo, no enrutes el canal de la aplicación al mismo sitio
-   (PRE-FLIGHT avisa de esta duplicación).
+3. Enrútalo adonde quieras oírlo. Si lo oyes dos veces, consulta
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1182,9 +1146,7 @@ las salidas en el mismo orden.
 1. **ADD BUS > COMBINATOR**. Empieza con dos caminos. Clic derecho en él > **Paths > Add path** para
    tener más.
 2. En la página Routing, enruta fuentes a las celdas de camino (**P1**, **P2**…).
-3. Clic derecho > **Paths > PATH n > Add plugin...** para cada camino. Los caminos se suman en el
-   fader del combinador. El strip del combinador muestra qué alimenta cada camino y abre sus
-   plugins.
+3. Clic derecho > **Paths > PATH n > Add plugin...** para cada camino.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1307,9 +1269,10 @@ Sigue el camino de la señal:
 
 ### 18.7 Oigo algo dos veces, o un eco
 
-- Un canal de aplicación está enrutado a una salida del mismo dispositivo en el que la aplicación ya
-  suena, así que oyes la aplicación directamente y a través de Faider. Enruta el canal de
-  la aplicación a otro sitio, o pasa la aplicación a otro dispositivo.
+- Un programa sigue sonando en su propio dispositivo además de en su canal. Si su canal está
+  enrutado a una salida de ese mismo dispositivo, lo oyes directamente y a través de Faider.
+  Desactiva esa ruta (en SIMPLE, la tecla de la salida en el canal), o pasa el programa a otro
+  dispositivo. PRE-FLIGHT avisa de esto.
 - El altavoz predeterminado de Windows está puesto en el cable virtual. PRE-FLIGHT > **HEARD ONCE**
   lo nombra.
 
@@ -1317,9 +1280,9 @@ Sigue el camino de la señal:
 
 ### 18.8 Una ruta no se activa
 
-Crearía un **bucle de realimentación** (un sonido que vuelve al lugar de donde vino), así que se
-desactiva de inmediato. El registro de eventos nombra el bucle. Rómpelo quitando la ruta que
-realimenta.
+Crearía un **bucle de realimentación** (consulta
+[Reglas que lo mantienen seguro](#rules-that-keep-it-safe)). El registro de eventos nombra el bucle.
+Quita la ruta que realimenta.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

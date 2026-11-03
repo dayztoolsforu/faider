@@ -211,8 +211,7 @@ swój fader i miernik.
 4. Sprawdź, co dostają: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** nagrywa 5 sekund tego, co
    odbierają aplikacje, i odtwarza ci to.
 
-Program gra też nadal na własnym urządzeniu. Jeśli to urządzenie, na którym słuchasz, wyłącz klawisz
-**HEADPHONES** jego kanału, bo inaczej słyszysz go dwa razy (PRE-FLIGHT ostrzega o tym).
+Jeśli słyszysz program dwa razy, zobacz [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** i **+ APP** dodają kanały. **+ OUTPUT** dodaje wyjście na urządzeniu, które go nie ma.
 Klawisz urządzenia pod nazwą wyjścia zmienia, gdzie ono gra. Kliknij nazwę prawym przyciskiem, żeby
@@ -226,13 +225,8 @@ więc kanał nie wraca sam.
 Przełącznik **SIMPLE / PRO** na górnym pasku pokazuje ten sam miks w obu trybach. **PRO** to cała
 konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.
 
-Żeby ukształtować swój mikrofon w PRO:
-
-1. Podnieś **hp** do około 80–100 Hz, żeby usunąć dudnienie.
-2. Włącz **DYNAMICS** (przełącznik z symbolem zasilania) i ustaw bramkę oraz kompresor.
-3. Ustaw **EQ**.
-
-Zobacz [6](#6-the-channel-strip-section-by-section). Ustawienia zrobione w PRO nadal działają w SIMPLE.
+Żeby ukształtować swój mikrofon, zobacz [17.1](#171-hear-yourself-set-up-a-microphone). Każdy element
+jest opisany w [6](#6-the-channel-strip-section-by-section). Ustawienia zrobione w PRO nadal działają w SIMPLE.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -288,9 +282,6 @@ karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
 
 Wybory SELECT i METER są zapamiętywane.
 
-Nad paskami są wyświetlacz czasu, transport decku Tape (przewiń wstecz, stop, odtwórz / pauza,
-przewiń do przodu, nagrywaj, pętla) i przełącznik **SIMPLE / PRO** (zobacz [Krok 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### Górny pasek
@@ -307,6 +298,7 @@ Od prawej:
 | **MINI** | Małe okno miksera zawsze na wierzchu |
 | **Kontrolka stanu** | Zielona: audio jest w porządku. Bursztynowa: obciążenie audio jest wysokie albo urządzeniu niedawno zabrakło danych. Czerwona: słyszalny zgrzyt w ostatnich 10 sekundach albo audio nie działa. Liczba to obciążenie audio. Kliknij, żeby otworzyć DEVICES |
 | **SCENES** | Twoje zapisane miksy. **+** zapisuje nowy (zobacz [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Ten sam miks, w prostej postaci albo jako cała konsola (zobacz [Krok 7](#step-7-pro-for-the-whole-console)) |
 
 W wąskim oknie najpierw znika kontrolka stanu, potem MINI, potem HISTORY. FIND dosięga ich wszystkich.
 
@@ -392,7 +384,7 @@ nie dwa razy (raz bezpośrednio, raz przez bus). Bus może zasilać inny bus i n
 
 Kombinator to bus podzielony na równoległe **ścieżki** (na początek dwie). Każda ścieżka ma własne
 wtyczki, a ścieżki są sumowane na faderze kombinatora. Skieruj źródło do jednej ścieżki albo do
-kilku. Pasek kombinatora pokazuje, jakie źródła zasilają każdą ścieżkę.
+kilku (zobacz [7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -402,9 +394,8 @@ kilku. Pasek kombinatora pokazuje, jakie źródła zasilają każdą ścieżkę.
   przyszedł (bus do busa, który go zasila, dźwięk wyjścia podany z powrotem na jego własne wejście),
   jest od razu wyłączana, a dziennik zdarzeń podaje nazwę pętli.
 - **Solo** na dowolnym pasku wycisza każdy pasek, który nie jest w solo, oprócz oznaczonych jako solo safe.
-- **Wyłączony pasek** niczego nie przepuszcza, dokądkolwiek jest skierowany.
-- **Kanały aplikacji i podwajanie.** Program gra na własnym urządzeniu, a także do swojego kanału.
-  Nie kieruj jego kanału na wyjście na urządzeniu, na którym już go słyszysz.
+- **Kanały aplikacji i podwajanie.** Program gra na własnym urządzeniu, a także do swojego kanału
+  (zobacz [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -540,7 +531,7 @@ before** / **Add spacer after**. Prawy przycisk na odstępie daje **Narrow**, **
 | **EQ** | EQ włączony lub wyłączony |
 | **EXT** | Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału |
 | **Kolejność przetwarzania** | Trzy bloki (FILT, EQ, DYN), od góry do dołu w kolejności, w jakiej kanał je wykonuje. **Kliknij blok**, żeby przesunąć go o jedno miejsce w górę. Ten na górze trafia na koniec. Zapalone bloki są w użyciu |
-| **Pola routingu** | Jedno pole na każdy bus i urządzenie wyjściowe. Zapalone: kanał jest tam wysyłany. Kliknij, żeby przełączyć. Wysłanie na urządzenie, które nie ma jeszcze wyjścia, tworzy to wyjście |
+| **Pola routingu** | Jedno pole na każdy bus i urządzenie wyjściowe. Zapalone: kanał jest tam wysyłany. Kliknij, żeby przełączyć (zobacz [Wyjścia to urządzenia](#outputs-are-devices)) |
 | **Numer** | Miejsce paska na konsoli |
 
 <a id="input"></a>
@@ -676,11 +667,7 @@ Każde wyjście (master) ma własny ciemny pasek:
 
 Prawy przycisk na wyjściu daje **Device...**, odstępy, **Rename...** i **Remove**.
 
-**Wyjścia tworzą się same.** Wyślij kanał na urządzenie (polem routingu, stroną Routing albo
-**Route to**), a jeśli nie ma na nim wyjścia, zostanie ono utworzone.
-
-**Brakujące urządzenie.** Jeśli urządzenie wyjścia zostanie odłączone, to wyjście milknie, dopóki
-urządzenie nie wróci. Nic samo nie przenosi się na inne urządzenie.
+Wyjścia tworzą się same, po jednym na urządzenie (zobacz [Wyjścia to urządzenia](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** buduje osobny feed dla każdego gościa (wszystko poza jego własnym
 głosem) oraz stemy głosu, muzyki i gry.
@@ -723,7 +710,7 @@ przełącza na PRO, jeśli widać SIMPLE. Każda karta pokazuje:
 - **HEAVY**: niezwykle kosztowna
 
 Klawisze na każdej karcie: **BYPASS**, **OPEN** (jej okno), **REMOVE** oraz strzałki, które przesuwają
-ją wcześniej lub później. **ADD** na końcu dodaje kolejną. Nic nie da się zmienić, gdy pasek jest wyłączony.
+ją wcześniej lub później. **ADD** na końcu dodaje kolejną.
 
 ---
 
@@ -780,31 +767,12 @@ Jeśli tych dwóch bloków nie da się połączyć (na przykład dwa wyjścia), 
 | Pozwolić aplikacjom słyszeć twój mikrofon | MIC, potem **CABLE Input** (w rzędzie wyjść, szary, dopóki nie ma wyjścia) |
 | Wysłać grupę przez bus | Bus, potem każdy kanał; potem bus, potem jego wyjście |
 | Zdjąć kanał ze streamu | Kanał, potem wyjście streamu (linia znika) |
-| Zasilić jedną ścieżkę kombinatora | Źródło, potem komórka ścieżki (P1, P2…) |
+| Zasilić jedną ścieżkę kombinatora | Źródło, potem komórka ścieżki (P1, P2…). Kliknij kolejne komórki, żeby zasilić kilka ścieżek. Kliknięcie kombinatora poza jego komórkami zasila jego pierwszą ścieżkę |
 
 Kliknięcie szarego bloku urządzenia tworzy jego wyjście, a nowe wyjście od razu pojawia się na konsoli.
 
-<a id="combinators-1"></a>
-
-### Kombinatory
-
-Kliknij źródło, potem **komórkę ścieżki**. Źródło może zasilać kilka ścieżek: kliknij kolejno każdą
-komórkę. Kliknięcie kombinatora poza jego komórkami kieruje dźwięk do jego pierwszej ścieżki. Żeby
-dodać ścieżki lub ich wtyczki, kliknij kombinator na konsoli prawym przyciskiem > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Przesuwanie kanałów
-
-Przeciągnij blok w bok wzdłuż jego rzędu. Niebieski pasek pokazuje, gdzie wyląduje, a konsola
-zmienia się odpowiednio. Kanały przesuwają się wśród kanałów, busy wśród busów, wyjścia wśród wyjść.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Gdy trasa nie chce zostać włączona
-
-Trasa utworzyłaby pętlę sprzężenia zwrotnego, więc jest od razu wyłączana. Dziennik zdarzeń podaje
-nazwę pętli. Usuń trasę, która sprzęga zwrotnie. Zobacz [18.8](#188-a-route-wont-switch-on).
+Przeciągnij blok w bok wzdłuż jego rzędu, żeby przesunąć jego pasek (zobacz [17.4](#174-reorder-channels)).
+Trasa, która od razu znów się wyłącza, utworzyłaby pętlę sprzężenia zwrotnego (zobacz [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -851,7 +819,7 @@ Formaty: WAV, FLAC, AIFF, OGG, MP3. Pad, którego plik został przeniesiony, pok
 | **MODE** | **ONE-SHOT** gra do końca (ponowne naciśnięcie zaczyna od nowa). **GATE** gra, dopóki jest przytrzymany. **LOOP** startuje po jednym naciśnięciu i zatrzymuje się po następnym |
 | **CHOKE** | OFF albo grupa 1–8. Pady jednej grupy zatrzymują się nawzajem |
 | **LEVEL** | Od -INF do +12 dB |
-| **HOTKEY** | Kliknij (**LEARN...**), potem naciśnij klawisze. Musi zawierać Ctrl, Alt albo klawisz F. Działa, gdy fokus mają inne programy. Esc anuluje, Delete czyści |
+| **HOTKEY** | Kliknij (**LEARN...**), potem naciśnij klawisze (zobacz [HOTKEYS](#hotkeys)) |
 | **MACRO** | Makro uruchamiane z padem (pad może mieć makro i żadnego dźwięku) |
 | **TRIM** | Przeciągnij linie początku i końca na przebiegu fali. Dwukrotne kliknięcie wybiera cały plik |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1014,7 +982,7 @@ tracony, i startuje nowy miks. Zobacz [18.2](#182-my-mix-is-gone-a-fresh-mix-sta
 | Karta | Ustawienia |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: otwiera się w zasobniku przy logowaniu |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (komunikat, gdy wyciszony mikrofon przekracza -30 dBFS). Zaznaczanie paska po dotknięciu to **SELECT > AUTO** na panelu bocznym |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (komunikat, gdy wyciszony mikrofon przekracza -30 dBFS) |
 | **APPS** | **APP RULES...**: do którego busa lub wyjścia trafia program, gdy zaczyna grać (także w **FIND**). Usunięcie kanału programu usuwa jego regułę |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1064,7 +1032,7 @@ na konsoli ([5](#5-the-console)).
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Zdalne sterowanie, nakładka i zasobnik
 
@@ -1116,9 +1084,8 @@ proszą o zgodę.
 
 1. Uruchom program i spraw, żeby grał dźwięk.
 2. **ADD APP** > wybierz go. Dostaje kanał raw (bez efektów).
-3. Skieruj go tam, gdzie chcesz go słyszeć. Program gra też nadal na własnym urządzeniu, więc jeśli
-   słyszysz także to urządzenie, nie kieruj kanału aplikacji w to samo miejsce (PRE-FLIGHT ostrzega
-   przed takim podwojeniem).
+3. Skieruj go tam, gdzie chcesz go słyszeć. Jeśli słyszysz go dwa razy, zobacz
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1145,8 +1112,7 @@ każde wśród swojego rodzaju, a ich trasy idą z nimi. SIMPLE pokazuje wyjści
 1. **ADD BUS > COMBINATOR**. Zaczyna z dwiema ścieżkami. Prawy przycisk > **Paths > Add path**, żeby
    dodać więcej.
 2. Na stronie Routing skieruj źródła do komórek ścieżek (**P1**, **P2**…).
-3. Prawy przycisk > **Paths > PATH n > Add plugin...** dla każdej ścieżki. Ścieżki są sumowane na
-   faderze kombinatora. Pasek kombinatora pokazuje, co zasila każdą ścieżkę, i otwiera jej wtyczki.
+3. Prawy przycisk > **Paths > PATH n > Add plugin...** dla każdej ścieżki.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1263,17 +1229,18 @@ Idź wzdłuż drogi sygnału:
 
 ### 18.7 Słyszę coś dwa razy albo echo
 
-- Kanał aplikacji jest skierowany na wyjście na tym samym urządzeniu, na którym aplikacja już gra,
-  więc słyszysz ją bezpośrednio i przez Faider. Skieruj kanał aplikacji gdzie indziej albo
-  przenieś aplikację na inne urządzenie.
+- Program gra nadal na własnym urządzeniu, a także do swojego kanału. Jeśli jego kanał jest
+  skierowany na wyjście na tym samym urządzeniu, słyszysz go bezpośrednio i przez Faider. Wyłącz tę
+  trasę (w SIMPLE klawisz tego wyjścia na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
+  ostrzega o tym.
 - Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT > **HEARD ONCE** go wskazuje.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 Trasa nie chce się włączyć
 
-Utworzyłaby **pętlę sprzężenia zwrotnego** (dźwięk wracający tam, skąd przyszedł), więc jest od
-razu wyłączana. Dziennik zdarzeń podaje nazwę pętli. Przerwij ją, usuwając trasę, która sprzęga zwrotnie.
+Utworzyłaby **pętlę sprzężenia zwrotnego** (zobacz [Zasady, które chronią przed kłopotami](#rules-that-keep-it-safe)).
+Dziennik zdarzeń podaje nazwę pętli. Usuń trasę, która sprzęga zwrotnie.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

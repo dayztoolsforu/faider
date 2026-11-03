@@ -208,8 +208,7 @@ Mixer **SIMPLE**'da açılır. Her kanal adını, neyi dinlediğini, her çıkı
 4. Onların ne aldığını kontrol et: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR**, uygulamaların aldığı
    sesin 5 saniyesini kaydeder ve sana çalar.
 
-Bir program kendi aygıtında da çalmaya devam eder. O, dinlediğin aygıtsa kanalının **HEADPHONES**
-tuşunu kapat, yoksa iki kez duyarsın (PRE-FLIGHT bu konuda uyarır).
+Bir programı iki kez duyuyorsan bkz. [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** ve **+ APP** kanal ekler. **+ OUTPUT**, çıkışı olmayan bir aygıta çıkış ekler. Bir
 çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **Rename...**, renk ve **Remove** için
@@ -223,13 +222,8 @@ kendiliğinden geri gelmez.
 Üst çubuktaki **SIMPLE / PRO** anahtarı aynı karışımı iki halde de gösterir. **PRO** konsolun
 tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve kombinatörler, eklentiler.
 
-PRO'da mikrofonunu şekillendirmek için:
-
-1. Uğultuyu gidermek için **hp**'yi 80–100 Hz civarına kadar çevir.
-2. **DYNAMICS**'i devreye al (güç simgeli anahtar) ve gate ile kompresörü ayarla.
-3. **EQ**'yu ayarla.
-
-Bkz. [6](#6-the-channel-strip-section-by-section). PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.
+Mikrofonunu şekillendirmek için bkz. [17.1](#171-hear-yourself-set-up-a-microphone). Her kontrol
+[6](#6-the-channel-strip-section-by-section) içinde. PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -284,9 +278,6 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 
 SELECT ve METER seçimleri hatırlanır.
 
-Şeritlerin üstünde zaman göstergesi, Tape deck'in transportu (geri sar, dur, çal / duraklat, ileri sar,
-kaydet, döngü) ve **SIMPLE / PRO** anahtarı bulunur (bkz. [Adım 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### Üst çubuk
@@ -303,6 +294,7 @@ Sağdan başlayarak:
 | **MINI** | Her zaman üstte duran küçük bir mikser penceresi |
 | **Durum ışığı** | Yeşil: ses iyi. Kehribar: ses yükü yüksek ya da bir aygıtın verisi yakın zamanda yetmedi. Kırmızı: son 10 saniyede duyulur bir aksama ya da çalışan ses yok. Sayı ses yüküdür. DEVICES için tıkla |
 | **SCENES** | Kayıtlı karışımların. **+** yeni birini kaydeder (bkz. [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Aynı karışım, sade ya da konsolun tamamı olarak (bkz. [Adım 7](#step-7-pro-for-the-whole-console)) |
 
 Dar bir pencerede önce durum ışığı gider, sonra MINI, sonra HISTORY. FIND hepsine ulaşır.
 
@@ -387,8 +379,8 @@ besleyebilir ve bu gecikme eklemez.
 ### Kombinatörler
 
 Kombinatör, paralel **yollara** bölünmüş bir bus'tır (başlangıçta iki). Her yolun kendi eklentileri
-vardır ve yollar kombinatörün fader'ında toplanır. Bir kaynağı bir yola ya da birkaçına yönlendir.
-Kombinatörün şeridi her yolu hangi kaynakların beslediğini gösterir.
+vardır ve yollar kombinatörün fader'ında toplanır. Bir kaynağı bir yola ya da birkaçına yönlendir
+(bkz. [7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -399,9 +391,8 @@ Kombinatörün şeridi her yolu hangi kaynakların beslediğini gösterir.
   hemen kapatılır ve olay günlüğü döngünün adını verir.
 - Herhangi bir şeritteki **Solo**, solo olmayan her şeridi susturur, solo safe işaretlenmiş olanlar
   hariç.
-- **Kapatılmış bir şerit** nereye yönlendirilirse yönlendirilsin hiçbir şey geçirmez.
-- **Uygulama kanalları ve çiftlenme.** Bir program hem kendi aygıtında hem de kanalına çalar. Kanalını,
-  onu zaten duyduğun aygıttaki bir çıkışa yönlendirme.
+- **Uygulama kanalları ve çiftlenme.** Bir program hem kendi aygıtında hem de kanalına çalar
+  (bkz. [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -535,7 +526,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 | **EQ** | EQ devrede veya devre dışı |
 | **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain) |
 | **İşleme sırası** | Üç blok (FILT, EQ, DYN), kanalın onları çalıştırdığı sırayla yukarıdan aşağıya. Bir bloğu bir basamak yukarı taşımak için **üzerine tıkla**. En üstteki sona gider. Yanık bloklar kullanımdadır |
-| **Yönlendirme kutuları** | Her bus ve çıkış aygıtı için bir kutu. Yanık: kanal oraya gönderiliyor. Değiştirmek için tıkla. Henüz çıkışı olmayan bir aygıta göndermek onun çıkışını oluşturur |
+| **Yönlendirme kutuları** | Her bus ve çıkış aygıtı için bir kutu. Yanık: kanal oraya gönderiliyor. Değiştirmek için tıkla (bkz. [Çıkışlar aygıttır](#outputs-are-devices)) |
 | **Numara** | Şeridin konsoldaki yeri |
 
 <a id="input"></a>
@@ -671,11 +662,7 @@ Her çıkışın (master) kendi koyu şeridi vardır:
 
 Bir çıkışa sağ tıklayınca **Device...**, boşluklar, **Rename...** ve **Remove** çıkar.
 
-**Çıkışlar senin için oluşturulur.** Bir kanalı bir aygıta gönder (bir yönlendirme kutusuyla, Routing
-sayfasıyla veya **Route to** ile) ve orada yoksa o aygıtta bir çıkış oluşturulur.
-
-**Eksik bir aygıt.** Bir çıkışın aygıtı çıkarılırsa o çıkış aygıt geri gelene kadar sessiz kalır.
-Hiçbir şey kendiliğinden başka bir aygıta geçmez.
+Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. [Çıkışlar aygıttır](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS**, her konuk için bir besleme (kendi sesi dışındaki her şey) ve ses,
 müzik ve oyun stem'leri oluşturur.
@@ -717,7 +704,7 @@ görünüyorsa PRO'ya geçer. Her kart şunları gösterir:
 - **HEAVY**: alışılmadık ölçüde pahalı
 
 Her karttaki tuşlar: **BYPASS**, **OPEN** (penceresi), **REMOVE** ve onu daha erken ya da daha geç
-taşımak için oklar. Sondaki **ADD** bir tane daha ekler. Şerit kapalıyken hiçbir şey değiştirilemez.
+taşımak için oklar. Sondaki **ADD** bir tane daha ekler.
 
 ---
 
@@ -774,31 +761,12 @@ Routing sayfası tüm karışımı bir harita olarak gösterir: her şerit bir b
 | Uygulamaların mikrofonunu duymasını sağlamak | MIC, sonra **CABLE Input** (çıkışlar satırında, çıkışı olana kadar gri) |
 | Bir grubu bir bus'tan geçirmek | Bus, sonra her kanal; sonra bus, sonra çıkışı |
 | Bir kanalı yayından çıkarmak | Kanal, sonra yayının çıkışı (çizgi kaybolur) |
-| Bir kombinatör yolunu beslemek | Kaynak, sonra yol hücresi (P1, P2…) |
+| Bir kombinatör yolunu beslemek | Kaynak, sonra yol hücresi (P1, P2…). Birkaç yolu beslemek için başka hücrelere de tıkla. Kombinatöre hücrelerinin dışında tıklamak ilk yolunu besler |
 
 Gri bir aygıt bloğuna tıklamak onun çıkışını oluşturur ve yeni çıkış hemen konsolda belirir.
 
-<a id="combinators-1"></a>
-
-### Kombinatörler
-
-Kaynağa, sonra **yol hücresine** tıkla. Bir kaynak birkaç yolu besleyebilir: her hücreye sırayla
-tıkla. Kombinatöre hücrelerinin dışında tıklamak ilk yoluna yönlendirir. Yol veya eklentilerini
-eklemek için konsoldaki kombinatöre sağ tık > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Kanalları taşımak
-
-Bir bloğu satırı boyunca yana sürükle. Mavi bir çubuk nereye ineceğini gösterir ve konsol buna göre
-değişir. Kanallar kanallar arasında, bus'lar bus'lar arasında, çıkışlar çıkışlar arasında taşınır.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Bir yönlendirme açık kalmadığında
-
-Yönlendirme bir geri besleme döngüsü oluşturacağı için hemen kapatılır. Olay günlüğü döngünün adını
-verir. Geri besleme yapan yönlendirmeyi kaldır. Bkz. [18.8](#188-a-route-wont-switch-on).
+Şeridini taşımak için bir bloğu satırı boyunca yana sürükle (bkz. [17.4](#174-reorder-channels)). Hemen
+yeniden kapanan bir yönlendirme bir geri besleme döngüsü oluştururdu (bkz. [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -845,7 +813,7 @@ Biçimler: WAV, FLAC, AIFF, OGG, MP3. Dosyası taşınmış bir pad **MISSING: F
 | **MODE** | **ONE-SHOT** sonuna kadar çalar (yeniden basmak baştan başlatır). **GATE** basılı tutulduğu sürece çalar. **LOOP** bir basışta başlar, sonrakinde durur |
 | **CHOKE** | OFF veya grup 1–8. Aynı gruptaki pad'ler birbirini durdurur |
 | **LEVEL** | -INF ile +12 dB arası |
-| **HOTKEY** | Tıkla (**LEARN...**), sonra tuşlara bas. Ctrl, Alt veya bir F tuşu içermeli. Başka programlar odaktayken de çalışır. Esc iptal eder, Delete temizler |
+| **HOTKEY** | Tıkla (**LEARN...**), sonra tuşlara bas (bkz. [HOTKEYS](#hotkeys)) |
 | **MACRO** | Pad ile birlikte çalıştırılacak bir makro (bir pad'in makrosu olup sesi olmayabilir) |
 | **TRIM** | Dalga biçimi üzerinde başlangıç ve bitiş çizgilerini sürükle. Tüm dosya için çift tıkla |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1009,7 +977,7 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 | Kart | Ayarlar |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: oturum açtığında tepside açılır |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim). Bir şeride dokunulduğunda onu seçmek kenar çubuğundaki **SELECT > AUTO**'dur |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim) |
 | **APPS** | **APP RULES...**: bir program çalmaya başladığında hangi bus'a veya çıkışa gideceği (**FIND**'da da). Bir programın kanalını kaldırmak kuralını kaldırır |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1061,7 +1029,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Uzaktan kontrol, kaplama ve tepsi
 
@@ -1112,8 +1080,8 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 
 1. Programı başlat ve ses çaldır.
 2. **ADD APP** > onu seç. Bir raw kanal alır (efektsiz).
-3. Duyulmasını istediğin yere yönlendir. Program kendi aygıtında da çalmaya devam eder, bu yüzden o
-   aygıtı da duyuyorsan uygulama kanalını aynı yere yönlendirme (PRE-FLIGHT bu çiftlenme konusunda uyarır).
+3. Duyulmasını istediğin yere yönlendir. Onu iki kez duyuyorsan bkz.
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1139,8 +1107,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışl
 
 1. **ADD BUS > COMBINATOR**. İki yolla başlar. Daha fazlası için sağ tık > **Paths > Add path**.
 2. Routing sayfasında kaynakları yol hücrelerine (**P1**, **P2**…) yönlendir.
-3. Her yol için sağ tık > **Paths > PATH n > Add plugin...**. Yollar kombinatörün fader'ında toplanır.
-   Kombinatör şeridi her yolu neyin beslediğini gösterir ve eklentilerini açar.
+3. Her yol için sağ tık > **Paths > PATH n > Add plugin...**.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1257,17 +1224,18 @@ Sinyal yolu boyunca ilerle:
 
 ### 18.7 Bir şeyi iki kez veya yankı olarak duyuyorum
 
-- Bir uygulama kanalı, uygulamanın zaten çaldığı aygıttaki bir çıkışa yönlendirilmiş, bu yüzden
-  uygulamayı hem doğrudan hem Faider üzerinden duyuyorsun. Uygulama kanalını başka yere
-  yönlendir ya da uygulamayı başka bir aygıta taşı.
+- Bir program hem kendi aygıtında hem de kanalına çalmaya devam eder. Kanalı aynı aygıttaki bir
+  çıkışa yönlendirilmişse onu hem doğrudan hem Faider üzerinden duyarsın. O yönlendirmeyi kapat
+  (SIMPLE'da kanaldaki o çıkışın tuşu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
+  uyarır.
 - Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT > **HEARD ONCE** bunu adıyla söyler.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 Bir yönlendirme açılmıyor
 
-Bir **geri besleme döngüsü** (sesin geldiği yere dönmesi) oluşturacağı için hemen kapatılır. Olay
-günlüğü döngünün adını verir. Geri besleme yapan yönlendirmeyi kaldırarak döngüyü kır.
+Bir **geri besleme döngüsü** oluştururdu (bkz. [Her şeyi güvende tutan kurallar](#rules-that-keep-it-safe)).
+Olay günlüğü döngünün adını verir. Geri besleme yapan yönlendirmeyi kaldır.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

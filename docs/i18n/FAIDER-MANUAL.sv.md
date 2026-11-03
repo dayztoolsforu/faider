@@ -209,8 +209,7 @@ sin fader och mätare.
 4. Kontrollera vad de får: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** spelar in 5 sekunder av vad appar
    tar emot och spelar upp det för dig.
 
-Ett program fortsätter också att spela på sin egen enhet. Om det är enheten du lyssnar på, stäng av
-tangenten **HEADPHONES** på dess kanal, annars hör du det dubbelt (PRE-FLIGHT varnar för detta).
+Om du hör ett program dubbelt, se [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** och **+ APP** lägger till kanaler. **+ OUTPUT** lägger till en utgång på en enhet som saknar en.
 Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för **Rename...**,
@@ -224,13 +223,8 @@ kommer inte tillbaka av sig själv.
 Omkopplaren **SIMPLE / PRO** i den övre raden visar samma mix i båda lägena. **PRO** är hela
 konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, plugins.
 
-Så formar du din mikrofon i PRO:
-
-1. Vrid upp **hp** till runt 80–100 Hz för att ta bort buller.
-2. Slå på **DYNAMICS** (omkopplaren med strömsymbolen) och ställ in gate och kompressor.
-3. Ställ in **EQ**.
-
-Se [6](#6-the-channel-strip-section-by-section). Inställningar du gör i PRO fortsätter gälla i SIMPLE.
+För att forma din mikrofon, se [17.1](#171-hear-yourself-set-up-a-microphone). Varje kontroll finns i
+[6](#6-the-channel-strip-section-by-section). Inställningar du gör i PRO fortsätter gälla i SIMPLE.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -285,9 +279,6 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 
 Valen under SELECT och METER kommer ihåg.
 
-Ovanför strippar finns tidsvisningen, transporten för Tape-däcket (spola tillbaka, stopp, spela / paus,
-spola fram, spela in, loop) och omkopplaren **SIMPLE / PRO** (se [Steg 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### Den övre raden
@@ -304,6 +295,7 @@ Från höger:
 | **MINI** | Ett litet mixerfönster som alltid ligger överst |
 | **Hälsolampa** | Grön: ljudet är bra. Gul: ljudbelastningen är hög eller en enhet fick nyligen för lite. Röd: ett hörbart glapp under de senaste 10 sekunderna, eller inget ljud går. Talet är ljudbelastningen. Klicka på den för DEVICES |
 | **SCENES** | Dina sparade mixar. **+** sparar en ny (se [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Samma mix, enkel eller som hela konsolen (se [Steg 7](#step-7-pro-for-the-whole-console)) |
 
 I ett smalt fönster försvinner hälsolampan först, sedan MINI, sedan HISTORY. FIND når dem alla.
 
@@ -389,8 +381,8 @@ någon fördröjning.
 ### Combinators
 
 En combinator är en buss uppdelad i parallella **vägar** (två till att börja med). Varje väg har egna plugins,
-och vägarna summeras vid combinatorns fader. Routa en källa till en väg eller flera. Combinatorns
-strip visar vilka källor som matar varje väg.
+och vägarna summeras vid combinatorns fader. Routa en källa till en väg eller flera (se
+[7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -400,9 +392,8 @@ strip visar vilka källor som matar varje väg.
   buss in i en buss som matar den, en utgångs ljud tillbaka in i dess egen ingång) stängs genast
   av igen, och händelseloggen nämner slingan.
 - **Solo** på vilken strip som helst tystar varje strip som inte är på solo, utom de som är markerade solo safe.
-- **En strip som är avstängd** släpper igenom ingenting, vart den än är routad.
-- **Appkanaler och dubbling.** Ett program spelar på sin egen enhet och även in i sin kanal.
-  Routa inte dess kanal till en utgång på enheten där du redan hör det.
+- **Appkanaler och dubbling.** Ett program spelar på sin egen enhet och även in i sin kanal
+  (se [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -537,7 +528,7 @@ spacer**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 | **EQ** | EQ:n in eller ut |
 | **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv |
 | **Processing order** | Tre block (FILT, EQ, DYN), uppifrån och ned i den ordning kanalen kör dem. **Klicka på ett block** för att flytta det upp ett steg. Översta går till slutet. Tända block används |
-| **Routing boxes** | En ruta per buss och utgångsenhet. Tänd: kanalen skickas dit. Klicka för att växla. Att skicka till en enhet utan utgång skapar dess utgång |
+| **Routing boxes** | En ruta per buss och utgångsenhet. Tänd: kanalen skickas dit. Klicka för att växla (se [Utgångar är enheter](#outputs-are-devices)) |
 | **Number** | Stripens plats på bordet |
 
 <a id="input"></a>
@@ -673,11 +664,7 @@ Varje utgång (master) har sin egen mörka strip:
 
 Högerklicka på en utgång för **Device...**, spacers, **Rename...** och **Remove**.
 
-**Utgångar skapas åt dig.** Skicka en kanal till en enhet (med en routingruta, sidan Routing eller
-**Route to**) så skapas en utgång på den enheten om det inte redan finns en.
-
-**En enhet som saknas.** Om en utgångs enhet dras ut blir den utgången tyst tills enheten
-kommer tillbaka. Ingenting flyttar sig till en annan enhet av sig själv.
+Utgångar skapas åt dig, en per enhet (se [Utgångar är enheter](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** bygger en feed per gäst (allt utom deras egen röst) och
 stems för röst, musik och spel.
@@ -720,7 +707,7 @@ PRO om SIMPLE visas. Varje kort visar:
 - **HEAVY**: ovanligt dyrt
 
 Tangenter på varje kort: **BYPASS**, **OPEN** (dess fönster), **REMOVE** och pilar för att flytta det tidigare eller
-senare. **ADD** på slutet lägger till ett till. Ingenting kan ändras medan stripen är avstängd.
+senare. **ADD** på slutet lägger till ett till.
 
 ---
 
@@ -777,31 +764,12 @@ Om de två blocken inte kan routas (två utgångar, till exempel) väljs det and
 | Låta appar höra din mikrofon | MIC, sedan **CABLE Input** (i raden med utgångar, grå tills den har en utgång) |
 | Skicka en grupp genom en buss | Bussen, sedan varje kanal; sedan bussen, sedan dess utgång |
 | Ta en kanal ur streamen | Kanalen, sedan streamens utgång (linjen försvinner) |
-| Mata en combinator-väg | Källan, sedan vägcellen (P1, P2…) |
+| Mata en combinator-väg | Källan, sedan vägcellen (P1, P2…). Klicka på fler celler för att mata flera vägar. Att klicka på combinatorn utanför dess celler matar dess första väg |
 
 Att klicka på ett grått enhetsblock skapar dess utgång, och den nya utgången dyker upp på bordet direkt.
 
-<a id="combinators-1"></a>
-
-### Combinators
-
-Klicka på källan, sedan på **vägcellen**. En källa kan mata flera vägar: klicka på varje cell i tur och ordning.
-Att klicka på combinatorn utanför dess celler routar in i dess första väg. För att lägga till vägar eller deras
-plugins, högerklicka på combinatorn på bordet > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Flytta kanaler
-
-Dra ett block i sidled längs sin rad. En blå list visar var det landar, och bordet ändras för att
-matcha. Kanaler flyttas bland kanaler, bussar bland bussar, utgångar bland utgångar.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### När en rutt inte stannar på
-
-Rutten skulle skapa en återkopplingsslinga, så den stängs genast av. Händelseloggen nämner slingan.
-Ta bort rutten som matar tillbaka. Se [18.8](#188-a-route-wont-switch-on).
+Dra ett block i sidled längs sin rad för att flytta dess strip (se [17.4](#174-reorder-channels)). En rutt
+som genast stängs av igen skulle skapa en återkopplingsslinga (se [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -848,7 +816,7 @@ Format: WAV, FLAC, AIFF, OGG, MP3. En pad vars fil har flyttats visar **MISSING:
 | **MODE** | **ONE-SHOT** spelar till slutet (att trycka igen startar om). **GATE** spelar medan den hålls nere. **LOOP** startar vid ett tryck och stoppar vid nästa |
 | **CHOKE** | OFF eller grupp 1–8. Pads i en grupp stoppar varandra |
 | **LEVEL** | -INF till +12 dB |
-| **HOTKEY** | Klicka (**LEARN...**) och tryck sedan på tangenterna. Måste innehålla Ctrl, Alt eller en F-tangent. Fungerar medan andra program har fokus. Esc avbryter, Delete rensar |
+| **HOTKEY** | Klicka (**LEARN...**) och tryck sedan på tangenterna (se [HOTKEYS](#hotkeys)) |
 | **MACRO** | Ett makro som körs med paden (en pad kan ha ett makro och inget ljud) |
 | **TRIM** | Dra start- och slutlinjerna på vågformen. Dubbelklicka för hela filen |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1010,7 +978,7 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | Kort | Inställningar |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: öppnas i aktivitetsfältets notisyta när du loggar in |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (en notis när en ljudlös mikrofon ligger över -30 dBFS). Att välja en strip när den berörs är sidofältets **SELECT > AUTO** |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (en notis när en ljudlös mikrofon ligger över -30 dBFS) |
 | **APPS** | **APP RULES...**: vilken buss eller utgång ett program går till när det börjar spela (finns också i **FIND**). Att ta bort ett programs kanal tar bort dess regel |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1061,7 +1029,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Fjärrstyrning, overlay och aktivitetsfält
 
@@ -1112,9 +1080,8 @@ De få steg som kräver en administratör
 
 1. Starta programmet och få det att spela ljud.
 2. **ADD APP** > välj det. Det får en raw-kanal (inga effekter).
-3. Routa den dit du vill höra den. Programmet fortsätter spela på sin egen enhet också, så om du
-   också hör den enheten, routa inte appkanalen till samma ställe (PRE-FLIGHT varnar för den här
-   dubblingen).
+3. Routa den dit du vill höra den. Om du hör den dubbelt, se
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1141,8 +1108,7 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
 1. **ADD BUS > COMBINATOR**. Den börjar med två vägar. Högerklicka på den > **Paths > Add path** för
    fler.
 2. Routa källor till vägcellerna (**P1**, **P2**…) på sidan Routing.
-3. Högerklicka > **Paths > PATH n > Add plugin...** för varje väg. Vägarna summeras vid
-   combinatorns fader. Combinatorstripen visar vad som matar varje väg och öppnar dess plugins.
+3. Högerklicka > **Paths > PATH n > Add plugin...** för varje väg.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1260,17 +1226,18 @@ Följ signalvägen:
 
 ### 18.7 Jag hör något två gånger, eller ett eko
 
-- En appkanal är routad till en utgång på samma enhet som appen redan spelar på, så du hör
-  appen direkt och via Faider. Routa appkanalen någon annanstans, eller flytta appen till
-  en annan enhet.
+- Ett program fortsätter spela på sin egen enhet och även in i sin kanal. Om dess kanal är routad
+  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (i SIMPLE,
+  utgångens tangent på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
+  varnar för detta.
 - Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT > **HEARD ONCE** pekar ut den.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 En rutt går inte att slå på
 
-Den skulle skapa en **återkopplingsslinga** (ljud som återvänder dit det kom ifrån), så den stängs genast
-av igen. Händelseloggen nämner slingan. Bryt den genom att ta bort rutten som matar tillbaka.
+Den skulle skapa en **återkopplingsslinga** (se [Regler som håller det säkert](#rules-that-keep-it-safe)).
+Händelseloggen nämner slingan. Ta bort rutten som matar tillbaka.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

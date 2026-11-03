@@ -209,8 +209,7 @@ seinen Fader und Pegelmesser.
 4. Prüfe, was sie bekommen: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** nimmt 5 Sekunden von dem auf, was Apps
    empfangen, und spielt es dir vor.
 
-Ein Programm spielt außerdem weiter auf seinem eigenen Gerät. Hörst du auf diesem Gerät, schalte die Taste
-**HEADPHONES** seines Kanals aus, sonst hörst du es doppelt (PRE-FLIGHT warnt davor).
+Hörst du ein Programm doppelt, siehe [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** und **+ APP** fügen Kanäle hinzu. **+ OUTPUT** fügt einen Ausgang auf einem Gerät hinzu, das keinen hat.
 Die Gerätetaste unter dem Namen eines Ausgangs ändert, wo er spielt. Klicke mit rechts auf einen Namen für **Rename...**,
@@ -224,13 +223,8 @@ nicht von selbst zurückkommt.
 Der Schalter **SIMPLE / PRO** in der oberen Leiste zeigt in beiden Fällen denselben Mix. **PRO** ist das ganze
 Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren, Plugins.
 
-So formst du dein Mikrofon in PRO:
-
-1. Drehe **hp** auf etwa 80–100 Hz hoch, um Rumpeln zu entfernen.
-2. Schalte **DYNAMICS** ein (der Schalter mit dem Ein-Symbol) und stelle Gate und Kompressor ein.
-3. Stelle den **EQ** ein.
-
-Siehe [6](#6-the-channel-strip-section-by-section). Einstellungen, die du in PRO machst, wirken auch in SIMPLE weiter.
+Wie du dein Mikrofon formst, steht in [17.1](#171-hear-yourself-set-up-a-microphone). Jedes Bedienelement steht in
+[6](#6-the-channel-strip-section-by-section). Einstellungen, die du in PRO machst, wirken auch in SIMPLE weiter.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -285,9 +279,6 @@ diese Karten (in SIMPLE nur **ADD CHANNEL** und **ADD APP**):
 
 Die Wahl bei SELECT und METER wird gespeichert.
 
-Über den Strips sitzen die Zeitanzeige, der Transport für das Tape-Deck (Zurückspulen, Stopp, Wiedergabe / Pause,
-Vorspulen, Aufnahme, Schleife) und der Schalter **SIMPLE / PRO** (siehe [Schritt 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### Die obere Leiste
@@ -304,6 +295,7 @@ Von rechts:
 | **MINI** | Ein kleines Mixer-Fenster, das immer im Vordergrund bleibt |
 | **Gesundheitslicht** | Grün: Das Audio ist in Ordnung. Gelb: Die Audiolast ist hoch oder ein Gerät kam zuletzt zu kurz. Rot: ein hörbarer Aussetzer in den letzten 10 Sekunden, oder es läuft kein Audio. Die Zahl ist die Audiolast. Klicke darauf, um zu DEVICES zu gelangen |
 | **SCENES** | Deine gespeicherten Mixe. Mit **+** speicherst du einen neuen (siehe [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Derselbe Mix, schlicht oder als ganzes Pult (siehe [Schritt 7](#step-7-pro-for-the-whole-console)) |
 
 In einem schmalen Fenster verschwindet zuerst das Gesundheitslicht, dann MINI, dann HISTORY. FIND erreicht sie alle.
 
@@ -389,8 +381,8 @@ Verzögerung hinzu.
 ### Combinatoren
 
 Ein Combinator ist ein Bus, der in parallele **Pfade** aufgeteilt ist (zu Beginn zwei). Jeder Pfad hat eigene Plugins,
-und die Pfade werden am Fader des Combinators summiert. Route eine Quelle in einen Pfad oder in mehrere. Der Strip
-des Combinators zeigt, welche Quellen jeden Pfad speisen.
+und die Pfade werden am Fader des Combinators summiert. Route eine Quelle in einen Pfad oder in mehrere (siehe
+[7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -400,9 +392,8 @@ des Combinators zeigt, welche Quellen jeden Pfad speisen.
   Bus in einen Bus, der ihn speist, der Klang eines Ausgangs zurück in seinen eigenen Eingang), wird sofort
   wieder ausgeschaltet, und das Ereignisprotokoll nennt die Schleife.
 - **Solo** an einem beliebigen Strip macht jeden Strip stumm, der nicht auf Solo steht, außer den als Solo Safe markierten.
-- **Ein ausgeschalteter Strip** lässt nichts durch, egal wohin er geroutet ist.
-- **App-Kanäle und Verdopplung.** Ein Programm spielt auf seinem eigenen Gerät und zusätzlich in seinen Kanal.
-  Route seinen Kanal nicht auf einen Ausgang auf dem Gerät, auf dem du es schon hörst.
+- **App-Kanäle und Verdopplung.** Ein Programm spielt auf seinem eigenen Gerät und zusätzlich in seinen Kanal
+  (siehe [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -536,7 +527,7 @@ spacer**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 | **EQ** | Den EQ ein oder aus |
 | **EXT** | Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst |
 | **Processing order** | Drei Blöcke (FILT, EQ, DYN), von oben nach unten in der Reihenfolge, in der der Kanal sie durchläuft. **Klicke auf einen Block**, um ihn eins nach oben zu schieben. Der oberste geht ans Ende. Leuchtende Blöcke sind in Benutzung |
-| **Routing boxes** | Eine Box pro Bus und Ausgabegerät. Leuchtet: Der Kanal wird dorthin gesendet. Klicke zum Umschalten. Das Senden an ein Gerät ohne Ausgang erstellt dessen Ausgang |
+| **Routing boxes** | Eine Box pro Bus und Ausgabegerät. Leuchtet: Der Kanal wird dorthin gesendet. Klicke zum Umschalten (siehe [Ausgänge sind Geräte](#outputs-are-devices)) |
 | **Number** | Der Platz des Strips am Pult |
 
 <a id="input"></a>
@@ -672,11 +663,7 @@ Jeder Ausgang (Master) hat seinen eigenen dunklen Strip:
 
 Rechtsklick auf einen Ausgang für **Device...**, Spacer, **Rename...** und **Remove**.
 
-**Ausgänge werden für dich erstellt.** Sende einen Kanal an ein Gerät (mit einer Routing-Box, der Seite Routing oder
-**Route to**), und auf diesem Gerät wird ein Ausgang erstellt, falls dort keiner ist.
-
-**Ein fehlendes Gerät.** Wird das Gerät eines Ausgangs abgezogen, wird dieser Ausgang stumm, bis das Gerät
-zurückkommt. Nichts wandert von selbst auf ein anderes Gerät.
+Ausgänge werden für dich erstellt, einer pro Gerät (siehe [Ausgänge sind Geräte](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** baut für jeden Gast einen Feed (alles außer seiner eigenen Stimme) sowie
 Stems für Stimme, Musik und Spiel.
@@ -719,7 +706,7 @@ PRO, wenn gerade SIMPLE zu sehen ist. Jede Karte zeigt:
 - **HEAVY**: ungewöhnlich aufwendig
 
 Tasten auf jeder Karte: **BYPASS**, **OPEN** (sein Fenster), **REMOVE** und Pfeile, um es früher oder
-später zu schieben. **ADD** am Ende fügt ein weiteres hinzu. Solange der Strip ausgeschaltet ist, lässt sich nichts ändern.
+später zu schieben. **ADD** am Ende fügt ein weiteres hinzu.
 
 ---
 
@@ -776,31 +763,12 @@ Lassen sich die beiden Blöcke nicht routen (zum Beispiel zwei Ausgänge), wird 
 | Apps dein Mikrofon hören zu lassen | MIC, dann **CABLE Input** (in der Zeile der Ausgänge, grau, bis es einen Ausgang hat) |
 | Eine Gruppe über einen Bus zu schicken | Den Bus, dann jeden Kanal; dann den Bus, dann seinen Ausgang |
 | Einen Kanal aus dem Stream zu nehmen | Den Kanal, dann den Ausgang des Streams (die Linie verschwindet) |
-| Einen Combinator-Pfad zu speisen | Die Quelle, dann die Pfadzelle (P1, P2…) |
+| Einen Combinator-Pfad zu speisen | Die Quelle, dann die Pfadzelle (P1, P2…). Klicke weitere Zellen an, um mehrere Pfade zu speisen. Ein Klick auf den Combinator außerhalb seiner Zellen speist seinen ersten Pfad |
 
 Das Anklicken eines grauen Geräteblocks erstellt dessen Ausgang, und der neue Ausgang erscheint sofort am Pult.
 
-<a id="combinators-1"></a>
-
-### Combinatoren
-
-Klicke die Quelle an, dann die **Pfadzelle**. Eine Quelle kann mehrere Pfade speisen: Klicke nacheinander jede Zelle an.
-Ein Klick auf den Combinator außerhalb seiner Zellen routet in seinen ersten Pfad. Um Pfade oder deren
-Plugins hinzuzufügen, klicke den Combinator am Pult mit rechts an > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Kanäle verschieben
-
-Ziehe einen Block seitwärts entlang seiner Zeile. Ein blauer Balken zeigt, wo er landet, und das Pult ändert sich
-entsprechend. Kanäle bewegen sich unter Kanälen, Busse unter Bussen, Ausgänge unter Ausgängen.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Wenn eine Route nicht eingeschaltet bleibt
-
-Die Route würde eine Rückkopplungsschleife bilden, also wird sie sofort wieder ausgeschaltet. Das Ereignisprotokoll nennt die Schleife.
-Entferne die Route, die zurückspeist. Siehe [18.8](#188-a-route-wont-switch-on).
+Ziehe einen Block seitwärts entlang seiner Zeile, um seinen Strip zu verschieben (siehe [17.4](#174-reorder-channels)). Eine Route,
+die sofort wieder ausgeschaltet wird, würde eine Rückkopplungsschleife bilden (siehe [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -847,7 +815,7 @@ Formate: WAV, FLAC, AIFF, OGG, MP3. Ein Pad, dessen Datei verschoben wurde, zeig
 | **MODE** | **ONE-SHOT** spielt bis zum Ende (erneutes Drücken startet neu). **GATE** spielt, solange es gehalten wird. **LOOP** startet mit einem Druck und stoppt mit dem nächsten |
 | **CHOKE** | OFF oder Gruppe 1–8. Pads in einer Gruppe stoppen sich gegenseitig |
 | **LEVEL** | -INF bis +12 dB |
-| **HOTKEY** | Klicke (**LEARN...**), dann drücke die Tasten. Muss Ctrl, Alt oder eine F-Taste enthalten. Funktioniert, auch wenn andere Programme den Fokus haben. Esc bricht ab, Delete löscht |
+| **HOTKEY** | Klicke (**LEARN...**), dann drücke die Tasten (siehe [HOTKEYS](#hotkeys)) |
 | **MACRO** | Ein Makro, das mit dem Pad läuft (ein Pad kann ein Makro haben und keinen Sound) |
 | **TRIM** | Ziehe die Start- und Endlinie auf der Wellenform. Doppelklick für die ganze Datei |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1009,7 +977,7 @@ Mix beginnt. Siehe [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | Karte | Einstellungen |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: öffnet im Tray, wenn du dich anmeldest |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (eine Meldung, wenn ein stummes Mikrofon über -30 dBFS liegt). Einen Strip beim Berühren auszuwählen ist **SELECT > AUTO** in der Seitenleiste |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (eine Meldung, wenn ein stummes Mikrofon über -30 dBFS liegt) |
 | **APPS** | **APP RULES...**: auf welchen Bus oder Ausgang ein Programm geht, wenn es zu spielen beginnt (auch in **FIND**). Das Entfernen des Kanals eines Programms entfernt seine Regel |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1060,7 +1028,7 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Fernsteuerung, Overlay und Tray
 
@@ -1111,9 +1079,8 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 
 1. Starte das Programm und lass es Klang spielen.
 2. **ADD APP** > wähle es. Es bekommt einen Raw-Kanal (ohne Effekte).
-3. Route es dorthin, wo du es hören willst. Das Programm spielt zusätzlich weiter auf seinem eigenen Gerät. Hörst du
-   dieses Gerät auch, route den App-Kanal also nicht an dieselbe Stelle (PRE-FLIGHT warnt vor dieser
-   Verdopplung).
+3. Route es dorthin, wo du es hören willst. Hörst du es doppelt, siehe
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1140,8 +1107,7 @@ und ihre Routen gehen mit. SIMPLE zeigt die Ausgänge in derselben Reihenfolge.
 1. **ADD BUS > COMBINATOR**. Er startet mit zwei Pfaden. Rechtsklick darauf > **Paths > Add path** für
    mehr.
 2. Route auf der Seite Routing Quellen in die Pfadzellen (**P1**, **P2**…).
-3. Rechtsklick > **Paths > PATH n > Add plugin...** für jeden Pfad. Die Pfade werden am Fader des
-   Combinators summiert. Der Combinator-Strip zeigt, was jeden Pfad speist, und öffnet seine Plugins.
+3. Rechtsklick > **Paths > PATH n > Add plugin...** für jeden Pfad.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1259,17 +1225,18 @@ Gehe den Signalweg entlang:
 
 ### 18.7 Ich höre etwas doppelt, oder ein Echo
 
-- Ein App-Kanal ist auf einen Ausgang auf demselben Gerät geroutet, auf dem die App schon spielt, also hörst du
-  die App direkt und über Faider. Route den App-Kanal woandershin oder verschiebe die App auf
-  ein anderes Gerät.
+- Ein Programm spielt auf seinem eigenen Gerät weiter und zusätzlich in seinen Kanal. Ist sein Kanal auf einen
+  Ausgang auf demselben Gerät geroutet, hörst du es direkt und über Faider. Schalte diese Route aus
+  (in SIMPLE die Taste des Ausgangs am Kanal) oder verschiebe das Programm auf ein anderes Gerät. PRE-FLIGHT
+  warnt davor.
 - Der Standardlautsprecher von Windows ist auf das virtuelle Kabel gestellt. PRE-FLIGHT > **HEARD ONCE** nennt es.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 Eine Route lässt sich nicht einschalten
 
-Sie würde eine **Rückkopplungsschleife** bilden (Klang kehrt dorthin zurück, woher er kam), also wird sie sofort
-wieder ausgeschaltet. Das Ereignisprotokoll nennt die Schleife. Durchbrich sie, indem du die Route entfernst, die zurückspeist.
+Sie würde eine **Rückkopplungsschleife** bilden (siehe [Regeln, die es sicher halten](#rules-that-keep-it-safe)). Das
+Ereignisprotokoll nennt die Schleife. Entferne die Route, die zurückspeist.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

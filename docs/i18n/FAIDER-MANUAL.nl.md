@@ -209,8 +209,7 @@ zijn fader en meter.
 4. Controleer wat ze krijgen: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** neemt 5 seconden op van wat apps
    ontvangen en speelt het voor je af.
 
-Een programma blijft ook op zijn eigen apparaat spelen. Is dat het apparaat waarop je luistert, zet dan de
-toets **HEADPHONES** van het kanaal uit, anders hoor je het dubbel (PRE-FLIGHT waarschuwt hiervoor).
+Hoor je een programma dubbel, zie dan [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** en **+ APP** voegen kanalen toe. **+ OUTPUT** voegt een uitgang toe op een apparaat dat er geen heeft.
 De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor **Rename...**,
@@ -224,13 +223,8 @@ niet vanzelf terugkomt.
 De schakelaar **SIMPLE / PRO** in de bovenbalk toont in beide gevallen dezelfde mix. **PRO** is de hele
 console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinators, plugins.
 
-Zo vorm je je microfoon in PRO:
-
-1. Draai **hp** op tot rond 80–100 Hz om gerommel weg te halen.
-2. Zet **DYNAMICS** aan (de schakelaar met het aan/uit-symbool) en stel de gate en compressor in.
-3. Stel de **EQ** in.
-
-Zie [6](#6-the-channel-strip-section-by-section). Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.
+Om je microfoon te vormen, zie [17.1](#171-hear-yourself-set-up-a-microphone). Elke knop staat in
+[6](#6-the-channel-strip-section-by-section). Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -285,9 +279,6 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 
 De keuzes bij SELECT en METER worden onthouden.
 
-Boven de strips staan de tijdweergave, de transportknoppen voor het Tape-deck (terugspoelen, stop, afspelen / pauze,
-vooruitspoelen, opnemen, herhalen) en de schakelaar **SIMPLE / PRO** (zie [Stap 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### De bovenbalk
@@ -304,6 +295,7 @@ Van rechts:
 | **MINI** | Een klein mixervenster dat altijd bovenop blijft |
 | **Gezondheidslicht** | Groen: de audio is in orde. Oranje: de audiobelasting is hoog of een apparaat kwam onlangs tekort. Rood: een hoorbare storing in de laatste 10 seconden, of er draait geen audio. Het getal is de audiobelasting. Klik erop voor DEVICES |
 | **SCENES** | Je opgeslagen mixen. Met **+** sla je een nieuwe op (zie [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Dezelfde mix, eenvoudig of als de hele console (zie [Stap 7](#step-7-pro-for-the-whole-console)) |
 
 In een smal venster verdwijnt eerst het gezondheidslicht, dan MINI, dan HISTORY. Met FIND bereik je ze allemaal.
 
@@ -389,8 +381,8 @@ vertraging toe.
 ### Combinators
 
 Een combinator is een bus die in parallelle **paden** is gesplitst (om mee te beginnen twee). Elk pad heeft eigen plugins,
-en de paden worden opgeteld bij de fader van de combinator. Routeer een bron naar één pad of naar meerdere. De strip
-van de combinator toont welke bronnen elk pad voeden.
+en de paden worden opgeteld bij de fader van de combinator. Routeer een bron naar één pad of naar meerdere (zie
+[7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -400,9 +392,8 @@ van de combinator toont welke bronnen elk pad voeden.
   bus naar een bus die hem voedt, het geluid van een uitgang terug in zijn eigen ingang) wordt meteen
   weer uitgezet, en het gebeurtenissenlogboek noemt de lus.
 - **Solo** op een willekeurige strip maakt elke strip stil die niet op solo staat, behalve de strips die als solo safe zijn gemarkeerd.
-- **Een strip die uit staat** laat niets door, waar hij ook naartoe gerouteerd is.
-- **Appkanalen en verdubbeling.** Een programma speelt op zijn eigen apparaat en ook in zijn kanaal.
-  Routeer zijn kanaal niet naar een uitgang op het apparaat waarop je het al hoort.
+- **Appkanalen en verdubbeling.** Een programma speelt op zijn eigen apparaat en ook in zijn kanaal
+  (zie [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -536,7 +527,7 @@ spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 | **EQ** | De EQ in of uit |
 | **EXT** | De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf |
 | **Processing order** | Drie blokken (FILT, EQ, DYN), van boven naar beneden in de volgorde waarin het kanaal ze doorloopt. **Klik op een blok** om het één plek omhoog te zetten. Het bovenste gaat naar het einde. Oplichtende blokken zijn in gebruik |
-| **Routing boxes** | Eén vakje per bus en uitvoerapparaat. Verlicht: het kanaal wordt daarheen gestuurd. Klik om te schakelen. Sturen naar een apparaat zonder uitgang maakt zijn uitgang aan |
+| **Routing boxes** | Eén vakje per bus en uitvoerapparaat. Verlicht: het kanaal wordt daarheen gestuurd. Klik om te schakelen (zie [Uitgangen zijn apparaten](#outputs-are-devices)) |
 | **Number** | De plaats van de strip op de tafel |
 
 <a id="input"></a>
@@ -672,11 +663,7 @@ Elke uitgang (master) heeft zijn eigen donkere strip:
 
 Rechtsklik op een uitgang voor **Device...**, spacers, **Rename...** en **Remove**.
 
-**Uitgangen worden voor je gemaakt.** Stuur een kanaal naar een apparaat (met een routeringsvakje, de pagina Routing of
-**Route to**) en er wordt een uitgang op dat apparaat gemaakt als er nog geen is.
-
-**Een ontbrekend apparaat.** Wordt het apparaat van een uitgang losgehaald, dan wordt die uitgang stil tot het apparaat
-terugkomt. Niets verhuist uit zichzelf naar een ander apparaat.
+Uitgangen worden voor je gemaakt, één per apparaat (zie [Uitgangen zijn apparaten](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** bouwt een feed per gast (alles behalve hun eigen stem) en
 stems voor stem, muziek en game.
@@ -719,7 +706,7 @@ PRO als SIMPLE in beeld is. Elke kaart toont:
 - **HEAVY**: ongewoon duur
 
 Toetsen op elke kaart: **BYPASS**, **OPEN** (zijn venster), **REMOVE** en pijlen om hem eerder of
-later te zetten. **ADD** aan het einde voegt er nog een toe. Zolang de strip uit staat, kan er niets worden veranderd.
+later te zetten. **ADD** aan het einde voegt er nog een toe.
 
 ---
 
@@ -776,31 +763,12 @@ Kunnen de twee blokken niet worden gerouteerd (twee uitgangen, bijvoorbeeld), da
 | Apps je microfoon te laten horen | MIC, dan **CABLE Input** (in de rij met uitgangen, grijs tot hij een uitgang heeft) |
 | Een groep via een bus te sturen | De bus, dan elk kanaal; dan de bus, dan zijn uitgang |
 | Een kanaal uit de stream te halen | Het kanaal, dan de uitgang van de stream (de lijn verdwijnt) |
-| Eén combinatorpad te voeden | De bron, dan de padcel (P1, P2…) |
+| Eén combinatorpad te voeden | De bron, dan de padcel (P1, P2…). Klik op meer cellen om meerdere paden te voeden. Op de combinator klikken buiten zijn cellen voedt zijn eerste pad |
 
 Een grijs apparaatblok aanklikken maakt zijn uitgang, en de nieuwe uitgang verschijnt meteen op de tafel.
 
-<a id="combinators-1"></a>
-
-### Combinators
-
-Klik op de bron en dan op de **padcel**. Een bron kan meerdere paden voeden: klik om de beurt op elke cel.
-Op de combinator klikken buiten zijn cellen routeert naar zijn eerste pad. Om paden of hun
-plugins toe te voegen, rechtsklik je op de combinator op de tafel > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Kanalen verplaatsen
-
-Sleep een blok opzij langs zijn rij. Een blauwe balk toont waar het terechtkomt, en de tafel past zich
-aan. Kanalen verplaatsen tussen kanalen, bussen tussen bussen, uitgangen tussen uitgangen.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Als een route niet aan blijft
-
-De route zou een feedbacklus maken, dus wordt hij meteen weer uitgezet. Het gebeurtenissenlogboek noemt de lus.
-Verwijder de route die terugvoert. Zie [18.8](#188-a-route-wont-switch-on).
+Sleep een blok opzij langs zijn rij om zijn strip te verplaatsen (zie [17.4](#174-reorder-channels)). Een route
+die meteen weer uitgaat, zou een feedbacklus maken (zie [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -847,7 +815,7 @@ Formaten: WAV, FLAC, AIFF, OGG, MP3. Een pad waarvan het bestand is verplaatst, 
 | **MODE** | **ONE-SHOT** speelt tot het einde (nogmaals indrukken start opnieuw). **GATE** speelt zolang het wordt ingedrukt. **LOOP** start met één druk en stopt bij de volgende |
 | **CHOKE** | OFF of groep 1–8. Pads in één groep stoppen elkaar |
 | **LEVEL** | -INF tot +12 dB |
-| **HOTKEY** | Klik (**LEARN...**) en druk dan op de toetsen. Moet Ctrl, Alt of een F-toets bevatten. Werkt ook als andere programma's focus hebben. Esc annuleert, Delete wist |
+| **HOTKEY** | Klik (**LEARN...**) en druk dan op de toetsen (zie [HOTKEYS](#hotkeys)) |
 | **MACRO** | Een macro die met het pad wordt uitgevoerd (een pad kan een macro hebben en geen geluid) |
 | **TRIM** | Sleep de start- en eindlijn op de golfvorm. Dubbelklik voor het hele bestand |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1009,7 +977,7 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | Kaart | Instellingen |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: opent in het systeemvak wanneer je je aanmeldt |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (een melding als een gedempte microfoon boven -30 dBFS komt). Een strip selecteren als hij wordt aangeraakt is **SELECT > AUTO** in de zijbalk |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (een melding als een gedempte microfoon boven -30 dBFS komt) |
 | **APPS** | **APP RULES...**: naar welke bus of uitgang een programma gaat als het begint te spelen (ook in **FIND**). Het kanaal van een programma verwijderen verwijdert zijn regel |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1060,7 +1028,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Afstandsbediening, overlay en systeemvak
 
@@ -1111,9 +1079,8 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 
 1. Start het programma en laat het geluid spelen.
 2. **ADD APP** > kies het. Het krijgt een raw-kanaal (zonder effecten).
-3. Routeer het waar je het wilt horen. Het programma blijft ook op zijn eigen apparaat spelen. Hoor je
-   dat apparaat ook, routeer het appkanaal dan niet naar dezelfde plek (PRE-FLIGHT waarschuwt voor deze
-   verdubbeling).
+3. Routeer het waar je het wilt horen. Hoor je het dubbel, zie dan
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1140,8 +1107,7 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 1. **ADD BUS > COMBINATOR**. Hij begint met twee paden. Rechtsklik erop > **Paths > Add path** voor
    meer.
 2. Routeer op de pagina Routing bronnen naar de padcellen (**P1**, **P2**…).
-3. Rechtsklik > **Paths > PATH n > Add plugin...** voor elk pad. De paden worden opgeteld bij de fader van de
-   combinator. De combinatorstrip toont wat elk pad voedt en opent zijn plugins.
+3. Rechtsklik > **Paths > PATH n > Add plugin...** voor elk pad.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1259,17 +1225,18 @@ Loop het signaalpad af:
 
 ### 18.7 Ik hoor iets dubbel, of een echo
 
-- Een appkanaal is gerouteerd naar een uitgang op hetzelfde apparaat waarop de app al speelt, dus je hoort
-  de app rechtstreeks en via Faider. Routeer het appkanaal ergens anders heen, of verplaats de app naar
-  een ander apparaat.
+- Een programma blijft op zijn eigen apparaat spelen en ook in zijn kanaal. Is zijn kanaal gerouteerd naar
+  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (in SIMPLE
+  de toets van de uitgang op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
+  waarschuwt hiervoor.
 - De standaardspeaker van Windows staat op de virtuele kabel. PRE-FLIGHT > **HEARD ONCE** noemt hem.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 Een route gaat niet aan
 
-Hij zou een **feedbacklus** maken (geluid dat terugkeert naar waar het vandaan kwam), dus wordt hij meteen
-weer uitgezet. Het gebeurtenissenlogboek noemt de lus. Doorbreek hem door de route te verwijderen die terugvoert.
+Hij zou een **feedbacklus** maken (zie [Regels die het veilig houden](#rules-that-keep-it-safe)). Het
+gebeurtenissenlogboek noemt de lus. Verwijder de route die terugvoert.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

@@ -185,8 +185,7 @@ fader and meter.
 4. Check what they get: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** records 5 seconds of what apps
    receive and plays it back to you.
 
-A program keeps playing on its own device as well. If that's the device you listen on, switch off
-its channel's **HEADPHONES** key, or you hear it twice (PRE-FLIGHT warns about this).
+If you hear a program twice, see [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** and **+ APP** add channels. **+ OUTPUT** adds an output on a device that has none.
 The device key under an output's name changes where it plays. Right-click a name for **Rename...**,
@@ -198,13 +197,8 @@ doesn't come back by itself.
 The **SIMPLE / PRO** switch in the top bar shows the same mix either way. **PRO** is the whole
 console: each channel's input, filters, dynamics and EQ, buses and combinators, plugins.
 
-To shape your microphone in PRO:
-
-1. Turn **hp** up to around 80–100 Hz to remove rumble.
-2. Put **DYNAMICS** in (the switch with the power symbol) and set the gate and compressor.
-3. Set the **EQ**.
-
-See [6](#6-the-channel-strip-section-by-section). Settings you make in PRO keep working in SIMPLE.
+To shape your microphone, see [17.1](#171-hear-yourself-set-up-a-microphone). Every control is in
+[6](#6-the-channel-strip-section-by-section). Settings you make in PRO keep working in SIMPLE.
 
 ### Step 8: Run PRE-FLIGHT
 
@@ -251,9 +245,6 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 
 The SELECT and METER choices are remembered.
 
-Above the strips sit the time display, the transport for the Tape deck (rewind, stop, play / pause,
-wind on, record, loop) and the **SIMPLE / PRO** switch (see [Step 7](#step-7-pro-for-the-whole-console)).
-
 ### The top bar
 
 ![The top bar: scenes, the health light, MINI, HISTORY, FIND and zoom](images/console/topbar.jpg)
@@ -268,6 +259,7 @@ From the right:
 | **MINI** | A small always-on-top mixer window |
 | **Health light** | Green: audio is fine. Amber: the audio load is high or a device ran short recently. Red: an audible glitch in the last 10 seconds, or no audio running. The number is the audio load. Click it for DEVICES |
 | **SCENES** | Your stored mixes. **+** stores a new one (see [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | The same mix, simple or as the whole console (see [Step 7](#step-7-pro-for-the-whole-console)) |
 
 In a narrow window the health light goes first, then MINI, then HISTORY. FIND reaches them all.
 
@@ -339,8 +331,8 @@ delay.
 ### Combinators
 
 A combinator is a bus split into parallel **paths** (two to start). Each path has its own plugins,
-and the paths are summed at the combinator's fader. Route a source into one path or several. The
-combinator's strip shows which sources feed each path.
+and the paths are summed at the combinator's fader. Route a source into one path or several (see
+[7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 ### Rules that keep it safe
 
@@ -348,9 +340,8 @@ combinator's strip shows which sources feed each path.
   bus into a bus that feeds it, an output's sound fed back into its own input) is switched straight
   off again, and the event log names the loop.
 - **Solo** on any strip silences every strip that isn't soloed, except those marked solo safe.
-- **A strip that's switched off** passes nothing, whatever it's routed to.
-- **App channels and doubling.** A program plays on its own device as well as into its channel.
-  Don't route its channel to an output on the device you already hear it on.
+- **App channels and doubling.** A program plays on its own device as well as into its channel
+  (see [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 ### Clocking
 
@@ -463,7 +454,7 @@ spacer**. A spacer stays with the strip it follows when that strip moves.
 | **EQ** | The EQ in or out |
 | **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself |
 | **Processing order** | Three blocks (FILT, EQ, DYN), top to bottom in the order the channel runs them. **Click a block** to move it up one. The top one goes to the end. Lit blocks are in use |
-| **Routing boxes** | One box per bus and output device. Lit: the channel is sent there. Click to switch. Sending to a device with no output yet creates its output |
+| **Routing boxes** | One box per bus and output device. Lit: the channel is sent there. Click to switch (see [Outputs are devices](#outputs-are-devices)) |
 | **Number** | The strip's place on the desk |
 
 ### INPUT
@@ -585,11 +576,7 @@ Each output (master) has its own dark strip:
 
 Right-click an output for **Device...**, spacers, **Rename...** and **Remove**.
 
-**Outputs are made for you.** Send a channel to a device (with a routing box, the Routing page or
-**Route to**) and an output is created on that device if there isn't one.
-
-**A missing device.** If an output's device is unplugged, that output goes silent until the device
-comes back. Nothing moves to another device by itself.
+Outputs are made for you, one per device (see [Outputs are devices](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** builds a feed per guest (everything but their own voice) and voice,
 music and game stems.
@@ -626,7 +613,7 @@ PRO if SIMPLE is showing. Each card shows:
 - **HEAVY**: unusually expensive
 
 Keys on each card: **BYPASS**, **OPEN** (its window), **REMOVE**, and arrows to move it earlier or
-later. **ADD** at the end adds another. Nothing can be changed while the strip is switched off.
+later. **ADD** at the end adds another.
 
 ---
 
@@ -675,25 +662,12 @@ If the two blocks can't be routed (two outputs, say), the second one is selected
 | Let apps hear your mic | MIC, then **CABLE Input** (in the outputs row, grey until it has an output) |
 | Send a group through a bus | The bus, then each channel; then the bus, then its output |
 | Take a channel out of the stream | The channel, then the stream's output (the line goes) |
-| Feed one combinator path | The source, then the path cell (P1, P2…) |
+| Feed one combinator path | The source, then the path cell (P1, P2…). Click more cells to feed several paths. Clicking the combinator outside its cells feeds its first path |
 
 Clicking a grey device block makes its output, and the new output appears on the desk at once.
 
-### Combinators
-
-Click the source, then the **path cell**. A source can feed several paths: click each cell in
-turn. Clicking the combinator outside its cells routes into its first path. To add paths or their
-plugins, right-click the combinator on the desk > **Paths**.
-
-### Moving channels
-
-Drag a block sideways along its row. A blue bar shows where it lands, and the desk changes to
-match. Channels move among channels, buses among buses, outputs among outputs.
-
-### When a route won't stay on
-
-The route would make a feedback loop, so it's switched straight off. The event log names the loop.
-Remove the route that feeds back. See [18.8](#188-a-route-wont-switch-on).
+Drag a block sideways along its row to move its strip (see [17.4](#174-reorder-channels)). A route
+that switches straight off again would make a feedback loop (see [18.8](#188-a-route-wont-switch-on)).
 
 ## 11. Tools: Pads
 
@@ -732,7 +706,7 @@ Formats: WAV, FLAC, AIFF, OGG, MP3. A pad whose file has moved shows **MISSING: 
 | **MODE** | **ONE-SHOT** plays to the end (pressing again restarts). **GATE** plays while held. **LOOP** starts on one press and stops on the next |
 | **CHOKE** | OFF or group 1–8. Pads in one group stop each other |
 | **LEVEL** | -INF to +12 dB |
-| **HOTKEY** | Click (**LEARN...**), then press the keys. Must include Ctrl, Alt or an F key. Works while other programs have focus. Esc cancels, Delete clears |
+| **HOTKEY** | Click (**LEARN...**), then press the keys (see [HOTKEYS](#hotkeys)) |
 | **MACRO** | A macro to run with the pad (a pad can have a macro and no sound) |
 | **TRIM** | Drag the start and end lines on the waveform. Double-click for the whole file |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -868,7 +842,7 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | Card | Settings |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: opens in the tray when you sign in |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (a notice when a muted mic is above -30 dBFS). Selecting a strip when it's touched is the sidebar's **SELECT > AUTO** |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (a notice when a muted mic is above -30 dBFS) |
 | **APPS** | **APP RULES...**: which bus or output a program goes to when it starts playing (also in **FIND**). Removing a program's channel removes its rule |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -955,9 +929,8 @@ themselves.
 
 1. Start the program and make it play sound.
 2. **ADD APP** > pick it. It gets a raw channel (no effects).
-3. Route it where you want it heard. The program keeps playing on its own device too, so if you
-   also hear that device, don't route the app channel to the same place (PRE-FLIGHT warns about
-   this doubling).
+3. Route it where you want it heard. If you hear it twice, see
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 ### 17.4 Reorder channels
 
@@ -978,8 +951,7 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 1. **ADD BUS > COMBINATOR**. It starts with two paths. Right-click it > **Paths > Add path** for
    more.
 2. On the Routing page, route sources into the path cells (**P1**, **P2**…).
-3. Right-click > **Paths > PATH n > Add plugin...** for each path. The paths are summed at the
-   combinator's fader. The combinator strip shows what feeds each path and opens its plugins.
+3. Right-click > **Paths > PATH n > Add plugin...** for each path.
 
 ### 17.7 Make a stream mix and a headphone mix
 
@@ -1075,15 +1047,16 @@ Work along the signal path:
 
 ### 18.7 I hear something twice, or an echo
 
-- An app channel is routed to an output on the same device the app already plays on, so you hear
-  the app directly and through Faider. Route the app channel elsewhere, or move the app to
-  another device.
+- A program keeps playing on its own device as well as into its channel. If its channel is routed
+  to an output on that same device, you hear it directly and through Faider. Switch that route off
+  (in SIMPLE, the output's key on the channel), or move the program to another device. PRE-FLIGHT
+  warns about this.
 - Windows' default speaker is set to the virtual cable. PRE-FLIGHT > **HEARD ONCE** names it.
 
 ### 18.8 A route won't switch on
 
-It would make a **feedback loop** (sound returning to where it came from), so it's switched
-straight off. The event log names the loop. Break it by removing the route that feeds back.
+It would make a **feedback loop** (see [Rules that keep it safe](#rules-that-keep-it-safe)). The
+event log names the loop. Remove the route that feeds back.
 
 ### 18.9 I can't change anything on a strip
 

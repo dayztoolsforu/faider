@@ -270,7 +270,7 @@
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Raw strips: apps, pads, tape and combinators</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Outputs</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>The Routing page</a><ul class="toc-sub"><li><a href="#reading-the-page">Reading the page</a></li><li><a href="#routing-block-to-block">Routing block to block</a></li><li><a href="#examples">Examples</a></li><li><a href="#combinators_1">Combinators</a></li><li><a href="#moving-channels">Moving channels</a></li><li><a href="#when-a-route-wont-stay-on">When a route won't stay on</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>The Routing page</a><ul class="toc-sub"><li><a href="#reading-the-page">Reading the page</a></li><li><a href="#routing-block-to-block">Routing block to block</a></li><li><a href="#examples">Examples</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Tools: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Tools: Tape, Recorder and Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Devices</a></li>
@@ -522,8 +522,7 @@ fader and meter.</p>
 <li>Check what they get: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> records 5 seconds of what apps
    receive and plays it back to you.</li>
 </ol>
-<p>A program keeps playing on its own device as well. If that's the device you listen on, switch off
-its channel's <span class="key">HEADPHONES</span> key, or you hear it twice (PRE-FLIGHT warns about this).</p>
+<p>If you hear a program twice, see <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> and <span class="key">+ APP</span> add channels. <span class="key">+ OUTPUT</span> adds an output on a device that has none.
 The device key under an output's name changes where it plays. Right-click a name for <strong>Rename...</strong>,
 the colour and <strong>Remove</strong>. Removing a program's channel also removes its app rule, so the channel
@@ -531,13 +530,8 @@ doesn't come back by itself.</p>
 <h3 id="step-7-pro-for-the-whole-console">Step 7: PRO, for the whole console</h3>
 <p>The <span class="key">SIMPLE / PRO</span> switch in the top bar shows the same mix either way. <span class="key">PRO</span> is the whole
 console: each channel's input, filters, dynamics and EQ, buses and combinators, plugins.</p>
-<p>To shape your microphone in PRO:</p>
-<ol>
-<li>Turn <strong>hp</strong> up to around 80–100 Hz to remove rumble.</li>
-<li>Put <span class="key">DYNAMICS</span> in (the switch with the power symbol) and set the gate and compressor.</li>
-<li>Set the <span class="key">EQ</span>.</li>
-</ol>
-<p>See <a href="#6-the-channel-strip-section-by-section">6</a>. Settings you make in PRO keep working in SIMPLE.</p>
+<p>To shape your microphone, see <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Every control is in
+<a href="#6-the-channel-strip-section-by-section">6</a>. Settings you make in PRO keep working in SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Step 8: Run PRE-FLIGHT</h3>
 <p>A few seconds after start, <span class="key">PRE-FLIGHT</span> checks the setup and opens only if something needs
 attention (not on the very first start, when SETUP comes first). Run it any time from
@@ -615,8 +609,6 @@ these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span clas
 </tbody>
 </table></div>
 <p>The SELECT and METER choices are remembered.</p>
-<p>Above the strips sit the time display, the transport for the Tape deck (rewind, stop, play / pause,
-wind on, record, loop) and the <span class="key">SIMPLE / PRO</span> switch (see <a href="#step-7-pro-for-the-whole-console">Step 7</a>).</p>
 <h3 id="the-top-bar">The top bar</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="The top bar: scenes, the health light, MINI, HISTORY, FIND and zoom"><img data-shot="images/console/topbar.jpg" alt="The top bar: scenes, the health light, MINI, HISTORY, FIND and zoom" loading="lazy"></button><figcaption>The top bar: scenes, the health light, MINI, HISTORY, FIND and zoom</figcaption></figure></div>
 <p>From the right:</p>
@@ -651,6 +643,10 @@ wind on, record, loop) and the <span class="key">SIMPLE / PRO</span> switch (see
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Your stored mixes. <strong>+</strong> stores a new one (see <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>The same mix, simple or as the whole console (see <a href="#step-7-pro-for-the-whole-console">Step 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -723,17 +719,16 @@ reach it twice (once direct, once through the bus). A bus can feed another bus, 
 delay.</p>
 <h3 id="combinators">Combinators</h3>
 <p>A combinator is a bus split into parallel <strong>paths</strong> (two to start). Each path has its own plugins,
-and the paths are summed at the combinator's fader. Route a source into one path or several. The
-combinator's strip shows which sources feed each path.</p>
+and the paths are summed at the combinator's fader. Route a source into one path or several (see
+<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Rules that keep it safe</h3>
 <ul>
 <li><strong>Feedback loops are refused.</strong> A route that would bring a sound back to where it came from (a
   bus into a bus that feeds it, an output's sound fed back into its own input) is switched straight
   off again, and the event log names the loop.</li>
 <li><strong>Solo</strong> on any strip silences every strip that isn't soloed, except those marked solo safe.</li>
-<li><strong>A strip that's switched off</strong> passes nothing, whatever it's routed to.</li>
-<li><strong>App channels and doubling.</strong> A program plays on its own device as well as into its channel.
-  Don't route its channel to an output on the device you already hear it on.</li>
+<li><strong>App channels and doubling.</strong> A program plays on its own device as well as into its channel
+  (see <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Clocking</h3>
 <p>One device sets the clock. Faider chooses it in this order when it starts:</p>
@@ -945,7 +940,7 @@ spacer</strong>. A spacer stays with the strip it follows when that strip moves.
 </tr>
 <tr>
 <td><strong>Routing boxes</strong></td>
-<td>One box per bus and output device. Lit: the channel is sent there. Click to switch. Sending to a device with no output yet creates its output</td>
+<td>One box per bus and output device. Lit: the channel is sent there. Click to switch (see <a href="#outputs-are-devices">Outputs are devices</a>)</td>
 </tr>
 <tr>
 <td><strong>Number</strong></td>
@@ -1207,10 +1202,7 @@ plugins, rename it or remove it.</p>
 </tbody>
 </table></div>
 <p>Right-click an output for <strong>Device...</strong>, spacers, <strong>Rename...</strong> and <strong>Remove</strong>.</p>
-<p><strong>Outputs are made for you.</strong> Send a channel to a device (with a routing box, the Routing page or
-<strong>Route to</strong>) and an output is created on that device if there isn't one.</p>
-<p><strong>A missing device.</strong> If an output's device is unplugged, that output goes silent until the device
-comes back. Nothing moves to another device by itself.</p>
+<p>Outputs are made for you, one per device (see <a href="#outputs-are-devices">Outputs are devices</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> builds a feed per guest (everything but their own voice) and voice,
 music and game stems.</p>
 
@@ -1240,7 +1232,7 @@ PRO if SIMPLE is showing. Each card shows:</p>
 <li><span class="key">HEAVY</span>: unusually expensive</li>
 </ul>
 <p>Keys on each card: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (its window), <span class="key">REMOVE</span>, and arrows to move it earlier or
-later. <span class="key">ADD</span> at the end adds another. Nothing can be changed while the strip is switched off.</p>
+later. <span class="key">ADD</span> at the end adds another.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>The Routing page</h2></header>
@@ -1302,21 +1294,13 @@ Use it to see where everything goes, and to route by clicking two blocks.</p>
 </tr>
 <tr>
 <td>Feed one combinator path</td>
-<td>The source, then the path cell (P1, P2…)</td>
+<td>The source, then the path cell (P1, P2…). Click more cells to feed several paths. Clicking the combinator outside its cells feeds its first path</td>
 </tr>
 </tbody>
 </table></div>
 <p>Clicking a grey device block makes its output, and the new output appears on the desk at once.</p>
-<h3 id="combinators_1">Combinators</h3>
-<p>Click the source, then the <strong>path cell</strong>. A source can feed several paths: click each cell in
-turn. Clicking the combinator outside its cells routes into its first path. To add paths or their
-plugins, right-click the combinator on the desk &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Moving channels</h3>
-<p>Drag a block sideways along its row. A blue bar shows where it lands, and the desk changes to
-match. Channels move among channels, buses among buses, outputs among outputs.</p>
-<h3 id="when-a-route-wont-stay-on">When a route won't stay on</h3>
-<p>The route would make a feedback loop, so it's switched straight off. The event log names the loop.
-Remove the route that feeds back. See <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Drag a block sideways along its row to move its strip (see <a href="#174-reorder-channels">17.4</a>). A route
+that switches straight off again would make a feedback loop (see <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Tools: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> gives you four banks (<span class="key">A–D</span>) of 16 pads: 64 sounds, up to 32 playing at once.</p>
@@ -1397,7 +1381,7 @@ channel's plugins and routes. With no pads channel, presses are ignored.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Click (<span class="key">LEARN...</span>), then press the keys. Must include Ctrl, Alt or an F key. Works while other programs have focus. Esc cancels, Delete clears</td>
+<td>Click (<span class="key">LEARN...</span>), then press the keys (see <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -1604,7 +1588,7 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (a notice when a muted mic is above -30 dBFS). Selecting a strip when it's touched is the sidebar's <strong>SELECT &gt; AUTO</strong></td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (a notice when a muted mic is above -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -1757,9 +1741,8 @@ themselves.</p>
 <ol>
 <li>Start the program and make it play sound.</li>
 <li><span class="key">ADD APP</span> &gt; pick it. It gets a raw channel (no effects).</li>
-<li>Route it where you want it heard. The program keeps playing on its own device too, so if you
-   also hear that device, don't route the app channel to the same place (PRE-FLIGHT warns about
-   this doubling).</li>
+<li>Route it where you want it heard. If you hear it twice, see
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Reorder channels</h3>
 <p>Drag a channel's <strong>name bar</strong> sideways on the Mixer (scroll down to the NAME section), or drag its
@@ -1778,8 +1761,7 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. It starts with two paths. Right-click it &gt; <strong>Paths &gt; Add path</strong> for
    more.</li>
 <li>On the Routing page, route sources into the path cells (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Right-click &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> for each path. The paths are summed at the
-   combinator's fader. The combinator strip shows what feeds each path and opens its plugins.</li>
+<li>Right-click &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> for each path.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Make a stream mix and a headphone mix</h3>
 <ol>
@@ -1913,14 +1895,15 @@ up if something is wrong. Each row has a light, the finding and a fix:</p>
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 I hear something twice, or an echo</summary><div class="trouble-body">
 <ul>
-<li>An app channel is routed to an output on the same device the app already plays on, so you hear
-  the app directly and through Faider. Route the app channel elsewhere, or move the app to
-  another device.</li>
+<li>A program keeps playing on its own device as well as into its channel. If its channel is routed
+  to an output on that same device, you hear it directly and through Faider. Switch that route off
+  (in SIMPLE, the output's key on the channel), or move the program to another device. PRE-FLIGHT
+  warns about this.</li>
 <li>Windows' default speaker is set to the virtual cable. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> names it.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 A route won't switch on</summary><div class="trouble-body">
-<p>It would make a <strong>feedback loop</strong> (sound returning to where it came from), so it's switched
-straight off. The event log names the loop. Break it by removing the route that feeds back.</p>
+<p>It would make a <strong>feedback loop</strong> (see <a href="#rules-that-keep-it-safe">Rules that keep it safe</a>). The
+event log names the loop. Remove the route that feeds back.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 I can't change anything on a strip</summary><div class="trouble-body">
 <p>The strip is <strong>switched off</strong> (dim and grey). Click the power symbol on its name bar.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Dragging a channel does nothing</summary><div class="trouble-body">
@@ -2117,7 +2100,7 @@ and as the default communication devices. See <a href="#step-2-install-vb-cable-
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Strips en bruto: aplicaciones, pads, cinta y combinadores</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Salidas</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La página Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Leer la página</a></li><li><a href="#routing-block-to-block">Enrutar de bloque a bloque</a></li><li><a href="#examples">Ejemplos</a></li><li><a href="#combinators_1">Combinadores</a></li><li><a href="#moving-channels">Mover canales</a></li><li><a href="#when-a-route-wont-stay-on">Cuando una ruta no se queda activada</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La página Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Leer la página</a></li><li><a href="#routing-block-to-block">Enrutar de bloque a bloque</a></li><li><a href="#examples">Ejemplos</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Herramientas: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Herramientas: Tape, grabadora y Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivos</a></li>
@@ -2376,9 +2359,7 @@ suena, su fader y su medidor.</p>
 <li>Comprueba lo que reciben: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> graba 5 segundos de lo que
    reciben las aplicaciones y te lo reproduce.</li>
 </ol>
-<p>Un programa sigue sonando también en su propio dispositivo. Si es el dispositivo en el que
-escuchas, desactiva la tecla <span class="key">HEADPHONES</span> de su canal, o lo oirás dos veces (PRE-FLIGHT avisa de
-esto).</p>
+<p>Si oyes un programa dos veces, consulta <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> y <span class="key">+ APP</span> añaden canales. <span class="key">+ OUTPUT</span> añade una salida en un dispositivo que no
 tiene ninguna. La tecla de dispositivo bajo el nombre de una salida cambia dónde suena. Haz clic
 derecho en un nombre para <strong>Rename...</strong>, el color y <strong>Remove</strong>. Quitar el canal de un programa
@@ -2387,13 +2368,8 @@ también quita su regla de aplicación, para que el canal no vuelva solo.</p>
 <p>El conmutador <span class="key">SIMPLE / PRO</span> de la barra superior muestra la misma mezcla en ambos casos. <span class="key">PRO</span>
 es la consola entera: la entrada de cada canal, los filtros, la dinámica y el EQ, los buses y los
 combinadores, los plugins.</p>
-<p>Para dar forma a tu micrófono en PRO:</p>
-<ol>
-<li>Sube <strong>hp</strong> hasta unos 80–100 Hz para quitar los retumbos.</li>
-<li>Activa <span class="key">DYNAMICS</span> (el conmutador con el símbolo de encendido) y ajusta el gate y el compresor.</li>
-<li>Ajusta el <span class="key">EQ</span>.</li>
-</ol>
-<p>Consulta <a href="#6-the-channel-strip-section-by-section">6</a>. Los ajustes que haces en PRO siguen
+<p>Para dar forma a tu micrófono, consulta <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Todos los
+controles están en <a href="#6-the-channel-strip-section-by-section">6</a>. Los ajustes que haces en PRO siguen
 funcionando en SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Paso 8: ejecutar PRE-FLIGHT</h3>
 <p>Unos segundos después del inicio, <span class="key">PRE-FLIGHT</span> comprueba la configuración y solo se abre si algo
@@ -2474,9 +2450,6 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, sol
 </tbody>
 </table></div>
 <p>Las opciones de SELECT y METER se recuerdan.</p>
-<p>Sobre los strips están la pantalla de tiempo, el transporte de la cinta (rebobinar, parar,
-reproducir / pausa, avanzar, grabar, bucle) y el conmutador <span class="key">SIMPLE / PRO</span> (consulta el
-<a href="#step-7-pro-for-the-whole-console">paso 7</a>).</p>
 <h3 id="the-top-bar">La barra superior</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La barra superior: escenas, la luz de estado, MINI, HISTORY, FIND y zoom"><img data-shot="images/console/topbar.jpg" alt="La barra superior: escenas, la luz de estado, MINI, HISTORY, FIND y zoom" loading="lazy"></button><figcaption>La barra superior: escenas, la luz de estado, MINI, HISTORY, FIND y zoom</figcaption></figure></div>
 <p>Desde la derecha:</p>
@@ -2511,6 +2484,10 @@ reproducir / pausa, avanzar, grabar, bucle) y el conmutador <span class="key">SI
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Tus mezclas guardadas. <strong>+</strong> guarda una nueva (consulta <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>La misma mezcla, simple o como la consola entera (consulta el <a href="#step-7-pro-for-the-whole-console">paso 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -2586,7 +2563,7 @@ retardo.</p>
 <h3 id="combinators">Combinadores</h3>
 <p>Un combinador es un bus dividido en <strong>caminos</strong> paralelos (dos al empezar). Cada camino tiene sus
 propios plugins, y los caminos se suman en el fader del combinador. Enruta una fuente a un camino o
-a varios. El strip del combinador muestra qué fuentes alimentan cada camino.</p>
+a varios (consulta <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Reglas que lo mantienen seguro</h3>
 <ul>
 <li><strong>Se rechazan los bucles de realimentación.</strong> Una ruta que devolvería un sonido al lugar de donde
@@ -2594,9 +2571,8 @@ a varios. El strip del combinador muestra qué fuentes alimentan cada camino.</p
   desactiva de inmediato, y el registro de eventos nombra el bucle.</li>
 <li><strong>Solo</strong> en cualquier strip silencia todos los strips que no están en solo, salvo los marcados
   como solo safe.</li>
-<li><strong>Un strip desactivado</strong> no deja pasar nada, esté enrutado adonde esté.</li>
 <li><strong>Canales de aplicaciones y duplicación.</strong> Un programa suena en su propio dispositivo además de en
-  su canal. No enrutes su canal a una salida del dispositivo en el que ya lo oyes.</li>
+  su canal (consulta <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Sincronización</h3>
 <p>Un dispositivo fija el reloj. Faider lo elige en este orden al iniciar:</p>
@@ -2815,7 +2791,7 @@ mueve.</p>
 </tr>
 <tr>
 <td><strong>Casillas de enrutamiento</strong></td>
-<td>Una casilla por bus y por dispositivo de salida. Encendida: el canal se envía ahí. Haz clic para cambiar. Enviar a un dispositivo que aún no tiene salida crea su salida</td>
+<td>Una casilla por bus y por dispositivo de salida. Encendida: el canal se envía ahí. Haz clic para cambiar (consulta <a href="#outputs-are-devices">Las salidas son dispositivos</a>)</td>
 </tr>
 <tr>
 <td><strong>Número</strong></td>
@@ -3077,10 +3053,8 @@ o quitar sus plugins, renombrarlo o eliminarlo.</p>
 </tbody>
 </table></div>
 <p>Clic derecho en una salida para <strong>Device...</strong>, separadores, <strong>Rename...</strong> y <strong>Remove</strong>.</p>
-<p><strong>Las salidas se crean por ti.</strong> Envía un canal a un dispositivo (con una casilla de enrutamiento, la
-página Routing o <strong>Route to</strong>) y se crea una salida en ese dispositivo si no hay ninguna.</p>
-<p><strong>Un dispositivo ausente.</strong> Si se desconecta el dispositivo de una salida, esa salida queda en
-silencio hasta que vuelva. Nada pasa solo a otro dispositivo.</p>
+<p>Las salidas se crean por ti, una por dispositivo (consulta
+<a href="#outputs-are-devices">Las salidas son dispositivos</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> construye un envío por invitado (todo menos su propia voz) y stems de
 voz, música y juego.</p>
 
@@ -3111,7 +3085,7 @@ strip, y cambia a PRO si SIMPLE está a la vista. Cada tarjeta muestra:</p>
 <li><span class="key">HEAVY</span>: inusualmente costoso</li>
 </ul>
 <p>Teclas de cada tarjeta: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (su ventana), <span class="key">REMOVE</span>, y flechas para moverlo antes
-o después. <span class="key">ADD</span> al final añade otro. No se puede cambiar nada mientras el strip está apagado.</p>
+o después. <span class="key">ADD</span> al final añade otro.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>La página Routing</h2></header>
@@ -3175,25 +3149,15 @@ línea. Úsala para ver adónde va todo, y para enrutar haciendo clic en dos blo
 </tr>
 <tr>
 <td>Alimentar un camino de combinador</td>
-<td>La fuente, luego la celda del camino (P1, P2…)</td>
+<td>La fuente, luego la celda del camino (P1, P2…). Haz clic en más celdas para alimentar varios caminos. Hacer clic en el combinador fuera de sus celdas alimenta su primer camino</td>
 </tr>
 </tbody>
 </table></div>
 <p>Hacer clic en un bloque de dispositivo gris crea su salida, y la nueva salida aparece de inmediato
 en la mesa.</p>
-<h3 id="combinators_1">Combinadores</h3>
-<p>Haz clic en la fuente y luego en la <strong>celda del camino</strong>. Una fuente puede alimentar varios caminos:
-haz clic en cada celda por turno. Hacer clic en el combinador fuera de sus celdas enruta a su
-primer camino. Para añadir caminos o sus plugins, haz clic derecho en el combinador en la mesa &gt;
-<strong>Paths</strong>.</p>
-<h3 id="moving-channels">Mover canales</h3>
-<p>Arrastra un bloque de lado a lo largo de su fila. Una barra azul muestra dónde cae, y la mesa
-cambia para coincidir. Los canales se mueven entre canales, los buses entre buses, las salidas
-entre salidas.</p>
-<h3 id="when-a-route-wont-stay-on">Cuando una ruta no se queda activada</h3>
-<p>La ruta crearía un bucle de realimentación, así que se desactiva de inmediato. El registro de
-eventos nombra el bucle. Quita la ruta que realimenta. Consulta
-<a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Arrastra un bloque de lado a lo largo de su fila para mover su strip (consulta
+<a href="#174-reorder-channels">17.4</a>). Una ruta que se desactiva de inmediato crearía un bucle de
+realimentación (consulta <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Herramientas: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> te da cuatro bancos (<span class="key">A–D</span>) de 16 pads: 64 sonidos, hasta 32 sonando a la vez.</p>
@@ -3274,7 +3238,7 @@ de los plugins y las rutas de ese canal. Sin un canal de pads, se ignoran las pu
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Haz clic (<span class="key">LEARN...</span>), luego pulsa las teclas. Debe incluir Ctrl, Alt o una tecla F. Funciona mientras otros programas tienen el foco. Esc cancela, Supr borra</td>
+<td>Haz clic (<span class="key">LEARN...</span>), luego pulsa las teclas (consulta <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -3488,7 +3452,7 @@ cuadrados que brillan en color crema cuando están activados.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un aviso cuando un micro silenciado supera -30 dBFS). Seleccionar un strip al tocarlo es <strong>SELECT &gt; AUTO</strong> de la barra lateral</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un aviso cuando un micro silenciado supera -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -3644,9 +3608,8 @@ apagado) piden permiso por sí mismos.</p>
 <ol>
 <li>Inicia el programa y haz que reproduzca sonido.</li>
 <li><span class="key">ADD APP</span> &gt; elígelo. Recibe un canal en bruto (sin efectos).</li>
-<li>Enrútalo adonde quieras oírlo. El programa sigue sonando también en su propio dispositivo, así
-   que si además oyes ese dispositivo, no enrutes el canal de la aplicación al mismo sitio
-   (PRE-FLIGHT avisa de esta duplicación).</li>
+<li>Enrútalo adonde quieras oírlo. Si lo oyes dos veces, consulta
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Reordenar canales</h3>
 <p>Arrastra de lado la <strong>barra de nombre</strong> de un canal en el Mixer (desplázate hacia abajo hasta la
@@ -3666,9 +3629,7 @@ las salidas en el mismo orden.</p>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Empieza con dos caminos. Clic derecho en él &gt; <strong>Paths &gt; Add path</strong> para
    tener más.</li>
 <li>En la página Routing, enruta fuentes a las celdas de camino (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Clic derecho &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> para cada camino. Los caminos se suman en el
-   fader del combinador. El strip del combinador muestra qué alimenta cada camino y abre sus
-   plugins.</li>
+<li>Clic derecho &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> para cada camino.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Hacer una mezcla para el stream y otra para los auriculares</h3>
 <ol>
@@ -3807,16 +3768,17 @@ aparece si algo va mal. Cada fila tiene una luz, el hallazgo y una solución:</p
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Oigo algo dos veces, o un eco</summary><div class="trouble-body">
 <ul>
-<li>Un canal de aplicación está enrutado a una salida del mismo dispositivo en el que la aplicación ya
-  suena, así que oyes la aplicación directamente y a través de Faider. Enruta el canal de
-  la aplicación a otro sitio, o pasa la aplicación a otro dispositivo.</li>
+<li>Un programa sigue sonando en su propio dispositivo además de en su canal. Si su canal está
+  enrutado a una salida de ese mismo dispositivo, lo oyes directamente y a través de Faider.
+  Desactiva esa ruta (en SIMPLE, la tecla de la salida en el canal), o pasa el programa a otro
+  dispositivo. PRE-FLIGHT avisa de esto.</li>
 <li>El altavoz predeterminado de Windows está puesto en el cable virtual. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span>
   lo nombra.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Una ruta no se activa</summary><div class="trouble-body">
-<p>Crearía un <strong>bucle de realimentación</strong> (un sonido que vuelve al lugar de donde vino), así que se
-desactiva de inmediato. El registro de eventos nombra el bucle. Rómpelo quitando la ruta que
-realimenta.</p>
+<p>Crearía un <strong>bucle de realimentación</strong> (consulta
+<a href="#rules-that-keep-it-safe">Reglas que lo mantienen seguro</a>). El registro de eventos nombra el bucle.
+Quita la ruta que realimenta.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 No puedo cambiar nada en un strip</summary><div class="trouble-body">
 <p>El strip está <strong>apagado</strong> (atenuado y gris). Haz clic en el símbolo de encendido de su barra de
 nombre.</p>
@@ -4017,7 +3979,7 @@ Consulta el <a href="#step-2-install-vb-cable-optional">paso 2</a>.</p>
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Tranches brutes : applications, pads, bande et combinateurs</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Sorties</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La page Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Lire la page</a></li><li><a href="#routing-block-to-block">Router d'un bloc à l'autre</a></li><li><a href="#examples">Exemples</a></li><li><a href="#combinators_1">Combinateurs</a></li><li><a href="#moving-channels">Déplacer des canaux</a></li><li><a href="#when-a-route-wont-stay-on">Quand une liaison ne reste pas activée</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La page Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Lire la page</a></li><li><a href="#routing-block-to-block">Router d'un bloc à l'autre</a></li><li><a href="#examples">Exemples</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Outils : Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Outils : Tape, enregistreur et Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Périphériques</a></li>
@@ -4278,9 +4240,7 @@ joue, son fader et son vumètre.</p>
 <li>Vérifiez ce qu'elles reçoivent : <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> enregistre 5
    secondes de ce que reçoivent les applications et vous le rejoue.</li>
 </ol>
-<p>Un programme continue aussi de jouer sur son propre périphérique. Si c'est le périphérique sur
-lequel vous écoutez, désactivez la touche <span class="key">HEADPHONES</span> de son canal, sinon vous l'entendez deux
-fois (PRE-FLIGHT vous en avertit).</p>
+<p>Si vous entendez un programme deux fois, voir <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> et <span class="key">+ APP</span> ajoutent des canaux. <span class="key">+ OUTPUT</span> ajoute une sortie sur un périphérique
 qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
 Faites un clic droit sur un nom pour <strong>Rename...</strong>, la couleur et <strong>Remove</strong>. Retirer le canal d'un
@@ -4289,14 +4249,8 @@ programme retire aussi sa règle d'application, de sorte que le canal ne revient
 <p>Le commutateur <span class="key">SIMPLE / PRO</span> de la barre du haut montre le même mix dans les deux cas. <span class="key">PRO</span>
 est la console complète : l'entrée de chaque canal, les filtres, la dynamique et l'égaliseur, les
 bus et les combinateurs, les plugins.</p>
-<p>Pour façonner votre microphone en PRO :</p>
-<ol>
-<li>Montez <strong>hp</strong> vers 80–100 Hz pour retirer les grondements.</li>
-<li>Activez <span class="key">DYNAMICS</span> (le commutateur avec le symbole d'alimentation) et réglez le gate et le
-   compresseur.</li>
-<li>Réglez l'<span class="key">EQ</span>.</li>
-</ol>
-<p>Voir <a href="#6-the-channel-strip-section-by-section">6</a>. Les réglages faits en PRO continuent à
+<p>Pour façonner votre microphone, voir <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Chaque
+commande est décrite en <a href="#6-the-channel-strip-section-by-section">6</a>. Les réglages faits en PRO continuent à
 fonctionner en SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Étape 8 : lancer PRE-FLIGHT</h3>
 <p>Quelques secondes après le démarrage, <span class="key">PRE-FLIGHT</span> vérifie la configuration et ne s'ouvre que si
@@ -4376,9 +4330,6 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement <span clas
 </tbody>
 </table></div>
 <p>Les choix de SELECT et de METER sont mémorisés.</p>
-<p>Au-dessus des tranches se trouvent l'affichage du temps, le transport du lecteur Tape (retour,
-arrêt, lecture / pause, avance, enregistrement, boucle) et le commutateur <span class="key">SIMPLE / PRO</span> (voir
-l'<a href="#step-7-pro-for-the-whole-console">étape 7</a>).</p>
 <h3 id="the-top-bar">La barre du haut</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La barre du haut : scènes, voyant d&#x27;état, MINI, HISTORY, FIND et zoom"><img data-shot="images/console/topbar.jpg" alt="La barre du haut : scènes, voyant d&#x27;état, MINI, HISTORY, FIND et zoom" loading="lazy"></button><figcaption>La barre du haut : scènes, voyant d&#x27;état, MINI, HISTORY, FIND et zoom</figcaption></figure></div>
 <p>En partant de la droite :</p>
@@ -4413,6 +4364,10 @@ l'<a href="#step-7-pro-for-the-whole-console">étape 7</a>).</p>
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Vos mix enregistrés. <strong>+</strong> en enregistre un nouveau (voir <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Le même mix, en simple ou en console complète (voir l'<a href="#step-7-pro-for-the-whole-console">étape 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -4490,8 +4445,7 @@ alimenter un autre bus, sans ajouter de retard.</p>
 <h3 id="combinators">Combinateurs</h3>
 <p>Un combinateur est un bus divisé en <strong>chemins</strong> parallèles (deux au départ). Chaque chemin a ses
 propres plugins, et les chemins sont additionnés au fader du combinateur. Routez une source vers un
-chemin ou vers plusieurs. La tranche du combinateur montre quelles sources alimentent chaque
-chemin.</p>
+chemin ou vers plusieurs (voir <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Les règles qui assurent la sécurité</h3>
 <ul>
 <li><strong>Les boucles de rétroaction sont refusées.</strong> Une liaison qui ramènerait un son à son point de
@@ -4499,10 +4453,8 @@ chemin.</p>
   immédiatement désactivée, et le journal des événements nomme la boucle.</li>
 <li><strong>Solo</strong> sur n'importe quelle tranche rend muette toute tranche qui n'est pas en solo, sauf celles
   marquées solo safe.</li>
-<li><strong>Une tranche désactivée</strong> ne laisse rien passer, quoi qu'elle soit routée.</li>
 <li><strong>Canaux d'applications et doublon.</strong> Un programme joue sur son propre périphérique en même temps
-  que dans son canal. Ne routez pas son canal vers une sortie du périphérique sur lequel vous
-  l'entendez déjà.</li>
+  que dans son canal (voir <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Synchronisation</h3>
 <p>Un seul périphérique donne l'horloge. Faider le choisit dans cet ordre au démarrage :</p>
@@ -4722,7 +4674,7 @@ quand cette tranche bouge.</p>
 </tr>
 <tr>
 <td><strong>Cases de routage</strong></td>
-<td>Une case par bus et par périphérique de sortie. Allumée : le canal y est envoyé. Cliquez pour basculer. Envoyer vers un périphérique qui n'a pas encore de sortie crée sa sortie</td>
+<td>Une case par bus et par périphérique de sortie. Allumée : le canal y est envoyé. Cliquez pour basculer (voir <a href="#outputs-are-devices">Les sorties sont des périphériques</a>)</td>
 </tr>
 <tr>
 <td><strong>Numéro</strong></td>
@@ -4985,11 +4937,8 @@ ou retirer ses plugins, le renommer ou le supprimer.</p>
 </tbody>
 </table></div>
 <p>Clic droit sur une sortie pour <strong>Device...</strong>, les espaceurs, <strong>Rename...</strong> et <strong>Remove</strong>.</p>
-<p><strong>Les sorties sont créées pour vous.</strong> Envoyez un canal vers un périphérique (avec une case de
-routage, la page Routing ou <strong>Route to</strong>) et une sortie est créée sur ce périphérique s'il n'y en a
-pas.</p>
-<p><strong>Un périphérique absent.</strong> Si le périphérique d'une sortie est débranché, cette sortie devient
-silencieuse jusqu'à son retour. Rien ne bascule tout seul vers un autre périphérique.</p>
+<p>Les sorties sont créées pour vous, une par périphérique (voir
+<a href="#outputs-are-devices">Les sorties sont des périphériques</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> construit un retour par invité (tout sauf sa propre voix) et des
 stems voix, musique et jeu.</p>
 
@@ -5020,8 +4969,7 @@ sur cette tranche, et passe en PRO si SIMPLE est affiché. Chaque carte montre :
 <li><span class="key">HEAVY</span> : anormalement coûteux</li>
 </ul>
 <p>Touches de chaque carte : <span class="key">BYPASS</span>, <span class="key">OPEN</span> (sa fenêtre), <span class="key">REMOVE</span>, et des flèches pour le
-placer plus tôt ou plus tard. <span class="key">ADD</span> à la fin en ajoute un autre. Rien ne peut être modifié tant
-que la tranche est désactivée.</p>
+placer plus tôt ou plus tard. <span class="key">ADD</span> à la fin en ajoute un autre.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>La page Routing</h2></header>
@@ -5088,25 +5036,15 @@ sélectionné à la place.</p>
 </tr>
 <tr>
 <td>Alimenter un chemin de combinateur</td>
-<td>La source, puis la cellule du chemin (P1, P2…)</td>
+<td>La source, puis la cellule du chemin (P1, P2…). Cliquez sur d'autres cellules pour alimenter plusieurs chemins. Cliquer sur le combinateur en dehors de ses cellules alimente son premier chemin</td>
 </tr>
 </tbody>
 </table></div>
 <p>Cliquer sur un bloc de périphérique grisé crée sa sortie, et la nouvelle sortie apparaît aussitôt
 sur le pupitre.</p>
-<h3 id="combinators_1">Combinateurs</h3>
-<p>Cliquez sur la source, puis sur la <strong>cellule du chemin</strong>. Une source peut alimenter plusieurs
-chemins : cliquez sur chaque cellule à tour de rôle. Cliquer sur le combinateur en dehors de ses
-cellules route vers son premier chemin. Pour ajouter des chemins ou leurs plugins, faites un clic
-droit sur le combinateur sur le pupitre &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Déplacer des canaux</h3>
-<p>Faites glisser un bloc latéralement le long de sa rangée. Une barre bleue montre où il atterrit, et
-le pupitre change en conséquence. Les canaux se déplacent parmi les canaux, les bus parmi les bus,
-les sorties parmi les sorties.</p>
-<h3 id="when-a-route-wont-stay-on">Quand une liaison ne reste pas activée</h3>
-<p>La liaison créerait une boucle de rétroaction, elle est donc immédiatement désactivée. Le journal
-des événements nomme la boucle. Retirez la liaison qui reboucle. Voir
-<a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Faites glisser un bloc latéralement le long de sa rangée pour déplacer sa tranche (voir
+<a href="#174-reorder-channels">17.4</a>). Une liaison qui se désactive aussitôt créerait une boucle de
+rétroaction (voir <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Outils : Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> vous donne quatre banques (<span class="key">A–D</span>) de 16 pads : 64 sons, jusqu'à 32 joués en même
@@ -5188,7 +5126,7 @@ pads à travers les plugins et les liaisons de ce canal. Sans canal de pads, les
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Cliquez (<span class="key">LEARN...</span>), puis appuyez sur les touches. Doit comporter Ctrl, Alt ou une touche F. Fonctionne même quand d'autres programmes ont le focus. Échap annule, Suppr efface</td>
+<td>Cliquez (<span class="key">LEARN...</span>), puis appuyez sur les touches (voir <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -5406,7 +5344,7 @@ en crème quand ils sont activés.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un avis quand un micro coupé dépasse -30 dBFS). Sélectionner une tranche quand on la touche, c'est <strong>SELECT &gt; AUTO</strong> de la barre latérale</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un avis quand un micro coupé dépasse -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -5563,9 +5501,8 @@ désactivé) demandent elles-mêmes la permission.</p>
 <ol>
 <li>Lancez le programme et faites-le jouer du son.</li>
 <li><span class="key">ADD APP</span> &gt; choisissez-le. Il reçoit un canal brut (sans effets).</li>
-<li>Routez-le là où vous voulez l'entendre. Le programme continue aussi de jouer sur son propre
-   périphérique, donc si vous entendez aussi ce périphérique, ne routez pas le canal de
-   l'application au même endroit (PRE-FLIGHT vous avertit de ce doublon).</li>
+<li>Routez-le là où vous voulez l'entendre. Si vous l'entendez deux fois, voir
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Réordonner les canaux</h3>
 <p>Faites glisser la <strong>barre de nom</strong> d'un canal latéralement dans le Mixer (descendez jusqu'à la
@@ -5586,9 +5523,7 @@ liaisons les suivent. SIMPLE montre les sorties dans le même ordre.</p>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Il démarre avec deux chemins. Clic droit dessus &gt; <strong>Paths &gt; Add path</strong>
    pour en avoir plus.</li>
 <li>Sur la page Routing, routez des sources vers les cellules de chemin (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Clic droit &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> pour chaque chemin. Les chemins sont additionnés
-   au fader du combinateur. La tranche du combinateur montre ce qui alimente chaque chemin et ouvre
-   ses plugins.</li>
+<li>Clic droit &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> pour chaque chemin.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Faire un mix de stream et un mix de casque</h3>
 <ol>
@@ -5726,16 +5661,17 @@ nom <code>session-unloaded-&lt;date&gt;.xml</code>. Le journal des événements 
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 J'entends quelque chose deux fois, ou un écho</summary><div class="trouble-body">
 <ul>
-<li>Un canal d'application est routé vers une sortie du même périphérique que celui sur lequel
-  l'application joue déjà, donc vous entendez l'application directement et par Faider.
-  Routez le canal de l'application ailleurs, ou déplacez l'application vers un autre périphérique.</li>
+<li>Un programme continue de jouer sur son propre périphérique en même temps que dans son canal. Si
+  son canal est routé vers une sortie de ce même périphérique, vous l'entendez directement et par
+  Faider. Désactivez cette liaison (en SIMPLE, la touche de la sortie sur le canal), ou déplacez le
+  programme vers un autre périphérique. PRE-FLIGHT vous en avertit.</li>
 <li>Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span>
   le nomme.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Une liaison ne s'active pas</summary><div class="trouble-body">
-<p>Elle créerait une <strong>boucle de rétroaction</strong> (un son qui revient à son point de départ), donc elle
-est immédiatement désactivée. Le journal des événements nomme la boucle. Cassez-la en retirant la
-liaison qui reboucle.</p>
+<p>Elle créerait une <strong>boucle de rétroaction</strong> (voir
+<a href="#rules-that-keep-it-safe">Les règles qui assurent la sécurité</a>). Le journal des événements nomme
+la boucle. Retirez la liaison qui reboucle.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Je ne peux rien changer sur une tranche</summary><div class="trouble-body">
 <p>La tranche est <strong>désactivée</strong> (estompée et grise). Cliquez sur le symbole d'alimentation de sa barre
 de nom.</p>
@@ -5937,7 +5873,7 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Raw-Strips: Apps, Pads, Tape und Combinatoren</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Ausgänge</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Die Seite Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Die Seite lesen</a></li><li><a href="#routing-block-to-block">Routen von Block zu Block</a></li><li><a href="#examples">Beispiele</a></li><li><a href="#combinators_1">Combinatoren</a></li><li><a href="#moving-channels">Kanäle verschieben</a></li><li><a href="#when-a-route-wont-stay-on">Wenn eine Route nicht eingeschaltet bleibt</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Die Seite Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Die Seite lesen</a></li><li><a href="#routing-block-to-block">Routen von Block zu Block</a></li><li><a href="#examples">Beispiele</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Tools: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Tools: Tape, Recorder und Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Geräte</a></li>
@@ -6189,8 +6125,7 @@ seinen Fader und Pegelmesser.</p>
 <li>Prüfe, was sie bekommen: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> nimmt 5 Sekunden von dem auf, was Apps
    empfangen, und spielt es dir vor.</li>
 </ol>
-<p>Ein Programm spielt außerdem weiter auf seinem eigenen Gerät. Hörst du auf diesem Gerät, schalte die Taste
-<span class="key">HEADPHONES</span> seines Kanals aus, sonst hörst du es doppelt (PRE-FLIGHT warnt davor).</p>
+<p>Hörst du ein Programm doppelt, siehe <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> und <span class="key">+ APP</span> fügen Kanäle hinzu. <span class="key">+ OUTPUT</span> fügt einen Ausgang auf einem Gerät hinzu, das keinen hat.
 Die Gerätetaste unter dem Namen eines Ausgangs ändert, wo er spielt. Klicke mit rechts auf einen Namen für <strong>Rename...</strong>,
 die Farbe und <strong>Remove</strong>. Wenn du den Kanal eines Programms entfernst, wird auch seine App-Regel entfernt, damit der Kanal
@@ -6198,13 +6133,8 @@ nicht von selbst zurückkommt.</p>
 <h3 id="step-7-pro-for-the-whole-console">Schritt 7: PRO, für das ganze Pult</h3>
 <p>Der Schalter <span class="key">SIMPLE / PRO</span> in der oberen Leiste zeigt in beiden Fällen denselben Mix. <span class="key">PRO</span> ist das ganze
 Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren, Plugins.</p>
-<p>So formst du dein Mikrofon in PRO:</p>
-<ol>
-<li>Drehe <strong>hp</strong> auf etwa 80–100 Hz hoch, um Rumpeln zu entfernen.</li>
-<li>Schalte <span class="key">DYNAMICS</span> ein (der Schalter mit dem Ein-Symbol) und stelle Gate und Kompressor ein.</li>
-<li>Stelle den <span class="key">EQ</span> ein.</li>
-</ol>
-<p>Siehe <a href="#6-the-channel-strip-section-by-section">6</a>. Einstellungen, die du in PRO machst, wirken auch in SIMPLE weiter.</p>
+<p>Wie du dein Mikrofon formst, steht in <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Jedes Bedienelement steht in
+<a href="#6-the-channel-strip-section-by-section">6</a>. Einstellungen, die du in PRO machst, wirken auch in SIMPLE weiter.</p>
 <h3 id="step-8-run-pre-flight">Schritt 8: PRE-FLIGHT ausführen</h3>
 <p>Wenige Sekunden nach dem Start prüft <span class="key">PRE-FLIGHT</span> das Setup und öffnet sich nur, wenn etwas Aufmerksamkeit braucht
 (nicht beim allerersten Start, wenn zuerst SETUP kommt). Starte es jederzeit über
@@ -6282,8 +6212,6 @@ diese Karten (in SIMPLE nur <span class="key">ADD CHANNEL</span> und <span class
 </tbody>
 </table></div>
 <p>Die Wahl bei SELECT und METER wird gespeichert.</p>
-<p>Über den Strips sitzen die Zeitanzeige, der Transport für das Tape-Deck (Zurückspulen, Stopp, Wiedergabe / Pause,
-Vorspulen, Aufnahme, Schleife) und der Schalter <span class="key">SIMPLE / PRO</span> (siehe <a href="#step-7-pro-for-the-whole-console">Schritt 7</a>).</p>
 <h3 id="the-top-bar">Die obere Leiste</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Die obere Leiste: Szenen, das Gesundheitslicht, MINI, HISTORY, FIND und Zoom"><img data-shot="images/console/topbar.jpg" alt="Die obere Leiste: Szenen, das Gesundheitslicht, MINI, HISTORY, FIND und Zoom" loading="lazy"></button><figcaption>Die obere Leiste: Szenen, das Gesundheitslicht, MINI, HISTORY, FIND und Zoom</figcaption></figure></div>
 <p>Von rechts:</p>
@@ -6318,6 +6246,10 @@ Vorspulen, Aufnahme, Schleife) und der Schalter <span class="key">SIMPLE / PRO</
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Deine gespeicherten Mixe. Mit <strong>+</strong> speicherst du einen neuen (siehe <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Derselbe Mix, schlicht oder als ganzes Pult (siehe <a href="#step-7-pro-for-the-whole-console">Schritt 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -6390,17 +6322,16 @@ kommen sie doppelt dort an (einmal direkt, einmal über den Bus). Ein Bus kann e
 Verzögerung hinzu.</p>
 <h3 id="combinators">Combinatoren</h3>
 <p>Ein Combinator ist ein Bus, der in parallele <strong>Pfade</strong> aufgeteilt ist (zu Beginn zwei). Jeder Pfad hat eigene Plugins,
-und die Pfade werden am Fader des Combinators summiert. Route eine Quelle in einen Pfad oder in mehrere. Der Strip
-des Combinators zeigt, welche Quellen jeden Pfad speisen.</p>
+und die Pfade werden am Fader des Combinators summiert. Route eine Quelle in einen Pfad oder in mehrere (siehe
+<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Regeln, die es sicher halten</h3>
 <ul>
 <li><strong>Rückkopplungsschleifen werden abgelehnt.</strong> Eine Route, die einen Klang dorthin zurückbrächte, woher er kam (ein
   Bus in einen Bus, der ihn speist, der Klang eines Ausgangs zurück in seinen eigenen Eingang), wird sofort
   wieder ausgeschaltet, und das Ereignisprotokoll nennt die Schleife.</li>
 <li><strong>Solo</strong> an einem beliebigen Strip macht jeden Strip stumm, der nicht auf Solo steht, außer den als Solo Safe markierten.</li>
-<li><strong>Ein ausgeschalteter Strip</strong> lässt nichts durch, egal wohin er geroutet ist.</li>
-<li><strong>App-Kanäle und Verdopplung.</strong> Ein Programm spielt auf seinem eigenen Gerät und zusätzlich in seinen Kanal.
-  Route seinen Kanal nicht auf einen Ausgang auf dem Gerät, auf dem du es schon hörst.</li>
+<li><strong>App-Kanäle und Verdopplung.</strong> Ein Programm spielt auf seinem eigenen Gerät und zusätzlich in seinen Kanal
+  (siehe <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Takt</h3>
 <p>Ein Gerät gibt den Takt vor. Faider wählt ihn beim Start in dieser Reihenfolge:</p>
@@ -6611,7 +6542,7 @@ spacer</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 </tr>
 <tr>
 <td><strong>Routing boxes</strong></td>
-<td>Eine Box pro Bus und Ausgabegerät. Leuchtet: Der Kanal wird dorthin gesendet. Klicke zum Umschalten. Das Senden an ein Gerät ohne Ausgang erstellt dessen Ausgang</td>
+<td>Eine Box pro Bus und Ausgabegerät. Leuchtet: Der Kanal wird dorthin gesendet. Klicke zum Umschalten (siehe <a href="#outputs-are-devices">Ausgänge sind Geräte</a>)</td>
 </tr>
 <tr>
 <td><strong>Number</strong></td>
@@ -6873,10 +6804,7 @@ entfernen, ihn umzubenennen oder zu entfernen.</p>
 </tbody>
 </table></div>
 <p>Rechtsklick auf einen Ausgang für <strong>Device...</strong>, Spacer, <strong>Rename...</strong> und <strong>Remove</strong>.</p>
-<p><strong>Ausgänge werden für dich erstellt.</strong> Sende einen Kanal an ein Gerät (mit einer Routing-Box, der Seite Routing oder
-<strong>Route to</strong>), und auf diesem Gerät wird ein Ausgang erstellt, falls dort keiner ist.</p>
-<p><strong>Ein fehlendes Gerät.</strong> Wird das Gerät eines Ausgangs abgezogen, wird dieser Ausgang stumm, bis das Gerät
-zurückkommt. Nichts wandert von selbst auf ein anderes Gerät.</p>
+<p>Ausgänge werden für dich erstellt, einer pro Gerät (siehe <a href="#outputs-are-devices">Ausgänge sind Geräte</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> baut für jeden Gast einen Feed (alles außer seiner eigenen Stimme) sowie
 Stems für Stimme, Musik und Spiel.</p>
 
@@ -6906,7 +6834,7 @@ PRO, wenn gerade SIMPLE zu sehen ist. Jede Karte zeigt:</p>
 <li><span class="key">HEAVY</span>: ungewöhnlich aufwendig</li>
 </ul>
 <p>Tasten auf jeder Karte: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (sein Fenster), <span class="key">REMOVE</span> und Pfeile, um es früher oder
-später zu schieben. <span class="key">ADD</span> am Ende fügt ein weiteres hinzu. Solange der Strip ausgeschaltet ist, lässt sich nichts ändern.</p>
+später zu schieben. <span class="key">ADD</span> am Ende fügt ein weiteres hinzu.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>Die Seite Routing</h2></header>
@@ -6968,21 +6896,13 @@ Nutze sie, um zu sehen, wohin alles geht, und um durch Anklicken zweier Blöcke 
 </tr>
 <tr>
 <td>Einen Combinator-Pfad zu speisen</td>
-<td>Die Quelle, dann die Pfadzelle (P1, P2…)</td>
+<td>Die Quelle, dann die Pfadzelle (P1, P2…). Klicke weitere Zellen an, um mehrere Pfade zu speisen. Ein Klick auf den Combinator außerhalb seiner Zellen speist seinen ersten Pfad</td>
 </tr>
 </tbody>
 </table></div>
 <p>Das Anklicken eines grauen Geräteblocks erstellt dessen Ausgang, und der neue Ausgang erscheint sofort am Pult.</p>
-<h3 id="combinators_1">Combinatoren</h3>
-<p>Klicke die Quelle an, dann die <strong>Pfadzelle</strong>. Eine Quelle kann mehrere Pfade speisen: Klicke nacheinander jede Zelle an.
-Ein Klick auf den Combinator außerhalb seiner Zellen routet in seinen ersten Pfad. Um Pfade oder deren
-Plugins hinzuzufügen, klicke den Combinator am Pult mit rechts an &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Kanäle verschieben</h3>
-<p>Ziehe einen Block seitwärts entlang seiner Zeile. Ein blauer Balken zeigt, wo er landet, und das Pult ändert sich
-entsprechend. Kanäle bewegen sich unter Kanälen, Busse unter Bussen, Ausgänge unter Ausgängen.</p>
-<h3 id="when-a-route-wont-stay-on">Wenn eine Route nicht eingeschaltet bleibt</h3>
-<p>Die Route würde eine Rückkopplungsschleife bilden, also wird sie sofort wieder ausgeschaltet. Das Ereignisprotokoll nennt die Schleife.
-Entferne die Route, die zurückspeist. Siehe <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Ziehe einen Block seitwärts entlang seiner Zeile, um seinen Strip zu verschieben (siehe <a href="#174-reorder-channels">17.4</a>). Eine Route,
+die sofort wieder ausgeschaltet wird, würde eine Rückkopplungsschleife bilden (siehe <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Tools: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> gibt dir vier Bänke (<span class="key">A–D</span>) mit je 16 Pads: 64 Sounds, bis zu 32 gleichzeitig spielend.</p>
@@ -7063,7 +6983,7 @@ Kanals zu spielen. Ohne Pads-Kanal werden Tastendrücke ignoriert.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Klicke (<span class="key">LEARN...</span>), dann drücke die Tasten. Muss Ctrl, Alt oder eine F-Taste enthalten. Funktioniert, auch wenn andere Programme den Fokus haben. Esc bricht ab, Delete löscht</td>
+<td>Klicke (<span class="key">LEARN...</span>), dann drücke die Tasten (siehe <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -7270,7 +7190,7 @@ Mix beginnt. Siehe <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (eine Meldung, wenn ein stummes Mikrofon über -30 dBFS liegt). Einen Strip beim Berühren auszuwählen ist <strong>SELECT &gt; AUTO</strong> in der Seitenleiste</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (eine Meldung, wenn ein stummes Mikrofon über -30 dBFS liegt)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -7422,9 +7342,8 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 <ol>
 <li>Starte das Programm und lass es Klang spielen.</li>
 <li><span class="key">ADD APP</span> &gt; wähle es. Es bekommt einen Raw-Kanal (ohne Effekte).</li>
-<li>Route es dorthin, wo du es hören willst. Das Programm spielt zusätzlich weiter auf seinem eigenen Gerät. Hörst du
-   dieses Gerät auch, route den App-Kanal also nicht an dieselbe Stelle (PRE-FLIGHT warnt vor dieser
-   Verdopplung).</li>
+<li>Route es dorthin, wo du es hören willst. Hörst du es doppelt, siehe
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Kanäle umordnen</h3>
 <p>Ziehe die <strong>Namensleiste</strong> eines Kanals im Mixer zur Seite (scrolle nach unten zum Bereich NAME) oder ziehe seinen
@@ -7443,8 +7362,7 @@ und ihre Routen gehen mit. SIMPLE zeigt die Ausgänge in derselben Reihenfolge.<
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Er startet mit zwei Pfaden. Rechtsklick darauf &gt; <strong>Paths &gt; Add path</strong> für
    mehr.</li>
 <li>Route auf der Seite Routing Quellen in die Pfadzellen (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Rechtsklick &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> für jeden Pfad. Die Pfade werden am Fader des
-   Combinators summiert. Der Combinator-Strip zeigt, was jeden Pfad speist, und öffnet seine Plugins.</li>
+<li>Rechtsklick &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> für jeden Pfad.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Einen Stream-Mix und einen Kopfhörer-Mix machen</h3>
 <ol>
@@ -7578,14 +7496,15 @@ wenn etwas nicht stimmt. Jede Zeile hat ein Licht, den Befund und eine Abhilfe:<
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Ich höre etwas doppelt, oder ein Echo</summary><div class="trouble-body">
 <ul>
-<li>Ein App-Kanal ist auf einen Ausgang auf demselben Gerät geroutet, auf dem die App schon spielt, also hörst du
-  die App direkt und über Faider. Route den App-Kanal woandershin oder verschiebe die App auf
-  ein anderes Gerät.</li>
+<li>Ein Programm spielt auf seinem eigenen Gerät weiter und zusätzlich in seinen Kanal. Ist sein Kanal auf einen
+  Ausgang auf demselben Gerät geroutet, hörst du es direkt und über Faider. Schalte diese Route aus
+  (in SIMPLE die Taste des Ausgangs am Kanal) oder verschiebe das Programm auf ein anderes Gerät. PRE-FLIGHT
+  warnt davor.</li>
 <li>Der Standardlautsprecher von Windows ist auf das virtuelle Kabel gestellt. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> nennt es.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Eine Route lässt sich nicht einschalten</summary><div class="trouble-body">
-<p>Sie würde eine <strong>Rückkopplungsschleife</strong> bilden (Klang kehrt dorthin zurück, woher er kam), also wird sie sofort
-wieder ausgeschaltet. Das Ereignisprotokoll nennt die Schleife. Durchbrich sie, indem du die Route entfernst, die zurückspeist.</p>
+<p>Sie würde eine <strong>Rückkopplungsschleife</strong> bilden (siehe <a href="#rules-that-keep-it-safe">Regeln, die es sicher halten</a>). Das
+Ereignisprotokoll nennt die Schleife. Entferne die Route, die zurückspeist.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Ich kann nichts an einem Strip ändern</summary><div class="trouble-body">
 <p>Der Strip ist <strong>ausgeschaltet</strong> (abgedunkelt und grau). Klicke auf das Ein-Symbol in seiner Namensleiste.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Das Ziehen eines Kanals bewirkt nichts</summary><div class="trouble-body">
@@ -7782,7 +7701,7 @@ und als Standardkommunikationsgeräte. Siehe <a href="#step-2-install-vb-cable-o
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Strip raw: app, pad, tape e combinatori</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Uscite</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugin</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La pagina Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Leggere la pagina</a></li><li><a href="#routing-block-to-block">Instradare da blocco a blocco</a></li><li><a href="#examples">Esempi</a></li><li><a href="#combinators_1">Combinatori</a></li><li><a href="#moving-channels">Spostare i canali</a></li><li><a href="#when-a-route-wont-stay-on">Quando una route non resta attiva</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>La pagina Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Leggere la pagina</a></li><li><a href="#routing-block-to-block">Instradare da blocco a blocco</a></li><li><a href="#examples">Esempi</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Strumenti: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Strumenti: Tape, Recorder e Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivi</a></li>
@@ -8037,9 +7956,7 @@ suona, il suo fader e il suo meter.</p>
 <li>Controlla cosa ricevono: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> registra 5 secondi di ciò
    che ricevono le app e te li riproduce.</li>
 </ol>
-<p>Un programma continua a suonare anche sul proprio dispositivo. Se è il dispositivo su cui ascolti,
-disattiva il tasto <span class="key">HEADPHONES</span> del suo canale, altrimenti lo senti due volte (PRE-FLIGHT te lo
-segnala).</p>
+<p>Se senti un programma due volte, vedi <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> e <span class="key">+ APP</span> aggiungono canali. <span class="key">+ OUTPUT</span> aggiunge un'uscita su un dispositivo che
 non ne ha. Il tasto del dispositivo sotto il nome di un'uscita cambia dove suona. Fai clic con il
 tasto destro su un nome per <strong>Rename...</strong>, il colore e <strong>Remove</strong>. Rimuovere il canale di un
@@ -8047,13 +7964,8 @@ programma rimuove anche la sua regola app, così il canale non torna da solo.</p
 <h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, per tutta la console</h3>
 <p>L'interruttore <span class="key">SIMPLE / PRO</span> nella barra superiore mostra lo stesso mix in entrambi i modi. <span class="key">PRO</span>
 è tutta la console: ingresso, filtri, dinamica ed EQ di ogni canale, bus e combinatori, plugin.</p>
-<p>Per modellare il tuo microfono in PRO:</p>
-<ol>
-<li>Alza <strong>hp</strong> attorno a 80–100 Hz per togliere il rumble.</li>
-<li>Inserisci <span class="key">DYNAMICS</span> (l'interruttore con il simbolo di accensione) e imposta gate e compressore.</li>
-<li>Imposta l'<span class="key">EQ</span>.</li>
-</ol>
-<p>Vedi <a href="#6-the-channel-strip-section-by-section">6</a>. Le impostazioni che fai in PRO continuano a
+<p>Per modellare il tuo microfono, vedi <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Ogni controllo
+è in <a href="#6-the-channel-strip-section-by-section">6</a>. Le impostazioni che fai in PRO continuano a
 funzionare in SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Passo 8: Esegui PRE-FLIGHT</h3>
 <p>Pochi secondi dopo l'avvio, <span class="key">PRE-FLIGHT</span> controlla la configurazione e si apre solo se qualcosa
@@ -8133,8 +8045,6 @@ Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo <span class="ke
 </tbody>
 </table></div>
 <p>Le scelte di SELECT e METER vengono ricordate.</p>
-<p>Sopra le strip ci sono il display del tempo, il trasporto del deck Tape (indietro, stop, play /
-pausa, avanti, registra, loop) e l'interruttore <span class="key">SIMPLE / PRO</span> (vedi <a href="#step-7-pro-for-the-whole-console">Passo 7</a>).</p>
 <h3 id="the-top-bar">La barra superiore</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La barra superiore: scene, la spia di salute, MINI, HISTORY, FIND e zoom"><img data-shot="images/console/topbar.jpg" alt="La barra superiore: scene, la spia di salute, MINI, HISTORY, FIND e zoom" loading="lazy"></button><figcaption>La barra superiore: scene, la spia di salute, MINI, HISTORY, FIND e zoom</figcaption></figure></div>
 <p>Da destra:</p>
@@ -8169,6 +8079,10 @@ pausa, avanti, registra, loop) e l'interruttore <span class="key">SIMPLE / PRO</
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>I tuoi mix memorizzati. <strong>+</strong> ne memorizza uno nuovo (vedi <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Lo stesso mix, semplice o come tutta la console (vedi <a href="#step-7-pro-for-the-whole-console">Passo 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -8242,16 +8156,15 @@ non aggiunge ritardo.</p>
 <h3 id="combinators">Combinatori</h3>
 <p>Un combinatore è un bus diviso in <strong>percorsi</strong> paralleli (due per cominciare). Ogni percorso ha i
 propri plugin, e i percorsi vengono sommati al fader del combinatore. Instrada una sorgente in un
-percorso o in più. La strip del combinatore mostra quali sorgenti alimentano ogni percorso.</p>
+percorso o in più (vedi <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Regole che mantengono tutto sicuro</h3>
 <ul>
 <li><strong>I loop di feedback vengono rifiutati.</strong> Una route che riporterebbe un suono al punto da cui è
   venuto (un bus in un bus che lo alimenta, il suono di un'uscita rimandato al suo stesso ingresso)
   viene subito disattivata, e il log degli eventi nomina il loop.</li>
 <li><strong>Solo</strong> su una strip silenzia ogni strip che non è in solo, tranne quelle segnate solo safe.</li>
-<li><strong>Una strip spenta</strong> non lascia passare nulla, ovunque sia instradata.</li>
-<li><strong>Canali app e raddoppio.</strong> Un programma suona sul proprio dispositivo oltre che nel suo canale.
-  Non instradare il suo canale a un'uscita sul dispositivo su cui già lo senti.</li>
+<li><strong>Canali app e raddoppio.</strong> Un programma suona sul proprio dispositivo oltre che nel suo canale
+  (vedi <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Clock</h3>
 <p>Un dispositivo imposta il clock. Faider lo sceglie in questo ordine all'avvio:</p>
@@ -8467,7 +8380,7 @@ spacer before</strong> / <strong>Add spacer after</strong>. Clic destro su uno s
 </tr>
 <tr>
 <td><strong>Caselle di instradamento</strong></td>
-<td>Una casella per ogni bus e dispositivo di uscita. Accesa: il canale viene mandato lì. Fai clic per cambiare. Mandare a un dispositivo che non ha ancora un'uscita ne crea l'uscita</td>
+<td>Una casella per ogni bus e dispositivo di uscita. Accesa: il canale viene mandato lì. Fai clic per cambiare (vedi <a href="#outputs-are-devices">Le uscite sono dispositivi</a>)</td>
 </tr>
 <tr>
 <td><strong>Numero</strong></td>
@@ -8729,10 +8642,7 @@ o rimuoverne i plugin, rinominarlo o rimuoverlo.</p>
 </tbody>
 </table></div>
 <p>Clic destro su un'uscita per <strong>Device...</strong>, spacer, <strong>Rename...</strong> e <strong>Remove</strong>.</p>
-<p><strong>Le uscite si creano da sole.</strong> Manda un canale a un dispositivo (con una casella di instradamento,
-la pagina Routing o <strong>Route to</strong>) e, se non ce n'è una, su quel dispositivo viene creata un'uscita.</p>
-<p><strong>Un dispositivo mancante.</strong> Se il dispositivo di un'uscita viene scollegato, quell'uscita tace
-finché il dispositivo non torna. Niente si sposta da solo su un altro dispositivo.</p>
+<p>Le uscite si creano da sole, una per dispositivo (vedi <a href="#outputs-are-devices">Le uscite sono dispositivi</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> costruisce un feed per ogni ospite (tutto tranne la sua voce) e stem
 di voce, musica e gioco.</p>
 
@@ -8762,7 +8672,7 @@ quella strip e passa a PRO se è visibile SIMPLE. Ogni scheda mostra:</p>
 <li><span class="key">HEAVY</span>: insolitamente costoso</li>
 </ul>
 <p>Tasti su ogni scheda: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (la sua finestra), <span class="key">REMOVE</span>, e frecce per spostarlo prima
-o dopo. <span class="key">ADD</span> in fondo ne aggiunge un altro. Non si può cambiare nulla mentre la strip è spenta.</p>
+o dopo. <span class="key">ADD</span> in fondo ne aggiunge un altro.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>La pagina Routing</h2></header>
@@ -8825,22 +8735,13 @@ linea. Usala per vedere dove va tutto e per instradare facendo clic su due blocc
 </tr>
 <tr>
 <td>Alimentare un percorso di combinatore</td>
-<td>La sorgente, poi la cella del percorso (P1, P2…)</td>
+<td>La sorgente, poi la cella del percorso (P1, P2…). Fai clic su altre celle per alimentare più percorsi. Fare clic sul combinatore fuori dalle sue celle alimenta il suo primo percorso</td>
 </tr>
 </tbody>
 </table></div>
 <p>Fare clic su un blocco di dispositivo grigio ne crea l'uscita, e la nuova uscita compare subito sulla console.</p>
-<h3 id="combinators_1">Combinatori</h3>
-<p>Fai clic sulla sorgente, poi sulla <strong>cella del percorso</strong>. Una sorgente può alimentare più percorsi:
-fai clic su ogni cella a turno. Fare clic sul combinatore fuori dalle sue celle instrada nel suo
-primo percorso. Per aggiungere percorsi o i loro plugin, fai clic destro sul combinatore sulla
-console &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Spostare i canali</h3>
-<p>Trascina un blocco di lato lungo la sua riga. Una barra blu mostra dove atterra, e la console si
-adegua. I canali si spostano tra i canali, i bus tra i bus, le uscite tra le uscite.</p>
-<h3 id="when-a-route-wont-stay-on">Quando una route non resta attiva</h3>
-<p>La route creerebbe un loop di feedback, quindi viene subito disattivata. Il log degli eventi nomina
-il loop. Rimuovi la route che torna indietro. Vedi <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Trascina un blocco di lato lungo la sua riga per spostarne la strip (vedi <a href="#174-reorder-channels">17.4</a>).
+Una route che si disattiva subito creerebbe un loop di feedback (vedi <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Strumenti: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> ti dà quattro banchi (<span class="key">A–D</span>) di 16 pad: 64 suoni, fino a 32 in riproduzione insieme.</p>
@@ -8921,7 +8822,7 @@ plugin e le route di quel canale. Senza un canale pad, le pressioni vengono igno
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Fai clic (<span class="key">LEARN...</span>), poi premi i tasti. Deve includere Ctrl, Alt o un tasto F. Funziona mentre altri programmi hanno il focus. Esc annulla, Delete cancella</td>
+<td>Fai clic (<span class="key">LEARN...</span>), poi premi i tasti (vedi <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -9130,7 +9031,7 @@ crema quando sono accesi.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un avviso quando un microfono in mute è sopra -30 dBFS). Selezionare una strip quando viene toccata è <strong>SELECT &gt; AUTO</strong> nella barra laterale</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (un avviso quando un microfono in mute è sopra -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -9283,9 +9184,8 @@ spento) chiedono da soli il permesso.</p>
 <ol>
 <li>Avvia il programma e fallo suonare.</li>
 <li><span class="key">ADD APP</span> &gt; sceglilo. Riceve un canale raw (senza effetti).</li>
-<li>Instradalo dove vuoi sentirlo. Il programma continua a suonare anche sul proprio dispositivo, quindi
-   se senti anche quel dispositivo, non instradare il canale app nello stesso posto (PRE-FLIGHT segnala
-   questo raddoppio).</li>
+<li>Instradalo dove vuoi sentirlo. Se lo senti due volte, vedi
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Riordina i canali</h3>
 <p>Trascina di lato la <strong>barra del nome</strong> di un canale nel Mixer (scorri in basso fino alla sezione NAME),
@@ -9305,8 +9205,7 @@ nello stesso ordine.</p>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Parte con due percorsi. Clic destro &gt; <strong>Paths &gt; Add path</strong> per averne di
    più.</li>
 <li>Nella pagina Routing, instrada le sorgenti nelle celle dei percorsi (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Clic destro &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> per ogni percorso. I percorsi vengono sommati al
-   fader del combinatore. La strip del combinatore mostra cosa alimenta ogni percorso e ne apre i plugin.</li>
+<li>Clic destro &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> per ogni percorso.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Crea un mix per lo stream e un mix per le cuffie</h3>
 <ol>
@@ -9440,14 +9339,15 @@ solo se qualcosa non va. Ogni riga ha una spia, il problema trovato e una soluzi
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Sento qualcosa due volte, o un'eco</summary><div class="trouble-body">
 <ul>
-<li>Un canale app è instradato a un'uscita sullo stesso dispositivo su cui l'app già suona, così senti
-  l'app direttamente e attraverso Faider. Instrada il canale app altrove, oppure sposta
-  l'app su un altro dispositivo.</li>
+<li>Un programma continua a suonare sul proprio dispositivo oltre che nel suo canale. Se il suo canale
+  è instradato a un'uscita su quello stesso dispositivo, lo senti direttamente e attraverso Faider.
+  Disattiva quella route (in SIMPLE, il tasto dell'uscita sul canale), oppure sposta il programma su
+  un altro dispositivo. PRE-FLIGHT te lo segnala.</li>
 <li>L'altoparlante predefinito di Windows è impostato sul cavo virtuale. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> lo nomina.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Una route non si attiva</summary><div class="trouble-body">
-<p>Creerebbe un <strong>loop di feedback</strong> (suono che torna al punto da cui è venuto), quindi viene subito
-disattivata. Il log degli eventi nomina il loop. Spezzalo rimuovendo la route che torna indietro.</p>
+<p>Creerebbe un <strong>loop di feedback</strong> (vedi <a href="#rules-that-keep-it-safe">Regole che mantengono tutto sicuro</a>).
+Il log degli eventi nomina il loop. Rimuovi la route che torna indietro.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Non posso cambiare nulla su una strip</summary><div class="trouble-body">
 <p>La strip è <strong>spenta</strong> (attenuata e grigia). Fai clic sul simbolo di accensione sulla sua barra del nome.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Trascinare un canale non fa nulla</summary><div class="trouble-body">
@@ -9646,7 +9546,7 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Strips brutos: apps, pads, fita e combinadores</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Saídas</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>A página Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Lendo a página</a></li><li><a href="#routing-block-to-block">Roteando de bloco em bloco</a></li><li><a href="#examples">Exemplos</a></li><li><a href="#combinators_1">Combinadores</a></li><li><a href="#moving-channels">Movendo canais</a></li><li><a href="#when-a-route-wont-stay-on">Quando uma rota não fica ligada</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>A página Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Lendo a página</a></li><li><a href="#routing-block-to-block">Roteando de bloco em bloco</a></li><li><a href="#examples">Exemplos</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Ferramentas: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Ferramentas: Tape, gravador e Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivos</a></li>
@@ -9901,9 +9801,7 @@ e seu medidor.</p>
 <li>Confira o que eles recebem: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> grava 5 segundos do que
    os apps recebem e toca para você.</li>
 </ol>
-<p>Um programa continua tocando também no próprio dispositivo. Se esse for o dispositivo em que você
-escuta, desligue a tecla <span class="key">HEADPHONES</span> do canal dele, ou você o ouve duas vezes (o PRE-FLIGHT avisa
-sobre isso).</p>
+<p>Se você ouvir um programa duas vezes, veja <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> e <span class="key">+ APP</span> adicionam canais. <span class="key">+ OUTPUT</span> adiciona uma saída em um dispositivo que não
 tem nenhuma. A tecla de dispositivo sob o nome de uma saída muda onde ela toca. Clique com o botão
 direito em um nome para <strong>Rename...</strong>, a cor e <strong>Remove</strong>. Remover o canal de um programa também
@@ -9911,14 +9809,9 @@ remove a regra de app dele, para o canal não voltar sozinho.</p>
 <h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, para o console inteiro</h3>
 <p>A chave <span class="key">SIMPLE / PRO</span> na barra superior mostra a mesma mixagem nos dois casos. O <span class="key">PRO</span> é o
 console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e combinadores, plugins.</p>
-<p>Para dar forma ao seu microfone no PRO:</p>
-<ol>
-<li>Suba o <strong>hp</strong> até uns 80–100 Hz para tirar o ruído grave.</li>
-<li>Ligue <span class="key">DYNAMICS</span> (a chave com o símbolo de energia) e ajuste o gate e o compressor.</li>
-<li>Ajuste o <span class="key">EQ</span>.</li>
-</ol>
-<p>Veja <a href="#6-the-channel-strip-section-by-section">6</a>. As configurações que você faz no PRO continuam
-valendo no SIMPLE.</p>
+<p>Para dar forma ao seu microfone, veja <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Todos os
+controles estão em <a href="#6-the-channel-strip-section-by-section">6</a>. As configurações que você faz no
+PRO continuam valendo no SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Passo 8: executar o PRE-FLIGHT</h3>
 <p>Alguns segundos depois de iniciar, o <span class="key">PRE-FLIGHT</span> confere a configuração e só abre se algo
 precisar de atenção (não no primeiríssimo início, quando o SETUP vem primeiro). Execute-o a qualquer
@@ -9997,8 +9890,6 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só <span cla
 </tbody>
 </table></div>
 <p>As escolhas de SELECT e METER são lembradas.</p>
-<p>Acima dos strips ficam o visor de tempo, o transporte da fita (voltar, parar, tocar / pausar,
-avançar, gravar, repetir) e a chave <span class="key">SIMPLE / PRO</span> (veja o <a href="#step-7-pro-for-the-whole-console">passo 7</a>).</p>
 <h3 id="the-top-bar">A barra superior</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="A barra superior: cenas, a luz de status, MINI, HISTORY, FIND e zoom"><img data-shot="images/console/topbar.jpg" alt="A barra superior: cenas, a luz de status, MINI, HISTORY, FIND e zoom" loading="lazy"></button><figcaption>A barra superior: cenas, a luz de status, MINI, HISTORY, FIND e zoom</figcaption></figure></div>
 <p>Da direita para a esquerda:</p>
@@ -10033,6 +9924,10 @@ avançar, gravar, repetir) e a chave <span class="key">SIMPLE / PRO</span> (veja
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Suas mixagens guardadas. <strong>+</strong> guarda uma nova (veja <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>A mesma mixagem, simples ou como o console inteiro (veja o <a href="#step-7-pro-for-the-whole-console">passo 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -10108,7 +10003,7 @@ adiciona atraso.</p>
 <h3 id="combinators">Combinadores</h3>
 <p>Um combinador é um bus dividido em <strong>caminhos</strong> paralelos (dois para começar). Cada caminho tem seus
 próprios plugins, e os caminhos são somados no fader do combinador. Roteie uma fonte para um caminho
-ou para vários. O strip do combinador mostra quais fontes alimentam cada caminho.</p>
+ou para vários (veja <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Regras que mantêm tudo seguro</h3>
 <ul>
 <li><strong>Loops de realimentação são recusados.</strong> Uma rota que traria um som de volta para onde ele veio
@@ -10116,9 +10011,8 @@ ou para vários. O strip do combinador mostra quais fontes alimentam cada caminh
   desligada na hora, e o registro de eventos nomeia o loop.</li>
 <li><strong>Solo</strong> em qualquer strip silencia todo strip que não está em solo, exceto os marcados como solo
   safe.</li>
-<li><strong>Um strip desligado</strong> não deixa passar nada, não importa para onde esteja roteado.</li>
 <li><strong>Canais de apps e duplicação.</strong> Um programa toca no próprio dispositivo além de tocar no canal
-  dele. Não roteie o canal dele para uma saída do dispositivo em que você já o ouve.</li>
+  dele (veja <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Sincronização</h3>
 <p>Um dispositivo define o clock. O Faider o escolhe nesta ordem ao iniciar:</p>
@@ -10336,7 +10230,7 @@ move.</p>
 </tr>
 <tr>
 <td><strong>Caixas de roteamento</strong></td>
-<td>Uma caixa por bus e por dispositivo de saída. Acesa: o canal é enviado para lá. Clique para alternar. Enviar para um dispositivo que ainda não tem saída cria a saída dele</td>
+<td>Uma caixa por bus e por dispositivo de saída. Acesa: o canal é enviado para lá. Clique para alternar (veja <a href="#outputs-are-devices">Saídas são dispositivos</a>)</td>
 </tr>
 <tr>
 <td><strong>Número</strong></td>
@@ -10598,11 +10492,7 @@ adicionar ou remover seus plugins, renomeá-lo ou removê-lo.</p>
 </tbody>
 </table></div>
 <p>Botão direito em uma saída para <strong>Device...</strong>, espaçadores, <strong>Rename...</strong> e <strong>Remove</strong>.</p>
-<p><strong>As saídas são criadas para você.</strong> Envie um canal para um dispositivo (com uma caixa de
-roteamento, a página Routing ou <strong>Route to</strong>) e uma saída é criada nesse dispositivo se não houver
-uma.</p>
-<p><strong>Um dispositivo ausente.</strong> Se o dispositivo de uma saída for desconectado, essa saída fica em
-silêncio até ele voltar. Nada passa sozinho para outro dispositivo.</p>
+<p>As saídas são criadas para você, uma por dispositivo (veja <a href="#outputs-are-devices">Saídas são dispositivos</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> monta um retorno por convidado (tudo menos a própria voz dele) e
 stems de voz, música e jogo.</p>
 
@@ -10633,8 +10523,7 @@ PRO se o SIMPLE estiver aparecendo. Cada cartão mostra:</p>
 <li><span class="key">HEAVY</span>: incomumente pesado</li>
 </ul>
 <p>Teclas de cada cartão: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (a janela dele), <span class="key">REMOVE</span>, e setas para movê-lo para
-antes ou depois. <span class="key">ADD</span> no fim adiciona outro. Nada pode ser mudado enquanto o strip está
-desligado.</p>
+antes ou depois. <span class="key">ADD</span> no fim adiciona outro.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>A página Routing</h2></header>
@@ -10697,22 +10586,13 @@ linha. Use-a para ver para onde tudo vai, e para rotear clicando em dois blocos.
 </tr>
 <tr>
 <td>Alimentar um caminho de combinador</td>
-<td>A fonte, depois a célula do caminho (P1, P2…)</td>
+<td>A fonte, depois a célula do caminho (P1, P2…). Clique em mais células para alimentar vários caminhos. Clicar no combinador fora das células alimenta o primeiro caminho</td>
 </tr>
 </tbody>
 </table></div>
 <p>Clicar em um bloco de dispositivo cinza cria a saída dele, e a nova saída aparece na mesa na hora.</p>
-<h3 id="combinators_1">Combinadores</h3>
-<p>Clique na fonte, depois na <strong>célula do caminho</strong>. Uma fonte pode alimentar vários caminhos: clique em
-cada célula, uma de cada vez. Clicar no combinador fora das células roteia para o primeiro caminho.
-Para adicionar caminhos ou os plugins deles, clique com o botão direito no combinador na mesa &gt;
-<strong>Paths</strong>.</p>
-<h3 id="moving-channels">Movendo canais</h3>
-<p>Arraste um bloco para o lado ao longo da fileira dele. Uma barra azul mostra onde ele cai, e a mesa
-muda para acompanhar. Canais se movem entre canais, buses entre buses, saídas entre saídas.</p>
-<h3 id="when-a-route-wont-stay-on">Quando uma rota não fica ligada</h3>
-<p>A rota criaria um loop de realimentação, então é desligada na hora. O registro de eventos nomeia o
-loop. Remova a rota que realimenta. Veja <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Arraste um bloco para o lado ao longo da fileira dele para mover o strip (veja <a href="#174-reorder-channels">17.4</a>).
+Uma rota que é desligada na hora criaria um loop de realimentação (veja <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Ferramentas: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> dá quatro bancos (<span class="key">A–D</span>) de 16 pads: 64 sons, até 32 tocando ao mesmo tempo.</p>
@@ -10793,7 +10673,7 @@ e rotas desse canal. Sem um canal de pads, os toques são ignorados.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Clique (<span class="key">LEARN...</span>), depois aperte as teclas. Deve incluir Ctrl, Alt ou uma tecla F. Funciona enquanto outros programas estão em foco. Esc cancela, Delete apaga</td>
+<td>Clique (<span class="key">LEARN...</span>), depois aperte as teclas (veja <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -11005,7 +10885,7 @@ creme quando ligadas.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (um aviso quando um mic mudo passa de -30 dBFS). Selecionar um strip ao tocá-lo é o <strong>SELECT &gt; AUTO</strong> da barra lateral</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (um aviso quando um mic mudo passa de -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -11159,9 +11039,8 @@ permissão por conta própria.</p>
 <ol>
 <li>Inicie o programa e faça-o tocar som.</li>
 <li><span class="key">ADD APP</span> &gt; escolha-o. Ele ganha um canal bruto (sem efeitos).</li>
-<li>Roteie para onde quiser ouvi-lo. O programa continua tocando também no próprio dispositivo, então
-   se você também ouve esse dispositivo, não roteie o canal do app para o mesmo lugar (o PRE-FLIGHT
-   avisa sobre essa duplicação).</li>
+<li>Roteie para onde quiser ouvi-lo. Se você o ouvir duas vezes, veja
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Reordenar canais</h3>
 <p>Arraste a <strong>barra de nome</strong> de um canal para o lado no Mixer (role para baixo até a seção NAME), ou
@@ -11181,9 +11060,7 @@ ordem.</p>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Ele começa com dois caminhos. Botão direito nele &gt; <strong>Paths &gt; Add path</strong>
    para ter mais.</li>
 <li>Na página Routing, roteie fontes para as células de caminho (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Botão direito &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> para cada caminho. Os caminhos são somados no
-   fader do combinador. O strip do combinador mostra o que alimenta cada caminho e abre os plugins
-   dele.</li>
+<li>Botão direito &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> para cada caminho.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Fazer uma mixagem para a transmissão e outra para os fones</h3>
 <ol>
@@ -11319,15 +11196,16 @@ aparece se algo estiver errado. Cada linha tem uma luz, o achado e uma correçã
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Ouço algo duas vezes, ou um eco</summary><div class="trouble-body">
 <ul>
-<li>Um canal de app está roteado para uma saída do mesmo dispositivo em que o app já toca, então você
-  ouve o app direto e pelo Faider. Roteie o canal do app para outro lugar, ou mude o app
-  para outro dispositivo.</li>
+<li>Um programa continua tocando no próprio dispositivo além de tocar no canal dele. Se o canal dele
+  estiver roteado para uma saída nesse mesmo dispositivo, você o ouve direto e pelo Faider. Desligue
+  essa rota (no SIMPLE, a tecla da saída no canal), ou mude o programa para outro dispositivo. O
+  PRE-FLIGHT avisa sobre isso.</li>
 <li>O alto-falante padrão do Windows está definido como o cabo virtual. O PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span>
   o nomeia.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Uma rota não liga</summary><div class="trouble-body">
-<p>Ela criaria um <strong>loop de realimentação</strong> (um som voltando para onde veio), então é desligada na hora.
-O registro de eventos nomeia o loop. Quebre-o removendo a rota que realimenta.</p>
+<p>Ela criaria um <strong>loop de realimentação</strong> (veja <a href="#rules-that-keep-it-safe">Regras que mantêm tudo seguro</a>).
+O registro de eventos nomeia o loop. Remova a rota que realimenta.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Não consigo mudar nada em um strip</summary><div class="trouble-body">
 <p>O strip está <strong>desligado</strong> (esmaecido e cinza). Clique no símbolo de energia da barra de nome dele.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Arrastar um canal não faz nada</summary><div class="trouble-body">
@@ -11526,7 +11404,7 @@ quanto como dispositivos de comunicação padrão. Veja o <a href="#step-2-insta
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Raw-strips: apps, pads, tape en combinators</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Uitgangen</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>De pagina Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">De pagina lezen</a></li><li><a href="#routing-block-to-block">Routeren van blok naar blok</a></li><li><a href="#examples">Voorbeelden</a></li><li><a href="#combinators_1">Combinators</a></li><li><a href="#moving-channels">Kanalen verplaatsen</a></li><li><a href="#when-a-route-wont-stay-on">Als een route niet aan blijft</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>De pagina Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">De pagina lezen</a></li><li><a href="#routing-block-to-block">Routeren van blok naar blok</a></li><li><a href="#examples">Voorbeelden</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Tools: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Tools: Tape, Recorder en Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Apparaten</a></li>
@@ -11778,8 +11656,7 @@ zijn fader en meter.</p>
 <li>Controleer wat ze krijgen: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> neemt 5 seconden op van wat apps
    ontvangen en speelt het voor je af.</li>
 </ol>
-<p>Een programma blijft ook op zijn eigen apparaat spelen. Is dat het apparaat waarop je luistert, zet dan de
-toets <span class="key">HEADPHONES</span> van het kanaal uit, anders hoor je het dubbel (PRE-FLIGHT waarschuwt hiervoor).</p>
+<p>Hoor je een programma dubbel, zie dan <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> en <span class="key">+ APP</span> voegen kanalen toe. <span class="key">+ OUTPUT</span> voegt een uitgang toe op een apparaat dat er geen heeft.
 De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor <strong>Rename...</strong>,
 de kleur en <strong>Remove</strong>. Als je het kanaal van een programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal
@@ -11787,13 +11664,8 @@ niet vanzelf terugkomt.</p>
 <h3 id="step-7-pro-for-the-whole-console">Stap 7: PRO, voor de hele console</h3>
 <p>De schakelaar <span class="key">SIMPLE / PRO</span> in de bovenbalk toont in beide gevallen dezelfde mix. <span class="key">PRO</span> is de hele
 console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinators, plugins.</p>
-<p>Zo vorm je je microfoon in PRO:</p>
-<ol>
-<li>Draai <strong>hp</strong> op tot rond 80–100 Hz om gerommel weg te halen.</li>
-<li>Zet <span class="key">DYNAMICS</span> aan (de schakelaar met het aan/uit-symbool) en stel de gate en compressor in.</li>
-<li>Stel de <span class="key">EQ</span> in.</li>
-</ol>
-<p>Zie <a href="#6-the-channel-strip-section-by-section">6</a>. Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.</p>
+<p>Om je microfoon te vormen, zie <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Elke knop staat in
+<a href="#6-the-channel-strip-section-by-section">6</a>. Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.</p>
 <h3 id="step-8-run-pre-flight">Stap 8: PRE-FLIGHT uitvoeren</h3>
 <p>Een paar seconden na het starten controleert <span class="key">PRE-FLIGHT</span> de opstelling en opent alleen als er iets aandacht nodig heeft
 (niet bij de allereerste start, wanneer SETUP eerst komt). Start het op elk moment via
@@ -11871,8 +11743,6 @@ deze kaarten (in SIMPLE alleen <span class="key">ADD CHANNEL</span> en <span cla
 </tbody>
 </table></div>
 <p>De keuzes bij SELECT en METER worden onthouden.</p>
-<p>Boven de strips staan de tijdweergave, de transportknoppen voor het Tape-deck (terugspoelen, stop, afspelen / pauze,
-vooruitspoelen, opnemen, herhalen) en de schakelaar <span class="key">SIMPLE / PRO</span> (zie <a href="#step-7-pro-for-the-whole-console">Stap 7</a>).</p>
 <h3 id="the-top-bar">De bovenbalk</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="De bovenbalk: scènes, het gezondheidslicht, MINI, HISTORY, FIND en zoom"><img data-shot="images/console/topbar.jpg" alt="De bovenbalk: scènes, het gezondheidslicht, MINI, HISTORY, FIND en zoom" loading="lazy"></button><figcaption>De bovenbalk: scènes, het gezondheidslicht, MINI, HISTORY, FIND en zoom</figcaption></figure></div>
 <p>Van rechts:</p>
@@ -11907,6 +11777,10 @@ vooruitspoelen, opnemen, herhalen) en de schakelaar <span class="key">SIMPLE / P
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Je opgeslagen mixen. Met <strong>+</strong> sla je een nieuwe op (zie <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Dezelfde mix, eenvoudig of als de hele console (zie <a href="#step-7-pro-for-the-whole-console">Stap 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -11979,17 +11853,16 @@ komen ze er dubbel aan (één keer direct, één keer via de bus). Een bus kan e
 vertraging toe.</p>
 <h3 id="combinators">Combinators</h3>
 <p>Een combinator is een bus die in parallelle <strong>paden</strong> is gesplitst (om mee te beginnen twee). Elk pad heeft eigen plugins,
-en de paden worden opgeteld bij de fader van de combinator. Routeer een bron naar één pad of naar meerdere. De strip
-van de combinator toont welke bronnen elk pad voeden.</p>
+en de paden worden opgeteld bij de fader van de combinator. Routeer een bron naar één pad of naar meerdere (zie
+<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Regels die het veilig houden</h3>
 <ul>
 <li><strong>Feedbacklussen worden geweigerd.</strong> Een route die een geluid terug zou brengen naar waar het vandaan kwam (een
   bus naar een bus die hem voedt, het geluid van een uitgang terug in zijn eigen ingang) wordt meteen
   weer uitgezet, en het gebeurtenissenlogboek noemt de lus.</li>
 <li><strong>Solo</strong> op een willekeurige strip maakt elke strip stil die niet op solo staat, behalve de strips die als solo safe zijn gemarkeerd.</li>
-<li><strong>Een strip die uit staat</strong> laat niets door, waar hij ook naartoe gerouteerd is.</li>
-<li><strong>Appkanalen en verdubbeling.</strong> Een programma speelt op zijn eigen apparaat en ook in zijn kanaal.
-  Routeer zijn kanaal niet naar een uitgang op het apparaat waarop je het al hoort.</li>
+<li><strong>Appkanalen en verdubbeling.</strong> Een programma speelt op zijn eigen apparaat en ook in zijn kanaal
+  (zie <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Klokken</h3>
 <p>Eén apparaat bepaalt de klok. Faider kiest hem bij het starten in deze volgorde:</p>
@@ -12200,7 +12073,7 @@ spacer</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 </tr>
 <tr>
 <td><strong>Routing boxes</strong></td>
-<td>Eén vakje per bus en uitvoerapparaat. Verlicht: het kanaal wordt daarheen gestuurd. Klik om te schakelen. Sturen naar een apparaat zonder uitgang maakt zijn uitgang aan</td>
+<td>Eén vakje per bus en uitvoerapparaat. Verlicht: het kanaal wordt daarheen gestuurd. Klik om te schakelen (zie <a href="#outputs-are-devices">Uitgangen zijn apparaten</a>)</td>
 </tr>
 <tr>
 <td><strong>Number</strong></td>
@@ -12462,10 +12335,7 @@ het pad te hernoemen of te verwijderen.</p>
 </tbody>
 </table></div>
 <p>Rechtsklik op een uitgang voor <strong>Device...</strong>, spacers, <strong>Rename...</strong> en <strong>Remove</strong>.</p>
-<p><strong>Uitgangen worden voor je gemaakt.</strong> Stuur een kanaal naar een apparaat (met een routeringsvakje, de pagina Routing of
-<strong>Route to</strong>) en er wordt een uitgang op dat apparaat gemaakt als er nog geen is.</p>
-<p><strong>Een ontbrekend apparaat.</strong> Wordt het apparaat van een uitgang losgehaald, dan wordt die uitgang stil tot het apparaat
-terugkomt. Niets verhuist uit zichzelf naar een ander apparaat.</p>
+<p>Uitgangen worden voor je gemaakt, één per apparaat (zie <a href="#outputs-are-devices">Uitgangen zijn apparaten</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> bouwt een feed per gast (alles behalve hun eigen stem) en
 stems voor stem, muziek en game.</p>
 
@@ -12495,7 +12365,7 @@ PRO als SIMPLE in beeld is. Elke kaart toont:</p>
 <li><span class="key">HEAVY</span>: ongewoon duur</li>
 </ul>
 <p>Toetsen op elke kaart: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (zijn venster), <span class="key">REMOVE</span> en pijlen om hem eerder of
-later te zetten. <span class="key">ADD</span> aan het einde voegt er nog een toe. Zolang de strip uit staat, kan er niets worden veranderd.</p>
+later te zetten. <span class="key">ADD</span> aan het einde voegt er nog een toe.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>De pagina Routing</h2></header>
@@ -12557,21 +12427,13 @@ Gebruik hem om te zien waar alles heen gaat en om te routeren door twee blokken 
 </tr>
 <tr>
 <td>Eén combinatorpad te voeden</td>
-<td>De bron, dan de padcel (P1, P2…)</td>
+<td>De bron, dan de padcel (P1, P2…). Klik op meer cellen om meerdere paden te voeden. Op de combinator klikken buiten zijn cellen voedt zijn eerste pad</td>
 </tr>
 </tbody>
 </table></div>
 <p>Een grijs apparaatblok aanklikken maakt zijn uitgang, en de nieuwe uitgang verschijnt meteen op de tafel.</p>
-<h3 id="combinators_1">Combinators</h3>
-<p>Klik op de bron en dan op de <strong>padcel</strong>. Een bron kan meerdere paden voeden: klik om de beurt op elke cel.
-Op de combinator klikken buiten zijn cellen routeert naar zijn eerste pad. Om paden of hun
-plugins toe te voegen, rechtsklik je op de combinator op de tafel &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Kanalen verplaatsen</h3>
-<p>Sleep een blok opzij langs zijn rij. Een blauwe balk toont waar het terechtkomt, en de tafel past zich
-aan. Kanalen verplaatsen tussen kanalen, bussen tussen bussen, uitgangen tussen uitgangen.</p>
-<h3 id="when-a-route-wont-stay-on">Als een route niet aan blijft</h3>
-<p>De route zou een feedbacklus maken, dus wordt hij meteen weer uitgezet. Het gebeurtenissenlogboek noemt de lus.
-Verwijder de route die terugvoert. Zie <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Sleep een blok opzij langs zijn rij om zijn strip te verplaatsen (zie <a href="#174-reorder-channels">17.4</a>). Een route
+die meteen weer uitgaat, zou een feedbacklus maken (zie <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Tools: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> geeft je vier banken (<span class="key">A–D</span>) van 16 pads: 64 geluiden, tot 32 tegelijk spelend.</p>
@@ -12652,7 +12514,7 @@ kanaal te spelen. Zonder padskanaal worden aanslagen genegeerd.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Klik (<span class="key">LEARN...</span>) en druk dan op de toetsen. Moet Ctrl, Alt of een F-toets bevatten. Werkt ook als andere programma's focus hebben. Esc annuleert, Delete wist</td>
+<td>Klik (<span class="key">LEARN...</span>) en druk dan op de toetsen (zie <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -12859,7 +12721,7 @@ verse mix. Zie <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (een melding als een gedempte microfoon boven -30 dBFS komt). Een strip selecteren als hij wordt aangeraakt is <strong>SELECT &gt; AUTO</strong> in de zijbalk</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (een melding als een gedempte microfoon boven -30 dBFS komt)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -13011,9 +12873,8 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 <ol>
 <li>Start het programma en laat het geluid spelen.</li>
 <li><span class="key">ADD APP</span> &gt; kies het. Het krijgt een raw-kanaal (zonder effecten).</li>
-<li>Routeer het waar je het wilt horen. Het programma blijft ook op zijn eigen apparaat spelen. Hoor je
-   dat apparaat ook, routeer het appkanaal dan niet naar dezelfde plek (PRE-FLIGHT waarschuwt voor deze
-   verdubbeling).</li>
+<li>Routeer het waar je het wilt horen. Hoor je het dubbel, zie dan
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Kanalen herschikken</h3>
 <p>Sleep de <strong>naambalk</strong> van een kanaal opzij op de Mixer (scrol omlaag naar de sectie NAME), of sleep zijn
@@ -13032,8 +12893,7 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.</
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Hij begint met twee paden. Rechtsklik erop &gt; <strong>Paths &gt; Add path</strong> voor
    meer.</li>
 <li>Routeer op de pagina Routing bronnen naar de padcellen (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Rechtsklik &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> voor elk pad. De paden worden opgeteld bij de fader van de
-   combinator. De combinatorstrip toont wat elk pad voedt en opent zijn plugins.</li>
+<li>Rechtsklik &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> voor elk pad.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Een streammix en een koptelefoonmix maken</h3>
 <ol>
@@ -13167,14 +13027,15 @@ als er iets mis is. Elke rij heeft een lampje, de bevinding en een oplossing:</p
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Ik hoor iets dubbel, of een echo</summary><div class="trouble-body">
 <ul>
-<li>Een appkanaal is gerouteerd naar een uitgang op hetzelfde apparaat waarop de app al speelt, dus je hoort
-  de app rechtstreeks en via Faider. Routeer het appkanaal ergens anders heen, of verplaats de app naar
-  een ander apparaat.</li>
+<li>Een programma blijft op zijn eigen apparaat spelen en ook in zijn kanaal. Is zijn kanaal gerouteerd naar
+  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (in SIMPLE
+  de toets van de uitgang op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
+  waarschuwt hiervoor.</li>
 <li>De standaardspeaker van Windows staat op de virtuele kabel. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> noemt hem.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Een route gaat niet aan</summary><div class="trouble-body">
-<p>Hij zou een <strong>feedbacklus</strong> maken (geluid dat terugkeert naar waar het vandaan kwam), dus wordt hij meteen
-weer uitgezet. Het gebeurtenissenlogboek noemt de lus. Doorbreek hem door de route te verwijderen die terugvoert.</p>
+<p>Hij zou een <strong>feedbacklus</strong> maken (zie <a href="#rules-that-keep-it-safe">Regels die het veilig houden</a>). Het
+gebeurtenissenlogboek noemt de lus. Verwijder de route die terugvoert.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Ik kan niets veranderen aan een strip</summary><div class="trouble-body">
 <p>De strip staat <strong>uit</strong> (gedimd en grijs). Klik op het aan/uit-symbool op zijn naambalk.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Een kanaal slepen doet niets</summary><div class="trouble-body">
@@ -13371,7 +13232,7 @@ en als standaardcommunicatieapparaten. Zie <a href="#step-2-install-vb-cable-opt
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Paski raw: aplikacje, pady, tape i kombinatory</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Wyjścia</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Wtyczki</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Strona Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Czytanie strony</a></li><li><a href="#routing-block-to-block">Routing z bloku do bloku</a></li><li><a href="#examples">Przykłady</a></li><li><a href="#combinators_1">Kombinatory</a></li><li><a href="#moving-channels">Przesuwanie kanałów</a></li><li><a href="#when-a-route-wont-stay-on">Gdy trasa nie chce zostać włączona</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Strona Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Czytanie strony</a></li><li><a href="#routing-block-to-block">Routing z bloku do bloku</a></li><li><a href="#examples">Przykłady</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Narzędzia: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Narzędzia: Tape, Recorder i Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Urządzenia</a></li>
@@ -13625,8 +13486,7 @@ swój fader i miernik.</p>
 <li>Sprawdź, co dostają: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> nagrywa 5 sekund tego, co
    odbierają aplikacje, i odtwarza ci to.</li>
 </ol>
-<p>Program gra też nadal na własnym urządzeniu. Jeśli to urządzenie, na którym słuchasz, wyłącz klawisz
-<span class="key">HEADPHONES</span> jego kanału, bo inaczej słyszysz go dwa razy (PRE-FLIGHT ostrzega o tym).</p>
+<p>Jeśli słyszysz program dwa razy, zobacz <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> i <span class="key">+ APP</span> dodają kanały. <span class="key">+ OUTPUT</span> dodaje wyjście na urządzeniu, które go nie ma.
 Klawisz urządzenia pod nazwą wyjścia zmienia, gdzie ono gra. Kliknij nazwę prawym przyciskiem, żeby
 dostać <strong>Rename...</strong>, kolor i <strong>Remove</strong>. Usunięcie kanału programu usuwa też jego regułę aplikacji,
@@ -13634,13 +13494,8 @@ więc kanał nie wraca sam.</p>
 <h3 id="step-7-pro-for-the-whole-console">Krok 7: PRO, czyli cała konsola</h3>
 <p>Przełącznik <span class="key">SIMPLE / PRO</span> na górnym pasku pokazuje ten sam miks w obu trybach. <span class="key">PRO</span> to cała
 konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.</p>
-<p>Żeby ukształtować swój mikrofon w PRO:</p>
-<ol>
-<li>Podnieś <strong>hp</strong> do około 80–100 Hz, żeby usunąć dudnienie.</li>
-<li>Włącz <span class="key">DYNAMICS</span> (przełącznik z symbolem zasilania) i ustaw bramkę oraz kompresor.</li>
-<li>Ustaw <span class="key">EQ</span>.</li>
-</ol>
-<p>Zobacz <a href="#6-the-channel-strip-section-by-section">6</a>. Ustawienia zrobione w PRO nadal działają w SIMPLE.</p>
+<p>Żeby ukształtować swój mikrofon, zobacz <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Każdy element
+jest opisany w <a href="#6-the-channel-strip-section-by-section">6</a>. Ustawienia zrobione w PRO nadal działają w SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Krok 8: Uruchom PRE-FLIGHT</h3>
 <p>Kilka sekund po starcie <span class="key">PRE-FLIGHT</span> sprawdza konfigurację i otwiera się tylko wtedy, gdy coś
 wymaga uwagi (nie przy pierwszym starcie, kiedy najpierw jest SETUP). Uruchom go kiedy chcesz z
@@ -13719,8 +13574,6 @@ karty (w SIMPLE tylko <span class="key">ADD CHANNEL</span> i <span class="key">A
 </tbody>
 </table></div>
 <p>Wybory SELECT i METER są zapamiętywane.</p>
-<p>Nad paskami są wyświetlacz czasu, transport decku Tape (przewiń wstecz, stop, odtwórz / pauza,
-przewiń do przodu, nagrywaj, pętla) i przełącznik <span class="key">SIMPLE / PRO</span> (zobacz <a href="#step-7-pro-for-the-whole-console">Krok 7</a>).</p>
 <h3 id="the-top-bar">Górny pasek</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Górny pasek: sceny, kontrolka stanu, MINI, HISTORY, FIND i zoom"><img data-shot="images/console/topbar.jpg" alt="Górny pasek: sceny, kontrolka stanu, MINI, HISTORY, FIND i zoom" loading="lazy"></button><figcaption>Górny pasek: sceny, kontrolka stanu, MINI, HISTORY, FIND i zoom</figcaption></figure></div>
 <p>Od prawej:</p>
@@ -13755,6 +13608,10 @@ przewiń do przodu, nagrywaj, pętla) i przełącznik <span class="key">SIMPLE /
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Twoje zapisane miksy. <strong>+</strong> zapisuje nowy (zobacz <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Ten sam miks, w prostej postaci albo jako cała konsola (zobacz <a href="#step-7-pro-for-the-whole-console">Krok 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -13827,16 +13684,15 @@ nie dwa razy (raz bezpośrednio, raz przez bus). Bus może zasilać inny bus i n
 <h3 id="combinators">Kombinatory</h3>
 <p>Kombinator to bus podzielony na równoległe <strong>ścieżki</strong> (na początek dwie). Każda ścieżka ma własne
 wtyczki, a ścieżki są sumowane na faderze kombinatora. Skieruj źródło do jednej ścieżki albo do
-kilku. Pasek kombinatora pokazuje, jakie źródła zasilają każdą ścieżkę.</p>
+kilku (zobacz <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Zasady, które chronią przed kłopotami</h3>
 <ul>
 <li><strong>Pętle sprzężenia zwrotnego są odrzucane.</strong> Trasa, która przywiodłaby dźwięk z powrotem tam, skąd
   przyszedł (bus do busa, który go zasila, dźwięk wyjścia podany z powrotem na jego własne wejście),
   jest od razu wyłączana, a dziennik zdarzeń podaje nazwę pętli.</li>
 <li><strong>Solo</strong> na dowolnym pasku wycisza każdy pasek, który nie jest w solo, oprócz oznaczonych jako solo safe.</li>
-<li><strong>Wyłączony pasek</strong> niczego nie przepuszcza, dokądkolwiek jest skierowany.</li>
-<li><strong>Kanały aplikacji i podwajanie.</strong> Program gra na własnym urządzeniu, a także do swojego kanału.
-  Nie kieruj jego kanału na wyjście na urządzeniu, na którym już go słyszysz.</li>
+<li><strong>Kanały aplikacji i podwajanie.</strong> Program gra na własnym urządzeniu, a także do swojego kanału
+  (zobacz <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Zegar</h3>
 <p>Zegar ustawia jedno urządzenie. Faider wybiera je przy starcie w tej kolejności:</p>
@@ -14049,7 +13905,7 @@ before</strong> / <strong>Add spacer after</strong>. Prawy przycisk na odstępie
 </tr>
 <tr>
 <td><strong>Pola routingu</strong></td>
-<td>Jedno pole na każdy bus i urządzenie wyjściowe. Zapalone: kanał jest tam wysyłany. Kliknij, żeby przełączyć. Wysłanie na urządzenie, które nie ma jeszcze wyjścia, tworzy to wyjście</td>
+<td>Jedno pole na każdy bus i urządzenie wyjściowe. Zapalone: kanał jest tam wysyłany. Kliknij, żeby przełączyć (zobacz <a href="#outputs-are-devices">Wyjścia to urządzenia</a>)</td>
 </tr>
 <tr>
 <td><strong>Numer</strong></td>
@@ -14311,10 +14167,7 @@ usunąć jej wtyczki, zmienić jej nazwę albo ją usunąć.</p>
 </tbody>
 </table></div>
 <p>Prawy przycisk na wyjściu daje <strong>Device...</strong>, odstępy, <strong>Rename...</strong> i <strong>Remove</strong>.</p>
-<p><strong>Wyjścia tworzą się same.</strong> Wyślij kanał na urządzenie (polem routingu, stroną Routing albo
-<strong>Route to</strong>), a jeśli nie ma na nim wyjścia, zostanie ono utworzone.</p>
-<p><strong>Brakujące urządzenie.</strong> Jeśli urządzenie wyjścia zostanie odłączone, to wyjście milknie, dopóki
-urządzenie nie wróci. Nic samo nie przenosi się na inne urządzenie.</p>
+<p>Wyjścia tworzą się same, po jednym na urządzenie (zobacz <a href="#outputs-are-devices">Wyjścia to urządzenia</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> buduje osobny feed dla każdego gościa (wszystko poza jego własnym
 głosem) oraz stemy głosu, muzyki i gry.</p>
 
@@ -14344,7 +14197,7 @@ przełącza na PRO, jeśli widać SIMPLE. Każda karta pokazuje:</p>
 <li><span class="key">HEAVY</span>: niezwykle kosztowna</li>
 </ul>
 <p>Klawisze na każdej karcie: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (jej okno), <span class="key">REMOVE</span> oraz strzałki, które przesuwają
-ją wcześniej lub później. <span class="key">ADD</span> na końcu dodaje kolejną. Nic nie da się zmienić, gdy pasek jest wyłączony.</p>
+ją wcześniej lub później. <span class="key">ADD</span> na końcu dodaje kolejną.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>Strona Routing</h2></header>
@@ -14406,21 +14259,13 @@ Używaj jej, żeby zobaczyć, dokąd wszystko idzie, i żeby kierować dźwięk,
 </tr>
 <tr>
 <td>Zasilić jedną ścieżkę kombinatora</td>
-<td>Źródło, potem komórka ścieżki (P1, P2…)</td>
+<td>Źródło, potem komórka ścieżki (P1, P2…). Kliknij kolejne komórki, żeby zasilić kilka ścieżek. Kliknięcie kombinatora poza jego komórkami zasila jego pierwszą ścieżkę</td>
 </tr>
 </tbody>
 </table></div>
 <p>Kliknięcie szarego bloku urządzenia tworzy jego wyjście, a nowe wyjście od razu pojawia się na konsoli.</p>
-<h3 id="combinators_1">Kombinatory</h3>
-<p>Kliknij źródło, potem <strong>komórkę ścieżki</strong>. Źródło może zasilać kilka ścieżek: kliknij kolejno każdą
-komórkę. Kliknięcie kombinatora poza jego komórkami kieruje dźwięk do jego pierwszej ścieżki. Żeby
-dodać ścieżki lub ich wtyczki, kliknij kombinator na konsoli prawym przyciskiem &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Przesuwanie kanałów</h3>
-<p>Przeciągnij blok w bok wzdłuż jego rzędu. Niebieski pasek pokazuje, gdzie wyląduje, a konsola
-zmienia się odpowiednio. Kanały przesuwają się wśród kanałów, busy wśród busów, wyjścia wśród wyjść.</p>
-<h3 id="when-a-route-wont-stay-on">Gdy trasa nie chce zostać włączona</h3>
-<p>Trasa utworzyłaby pętlę sprzężenia zwrotnego, więc jest od razu wyłączana. Dziennik zdarzeń podaje
-nazwę pętli. Usuń trasę, która sprzęga zwrotnie. Zobacz <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Przeciągnij blok w bok wzdłuż jego rzędu, żeby przesunąć jego pasek (zobacz <a href="#174-reorder-channels">17.4</a>).
+Trasa, która od razu znów się wyłącza, utworzyłaby pętlę sprzężenia zwrotnego (zobacz <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Narzędzia: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> daje cztery banki (<span class="key">A–D</span>) po 16 padów: 64 dźwięki, do 32 grających jednocześnie.</p>
@@ -14501,7 +14346,7 @@ kanału. Bez kanału padów naciśnięcia są ignorowane.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Kliknij (<span class="key">LEARN...</span>), potem naciśnij klawisze. Musi zawierać Ctrl, Alt albo klawisz F. Działa, gdy fokus mają inne programy. Esc anuluje, Delete czyści</td>
+<td>Kliknij (<span class="key">LEARN...</span>), potem naciśnij klawisze (zobacz <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -14709,7 +14554,7 @@ tracony, i startuje nowy miks. Zobacz <a href="#182-my-mix-is-gone-a-fresh-mix-s
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (komunikat, gdy wyciszony mikrofon przekracza -30 dBFS). Zaznaczanie paska po dotknięciu to <strong>SELECT &gt; AUTO</strong> na panelu bocznym</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (komunikat, gdy wyciszony mikrofon przekracza -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -14861,9 +14706,8 @@ proszą o zgodę.</p>
 <ol>
 <li>Uruchom program i spraw, żeby grał dźwięk.</li>
 <li><span class="key">ADD APP</span> &gt; wybierz go. Dostaje kanał raw (bez efektów).</li>
-<li>Skieruj go tam, gdzie chcesz go słyszeć. Program gra też nadal na własnym urządzeniu, więc jeśli
-   słyszysz także to urządzenie, nie kieruj kanału aplikacji w to samo miejsce (PRE-FLIGHT ostrzega
-   przed takim podwojeniem).</li>
+<li>Skieruj go tam, gdzie chcesz go słyszeć. Jeśli słyszysz go dwa razy, zobacz
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Zmień kolejność kanałów</h3>
 <p>Przeciągnij <strong>pasek nazwy</strong> kanału w bok w Mixerze (przewiń w dół do sekcji NAME) albo przeciągnij
@@ -14882,8 +14726,7 @@ każde wśród swojego rodzaju, a ich trasy idą z nimi. SIMPLE pokazuje wyjści
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Zaczyna z dwiema ścieżkami. Prawy przycisk &gt; <strong>Paths &gt; Add path</strong>, żeby
    dodać więcej.</li>
 <li>Na stronie Routing skieruj źródła do komórek ścieżek (<span class="key">P1</span>, <span class="key">P2</span>…).</li>
-<li>Prawy przycisk &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> dla każdej ścieżki. Ścieżki są sumowane na
-   faderze kombinatora. Pasek kombinatora pokazuje, co zasila każdą ścieżkę, i otwiera jej wtyczki.</li>
+<li>Prawy przycisk &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> dla każdej ścieżki.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Zrób miks do streamu i miks do słuchawek</h3>
 <ol>
@@ -15016,14 +14859,15 @@ pokazuje się tylko wtedy, gdy coś jest nie tak. Każdy wiersz ma kontrolkę, u
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Słyszę coś dwa razy albo echo</summary><div class="trouble-body">
 <ul>
-<li>Kanał aplikacji jest skierowany na wyjście na tym samym urządzeniu, na którym aplikacja już gra,
-  więc słyszysz ją bezpośrednio i przez Faider. Skieruj kanał aplikacji gdzie indziej albo
-  przenieś aplikację na inne urządzenie.</li>
+<li>Program gra nadal na własnym urządzeniu, a także do swojego kanału. Jeśli jego kanał jest
+  skierowany na wyjście na tym samym urządzeniu, słyszysz go bezpośrednio i przez Faider. Wyłącz tę
+  trasę (w SIMPLE klawisz tego wyjścia na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
+  ostrzega o tym.</li>
 <li>Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> go wskazuje.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Trasa nie chce się włączyć</summary><div class="trouble-body">
-<p>Utworzyłaby <strong>pętlę sprzężenia zwrotnego</strong> (dźwięk wracający tam, skąd przyszedł), więc jest od
-razu wyłączana. Dziennik zdarzeń podaje nazwę pętli. Przerwij ją, usuwając trasę, która sprzęga zwrotnie.</p>
+<p>Utworzyłaby <strong>pętlę sprzężenia zwrotnego</strong> (zobacz <a href="#rules-that-keep-it-safe">Zasady, które chronią przed kłopotami</a>).
+Dziennik zdarzeń podaje nazwę pętli. Usuń trasę, która sprzęga zwrotnie.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Nie mogę nic zmienić na pasku</summary><div class="trouble-body">
 <p>Pasek jest <strong>wyłączony</strong> (przyciemniony i szary). Kliknij symbol zasilania na jego pasku nazwy.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Przeciąganie kanału nic nie robi</summary><div class="trouble-body">
@@ -15221,7 +15065,7 @@ jak i jako domyślne urządzenia komunikacji. Zobacz <a href="#step-2-install-vb
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Raw-strippar: appar, pads, tape och combinators</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Utgångar</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Plugins</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Sidan Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Läsa sidan</a></li><li><a href="#routing-block-to-block">Routa från block till block</a></li><li><a href="#examples">Exempel</a></li><li><a href="#combinators_1">Combinators</a></li><li><a href="#moving-channels">Flytta kanaler</a></li><li><a href="#when-a-route-wont-stay-on">När en rutt inte stannar på</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Sidan Routing</a><ul class="toc-sub"><li><a href="#reading-the-page">Läsa sidan</a></li><li><a href="#routing-block-to-block">Routa från block till block</a></li><li><a href="#examples">Exempel</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Tools: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Tools: Tape, Recorder och Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Enheter</a></li>
@@ -15473,8 +15317,7 @@ sin fader och mätare.</p>
 <li>Kontrollera vad de får: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> spelar in 5 sekunder av vad appar
    tar emot och spelar upp det för dig.</li>
 </ol>
-<p>Ett program fortsätter också att spela på sin egen enhet. Om det är enheten du lyssnar på, stäng av
-tangenten <span class="key">HEADPHONES</span> på dess kanal, annars hör du det dubbelt (PRE-FLIGHT varnar för detta).</p>
+<p>Om du hör ett program dubbelt, se <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> och <span class="key">+ APP</span> lägger till kanaler. <span class="key">+ OUTPUT</span> lägger till en utgång på en enhet som saknar en.
 Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för <strong>Rename...</strong>,
 färgen och <strong>Remove</strong>. När du tar bort ett programs kanal försvinner också dess appregel, så kanalen
@@ -15482,13 +15325,8 @@ kommer inte tillbaka av sig själv.</p>
 <h3 id="step-7-pro-for-the-whole-console">Steg 7: PRO, för hela konsolen</h3>
 <p>Omkopplaren <span class="key">SIMPLE / PRO</span> i den övre raden visar samma mix i båda lägena. <span class="key">PRO</span> är hela
 konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, plugins.</p>
-<p>Så formar du din mikrofon i PRO:</p>
-<ol>
-<li>Vrid upp <strong>hp</strong> till runt 80–100 Hz för att ta bort buller.</li>
-<li>Slå på <span class="key">DYNAMICS</span> (omkopplaren med strömsymbolen) och ställ in gate och kompressor.</li>
-<li>Ställ in <span class="key">EQ</span>.</li>
-</ol>
-<p>Se <a href="#6-the-channel-strip-section-by-section">6</a>. Inställningar du gör i PRO fortsätter gälla i SIMPLE.</p>
+<p>För att forma din mikrofon, se <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Varje kontroll finns i
+<a href="#6-the-channel-strip-section-by-section">6</a>. Inställningar du gör i PRO fortsätter gälla i SIMPLE.</p>
 <h3 id="step-8-run-pre-flight">Steg 8: Kör PRE-FLIGHT</h3>
 <p>Några sekunder efter start kontrollerar <span class="key">PRE-FLIGHT</span> uppsättningen och öppnas bara om något behöver uppmärksamhet
 (inte vid allra första starten, då SETUP kommer först). Kör den när som helst via
@@ -15566,8 +15404,6 @@ de här korten (i SIMPLE bara <span class="key">ADD CHANNEL</span> och <span cla
 </tbody>
 </table></div>
 <p>Valen under SELECT och METER kommer ihåg.</p>
-<p>Ovanför strippar finns tidsvisningen, transporten för Tape-däcket (spola tillbaka, stopp, spela / paus,
-spola fram, spela in, loop) och omkopplaren <span class="key">SIMPLE / PRO</span> (se <a href="#step-7-pro-for-the-whole-console">Steg 7</a>).</p>
 <h3 id="the-top-bar">Den övre raden</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Den övre raden: scener, hälsolampan, MINI, HISTORY, FIND och zoom"><img data-shot="images/console/topbar.jpg" alt="Den övre raden: scener, hälsolampan, MINI, HISTORY, FIND och zoom" loading="lazy"></button><figcaption>Den övre raden: scener, hälsolampan, MINI, HISTORY, FIND och zoom</figcaption></figure></div>
 <p>Från höger:</p>
@@ -15602,6 +15438,10 @@ spola fram, spela in, loop) och omkopplaren <span class="key">SIMPLE / PRO</span
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Dina sparade mixar. <strong>+</strong> sparar en ny (se <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Samma mix, enkel eller som hela konsolen (se <a href="#step-7-pro-for-the-whole-console">Steg 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -15674,17 +15514,16 @@ når de den två gånger (en gång direkt, en gång via bussen). En buss kan mat
 någon fördröjning.</p>
 <h3 id="combinators">Combinators</h3>
 <p>En combinator är en buss uppdelad i parallella <strong>vägar</strong> (två till att börja med). Varje väg har egna plugins,
-och vägarna summeras vid combinatorns fader. Routa en källa till en väg eller flera. Combinatorns
-strip visar vilka källor som matar varje väg.</p>
+och vägarna summeras vid combinatorns fader. Routa en källa till en väg eller flera (se
+<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Regler som håller det säkert</h3>
 <ul>
 <li><strong>Återkopplingsslingor nekas.</strong> En rutt som skulle föra ett ljud tillbaka dit det kom ifrån (en
   buss in i en buss som matar den, en utgångs ljud tillbaka in i dess egen ingång) stängs genast
   av igen, och händelseloggen nämner slingan.</li>
 <li><strong>Solo</strong> på vilken strip som helst tystar varje strip som inte är på solo, utom de som är markerade solo safe.</li>
-<li><strong>En strip som är avstängd</strong> släpper igenom ingenting, vart den än är routad.</li>
-<li><strong>Appkanaler och dubbling.</strong> Ett program spelar på sin egen enhet och även in i sin kanal.
-  Routa inte dess kanal till en utgång på enheten där du redan hör det.</li>
+<li><strong>Appkanaler och dubbling.</strong> Ett program spelar på sin egen enhet och även in i sin kanal
+  (se <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Klockor</h3>
 <p>En enhet sätter klockan. Faider väljer den i den här ordningen vid start:</p>
@@ -15896,7 +15735,7 @@ spacer</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 </tr>
 <tr>
 <td><strong>Routing boxes</strong></td>
-<td>En ruta per buss och utgångsenhet. Tänd: kanalen skickas dit. Klicka för att växla. Att skicka till en enhet utan utgång skapar dess utgång</td>
+<td>En ruta per buss och utgångsenhet. Tänd: kanalen skickas dit. Klicka för att växla (se <a href="#outputs-are-devices">Utgångar är enheter</a>)</td>
 </tr>
 <tr>
 <td><strong>Number</strong></td>
@@ -16158,10 +15997,7 @@ plugins, byta namn på den eller ta bort den.</p>
 </tbody>
 </table></div>
 <p>Högerklicka på en utgång för <strong>Device...</strong>, spacers, <strong>Rename...</strong> och <strong>Remove</strong>.</p>
-<p><strong>Utgångar skapas åt dig.</strong> Skicka en kanal till en enhet (med en routingruta, sidan Routing eller
-<strong>Route to</strong>) så skapas en utgång på den enheten om det inte redan finns en.</p>
-<p><strong>En enhet som saknas.</strong> Om en utgångs enhet dras ut blir den utgången tyst tills enheten
-kommer tillbaka. Ingenting flyttar sig till en annan enhet av sig själv.</p>
+<p>Utgångar skapas åt dig, en per enhet (se <a href="#outputs-are-devices">Utgångar är enheter</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> bygger en feed per gäst (allt utom deras egen röst) och
 stems för röst, musik och spel.</p>
 
@@ -16191,7 +16027,7 @@ PRO om SIMPLE visas. Varje kort visar:</p>
 <li><span class="key">HEAVY</span>: ovanligt dyrt</li>
 </ul>
 <p>Tangenter på varje kort: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (dess fönster), <span class="key">REMOVE</span> och pilar för att flytta det tidigare eller
-senare. <span class="key">ADD</span> på slutet lägger till ett till. Ingenting kan ändras medan stripen är avstängd.</p>
+senare. <span class="key">ADD</span> på slutet lägger till ett till.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>Sidan Routing</h2></header>
@@ -16253,21 +16089,13 @@ Använd den för att se vart allt går och för att routa genom att klicka på t
 </tr>
 <tr>
 <td>Mata en combinator-väg</td>
-<td>Källan, sedan vägcellen (P1, P2…)</td>
+<td>Källan, sedan vägcellen (P1, P2…). Klicka på fler celler för att mata flera vägar. Att klicka på combinatorn utanför dess celler matar dess första väg</td>
 </tr>
 </tbody>
 </table></div>
 <p>Att klicka på ett grått enhetsblock skapar dess utgång, och den nya utgången dyker upp på bordet direkt.</p>
-<h3 id="combinators_1">Combinators</h3>
-<p>Klicka på källan, sedan på <strong>vägcellen</strong>. En källa kan mata flera vägar: klicka på varje cell i tur och ordning.
-Att klicka på combinatorn utanför dess celler routar in i dess första väg. För att lägga till vägar eller deras
-plugins, högerklicka på combinatorn på bordet &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Flytta kanaler</h3>
-<p>Dra ett block i sidled längs sin rad. En blå list visar var det landar, och bordet ändras för att
-matcha. Kanaler flyttas bland kanaler, bussar bland bussar, utgångar bland utgångar.</p>
-<h3 id="when-a-route-wont-stay-on">När en rutt inte stannar på</h3>
-<p>Rutten skulle skapa en återkopplingsslinga, så den stängs genast av. Händelseloggen nämner slingan.
-Ta bort rutten som matar tillbaka. Se <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Dra ett block i sidled längs sin rad för att flytta dess strip (se <a href="#174-reorder-channels">17.4</a>). En rutt
+som genast stängs av igen skulle skapa en återkopplingsslinga (se <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Tools: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> ger dig fyra banker (<span class="key">A–D</span>) med 16 pads: 64 ljud, upp till 32 som spelar samtidigt.</p>
@@ -16348,7 +16176,7 @@ plugins och rutter. Utan padskanal ignoreras tryck.</p>
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Klicka (<span class="key">LEARN...</span>) och tryck sedan på tangenterna. Måste innehålla Ctrl, Alt eller en F-tangent. Fungerar medan andra program har fokus. Esc avbryter, Delete rensar</td>
+<td>Klicka (<span class="key">LEARN...</span>) och tryck sedan på tangenterna (se <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -16555,7 +16383,7 @@ mix startar. Se <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (en notis när en ljudlös mikrofon ligger över -30 dBFS). Att välja en strip när den berörs är sidofältets <strong>SELECT &gt; AUTO</strong></td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (en notis när en ljudlös mikrofon ligger över -30 dBFS)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -16707,9 +16535,8 @@ De få steg som kräver en administratör
 <ol>
 <li>Starta programmet och få det att spela ljud.</li>
 <li><span class="key">ADD APP</span> &gt; välj det. Det får en raw-kanal (inga effekter).</li>
-<li>Routa den dit du vill höra den. Programmet fortsätter spela på sin egen enhet också, så om du
-   också hör den enheten, routa inte appkanalen till samma ställe (PRE-FLIGHT varnar för den här
-   dubblingen).</li>
+<li>Routa den dit du vill höra den. Om du hör den dubbelt, se
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Ordna om kanaler</h3>
 <p>Dra en kanals <strong>namnlist</strong> i sidled i Mixern (rulla ned till avsnittet NAME), eller dra dess
@@ -16728,8 +16555,7 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.</p
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. Den börjar med två vägar. Högerklicka på den &gt; <strong>Paths &gt; Add path</strong> för
    fler.</li>
 <li>Routa källor till vägcellerna (<span class="key">P1</span>, <span class="key">P2</span>…) på sidan Routing.</li>
-<li>Högerklicka &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> för varje väg. Vägarna summeras vid
-   combinatorns fader. Combinatorstripen visar vad som matar varje väg och öppnar dess plugins.</li>
+<li>Högerklicka &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong> för varje väg.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Gör en streammix och en hörlursmix</h3>
 <ol>
@@ -16863,14 +16689,15 @@ upp om något är fel. Varje rad har en lampa, resultatet och en åtgärd:</p>
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Jag hör något två gånger, eller ett eko</summary><div class="trouble-body">
 <ul>
-<li>En appkanal är routad till en utgång på samma enhet som appen redan spelar på, så du hör
-  appen direkt och via Faider. Routa appkanalen någon annanstans, eller flytta appen till
-  en annan enhet.</li>
+<li>Ett program fortsätter spela på sin egen enhet och även in i sin kanal. Om dess kanal är routad
+  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (i SIMPLE,
+  utgångens tangent på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
+  varnar för detta.</li>
 <li>Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> pekar ut den.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 En rutt går inte att slå på</summary><div class="trouble-body">
-<p>Den skulle skapa en <strong>återkopplingsslinga</strong> (ljud som återvänder dit det kom ifrån), så den stängs genast
-av igen. Händelseloggen nämner slingan. Bryt den genom att ta bort rutten som matar tillbaka.</p>
+<p>Den skulle skapa en <strong>återkopplingsslinga</strong> (se <a href="#rules-that-keep-it-safe">Regler som håller det säkert</a>).
+Händelseloggen nämner slingan. Ta bort rutten som matar tillbaka.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Jag kan inte ändra något på en strip</summary><div class="trouble-body">
 <p>Stripen är <strong>avstängd</strong> (nedtonad och grå). Klicka på strömsymbolen på dess namnlist.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Att dra en kanal gör ingenting</summary><div class="trouble-body">
@@ -17067,7 +16894,7 @@ och som standardkommunikationsenheter. Se <a href="#step-2-install-vb-cable-opti
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>Raw şeritler: uygulamalar, pad'ler, tape ve kombinatörler</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>Çıkışlar</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>Eklentiler</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Routing sayfası</a><ul class="toc-sub"><li><a href="#reading-the-page">Sayfayı okumak</a></li><li><a href="#routing-block-to-block">Bloktan bloğa yönlendirme</a></li><li><a href="#examples">Örnekler</a></li><li><a href="#combinators_1">Kombinatörler</a></li><li><a href="#moving-channels">Kanalları taşımak</a></li><li><a href="#when-a-route-wont-stay-on">Bir yönlendirme açık kalmadığında</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>Routing sayfası</a><ul class="toc-sub"><li><a href="#reading-the-page">Sayfayı okumak</a></li><li><a href="#routing-block-to-block">Bloktan bloğa yönlendirme</a></li><li><a href="#examples">Örnekler</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>Araçlar: Pads</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>Araçlar: Tape, Recorder ve Replay</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>Aygıtlar</a></li>
@@ -17318,8 +17145,7 @@ küçük boyut sana en düşük gecikmeyi verir. Çoğu sistem için 256 veya 51
 <li>Onların ne aldığını kontrol et: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span>, uygulamaların aldığı
    sesin 5 saniyesini kaydeder ve sana çalar.</li>
 </ol>
-<p>Bir program kendi aygıtında da çalmaya devam eder. O, dinlediğin aygıtsa kanalının <span class="key">HEADPHONES</span>
-tuşunu kapat, yoksa iki kez duyarsın (PRE-FLIGHT bu konuda uyarır).</p>
+<p>Bir programı iki kez duyuyorsan bkz. <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
 <p><span class="key">+ CHANNEL</span> ve <span class="key">+ APP</span> kanal ekler. <span class="key">+ OUTPUT</span>, çıkışı olmayan bir aygıta çıkış ekler. Bir
 çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. <strong>Rename...</strong>, renk ve <strong>Remove</strong> için
 bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
@@ -17327,13 +17153,8 @@ kendiliğinden geri gelmez.</p>
 <h3 id="step-7-pro-for-the-whole-console">Adım 7: PRO, konsolun tamamı için</h3>
 <p>Üst çubuktaki <span class="key">SIMPLE / PRO</span> anahtarı aynı karışımı iki halde de gösterir. <span class="key">PRO</span> konsolun
 tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve kombinatörler, eklentiler.</p>
-<p>PRO'da mikrofonunu şekillendirmek için:</p>
-<ol>
-<li>Uğultuyu gidermek için <strong>hp</strong>'yi 80–100 Hz civarına kadar çevir.</li>
-<li><span class="key">DYNAMICS</span>'i devreye al (güç simgeli anahtar) ve gate ile kompresörü ayarla.</li>
-<li><span class="key">EQ</span>'yu ayarla.</li>
-</ol>
-<p>Bkz. <a href="#6-the-channel-strip-section-by-section">6</a>. PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.</p>
+<p>Mikrofonunu şekillendirmek için bkz. <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Her kontrol
+<a href="#6-the-channel-strip-section-by-section">6</a> içinde. PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.</p>
 <h3 id="step-8-run-pre-flight">Adım 8: PRE-FLIGHT'ı çalıştır</h3>
 <p>Başlangıçtan birkaç saniye sonra <span class="key">PRE-FLIGHT</span> düzeni kontrol eder ve yalnızca bir şeyin dikkat
 istemesi halinde açılır (SETUP'ın önce geldiği ilk başlangıçta değil). İstediğin zaman
@@ -17411,8 +17232,6 @@ bulunur (SIMPLE'da yalnızca <span class="key">ADD CHANNEL</span> ve <span class
 </tbody>
 </table></div>
 <p>SELECT ve METER seçimleri hatırlanır.</p>
-<p>Şeritlerin üstünde zaman göstergesi, Tape deck'in transportu (geri sar, dur, çal / duraklat, ileri sar,
-kaydet, döngü) ve <span class="key">SIMPLE / PRO</span> anahtarı bulunur (bkz. <a href="#step-7-pro-for-the-whole-console">Adım 7</a>).</p>
 <h3 id="the-top-bar">Üst çubuk</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Üst çubuk: sahneler, durum ışığı, MINI, HISTORY, FIND ve yakınlaştırma"><img data-shot="images/console/topbar.jpg" alt="Üst çubuk: sahneler, durum ışığı, MINI, HISTORY, FIND ve yakınlaştırma" loading="lazy"></button><figcaption>Üst çubuk: sahneler, durum ışığı, MINI, HISTORY, FIND ve yakınlaştırma</figcaption></figure></div>
 <p>Sağdan başlayarak:</p>
@@ -17447,6 +17266,10 @@ kaydet, döngü) ve <span class="key">SIMPLE / PRO</span> anahtarı bulunur (bkz
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Kayıtlı karışımların. <strong>+</strong> yeni birini kaydeder (bkz. <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>Aynı karışım, sade ya da konsolun tamamı olarak (bkz. <a href="#step-7-pro-for-the-whole-console">Adım 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -17518,8 +17341,8 @@ bus'ı çıkışa yönlendir. Sonra kanalların o çıkışa giden doğrudan yö
 besleyebilir ve bu gecikme eklemez.</p>
 <h3 id="combinators">Kombinatörler</h3>
 <p>Kombinatör, paralel <strong>yollara</strong> bölünmüş bir bus'tır (başlangıçta iki). Her yolun kendi eklentileri
-vardır ve yollar kombinatörün fader'ında toplanır. Bir kaynağı bir yola ya da birkaçına yönlendir.
-Kombinatörün şeridi her yolu hangi kaynakların beslediğini gösterir.</p>
+vardır ve yollar kombinatörün fader'ında toplanır. Bir kaynağı bir yola ya da birkaçına yönlendir
+(bkz. <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>).</p>
 <h3 id="rules-that-keep-it-safe">Her şeyi güvende tutan kurallar</h3>
 <ul>
 <li><strong>Geri besleme döngüleri reddedilir.</strong> Bir sesi geldiği yere geri getirecek bir yönlendirme (bir
@@ -17527,9 +17350,8 @@ Kombinatörün şeridi her yolu hangi kaynakların beslediğini gösterir.</p>
   hemen kapatılır ve olay günlüğü döngünün adını verir.</li>
 <li>Herhangi bir şeritteki <strong>Solo</strong>, solo olmayan her şeridi susturur, solo safe işaretlenmiş olanlar
   hariç.</li>
-<li><strong>Kapatılmış bir şerit</strong> nereye yönlendirilirse yönlendirilsin hiçbir şey geçirmez.</li>
-<li><strong>Uygulama kanalları ve çiftlenme.</strong> Bir program hem kendi aygıtında hem de kanalına çalar. Kanalını,
-  onu zaten duyduğun aygıttaki bir çıkışa yönlendirme.</li>
+<li><strong>Uygulama kanalları ve çiftlenme.</strong> Bir program hem kendi aygıtında hem de kanalına çalar
+  (bkz. <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>).</li>
 </ul>
 <h3 id="clocking">Saat</h3>
 <p>Saati bir aygıt belirler. Faider başlarken onu şu sırayla seçer:</p>
@@ -17740,7 +17562,7 @@ kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal 
 </tr>
 <tr>
 <td><strong>Yönlendirme kutuları</strong></td>
-<td>Her bus ve çıkış aygıtı için bir kutu. Yanık: kanal oraya gönderiliyor. Değiştirmek için tıkla. Henüz çıkışı olmayan bir aygıta göndermek onun çıkışını oluşturur</td>
+<td>Her bus ve çıkış aygıtı için bir kutu. Yanık: kanal oraya gönderiliyor. Değiştirmek için tıkla (bkz. <a href="#outputs-are-devices">Çıkışlar aygıttır</a>)</td>
 </tr>
 <tr>
 <td><strong>Numara</strong></td>
@@ -18002,10 +17824,7 @@ kaldırmak için ona sağ tık &gt; <strong>Paths</strong>.</p>
 </tbody>
 </table></div>
 <p>Bir çıkışa sağ tıklayınca <strong>Device...</strong>, boşluklar, <strong>Rename...</strong> ve <strong>Remove</strong> çıkar.</p>
-<p><strong>Çıkışlar senin için oluşturulur.</strong> Bir kanalı bir aygıta gönder (bir yönlendirme kutusuyla, Routing
-sayfasıyla veya <strong>Route to</strong> ile) ve orada yoksa o aygıtta bir çıkış oluşturulur.</p>
-<p><strong>Eksik bir aygıt.</strong> Bir çıkışın aygıtı çıkarılırsa o çıkış aygıt geri gelene kadar sessiz kalır.
-Hiçbir şey kendiliğinden başka bir aygıta geçmez.</p>
+<p>Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. <a href="#outputs-are-devices">Çıkışlar aygıttır</a>).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong>, her konuk için bir besleme (kendi sesi dışındaki her şey) ve ses,
 müzik ve oyun stem'leri oluşturur.</p>
 
@@ -18034,7 +17853,7 @@ görünüyorsa PRO'ya geçer. Her kart şunları gösterir:</p>
 <li><span class="key">HEAVY</span>: alışılmadık ölçüde pahalı</li>
 </ul>
 <p>Her karttaki tuşlar: <span class="key">BYPASS</span>, <span class="key">OPEN</span> (penceresi), <span class="key">REMOVE</span> ve onu daha erken ya da daha geç
-taşımak için oklar. Sondaki <span class="key">ADD</span> bir tane daha ekler. Şerit kapalıyken hiçbir şey değiştirilemez.</p>
+taşımak için oklar. Sondaki <span class="key">ADD</span> bir tane daha ekler.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>Routing sayfası</h2></header>
@@ -18096,21 +17915,13 @@ taşımak için oklar. Sondaki <span class="key">ADD</span> bir tane daha ekler.
 </tr>
 <tr>
 <td>Bir kombinatör yolunu beslemek</td>
-<td>Kaynak, sonra yol hücresi (P1, P2…)</td>
+<td>Kaynak, sonra yol hücresi (P1, P2…). Birkaç yolu beslemek için başka hücrelere de tıkla. Kombinatöre hücrelerinin dışında tıklamak ilk yolunu besler</td>
 </tr>
 </tbody>
 </table></div>
 <p>Gri bir aygıt bloğuna tıklamak onun çıkışını oluşturur ve yeni çıkış hemen konsolda belirir.</p>
-<h3 id="combinators_1">Kombinatörler</h3>
-<p>Kaynağa, sonra <strong>yol hücresine</strong> tıkla. Bir kaynak birkaç yolu besleyebilir: her hücreye sırayla
-tıkla. Kombinatöre hücrelerinin dışında tıklamak ilk yoluna yönlendirir. Yol veya eklentilerini
-eklemek için konsoldaki kombinatöre sağ tık &gt; <strong>Paths</strong>.</p>
-<h3 id="moving-channels">Kanalları taşımak</h3>
-<p>Bir bloğu satırı boyunca yana sürükle. Mavi bir çubuk nereye ineceğini gösterir ve konsol buna göre
-değişir. Kanallar kanallar arasında, bus'lar bus'lar arasında, çıkışlar çıkışlar arasında taşınır.</p>
-<h3 id="when-a-route-wont-stay-on">Bir yönlendirme açık kalmadığında</h3>
-<p>Yönlendirme bir geri besleme döngüsü oluşturacağı için hemen kapatılır. Olay günlüğü döngünün adını
-verir. Geri besleme yapan yönlendirmeyi kaldır. Bkz. <a href="#188-a-route-wont-switch-on">18.8</a>.</p>
+<p>Şeridini taşımak için bir bloğu satırı boyunca yana sürükle (bkz. <a href="#174-reorder-channels">17.4</a>). Hemen
+yeniden kapanan bir yönlendirme bir geri besleme döngüsü oluştururdu (bkz. <a href="#188-a-route-wont-switch-on">18.8</a>).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>Araçlar: Pads</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> sana dört banka (<span class="key">A–D</span>) 16'şar pad verir: 64 ses, aynı anda 32'ye kadarı çalar.</p>
@@ -18191,7 +18002,7 @@ menüsünden başka bir giriş seç. Pad kanalı yoksa basışlar yok sayılır.
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>Tıkla (<span class="key">LEARN...</span>), sonra tuşlara bas. Ctrl, Alt veya bir F tuşu içermeli. Başka programlar odaktayken de çalışır. Esc iptal eder, Delete temizler</td>
+<td>Tıkla (<span class="key">LEARN...</span>), sonra tuşlara bas (bkz. <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -18400,7 +18211,7 @@ dosya bozuk), kaybolmak yerine <strong>bir kenara ayrılır</strong> ve yeni bir
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span> (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim). Bir şeride dokunulduğunda onu seçmek kenar çubuğundaki <strong>SELECT &gt; AUTO</strong>'dur</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span> (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -18553,8 +18364,8 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
 <ol>
 <li>Programı başlat ve ses çaldır.</li>
 <li><span class="key">ADD APP</span> &gt; onu seç. Bir raw kanal alır (efektsiz).</li>
-<li>Duyulmasını istediğin yere yönlendir. Program kendi aygıtında da çalmaya devam eder, bu yüzden o
-   aygıtı da duyuyorsan uygulama kanalını aynı yere yönlendirme (PRE-FLIGHT bu çiftlenme konusunda uyarır).</li>
+<li>Duyulmasını istediğin yere yönlendir. Onu iki kez duyuyorsan bkz.
+   <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 Kanalların sırasını değiştir</h3>
 <p>Bir kanalın <strong>ad çubuğunu</strong> Mixer'da yana sürükle (NAME bölümüne kadar aşağı kaydır) ya da Routing
@@ -18572,8 +18383,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışl
 <ol>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. İki yolla başlar. Daha fazlası için sağ tık &gt; <strong>Paths &gt; Add path</strong>.</li>
 <li>Routing sayfasında kaynakları yol hücrelerine (<span class="key">P1</span>, <span class="key">P2</span>…) yönlendir.</li>
-<li>Her yol için sağ tık &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>. Yollar kombinatörün fader'ında toplanır.
-   Kombinatör şeridi her yolu neyin beslediğini gösterir ve eklentilerini açar.</li>
+<li>Her yol için sağ tık &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 Bir yayın karışımı ve bir kulaklık karışımı yap</h3>
 <ol>
@@ -18706,14 +18516,15 @@ kenara ayrılır</strong>. Olay günlüğü nedenini söyler:</p>
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Bir şeyi iki kez veya yankı olarak duyuyorum</summary><div class="trouble-body">
 <ul>
-<li>Bir uygulama kanalı, uygulamanın zaten çaldığı aygıttaki bir çıkışa yönlendirilmiş, bu yüzden
-  uygulamayı hem doğrudan hem Faider üzerinden duyuyorsun. Uygulama kanalını başka yere
-  yönlendir ya da uygulamayı başka bir aygıta taşı.</li>
+<li>Bir program hem kendi aygıtında hem de kanalına çalmaya devam eder. Kanalı aynı aygıttaki bir
+  çıkışa yönlendirilmişse onu hem doğrudan hem Faider üzerinden duyarsın. O yönlendirmeyi kapat
+  (SIMPLE'da kanaldaki o çıkışın tuşu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
+  uyarır.</li>
 <li>Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> bunu adıyla söyler.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 Bir yönlendirme açılmıyor</summary><div class="trouble-body">
-<p>Bir <strong>geri besleme döngüsü</strong> (sesin geldiği yere dönmesi) oluşturacağı için hemen kapatılır. Olay
-günlüğü döngünün adını verir. Geri besleme yapan yönlendirmeyi kaldırarak döngüyü kır.</p>
+<p>Bir <strong>geri besleme döngüsü</strong> oluştururdu (bkz. <a href="#rules-that-keep-it-safe">Her şeyi güvende tutan kurallar</a>).
+Olay günlüğü döngünün adını verir. Geri besleme yapan yönlendirmeyi kaldır.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 Bir şeritte hiçbir şeyi değiştiremiyorum</summary><div class="trouble-body">
 <p>Şerit <strong>kapalı</strong> (soluk ve gri). Ad çubuğundaki güç simgesine tıkla.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 Bir kanalı sürüklemek bir şey yapmıyor</summary><div class="trouble-body">
@@ -18911,7 +18722,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>ロー(RAW)ストリップ: アプリ、パッド、テープ、コンバイネーター</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>出力</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>プラグイン</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING ページ</a><ul class="toc-sub"><li><a href="#reading-the-page">ページの見方</a></li><li><a href="#routing-block-to-block">ブロックからブロックへルーティングする</a></li><li><a href="#examples">例</a></li><li><a href="#combinators_1">コンバイネーター</a></li><li><a href="#moving-channels">チャンネルを移動する</a></li><li><a href="#when-a-route-wont-stay-on">ルートがオンのままにならないとき</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING ページ</a><ul class="toc-sub"><li><a href="#reading-the-page">ページの見方</a></li><li><a href="#routing-block-to-block">ブロックからブロックへルーティングする</a></li><li><a href="#examples">例</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>ツール: パッド</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>ツール: テープ、レコーダー、リプレイ</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>デバイス</a></li>
@@ -19130,17 +18941,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li>Discord、ゲーム、OBS など、他のアプリで、マイクとして <strong>CABLE Output</strong> を選びます。</li>
 <li>アプリに何が届いているか確認します。<span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> で、アプリが受け取っている音を 5 秒間録音して、再生します。</li>
 </ol>
-<p>プログラムは、自分のデバイスでも再生され続けます。それがあなたの聞いているデバイスなら、そのチャンネルの <span class="key">HEADPHONES</span> キーをオフにしてください。そうしないと二重に聞こえます(PRE-FLIGHT が警告します)。</p>
+<p>プログラムが二重に聞こえるときは、<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照してください。</p>
 <p><span class="key">+ CHANNEL</span> と <span class="key">+ APP</span> でチャンネルを追加します。<span class="key">+ OUTPUT</span> は、出力がまだないデバイスに出力を追加します。出力名の下にあるデバイスキーで、再生先を変更できます。名前を右クリックすると、<strong>Rename...</strong>、色、<strong>Remove</strong> が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。</p>
 <h3 id="step-7-pro-for-the-whole-console">ステップ 7: PRO で、コンソール全体を使う</h3>
 <p>上部バーの <span class="key">SIMPLE / PRO</span> スイッチは、どちらでも同じミックスを表示します。<span class="key">PRO</span> はコンソール全体です。各チャンネルの入力、フィルター、ダイナミクス、EQ、バスとコンバイネーター、プラグインを操作できます。</p>
-<p>PRO でマイクの音を整えるには:</p>
-<ol>
-<li><strong>hp</strong> を 80〜100 Hz あたりまで上げて、低いノイズを除きます。</li>
-<li><span class="key">DYNAMICS</span> を入れ(電源マークのスイッチ)、ゲートとコンプレッサーを設定します。</li>
-<li><span class="key">EQ</span> を設定します。</li>
-</ol>
-<p><a href="#6-the-channel-strip-section-by-section">6</a> を参照してください。PRO で行った設定は、SIMPLE でも有効です。</p>
+<p>マイクの音を整えるには、<a href="#171-hear-yourself-set-up-a-microphone">17.1</a> を参照してください。すべてのコントロールは <a href="#6-the-channel-strip-section-by-section">6</a> にあります。PRO で行った設定は、SIMPLE でも有効です。</p>
 <h3 id="step-8-run-pre-flight">ステップ 8: PRE-FLIGHT を実行する</h3>
 <p>起動の数秒後に、<span class="key">PRE-FLIGHT</span> がセットアップを確認し、対処が必要なときだけ開きます(最初の起動では SETUP が先なので開きません)。いつでも <strong>SETTINGS &gt; GENERAL &gt; PRE-FLIGHT NOW...</strong> または <span class="key">FIND</span> (Ctrl+K) から実行できます。すべての行が緑になるはずです。<a href="#181-pre-flight">18.1</a> を参照してください。</p>
 <h3 id="step-9-finish">ステップ 9: 仕上げ</h3>
@@ -19208,7 +19013,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>SELECT と METER の選択は記憶されます。</p>
-<p>ストリップの上には、時間表示、テープデッキのトランスポート(巻き戻し、停止、再生 / 一時停止、早送り、録音、ループ)、<span class="key">SIMPLE / PRO</span> スイッチがあります(<a href="#step-7-pro-for-the-whole-console">ステップ 7</a>を参照)。</p>
 <h3 id="the-top-bar">上部バー</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="上部バー: シーン、ヘルスライト、MINI、HISTORY、FIND、ズーム"><img data-shot="images/console/topbar.jpg" alt="上部バー: シーン、ヘルスライト、MINI、HISTORY、FIND、ズーム" loading="lazy"></button><figcaption>上部バー: シーン、ヘルスライト、MINI、HISTORY、FIND、ズーム</figcaption></figure></div>
 <p>右から順に:</p>
@@ -19243,6 +19047,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>保存したミックス。<strong>+</strong> で新しく保存します(<a href="#141-scenes">14.1</a> を参照)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>同じミックスを、シンプルに、またはコンソール全体として表示します(<a href="#step-7-pro-for-the-whole-console">ステップ 7</a> を参照)</td>
 </tr>
 </tbody>
 </table></div>
@@ -19299,13 +19107,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <h3 id="buses">バス</h3>
 <p>複数のチャンネルに同じ処理をかけたいとき、または 1 本のフェーダーで扱いたいときは、バスを使います。チャンネルをバスにルーティングし、バスを出力にルーティングします。その後、チャンネルからその出力への直接のルートを外してください。外さないと、直接とバス経由の 2 回、同じ出力に届きます。バスは別のバスに送ることもでき、遅延は増えません。</p>
 <h3 id="combinators">コンバイネーター</h3>
-<p>コンバイネーターは、並列の<strong>経路</strong>に分かれたバスです(最初は 2 経路)。経路ごとに自分のプラグインがあり、経路はコンバイネーターのフェーダーで合計されます。音源は、1 つの経路にも複数の経路にもルーティングできます。コンバイネーターのストリップには、各経路に何が入っているかが表示されます。</p>
+<p>コンバイネーターは、並列の<strong>経路</strong>に分かれたバスです(最初は 2 経路)。経路ごとに自分のプラグインがあり、経路はコンバイネーターのフェーダーで合計されます。音源は、1 つの経路にも複数の経路にもルーティングできます(<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a> を参照)。</p>
 <h3 id="rules-that-keep-it-safe">安全のためのルール</h3>
 <ul>
 <li><strong>フィードバックループは拒否されます。</strong> 音が元の場所に戻ってしまうルート(自分に送っているバスへのバス、出力の音を自分の入力に戻すなど)は、すぐにオフに戻され、イベントログにループが記録されます。</li>
 <li>どのストリップでも<strong>ソロ</strong>にすると、ソロセーフの印があるものを除いて、ソロになっていないすべてのストリップが無音になります。</li>
-<li><strong>オフになっているストリップ</strong>は、どこにルーティングされていても何も通しません。</li>
-<li><strong>アプリのチャンネルと二重再生。</strong> プログラムは、自分のデバイスでも、チャンネルにも再生されます。すでに聞いているデバイスの出力に、そのチャンネルをルーティングしないでください。</li>
+<li><strong>アプリのチャンネルと二重再生。</strong> プログラムは、自分のデバイスでも、チャンネルにも再生されます(<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照)。</li>
 </ul>
 <h3 id="clocking">クロック</h3>
 <p>クロックを決めるデバイスは 1 つです。Faider は、起動時に次の順で選びます。</p>
@@ -19497,7 +19304,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><strong>ルーティングボックス</strong></td>
-<td>バスと出力デバイスごとに 1 つのボックス。点灯: チャンネルはそこへ送られています。クリックで切り替え。まだ出力がないデバイスに送ると、その出力が作られます</td>
+<td>バスと出力デバイスごとに 1 つのボックス。点灯: チャンネルはそこへ送られています。クリックで切り替え(<a href="#outputs-are-devices">出力はデバイス</a> を参照)</td>
 </tr>
 <tr>
 <td><strong>番号</strong></td>
@@ -19752,8 +19559,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>出力を右クリックすると、<strong>Device...</strong>、スペーサー、<strong>Rename...</strong>、<strong>Remove</strong> が使えます。</p>
-<p><strong>出力は自動で作られます。</strong> チャンネルをデバイスに送ると(ルーティングボックス、ROUTING ページ、<strong>Route to</strong> のいずれでも)、そのデバイスに出力がなければ作られます。</p>
-<p><strong>デバイスがないとき。</strong> 出力のデバイスを抜くと、デバイスが戻るまでその出力は無音になります。自動で別のデバイスに移ることはありません。</p>
+<p>出力は、デバイスごとに 1 つ、自動で作られます(<a href="#outputs-are-devices">出力はデバイス</a> を参照)。</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> は、ゲストごとのフィード(本人の声以外のすべて)と、声、音楽、ゲームのステムを作ります。</p>
 
 </section>
@@ -19774,7 +19580,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><span class="key">BYPASSED</span>: オフにしてあるが、まだ読み込まれている状態(メモリは使っています)</li>
 <li><span class="key">HEAVY</span>: 負荷が特に大きい</li>
 </ul>
-<p>各カードのキー: <span class="key">BYPASS</span>、<span class="key">OPEN</span>(そのウィンドウ)、<span class="key">REMOVE</span>、前後に動かす矢印。最後の <span class="key">ADD</span> でもう 1 つ追加します。ストリップがオフの間は、何も変更できません。</p>
+<p>各カードのキー: <span class="key">BYPASS</span>、<span class="key">OPEN</span>(そのウィンドウ)、<span class="key">REMOVE</span>、前後に動かす矢印。最後の <span class="key">ADD</span> でもう 1 つ追加します。</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>ROUTING ページ</h2></header>
@@ -19824,17 +19630,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td>コンバイネーターの 1 つの経路に入力する</td>
-<td>音源、次に経路のセル (P1、P2…)</td>
+<td>音源、次に経路のセル (P1、P2…)。他のセルもクリックすると、複数の経路に入力できます。セルの外側でコンバイネーターをクリックすると、最初の経路に入力されます</td>
 </tr>
 </tbody>
 </table></div>
 <p>グレーのデバイスのブロックをクリックすると、その出力が作られ、新しい出力はすぐに卓に現れます。</p>
-<h3 id="combinators_1">コンバイネーター</h3>
-<p>音源をクリックし、次に<strong>経路のセル</strong>をクリックします。音源は複数の経路に入力できます。セルを順にクリックしてください。セルの外側でコンバイネーターをクリックすると、最初の経路にルーティングされます。経路やそのプラグインを追加するには、卓上でコンバイネーターを右クリック &gt; <strong>Paths</strong> を選びます。</p>
-<h3 id="moving-channels">チャンネルを移動する</h3>
-<p>ブロックを、その行に沿って横にドラッグします。青いバーが移動先を示し、卓もそれに合わせて変わります。チャンネルはチャンネルの間、バスはバスの間、出力は出力の間で移動します。</p>
-<h3 id="when-a-route-wont-stay-on">ルートがオンのままにならないとき</h3>
-<p>そのルートはフィードバックループになるため、すぐにオフに戻されます。イベントログにループが記録されます。フィードバックしているルートを外してください。<a href="#188-a-route-wont-switch-on">18.8</a> を参照してください。</p>
+<p>ブロックを、その行に沿って横にドラッグすると、そのストリップが移動します(<a href="#174-reorder-channels">17.4</a> を参照)。すぐにオフに戻るルートは、フィードバックループになるルートです(<a href="#188-a-route-wont-switch-on">18.8</a> を参照)。</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>ツール: パッド</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> には、16 個のパッドのバンクが 4 つ(<span class="key">A–D</span>)あり、合計 64 の音、同時に最大 32 まで再生できます。</p>
@@ -19913,7 +19714,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>クリック(<span class="key">LEARN...</span>)してから、キーを押します。Ctrl、Alt、F キーのいずれかを含める必要があります。他のプログラムがフォーカスしていても動作します。Esc で取り消し、Delete で消去</td>
+<td>クリック(<span class="key">LEARN...</span>)してから、キーを押します(<a href="#hotkeys">HOTKEYS</a> を参照)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -20102,7 +19903,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span>(ミュート中のマイクが -30 dBFS を超えたときの通知)。ストリップに触れたときに選択する設定は、サイドバーの <strong>SELECT &gt; AUTO</strong> です</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span>(ミュート中のマイクが -30 dBFS を超えたときの通知)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -20239,7 +20040,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li>プログラムを起動し、音を出します。</li>
 <li><span class="key">ADD APP</span> &gt; そのプログラムを選びます。ロー(RAW)チャンネル(エフェクトなし)が作られます。</li>
-<li>聞きたい場所にルーティングします。プログラムは自分のデバイスでも再生され続けるので、そのデバイスも聞いている場合は、アプリのチャンネルを同じ場所にルーティングしないでください(PRE-FLIGHT がこの二重再生を警告します)。</li>
+<li>聞きたい場所にルーティングします。二重に聞こえるときは、<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照してください。</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 チャンネルを並べ替える</h3>
 <p>MIXER でチャンネルの<strong>名前バー</strong>を横にドラッグするか(NAME セクションまで下にスクロールします)、ROUTING ページでそのブロックをドラッグします。青いバーが移動先を示し、ストリップは滑らかにその位置へ動きます。スペーサーは、直前のストリップと一緒に動きます。バスと出力も、それぞれ同じ種類の中で同じように動き、ルートも一緒に動きます。SIMPLE でも出力は同じ順番で表示されます。</p>
@@ -20254,7 +20055,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>。最初は 2 つの経路があります。さらに追加するには、右クリック &gt; <strong>Paths &gt; Add path</strong>。</li>
 <li>ROUTING ページで、音源を経路のセル(<span class="key">P1</span>、<span class="key">P2</span>…)にルーティングします。</li>
-<li>各経路について、右クリック &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>。経路は、コンバイネーターのフェーダーで合計されます。コンバイネーターのストリップには、各経路に入っているものが表示され、そのプラグインを開けます。</li>
+<li>各経路について、右クリック &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>。</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 配信用ミックスとヘッドホン用ミックスを作る</h3>
 <ol>
@@ -20371,11 +20172,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 二重に聞こえる、またはエコーがある</summary><div class="trouble-body">
 <ul>
-<li>アプリのチャンネルが、そのアプリがすでに再生しているのと同じデバイスの出力にルーティングされています。アプリの音が直接と Faider 経由の両方で聞こえます。アプリのチャンネルを別の場所にルーティングするか、アプリを別のデバイスに移してください。</li>
+<li>プログラムは、チャンネルに入るだけでなく、自分のデバイスでも再生され続けます。そのチャンネルが同じデバイスの出力にルーティングされていると、直接と Faider 経由の両方で聞こえます。そのルートをオフにする(SIMPLE では、チャンネル上のその出力のキー)か、プログラムを別のデバイスに移してください。PRE-FLIGHT がこれを警告します。</li>
 <li>Windows の既定のスピーカーが仮想ケーブルになっています。PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> がそれを示します。</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 ルートがオンにならない</summary><div class="trouble-body">
-<p><strong>フィードバックループ</strong>(音が元の場所に戻る)になるため、すぐにオフに戻されます。イベントログにループが記録されます。フィードバックしているルートを外して解消してください。</p>
+<p><strong>フィードバックループ</strong>になるためです(<a href="#rules-that-keep-it-safe">安全のためのルール</a> を参照)。イベントログにループが記録されます。フィードバックしているルートを外してください。</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 ストリップで何も変更できない</summary><div class="trouble-body">
 <p>そのストリップは<strong>オフ</strong>です(薄く、グレー)。名前バーの電源マークをクリックしてください。</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 チャンネルをドラッグしても何も起きない</summary><div class="trouble-body">
@@ -20563,7 +20364,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>RAW 스트립: 앱, 패드, 테이프, 컴바이너</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>출력</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>플러그인</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING 페이지</a><ul class="toc-sub"><li><a href="#reading-the-page">페이지 보는 법</a></li><li><a href="#routing-block-to-block">블록에서 블록으로 라우팅하기</a></li><li><a href="#examples">예</a></li><li><a href="#combinators_1">컴바이너</a></li><li><a href="#moving-channels">채널 옮기기</a></li><li><a href="#when-a-route-wont-stay-on">루트가 켜진 채로 유지되지 않을 때</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING 페이지</a><ul class="toc-sub"><li><a href="#reading-the-page">페이지 보는 법</a></li><li><a href="#routing-block-to-block">블록에서 블록으로 라우팅하기</a></li><li><a href="#examples">예</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>도구: 패드</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>도구: 테이프, 레코더, 리플레이</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>장치</a></li>
@@ -20782,17 +20583,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li>Discord, 게임, OBS 등 다른 앱에서 마이크로 <strong>CABLE Output</strong>을 선택합니다.</li>
 <li>앱이 무엇을 받는지 확인합니다. <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span>는 앱이 받는 소리를 5초 동안 녹음해서 들려줍니다.</li>
 </ol>
-<p>프로그램은 자기 장치로도 계속 재생됩니다. 그 장치가 내가 듣는 장치라면 그 채널의 <span class="key">HEADPHONES</span> 키를 끄세요. 그렇지 않으면 소리가 두 번 들립니다(PRE-FLIGHT가 경고합니다).</p>
+<p>프로그램 소리가 두 번 들리면 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>을 참조하세요.</p>
 <p><span class="key">+ CHANNEL</span>과 <span class="key">+ APP</span>은 채널을 추가합니다. <span class="key">+ OUTPUT</span>은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 <strong>Rename...</strong>, 색, <strong>Remove</strong>를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.</p>
 <h3 id="step-7-pro-for-the-whole-console">7단계: PRO, 콘솔 전체 사용하기</h3>
 <p>상단 바의 <span class="key">SIMPLE / PRO</span> 스위치는 어느 쪽이든 같은 믹스를 보여 줍니다. <span class="key">PRO</span>는 콘솔 전체입니다. 각 채널의 입력, 필터, 다이내믹스, EQ, 버스와 컴바이너, 플러그인을 다룹니다.</p>
-<p>PRO에서 마이크 소리를 다듬으려면:</p>
-<ol>
-<li><strong>hp</strong>를 80~100 Hz 정도로 올려 낮은 잡음을 없앱니다.</li>
-<li><span class="key">DYNAMICS</span>를 켜고(전원 기호가 있는 스위치) 게이트와 컴프레서를 설정합니다.</li>
-<li><span class="key">EQ</span>를 설정합니다.</li>
-</ol>
-<p><a href="#6-the-channel-strip-section-by-section">6</a>을 참조하세요. PRO에서 한 설정은 SIMPLE에서도 계속 적용됩니다.</p>
+<p>마이크 소리를 다듬으려면 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>을 참조하세요. 모든 컨트롤은 <a href="#6-the-channel-strip-section-by-section">6</a>에 있습니다. PRO에서 한 설정은 SIMPLE에서도 계속 적용됩니다.</p>
 <h3 id="step-8-run-pre-flight">8단계: PRE-FLIGHT 실행</h3>
 <p>시작하고 몇 초 뒤에 <span class="key">PRE-FLIGHT</span>가 설정을 점검하며, 확인할 것이 있을 때만 열립니다(SETUP이 먼저 나오는 첫 시작 때는 열리지 않습니다). 언제든 <strong>SETTINGS &gt; GENERAL &gt; PRE-FLIGHT NOW...</strong> 또는 <span class="key">FIND</span> (Ctrl+K)에서 실행할 수 있습니다. 모든 행이 녹색이어야 합니다. <a href="#181-pre-flight">18.1</a>을 참조하세요.</p>
 <h3 id="step-9-finish">9단계: 마무리</h3>
@@ -20860,7 +20655,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>SELECT와 METER 선택은 기억됩니다.</p>
-<p>스트립 위에는 시간 표시, 테이프 덱의 트랜스포트(되감기, 정지, 재생 / 일시 정지, 앞으로 감기, 녹음, 반복), <span class="key">SIMPLE / PRO</span> 스위치가 있습니다(<a href="#step-7-pro-for-the-whole-console">7단계</a> 참조).</p>
 <h3 id="the-top-bar">상단 바</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="상단 바: 씬, 상태 표시등, MINI, HISTORY, FIND, 확대/축소"><img data-shot="images/console/topbar.jpg" alt="상단 바: 씬, 상태 표시등, MINI, HISTORY, FIND, 확대/축소" loading="lazy"></button><figcaption>상단 바: 씬, 상태 표시등, MINI, HISTORY, FIND, 확대/축소</figcaption></figure></div>
 <p>오른쪽부터:</p>
@@ -20895,6 +20689,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>저장한 믹스. <strong>+</strong>로 새로 저장합니다(<a href="#141-scenes">14.1</a> 참조)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>같은 믹스를 간단하게, 또는 콘솔 전체로 보여 줍니다(<a href="#step-7-pro-for-the-whole-console">7단계</a> 참조)</td>
 </tr>
 </tbody>
 </table></div>
@@ -20951,13 +20749,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <h3 id="buses">버스</h3>
 <p>여러 채널에 같은 처리를 하거나 페이더 하나로 다루고 싶을 때 버스를 씁니다. 채널을 버스로, 버스를 출력으로 라우팅하세요. 그다음 채널에서 그 출력으로 가는 직접 루트를 끄세요. 그러지 않으면 직접 한 번, 버스를 거쳐 한 번, 두 번 도착합니다. 버스는 다른 버스로 보낼 수 있으며 지연이 늘지 않습니다.</p>
 <h3 id="combinators">컴바이너</h3>
-<p>컴바이너는 병렬 <strong>경로</strong>로 나뉜 버스입니다(처음에는 둘). 경로마다 자체 플러그인이 있고, 경로는 컴바이너의 페이더에서 합산됩니다. 소스를 경로 하나 또는 여러 개로 라우팅할 수 있습니다. 컴바이너의 스트립에는 각 경로로 들어오는 소스가 표시됩니다.</p>
+<p>컴바이너는 병렬 <strong>경로</strong>로 나뉜 버스입니다(처음에는 둘). 경로마다 자체 플러그인이 있고, 경로는 컴바이너의 페이더에서 합산됩니다. 소스를 경로 하나 또는 여러 개로 라우팅할 수 있습니다(<a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a> 참조).</p>
 <h3 id="rules-that-keep-it-safe">안전을 지키는 규칙</h3>
 <ul>
 <li><strong>피드백 루프는 거부됩니다.</strong> 소리가 출발한 곳으로 되돌아가게 만드는 루트(자신에게 보내는 버스로 가는 버스, 출력의 소리를 자기 입력으로 되돌리는 경우)는 바로 다시 꺼지고, 이벤트 로그에 루프가 기록됩니다.</li>
 <li>아무 스트립에서나 <strong>솔로</strong>를 켜면, 솔로 세이프로 표시된 것을 제외하고 솔로가 아닌 모든 스트립이 무음이 됩니다.</li>
-<li><strong>꺼진 스트립</strong>은 어디로 라우팅되어 있든 아무것도 통과시키지 않습니다.</li>
-<li><strong>앱 채널과 이중 재생.</strong> 프로그램은 자기 장치로도 재생하고 채널로도 들어옵니다. 이미 듣고 있는 장치의 출력으로 그 채널을 라우팅하지 마세요.</li>
+<li><strong>앱 채널과 이중 재생.</strong> 프로그램은 자기 장치로도 재생하고 채널로도 들어옵니다(<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> 참조).</li>
 </ul>
 <h3 id="clocking">클럭</h3>
 <p>클럭을 정하는 장치는 하나입니다. Faider은 시작할 때 다음 순서로 고릅니다.</p>
@@ -21149,7 +20946,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><strong>라우팅 상자</strong></td>
-<td>버스와 출력 장치마다 상자 하나. 켜짐: 채널이 그곳으로 보내집니다. 누르면 전환. 아직 출력이 없는 장치로 보내면 그 출력이 만들어집니다</td>
+<td>버스와 출력 장치마다 상자 하나. 켜짐: 채널이 그곳으로 보내집니다. 누르면 전환(<a href="#outputs-are-devices">출력은 장치입니다</a> 참조)</td>
 </tr>
 <tr>
 <td><strong>번호</strong></td>
@@ -21404,8 +21201,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>출력을 마우스 오른쪽 단추로 클릭하면 <strong>Device...</strong>, 스페이서, <strong>Rename...</strong>, <strong>Remove</strong>를 쓸 수 있습니다.</p>
-<p><strong>출력은 자동으로 만들어집니다.</strong> 채널을 장치로 보내면(라우팅 상자, ROUTING 페이지, <strong>Route to</strong> 중 무엇으로든) 그 장치에 출력이 없을 때 만들어집니다.</p>
-<p><strong>장치가 없을 때.</strong> 출력의 장치를 뽑으면 장치가 돌아올 때까지 그 출력은 무음이 됩니다. 저절로 다른 장치로 옮겨 가지 않습니다.</p>
+<p>출력은 장치마다 하나씩 자동으로 만들어집니다(<a href="#outputs-are-devices">출력은 장치입니다</a> 참조).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong>는 게스트마다 피드(본인 목소리를 뺀 모든 것)와 음성, 음악, 게임 스템을 만듭니다.</p>
 
 </section>
@@ -21426,7 +21222,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><span class="key">BYPASSED</span>: 꺼져 있지만 아직 로드됨(메모리는 계속 사용)</li>
 <li><span class="key">HEAVY</span>: 비정상적으로 부하가 큼</li>
 </ul>
-<p>각 카드의 키: <span class="key">BYPASS</span>, <span class="key">OPEN</span>(플러그인 창), <span class="key">REMOVE</span>, 앞이나 뒤로 옮기는 화살표. 끝의 <span class="key">ADD</span>로 하나 더 추가합니다. 스트립이 꺼져 있는 동안에는 아무것도 바꿀 수 없습니다.</p>
+<p>각 카드의 키: <span class="key">BYPASS</span>, <span class="key">OPEN</span>(플러그인 창), <span class="key">REMOVE</span>, 앞이나 뒤로 옮기는 화살표. 끝의 <span class="key">ADD</span>로 하나 더 추가합니다.</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>ROUTING 페이지</h2></header>
@@ -21476,17 +21272,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td>컴바이너 경로 하나에 입력하기</td>
-<td>소스, 그다음 경로 셀 (P1, P2…)</td>
+<td>소스, 그다음 경로 셀 (P1, P2…). 다른 셀도 누르면 여러 경로에 입력합니다. 셀 바깥에서 컴바이너를 누르면 첫 번째 경로에 입력합니다</td>
 </tr>
 </tbody>
 </table></div>
 <p>회색 장치 블록을 누르면 그 출력이 만들어지고, 새 출력이 데스크에 바로 나타납니다.</p>
-<h3 id="combinators_1">컴바이너</h3>
-<p>소스를 누르고 <strong>경로 셀</strong>을 누릅니다. 소스는 여러 경로에 입력할 수 있습니다. 셀을 차례로 누르세요. 셀 바깥에서 컴바이너를 누르면 첫 번째 경로로 라우팅됩니다. 경로나 그 플러그인을 추가하려면 데스크에서 컴바이너를 마우스 오른쪽 단추로 클릭 &gt; <strong>Paths</strong>를 선택하세요.</p>
-<h3 id="moving-channels">채널 옮기기</h3>
-<p>블록을 그 줄을 따라 옆으로 드래그합니다. 파란 막대가 놓일 위치를 보여 주고, 데스크도 그에 맞춰 바뀝니다. 채널은 채널끼리, 버스는 버스끼리, 출력은 출력끼리 이동합니다.</p>
-<h3 id="when-a-route-wont-stay-on">루트가 켜진 채로 유지되지 않을 때</h3>
-<p>그 루트는 피드백 루프가 되므로 바로 꺼집니다. 이벤트 로그에 루프가 기록됩니다. 피드백을 일으키는 루트를 제거하세요. <a href="#188-a-route-wont-switch-on">18.8</a>을 참조하세요.</p>
+<p>블록을 그 줄을 따라 옆으로 드래그하면 그 스트립이 옮겨집니다(<a href="#174-reorder-channels">17.4</a> 참조). 바로 다시 꺼지는 루트는 피드백 루프를 만드는 루트입니다(<a href="#188-a-route-wont-switch-on">18.8</a> 참조).</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>도구: 패드</h2></header>
 <p><strong>TOOLS &gt; PADS</strong>에는 패드 16개짜리 뱅크 네 개(<span class="key">A–D</span>)가 있어, 소리 64개를 담고 동시에 최대 32개를 재생할 수 있습니다.</p>
@@ -21565,7 +21356,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>클릭(<span class="key">LEARN...</span>)한 뒤 키를 누릅니다. Ctrl, Alt 또는 F 키를 포함해야 합니다. 다른 프로그램에 포커스가 있어도 작동합니다. Esc는 취소, Delete는 지우기</td>
+<td>클릭(<span class="key">LEARN...</span>)한 뒤 키를 누릅니다(<a href="#hotkeys">HOTKEYS</a> 참조)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -21754,7 +21545,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span>(음소거된 마이크가 -30 dBFS를 넘으면 알림). 스트립을 만질 때 선택되는 설정은 사이드바의 <strong>SELECT &gt; AUTO</strong>입니다</td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span>(음소거된 마이크가 -30 dBFS를 넘으면 알림)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -21891,7 +21682,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li>프로그램을 시작하고 소리가 나게 합니다.</li>
 <li><span class="key">ADD APP</span> &gt; 그 프로그램을 고릅니다. RAW 채널(이펙트 없음)이 만들어집니다.</li>
-<li>들으려는 곳으로 라우팅합니다. 프로그램은 자기 장치로도 계속 재생되므로, 그 장치도 듣고 있다면 앱 채널을 같은 곳으로 라우팅하지 마세요(PRE-FLIGHT가 이런 이중 재생을 경고합니다).</li>
+<li>들으려는 곳으로 라우팅합니다. 소리가 두 번 들리면 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>을 참조하세요.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 채널 순서 바꾸기</h3>
 <p>Mixer에서 채널의 <strong>이름 바</strong>를 옆으로 드래그하거나(NAME 섹션까지 아래로 스크롤), ROUTING 페이지에서 그 블록을 드래그합니다. 파란 막대가 놓일 위치를 보여 주고, 스트립이 부드럽게 제자리로 이동합니다. 스페이서는 앞 스트립과 함께 움직입니다. 버스와 출력도 같은 방식으로, 각자 같은 종류 안에서 움직이며 루트도 함께 따라갑니다. SIMPLE도 출력을 같은 순서로 보여 줍니다.</p>
@@ -21906,7 +21697,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>. 경로 두 개로 시작합니다. 더 추가하려면 마우스 오른쪽 단추 &gt; <strong>Paths &gt; Add path</strong>.</li>
 <li>ROUTING 페이지에서 소스를 경로 셀(<span class="key">P1</span>, <span class="key">P2</span>…)로 라우팅합니다.</li>
-<li>경로마다 마우스 오른쪽 단추 &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>. 경로는 컴바이너의 페이더에서 합산됩니다. 컴바이너 스트립에는 각 경로로 입력되는 것이 표시되고 그 플러그인을 열 수 있습니다.</li>
+<li>경로마다 마우스 오른쪽 단추 &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>.</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 방송용 믹스와 헤드폰용 믹스 만들기</h3>
 <ol>
@@ -22023,11 +21814,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 소리가 두 번 들리거나 에코가 있음</summary><div class="trouble-body">
 <ul>
-<li>앱 채널이 그 앱이 이미 재생 중인 같은 장치의 출력으로 라우팅되어 있어서, 앱의 소리가 직접 들리고 Faider을 거쳐서도 들립니다. 앱 채널을 다른 곳으로 라우팅하거나 앱을 다른 장치로 옮기세요.</li>
+<li>프로그램은 채널로 들어가는 것과 함께 자기 장치로도 계속 재생됩니다. 그 채널이 같은 장치의 출력으로 라우팅되어 있으면, 소리가 직접 들리고 Faider를 거쳐서도 들립니다. 그 루트를 끄거나(SIMPLE에서는 채널에 있는 그 출력의 키) 프로그램을 다른 장치로 옮기세요. PRE-FLIGHT가 이를 경고합니다.</li>
 <li>Windows의 기본 스피커가 가상 케이블로 설정되어 있습니다. PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span>가 알려 줍니다.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 루트가 켜지지 않음</summary><div class="trouble-body">
-<p><strong>피드백 루프</strong>(소리가 출발한 곳으로 돌아옴)가 되므로 바로 꺼집니다. 이벤트 로그에 루프가 기록됩니다. 피드백을 일으키는 루트를 제거하여 끊으세요.</p>
+<p><strong>피드백 루프</strong>가 되기 때문입니다(<a href="#rules-that-keep-it-safe">안전을 지키는 규칙</a> 참조). 이벤트 로그에 루프가 기록됩니다. 피드백을 일으키는 루트를 제거하세요.</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 스트립에서 아무것도 바꿀 수 없음</summary><div class="trouble-body">
 <p>스트립이 <strong>꺼져</strong> 있습니다(흐리고 회색). 이름 바의 전원 기호를 누르세요.</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 채널을 드래그해도 아무 일도 일어나지 않음</summary><div class="trouble-body">
@@ -22215,7 +22006,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#7-raw-strips-apps-pads-tape-and-combinators"><span class="toc-num">7</span>RAW 通道条：应用、打击垫、磁带和组合器</a></li>
 <li><a href="#8-outputs"><span class="toc-num">8</span>输出</a></li>
 <li><a href="#9-plugins"><span class="toc-num">9</span>插件</a></li>
-<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING 页面</a><ul class="toc-sub"><li><a href="#reading-the-page">如何阅读此页面</a></li><li><a href="#routing-block-to-block">在方块之间设置路由</a></li><li><a href="#examples">示例</a></li><li><a href="#combinators_1">组合器</a></li><li><a href="#moving-channels">移动通道</a></li><li><a href="#when-a-route-wont-stay-on">当路由无法保持开启时</a></li></ul></li>
+<li><a href="#10-the-routing-page"><span class="toc-num">10</span>ROUTING 页面</a><ul class="toc-sub"><li><a href="#reading-the-page">如何阅读此页面</a></li><li><a href="#routing-block-to-block">在方块之间设置路由</a></li><li><a href="#examples">示例</a></li></ul></li>
 <li><a href="#11-tools-pads"><span class="toc-num">11</span>工具：打击垫</a></li>
 <li><a href="#12-tools-tape-recorder-and-replay"><span class="toc-num">12</span>工具：磁带、录音机和回放</a></li>
 <li><a href="#13-devices"><span class="toc-num">13</span>设备</a></li>
@@ -22434,17 +22225,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li>在 Discord、游戏、OBS 或任何其他应用中，选择 <strong>CABLE Output</strong> 作为麦克风。</li>
 <li>检查它们收到了什么：<span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> 会录下应用收到的 5 秒声音并回放给你。</li>
 </ol>
-<p>程序也会继续在它自己的设备上播放。如果那就是你正在收听的设备，请关闭它通道的 <span class="key">HEADPHONES</span> 键，否则你会听到两遍(PRE-FLIGHT 会就此警告)。</p>
+<p>如果你听到某个程序两遍，见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>。</p>
 <p><span class="key">+ CHANNEL</span> 和 <span class="key">+ APP</span> 添加通道。<span class="key">+ OUTPUT</span> 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 <strong>Rename...</strong>、颜色和 <strong>Remove</strong>。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。</p>
 <h3 id="step-7-pro-for-the-whole-console">步骤 7：PRO，整个调音台</h3>
 <p>顶部栏的 <span class="key">SIMPLE / PRO</span> 开关无论在哪一边显示的都是同一个混音。<span class="key">PRO</span> 是整个调音台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。</p>
-<p>在 PRO 中调整你的麦克风：</p>
-<ol>
-<li>把 <strong>hp</strong> 调到 80–100 Hz 左右，去除低频噪声。</li>
-<li>接入 <span class="key">DYNAMICS</span>(带电源符号的开关)，并设置门限和压缩器。</li>
-<li>设置 <span class="key">EQ</span>。</li>
-</ol>
-<p>见 <a href="#6-the-channel-strip-section-by-section">6</a>。你在 PRO 中所做的设置，在 SIMPLE 中同样有效。</p>
+<p>要调整你的麦克风，见 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>。每个控件都在 <a href="#6-the-channel-strip-section-by-section">6</a> 中。你在 PRO 中所做的设置，在 SIMPLE 中同样有效。</p>
 <h3 id="step-8-run-pre-flight">步骤 8：运行 PRE-FLIGHT</h3>
 <p>启动几秒后，<span class="key">PRE-FLIGHT</span> 会检查设置，只在有需要注意的地方时才打开(首次启动时不会，因为先出现的是 SETUP)。你可以随时从 <strong>SETTINGS &gt; GENERAL &gt; PRE-FLIGHT NOW...</strong> 或 <span class="key">FIND</span> (Ctrl+K) 运行它。每一行都应该是绿色。见 <a href="#181-pre-flight">18.1</a>。</p>
 <h3 id="step-9-finish">步骤 9：完成</h3>
@@ -22512,7 +22297,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>SELECT 和 METER 的选择会被记住。</p>
-<p>通道条上方是时间显示、磁带机的走带控制(倒带、停止、播放 / 暂停、快进、录音、循环)以及 <span class="key">SIMPLE / PRO</span> 开关(见<a href="#step-7-pro-for-the-whole-console">步骤 7</a>)。</p>
 <h3 id="the-top-bar">顶部栏</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="顶部栏：场景、状态灯、MINI、HISTORY、FIND 和缩放"><img data-shot="images/console/topbar.jpg" alt="顶部栏：场景、状态灯、MINI、HISTORY、FIND 和缩放" loading="lazy"></button><figcaption>顶部栏：场景、状态灯、MINI、HISTORY、FIND 和缩放</figcaption></figure></div>
 <p>从右往左：</p>
@@ -22547,6 +22331,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>你保存的混音。<strong>+</strong> 保存一个新的(见 <a href="#141-scenes">14.1</a>)</td>
+</tr>
+<tr>
+<td><span class="key">SIMPLE / PRO</span></td>
+<td>同一个混音，以简单方式或整个调音台显示(见<a href="#step-7-pro-for-the-whole-console">步骤 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -22603,13 +22391,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <h3 id="buses">总线</h3>
 <p>当几个通道需要同样的处理，或需要共用一个推子时，用总线。把通道路由到总线，再把总线路由到输出。然后关掉这些通道到该输出的直接路由，否则它们会到达两次(一次直达，一次经过总线)。总线可以送到另一条总线，而且不增加延迟。</p>
 <h3 id="combinators">组合器</h3>
-<p>组合器是一条被分成并行<strong>路径</strong>的总线(起始为两条)。每条路径有自己的插件，各路径在组合器的推子处求和。你可以把声源路由到一条路径或多条路径。组合器的通道条会显示每条路径由哪些声源输入。</p>
+<p>组合器是一条被分成并行<strong>路径</strong>的总线(起始为两条)。每条路径有自己的插件，各路径在组合器的推子处求和。你可以把声源路由到一条路径或多条路径(见 <a href="#7-raw-strips-apps-pads-tape-and-combinators">7</a>)。</p>
 <h3 id="rules-that-keep-it-safe">保证安全的规则</h3>
 <ul>
 <li><strong>反馈回路会被拒绝。</strong> 会让声音回到它来源处的路由(一条总线进入送给它自己的总线，或把输出的声音送回它自己的输入)会立刻被再次关闭，并且事件日志会指出这个回路。</li>
 <li>任何通道条上的 <strong>Solo</strong> 会让所有没有被独奏的通道条静音，已标记为独奏安全的除外。</li>
-<li><strong>已关闭的通道条</strong>无论路由到哪里，都不会通过任何声音。</li>
-<li><strong>应用通道与重复。</strong> 程序除了送入它的通道，也会在自己的设备上播放。不要把它的通道路由到你已经在听该程序的那个设备的输出上。</li>
+<li><strong>应用通道与重复。</strong> 程序除了送入它的通道，也会在自己的设备上播放(见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>)。</li>
 </ul>
 <h3 id="clocking">时钟</h3>
 <p>由一个设备决定时钟。Faider 启动时按以下顺序选择：</p>
@@ -22801,7 +22588,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><strong>路由框</strong></td>
-<td>每条总线和每个输出设备一个框。亮起：通道被送到那里。点击切换。送到还没有输出的设备会创建它的输出</td>
+<td>每条总线和每个输出设备一个框。亮起：通道被送到那里。点击切换(见<a href="#outputs-are-devices">输出就是设备</a>)</td>
 </tr>
 <tr>
 <td><strong>编号</strong></td>
@@ -23056,8 +22843,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>右键点击输出可使用 <strong>Device...</strong>、间隔条、<strong>Rename...</strong> 和 <strong>Remove</strong>。</p>
-<p><strong>输出会自动创建。</strong> 把通道送到某个设备(通过路由框、ROUTING 页面或 <strong>Route to</strong>)，如果该设备上还没有输出，就会在其上创建一个。</p>
-<p><strong>设备缺失。</strong> 如果输出的设备被拔出，该输出会静音，直到设备回来。不会有任何东西自动转移到另一个设备。</p>
+<p>输出会自动创建，每个设备一个(见<a href="#outputs-are-devices">输出就是设备</a>)。</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> 会为每位嘉宾建立一路馈送(除他们自己的声音外的所有声音)，并建立人声、音乐和游戏分轨。</p>
 
 </section>
@@ -23078,7 +22864,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><span class="key">BYPASSED</span>：已关闭但仍处于加载状态(仍占用内存)</li>
 <li><span class="key">HEAVY</span>：开销异常大</li>
 </ul>
-<p>每张卡片上的按键：<span class="key">BYPASS</span>、<span class="key">OPEN</span>(它的窗口)、<span class="key">REMOVE</span>，以及把它前移或后移的箭头。末尾的 <span class="key">ADD</span> 再添加一个。通道条关闭期间，什么都不能更改。</p>
+<p>每张卡片上的按键：<span class="key">BYPASS</span>、<span class="key">OPEN</span>(它的窗口)、<span class="key">REMOVE</span>，以及把它前移或后移的箭头。末尾的 <span class="key">ADD</span> 再添加一个。</p>
 
 </section>
 <section class="chapter" id="10-the-routing-page"><header class="chapter-head"><span class="chapter-num">10</span><h2>ROUTING 页面</h2></header>
@@ -23128,17 +22914,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td>输入一条组合器路径</td>
-<td>声源，然后是路径单元格 (P1、P2…)</td>
+<td>声源，然后是路径单元格 (P1、P2…)。再点击其他单元格可输入多条路径。在单元格之外点击组合器会输入它的第一条路径</td>
 </tr>
 </tbody>
 </table></div>
 <p>点击灰色的设备方块会创建它的输出，新的输出会立即出现在调音台上。</p>
-<h3 id="combinators_1">组合器</h3>
-<p>点击声源，然后点击<strong>路径单元格</strong>。一个声源可以输入多条路径：依次点击每个单元格。在单元格之外点击组合器，会路由到它的第一条路径。要添加路径或它们的插件，请在调音台上右键点击组合器 &gt; <strong>Paths</strong>。</p>
-<h3 id="moving-channels">移动通道</h3>
-<p>沿着所在行横向拖动方块。一条蓝色竖条显示它将落在哪里，调音台也随之变化。通道在通道之间移动，总线在总线之间移动，输出在输出之间移动。</p>
-<h3 id="when-a-route-wont-stay-on">当路由无法保持开启时</h3>
-<p>该路由会形成反馈回路，所以会立即被关闭。事件日志会指出这个回路。请移除造成反馈的那条路由。见 <a href="#188-a-route-wont-switch-on">18.8</a>。</p>
+<p>沿着所在行横向拖动方块，可移动它的通道条(见 <a href="#174-reorder-channels">17.4</a>)。立刻又被关闭的路由会形成反馈回路(见 <a href="#188-a-route-wont-switch-on">18.8</a>)。</p>
 </section>
 <section class="chapter" id="11-tools-pads"><header class="chapter-head"><span class="chapter-num">11</span><h2>工具：打击垫</h2></header>
 <p><strong>TOOLS &gt; PADS</strong> 提供四组(<span class="key">A–D</span>)，每组 16 个打击垫：共 64 个声音，最多同时播放 32 个。</p>
@@ -23217,7 +22998,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">HOTKEY</span></td>
-<td>点击(<span class="key">LEARN...</span>)，然后按下按键。必须包含 Ctrl、Alt 或 F 键。其他程序拥有焦点时也有效。Esc 取消，Delete 清除</td>
+<td>点击(<span class="key">LEARN...</span>)，然后按下按键(见 <a href="#hotkeys">HOTKEYS</a>)</td>
 </tr>
 <tr>
 <td><span class="key">MACRO</span></td>
@@ -23406,7 +23187,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">DESK</span></td>
-<td><span class="key">WARN IF I TALK WHILE MUTED</span>(静音的麦克风超过 -30 dBFS 时给出通知)。触碰通道条时将其选中的功能是侧边栏的 <strong>SELECT &gt; AUTO</strong></td>
+<td><span class="key">WARN IF I TALK WHILE MUTED</span>(静音的麦克风超过 -30 dBFS 时给出通知)</td>
 </tr>
 <tr>
 <td><span class="key">APPS</span></td>
@@ -23543,7 +23324,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li>启动程序并让它发出声音。</li>
 <li><span class="key">ADD APP</span> &gt; 选中它。它会得到一个 RAW 通道(没有效果)。</li>
-<li>把它路由到你想听到它的地方。程序也会继续在它自己的设备上播放，所以如果你同时也在听那个设备，就不要把应用通道路由到同一个地方(PRE-FLIGHT 会警告这种重复)。</li>
+<li>把它路由到你想听到它的地方。如果你听到它两遍，见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>。</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 重新排列通道</h3>
 <p>在 Mixer 上左右拖动通道的<strong>名称栏</strong>(向下滚动到 NAME 部分)，或在 ROUTING 页面上拖动它的方块。一条蓝色竖条显示它将落在哪里，通道条会平滑滑入位置。间隔条跟随它前面的通道条移动。总线和输出以同样的方式移动，各自在同类之间，它们的路由也随之移动。SIMPLE 按相同的顺序显示输出。</p>
@@ -23558,7 +23339,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <ol>
 <li><strong>ADD BUS &gt; COMBINATOR</strong>。它起始有两条路径。右键点击它 &gt; <strong>Paths &gt; Add path</strong> 可添加更多。</li>
 <li>在 ROUTING 页面上，把声源路由到路径单元格(<span class="key">P1</span>、<span class="key">P2</span>…)。</li>
-<li>对每条路径，右键点击 &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>。各路径在组合器的推子处求和。组合器通道条会显示每条路径由什么输入，并可打开其插件。</li>
+<li>对每条路径，右键点击 &gt; <strong>Paths &gt; PATH n &gt; Add plugin...</strong>。</li>
 </ol>
 <h3 id="177-make-a-stream-mix-and-a-headphone-mix">17.7 制作直播混音和耳机混音</h3>
 <ol>
@@ -23675,11 +23456,11 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 我听到两遍声音，或有回声</summary><div class="trouble-body">
 <ul>
-<li>某个应用通道被路由到该应用已经在播放的同一个设备的输出上，所以你既直接听到该应用，又通过 Faider 听到它。把应用通道路由到别处，或把应用移到另一个设备。</li>
+<li>程序除了送入它的通道，也会继续在自己的设备上播放。如果它的通道被路由到同一个设备的输出上，你就会既直接听到它，又通过 Faider 听到它。关闭那条路由(在 SIMPLE 中，是通道上该输出的键)，或把程序移到另一个设备。PRE-FLIGHT 会就此警告。</li>
 <li>Windows 的默认扬声器被设成了虚拟线缆。PRE-FLIGHT &gt; <span class="key">HEARD ONCE</span> 会指出它。</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 路由无法打开</summary><div class="trouble-body">
-<p>它会形成<strong>反馈回路</strong>(声音回到它来源的地方)，所以会立即被关闭。事件日志会指出这个回路。移除造成反馈的那条路由，即可打破它。</p>
+<p>它会形成<strong>反馈回路</strong>(见<a href="#rules-that-keep-it-safe">保证安全的规则</a>)。事件日志会指出这个回路。移除造成反馈的那条路由。</p>
 </div></details><details class="trouble" id="189-i-cant-change-anything-on-a-strip"><summary>18.9 我无法更改通道条上的任何东西</summary><div class="trouble-body">
 <p>该通道条已<strong>关闭</strong>(变暗并变灰)。点击它名称栏上的电源符号。</p>
 </div></details><details class="trouble" id="1810-dragging-a-channel-does-nothing"><summary>18.10 拖动通道没有反应</summary><div class="trouble-body">

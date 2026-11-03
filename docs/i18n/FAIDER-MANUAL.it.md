@@ -212,9 +212,7 @@ suona, il suo fader e il suo meter.
 4. Controlla cosa ricevono: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** registra 5 secondi di ciò
    che ricevono le app e te li riproduce.
 
-Un programma continua a suonare anche sul proprio dispositivo. Se è il dispositivo su cui ascolti,
-disattiva il tasto **HEADPHONES** del suo canale, altrimenti lo senti due volte (PRE-FLIGHT te lo
-segnala).
+Se senti un programma due volte, vedi [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** e **+ APP** aggiungono canali. **+ OUTPUT** aggiunge un'uscita su un dispositivo che
 non ne ha. Il tasto del dispositivo sotto il nome di un'uscita cambia dove suona. Fai clic con il
@@ -228,13 +226,8 @@ programma rimuove anche la sua regola app, così il canale non torna da solo.
 L'interruttore **SIMPLE / PRO** nella barra superiore mostra lo stesso mix in entrambi i modi. **PRO**
 è tutta la console: ingresso, filtri, dinamica ed EQ di ogni canale, bus e combinatori, plugin.
 
-Per modellare il tuo microfono in PRO:
-
-1. Alza **hp** attorno a 80–100 Hz per togliere il rumble.
-2. Inserisci **DYNAMICS** (l'interruttore con il simbolo di accensione) e imposta gate e compressore.
-3. Imposta l'**EQ**.
-
-Vedi [6](#6-the-channel-strip-section-by-section). Le impostazioni che fai in PRO continuano a
+Per modellare il tuo microfono, vedi [17.1](#171-hear-yourself-set-up-a-microphone). Ogni controllo
+è in [6](#6-the-channel-strip-section-by-section). Le impostazioni che fai in PRO continuano a
 funzionare in SIMPLE.
 
 <a id="step-8-run-pre-flight"></a>
@@ -291,9 +284,6 @@ Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo **ADD CHANNEL**
 
 Le scelte di SELECT e METER vengono ricordate.
 
-Sopra le strip ci sono il display del tempo, il trasporto del deck Tape (indietro, stop, play /
-pausa, avanti, registra, loop) e l'interruttore **SIMPLE / PRO** (vedi [Passo 7](#step-7-pro-for-the-whole-console)).
-
 <a id="the-top-bar"></a>
 
 ### La barra superiore
@@ -310,6 +300,7 @@ Da destra:
 | **MINI** | Una piccola finestra mixer sempre in primo piano |
 | **Spia di salute** | Verde: l'audio va bene. Ambra: il carico audio è alto o un dispositivo è rimasto a corto da poco. Rossa: un glitch udibile negli ultimi 10 secondi, oppure nessun audio in funzione. Il numero è il carico audio. Fai clic per aprire DEVICES |
 | **SCENES** | I tuoi mix memorizzati. **+** ne memorizza uno nuovo (vedi [14.1](#141-scenes)) |
+| **SIMPLE / PRO** | Lo stesso mix, semplice o come tutta la console (vedi [Passo 7](#step-7-pro-for-the-whole-console)) |
 
 In una finestra stretta se ne va prima la spia di salute, poi MINI, poi HISTORY. FIND le raggiunge tutte.
 
@@ -396,7 +387,7 @@ non aggiunge ritardo.
 
 Un combinatore è un bus diviso in **percorsi** paralleli (due per cominciare). Ogni percorso ha i
 propri plugin, e i percorsi vengono sommati al fader del combinatore. Instrada una sorgente in un
-percorso o in più. La strip del combinatore mostra quali sorgenti alimentano ogni percorso.
+percorso o in più (vedi [7](#7-raw-strips-apps-pads-tape-and-combinators)).
 
 <a id="rules-that-keep-it-safe"></a>
 
@@ -406,9 +397,8 @@ percorso o in più. La strip del combinatore mostra quali sorgenti alimentano og
   venuto (un bus in un bus che lo alimenta, il suono di un'uscita rimandato al suo stesso ingresso)
   viene subito disattivata, e il log degli eventi nomina il loop.
 - **Solo** su una strip silenzia ogni strip che non è in solo, tranne quelle segnate solo safe.
-- **Una strip spenta** non lascia passare nulla, ovunque sia instradata.
-- **Canali app e raddoppio.** Un programma suona sul proprio dispositivo oltre che nel suo canale.
-  Non instradare il suo canale a un'uscita sul dispositivo su cui già lo senti.
+- **Canali app e raddoppio.** Un programma suona sul proprio dispositivo oltre che nel suo canale
+  (vedi [18.7](#187-i-hear-something-twice-or-an-echo)).
 
 <a id="clocking"></a>
 
@@ -547,7 +537,7 @@ spacer before** / **Add spacer after**. Clic destro su uno spacer per **Narrow**
 | **EQ** | EQ inserito o escluso |
 | **EXT** | La dinamica ascolta una key esterna (sidechain) invece del canale stesso |
 | **Ordine di elaborazione** | Tre blocchi (FILT, EQ, DYN), dall'alto in basso nell'ordine in cui il canale li esegue. **Fai clic su un blocco** per spostarlo su di uno. Quello in cima va in fondo. I blocchi accesi sono in uso |
-| **Caselle di instradamento** | Una casella per ogni bus e dispositivo di uscita. Accesa: il canale viene mandato lì. Fai clic per cambiare. Mandare a un dispositivo che non ha ancora un'uscita ne crea l'uscita |
+| **Caselle di instradamento** | Una casella per ogni bus e dispositivo di uscita. Accesa: il canale viene mandato lì. Fai clic per cambiare (vedi [Le uscite sono dispositivi](#outputs-are-devices)) |
 | **Numero** | Il posto della strip sulla console |
 
 <a id="input"></a>
@@ -683,11 +673,7 @@ Ogni uscita (master) ha una propria strip scura:
 
 Clic destro su un'uscita per **Device...**, spacer, **Rename...** e **Remove**.
 
-**Le uscite si creano da sole.** Manda un canale a un dispositivo (con una casella di instradamento,
-la pagina Routing o **Route to**) e, se non ce n'è una, su quel dispositivo viene creata un'uscita.
-
-**Un dispositivo mancante.** Se il dispositivo di un'uscita viene scollegato, quell'uscita tace
-finché il dispositivo non torna. Niente si sposta da solo su un altro dispositivo.
+Le uscite si creano da sole, una per dispositivo (vedi [Le uscite sono dispositivi](#outputs-are-devices)).
 
 **FIND > MIX-MINUS AND STEMS** costruisce un feed per ogni ospite (tutto tranne la sua voce) e stem
 di voce, musica e gioco.
@@ -730,7 +716,7 @@ quella strip e passa a PRO se è visibile SIMPLE. Ogni scheda mostra:
 - **HEAVY**: insolitamente costoso
 
 Tasti su ogni scheda: **BYPASS**, **OPEN** (la sua finestra), **REMOVE**, e frecce per spostarlo prima
-o dopo. **ADD** in fondo ne aggiunge un altro. Non si può cambiare nulla mentre la strip è spenta.
+o dopo. **ADD** in fondo ne aggiunge un altro.
 
 ---
 
@@ -788,32 +774,12 @@ Se i due blocchi non possono essere instradati (due uscite, per esempio), viene 
 | Far sentire il tuo microfono alle app | MIC, poi **CABLE Input** (nella riga delle uscite, grigio finché non ha un'uscita) |
 | Mandare un gruppo attraverso un bus | Il bus, poi ogni canale; poi il bus, poi la sua uscita |
 | Togliere un canale dallo stream | Il canale, poi l'uscita dello stream (la linea sparisce) |
-| Alimentare un percorso di combinatore | La sorgente, poi la cella del percorso (P1, P2…) |
+| Alimentare un percorso di combinatore | La sorgente, poi la cella del percorso (P1, P2…). Fai clic su altre celle per alimentare più percorsi. Fare clic sul combinatore fuori dalle sue celle alimenta il suo primo percorso |
 
 Fare clic su un blocco di dispositivo grigio ne crea l'uscita, e la nuova uscita compare subito sulla console.
 
-<a id="combinators-1"></a>
-
-### Combinatori
-
-Fai clic sulla sorgente, poi sulla **cella del percorso**. Una sorgente può alimentare più percorsi:
-fai clic su ogni cella a turno. Fare clic sul combinatore fuori dalle sue celle instrada nel suo
-primo percorso. Per aggiungere percorsi o i loro plugin, fai clic destro sul combinatore sulla
-console > **Paths**.
-
-<a id="moving-channels"></a>
-
-### Spostare i canali
-
-Trascina un blocco di lato lungo la sua riga. Una barra blu mostra dove atterra, e la console si
-adegua. I canali si spostano tra i canali, i bus tra i bus, le uscite tra le uscite.
-
-<a id="when-a-route-wont-stay-on"></a>
-
-### Quando una route non resta attiva
-
-La route creerebbe un loop di feedback, quindi viene subito disattivata. Il log degli eventi nomina
-il loop. Rimuovi la route che torna indietro. Vedi [18.8](#188-a-route-wont-switch-on).
+Trascina un blocco di lato lungo la sua riga per spostarne la strip (vedi [17.4](#174-reorder-channels)).
+Una route che si disattiva subito creerebbe un loop di feedback (vedi [18.8](#188-a-route-wont-switch-on)).
 
 <a id="11-tools-pads"></a>
 
@@ -860,7 +826,7 @@ Formati: WAV, FLAC, AIFF, OGG, MP3. Un pad il cui file è stato spostato mostra 
 | **MODE** | **ONE-SHOT** suona fino alla fine (premere di nuovo riavvia). **GATE** suona finché è premuto. **LOOP** parte con una pressione e si ferma alla successiva |
 | **CHOKE** | OFF o gruppo 1–8. I pad dello stesso gruppo si fermano a vicenda |
 | **LEVEL** | Da -INF a +12 dB |
-| **HOTKEY** | Fai clic (**LEARN...**), poi premi i tasti. Deve includere Ctrl, Alt o un tasto F. Funziona mentre altri programmi hanno il focus. Esc annulla, Delete cancella |
+| **HOTKEY** | Fai clic (**LEARN...**), poi premi i tasti (vedi [HOTKEYS](#hotkeys)) |
 | **MACRO** | Una macro da eseguire con il pad (un pad può avere una macro e nessun suono) |
 | **TRIM** | Trascina le linee di inizio e fine sulla forma d'onda. Doppio clic per tutto il file |
 | **FADE IN / FADE OUT** | 0–5 s |
@@ -1024,7 +990,7 @@ crema quando sono accesi.
 | Scheda | Impostazioni |
 |---|---|
 | **WINDOWS** | **START WITH WINDOWS**: si apre nell'area di notifica quando accedi |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (un avviso quando un microfono in mute è sopra -30 dBFS). Selezionare una strip quando viene toccata è **SELECT > AUTO** nella barra laterale |
+| **DESK** | **WARN IF I TALK WHILE MUTED** (un avviso quando un microfono in mute è sopra -30 dBFS) |
 | **APPS** | **APP RULES...**: a quale bus o uscita va un programma quando inizia a suonare (anche in **FIND**). Rimuovere il canale di un programma ne rimuove la regola |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
@@ -1075,7 +1041,7 @@ sulla console ([5](#5-the-console)).
 
 ---
 
-<a id="16-remote-control-overlay-tray-and-vr"></a>
+<a id="16-remote-control-overlay-and-tray"></a>
 
 ## 16. Controllo remoto, overlay e area di notifica
 
@@ -1127,9 +1093,8 @@ spento) chiedono da soli il permesso.
 
 1. Avvia il programma e fallo suonare.
 2. **ADD APP** > sceglilo. Riceve un canale raw (senza effetti).
-3. Instradalo dove vuoi sentirlo. Il programma continua a suonare anche sul proprio dispositivo, quindi
-   se senti anche quel dispositivo, non instradare il canale app nello stesso posto (PRE-FLIGHT segnala
-   questo raddoppio).
+3. Instradalo dove vuoi sentirlo. Se lo senti due volte, vedi
+   [18.7](#187-i-hear-something-twice-or-an-echo).
 
 <a id="174-reorder-channels"></a>
 
@@ -1157,8 +1122,7 @@ nello stesso ordine.
 1. **ADD BUS > COMBINATOR**. Parte con due percorsi. Clic destro > **Paths > Add path** per averne di
    più.
 2. Nella pagina Routing, instrada le sorgenti nelle celle dei percorsi (**P1**, **P2**…).
-3. Clic destro > **Paths > PATH n > Add plugin...** per ogni percorso. I percorsi vengono sommati al
-   fader del combinatore. La strip del combinatore mostra cosa alimenta ogni percorso e ne apre i plugin.
+3. Clic destro > **Paths > PATH n > Add plugin...** per ogni percorso.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1276,17 +1240,18 @@ Segui il percorso del segnale:
 
 ### 18.7 Sento qualcosa due volte, o un'eco
 
-- Un canale app è instradato a un'uscita sullo stesso dispositivo su cui l'app già suona, così senti
-  l'app direttamente e attraverso Faider. Instrada il canale app altrove, oppure sposta
-  l'app su un altro dispositivo.
+- Un programma continua a suonare sul proprio dispositivo oltre che nel suo canale. Se il suo canale
+  è instradato a un'uscita su quello stesso dispositivo, lo senti direttamente e attraverso Faider.
+  Disattiva quella route (in SIMPLE, il tasto dell'uscita sul canale), oppure sposta il programma su
+  un altro dispositivo. PRE-FLIGHT te lo segnala.
 - L'altoparlante predefinito di Windows è impostato sul cavo virtuale. PRE-FLIGHT > **HEARD ONCE** lo nomina.
 
 <a id="188-a-route-wont-switch-on"></a>
 
 ### 18.8 Una route non si attiva
 
-Creerebbe un **loop di feedback** (suono che torna al punto da cui è venuto), quindi viene subito
-disattivata. Il log degli eventi nomina il loop. Spezzalo rimuovendo la route che torna indietro.
+Creerebbe un **loop di feedback** (vedi [Regole che mantengono tutto sicuro](#rules-that-keep-it-safe)).
+Il log degli eventi nomina il loop. Rimuovi la route che torna indietro.
 
 <a id="189-i-cant-change-anything-on-a-strip"></a>
 

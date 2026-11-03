@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/JUCE-8.0.12-8DC63F" alt="JUCE 8.0.12">
   <img src="https://img.shields.io/badge/audio-ASIO%20%C2%B7%20WASAPI-555" alt="ASIO · WASAPI">
   <img src="https://img.shields.io/badge/plugins-VST3-555" alt="VST3">
-  <a href="https://dayztoolsforu.github.io/faider/manual.html"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
+  <a href="https://dayztoolsforu.github.io/faider/#manual"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
   <img src="https://img.shields.io/badge/licence-AGPLv3-blue" alt="AGPLv3">
 </p>
 
@@ -67,7 +67,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 |---|---|
 | Install folder | `C:\Program Files\Faider` (installer), `C:\Faider` (built from source) |
 | Mix and settings | `%APPDATA%\Faider` |
-| Manual | [Faider manual](https://dayztoolsforu.github.io/faider/manual.html) (13 languages) |
+| Manual | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) (13 languages) |
 | Website | [dayztoolsforu.github.io/faider](https://dayztoolsforu.github.io/faider/) |
 
 ## Features
@@ -150,14 +150,14 @@ To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php)
 with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
 when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
-The website is the `docs` folder, published by GitHub Pages. Its manual page, `docs/manual.html`, is
-built from the manual and its translations: after changing them, run `pip install markdown` once,
-then `python tools/manual-page/build.py`.
+The website is the `docs` folder, published by GitHub Pages. It is one page, `docs/index.html`, built
+from `tools/manual-page` (the home view), the manual and its translations, and CREDITS.md: after
+changing any of them, run `pip install markdown` once, then `python tools/manual-page/build.py`.
 
 ### First run
 
 A few seconds after start, PRE-FLIGHT checks the setup and points to anything that needs fixing.
-The manual's [first-time setup](https://dayztoolsforu.github.io/faider/manual.html#2-first-time-setup) takes you
+The manual's [first-time setup](https://dayztoolsforu.github.io/faider/#2-first-time-setup) takes you
 through adding a microphone, hearing it, letting apps hear it and bringing in a program.
 
 Installing VB-CABLE makes Windows switch its default playback and recording devices to the cable.
@@ -167,7 +167,7 @@ Set your speakers and microphone back under **Settings > System > Sound**.
 
 | Document | |
 |---|---|
-| User manual, 13 languages | [Faider manual](https://dayztoolsforu.github.io/faider/manual.html) |
+| User manual, 13 languages | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) |
 | The app and its layout files | [console/README.md](console/README.md) |
 | All documentation | [docs/README.md](docs/README.md) |
 

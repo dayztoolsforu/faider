@@ -27,4 +27,5 @@ defaults:
 exclude:
   - README.md
   - FAIDER-MANUAL.md
+  - CREDITS.md
   - i18n

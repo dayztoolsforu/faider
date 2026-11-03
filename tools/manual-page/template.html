@@ -3,18 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="The Faider user manual: setup, every page and control, how-to guides and troubleshooting.">
+<meta name="description" content="Audio routing and mixing for Windows. Every device, program and microphone on one console.">
+<meta property="og:title" content="Faider">
+<meta property="og:description" content="Audio routing and mixing for Windows. Every device, program and microphone on one console.">
+<meta property="og:image" content="https://dayztoolsforu.github.io/faider/images/console/mixer.jpg">
 <link rel="icon" href="assets/icon.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=satoshi@400,500,700&display=swap">
-<title>Faider Manual</title>
+<title>Faider</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <style>
+.v-manual {
+
 /* Layout: a hardware manual. A sticky contents rail on the left, one reading column, chapters
      headed like console section legends; the hero shows the channel strip, each section a link. */
   /* (the home page's charcoal desk: one look across the site) */
-  :root {
+  & {
     --paper: #141517; --sheet: #1d1f22; --ink: #e6e8ea; --muted: #9aa1a8; --rule: #33373c;
     --select: #3db4e0; --route: #62d6b4; --bus: #b59cf0; --output: #f2a03c; --cut: #ef6a5f;
     --key-top: #45484e; --key-bot: #33363b; --key-ink: #eceef0;
@@ -22,12 +28,8 @@
     --display: "Clash Display", "Segoe UI", sans-serif;
     --body: "Satoshi", "Segoe UI", system-ui, sans-serif;
     --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
-    color-scheme: dark;
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px); }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.62 var(--body); }
+  & { background: var(--paper); color: var(--ink); font: 16px/1.62 var(--body); }
   a { color: var(--select); }
   a:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--select); outline-offset: 2px; }
 
@@ -191,36 +193,23 @@
     .w-group, .w-bottom { display: none; }
     .flow-row li:not(:last-child)::after { display: none; }
   }
-
-  /* SITE BAR and FOOTER: the same as every page of the site (assets/site.css) */
-  .site-bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 12px max(16px, calc((100% - 1240px) / 2 + 16px)); background: rgba(17, 18, 20, .94); backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, .08); }
-  .site-bar .brand { display: flex; align-items: center; gap: 10px; color: #e6e8ea; text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-  .site-bar .brand img { width: 24px; height: 24px; }
-  .site-bar nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-  .site-bar nav > a { color: #9aa1a8; text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
-  .site-bar nav > a:hover, .site-bar nav > a[aria-current] { color: #e6e8ea; }
-  .site-bar .dl { display: inline-block; color: #10261a; background: linear-gradient(#7ef0a4, #46c873); padding: 8px 12px; border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 3px 8px rgba(0,0,0,.45); transition: transform .18s, filter .18s; }
-  .site-bar nav > a.dl:hover { color: #10261a; transform: translateY(-1px); filter: brightness(1.06); }
-  @media (max-width: 640px) { .site-bar { padding: 10px 16px; } .site-bar nav { gap: 12px; } }
-  .site-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 24px 48px; border-top: 1px solid #33373c;
-    color: #9aa1a8; font: 500 12px/1.6 var(--mono); }
-  .site-foot nav { display: flex; gap: 18px; }
-  .site-foot a { color: #3db4e0; text-decoration: none; }
-  .site-foot a:hover { text-decoration: underline; }
+}
 </style>
 
-<header class="site-bar">
-  <a class="brand" href="./"><img src="assets/icon.png" alt=""><span>FAIDER</span></a>
+<header class="bar">
+  <a class="brand" href="#"><img src="assets/icon.png" alt=""><span>FAIDER</span></a>
   <nav>
-    <a href="./#features">FEATURES</a>
-    <a href="manual.html" aria-current="page">MANUAL</a>
+    <a href="#features" data-for="home">FEATURES</a>
+    <a href="#manual" data-for="manual">MANUAL</a>
     <a href="https://github.com/dayztoolsforu/faider">GITHUB</a>
-    <a class="dl" data-download href="https://github.com/dayztoolsforu/faider/releases">DOWNLOAD</a>
+    <a class="key lit" data-download href="https://github.com/dayztoolsforu/faider/releases">DOWNLOAD</a>
   </nav>
 </header>
+
+<div class="v-home" data-view="home">
+{{HOME}}</div>
+
+<div class="v-manual" data-view="manual" id="manual" hidden>
 <div class="hero">
   <div class="hero-inner">
     <div>
@@ -250,12 +239,19 @@
     <details class="toc-mobile"><summary id="toc-mobile-title">Contents</summary><ol class="toc" id="toc-mobile"></ol></details>
     <nav class="toc-desktop" aria-label="Contents"><ol class="toc" id="toc"></ol></nav>
   </aside>
-  <main id="manual"></main>
+  <main id="manual-body"></main>
 </div>
 <div class="lightbox" id="lightbox" hidden><div><img id="lightbox-img" alt=""><p id="lightbox-cap"></p></div></div>
-<footer class="site-foot">
+</div>
+
+<div class="v-credits" data-view="credits" id="credits" hidden>
+<article class="prose">
+{{CREDITS}}</article>
+</div>
+
+<footer class="foot">
   <span>Faider is free software under the GNU AGPLv3. VST and ASIO are trademarks of Steinberg Media Technologies GmbH.</span>
-  <nav><a href="CREDITS.html">Credits</a><a href="https://github.com/dayztoolsforu/faider">Source on GitHub</a></nav>
+  <nav><a href="#credits">Credits</a><a href="https://github.com/dayztoolsforu/faider">Source on GitHub</a></nav>
 </footer>
 
 <script id="shots-data" type="application/json">{{SHOTS}}</script>
@@ -272,7 +268,6 @@
     code = tpl.id.slice(5);
     const hero = JSON.parse(tpl.dataset.hero);
     chrome = hero.chrome;
-    document.documentElement.lang = code;
     $('hero-eyebrow').textContent = hero.title;
     $('hero-em').textContent = hero.title;
     $('hero-intro').innerHTML = hero.intro;
@@ -285,7 +280,7 @@
     const toc = tpl.content.querySelector('[data-part="toc"]').innerHTML;
     $('toc').innerHTML = toc;
     $('toc-mobile').innerHTML = toc;
-    $('manual').innerHTML = tpl.content.querySelector('[data-part="main"]').innerHTML;
+    $('manual-body').innerHTML = tpl.content.querySelector('[data-part="main"]').innerHTML;
     document.querySelectorAll('img[data-shot]').forEach(img => { img.src = shots[img.dataset.shot] || ''; });
     chapters = [...document.querySelectorAll('.chapter')];
     text = chapters.map(c => c.textContent.toLowerCase());
@@ -354,17 +349,46 @@
   }
   mount(start);
   openTarget();
-  // A link straight to a chapter: the chapters only exist now, so go there now
-  const goToHash = () => { const t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView({ behavior: 'instant', block: 'start' }); };
-  goToHash();
-  window.addEventListener('load', goToHash, { once: true });   // (again once fonts and screenshots have their size)
 })();
 </script>
+<script src="assets/site.js"></script>
 <script>
-fetch('https://api.github.com/repos/dayztoolsforu/faider/releases?per_page=1').then(r => r.ok ? r.json() : []).then(rs => {
-  const exe = rs[0] && (rs[0].assets || []).find(a => /Setup\.exe$/i.test(a.name));
-  if (exe) document.querySelectorAll('[data-download]').forEach(a => { a.href = exe.browser_download_url; });
-}).catch(() => {});
+// One page: the bar and links swap the view in place (home, manual, credits); the address keeps
+// where you are (#manual, a chapter, #credits) so back, forward and shared links work.
+(() => {
+  const views = [...document.querySelectorAll('[data-view]')];
+  const titles = { home: 'Faider', manual: 'Faider Manual', credits: 'Faider Credits' };
+  let current = null;
+  const target = () => { const id = decodeURIComponent(location.hash.slice(1)); return id ? document.getElementById(id) : null; };
+  function viewFor(el) {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (id === 'manual') return 'manual';
+    if (!id && new URLSearchParams(location.search).has('lang')) return 'manual';
+    const v = el && el.closest('[data-view]');
+    return v ? v.dataset.view : 'home';
+  }
+  function show(first) {
+    const el = target(), name = viewFor(el);
+    const swap = () => {
+      views.forEach(v => { v.hidden = v.dataset.view !== name; });
+      document.querySelectorAll('.bar [data-for]').forEach(a => a.toggleAttribute('aria-current', a.dataset.for === name && name !== 'home'));
+      document.title = titles[name];
+      document.documentElement.lang = name === 'manual' ? (document.getElementById('lang').value || 'en') : 'en';
+      if (el && el.id !== 'manual' && el.id !== 'credits') { if (el.tagName === 'DETAILS') el.open = true; el.scrollIntoView({ behavior: 'instant', block: 'start' }); }
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    if (name === current) { swap(); return; }
+    const was = current; current = name;
+    if (first || !document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      swap();
+      if (!first) { const v = views.find(v => v.dataset.view === name); v.classList.remove('entering'); void v.offsetWidth; v.classList.add('entering'); }
+    } else document.startViewTransition(swap);
+  }
+  window.addEventListener('hashchange', () => show(false));
+  document.getElementById('lang').addEventListener('change', () => { if (current === 'manual') document.documentElement.lang = document.getElementById('lang').value; });
+  show(true);
+  window.addEventListener('load', () => { const el = target(); if (el && current !== 'home' && el.id !== 'manual' && el.id !== 'credits') el.scrollIntoView({ behavior: 'instant', block: 'start' }); }, { once: true });
+})();
 </script>
 </body>
 </html>

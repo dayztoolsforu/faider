@@ -1,6 +1,7 @@
-"""Builds docs/manual.html, the manual as one page for the website: every language's chapters in a
-<template>, a language picker, search, the channel strip as a map, screenshots that open full size.
-Headings take the English ids, so links work in every language.
+"""Builds docs/index.html, the whole website as one page: the home view (home.html), the manual and
+the credits (CREDITS.md), swapped in place. The manual: every language's chapters in a <template>, a
+language picker, search, the channel strip as a map, screenshots that open full size. Headings take
+the English ids, so links work in every language. manual.html and CREDITS.html forward to the page.
 
     pip install markdown
     python tools/manual-page/build.py
@@ -162,8 +163,26 @@ for _, _, a in strip_parts:
         print("strip map: no heading", a)
 strip = "".join(f'<a class="strip-sec s-{n.lower()}" href="#{a}" style="flex:{h}"><span>{n}</span></a>' for n, h, a in strip_parts)
 options = "".join(f'<option value="{c}">{html.escape(names[c])}</option>' for c in built)
-page = (pathlib.Path(__file__).with_name("template.html").read_text(encoding="utf-8")
+# The credits view: CREDITS.md, its links into the repository pointed at GitHub
+REPO = "https://github.com/dayztoolsforu/faider/blob/main/"
+credits = markdown.markdown((DOCS / "CREDITS.md").read_text(encoding="utf-8"), extensions=["tables", "sane_lists"])
+credits = re.sub(r'href="\.\./([^"]+)"', lambda m: f'href="{REPO}{m.group(1)}"', credits)
+credits = re.sub(r'href="(?!https?:|#|mailto:)([^"]+)"', lambda m: f'href="{REPO}docs/{m.group(1)}"', credits)
+
+here = pathlib.Path(__file__).parent
+page = ((here / "template.html").read_text(encoding="utf-8")
+        .replace("{{HOME}}", (here / "home.html").read_text(encoding="utf-8")).replace("{{CREDITS}}", credits)
         .replace("{{STRIP}}", strip).replace("{{LANG_OPTIONS}}", options).replace("{{TEMPLATES}}", "\n".join(templates))
         .replace("{{SHOTS}}", json.dumps(shots_store)))
-(DOCS / "manual.html").write_text(page, encoding="utf-8", newline="\n")
+(DOCS / "index.html").write_text(page, encoding="utf-8", newline="\n")
+
+# The old addresses lead into the one page (a language or chapter in them is kept).
+def forward(name, view):
+    (DOCS / name).write_text(
+        '<!doctype html>\n<meta charset="utf-8">\n<title>Faider</title>\n'
+        f'<meta http-equiv="refresh" content="0; url=./#{view}">\n'
+        f"<script>location.replace('./' + location.search + (location.hash || '#{view}'));</script>\n",
+        encoding="utf-8", newline="\n")
+forward("manual.html", "manual")
+forward("CREDITS.html", "credits")
 print(len(page) // 1024, "KB;", "languages:", ", ".join(built))

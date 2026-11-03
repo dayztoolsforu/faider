@@ -109,6 +109,8 @@ namespace DeskSettings
             const auto lamp = juce::Colour (0xfffff0c8);
             g.setColour (juce::Colours::black.withAlpha (0.55f));
             g.fillRoundedRectangle (square.translated (0.0f, 1.2f), 2.0f);
+            if (on)
+                LargeFormat::bloom (g, square, lamp, 0.7f, 2.0f, 3.0f);
             const float shine = (over ? 1.14f : 1.0f) * (down ? 0.78f : 1.0f);   // (over: brighter; held: darker, as it sinks)
             g.setGradientFill (on ? juce::ColourGradient (lamp.brighter (0.2f).withMultipliedBrightness (shine), square.getX(), square.getY(), lamp.darker (0.2f).withMultipliedBrightness (shine), square.getX(), square.getBottom(), false)
                                   : juce::ColourGradient (juce::Colour (0xffc4c6c9).withMultipliedBrightness (shine), square.getX(), square.getY(),

@@ -56,10 +56,10 @@ img { max-width: 100%; display: block; }
 
 /* LEDs: round lenses, a hot core when lit */
 .led { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle; box-shadow: 0 0 0 2px #0b0c0d; }
-.led.green { background: radial-gradient(circle at 40% 35%, #e9ffef, var(--green) 55%); box-shadow: 0 0 0 2px #0b0c0d, 0 0 10px var(--green); }
-.led.amber { background: radial-gradient(circle at 40% 35%, #fff3e0, var(--amber) 55%); box-shadow: 0 0 0 2px #0b0c0d, 0 0 10px var(--amber); }
-.led.blue { background: radial-gradient(circle at 40% 35%, #e6f8ff, var(--blue) 55%); box-shadow: 0 0 0 2px #0b0c0d, 0 0 10px var(--blue); }
-.led.red { background: radial-gradient(circle at 40% 35%, #ffe8e6, var(--red) 55%); box-shadow: 0 0 0 2px #0b0c0d, 0 0 10px var(--red); }
+.led.green { background: radial-gradient(circle at 40% 35%, #e9ffef, var(--green) 55%); box-shadow: 0 0 0 2px #0b0c0d; }
+.led.amber { background: radial-gradient(circle at 40% 35%, #fff3e0, var(--amber) 55%); box-shadow: 0 0 0 2px #0b0c0d; }
+.led.blue { background: radial-gradient(circle at 40% 35%, #e6f8ff, var(--blue) 55%); box-shadow: 0 0 0 2px #0b0c0d; }
+.led.red { background: radial-gradient(circle at 40% 35%, #ffe8e6, var(--red) 55%); box-shadow: 0 0 0 2px #0b0c0d; }
 
 /* Home */
 .hero { display: grid; grid-template-columns: minmax(300px, 1fr) 1.6fr; gap: 48px; align-items: center; padding: 72px 48px 48px; max-width: 1400px; margin: 0 auto; }

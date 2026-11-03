@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="The Patchbay Console user manual: setup, every page and control, how-to guides and troubleshooting.">
+<meta name="description" content="The Faider user manual: setup, every page and control, how-to guides and troubleshooting.">
 <link rel="icon" href="assets/icon.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=satoshi@400,500,700&display=swap">
-<title>Patchbay Console Manual</title>
+<title>Faider Manual</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap">
 <style>
@@ -220,16 +220,16 @@
 </style>
 
 <header class="site-bar"><div class="site-bar-inner">
-  <a class="home" href="./"><img src="assets/icon.png" alt="">Patchbay Console</a>
+  <a class="home" href="./"><img src="assets/icon.png" alt="">Faider</a>
   <a href="./#features">Features</a>
-  <a href="https://github.com/dayztoolsforu/patchbay">GitHub</a>
-  <a class="dl" data-download href="https://github.com/dayztoolsforu/patchbay/releases">Download</a>
+  <a href="https://github.com/dayztoolsforu/faider">GitHub</a>
+  <a class="dl" data-download href="https://github.com/dayztoolsforu/faider/releases">Download</a>
 </div></header>
 <div class="hero">
   <div class="hero-inner">
     <div>
       <div class="eyebrow" id="hero-eyebrow">User manual</div>
-      <h1>Patchbay Console <em id="hero-em">Manual</em></h1>
+      <h1>Faider <em id="hero-em">Manual</em></h1>
       <div id="hero-intro"></div>
       <div class="hero-meta"><span id="hero-version"></span></div>
     </div>
@@ -257,7 +257,7 @@
   <main id="manual"></main>
 </div>
 <div class="lightbox" id="lightbox" hidden><div><img id="lightbox-img" alt=""><p id="lightbox-cap"></p></div></div>
-<footer class="page-foot">Patchbay Console user manual. Version 0.1.</footer>
+<footer class="page-foot">Faider user manual. Version 0.1.</footer>
 
 <script id="shots-data" type="application/json">{{SHOTS}}</script>
 {{TEMPLATES}}
@@ -362,7 +362,7 @@
 })();
 </script>
 <script>
-fetch('https://api.github.com/repos/dayztoolsforu/patchbay/releases?per_page=1').then(r => r.ok ? r.json() : []).then(rs => {
+fetch('https://api.github.com/repos/dayztoolsforu/faider/releases?per_page=1').then(r => r.ok ? r.json() : []).then(rs => {
   const exe = rs[0] && (rs[0].assets || []).find(a => /Setup\.exe$/i.test(a.name));
   if (exe) document.querySelectorAll('[data-download]').forEach(a => { a.href = exe.browser_download_url; });
 }).catch(() => {});

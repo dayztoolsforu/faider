@@ -8,7 +8,7 @@
 
 namespace
 {
-    constexpr const wchar_t* windowClass = L"PatchbayHotkeys";
+    constexpr const wchar_t* windowClass = L"FaiderHotkeys";
     GlobalHotkeys* instance = nullptr;   // the one receiving WM_HOTKEY (created on the message thread)
 
     // JUCE's key code to a Windows virtual key: letters and digits are their own codes, special

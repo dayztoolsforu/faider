@@ -186,7 +186,7 @@ void VoiceChain::fillInPluginDescription (juce::PluginDescription& d) const
     d.name = d.descriptiveName = "VOICE CHAIN";
     d.pluginFormatName = "Built-in";
     d.category = "Dynamics";
-    d.manufacturerName = "Patchbay";
+    d.manufacturerName = "Faider";
     d.version = "1.0";
     d.fileOrIdentifier = identifier;
     d.uniqueId = d.deprecatedUid = 0x50425643;   // "PBVC"

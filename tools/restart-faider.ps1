@@ -1,31 +1,30 @@
-# Rebuilds Patchbay Console from the latest code, installs it and starts it again (run by "Restart
-# Patchbay Console.cmd"). It runs from C:\PatchbayConsole,
-# keeps running in the tray when its window is closed (so it's quit properly first), and a failed
-# build starts the installed copy again. A desktop shortcut is made the first time.
+# Rebuilds Faider from the latest code, installs it and starts it again (run by "Restart Faider.cmd").
+# It runs from C:\Faider, keeps running in the tray when its window is closed (so it's quit properly
+# first), and a failed build starts the installed copy again. A desktop shortcut is made the first time.
 
 $ErrorActionPreference = 'Stop'
 trap {
     Write-Host $_ -ForegroundColor Red
-    if ($exe -and (Test-Path $exe) -and -not (Get-Process 'Patchbay Console' -ErrorAction SilentlyContinue)) { Start-Process $exe }
+    if ($exe -and (Test-Path $exe) -and -not (Get-Process 'Faider' -ErrorAction SilentlyContinue)) { Start-Process $exe }
     Read-Host 'Press Enter to close'
     exit 1
 }
 $root = Split-Path -Parent $PSScriptRoot
-$build = Join-Path $root 'build\console\PatchbayConsole_artefacts\Release'
-$install = 'C:\PatchbayConsole'
-$exe = Join-Path $install 'Patchbay Console.exe'
+$build = Join-Path $root 'build\console\Faider_artefacts\Release'
+$install = 'C:\Faider'
+$exe = Join-Path $install 'Faider.exe'
 
 $cmake = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 if (-not $cmake) { $cmake = 'C:\Program Files\CMake\bin\cmake.exe' }
 
-$running = Get-Process 'Patchbay Console' -ErrorAction SilentlyContinue | Select-Object -First 1
+$running = Get-Process 'Faider' -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($running) {
-    Write-Host 'Quitting Patchbay Console...'
-    $quitter = if ($running.Path) { $running.Path } elseif (Test-Path $exe) { $exe } else { Join-Path $build 'Patchbay Console.exe' }
+    Write-Host 'Quitting Faider...'
+    $quitter = if ($running.Path) { $running.Path } elseif (Test-Path $exe) { $exe } else { Join-Path $build 'Faider.exe' }
     & $quitter --quit
-    for ($i = 0; $i -lt 40 -and (Get-Process 'Patchbay Console' -ErrorAction SilentlyContinue); $i++) { Start-Sleep -Milliseconds 250 }
-    if (Get-Process 'Patchbay Console' -ErrorAction SilentlyContinue) {
-        Write-Host 'Patchbay Console did not quit. Close it from the tray icon and run this again.' -ForegroundColor Red
+    for ($i = 0; $i -lt 40 -and (Get-Process 'Faider' -ErrorAction SilentlyContinue); $i++) { Start-Sleep -Milliseconds 250 }
+    if (Get-Process 'Faider' -ErrorAction SilentlyContinue) {
+        Write-Host 'Faider did not quit. Close it from the tray icon and run this again.' -ForegroundColor Red
         Read-Host 'Press Enter to close'
         exit 1
     }
@@ -33,7 +32,7 @@ if ($running) {
 
 Write-Host 'Building...'
 $ErrorActionPreference = 'Continue'   # (CMake's warnings on stderr aren't failures: the exit code says)
-& $cmake --build (Join-Path $root 'build') --config Release --target PatchbayConsole 2>&1 | ForEach-Object { "$_" }
+& $cmake --build (Join-Path $root 'build') --config Release --target Faider 2>&1 | ForEach-Object { "$_" }
 $built = $LASTEXITCODE -eq 0
 $ErrorActionPreference = 'Stop'
 
@@ -52,7 +51,7 @@ if ($built) {
         Write-Host "Couldn't replace (in use?), the old copy is still there:" -ForegroundColor Yellow
         $locked | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
     }
-    $link = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Patchbay Console.lnk'
+    $link = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Faider.lnk'
     if (-not (Test-Path $link)) {
         $shortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($link)
         $shortcut.TargetPath = $exe
@@ -66,7 +65,7 @@ if ($built) {
 }
 
 if (Test-Path $exe) {
-    Write-Host 'Starting Patchbay Console...'
+    Write-Host 'Starting Faider...'
     Start-Process $exe
 }
 

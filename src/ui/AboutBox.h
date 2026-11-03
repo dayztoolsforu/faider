@@ -4,7 +4,7 @@
 #include "../ProductName.h"
 #include "Console.h"
 
-// ABOUT PATCHBAY: the version, and what went into it: the libraries built in (with their
+// ABOUT FAIDER: the version, and what went into it: the libraries built in (with their
 // authors and licences), the tools it works with, and how it was made. Opened from the THEME
 // menu and the tray menu.
 class AboutBox : public juce::Component
@@ -91,7 +91,7 @@ private:
             { "WORKS WITH (NOT INCLUDED)", {
                 { "VB-CABLE", "VB-AUDIO SOFTWARE - VIRTUAL CABLES BETWEEN APPS" },
                 { "FFMPEG", "THE FFMPEG DEVELOPERS - MP3 RECORDING WHEN FFMPEG.EXE IS ON THE PATH (LGPL / GPL)" },
-                { "LOUPIXDECK", "RADIATORTWO - LOUPEDECK DEVICES; THE PATCHBAY PLUGIN BUILDS ON ITS PLUGIN SDK (MIT)" },
+                { "LOUPIXDECK", "RADIATORTWO - LOUPEDECK DEVICES; THE FAIDER PLUGIN BUILDS ON ITS PLUGIN SDK (MIT)" },
             } },
             { "MADE WITH", {
                 { "C++20, CMAKE, MICROSOFT VISUAL C++", "BUILT FROM SOURCE ON WINDOWS 11" },

@@ -1,4 +1,4 @@
-// PATCHBAY CONSOLE: the console. It draws channel strips from layout files (console/layout/*.json:
+// FAIDER: the console. It draws channel strips from layout files (console/layout/*.json:
 // every part's place, in a 214-wide strip's pixels), redrawn whenever a file changes. Everything
 // is drawn in code (LargeFormat.h).
 //
@@ -837,7 +837,7 @@ public:
             g.setColour (s.panel == "dark" ? juce::Colour (0xff222021) : s.panel == "name" ? (ch == selected ? juce::Colour (0xff2f6f86) : bind.isMaster (ch) ? juce::Colour (0xff4a3816) : bind.isBus (ch) ? juce::Colour (0xff3a2d4c) : juce::Colour (0xff1a1b1d))
                                             : light ? juce::Colour (0xff78797f) : juce::Colour (0xff16181a));
             g.fillRect (area);
-            if (const auto colour = channelColour (ch); s.panel == "name" && ! colour.isTransparent())   // (its own colour, as Patchbay shows it: a band along the bar)
+            if (const auto colour = channelColour (ch); s.panel == "name" && ! colour.isTransparent())   // (its own colour, as Faider shows it: a band along the bar)
             {
                 g.setColour (colour.withAlpha (ch == selected ? 0.35f : 0.28f));
                 g.fillRect (area);
@@ -1488,7 +1488,7 @@ private:
 
     static juce::File spacerFile()
     {
-        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile ("PatchbayConsole").getChildFile ("console.xml");
+        return Product::dataFolder().getChildFile ("console.xml");
     }
     void loadSpacers()
     {
@@ -1533,7 +1533,7 @@ private:
         glideTo (stripX (ch) - 40.0f, -1.0f);
     }
 
-    // SEL: the strip you're on (outlined); Patchbay's selection follows it (its keys and rack).
+    // SEL: the strip you're on (outlined); Faider's selection follows it (its keys and rack).
     void select (int ch)
     {
         selected = ch;
@@ -1545,9 +1545,9 @@ private:
         repaint();
     }
 
-    // FOLLOW SELECT: a strip chosen elsewhere in Patchbay (FIND, a hotkey) is selected here too,
+    // FOLLOW SELECT: a strip chosen elsewhere in Faider (FIND, a hotkey) is selected here too,
     // and brought into view.
-    void followPatchbay()
+    void followFaider()
     {
         if (! followSelect || mixer == nullptr || mixer->getSelected() == followed)
             return;
@@ -1932,7 +1932,7 @@ public:
     // THE ROUTING PAGE's view of the desk: where each strip is across, and the strips themselves.
     int stripCount() const { return channels; }
     float stripLeft (int ch) const { return drawX (ch); }
-    // A channel's own colour (Patchbay's; transparent: none).
+    // A channel's own colour (Faider's; transparent: none).
     juce::Colour channelColour (int ch) const
     {
         auto* s = bind.strip (ch);
@@ -1944,7 +1944,7 @@ public:
     // Inputs move in the engine; buses and outputs only on the desk (DeskOrder.h).
     bool canMove (int ch) const
     {
-        return live() && (bind.strip (ch) != nullptr || bind.master (ch) != nullptr);   // (a lock from Patchbay's desk doesn't hold here: a drag is meant)
+        return live() && (bind.strip (ch) != nullptr || bind.master (ch) != nullptr);   // (a lock from Faider's desk doesn't hold here: a drag is meant)
     }
     std::pair<int, int> groupOf (int ch) const   // [first, past the last) of its group's strips
     {
@@ -1996,7 +1996,7 @@ public:
         for (int ch = 0; ch < channels; ++ch)
             before[stripKey (ch)] = drawX (ch);
         const auto chosen = selected >= 0 ? stripKey (selected) : juce::String();
-        // (Patchbay's locks pin strips to their slots: let go for the move, each kept with its strip)
+        // (Faider's locks pin strips to their slots: let go for the move, each kept with its strip)
         std::vector<std::pair<AudioEngine::Strip*, bool>> locks;
         for (auto& st : engine->getStrips())
             locks.push_back ({ st.get(), std::exchange (st->locked, false) });
@@ -2021,7 +2021,7 @@ public:
     // THE SIDEBAR's SELECT and METER cards (kept in console.xml), and its SECTIONS.
     bool autoSelect = true, followSelect = true;
     void setAutoSelect (bool on) { autoSelect = on; saveSpacers(); }
-    void setFollowSelect (bool on) { followSelect = on; saveSpacers(); followPatchbay(); }
+    void setFollowSelect (bool on) { followSelect = on; saveSpacers(); followFaider(); }
     bool meterIn() const { return bind.meterIn; }
     void setMeterIn (bool on) { bind.meterIn = on; saveSpacers(); repaint(); }
     int sectionCount() const { return (int) layout.sections.size(); }
@@ -2062,7 +2062,7 @@ public:
         glideTo (juce::jmax (0.0f, from.x + dx), juce::jmax (0.0f, from.y + dy));
     }
 
-    // The sidebar's DESK cards: + CHANNEL (Patchbay's input menu, by the card) and + BUS.
+    // The sidebar's DESK cards: + CHANNEL (Faider's input menu, by the card) and + BUS.
     void addChannel (juce::Rectangle<int> near)
     {
         if (mixer != nullptr && live())
@@ -2386,7 +2386,7 @@ private:
             type.addItem ("Dark strip", true, isDark (ch), [this, ch] { darkChosen[stripKey (ch)] = true; saveSpacers(); repaint(); });
             menu.addSubMenu ("Strip type", type);
         }
-        MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Patchbay's palette: it follows the channel everywhere)
+        MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
         if (bus && s->combinator && mixer != nullptr)   // A COMBINATOR: its paths, each with its plugins
         {
             juce::PopupMenu paths;
@@ -2948,7 +2948,7 @@ private:
         if (++ticks % 8 == 0 && file.getLastModificationTime() != shown)   // (the layout file saved: drawn again)
             reload();
         if (ticks % 6 == 0)
-            followPatchbay();
+            followFaider();
         if (ticks % 15 == 0)
             keepAppsRaw();
         if (engine != nullptr)
@@ -2978,7 +2978,7 @@ private:
     int channels = 8;
     bool outlines = false;
     AudioEngine* engine;
-    MixerComponent* mixer;   // (Patchbay's: its plugin picker and rack)
+    MixerComponent* mixer;   // (Faider's: its plugin picker and rack)
     Binding bind;
     int ticks = 0;
     int selected = -1;
@@ -2996,7 +2996,7 @@ private:
     std::vector<std::vector<juce::int64>> shownParts;   // (each strip's parts, as last drawn: partState)
     std::vector<juce::int64> shownStrips;               // (each strip's on/off, selection, light or dark and colour, as last drawn)
     Hit held;
-    juce::String followed;   // (the selection, as Patchbay keys it: FOLLOW SELECT notices it change)
+    juce::String followed;   // (the selection, as Faider keys it: FOLLOW SELECT notices it change)
     int dragging = -1;       // (the channel whose name bar is held: dragged, it moves)
     bool dragMoved = false;
     float dragX = 0.0f, dragGrab = 0.0f;
@@ -3014,7 +3014,7 @@ private:
     juce::Colour ink() const { return light ? juce::Colour (0xffdcdde0) : juce::Colour (0xff9aa0a6); }
 };
 
-// The console as Patchbay's Mixer page: the strips in a scrolling view.
+// The console as Faider's Mixer page: the strips in a scrolling view.
 namespace ConsoleDesk
 {
     juce::File layoutFile()
@@ -3958,7 +3958,7 @@ namespace ConsoleDesk
             g.fillRect (getLocalBounds().removeFromRight (1));
             g.setColour (juce::Colour (0xff9aa0a6));
             g.setFont (LargeFormat::print (textSize));
-            g.drawText ("PATCHBAY CONSOLE", juce::Rectangle<int> (14, 10, getWidth() - 20, 20), juce::Justification::centredLeft, false);
+            g.drawText ("FAIDER", juce::Rectangle<int> (14, 10, getWidth() - 20, 20), juce::Justification::centredLeft, false);
             const auto names = tabs.getTabNames();
             for (int i = 0; i < names.size(); ++i)
                 card (g, cardArea (i), names[i].toUpperCase(), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);

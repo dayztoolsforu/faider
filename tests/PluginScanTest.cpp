@@ -1,10 +1,10 @@
 // Checks plugin testing in a separate copy (src/engine/PluginScan.h). This program is its own
-// child copy: run with --scan it does what Patchbay.exe --scan does.
-//  1. Patchbay's test plugin (Patchbay Test Delay) passes, with its name and maker remembered;
+// child copy: run with --scan it does what Faider.exe --scan does.
+//  1. Faider's test plugin (Faider Test Delay) passes, with its name and maker remembered;
 //  2. a folder with no plugin in it fails, and is remembered as failed;
 //  3. a test that takes too long is stopped and fails;
 //  4. forget() clears a result.
-// The results go in the real %APPDATA%\Patchbay\plugins.xml; each is forgotten again after.
+// The results go in the real %APPDATA%\Faider\plugins.xml; each is forgotten again after.
 // Prints PASS/FAIL per check; exits non-zero on failure.
 #include "../src/engine/PluginScan.h"
 
@@ -28,7 +28,7 @@ int main (int argc, char** argv)
 
     const auto exe = juce::File::getSpecialLocation (juce::File::currentExecutableFile);
     const auto delay = exe.getParentDirectory().getParentDirectory().getParentDirectory()
-                          .getChildFile ("PatchbayTestDelay_artefacts").getChildFile ("Release").getChildFile ("VST3").getChildFile ("Patchbay Test Delay.vst3");
+                          .getChildFile ("FaiderTestDelay_artefacts").getChildFile ("Release").getChildFile ("VST3").getChildFile ("Faider Test Delay.vst3");
     check (delay.exists(), "the test plugin is built: " + delay.getFullPathName());
     const auto path = delay.getFullPathName();
 

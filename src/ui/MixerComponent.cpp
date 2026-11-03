@@ -16,7 +16,7 @@
 #include <numeric>
 #include <set>
 
-// The services the console uses from what was Patchbay's mixer: the input and plugin menus, plugin
+// The services the console uses from what was Faider's mixer: the input and plugin menus, plugin
 // windows, the colour menu, the selection, A / B, putting a channel back from a saved session, and
 // the channel pages the SteamVR dashboard shows. It draws nothing itself.
 namespace
@@ -1259,7 +1259,7 @@ std::vector<std::unique_ptr<juce::AudioPluginInstance>>* MixerComponent::chainOf
 
 void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path)
 {
-    // A plugin new to Patchbay (or updated since) is tried in a separate copy first
+    // A plugin new to Faider (or updated since) is tried in a separate copy first
     // (PluginScan.h); one that failed its test isn't loaded unless it's tested again.
     // Waiting on a test or a question, channels can move or go: find the same chain again (or give up).
     const void* const chain = chainOf (target);

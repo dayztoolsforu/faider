@@ -112,7 +112,7 @@ private:
     std::array<std::atomic<float>, count> position {};
     // Replaced sounds, each with the number of its pad's stop: freed once the audio thread has
     // taken that stop (no voice can be playing it then, and no press waiting names it). A stop
-    // that couldn't be sent (the queue full) keeps its sound until Patchbay closes.
+    // that couldn't be sent (the queue full) keeps its sound until Faider closes.
     std::vector<std::pair<std::uint64_t, std::shared_ptr<const Sound>>> retired;
     std::uint64_t sent = 0;                 // message thread: the last command's number
     std::atomic<std::uint64_t> taken { 0 };   // audio thread: the last command it has taken

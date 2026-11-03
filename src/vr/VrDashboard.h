@@ -10,7 +10,7 @@ struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct ID3D11Texture2D;
 
-// The desk in the headset: a PATCHBAY tab in the SteamVR dashboard. Its sections are keys along the
+// The desk in the headset: a FAIDER tab in the SteamVR dashboard. Its sections are keys along the
 // bottom, where the pointer reaches easily: RACK (a channel's rack, the Mixer's RACK page, with the
 // channels as keys above the sections) and the desk's own PADS, TAPE, MACROS and DEVICES, borrowed
 // from their places on the desk while the dashboard shows them. The laser pointer works it as a

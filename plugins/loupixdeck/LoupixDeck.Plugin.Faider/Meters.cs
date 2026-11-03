@@ -1,6 +1,6 @@
 using LoupixDeck.PluginSdk;
 
-namespace LoupixDeck.Plugin.Patchbay;
+namespace LoupixDeck.Plugin.Faider;
 
 // A meter's movement: rises at once, falls 24 dB a second; the peak holds for 1.5 s.
 internal sealed class Ballistics
@@ -71,12 +71,12 @@ internal static class MeterKey
 }
 
 // A meter on a key, live (20 frames a second, only sent when it changes). Press: mute.
-internal sealed class MeterCommand(PatchbayClient client) : IPluginCommand, IAnimatedDisplayCommand
+internal sealed class MeterCommand(FaiderClient client) : IPluginCommand, IAnimatedDisplayCommand
 {
-    public const string Name = "Patchbay.Meter";
+    public const string Name = "Faider.Meter";
     public CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Meter", Group = "Patchbay", HiddenFromMenu = true,
+        CommandName = Name, DisplayName = "Meter", Group = "Faider", HiddenFromMenu = true,
         Description = "A channel's live meter (L/R with peak hold). Press: mute.",
         ParameterTemplate = "({Kind},{Name})",
         Parameters = [new CommandParameter("Kind", typeof(string)) { DefaultValue = "input" }, new CommandParameter("Name", typeof(string))],
@@ -86,7 +86,7 @@ internal sealed class MeterCommand(PatchbayClient client) : IPluginCommand, IAni
 
     readonly Dictionary<string, (Ballistics B, long Signature, long Frame)> keys = [];
 
-    public Task Execute(CommandContext ctx) => client.Send(PatchbayClient.Path(Param.Kind(ctx), Param.At(ctx, 1), "mute"));
+    public Task Execute(CommandContext ctx) => client.Send(FaiderClient.Path(Param.Kind(ctx), Param.At(ctx, 1), "mute"));
 
     public AnimationFrameInfo RenderAnimatedFrame(CommandContext ctx, IRenderCanvas canvas, AnimationFrameContext frame)
     {
@@ -124,7 +124,7 @@ internal sealed class MeterCommand(PatchbayClient client) : IPluginCommand, IAni
 
 // The meter bridge: a page of live meters, every channel on the desk (inputs, buses, outputs, as
 // many as there are keys), opened from a key. Press a meter: mute that channel.
-internal sealed class MeterBridge(PatchbayClient client, IPluginHost host) : FolderProviderBase
+internal sealed class MeterBridge(FaiderClient client, IPluginHost host) : FolderProviderBase
 {
     readonly Dictionary<string, Ballistics> movement = new(StringComparer.OrdinalIgnoreCase);
     Timer? timer;
@@ -144,7 +144,7 @@ internal sealed class MeterBridge(PatchbayClient client, IPluginHost host) : Fol
         client.WantMeters();
         var desk = client.State;
         if (desk == null)
-            return [new FolderEntry { SlotIndex = host.FolderGrid.SlotForIndex(0), Text = "PATCHBAY\nOFF", TextSize = 13, Bold = true }];
+            return [new FolderEntry { SlotIndex = host.FolderGrid.SlotForIndex(0), Text = "FAIDER\nOFF", TextSize = 13, Bold = true }];
 
         var channels = desk.Inputs.Select(s => ("input", s)).Concat(desk.Buses.Select(s => ("bus", s))).Concat(desk.Outputs.Select(s => ("output", s)));
         var entries = new List<FolderEntry>();
@@ -168,20 +168,20 @@ internal sealed class MeterBridge(PatchbayClient client, IPluginHost host) : Fol
             {
                 SlotIndex = slot,
                 Render = canvas => MeterKey.Draw(canvas, strip.Name, b, muted),
-                OnPress = () => client.Send(PatchbayClient.Path(kind, strip.Name, "mute")),
+                OnPress = () => client.Send(FaiderClient.Path(kind, strip.Name, "mute")),
             });
         }
         return entries;
     }
 }
 
-internal sealed class MeterBridgeCommand(PatchbayClient client) : IPluginCommand, IDisplayImageCommand
+internal sealed class MeterBridgeCommand(FaiderClient client) : IPluginCommand, IDisplayImageCommand
 {
-    public const string Name = "Patchbay.MeterBridge";
+    public const string Name = "Faider.MeterBridge";
     public CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Meter bridge", Group = "Patchbay",
-        Description = "Opens a page of live meters for every channel on the Patchbay desk. Press a meter: mute.",
+        CommandName = Name, DisplayName = "Meter bridge", Group = "Faider",
+        Description = "Opens a page of live meters for every channel on the Faider desk. Press a meter: mute.",
     };
     public ButtonTargets SupportedTargets => ButtonTargets.TouchButton | ButtonTargets.SimpleButton;
     public TimeSpan UpdateInterval => TimeSpan.FromSeconds(1);

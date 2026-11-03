@@ -1,10 +1,10 @@
-# Manuale d'uso di Patchbay Console
+# Manuale d'uso di Faider
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **Versione 0.1 · Windows 10 (2004) o successivo**
 
-Patchbay Console è un router audio e mixer dal vivo per Windows, costruito attorno a una console di grande formato.
+Faider è un router audio e mixer dal vivo per Windows, costruito attorno a una console di grande formato.
 Prende il suono dalla tua interfaccia audio, dai tuoi dispositivi Windows e dai singoli programmi, lo fa
 passare attraverso strip di canale, bus e uscite, e lo riproduce sui dispositivi che scegli: le tue
 cuffie, i tuoi altoparlanti, uno streaming, un microfono virtuale per chiamate e giochi.
@@ -51,7 +51,7 @@ ti dice cosa fare quando qualcosa non va.
 | | |
 |---|---|
 | **Windows** | Windows 10 versione 2004 o successiva, oppure Windows 11. Per catturare l'audio di un singolo programma serve la versione 2004 o successiva |
-| **Un'interfaccia audio** | Facoltativa. Con il suo driver ASIO installato, Patchbay Console funziona con il clock dell'interfaccia per avere il ritardo più basso. Senza, usa il tuo dispositivo di riproduzione di Windows o il suo clock integrato (vedi [Clock](#clocking)) |
+| **Un'interfaccia audio** | Facoltativa. Con il suo driver ASIO installato, Faider funziona con il clock dell'interfaccia per avere il ritardo più basso. Senza, usa il tuo dispositivo di riproduzione di Windows o il suo clock integrato (vedi [Clock](#clocking)) |
 | **Cuffie** | Collegate all'interfaccia (o a qualsiasi dispositivo di riproduzione di Windows) per sentire il tuo mix |
 | **VB-CABLE** | Facoltativo e gratuito (vb-audio.com/Cable). Un microfono virtuale, così app come Discord, giochi e OBS possono sentire il tuo mix |
 | **ffmpeg** | Facoltativo. Con `ffmpeg.exe` nel PATH, il registratore può scrivere anche MP3, AAC, Opus e ALAC |
@@ -79,21 +79,21 @@ Questo capitolo ti porta dall'installer a una configurazione funzionante: il tuo
 cuffie, le app che sentono il tuo microfono e il suono di un programma su un canale tutto suo.
 Segui i passi in ordine. Ognuno richiede un minuto o due.
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### Passo 1: Installa Patchbay Console
+### Passo 1: Installa Faider
 
-1. Avvia l'installer, `PatchbayConsole-<version>-Setup.exe`.
+1. Avvia l'installer, `Faider-<version>-Setup.exe`.
 2. Windows SmartScreen può avvisarti di un'app non riconosciuta, perché l'installer non è firmato.
    Fai clic su **Ulteriori informazioni**, poi su **Esegui comunque**.
 3. Accetta la licenza e consenti la richiesta di amministratore. Se vuoi un collegamento sul desktop,
    spunta la casella durante l'installazione (è disattivata per impostazione predefinita).
-4. L'installer mette l'app in `C:\Program Files\Patchbay Console` e aggiunge **Patchbay Console**
+4. L'installer mette l'app in `C:\Program Files\Faider` e aggiunge **Faider**
    al menu Start. Tutto ciò che le serve è già incluso.
-5. Nell'ultima pagina puoi avviare subito Patchbay Console. Se VB-CABLE non è installato, ti
+5. Nell'ultima pagina puoi avviare subito Faider. Se VB-CABLE non è installato, ti
    propone anche di aprire la sua pagina di download.
 
-Il tuo mix e le tue impostazioni stanno in `%APPDATA%\PatchbayConsole`, separati dal programma.
+Il tuo mix e le tue impostazioni stanno in `%APPDATA%\Faider`, separati dal programma.
 Se disinstalli, restano dove sono.
 
 <a id="step-2-install-vb-cable-optional"></a>
@@ -129,15 +129,15 @@ solo mixare per le tue cuffie.
 Un modo più rapido per impostare l'uscita: fai clic sull'icona dell'altoparlante nella barra delle
 applicazioni, fai clic su **>** accanto al cursore del volume e scegli il tuo dispositivo.
 
-Lascia i tuoi dispositivi veri come predefiniti di Windows. Patchbay Console suona nel cavo solo
+Lascia i tuoi dispositivi veri come predefiniti di Windows. Faider suona nel cavo solo
 dove lo instradi tu, e ogni app sceglie da sola **CABLE Output** come microfono (passo 6). Se
 l'altoparlante predefinito di Windows è il cavo, PRE-FLIGHT lo segnala sotto **HEARD ONCE**.
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### Passo 3: Avvia Patchbay Console
+### Passo 3: Avvia Faider
 
-Apri il menu Start e fai clic su **Patchbay Console** (o usa il collegamento sul desktop, se
+Apri il menu Start e fai clic su **Faider** (o usa il collegamento sul desktop, se
 l'hai creato). La prima volta si apre su **SETUP**.
 
 <a id="step-4-answer-setups-four-questions"></a>
@@ -182,7 +182,7 @@ Guarda la **spia di salute** in alto a destra.
 
 - **Verde** con una percentuale: l'audio è in funzione. Vai al passo 6.
 - **Rossa, con scritto OFF**: l'audio non è in funzione. Un altro programma potrebbe avere la tua
-  interfaccia (una DAW, il pannello di controllo del driver). Chiudilo e riavvia Patchbay Console.
+  interfaccia (una DAW, il pannello di controllo del driver). Chiudilo e riavvia Faider.
   Vedi [18.4](#184-the-interface-wont-start-or-stopped).
 
 Fai clic sulla spia per aprire **DEVICES**. **STREAMS** mostra il clock in uso (ASIO, Windows o il
@@ -252,11 +252,11 @@ Vedi [18.1](#181-pre-flight).
 
 - **Il tuo mix si salva da solo** entro un secondo da ogni modifica. Per tenere una versione con un
   nome, usa **SETTINGS > GENERAL > SAVE SESSION AS...**.
-- **Avvio con Windows**: **SETTINGS > GENERAL > WINDOWS** avvia Patchbay Console nell'area di
+- **Avvio con Windows**: **SETTINGS > GENERAL > WINDOWS** avvia Faider nell'area di
   notifica quando accedi, così il tuo microfono funziona fin dall'inizio.
-- **Chiudere la finestra non ferma l'audio.** Patchbay Console resta in funzione nell'area di
+- **Chiudere la finestra non ferma l'audio.** Faider resta in funzione nell'area di
   notifica del sistema, così microfono e cuffie continuano a funzionare. Per fermarlo, fai clic con
-  il tasto destro sull'icona nell'area di notifica e scegli **Quit Patchbay Console**. Avviare il
+  il tasto destro sull'icona nell'area di notifica e scegli **Quit Faider**. Avviare il
   programma mentre è nell'area di notifica riporta la finestra.
 
 La prima volta che si apre ogni pagina, un breve suggerimento la spiega. Disattiva i suggerimenti
@@ -414,7 +414,7 @@ percorso o in più. La strip del combinatore mostra quali sorgenti alimentano og
 
 ### Clock
 
-Un dispositivo imposta il clock. Patchbay Console lo sceglie in questo ordine all'avvio:
+Un dispositivo imposta il clock. Faider lo sceglie in questo ordine all'avvio:
 
 1. **ASIO**: la tua interfaccia audio, tramite il suo driver ASIO. Il ritardo più basso.
 2. **Windows**: senza driver ASIO, il tuo dispositivo di riproduzione predefinito di Windows (un
@@ -698,7 +698,7 @@ di voce, musica e gioco.
 
 ## 9. Plugin
 
-Patchbay Console ospita plugin **VST3** su canali, bus e percorsi dei combinatori, con compensazione
+Faider ospita plugin **VST3** su canali, bus e percorsi dei combinatori, con compensazione
 automatica della latenza.
 
 <a id="adding-a-plugin"></a>
@@ -901,7 +901,7 @@ Il trasporto della barra superiore e la strip tape sulla console controllano lo 
 | **REC** | Avvia e ferma. Lo schermo mostra tempo, dimensione, tempo rimanente ed eventuali blocchi persi |
 | **PATH** / **REVEAL** | Scegli la cartella / aprila in Esplora file |
 
-Le registrazioni vanno in `Music\Patchbay Console Recordings` a meno che tu non scelga una cartella.
+Le registrazioni vanno in `Music\Faider Recordings` a meno che tu non scelga una cartella.
 I formati ffmpeg registrano prima un WAV e lo convertono quando fermi (il WAV viene conservato se la
 conversione fallisce). La registrazione si ferma da sola quando resta meno di 1 GB libero.
 
@@ -926,16 +926,16 @@ multitraccia scelta, il replay usa la prima uscita.
 | **I/O** | ASIO, OUT o IN |
 | **DEVICE**, **HARDWARE** | Il suo nome e l'adattatore a cui è collegato |
 | **FORMAT** | Canali e frequenza di campionamento |
-| **STATE** | Attivo, scollegato, disattivato, oppure **off in Patchbay Console** |
+| **STATE** | Attivo, scollegato, disattivato, oppure **off in Faider** |
 | **TAGS** | DEFAULT e CALLS per i dispositivi predefiniti di Windows |
 
 Fai clic su un'intestazione per ordinare. Seleziona i dispositivi (Ctrl/Shift per più di uno), poi usa:
 
 | Tasto | |
 |---|---|
-| **EXCLUDE / INCLUDE** | Patchbay Console smette di usare il dispositivo (o riprende). I dispositivi esclusi non vengono mai aperti e sono tolti dagli elenchi |
+| **EXCLUDE / INCLUDE** | Faider smette di usare il dispositivo (o riprende). I dispositivi esclusi non vengono mai aperti e sono tolti dagli elenchi |
 | **DISABLE / ENABLE IN WINDOWS** | Spegne o accende il dispositivo in Windows stesso |
-| **RENAME** | Un nome tuo per il dispositivo, usato ovunque in Patchbay Console (o doppio clic su una riga) |
+| **RENAME** | Un nome tuo per il dispositivo, usato ovunque in Faider (o doppio clic su una riga) |
 
 <a id="streams"></a>
 
@@ -996,7 +996,7 @@ Il tuo mix si salva da solo entro un secondo da ogni modifica, e all'uscita.
 
 | | |
 |---|---|
-| **Restore session** | Menu dell'area di notifica: versioni precedenti del tuo mix per data (Patchbay Console si riavvia con quella) |
+| **Restore session** | Menu dell'area di notifica: versioni precedenti del tuo mix per data (Faider si riavvia con quella) |
 | **SESSION TIMELINE** | FIND: ogni versione conservata. **Restore everything**, oppure **PUT ONE CHANNEL BACK** (livello, pan, mute e rack) senza riavviare |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: conserva il mix con un nome |
 | **OPEN, EXPORT OR IMPORT...** | Apri un mix con nome (riavvia), salva il mix in un file, o caricane uno da un file |
@@ -1088,9 +1088,9 @@ sulla console ([5](#5-the-console)).
 | **Overlay nel gioco** (Ctrl+Shift+O) | La spia di parlato di ogni canale microfono, LIVE / MUTED e livello, più fino a quattro tasti scena. Non toglie mai il focus a un gioco. Trascinalo dove vuoi |
 | **MINI** | Un piccolo mixer sopra a tutto. **OPEN** torna alla finestra principale |
 | **Area di notifica** | Fai clic sull'icona per il mixer dell'area di notifica, doppio clic per aprire la finestra. Clic destro: Show, richiamo scene, Restore session, Start with Windows, About, Quit. L'icona lampeggia in ambra durante un allarme |
-| **SteamVR** | Una scheda PATCHBAY CONSOLE sulla dashboard di SteamVR mentre SteamVR è in funzione: RACK, PADS, TAPE, MACROS, DEVICES. Il puntatore laser funziona come un mouse. Le finestre di dialogo dei file vanno completate sul desktop |
+| **SteamVR** | Una scheda FAIDER sulla dashboard di SteamVR mentre SteamVR è in funzione: RACK, PADS, TAPE, MACROS, DEVICES. Il puntatore laser funziona come un mouse. Le finestre di dialogo dei file vanno completate sul desktop |
 
-Patchbay Console funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra
+Faider funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra
 di amministratore. Si riavvia da solo con diritti normali, perché SteamVR e l'overlay nel gioco non
 possono raggiungere un programma eseguito come amministratore. I pochi passaggi che richiedono un
 amministratore (applicare le impostazioni di VB-CABLE, riattivare un dispositivo che Windows ha
@@ -1221,7 +1221,7 @@ Il tuo mix non è perso. Quando non può essere usato all'avvio, viene **messo d
 | Motivo | Cosa fare |
 |---|---|
 | L'interfaccia salvata non è collegata | Collegala, poi **Restore session** (area di notifica) > la versione "kept:" |
-| L'interfaccia salvata non si è potuta aprire (un altro programma la tiene) | Chiudi l'altro programma e riavvia Patchbay Console. Nel frattempo nulla viene salvato sopra il tuo mix |
+| L'interfaccia salvata non si è potuta aprire (un altro programma la tiene) | Chiudi l'altro programma e riavvia Faider. Nel frattempo nulla viene salvato sopra il tuo mix |
 | session.xml non si è potuto leggere | **Restore session** > una versione recente |
 
 <a id="183-no-sound"></a>
@@ -1247,10 +1247,10 @@ Segui il percorso del segnale:
 
 - Un altro programma potrebbe tenerla (una DAW, il pannello di controllo del driver). Chiudilo e riavvia.
 - **INTERFACE DOWN** nell'area di notifica: l'interfaccia si è resettata e non si è riaperta. Cambia la
-  dimensione del suo buffer in DEVICES o riavvia Patchbay Console.
+  dimensione del suo buffer in DEVICES o riavvia Faider.
 - Le modifiche di frequenza o buffer fatte nel pannello di controllo dell'interfaccia vengono recepite da sole.
-- Per lavorare un po' senza l'interfaccia, avvia Patchbay Console con
-  `"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows` (il tuo dispositivo di
+- Per lavorare un po' senza l'interfaccia, avvia Faider con
+  `"C:\Program Files\Faider\Faider.exe" --clock windows` (il tuo dispositivo di
   riproduzione di Windows) o `--clock builtin` (il clock integrato). `--clock` con una parte del nome
   di un driver ASIO (`--clock focusrite`) sceglie quel driver. Il tuo mix viene con te e resta salvato
   per la tua interfaccia: il prossimo avvio normale torna a essa.
@@ -1279,7 +1279,7 @@ Segui il percorso del segnale:
 ### 18.7 Sento qualcosa due volte, o un'eco
 
 - Un canale app è instradato a un'uscita sullo stesso dispositivo su cui l'app già suona, così senti
-  l'app direttamente e attraverso Patchbay Console. Instrada il canale app altrove, oppure sposta
+  l'app direttamente e attraverso Faider. Instrada il canale app altrove, oppure sposta
   l'app su un altro dispositivo.
 - L'altoparlante predefinito di Windows è impostato sul cavo virtuale. PRE-FLIGHT > **HEARD ONCE** lo nomina.
 
@@ -1316,7 +1316,7 @@ c'è nessun plugin VST3. Aggiorna o reinstalla il plugin. Quando il suo file cam
 
 ### 18.12 Il programma è andato in crash
 
-Viene scritto un rapporto in `%APPDATA%\PatchbayConsole\crash.log`, con un minidump `crash.dmp`. Il tuo
+Viene scritto un rapporto in `%APPDATA%\Faider\crash.log`, con un minidump `crash.dmp`. Il tuo
 mix si salva entro un secondo da ogni modifica, quindi perdi al massimo le modifiche dell'ultimo istante.
 
 <a id="1813-recording-stopped-by-itself"></a>
@@ -1372,7 +1372,7 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 
 ### 19.3 File
 
-In `%APPDATA%\PatchbayConsole`:
+In `%APPDATA%\Faider`:
 
 | File | |
 |---|---|
@@ -1387,8 +1387,8 @@ In `%APPDATA%\PatchbayConsole`:
 | `status.txt` | Un'istantanea del motore ogni pochi secondi: dispositivi, livelli, buffer, drift |
 | `crash.log`, `crash.dmp` | Rapporti di crash |
 
-Il programma stesso è in `C:\Program Files\Patchbay Console`. Le registrazioni vanno in
-`Music\Patchbay Console Recordings` a meno che tu non scelga un'altra cartella.
+Il programma stesso è in `C:\Program Files\Faider`. Le registrazioni vanno in
+`Music\Faider Recordings` a meno che tu non scelga un'altra cartella.
 
 <a id="194-colours"></a>
 

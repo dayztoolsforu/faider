@@ -1,8 +1,8 @@
-title: Patchbay Console
+title: Faider
 description: Audio routing and mixing for Windows. Every device, program and microphone on one console.
 url: https://dayztoolsforu.github.io
-baseurl: /patchbay
-repository: dayztoolsforu/patchbay
+baseurl: /faider
+repository: dayztoolsforu/faider
 
 markdown: kramdown
 kramdown:
@@ -26,5 +26,5 @@ defaults:
 
 exclude:
   - README.md
-  - PATCHBAY-CONSOLE-MANUAL.md
+  - FAIDER-MANUAL.md
   - i18n

@@ -1,4 +1,4 @@
-// Patchbay for Stream Deck: keys and dials on the Patchbay desk, through its local control API
+// Faider for Stream Deck: keys and dials on the Faider desk, through its local control API
 // (src/engine/ControlServer.h, http://127.0.0.1:9123). Plain Node, no packages: the Stream Deck
 // app starts it with -port -pluginUUID -registerEvent -info and talks over a WebSocket, for
 // which a small client is below.
@@ -57,16 +57,16 @@ function connect(port, onOpen, onMessage) {
   socket.on('error', () => process.exit(1));
 }
 
-// ---- Patchbay ----
-let state = null;   // the last /api/state, or null while Patchbay isn't answering
+// ---- Faider ----
+let state = null;   // the last /api/state, or null while Faider isn't answering
 const keys = new Map();   // context -> { action, settings }
 
 const path = (s) => `${s.kind || 'input'}/${encodeURIComponent(s.name || '')}`;
 async function command(route, value) {
   try {
     await fetch(`${API}/${route}${value === undefined ? '' : `?value=${value}`}`,
-                { method: 'POST', headers: { 'X-Patchbay': '1' }, signal: AbortSignal.timeout(1500) });
-  } catch { /* Patchbay isn't running (or is stuck): the keys show it on the next poll */ }
+                { method: 'POST', headers: { 'X-Faider': '1' }, signal: AbortSignal.timeout(1500) });
+  } catch { /* Faider isn't running (or is stuck): the keys show it on the next poll */ }
 }
 function strip(s) {
   if (!state) return null;
@@ -90,7 +90,7 @@ connect(Number(args.port), (send) => {
     for (const [context, { action, settings }] of keys) {
       const kind = action.split('.').pop(), s = strip(settings);
       const name = (settings.name || '').toUpperCase();
-      if (!state) show(context, 'PATCHBAY\nOFF', false);
+      if (!state) show(context, 'FAIDER\nOFF', false);
       else if (kind === 'mute') show(context, `${name}\nMUTE`, !!(s && s.mute));
       else if (kind === 'solo') show(context, `${name}\nSOLO`, !!(s && s.solo));
       else if (kind === 'scene') show(context, name, state.activeScene.toUpperCase() === name);
@@ -103,7 +103,7 @@ connect(Number(args.port), (send) => {
       }
     }
   } catch { /* the next poll tries again */ } };
-  // One request at a time, each given up after 1.5 s: a slow Patchbay doesn't pile up fetches, and
+  // One request at a time, each given up after 1.5 s: a slow Faider doesn't pile up fetches, and
   // a late answer can't land on top of a newer one (a second caller shares the one in flight).
   let polling = null;
   const poll = () => polling || (polling = (async () => {

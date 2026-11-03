@@ -1,30 +1,30 @@
 using LoupixDeck.PluginSdk;
 
-namespace LoupixDeck.Plugin.Patchbay;
+namespace LoupixDeck.Plugin.Faider;
 
-// Patchbay for LoupixDeck: the desk's channels, scenes and macros on keys and dials, through
-// Patchbay's local control API. Commands are picked from the menu (PATCHBAY > INPUTS > MIC FOCUS >
+// Faider for LoupixDeck: the desk's channels, scenes and macros on keys and dials, through
+// Faider's local control API. Commands are picked from the menu (FAIDER > INPUTS > MIC FOCUS >
 // MUTE...), which lists what's on the desk right now, so they bind to the right channel.
-public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
+public sealed class FaiderPlugin : LoupixPlugin, IMenuContributor
 {
-    PatchbayClient? client;
+    FaiderClient? client;
     IPluginHost? host;
     readonly List<IPluginCommand> commands = [];
 
     public override PluginMetadata Metadata { get; } = new()
     {
-        Id = "patchbay",
-        Name = "Patchbay",
+        Id = "faider",
+        Name = "Faider",
         Version = new Version(1, 1, 0),   // 1.1: meters (METER, METER BRIDGE)
         SdkVersion = SdkInfo.Version,
-        Author = "Patchbay",
-        Description = "Mute, solo, faders, scenes and macros on the Patchbay desk (Patchbay running, CONTROL > API on).",
+        Author = "Faider",
+        Description = "Mute, solo, faders, scenes and macros on the Faider desk (Faider running, CONTROL > API on).",
         Icon = ReadIcon(),
     };
 
     static byte[]? ReadIcon()
     {
-        using var stream = typeof(PatchbayPlugin).Assembly.GetManifestResourceStream("LoupixDeck.Plugin.Patchbay.icon.png");
+        using var stream = typeof(FaiderPlugin).Assembly.GetManifestResourceStream("LoupixDeck.Plugin.Faider.icon.png");
         if (stream == null)
             return null;
         using var copy = new MemoryStream();
@@ -35,7 +35,7 @@ public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
     public override void Initialize(IPluginHost pluginHost)
     {
         host = pluginHost;
-        client = new PatchbayClient();
+        client = new FaiderClient();
         var fader = new FaderCommand(client);
         commands.AddRange([new MuteCommand(client), new SoloCommand(client), fader,
                            new FaderStepCommand(client, fader, true), new FaderStepCommand(client, fader, false),
@@ -57,7 +57,7 @@ public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
             foreach (var n in names)
                 host.RequestButtonRefresh(n);
         };
-        host.Logger.Info("Patchbay: watching " + PatchbayClient.Api);
+        host.Logger.Info("Faider: watching " + FaiderClient.Api);
     }
 
     public override void Shutdown()
@@ -69,7 +69,7 @@ public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
     public override IEnumerable<IPluginCommand> GetCommands() => commands;
 
     public override IReadOnlyList<CommandGroupDescriptor> GetCommandGroups() =>
-        [new CommandGroupDescriptor { Group = "Patchbay", Description = "The Patchbay desk: channels, scenes, macros", Section = CommandGroupSection.Plugins }];
+        [new CommandGroupDescriptor { Group = "Faider", Description = "The Faider desk: channels, scenes, macros", Section = CommandGroupSection.Plugins }];
 
     // The menu: what's on the desk now. Keys get METER / MUTE / SOLO / fader keys per channel and a
     // METER BRIDGE (a page of every channel's meter), dials
@@ -80,7 +80,7 @@ public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
         {
             var desk = client == null ? null : await client.Fetch();
             if (desk == null)
-                return [new MenuNode { Name = "PATCHBAY (NOT RUNNING)", Children = [new MenuNode { Name = "START PATCHBAY, CONTROL > API ON" }] }];
+                return [new MenuNode { Name = "FAIDER (NOT RUNNING)", Children = [new MenuNode { Name = "START FAIDER, CONTROL > API ON" }] }];
 
             var dial = target.HasFlag(ButtonTargets.RotaryEncoder);
             List<MenuNode> top =
@@ -95,16 +95,16 @@ public sealed class PatchbayPlugin : LoupixPlugin, IMenuContributor
                 top.Add(Named("MACROS", MacroCommand.Name, "Macro", desk.Macros));
                 top.Insert(0, new MenuNode { Name = "METER BRIDGE (ALL CHANNELS)", CommandName = MeterBridgeCommand.Name });
             }
-            return [new MenuNode { Name = "PATCHBAY", Children = top }];
+            return [new MenuNode { Name = "FAIDER", Children = top }];
         }
         catch (Exception e)
         {
-            host?.Logger.Error("Patchbay: menu", e);
+            host?.Logger.Error("Faider: menu", e);
             return [];
         }
     }
 
-    static MenuNode Channels(string title, string kind, IReadOnlyList<PatchbayClient.Strip> strips, bool dial, bool solo)
+    static MenuNode Channels(string title, string kind, IReadOnlyList<FaiderClient.Strip> strips, bool dial, bool solo)
     {
         return new MenuNode
         {

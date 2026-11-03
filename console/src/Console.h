@@ -5,7 +5,7 @@
 class AudioEngine;
 class MixerComponent;
 
-// PATCHBAY CONSOLE: the console (Console.cpp), as the Mixer page.
+// FAIDER: the console (Console.cpp), as the Mixer page.
 namespace ConsoleDesk
 {
     // `simple`: SIMPLE (Simple.h) to start with, else the whole console; the top bar's switch

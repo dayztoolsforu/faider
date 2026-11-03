@@ -1,12 +1,12 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace LoupixDeck.Plugin.Patchbay;
+namespace LoupixDeck.Plugin.Faider;
 
-// Patchbay's local control API (src/engine/ControlServer.h in Patchbay): the desk's state polled
-// four times a second, commands sent as POST with the X-Patchbay header. When something shown on
+// Faider's local control API (src/engine/ControlServer.h in Faider): the desk's state polled
+// four times a second, commands sent as POST with the X-Faider header. When something shown on
 // a button changes, the buttons of that command are redrawn.
-internal sealed class PatchbayClient : IDisposable
+internal sealed class FaiderClient : IDisposable
 {
     public const string Api = "http://127.0.0.1:9123/api";
 
@@ -14,7 +14,7 @@ internal sealed class PatchbayClient : IDisposable
     public sealed record Desk(IReadOnlyList<Strip> Inputs, IReadOnlyList<Strip> Buses, IReadOnlyList<Strip> Outputs,
                               IReadOnlyList<string> Scenes, string ActiveScene, IReadOnlyList<string> Macros);
 
-    // The last state read, or null while Patchbay isn't answering.
+    // The last state read, or null while Faider isn't answering.
     public Desk? State { get; private set; }
 
     // Called (on the polling thread) with what changed: "mute", "solo", "fader", "level", "scene" or "all".
@@ -23,9 +23,9 @@ internal sealed class PatchbayClient : IDisposable
     readonly HttpClient http = new() { Timeout = TimeSpan.FromSeconds(2) };
     readonly CancellationTokenSource stop = new();
 
-    public PatchbayClient()
+    public FaiderClient()
     {
-        http.DefaultRequestHeaders.Add("X-Patchbay", "1");
+        http.DefaultRequestHeaders.Add("X-Faider", "1");
         _ = Task.Run(Poll);
         _ = Task.Run(PollMeters);
     }
@@ -144,6 +144,6 @@ internal sealed class PatchbayClient : IDisposable
             content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
             await http.PostAsync($"{Api}/{path}{query}", content, stop.Token);
         }
-        catch (Exception) when (!stop.IsCancellationRequested) { /* Patchbay isn't running: the buttons say so */ }
+        catch (Exception) when (!stop.IsCancellationRequested) { /* Faider isn't running: the buttons say so */ }
     }
 }

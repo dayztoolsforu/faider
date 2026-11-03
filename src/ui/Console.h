@@ -7,7 +7,7 @@
 #include "Theme.h"
 #include "LargeFormat.h"
 
-// Patchbay's design language ("Desk and Rack"): the desk's controls, drawn in
+// Faider's design language ("Desk and Rack"): the desk's controls, drawn in
 // the current theme (Theme.h), and the tokens every view uses by name: Type (five sizes), Space
 // (a 4 px grid) and Colours (surfaces, ink, meanings, channel kinds). The rack (PluginRack.h,
 // ProStrip.h) has its own fixed hardware look but uses the same Type and Space.

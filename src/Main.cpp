@@ -124,7 +124,7 @@ namespace Unelevated
 }
 
 // Crashes, uncaught exceptions and debug-CRT assertion dialogs all append the message and a
-// stack trace to %APPDATA%\Patchbay\crash.log, so a dialog closed in a hurry isn't lost.
+// stack trace to %APPDATA%\Faider\crash.log, so a dialog closed in a hurry isn't lost.
 namespace CrashLog
 {
     // Found once, at install, so a crash doesn't have to ask Windows where %APPDATA% is. Writing
@@ -196,9 +196,7 @@ namespace CrashLog
     void install()
     {
         // Kept from growing for ever: past a megabyte it starts again (the last one kept as crash.old.log).
-        logFile = juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
-                  .getChildFile ("PatchbayConsole")
-                  .getChildFile ("crash.log");
+        logFile = Product::dataFolder().getChildFile ("crash.log");
         if (logFile.getSize() > 1024 * 1024)
             logFile.moveFileTo (logFile.getSiblingFile ("crash.old.log"));
 
@@ -209,12 +207,12 @@ namespace CrashLog
 }
 
 
-class PatchbayApplication : public juce::JUCEApplication
+class FaiderApplication : public juce::JUCEApplication
 {
 public:
     // RESTORE SESSION starts a new copy with "--after <the old copy's process id>": it waits here,
     // before looking for another copy to hand over to, until the old one has finished closing.
-    PatchbayApplication()
+    FaiderApplication()
     {
         const auto args = getCommandLineParameterArray();
         // (a copy that is itself such a restart, still elevated, never starts again: no loop)
@@ -252,6 +250,8 @@ public:
             return;
         }
 
+        Product::moveEarlierFolder();   // (before anything opens a file in it)
+        StartWithWindows::moveEarlierEntry();
         CrashLog::install();
         mainWindow = std::make_unique<MainWindow> (getApplicationName());
         tray = std::make_unique<TrayIcon> (*mainWindow);
@@ -279,7 +279,7 @@ public:
 
     void systemRequestedQuit() override { quit(); }
 
-    // Launching Patchbay again while it's in the tray brings the window back; "Patchbay --quit"
+    // Launching Faider again while it's in the tray brings the window back; "Faider --quit"
     // quits the running copy fully (as the tray's Quit does), e.g. before installing a new build.
     void anotherInstanceStarted (const juce::String& commandLine) override
     {
@@ -365,7 +365,7 @@ private:
     private:
         bool remembering = false;   // not while the window is first placed
 
-        // Saved with the settings when Patchbay quits.
+        // Saved with the settings when Faider quits.
         void rememberPlace()
         {
             if (! remembering || isMinimised())
@@ -510,4 +510,4 @@ private:
     std::unique_ptr<TrayIcon> tray;
 };
 
-START_JUCE_APPLICATION (PatchbayApplication)
+START_JUCE_APPLICATION (FaiderApplication)

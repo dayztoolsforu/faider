@@ -10,13 +10,13 @@ import markdown
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs"
-LANGS = [("en", "English", "PATCHBAY-CONSOLE-MANUAL.md"), ("es", "Español", "i18n/PATCHBAY-CONSOLE-MANUAL.es.md"),
-         ("fr", "Français", "i18n/PATCHBAY-CONSOLE-MANUAL.fr.md"), ("de", "Deutsch", "i18n/PATCHBAY-CONSOLE-MANUAL.de.md"),
-         ("it", "Italiano", "i18n/PATCHBAY-CONSOLE-MANUAL.it.md"), ("pt-BR", "Português (Brasil)", "i18n/PATCHBAY-CONSOLE-MANUAL.pt-BR.md"),
-         ("nl", "Nederlands", "i18n/PATCHBAY-CONSOLE-MANUAL.nl.md"), ("pl", "Polski", "i18n/PATCHBAY-CONSOLE-MANUAL.pl.md"),
-         ("sv", "Svenska", "i18n/PATCHBAY-CONSOLE-MANUAL.sv.md"), ("tr", "Türkçe", "i18n/PATCHBAY-CONSOLE-MANUAL.tr.md"),
-         ("ja", "日本語", "i18n/PATCHBAY-CONSOLE-MANUAL.ja.md"), ("ko", "한국어", "i18n/PATCHBAY-CONSOLE-MANUAL.ko.md"),
-         ("zh-Hans", "简体中文", "i18n/PATCHBAY-CONSOLE-MANUAL.zh-Hans.md")]
+LANGS = [("en", "English", "FAIDER-MANUAL.md"), ("es", "Español", "i18n/FAIDER-MANUAL.es.md"),
+         ("fr", "Français", "i18n/FAIDER-MANUAL.fr.md"), ("de", "Deutsch", "i18n/FAIDER-MANUAL.de.md"),
+         ("it", "Italiano", "i18n/FAIDER-MANUAL.it.md"), ("pt-BR", "Português (Brasil)", "i18n/FAIDER-MANUAL.pt-BR.md"),
+         ("nl", "Nederlands", "i18n/FAIDER-MANUAL.nl.md"), ("pl", "Polski", "i18n/FAIDER-MANUAL.pl.md"),
+         ("sv", "Svenska", "i18n/FAIDER-MANUAL.sv.md"), ("tr", "Türkçe", "i18n/FAIDER-MANUAL.tr.md"),
+         ("ja", "日本語", "i18n/FAIDER-MANUAL.ja.md"), ("ko", "한국어", "i18n/FAIDER-MANUAL.ko.md"),
+         ("zh-Hans", "简体中文", "i18n/FAIDER-MANUAL.zh-Hans.md")]
 
 # The page's own words (search, contents, captions) in each language.
 CHROME = {
@@ -93,7 +93,7 @@ def convert(text):
     out = re.sub(r"<p>(?:\s*<img [^>]+>\s*)+</p>", shots, out)
     out = out.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
     out = out.replace("<blockquote>", '<aside class="note">').replace("</blockquote>", "</aside>").replace("<hr />", "")
-    short = re.sub(r"^Patchbay Console\s*[:\-–—]?\s*", "", title).strip() or title
+    short = re.sub(r"^Faider\s*[:\-–—]?\s*", "", title).strip() or title
     hero = {"title": short, "version": version.group(1) if version else "", "intro": markdown.markdown(paras[0]) if paras else ""}
     return out, hero
 

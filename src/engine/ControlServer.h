@@ -20,7 +20,7 @@ class AudioEngine;
 //   GET  /                                             the phone control page (phone control on)
 //
 // Names are as on the strips; spaces as %20 or _, any case. Commands go through RemoteControl,
-// as OSC does. A command needs POST with the header "X-Patchbay: 1": a web page in a browser
+// as OSC does. A command needs POST with the header "X-Faider: 1": a web page in a browser
 // can't add that header to a request here without asking first (which this server refuses), so
 // a page can't work the desk.
 //
@@ -41,9 +41,9 @@ public:
     int getPort() const { return port; }
 
     // Phone control: the server also answers other devices on the network (a phone on the same
-    // Wi-Fi), each request carrying `key` (?key= or the header X-Patchbay-Key), and serves them
+    // Wi-Fi), each request carrying `key` (?key= or the header X-Faider-Key), and serves them
     // a control page at / (PhonePage.h). Off: this PC only, as before. Windows may ask once to
-    // let Patchbay through its firewall. False if the port can't be opened that way: the server
+    // let Faider through its firewall. False if the port can't be opened that way: the server
     // then reopens for this PC only, and if even that fails it's off (check getPort() after).
     bool setPhone (bool on, const juce::String& key);
     bool isPhoneOn() const { return phone; }

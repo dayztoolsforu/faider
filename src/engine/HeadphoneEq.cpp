@@ -1,5 +1,5 @@
 #include "HeadphoneEq.h"
-#include "PatchbayAssets.h"
+#include "FaiderAssets.h"
 
 namespace HeadphoneEq
 {
@@ -9,7 +9,7 @@ namespace HeadphoneEq
         static const std::vector<Profile> list = []
         {
             std::vector<Profile> all;
-            const juce::String text (juce::CharPointer_UTF8 (PatchbayAssets::profiles_txt), (size_t) PatchbayAssets::profiles_txtSize);
+            const juce::String text (juce::CharPointer_UTF8 (FaiderAssets::profiles_txt), (size_t) FaiderAssets::profiles_txtSize);
             for (auto& line : juce::StringArray::fromLines (text))
             {
                 if (line.startsWith ("#") || line.trim().isEmpty())

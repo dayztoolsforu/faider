@@ -43,7 +43,7 @@ public:
     // The scenes, for the tray menu: pick one to recall it.
     void addSceneItems (juce::PopupMenu&);
 
-    // Earlier sessions (session safety), for the tray menu: pick one to restore it (Patchbay restarts).
+    // Earlier sessions (session safety), for the tray menu: pick one to restore it (Faider restarts).
     void addSessionItems (juce::PopupMenu&);
 
     // The tray mixer, popping up from the tray icon at `near` (screen area); `open` shows the window.
@@ -120,7 +120,7 @@ private:
     void openControllerHelper (int startOn = -1);   // SET UP A CONTROLLER: decks, MIDI, OSC, the phone page (startOn: a page)
     void checkAlerts();               // outputs' ALERTS, once a second
     void watchMutedTalk();            // a muted mic channel heard: say so (ten times a second)
-    void openCommandPalette();        // Ctrl+K / FIND: everything Patchbay can do, by name
+    void openCommandPalette();        // Ctrl+K / FIND: everything Faider can do, by name
     std::unique_ptr<CommandPalette> palette;
     struct Ticker : juce::Timer { std::function<void()> tick; void timerCallback() override { tick(); } };
     Ticker muteWatch;
@@ -191,7 +191,7 @@ private:
     DevicesTab::Panel devicesPanel { deviceList, endpoints, engine };   // VB-CABLE settings, device tools and list, stream diagnostics
     juce::TextEditor eventLog;
 
-    // App preferences (not part of the mix): %APPDATA%\Patchbay\settings.xml
+    // App preferences (not part of the mix): %APPDATA%\Faider\settings.xml
     juce::PropertiesFile settings { dataDir.getChildFile ("settings.xml"), juce::PropertiesFile::Options() };
     static constexpr float minZoom = 0.75f, maxZoom = 2.0f;
     static constexpr float zoomStages[] = { 1.0f, 1.25f, 1.5f };   // the three sizes - + steps between (any other: CUSTOM in SETTINGS)

@@ -597,7 +597,7 @@ public:
 
     // AUTO-ROUTE: the output devices a channel can be sent to (the interface's pairs and the
     // Windows playback devices that are on), and the master behind one: the one already playing
-    // on it, or a new one named after it (masters are made and kept by Patchbay, not set up by
+    // on it, or a new one named after it (masters are made and kept by Faider, not set up by
     // hand). -1: none (all maxMasters in use).
     struct OutputChoice { juce::String label, candidate; int firstChannel = 0; };
     std::vector<OutputChoice> outputChoices() const;
@@ -618,7 +618,7 @@ public:
     const juce::StringArray& getHiddenDevices() const { return hiddenDevices; }
     void setDeviceHidden (const juce::String& deviceName, bool hidden);
 
-    // Devices switched off in Patchbay (Windows still has them): never opened, so they cost
+    // Devices switched off in Faider (Windows still has them): never opened, so they cost
     // nothing, and left out of lists. An output or input set to one stays silent.
     const juce::StringArray& getDisabledDevices() const { return disabledDevices; }
     bool isDeviceDisabled (const juce::String& deviceName) const { return disabledDevices.contains (deviceName); }
@@ -651,7 +651,7 @@ public:
     bool feeds (const Strip& s, int bus) const { return reachesOutput (s, bus, 0); }   // its sound reaches that output (through masters too)
 
     // What would make sound heard twice or put a call into its own mic: Windows' default speaker
-    // being a cable Patchbay feeds as apps' mic, and an app channel sent to an output you listen
+    // being a cable Faider feeds as apps' mic, and an app channel sent to an output you listen
     // to (the app also plays on its own device). One line each; empty if none.
     juce::StringArray findDoubling() const;
 
@@ -689,7 +689,7 @@ public:
         double rate = 0.0;               // the stream's own sample rate
         int block = 0;                   // its buffer, samples
         double driverMs = -1.0;          // latency the driver reports (-1: unknown)
-        double bufferedMs = 0.0;         // waiting in Patchbay's drift buffer
+        double bufferedMs = 0.0;         // waiting in Faider's drift buffer
         double totalMs = 0.0;            // driver + buffer + one master block
         double driftPpm = 0.0;           // clock correction
         int underruns = 0, overruns = 0, resyncs = 0;

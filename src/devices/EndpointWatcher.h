@@ -30,14 +30,14 @@ bool asioMatchesAdapter (const juce::String& asioName, const juce::String& adapt
 // Windows' own name for an endpoint, minus labels that read backwards from Windows' side.
 // VoiceMeeter names its devices from the mixer's view: "Voicemeeter Out B2" is a Windows
 // *recording* device, "Voicemeeter In 3" a *playback* one. Drop the In/Out words.
-// A name the user gave the device in Patchbay (if any) wins. Windows' own name is unchanged.
+// A name the user gave the device in Faider (if any) wins. Windows' own name is unchanged.
 juce::String endpointDisplayName (const EndpointInfo&);
 
 // Enables or disables a Windows audio device the way Sound settings does (no administrator
 // prompt). `endpointId` is EndpointInfo::id. False if Windows refused.
 bool setEndpointEnabled (const juce::String& endpointId, bool enabled);
 
-// The user's names for devices (Patchbay only; saved with the session). An empty alias removes it.
+// The user's names for devices (Faider only; saved with the session). An empty alias removes it.
 void setDeviceAlias (const juce::String& deviceName, const juce::String& alias);
 juce::String deviceAlias (const juce::String& deviceName);
 juce::StringPairArray deviceAliases();

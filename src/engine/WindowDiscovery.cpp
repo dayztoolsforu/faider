@@ -85,7 +85,7 @@ namespace
 
     // The tab strip's tabs: TabItems anywhere in the window except inside a page (Document),
     // whose own tab widgets aren't browser tabs. Bounded, so a huge window can't stall the scan.
-    // `owner`: the thread running it, which may be asked to stop part way (Patchbay closing).
+    // `owner`: the thread running it, which may be asked to stop part way (Faider closing).
     void findTabs (IUIAutomationTreeWalker* walker, IUIAutomationElement* parent, int depth, int& budget,
                    std::vector<ComPtr<IUIAutomationElement>>& found, const juce::Thread* owner)
     {
@@ -159,7 +159,7 @@ namespace
         return TRUE;
     }
 
-    // `owner`: the thread running it, which may be asked to stop part way (Patchbay closing).
+    // `owner`: the thread running it, which may be asked to stop part way (Faider closing).
     // `knownTabs`: browsers' tabs aren't read again (UI Automation) but kept from these windows.
     std::vector<Window> scan (const juce::Thread* owner = nullptr, const std::vector<Window>* knownTabs = nullptr)
     {
@@ -249,7 +249,7 @@ void Scanner::run()
 {
     CoInitializeEx (nullptr, COINIT_MULTITHREADED);
     // Browsers' tabs are read through UI Automation, which costs this thread and makes the browser
-    // keep its accessibility tree built: only while Patchbay is in front (where its menus open).
+    // keep its accessibility tree built: only while Faider is in front (where its menus open).
     // Behind other windows the window list stays current and the tabs already found are kept.
     juce::uint32 lastScan = 0;
     bool wasInFront = false, first = true;

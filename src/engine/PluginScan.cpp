@@ -1,6 +1,6 @@
 #include "PluginScan.h"
-#ifndef PATCHBAY_DATA_FOLDER
- #define PATCHBAY_DATA_FOLDER "Patchbay"
+#ifndef FAIDER_DATA_FOLDER
+ #define FAIDER_DATA_FOLDER "Faider"
 #endif
 
 namespace PluginScan
@@ -9,7 +9,7 @@ namespace
 {
     juce::File storeFile()
     {
-        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile (PATCHBAY_DATA_FOLDER).getChildFile ("plugins.xml");   // (each app its own)
+        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile (FAIDER_DATA_FOLDER).getChildFile ("plugins.xml");   // (each app its own)
     }
 
     // The plugin's file as it is now: its binary's time and size (a .vst3 is usually a bundle

@@ -20,7 +20,7 @@ namespace
 {
     constexpr int pageWidth = 1600, pageHeight = 960;   // the page, in its own pixels
     constexpr float widthInMetres = 2.4f;               // how wide it hangs in the dashboard
-    const char* overlayKey = "patchbay.rack";
+    const char* overlayKey = "faider.rack";
     constexpr int scanTicks = 100;                      // SteamVR looked for every 5 s (20 ticks a second)
     constexpr juce::uint32 pointerInUseMs = 30000;      // a dialog opening this soon after the pointer was used is for the headset
                                                         // (a plugin's test can take a while to say it failed)
@@ -278,7 +278,7 @@ void VrDashboard::setEnabled (bool on)
         detach();
 }
 
-// SteamVR's processes, looked for (so Patchbay never starts SteamVR itself).
+// SteamVR's processes, looked for (so Faider never starts SteamVR itself).
 VrDashboard::SteamVrState VrDashboard::steamVr() const
 {
     SteamVrState state;
@@ -300,7 +300,7 @@ VrDashboard::SteamVrState VrDashboard::steamVr() const
 }
 
 // Every 5 s while not attached. Joined only once SteamVR has been fully up for two looks in a row
-// (not while it's starting or shutting down: a join it refuses then crashed Patchbay a moment
+// (not while it's starting or shutting down: a join it refuses then crashed Faider a moment
 // later), never again with the server that just quit, and after a failed join only after a wait
 // that doubles each time.
 void VrDashboard::scan()
@@ -334,9 +334,9 @@ void VrDashboard::scan()
     }
 }
 
-// SteamVR's client library loads graphics drivers into Patchbay (its Vulkan interop: on AMD,
+// SteamVR's client library loads graphics drivers into Faider (its Vulkan interop: on AMD,
 // amdvlk64 and the amdlvr64 layer) and unloads them at VR_Shutdown, while a driver timer can
-// still be pending on a Windows worker thread: it then runs into unloaded code and Patchbay
+// still be pending on a Windows worker thread: it then runs into unloaded code and Faider
 // crashes a few seconds after SteamVR closes. So every module that arrived with SteamVR is pinned
 // (kept loaded for good) before letting go of it.
 namespace
@@ -389,7 +389,7 @@ void VrDashboard::attach()
     };
 
     if (modulesBeforeVr.empty())
-        modulesBeforeVr = modulesNow();   // (what Patchbay had before SteamVR's libraries came)
+        modulesBeforeVr = modulesNow();   // (what Faider had before SteamVR's libraries came)
     vr::EVRInitError error = vr::VRInitError_None;
     vr::VR_Init (&error, vr::VRApplication_Overlay);
     if (error != vr::VRInitError_None)
@@ -401,7 +401,7 @@ void VrDashboard::attach()
     vr::VROverlayHandle_t main = vr::k_ulOverlayHandleInvalid, thumb = vr::k_ulOverlayHandleInvalid;
     if (overlay == nullptr || overlay->CreateDashboardOverlay (overlayKey, Product::name, &main, &thumb) != vr::VROverlayError_None)
     {
-        failed ("SteamVR wouldn't take the dashboard (is Patchbay's already there?)");
+        failed ("SteamVR wouldn't take the dashboard (is Faider's already there?)");
         overlay = nullptr;
         pinModulesSinceVr();
         vr::VR_Shutdown();
@@ -474,7 +474,7 @@ void VrDashboard::attach()
     attachedServer = state.serverPid;
     retryIn = retryDelay = 0;
     failureLogged = false;
-    if (log) log ("vr: Patchbay is on the SteamVR dashboard");
+    if (log) log ("vr: Faider is on the SteamVR dashboard");
 }
 
 // `steamVrGone`: SteamVR went without saying (killed, crashed), so nothing is asked of it.
@@ -488,7 +488,7 @@ void VrDashboard::detach (bool steamVrGone)
     typingInto = nullptr;
     elsewhere = nullptr;
     textureFailures = 0;
-    releaseTexture();   // (Patchbay's picture let go before SteamVR is)
+    releaseTexture();   // (Faider's picture let go before SteamVR is)
     if (overlay != nullptr)
     {
         if (! steamVrGone)

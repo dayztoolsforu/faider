@@ -166,7 +166,7 @@ private:
 
 // HOTKEYS: every global hotkey in one list (pads, macros, scenes, instant replay, the overlay),
 // grouped; click a key, then press the new one (Esc: cancel, Delete: none). The keys that only
-// work inside Patchbay are listed under it, fixed.
+// work inside Faider are listed under it, fixed.
 class HotkeysPage : public juce::Component, private juce::Timer
                   , public DeskSettings::WidthFill
 {

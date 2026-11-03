@@ -27,7 +27,7 @@ public:
     bool isRecording() const       { return writer.load() != nullptr || multitracking.load(); }
 
     // Multitrack: several sources at once, each to its own file ("IN MIC FOCUS.wav") in a new
-    // folder in `into` ("Patchbay MULTITRACK 2026-10-25 01-23-45"), all starting on the same
+    // folder in `into` ("Faider MULTITRACK 2026-10-25 01-23-45"), all starting on the same
     // sample, so they line up in an editor. Message thread; returns the folder (empty, with
     // `error`, if it can't). currentFile() is the folder while it runs; stop() ends it.
     struct TrackSource { Kind kind; int index; juce::String name; };
@@ -39,7 +39,7 @@ public:
     int droppedBlocks() const      { return dropped.load(); }
     juce::File currentFile() const { return file; }
 
-    // A file name for `sourceName` now, without its extension: "Patchbay OUT MUSIC 2026-10-24 01-23-45".
+    // A file name for `sourceName` now, without its extension: "Faider OUT MUSIC 2026-10-24 01-23-45".
     static juce::String fileNameFor (const juce::String& sourceName);
 
     // File formats: WAV (16, 24, 32-bit, 32-bit float; past 4 GB it becomes RF64), FLAC (16, 24),

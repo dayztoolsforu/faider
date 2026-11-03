@@ -1,21 +1,21 @@
 {
-  "Name": "Patchbay",
+  "Name": "Faider",
   "Version": "1.0.0.0",
-  "Author": "Patchbay",
-  "Description": "Mute, solo, faders, scenes and macros on the Patchbay desk (needs Patchbay running, CONTROL > API on).",
+  "Author": "Faider",
+  "Description": "Mute, solo, faders, scenes and macros on the Faider desk (needs Faider running, CONTROL > API on).",
   "URL": "http://127.0.0.1:9123/api/state",
-  "UUID": "com.patchbay.desk",
+  "UUID": "com.faider.desk",
   "SDKVersion": 2,
   "Software": { "MinimumVersion": "6.4" },
   "OS": [ { "Platform": "windows", "MinimumVersion": "10" } ],
   "Nodejs": { "Version": "20" },
   "CodePath": "plugin.js",
   "Icon": "imgs/plugin",
-  "Category": "Patchbay",
+  "Category": "Faider",
   "CategoryIcon": "imgs/category",
   "Actions": [
     {
-      "UUID": "com.patchbay.desk.mute",
+      "UUID": "com.faider.desk.mute",
       "Name": "Mute",
       "Tooltip": "Mutes or unmutes a channel. Lit while muted.",
       "Icon": "imgs/action",
@@ -24,7 +24,7 @@
       "States": [ { "Image": "imgs/key" }, { "Image": "imgs/key-red" } ]
     },
     {
-      "UUID": "com.patchbay.desk.solo",
+      "UUID": "com.faider.desk.solo",
       "Name": "Solo",
       "Tooltip": "Solos an input. Lit while soloed.",
       "Icon": "imgs/action",
@@ -33,7 +33,7 @@
       "States": [ { "Image": "imgs/key" }, { "Image": "imgs/key-yellow" } ]
     },
     {
-      "UUID": "com.patchbay.desk.fader",
+      "UUID": "com.faider.desk.fader",
       "Name": "Fader",
       "Tooltip": "Key: sets a channel's fader to a level. Dial: moves it (press: back to that level).",
       "Icon": "imgs/action",
@@ -43,7 +43,7 @@
       "States": [ { "Image": "imgs/key" } ]
     },
     {
-      "UUID": "com.patchbay.desk.scene",
+      "UUID": "com.faider.desk.scene",
       "Name": "Scene",
       "Tooltip": "Recalls a scene. Lit while it's the active scene.",
       "Icon": "imgs/action",
@@ -52,7 +52,7 @@
       "States": [ { "Image": "imgs/key" }, { "Image": "imgs/key-green" } ]
     },
     {
-      "UUID": "com.patchbay.desk.macro",
+      "UUID": "com.faider.desk.macro",
       "Name": "Macro",
       "Tooltip": "Runs a macro while the key is held (released with the key).",
       "Icon": "imgs/action",

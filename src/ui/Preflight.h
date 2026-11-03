@@ -5,7 +5,7 @@
 
 // PRE-FLIGHT: before going live, the setup at a glance. A row per check, a light (green: fine,
 // red: not), what it found, and a FIX key where one click can put it right. Shown a few seconds
-// after Patchbay starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
+// after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
 class PreflightPanel : public juce::Component
 {
 public:

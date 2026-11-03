@@ -1,6 +1,6 @@
 # Credits
 
-What went into Patchbay. The app shows the same list under SETTINGS > GENERAL > ABOUT (and in the tray menu).
+What went into Faider. The app shows the same list under SETTINGS > GENERAL > ABOUT (and in the tray menu).
 
 ## Built in
 
@@ -29,5 +29,5 @@ What went into Patchbay. The app shows the same list under SETTINGS > GENERAL > 
 ## Made with
 
 - C++20, CMake and Microsoft Visual C++, on Windows 11.
-- **Headphone correction profiles** (`assets/autoeq/profiles.txt`, built into Patchbay Console.exe): parametric EQ results from [AutoEq](https://github.com/jaakkopasanen/AutoEq) by Jaakko Pasanen, MIT licence; measurements by the sources named in each line (oratory1990, crinacle, Rtings and others).
-- **SteamVR dashboard**: the [OpenVR SDK](https://github.com/ValveSoftware/openvr) (BSD-3-Clause, Valve Corporation): its header and import library in `third_party/openvr`, `openvr_api.dll` shipped next to Patchbay Console.exe.
+- **Headphone correction profiles** (`assets/autoeq/profiles.txt`, built into Faider.exe): parametric EQ results from [AutoEq](https://github.com/jaakkopasanen/AutoEq) by Jaakko Pasanen, MIT licence; measurements by the sources named in each line (oratory1990, crinacle, Rtings and others).
+- **SteamVR dashboard**: the [OpenVR SDK](https://github.com/ValveSoftware/openvr) (BSD-3-Clause, Valve Corporation): its header and import library in `third_party/openvr`, `openvr_api.dll` shipped next to Faider.exe.

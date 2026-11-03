@@ -10,7 +10,7 @@
 // Windows captures audio per process, and a browser plays every tab through one process (its
 // audio service), so a tab can't be captured on its own. A tab picked from a browser captures
 // the whole browser; isolateTab() instead reopens the tab's page in a browser instance of its
-// own (a separate profile under %APPDATA%\Patchbay\Isolated), whose audio can be captured alone.
+// own (a separate profile under %APPDATA%\Faider\Isolated), whose audio can be captured alone.
 namespace WindowDiscovery
 {
     struct Tab
@@ -32,8 +32,8 @@ namespace WindowDiscovery
     };
 
     // Scans every few seconds on its own thread; snapshot() is the latest (empty until the first
-    // scan finishes). Patchbay's own windows and its isolated browser instances are left out.
-    // Browsers' tabs are read again only while Patchbay is in front; behind, the last ones are kept.
+    // scan finishes). Faider's own windows and its isolated browser instances are left out.
+    // Browsers' tabs are read again only while Faider is in front; behind, the last ones are kept.
     class Scanner : private juce::Thread
     {
     public:
@@ -75,6 +75,6 @@ namespace WindowDiscovery
     juce::String exePathOf (uint32_t processId);
     juce::String commandLineOf (uint32_t processId);
 
-    // Whether a process belongs to one of Patchbay's isolated instances.
+    // Whether a process belongs to one of Faider's isolated instances.
     bool isIsolatedProcess (uint32_t processId);
 }

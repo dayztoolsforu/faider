@@ -105,7 +105,7 @@ namespace
         return juce::JSON::parse (json.loadFileAsString()).getProperty (key, {}).toString();
     }
 
-    // ---- The decks' apps and Patchbay's plugins for them ----
+    // ---- The decks' apps and Faider's plugins for them ----
     juce::File home() { return juce::File::getSpecialLocation (juce::File::userHomeDirectory); }
     juce::File bundled() { return juce::File::getSpecialLocation (juce::File::currentExecutableFile).getSiblingFile ("plugins"); }
 
@@ -127,11 +127,11 @@ namespace
                              .getChildFile ("LoupixDeck").getChildFile ("LoupixDeck.exe");
         if (auto running = pathOf (d.exe); running.existsAsFile())
             d.installedExe = running;
-        d.pluginDir = home().getChildFile (".config").getChildFile ("LoupixDeck").getChildFile ("plugins").getChildFile ("patchbay");
+        d.pluginDir = home().getChildFile (".config").getChildFile ("LoupixDeck").getChildFile ("plugins").getChildFile ("faider");
         d.bundledDir = bundled().getChildFile ("loupixdeck");
         d.versionFile = juce::File ("plugin.json");
         d.versionKey = "version";
-        d.bindHelp = "IN LOUPIXDECK, OPEN A KEY OR DIAL'S COMMAND MENU AND PICK A PATCHBAY CHANNEL, SCENE OR MACRO.";
+        d.bindHelp = "IN LOUPIXDECK, OPEN A KEY OR DIAL'S COMMAND MENU AND PICK A FAIDER CHANNEL, SCENE OR MACRO.";
         return d;
     }
 
@@ -145,11 +145,11 @@ namespace
         if (auto running = pathOf (d.exe); running.existsAsFile())
             d.installedExe = running;
         d.pluginDir = juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
-                          .getChildFile ("Elgato\\StreamDeck\\Plugins\\com.patchbay.desk.sdPlugin");
-        d.bundledDir = bundled().getChildFile ("streamdeck").getChildFile ("com.patchbay.desk.sdPlugin");
+                          .getChildFile ("Elgato\\StreamDeck\\Plugins\\com.faider.desk.sdPlugin");
+        d.bundledDir = bundled().getChildFile ("streamdeck").getChildFile ("com.faider.desk.sdPlugin");
         d.versionFile = juce::File ("manifest.json");
         d.versionKey = "Version";
-        d.bindHelp = "IN STREAM DECK, DRAG PATCHBAY ACTIONS ONTO KEYS, THEN PICK A CHANNEL, SCENE OR MACRO.";
+        d.bindHelp = "IN STREAM DECK, DRAG FAIDER ACTIONS ONTO KEYS, THEN PICK A CHANNEL, SCENE OR MACRO.";
         return d;
     }
 
@@ -159,18 +159,18 @@ namespace
         return readVersion (dir.getChildFile (d.versionFile.getFileName()), d.versionKey);
     }
 
-    // LoupixDeck: patchbay among the enabled plugins, and loaded this run (its line in the startup
+    // LoupixDeck: faider among the enabled plugins, and loaded this run (its line in the startup
     // log, which LoupixDeck starts afresh each time).
     juce::File loupixConfig() { return home().getChildFile (".config").getChildFile ("LoupixDeck"); }
     bool loupixEnabled()
     {
         for (auto& f : loupixConfig().findChildFiles (juce::File::findFiles, false, "config_*.json"))
             if (auto plugins = juce::JSON::parse (f.loadFileAsString()).getProperty ("EnabledPlugins", {}); plugins.isArray())
-                if (plugins.getArray()->contains ("patchbay"))
+                if (plugins.getArray()->contains ("faider"))
                     return true;
         return false;
     }
-    bool loupixLoaded() { return isRunning ("LoupixDeck.exe") && loupixConfig().getChildFile ("loupixdeck-startup.log").loadFileAsString().contains ("[plugin:patchbay]"); }
+    bool loupixLoaded() { return isRunning ("LoupixDeck.exe") && loupixConfig().getChildFile ("loupixdeck-startup.log").loadFileAsString().contains ("[plugin:faider]"); }
 
     bool copyPlugin (const Deck& d)
     {
@@ -407,7 +407,7 @@ void ControllerHelper::refresh()
     {
         const auto deck = device == Device::loupedeck ? loupix() : streamDeck();
         const bool api = hooks.apiPort && hooks.apiPort() > 0;
-        setStep (count++, "PATCHBAY CONTROL API", api ? "ON (127.0.0.1:" + juce::String (hooks.apiPort()) + ")." : "OFF: THE PLUGIN CAN'T REACH PATCHBAY.",
+        setStep (count++, "FAIDER CONTROL API", api ? "ON (127.0.0.1:" + juce::String (hooks.apiPort()) + ")." : "OFF: THE PLUGIN CAN'T REACH FAIDER.",
                  api ? 1 : 2, api ? juce::String() : "TURN ON", [this] { if (hooks.turnApiOn) hooks.turnApiOn(); refreshSoon(); });
 
         const bool installedApp = deck.installedExe.existsAsFile(), running = isRunning (deck.exe);
@@ -439,7 +439,7 @@ void ControllerHelper::refresh()
                                   : "VERSION " + have + ", LOADED.";
         if (const auto result = progress->getResult(); result.isNotEmpty() && busy.isEmpty())
             pluginStatus << "\n" << result;
-        setStep (count++, "PATCHBAY PLUGIN", pluginStatus, busy.isNotEmpty() ? 2 : current && loaded ? 1 : installed ? 2 : 0,
+        setStep (count++, "FAIDER PLUGIN", pluginStatus, busy.isNotEmpty() ? 2 : current && loaded ? 1 : installed ? 2 : 0,
                  offered.isEmpty() || ! installedApp ? juce::String() : ! installed ? "INSTALL" : ! current ? "UPDATE" : ! loaded ? "RESTART " + deck.app : "REINSTALL",
                  [this] { install(); });
 
@@ -483,10 +483,10 @@ void ControllerHelper::refresh()
         const bool api = hooks.apiPort && hooks.apiPort() > 0;
         const bool on = api && hooks.phoneOn && hooks.phoneOn();
         const auto links = hooks.phoneLinks ? hooks.phoneLinks() : juce::StringArray();
-        setStep (count++, "PATCHBAY CONTROL API", api ? "ON." : "OFF: THE PAGE CAN'T REACH PATCHBAY.",
+        setStep (count++, "FAIDER CONTROL API", api ? "ON." : "OFF: THE PAGE CAN'T REACH FAIDER.",
                  api ? 1 : 2, api ? juce::String() : "TURN ON", [this] { if (hooks.turnApiOn) hooks.turnApiOn(); refreshSoon(); });
         setStep (count++, "OPEN TO PHONES ON THIS NETWORK", on ? "ON: PHONES ON THIS NETWORK CAN CONNECT."
-                                                               : "OFF: ONLY THIS PC CAN REACH PATCHBAY.",
+                                                               : "OFF: ONLY THIS PC CAN REACH FAIDER.",
                  on ? 1 : 2, ! api ? juce::String() : on ? "TURN OFF" : "TURN ON", [this, on] { if (hooks.setPhone) hooks.setPhone (! on); refreshSoon(); });
         setStep (count++, "SCAN IT WITH THE PHONE", ! on ? "TURN IT ON TO SEE THE CODE."
                                                          : links.isEmpty() ? "THIS PC ISN'T ON A NETWORK." : links.joinIntoString ("\n"),
@@ -496,7 +496,7 @@ void ControllerHelper::refresh()
         qr->setVisible (on && ! links.isEmpty());
         bindText.setText ("SCAN THE CODE WITH THE PHONE'S CAMERA AND OPEN THE LINK. THE PHONE MUST BE ON THIS NETWORK, "
                           "NOT MOBILE DATA OR GUEST WI-FI.\n\nANYONE WITH THE LINK CAN USE THE DESK. NEW KEY MAKES A NEW LINK.\n\n"
-                          "WON'T CONNECT? ALLOW PATCHBAY IN THE WINDOWS FIREWALL FOR PRIVATE NETWORKS.",
+                          "WON'T CONNECT? ALLOW FAIDER IN THE WINDOWS FIREWALL FOR PRIVATE NETWORKS.",
                           juce::dontSendNotification);
         bindText.setVisible (true);
         midiInputs.clear();
@@ -517,9 +517,9 @@ void ControllerHelper::refresh()
                  + oscPort.getText() + ".", 0);
         // Addresses in a column, what they do beside them (names as on the strips, spaces as _).
         const std::pair<const char*, const char*> addresses[] = {
-            { "/patchbay/input/MIC_FOCUS/fader -12", "FADER, IN DB" }, { "/patchbay/output/MISC/mute 1", "MUTE (0: UNMUTE)" },
-            { "/patchbay/bus/SUMMING/pan -0.5", "PAN, -1 TO 1" },      { "/patchbay/input/VR/solo 1", "SOLO (0: OFF)" },
-            { "/patchbay/scene GAMING", "RECALL A SCENE" },             { "/patchbay/macro/GO_LIVE 1", "PRESS A MACRO (0: RELEASE)" } };
+            { "/faider/input/MIC_FOCUS/fader -12", "FADER, IN DB" }, { "/faider/output/MISC/mute 1", "MUTE (0: UNMUTE)" },
+            { "/faider/bus/SUMMING/pan -0.5", "PAN, -1 TO 1" },      { "/faider/input/VR/solo 1", "SOLO (0: OFF)" },
+            { "/faider/scene GAMING", "RECALL A SCENE" },             { "/faider/macro/GO_LIVE 1", "PRESS A MACRO (0: RELEASE)" } };
         juce::String text ("NAMES AS ON THE STRIPS, SPACES AS _\n\n");
         for (auto& [address, meaning] : addresses)
             text << juce::String (address).paddedRight (' ', 38) << meaning << "\n";

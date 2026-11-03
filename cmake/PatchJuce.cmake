@@ -7,11 +7,11 @@
 # and combo-box lists inside itself, worked by the laser pointer as a pen while a game has the focus,
 # so they closed as they opened. A menu with a parent component lives inside one of our own windows
 # and still closes on a click outside it (inputAttemptWhenModal), so for those the check is skipped.
-# (Patchbay gives menus a parent only in the headset: Console::Look::menuParent.)
+# (Faider gives menus a parent only in the headset: Console::Look::menuParent.)
 
-function(patchbay_patch_juce juceSourceDir)
+function(faider_patch_juce juceSourceDir)
     set(popupMenu "${juceSourceDir}/modules/juce_gui_basics/menus/juce_PopupMenu.cpp")
-    set(marker "PATCHBAY: parented menus")
+    set(marker "parented menus")
     set(anchor "if (! detail::WindowingHelpers::isForegroundOrEmbeddedProcess (componentAttachedTo))")
     set(patched "if (options.getParentComponent() != nullptr) return true; /* ${marker}: in one of our windows, worked by any pointer */ ${anchor}")
 
@@ -26,5 +26,5 @@ function(patchbay_patch_juce juceSourceDir)
     endif()
     string(REPLACE "${anchor}" "${patched}" source "${source}")
     file(WRITE "${popupMenu}" "${source}")
-    message(STATUS "PatchJuce: popup menus with a parent component stay open when Patchbay isn't in front")
+    message(STATUS "PatchJuce: popup menus with a parent component stay open when Faider isn't in front")
 endfunction()

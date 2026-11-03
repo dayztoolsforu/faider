@@ -1,7 +1,7 @@
 // App capture (src/engine/AppCapture.cpp) when the captured program closes: over and over, a
-// helper process plays a silent sound, Patchbay's app capture opens on it, the process is killed
+// helper process plays a silent sound, Faider's app capture opens on it, the process is killed
 // mid-capture, and the capture is torn down, while thread-pool waits come and go beside it (as
-// they do in Patchbay). It used to close its wake-up event before letting go of Windows' audio
+// they do in Faider). It used to close its wake-up event before letting go of Windows' audio
 // client: a late signal could then fire a reused handle's thread-pool wait and crash. Passes if
 // every round opens, keeps receiving until the kill, and tears down without crashing.
 #include "../src/engine/AppCapture.h"
@@ -26,7 +26,7 @@ namespace
     // A second of silence as a WAV, for the helper to play on a loop (nothing heard).
     juce::File silentWav()
     {
-        auto f = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("patchbay-silence.wav");
+        auto f = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("faider-silence.wav");
         juce::WavAudioFormat wav;
         juce::AudioBuffer<float> silence (2, 48000);
         silence.clear();

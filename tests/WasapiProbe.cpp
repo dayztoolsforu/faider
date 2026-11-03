@@ -1,5 +1,5 @@
 // Diagnostic, not a test: opens a playback device (by part of its name) in WASAPI shared mode as
-// Patchbay does, and prints what Windows answers at each step: its mix format, then
+// Faider does, and prints what Windows answers at each step: its mix format, then
 // Initialize at that format and at stereo, with the HRESULT. Usage: WasapiProbe "CABLE In 16ch"
 #include <windows.h>
 #include <mmdeviceapi.h>

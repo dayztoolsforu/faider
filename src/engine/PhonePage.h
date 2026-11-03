@@ -9,7 +9,7 @@ namespace PhonePage
 {
     inline const char* const html = R"PAGE(<!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#16181b"><title>Patchbay</title>
+<meta name="theme-color" content="#16181b"><title>Faider</title>
 <style>
 :root{--bg:#16181b;--panel:#23262b;--well:#1b1d20;--rim:#33373e;--ink:#e8e9eb;--dim:#8b9099;--key:#2d3137;--keyink:#e8e9eb;
  --lit:#3fd16b;--litink:#0d1a10;--mute:#e0524f;--muteink:#fff;--solo:#e8c33c;--soloink:#1a1405;--glass:#0c0d0f;--r:8px;--font:system-ui,Segoe UI,Roboto,sans-serif}
@@ -52,16 +52,16 @@ input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:min(var
 .page{display:none}.page.show{display:block}
 .msg{grid-column:1/-1;color:var(--dim);text-align:center;margin:24px 0;text-transform:none;font-weight:500}
 </style></head><body>
-<header><div class="top"><span class="dot" id="dot"></span><b>PATCHBAY</b><span class="scene" id="scene"></span></div>
+<header><div class="top"><span class="dot" id="dot"></span><b>FAIDER</b><span class="scene" id="scene"></span></div>
 <div class="seg" id="nav"><button data-p="mix" class="on">MIX</button><button data-p="scenes">SCENES</button><button data-p="pads">PADS</button></div></header>
 <main><div class="page show" id="mix"></div><div class="page" id="scenes"></div>
 <div class="page" id="pads"><div class="seg banks" id="banks"></div><div class="grid pads" id="padgrid"></div></div></main>
 <script>
 const key=new URLSearchParams(location.search).get('key')||'';
-const H={'X-Patchbay':'1','X-Patchbay-Key':key};
+const H={'X-Faider':'1','X-Faider-Key':key};
 const $=s=>document.querySelector(s), E=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
 const enc=s=>encodeURIComponent(s);
-async function get(p){const r=await fetch(p,{headers:{'X-Patchbay-Key':key},cache:'no-store'});if(!r.ok)throw r.status;return r.json()}
+async function get(p){const r=await fetch(p,{headers:{'X-Faider-Key':key},cache:'no-store'});if(!r.ok)throw r.status;return r.json()}
 function post(p){return fetch(p,{method:'POST',headers:H}).catch(()=>{})}
 let state=null,shape='',themeShown='',bank=0,strips={};
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('on',x===b));
@@ -124,7 +124,7 @@ async function poll(){
  try{state=await get('/api/state');$('#dot').classList.add('on');applyTheme(state.theme);
   const s=JSON.stringify([state.inputs.map(x=>x.name),state.buses.map(x=>x.name),state.outputs.map(x=>x.name),state.scenes,state.macros,state.pads]);
   if(s!==shape){shape=s;build()}update()}
- catch(e){$('#dot').classList.remove('on');if(e===403&&!state)$('#mix').innerHTML='<div class="msg">Phone control is off, or this link is old. Scan the code again in Patchbay.</div>';
+ catch(e){$('#dot').classList.remove('on');if(e===403&&!state)$('#mix').innerHTML='<div class="msg">Phone control is off, or this link is old. Scan the code again in Faider.</div>';
   if(e===429){shape='';$('#mix').innerHTML='<div class="msg">Too many wrong keys &mdash; wait a minute.</div>'}}
  setTimeout(poll,1000)}
 async function meters(){

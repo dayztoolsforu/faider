@@ -6,7 +6,7 @@
 namespace StartWithWindows
 {
     inline const juce::String runKeys { "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\" };
-    inline const juce::String runKey { runKeys + "Patchbay Console" };
+    inline const juce::String runKey { runKeys + "Faider" };
 
     inline bool isOn() { return juce::WindowsRegistry::valueExists (runKey); }
 
@@ -17,5 +17,15 @@ namespace StartWithWindows
                                                                  .getFullPathName() + "\" --minimised");
         else
             juce::WindowsRegistry::deleteValue (runKey);
+    }
+
+    // The entry under the program's earlier name becomes this one (at startup).
+    inline void moveEarlierEntry()
+    {
+        const auto earlier = runKeys + "Patchbay Console";
+        if (! juce::WindowsRegistry::valueExists (earlier))
+            return;
+        juce::WindowsRegistry::deleteValue (earlier);
+        set (true);
     }
 }

@@ -1,10 +1,10 @@
-# Patchbay Console Kullanım Kılavuzu
+# Faider Kullanım Kılavuzu
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **Sürüm 0.1 · Windows 10 (2004) veya üstü**
 
-Patchbay Console, büyük bir konsol etrafında kurulmuş, Windows için canlı bir ses yönlendiricisi ve
+Faider, büyük bir konsol etrafında kurulmuş, Windows için canlı bir ses yönlendiricisi ve
 mikserdir. Sesi ses arabiriminden, Windows aygıtlarından ve tek tek programlardan alır, kanal
 şeritlerinden, bus'lardan ve çıkışlardan geçirir ve sonucu seçtiğin aygıtlarda çalar: kulaklığın,
 hoparlörlerin, bir yayın, görüşmeler ve oyunlar için sanal bir mikrofon.
@@ -51,7 +51,7 @@ ters gittiğinde ne yapacağını söyler.
 | | |
 |---|---|
 | **Windows** | Windows 10 sürüm 2004 veya üstü ya da Windows 11. Tek bir programın sesini yakalamak için 2004 veya üstü gerekir |
-| **Bir ses arabirimi** | İsteğe bağlı. ASIO sürücüsü kuruluysa Patchbay Console en düşük gecikme için arabirimin saatiyle çalışır. Arabirim yoksa Windows oynatma aygıtınla ya da yerleşik saatiyle çalışır ([Saat](#clocking) bölümüne bak) |
+| **Bir ses arabirimi** | İsteğe bağlı. ASIO sürücüsü kuruluysa Faider en düşük gecikme için arabirimin saatiyle çalışır. Arabirim yoksa Windows oynatma aygıtınla ya da yerleşik saatiyle çalışır ([Saat](#clocking) bölümüne bak) |
 | **Kulaklık** | Karışımını duyabilmek için arabirimine (veya herhangi bir Windows oynatma aygıtına) takılı |
 | **VB-CABLE** | İsteğe bağlı ve ücretsiz (vb-audio.com/Cable). Discord, oyunlar ve OBS gibi uygulamaların karışımını duyabilmesi için sanal bir mikrofon |
 | **ffmpeg** | İsteğe bağlı. `ffmpeg.exe` PATH'inde olursa kaydedici MP3, AAC, Opus ve ALAC de yazabilir |
@@ -79,21 +79,21 @@ Bu bölüm seni yükleyiciden çalışan bir düzene götürür: mikrofonun kula
 mikrofonunu duyuyor ve bir programın sesi kendi kanalında. Adımları sırayla yap. Her biri bir iki
 dakika sürer.
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### Adım 1: Patchbay Console'u kur
+### Adım 1: Faider'i kur
 
-1. Yükleyiciyi çalıştır, `PatchbayConsole-<version>-Setup.exe`.
+1. Yükleyiciyi çalıştır, `Faider-<version>-Setup.exe`.
 2. Yükleyici kod imzalı olmadığı için Windows SmartScreen tanınmayan bir uygulama diye uyarabilir.
    **Daha fazla bilgi**'ye, sonra **Yine de çalıştır**'a tıkla.
 3. Lisansı kabul et ve yönetici istemine izin ver. Masaüstü kısayolu istiyorsan yol boyunca
    işaretle (varsayılan olarak kapalıdır).
-4. Yükleyici uygulamayı `C:\Program Files\Patchbay Console` içine koyar ve **Patchbay Console**'u
+4. Yükleyici uygulamayı `C:\Program Files\Faider` içine koyar ve **Faider**'u
    Başlat menüsüne ekler. Uygulamanın ihtiyaç duyduğu her şey onunla birlikte gelir.
-5. Son sayfada Patchbay Console'u hemen başlatabilirsin. VB-CABLE kurulu değilse VB-CABLE'ın indirme
+5. Son sayfada Faider'i hemen başlatabilirsin. VB-CABLE kurulu değilse VB-CABLE'ın indirme
    sayfasını açmayı da önerir.
 
-Karışımın ve ayarların programdan ayrı olarak `%APPDATA%\PatchbayConsole` içinde durur. Kaldırma
+Karışımın ve ayarların programdan ayrı olarak `%APPDATA%\Faider` içinde durur. Kaldırma
 işlemi onlara dokunmaz.
 
 <a id="step-2-install-vb-cable-optional"></a>
@@ -127,15 +127,15 @@ için karışım yapacaksan bu adımı atla.
 Çıkışı ayarlamanın daha hızlı yolu: görev çubuğundaki hoparlör simgesine tıkla, ses kaydırıcısının
 yanındaki **>**'e tıkla ve aygıtını seç.
 
-Gerçek aygıtlarını Windows'un varsayılanı olarak bırak. Patchbay Console kabloya yalnızca senin
+Gerçek aygıtlarını Windows'un varsayılanı olarak bırak. Faider kabloya yalnızca senin
 yönlendirdiğin yerde çalar ve her uygulama mikrofon olarak **CABLE Output**'u kendisi seçer (adım 6).
 Windows'un varsayılan hoparlörü kablo ise PRE-FLIGHT bunu **HEARD ONCE** altında bildirir.
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### Adım 3: Patchbay Console'u başlat
+### Adım 3: Faider'i başlat
 
-Başlat menüsünü aç ve **Patchbay Console**'a tıkla (ya da yaptıysan masaüstü kısayolunu kullan).
+Başlat menüsünü aç ve **Faider**'a tıkla (ya da yaptıysan masaüstü kısayolunu kullan).
 İlk seferde **SETUP** ile açılır.
 
 <a id="step-4-answer-setups-four-questions"></a>
@@ -180,7 +180,7 @@ Sağ üstteki **durum ışığına** bak.
 
 - Yüzdeli **Yeşil**: ses çalışıyor. 6. adıma geç.
 - **Kırmızı, OFF yazıyor**: ses çalışmıyor. Arabirimini başka bir program tutuyor olabilir (bir DAW,
-  sürücünün denetim masası). Onu kapat ve Patchbay Console'u yeniden başlat. Bkz.
+  sürücünün denetim masası). Onu kapat ve Faider'i yeniden başlat. Bkz.
   [18.4](#184-the-interface-wont-start-or-stopped).
 
 **DEVICES**'ı açmak için ışığa tıkla. **STREAMS** kullanımdaki saati gösterir (ASIO, Windows ya da
@@ -246,11 +246,11 @@ olmalı. Bkz. [18.1](#181-pre-flight).
 
 - **Karışımın kendiliğinden kaydedilir**, her değişiklikten sonra bir saniye içinde. Bir sürümü adla
   saklamak için **SETTINGS > GENERAL > SAVE SESSION AS...** kullan.
-- **Windows ile başlat**: **SETTINGS > GENERAL > WINDOWS**, oturum açtığında Patchbay Console'u
+- **Windows ile başlat**: **SETTINGS > GENERAL > WINDOWS**, oturum açtığında Faider'i
   tepsiyde başlatır, böylece mikrofonun en baştan çalışır.
-- **Pencereyi kapatmak sesi durdurmaz.** Patchbay Console sistem tepsisinde çalışmaya devam eder,
+- **Pencereyi kapatmak sesi durdurmaz.** Faider sistem tepsisinde çalışmaya devam eder,
   böylece mikrofonun ve kulaklığın çalışmayı sürdürür. Durdurmak için tepsi simgesine sağ tıkla ve
-  **Quit Patchbay Console**'u seç. Program tepsideyken onu yeniden başlatmak pencereyi geri getirir.
+  **Quit Faider**'u seç. Program tepsideyken onu yeniden başlatmak pencereyi geri getirir.
 
 Her sayfa ilk açıldığında kısa bir ipucu onu açıklar. İpuçlarını **SETTINGS > GENERAL > ON START**
 altından kapat.
@@ -407,7 +407,7 @@ Kombinatörün şeridi her yolu hangi kaynakların beslediğini gösterir.
 
 ### Saat
 
-Saati bir aygıt belirler. Patchbay Console başlarken onu şu sırayla seçer:
+Saati bir aygıt belirler. Faider başlarken onu şu sırayla seçer:
 
 1. **ASIO**: ses arabirimin, ASIO sürücüsü üzerinden. En düşük gecikme.
 2. **Windows**: ASIO sürücüsü yoksa, Windows varsayılan oynatma aygıtın (sanal bir kablo, bir ekranın
@@ -686,7 +686,7 @@ müzik ve oyun stem'leri oluşturur.
 
 ## 9. Eklentiler
 
-Patchbay Console kanallarda, bus'larda ve kombinatör yollarında **VST3** eklentileri barındırır ve
+Faider kanallarda, bus'larda ve kombinatör yollarında **VST3** eklentileri barındırır ve
 gecikmeyi otomatik telafi eder.
 
 <a id="adding-a-plugin"></a>
@@ -887,7 +887,7 @@ TAPE CHANNEL**'a tıkla.
 | **REC** | Başlatır ve durdurur. Ekran süreyi, boyutu, kalan süreyi ve düşen blokları gösterir |
 | **PATH** / **REVEAL** | Klasörü seç / Gezgin'de aç |
 
-Kayıtlar, bir klasör seçmezsen `Music\Patchbay Console Recordings` içine gider. ffmpeg biçimleri önce
+Kayıtlar, bir klasör seçmezsen `Music\Faider Recordings` içine gider. ffmpeg biçimleri önce
 bir WAV kaydeder ve durdurduğunda dönüştürür (dönüştürme başarısız olursa WAV saklanır). Kayıt,
 1 GB'tan az yer kaldığında kendiliğinden durur.
 
@@ -912,16 +912,16 @@ kullanır.
 | **I/O** | ASIO, OUT veya IN |
 | **DEVICE**, **HARDWARE** | Adı ve bağlı olduğu adaptör |
 | **FORMAT** | Kanallar ve örnekleme hızı |
-| **STATE** | Etkin, çıkarılmış, devre dışı ya da **off in Patchbay Console** |
+| **STATE** | Etkin, çıkarılmış, devre dışı ya da **off in Faider** |
 | **TAGS** | Windows'un varsayılan aygıtları için DEFAULT ve CALLS |
 
 Sıralamak için bir başlığa tıkla. Aygıtları seç (birkaçı için Ctrl/Shift), sonra şunları kullan:
 
 | Tuş | |
 |---|---|
-| **EXCLUDE / INCLUDE** | Patchbay Console aygıtı kullanmayı bırakır (veya sürdürür). Dışlanan aygıtlar hiç açılmaz ve listelerden çıkarılır |
+| **EXCLUDE / INCLUDE** | Faider aygıtı kullanmayı bırakır (veya sürdürür). Dışlanan aygıtlar hiç açılmaz ve listelerden çıkarılır |
 | **DISABLE / ENABLE IN WINDOWS** | Aygıtı Windows'un kendisinde kapatır veya açar |
-| **RENAME** | Aygıt için kendi adın, Patchbay Console boyunca kullanılır (ya da bir satıra çift tıkla) |
+| **RENAME** | Aygıt için kendi adın, Faider boyunca kullanılır (ya da bir satıra çift tıkla) |
 
 <a id="streams"></a>
 
@@ -982,7 +982,7 @@ Karışımın her değişiklikten sonra bir saniye içinde ve çıkışta kendil
 
 | | |
 |---|---|
-| **Restore session** | Tepsi menüsü: karışımının tarihe göre önceki sürümleri (Patchbay Console onunla yeniden başlar) |
+| **Restore session** | Tepsi menüsü: karışımının tarihe göre önceki sürümleri (Faider onunla yeniden başlar) |
 | **SESSION TIMELINE** | FIND: saklanan her sürüm. **Restore everything**, ya da yeniden başlatmadan **PUT ONE CHANNEL BACK** (seviyesi, pan'ı, mute'u ve rack'i) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: karışımı bir adla sakla |
 | **OPEN, EXPORT OR IMPORT...** | Adlı bir karışımı aç (yeniden başlatır), karışımı bir dosyaya kaydet ya da bir dosyadan yükle |
@@ -1074,9 +1074,9 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / MUTED ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Her şeyin üstünde küçük bir mikser. **OPEN** ana pencereye döner |
 | **Tepsi** | Tepsi mikseri için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Restore session, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
-| **SteamVR** | SteamVR çalışırken SteamVR panosunda bir PATCHBAY CONSOLE sekmesi: RACK, PADS, TAPE, MACROS, DEVICES. Lazer işaretçi fare gibi çalışır. Dosya iletişim kutuları masaüstünde bitirilmelidir |
+| **SteamVR** | SteamVR çalışırken SteamVR panosunda bir FAIDER sekmesi: RACK, PADS, TAPE, MACROS, DEVICES. Lazer işaretçi fare gibi çalışır. Dosya iletişim kutuları masaüstünde bitirilmelidir |
 
-Patchbay Console, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla
+Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla
 çalışır. SteamVR ve oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini
 sıradan haklarla yeniden başlatır. Yönetici gerektiren birkaç adım (VB-CABLE ayarlarını uygulamak,
 Windows'un kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
@@ -1202,7 +1202,7 @@ kenara ayrılır**. Olay günlüğü nedenini söyler:
 | Neden | Ne yapmalı |
 |---|---|
 | Kayıtlı arabirim bağlı değil | Bağla, sonra **Restore session** (tepsi) > "kept:" sürümü |
-| Kayıtlı arabirim açılamadı (başka bir program tutuyor) | Diğer programı kapat ve Patchbay Console'u yeniden başlat. Bu sırada karışımının üzerine hiçbir şey kaydedilmez |
+| Kayıtlı arabirim açılamadı (başka bir program tutuyor) | Diğer programı kapat ve Faider'i yeniden başlat. Bu sırada karışımının üzerine hiçbir şey kaydedilmez |
 | session.xml okunamadı | **Restore session** > yakın tarihli bir sürüm |
 
 <a id="183-no-sound"></a>
@@ -1228,10 +1228,10 @@ Sinyal yolu boyunca ilerle:
 
 - Başka bir program onu tutuyor olabilir (bir DAW, sürücünün denetim masası). Kapat ve yeniden başlat.
 - Tepsideki **INTERFACE DOWN**: arabirim kendini sıfırladı ve yeniden açılmadı. DEVICES'ta tampon
-  boyutunu değiştir ya da Patchbay Console'u yeniden başlat.
+  boyutunu değiştir ya da Faider'i yeniden başlat.
 - Arabirimin kendi denetim masasında yapılan hız veya tampon değişiklikleri kendiliğinden algılanır.
-- Bir süre arabirimsiz çalışmak için Patchbay Console'u
-  `"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows` (Windows oynatma
+- Bir süre arabirimsiz çalışmak için Faider'i
+  `"C:\Program Files\Faider\Faider.exe" --clock windows` (Windows oynatma
   aygıtın) ya da `--clock builtin` (yerleşik saat) ile başlat. Bir ASIO sürücüsünün adının bir
   kısmıyla `--clock` (`--clock focusrite`) o sürücüyü seçer. Karışımın seninle gelir ve arabirimin
   için kayıtlı kalır: bir sonraki normal başlangıç ona döner.
@@ -1260,7 +1260,7 @@ Sinyal yolu boyunca ilerle:
 ### 18.7 Bir şeyi iki kez veya yankı olarak duyuyorum
 
 - Bir uygulama kanalı, uygulamanın zaten çaldığı aygıttaki bir çıkışa yönlendirilmiş, bu yüzden
-  uygulamayı hem doğrudan hem Patchbay Console üzerinden duyuyorsun. Uygulama kanalını başka yere
+  uygulamayı hem doğrudan hem Faider üzerinden duyuyorsun. Uygulama kanalını başka yere
   yönlendir ya da uygulamayı başka bir aygıta taşı.
 - Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT > **HEARD ONCE** bunu adıyla söyler.
 
@@ -1297,7 +1297,7 @@ kur. Dosyası değiştiğinde yeniden sınanır.
 
 ### 18.12 Program çöktü
 
-`%APPDATA%\PatchbayConsole\crash.log` içine bir rapor yazılır, yanında `crash.dmp` mini dökümü
+`%APPDATA%\Faider\crash.log` içine bir rapor yazılır, yanında `crash.dmp` mini dökümü
 bulunur. Karışımın her değişiklikten sonra bir saniye içinde kaydedildiği için en çok son anın
 değişikliklerini kaybedersin.
 
@@ -1352,7 +1352,7 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 
 ### 19.3 Dosyalar
 
-`%APPDATA%\PatchbayConsole` içinde:
+`%APPDATA%\Faider` içinde:
 
 | Dosya | |
 |---|---|
@@ -1367,8 +1367,8 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 | `status.txt` | Motorun birkaç saniyede bir anlık görüntüsü: aygıtlar, seviyeler, tamponlar, drift |
 | `crash.log`, `crash.dmp` | Çökme raporları |
 
-Program `C:\Program Files\Patchbay Console` içindedir. Kayıtlar, başka bir klasör seçmezsen
-`Music\Patchbay Console Recordings` içine gider.
+Program `C:\Program Files\Faider` içindedir. Kayıtlar, başka bir klasör seçmezsen
+`Music\Faider Recordings` içine gider.
 
 <a id="194-colours"></a>
 

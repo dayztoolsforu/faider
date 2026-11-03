@@ -1,10 +1,10 @@
-# Patchbay Console Gebruikershandleiding
+# Faider Gebruikershandleiding
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **Versie 0.1 · Windows 10 (2004) of later**
 
-Patchbay Console is een live audiorouter en mixer voor Windows, opgebouwd rond een grote mengtafel.
+Faider is een live audiorouter en mixer voor Windows, opgebouwd rond een grote mengtafel.
 Het haalt geluid van je audio-interface, je Windows-apparaten en afzonderlijke programma's, stuurt het
 door kanaalstrips, bussen en uitgangen en speelt het resultaat af op de apparaten die je kiest: je
 koptelefoon, je speakers, een stream, een virtuele microfoon voor gesprekken en games.
@@ -51,7 +51,7 @@ en vertelt wat je kunt doen als er iets misgaat.
 | | |
 |---|---|
 | **Windows** | Windows 10 versie 2004 of later, of Windows 11. Om het geluid van één programma op te vangen is 2004 of later nodig |
-| **Een audio-interface** | Optioneel. Met het ASIO-stuurprogramma geïnstalleerd draait Patchbay Console op de klok van de interface, voor de laagste vertraging. Zonder interface draait het op je Windows-afspeelapparaat, of op zijn ingebouwde klok (zie [Klokken](#clocking)) |
+| **Een audio-interface** | Optioneel. Met het ASIO-stuurprogramma geïnstalleerd draait Faider op de klok van de interface, voor de laagste vertraging. Zonder interface draait het op je Windows-afspeelapparaat, of op zijn ingebouwde klok (zie [Klokken](#clocking)) |
 | **Koptelefoon** | Aangesloten op je interface (of op een willekeurig Windows-afspeelapparaat) zodat je je mix hoort |
 | **VB-CABLE** | Optioneel en gratis (vb-audio.com/Cable). Een virtuele microfoon, zodat apps zoals Discord, games en OBS je mix kunnen horen |
 | **ffmpeg** | Optioneel. Met `ffmpeg.exe` in je PATH kan de recorder ook MP3, AAC, Opus en ALAC schrijven |
@@ -79,21 +79,21 @@ Dit hoofdstuk brengt je van het installatieprogramma naar een werkende opstellin
 koptelefoon, apps die je microfoon horen en het geluid van een programma op een eigen kanaal. Doe de
 stappen in volgorde. Elke stap kost een of twee minuten.
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### Stap 1: Patchbay Console installeren
+### Stap 1: Faider installeren
 
-1. Start het installatieprogramma, `PatchbayConsole-<version>-Setup.exe`.
+1. Start het installatieprogramma, `Faider-<version>-Setup.exe`.
 2. Windows SmartScreen kan waarschuwen voor een onbekende app, omdat het installatieprogramma niet
    met een code is ondertekend. Klik op **Meer info** en dan op **Toch uitvoeren**.
 3. Accepteer de licentie en sta de beheerdersvraag toe. Wil je een bureaubladsnelkoppeling, vink die
    dan onderweg aan (standaard staat hij uit).
-4. Het installatieprogramma zet de app in `C:\Program Files\Patchbay Console` en voegt **Patchbay Console**
+4. Het installatieprogramma zet de app in `C:\Program Files\Faider` en voegt **Faider**
    toe aan het Startmenu. Alles wat de app nodig heeft, zit erbij.
-5. Op de laatste pagina kun je Patchbay Console meteen starten. Is er geen VB-CABLE geïnstalleerd, dan
+5. Op de laatste pagina kun je Faider meteen starten. Is er geen VB-CABLE geïnstalleerd, dan
    biedt het ook aan de downloadpagina van VB-CABLE te openen.
 
-Je mix en instellingen staan in `%APPDATA%\PatchbayConsole`, los van het programma. Bij het
+Je mix en instellingen staan in `%APPDATA%\Faider`, los van het programma. Bij het
 verwijderen blijven ze staan.
 
 <a id="step-2-install-vb-cable-optional"></a>
@@ -127,15 +127,15 @@ voor je eigen koptelefoon wilt mixen.
 Sneller voor de uitvoer: klik op het luidsprekerpictogram in de taakbalk, klik op de **>** naast de
 volumeschuif en kies je apparaat.
 
-Laat je echte apparaten de standaard van Windows blijven. Patchbay Console speelt alleen in de kabel waar jij
+Laat je echte apparaten de standaard van Windows blijven. Faider speelt alleen in de kabel waar jij
 naartoe routeert, en elke app kiest zelf **CABLE Output** als microfoon (stap 6). Is de standaardspeaker
 van Windows de kabel, dan meldt PRE-FLIGHT dat onder **HEARD ONCE**.
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### Stap 3: Patchbay Console starten
+### Stap 3: Faider starten
 
-Open het Startmenu en klik op **Patchbay Console** (of gebruik de bureaubladsnelkoppeling, als je die hebt gemaakt).
+Open het Startmenu en klik op **Faider** (of gebruik de bureaubladsnelkoppeling, als je die hebt gemaakt).
 De eerste keer opent het op **SETUP**.
 
 <a id="step-4-answer-setups-four-questions"></a>
@@ -180,7 +180,7 @@ Kijk naar het **gezondheidslicht** rechtsboven.
 
 - **Groen** met een percentage: de audio draait. Ga verder met stap 6.
 - **Rood, met OFF**: de audio draait niet. Misschien heeft een ander programma je interface in gebruik (een DAW,
-  het configuratiescherm van het stuurprogramma). Sluit het en start Patchbay Console opnieuw. Zie
+  het configuratiescherm van het stuurprogramma). Sluit het en start Faider opnieuw. Zie
   [18.4](#184-the-interface-wont-start-or-stopped).
 
 Klik op het licht om **DEVICES** te openen. **STREAMS** toont de klok die wordt gebruikt (ASIO, Windows of de
@@ -247,11 +247,11 @@ Een paar seconden na het starten controleert **PRE-FLIGHT** de opstelling en ope
 
 - **Je mix slaat zichzelf op** binnen een seconde na elke wijziging. Om een versie onder een naam te bewaren, gebruik je
   **SETTINGS > GENERAL > SAVE SESSION AS...**.
-- **Met Windows starten**: **SETTINGS > GENERAL > WINDOWS** start Patchbay Console in het systeemvak wanneer
+- **Met Windows starten**: **SETTINGS > GENERAL > WINDOWS** start Faider in het systeemvak wanneer
   je je aanmeldt, zodat je microfoon vanaf het begin werkt.
-- **Het venster sluiten stopt de audio niet.** Patchbay Console blijft in het systeemvak draaien,
+- **Het venster sluiten stopt de audio niet.** Faider blijft in het systeemvak draaien,
   zodat je microfoon en koptelefoon blijven werken. Om te stoppen, klik je met rechts op het pictogram in het systeemvak en kies je
-  **Quit Patchbay Console**. Start je het programma terwijl het in het systeemvak draait, dan komt het venster terug.
+  **Quit Faider**. Start je het programma terwijl het in het systeemvak draait, dan komt het venster terug.
 
 De eerste keer dat elke pagina opent, legt een korte tip uit waar het om gaat. Zet tips uit onder
 **SETTINGS > GENERAL > ON START**.
@@ -408,7 +408,7 @@ van de combinator toont welke bronnen elk pad voeden.
 
 ### Klokken
 
-Eén apparaat bepaalt de klok. Patchbay Console kiest hem bij het starten in deze volgorde:
+Eén apparaat bepaalt de klok. Faider kiest hem bij het starten in deze volgorde:
 
 1. **ASIO**: je audio-interface, via zijn ASIO-stuurprogramma. De laagste vertraging.
 2. **Windows**: zonder ASIO-stuurprogramma je standaardafspeelapparaat van Windows (een virtuele kabel, de speakers van een
@@ -687,7 +687,7 @@ stems voor stem, muziek en game.
 
 ## 9. Plugins
 
-Patchbay Console host **VST3**-plugins op kanalen, bussen en combinatorpaden, met automatische
+Faider host **VST3**-plugins op kanalen, bussen en combinatorpaden, met automatische
 latentiecompensatie.
 
 <a id="adding-a-plugin"></a>
@@ -887,7 +887,7 @@ Het transport van de bovenbalk en de tapestrip op de tafel bedienen hetzelfde de
 | **REC** | Start en stopt. Het scherm toont tijd, grootte, resterende tijd en eventuele gemiste blokken |
 | **PATH** / **REVEAL** | Kies de map / open hem in Verkenner |
 
-Opnamen gaan naar `Music\Patchbay Console Recordings` tenzij je een map kiest. ffmpeg-formaten nemen eerst
+Opnamen gaan naar `Music\Faider Recordings` tenzij je een map kiest. ffmpeg-formaten nemen eerst
 een WAV op en zetten die om wanneer je stopt (de WAV blijft behouden als het omzetten mislukt). Opnemen stopt
 vanzelf als er minder dan 1 GB vrij is.
 
@@ -912,16 +912,16 @@ gebruikt replay de eerste uitgang.
 | **I/O** | ASIO, OUT of IN |
 | **DEVICE**, **HARDWARE** | Zijn naam en de adapter waarop hij zit |
 | **FORMAT** | Kanalen en samplefrequentie |
-| **STATE** | Actief, losgehaald, uitgeschakeld of **off in Patchbay Console** |
+| **STATE** | Actief, losgehaald, uitgeschakeld of **off in Faider** |
 | **TAGS** | DEFAULT en CALLS voor de standaardapparaten van Windows |
 
 Klik op een kop om te sorteren. Selecteer apparaten (Ctrl/Shift voor meerdere) en gebruik dan:
 
 | Toets | |
 |---|---|
-| **EXCLUDE / INCLUDE** | Patchbay Console stopt (of hervat) het gebruik van het apparaat. Uitgesloten apparaten worden nooit geopend en uit lijsten weggelaten |
+| **EXCLUDE / INCLUDE** | Faider stopt (of hervat) het gebruik van het apparaat. Uitgesloten apparaten worden nooit geopend en uit lijsten weggelaten |
 | **DISABLE / ENABLE IN WINDOWS** | Zet het apparaat in Windows zelf uit of aan |
-| **RENAME** | Je eigen naam voor het apparaat, overal in Patchbay Console gebruikt (of dubbelklik op een rij) |
+| **RENAME** | Je eigen naam voor het apparaat, overal in Faider gebruikt (of dubbelklik op een rij) |
 
 <a id="streams"></a>
 
@@ -982,7 +982,7 @@ Je mix slaat zichzelf op binnen een seconde na elke wijziging, en bij het afslui
 
 | | |
 |---|---|
-| **Restore session** | Menu in het systeemvak: eerdere versies van je mix op datum (Patchbay Console start ermee opnieuw) |
+| **Restore session** | Menu in het systeemvak: eerdere versies van je mix op datum (Faider start ermee opnieuw) |
 | **SESSION TIMELINE** | FIND: elke bewaarde versie. **Restore everything**, of **PUT ONE CHANNEL BACK** (niveau, pan, demping en rack) zonder opnieuw te starten |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: bewaar de mix onder een naam |
 | **OPEN, EXPORT OR IMPORT...** | Een benoemde mix openen (start opnieuw), de mix in een bestand opslaan of er een uit een bestand laden |
@@ -1073,9 +1073,9 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / MUTED en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | Een kleine mixer bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
 | **Tray** | Klik op het pictogram voor de mixer in het systeemvak, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Restore session, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing |
-| **SteamVR** | Een tabblad PATCHBAY CONSOLE op het SteamVR-dashboard zolang SteamVR draait: RACK, PADS, TAPE, MACROS, DEVICES. De laserpointer werkt als een muis. Bestandsdialogen moeten op het bureaublad worden afgerond |
+| **SteamVR** | Een tabblad FAIDER op het SteamVR-dashboard zolang SteamVR draait: RACK, PADS, TAPE, MACROS, DEVICES. De laserpointer werkt als een muis. Bestandsdialogen moeten op het bureaublad worden afgerond |
 
-Patchbay Console draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
+Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
 Het start zichzelf opnieuw met gewone rechten, omdat SteamVR en de in-game overlay een programma dat als beheerder draait
 niet kunnen bereiken. De paar stappen die een beheerder nodig hebben
 (VB-CABLE-instellingen toepassen, een door Windows uitgezet apparaat weer inschakelen) vragen zelf om toestemming.
@@ -1204,7 +1204,7 @@ Je mix is niet verloren. Als hij bij het starten niet gebruikt kan worden, wordt
 | Reden | Wat te doen |
 |---|---|
 | De opgeslagen interface is niet aangesloten | Sluit hem aan, dan **Restore session** (systeemvak) > de versie met "kept:" |
-| De opgeslagen interface kon niet worden geopend (een ander programma heeft hem) | Sluit het andere programma en start Patchbay Console opnieuw. Ondertussen wordt er niets over je mix heen opgeslagen |
+| De opgeslagen interface kon niet worden geopend (een ander programma heeft hem) | Sluit het andere programma en start Faider opnieuw. Ondertussen wordt er niets over je mix heen opgeslagen |
 | session.xml kon niet worden gelezen | **Restore session** > een recente versie |
 
 <a id="183-no-sound"></a>
@@ -1230,10 +1230,10 @@ Loop het signaalpad af:
 
 - Een ander programma kan hem vasthouden (een DAW, het configuratiescherm van het stuurprogramma). Sluit het en start opnieuw.
 - **INTERFACE DOWN** in het systeemvak: de interface heeft zichzelf gereset en wilde niet meer openen. Wijzig zijn buffergrootte
-  onder DEVICES of start Patchbay Console opnieuw.
+  onder DEVICES of start Faider opnieuw.
 - Wijzigingen in samplefrequentie of buffer in het eigen configuratiescherm van de interface worden vanzelf opgepikt.
-- Om een tijdje zonder de interface te werken, start je Patchbay Console met
-  `"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows` (je Windows-afspeelapparaat)
+- Om een tijdje zonder de interface te werken, start je Faider met
+  `"C:\Program Files\Faider\Faider.exe" --clock windows` (je Windows-afspeelapparaat)
   of `--clock builtin` (de ingebouwde klok). `--clock` met een deel van de naam van een ASIO-stuurprogramma
   (`--clock focusrite`) kiest dat stuurprogramma. Je mix gaat mee en blijft opgeslagen voor je
   interface: de volgende gewone start gaat daar weer naartoe.
@@ -1262,7 +1262,7 @@ Loop het signaalpad af:
 ### 18.7 Ik hoor iets dubbel, of een echo
 
 - Een appkanaal is gerouteerd naar een uitgang op hetzelfde apparaat waarop de app al speelt, dus je hoort
-  de app rechtstreeks en via Patchbay Console. Routeer het appkanaal ergens anders heen, of verplaats de app naar
+  de app rechtstreeks en via Faider. Routeer het appkanaal ergens anders heen, of verplaats de app naar
   een ander apparaat.
 - De standaardspeaker van Windows staat op de virtuele kabel. PRE-FLIGHT > **HEARD ONCE** noemt hem.
 
@@ -1299,7 +1299,7 @@ plugin in het bestand. Werk de plugin bij of installeer hem opnieuw. Zodra zijn 
 
 ### 18.12 Het programma is gecrasht
 
-Er wordt een rapport geschreven naar `%APPDATA%\PatchbayConsole\crash.log`, met een minidump `crash.dmp`. Je mix
+Er wordt een rapport geschreven naar `%APPDATA%\Faider\crash.log`, met een minidump `crash.dmp`. Je mix
 wordt binnen een seconde na elke wijziging opgeslagen, dus je verliest hooguit de wijzigingen van het laatste moment.
 
 <a id="1813-recording-stopped-by-itself"></a>
@@ -1353,7 +1353,7 @@ en als standaardcommunicatieapparaten. Zie [Stap 2](#step-2-install-vb-cable-opt
 
 ### 19.3 Bestanden
 
-In `%APPDATA%\PatchbayConsole`:
+In `%APPDATA%\Faider`:
 
 | Bestand | |
 |---|---|
@@ -1368,8 +1368,8 @@ In `%APPDATA%\PatchbayConsole`:
 | `status.txt` | Een momentopname van de engine om de paar seconden: apparaten, niveaus, buffers, drift |
 | `crash.log`, `crash.dmp` | Crashrapporten |
 
-Het programma zelf staat in `C:\Program Files\Patchbay Console`. Opnamen gaan naar
-`Music\Patchbay Console Recordings` tenzij je een andere map kiest.
+Het programma zelf staat in `C:\Program Files\Faider`. Opnamen gaan naar
+`Music\Faider Recordings` tenzij je een andere map kiest.
 
 <a id="194-colours"></a>
 

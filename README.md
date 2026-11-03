@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/icons/patchbay-console.png" width="88" alt="">
+  <img src="assets/icons/faider.png" width="88" alt="">
 </p>
 
-<h1 align="center">Patchbay Console</h1>
+<h1 align="center">Faider</h1>
 
 <p align="center">
   <b>Audio routing and mixing for Windows.</b><br>
@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/JUCE-8.0.12-8DC63F" alt="JUCE 8.0.12">
   <img src="https://img.shields.io/badge/audio-ASIO%20%C2%B7%20WASAPI-555" alt="ASIO · WASAPI">
   <img src="https://img.shields.io/badge/plugins-VST3-555" alt="VST3">
-  <a href="https://dayztoolsforu.github.io/patchbay/manual.html"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
+  <a href="https://dayztoolsforu.github.io/faider/manual.html"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
   <img src="https://img.shields.io/badge/licence-AGPLv3-blue" alt="AGPLv3">
 </p>
 
@@ -28,12 +28,12 @@
   <a href="#acknowledgements">Acknowledgements</a>
 </p>
 
-Patchbay Console puts every sound on your PC on one desk. Send any program, microphone or device to
+Faider puts every sound on your PC on one desk. Send any program, microphone or device to
 any output with a click, process each one with its own channel strip and VST3 plugins, and stop
 worrying about which app plays where.
 
 <p align="center">
-  <img src="docs/images/console/mixer.jpg" alt="Patchbay Console: channel strips, raw strips for apps and tools, combinators and output strips" width="100%">
+  <img src="docs/images/console/mixer.jpg" alt="Faider: channel strips, raw strips for apps and tools, combinators and output strips" width="100%">
 </p>
 
 ## Overview
@@ -42,7 +42,7 @@ Windows gives you one default. Every program plays to one device and every app h
 microphone. Doing more than that usually means a stack of separate tools, each with its own window,
 its own clock and its own idea of where the sound goes.
 
-Patchbay Console replaces that stack with one desk. Every source becomes a channel and every
+Faider replaces that stack with one desk. Every source becomes a channel and every
 destination an output. You route between them with a click. Channels get a full console strip and
 VST3 plugins. Devices are remembered by name, so unplugging a headset never moves your speakers.
 Everything runs on one clock, without drift. Use it for streaming, calls, gaming, VR and recording on
@@ -65,10 +65,10 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 
 | | |
 |---|---|
-| Install folder | `C:\Program Files\Patchbay Console` (installer), `C:\PatchbayConsole` (built from source) |
-| Mix and settings | `%APPDATA%\PatchbayConsole` |
-| Manual | [Patchbay Console manual](https://dayztoolsforu.github.io/patchbay/manual.html) (13 languages) |
-| Website | [dayztoolsforu.github.io/patchbay](https://dayztoolsforu.github.io/patchbay/) |
+| Install folder | `C:\Program Files\Faider` (installer), `C:\Faider` (built from source) |
+| Mix and settings | `%APPDATA%\Faider` |
+| Manual | [Faider manual](https://dayztoolsforu.github.io/faider/manual.html) (13 languages) |
+| Website | [dayztoolsforu.github.io/faider](https://dayztoolsforu.github.io/faider/) |
 
 ## Features
 
@@ -129,7 +129,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 
 ### Install
 
-Download `PatchbayConsole-<version>-Setup.exe` from [Releases](../../releases) and run it. The
+Download `Faider-<version>-Setup.exe` from [Releases](../../releases) and run it. The
 installer isn't code-signed, so Windows may warn about an unrecognised app. Click **More info > Run
 anyway**.
 
@@ -141,12 +141,12 @@ cmake --build build --config Release
 ```
 
 The first configure fetches JUCE. To build, install and start it in one step, run
-**`Restart Patchbay Console.cmd`**. It quits the running copy, builds, installs to
-`C:\PatchbayConsole` and starts it. On the first install it also makes a desktop shortcut.
+**`Restart Faider.cmd`**. It quits the running copy, builds, installs to
+`C:\Faider` and starts it. On the first install it also makes a desktop shortcut.
 
 To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php) and run
 `tools\build-installer.ps1`. It builds the Release app and writes
-`build\installer\PatchbayConsole-<version>-Setup.exe`. That installer puts the app in Program Files,
+`build\installer\Faider-<version>-Setup.exe`. That installer puts the app in Program Files,
 with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
 when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
@@ -157,7 +157,7 @@ then `python tools/manual-page/build.py`.
 ### First run
 
 A few seconds after start, PRE-FLIGHT checks the setup and points to anything that needs fixing.
-The manual's [first-time setup](https://dayztoolsforu.github.io/patchbay/manual.html#2-first-time-setup) takes you
+The manual's [first-time setup](https://dayztoolsforu.github.io/faider/manual.html#2-first-time-setup) takes you
 through adding a microphone, hearing it, letting apps hear it and bringing in a program.
 
 Installing VB-CABLE makes Windows switch its default playback and recording devices to the cable.
@@ -167,7 +167,7 @@ Set your speakers and microphone back under **Settings > System > Sound**.
 
 | Document | |
 |---|---|
-| User manual, 13 languages | [Patchbay Console manual](https://dayztoolsforu.github.io/patchbay/manual.html) |
+| User manual, 13 languages | [Faider manual](https://dayztoolsforu.github.io/faider/manual.html) |
 | The app and its layout files | [console/README.md](console/README.md) |
 | Remote control: OSC, HTTP API, deck plugins | [plugins/README.md](plugins/README.md) |
 | All documentation | [docs/README.md](docs/README.md) |
@@ -220,7 +220,7 @@ third_party/    RNNoise and OpenVR (the optional ASIO SDK goes here, not committ
 
 ## Acknowledgements
 
-Patchbay Console is built on other people's work. The full list is in the app under
+Faider is built on other people's work. The full list is in the app under
 SETTINGS > GENERAL > ABOUT and in [docs/CREDITS.md](docs/CREDITS.md).
 
 | Component | Authors | Licence | Used for |
@@ -238,4 +238,4 @@ VST and ASIO are trademarks of Steinberg Media Technologies GmbH.</sub>
 
 ## Licence
 
-Patchbay Console is free software under the [GNU Affero General Public License v3](LICENSE).
+Faider is free software under the [GNU Affero General Public License v3](LICENSE).

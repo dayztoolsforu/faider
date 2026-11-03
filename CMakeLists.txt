@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(Patchbay VERSION 0.1.0 LANGUAGES C CXX)
+project(Faider VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,7 +12,7 @@ FetchContent_Declare(juce
     GIT_SHALLOW    ON)
 FetchContent_MakeAvailable(juce)
 include(cmake/PatchJuce.cmake)   # popup menus in the SteamVR dashboard's page (see there)
-patchbay_patch_juce(${juce_SOURCE_DIR})
+faider_patch_juce(${juce_SOURCE_DIR})
 
 # RNNoise 0.2 (Xiph.Org / Jean-Marc Valin, BSD licence: third_party/rnnoise/COPYING), with its
 # built-in model. Plain C on its SSE2 path; no run-time CPU dispatch.
@@ -43,30 +43,30 @@ endif()
 set(ASIO_SDK_DIR "${_bundled_asio}" CACHE PATH "Path to the extracted Steinberg ASIO SDK (folder containing 'common')")
 
 # Built into the program: the headphone correction profiles (assets/autoeq, MIT: see assets/LICENSES.md).
-juce_add_binary_data(PatchbayAssets HEADER_NAME PatchbayAssets.h NAMESPACE PatchbayAssets SOURCES
+juce_add_binary_data(FaiderAssets HEADER_NAME FaiderAssets.h NAMESPACE FaiderAssets SOURCES
     assets/autoeq/profiles.txt)
 
 # Test plugin for insert chains / delay compensation. Installed to the per-user VST3 folder
-# (%LOCALAPPDATA%\Programs\Common\VST3), which Patchbay Console scans and which needs no admin rights.
+# (%LOCALAPPDATA%\Programs\Common\VST3), which Faider scans and which needs no admin rights.
 file(TO_CMAKE_PATH "$ENV{LOCALAPPDATA}/Programs/Common/VST3" USER_VST3_DIR)
 
-juce_add_plugin(PatchbayTestDelay
-    PRODUCT_NAME "Patchbay Test Delay"
-    COMPANY_NAME "Patchbay"
+juce_add_plugin(FaiderTestDelay
+    PRODUCT_NAME "Faider Test Delay"
+    COMPANY_NAME "Faider"
     PLUGIN_MANUFACTURER_CODE Ahub
     PLUGIN_CODE Tdl1
     FORMATS VST3
     COPY_PLUGIN_AFTER_BUILD TRUE
     VST3_COPY_DIR "${USER_VST3_DIR}")
 
-target_sources(PatchbayTestDelay PRIVATE tests/TestDelayPlugin.cpp)
+target_sources(FaiderTestDelay PRIVATE tests/TestDelayPlugin.cpp)
 
-target_compile_definitions(PatchbayTestDelay PUBLIC
+target_compile_definitions(FaiderTestDelay PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
-target_link_libraries(PatchbayTestDelay
+target_link_libraries(FaiderTestDelay
     PRIVATE
         juce::juce_audio_utils
     PUBLIC
@@ -182,7 +182,7 @@ target_link_libraries(PluginScanTest
         juce::juce_audio_processors
     PUBLIC
         juce::juce_recommended_config_flags)
-add_dependencies(PluginScanTest PatchbayTestDelay_VST3)
+add_dependencies(PluginScanTest FaiderTestDelay_VST3)
 
 # Recorder check (see tests/RecorderTest.cpp).
 juce_add_console_app(RecorderTest PRODUCT_NAME "RecorderTest")
@@ -216,5 +216,5 @@ target_link_libraries(BuffersTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
-# The application: Patchbay Console (console/README.md).
+# The application: Faider (console/README.md).
 add_subdirectory(console)

@@ -4,7 +4,7 @@
 #include "Console.h"
 #include "../ProductName.h"
 
-// The command palette (Ctrl+K, or FIND): type a few letters of anything Patchbay can do, a
+// The command palette (Ctrl+K, or FIND): type a few letters of anything Faider can do, a
 // channel, scene, macro, pad, page or setting, and Enter does it. Matches every word typed, in
 // any order, a word's start counting most; letters in order (a short form, "mcph") match too.
 // Up and down choose, Esc or clicking away closes. Commands come from the app (MainComponent),
@@ -97,7 +97,7 @@ private:
         list.setColour (juce::ListBox::backgroundColourId, Console::Colours::panelDark());
     }
 
-    // The last commands run (by name), newest first, kept in %APPDATA%\Patchbay\find-recent.txt.
+    // The last commands run (by name), newest first, kept in %APPDATA%\Faider\find-recent.txt.
     static constexpr int recentCount = 8;
     static juce::File recentFile() { return Product::dataFolder().getChildFile ("find-recent.txt"); }
     static juce::StringArray loadRecent()

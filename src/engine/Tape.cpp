@@ -357,7 +357,7 @@ void Tape::letGo (Track* t)
     if (t == nullptr || t == now || t == upNext || t == pendingStart || t == pendingNext)
         return;
     if (letGoCount < (int) letGoNow.size())   // (more than a block ever lets go: that one is kept
-        letGoNow[(size_t) letGoCount++] = t;  //  until Patchbay closes rather than freed too early)
+        letGoNow[(size_t) letGoCount++] = t;  //  until Faider closes rather than freed too early)
 }
 
 // After nowShown has moved on, so the message thread never frees what it's still showing.
@@ -369,7 +369,7 @@ void Tape::handBack()
         returns.prepareToWrite (1, start1, size1, start2, size2);
         if (size1 > 0)      returned[(size_t) start1] = letGoNow[(size_t) i];
         else if (size2 > 0) returned[(size_t) start2] = letGoNow[(size_t) i];
-        returns.finishedWrite (size1 + size2);   // (full: kept until Patchbay closes, never freed early)
+        returns.finishedWrite (size1 + size2);   // (full: kept until Faider closes, never freed early)
     }
     letGoCount = 0;
 }

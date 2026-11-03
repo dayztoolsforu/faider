@@ -346,13 +346,13 @@ bool RemoteControl::setOscPort (int port)
     return true;
 }
 
-// /patchbay/<kind>/<NAME>/<fader|pan|mute|solo> <value>, /patchbay/scene <NAME>, /patchbay/macro/<NAME> <1|0>
+// /faider/<kind>/<NAME>/<fader|pan|mute|solo> <value>, /faider/scene <NAME>, /faider/macro/<NAME> <1|0>
 void RemoteControl::oscMessageReceived (const juce::OSCMessage& m)
 {
     juce::StringArray parts;
     parts.addTokens (m.getAddressPattern().toString(), "/", "");
     parts.removeEmptyStrings();
-    if (parts.size() < 2 || ! parts[0].equalsIgnoreCase ("patchbay"))
+    if (parts.size() < 2 || ! (parts[0].equalsIgnoreCase ("faider") || parts[0].equalsIgnoreCase ("patchbay")))   // (/patchbay/...: the earlier name, still taken)
         return;
 
     auto number = [&m] (int i) -> float
@@ -368,7 +368,7 @@ void RemoteControl::oscMessageReceived (const juce::OSCMessage& m)
     if (! std::isfinite (value))   // not a fader at 0 dB, not a toggle: nothing
         return;
     parts.remove (0);
-    if (parts[0].equalsIgnoreCase ("scene") && parts.size() == 1)   // /patchbay/scene "NAME"
+    if (parts[0].equalsIgnoreCase ("scene") && parts.size() == 1)   // /faider/scene "NAME"
         parts.add (text (0));
     // An OSC message always carries its value (a macro without one is pressed).
     perform (parts, m.size() > 0 && ! m[0].isString(), value);

@@ -4,7 +4,7 @@
 #include "../ProductName.h"
 
 // Presets for any plugin (an insert's settings by name), shared by every copy of that plugin:
-// files in %APPDATA%\PatchbayConsole\presets\<plugin name - maker - ID>\<NAME>.preset holding the
+// files in %APPDATA%\Faider\presets\<plugin name - maker - ID>\<NAME>.preset holding the
 // plugin's own state (what it saves into a session). Message thread.
 namespace PluginPresets
 {

@@ -1026,7 +1026,7 @@ bool AudioEngine::setInterfaceBufferSize (int size)
         log ("engine: couldn't use a " + juce::String (size) + "-sample buffer (" + error + "), back to " + juce::String (previous));
         if (const auto again = master->open (ins, outs, rate, previous); again.isNotEmpty())
         {
-            log ("engine: the interface " + master->getName() + " wouldn't reopen (" + again + ") - no sound until Patchbay restarts");
+            log ("engine: the interface " + master->getName() + " wouldn't reopen (" + again + ") - no sound until Faider restarts");
             interfaceDown = true;
             return false;
         }
@@ -1137,7 +1137,7 @@ void AudioEngine::audioDeviceAboutToStart (juce::AudioIODevice* device)
     if (interfaceDown)
     {
         log ("engine: the interface " + device->getName() + " restarted itself but wouldn't reopen ("
-             + device->getLastError() + ") - no sound until its buffer is changed or Patchbay restarts");
+             + device->getLastError() + ") - no sound until its buffer is changed or Faider restarts");
         return;
     }
 
@@ -1755,7 +1755,7 @@ void AudioEngine::setDeviceDisabled (const juce::StringArray& deviceNames, bool 
             disabledDevices.addIfNotAlreadyThere (name);
         else
             disabledDevices.removeString (name);
-        log ("device " + name + (disabled ? ": off in Patchbay" : ": on in Patchbay"));
+        log ("device " + name + (disabled ? ": off in Faider" : ": on in Faider"));
     }
     refreshDevices();   // closes the streams of devices now off, reopens ones back on
 }
@@ -3218,7 +3218,7 @@ juce::StringArray AudioEngine::findDoubling() const
     juce::StringArray found;
 
     // Windows' default speaker (it drifts: installers and SteamVR change it) being a cable
-    // Patchbay feeds as apps' mic sends every app, and a call's own sound, into the mic.
+    // Faider feeds as apps' mic sends every app, and a call's own sound, into the mic.
     for (auto& e : lastEndpoints)
     {
         if (e.api != "WASAPI" || ! e.isOutput || ! e.isDefault || ! e.isActive() || virtualMicPartner (e, lastEndpoints).isEmpty())

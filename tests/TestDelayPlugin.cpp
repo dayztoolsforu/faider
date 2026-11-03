@@ -1,4 +1,4 @@
-// Test plugin for Patchbay's insert chains: delays audio by a fixed 256 samples and reports
+// Test plugin for Faider's insert chains: delays audio by a fixed 256 samples and reports
 // that as its latency, so the host's delay compensation can be checked. One gain parameter.
 #include <juce_audio_processors/juce_audio_processors.h>
 
@@ -15,7 +15,7 @@ public:
         setLatencySamples (delaySamples);
     }
 
-    const juce::String getName() const override { return "Patchbay Test Delay"; }
+    const juce::String getName() const override { return "Faider Test Delay"; }
 
     void prepareToPlay (double, int) override
     {

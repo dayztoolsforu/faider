@@ -1,4 +1,4 @@
-# Builds and runs Patchbay's checks (tests\*.cpp): each prints PASS/FAIL per check and exits
+# Builds and runs Faider's checks (tests\*.cpp): each prints PASS/FAIL per check and exits
 # non-zero on a failure. The ones that need hardware or change Windows (DefaultDeviceTest,
 # AppRoutingTest, the WASAPI probes) and the plugin-loading one (PluginScanTest) aren't run here.
 #

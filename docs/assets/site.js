@@ -1,4 +1,4 @@
-// Patchbay Console site: glide-in on scroll, the manual's section list, and the newest installer.
+// Faider site: glide-in on scroll, the manual's section list, and the newest installer.
 (function () {
   // Things glide in as they come into view.
   var items = document.querySelectorAll('.reveal');
@@ -42,7 +42,7 @@
   }
 
   // DOWNLOAD goes straight to the newest installer (pre-releases included).
-  fetch('https://api.github.com/repos/dayztoolsforu/patchbay/releases?per_page=1')
+  fetch('https://api.github.com/repos/dayztoolsforu/faider/releases?per_page=1')
     .then(function (r) { return r.ok ? r.json() : []; })
     .then(function (releases) {
       var rel = releases && releases[0];

@@ -8,7 +8,7 @@
 // ADD PLUGIN's picker: a search box over the installed plugins, with FAVOURITES (click a row's
 // star) and RECENT (the last ones added) at the top, then everything; LOAD VST3 FILE... at the
 // bottom. Type to narrow it, Enter adds the top match (or the one picked with the arrows).
-// Favourites and recent are kept in %APPDATA%\PatchbayConsole\plugin-picker.xml.
+// Favourites and recent are kept in %APPDATA%\Faider\plugin-picker.xml.
 class PluginPicker : public juce::Component, private juce::ListBoxModel, private juce::KeyListener
 {
 public:

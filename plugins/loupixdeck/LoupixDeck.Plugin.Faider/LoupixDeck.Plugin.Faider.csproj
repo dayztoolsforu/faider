@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RootNamespace>LoupixDeck.Plugin.Patchbay</RootNamespace>
+    <RootNamespace>LoupixDeck.Plugin.Faider</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   <ItemGroup>
     <None Update="plugin.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="icon.png" CopyToOutputDirectory="PreserveNewest" />
-    <EmbeddedResource Include="icon.png" LogicalName="LoupixDeck.Plugin.Patchbay.icon.png" />
+    <EmbeddedResource Include="icon.png" LogicalName="LoupixDeck.Plugin.Faider.icon.png" />
   </ItemGroup>
 
 </Project>

@@ -4,16 +4,16 @@
 #include "../engine/AudioEngine.h"
 
 // CONTROL > SET UP A CONTROLLER: pick the hardware and the helper takes you through what it
-// needs to work with Patchbay, with each step's state lit and a key that does it:
-//   LOUPEDECK (via LoupixDeck) and STREAM DECK: Patchbay's control API on; the deck's app (found,
-//     running, or where to get it); Patchbay's plugin for it (installed and up to date, or INSTALL:
+// needs to work with Faider, with each step's state lit and a key that does it:
+//   LOUPEDECK (via LoupixDeck) and STREAM DECK: Faider's control API on; the deck's app (found,
+//     running, or where to get it); Faider's plugin for it (installed and up to date, or INSTALL:
 //     the app is closed, the plugin copied in, the app started again until the plugin is loaded).
 //     Binding is then done in the deck's own menus.
 //   MIDI CONTROLLER: the MIDI inputs to listen to. Binding is on the CONTROL menu (MIDI MAP).
 //   PHONE / TABLET (OSC): any port to listen on, and the addresses to send to.
 //   PHONE (WEB PAGE): the control API on and open to phones on the network, then a QR code of
 //     the page's link (with this PC's key) to scan; NEW KEY makes old links stop working.
-// The plugins come with Patchbay (plugins\ next to Patchbay.exe, put there by the build).
+// The plugins come with Faider (plugins\ next to Faider.exe, put there by the build).
 class ControllerHelper : public juce::Component,
                          private juce::Timer
 {

@@ -14,10 +14,10 @@ class AudioEngine;
 // release a macro.
 //
 // OSC (phones, tablets, Stream Deck OSC plugins), on a UDP port, addresses by name (spaces may be
-// written as _):  /patchbay/input/MIC_FOCUS/fader -12.0   (dB)
-//                 /patchbay/output/MISC/mute 1            /patchbay/bus/SUMMING/pan -0.5
-//                 /patchbay/input/VR/solo 1               /patchbay/scene GAMING
-//                 /patchbay/macro/GO_LIVE 1 (0 releases)
+// written as _):  /faider/input/MIC_FOCUS/fader -12.0   (dB)
+//                 /faider/output/MISC/mute 1            /faider/bus/SUMMING/pan -0.5
+//                 /faider/input/VR/solo 1               /faider/scene GAMING
+//                 /faider/macro/GO_LIVE 1 (0 releases)
 //
 // Targets are strings: "fader:input:NAME", "pan:bus:NAME", "mute:output:NAME", "solo:input:NAME",
 // "on:input:NAME" (power), "inserts:bus:NAME" (the INS key), "safe:output:NAME",
@@ -67,7 +67,7 @@ public:
     void setOscFromNetwork (bool on) { oscNetwork = on; if (oscPort > 0) setOscPort (oscPort); }
     bool isOscFromNetwork() const { return oscNetwork; }
 
-    // One command, as OSC addresses it after /patchbay: { "input", "MIC FOCUS", "fader" } with a
+    // One command, as OSC addresses it after /faider: { "input", "MIC FOCUS", "fader" } with a
     // value in dB, { "scene", "GAMING" }, { "macro", "GO LIVE" }. Without a value, mute and solo
     // toggle and a macro is pressed and released. False if there's no such thing, or the value
     // given isn't a finite number. Message thread.

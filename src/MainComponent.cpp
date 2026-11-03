@@ -14,23 +14,12 @@
 
 namespace
 {
-    // The program's folder in %APPDATA%. Its presets, plugin picker, isolated browsers and recent
-    // FIND entries were kept in Patchbay's folder before: copied over once, Patchbay's left as it is.
+    // The program's folder in %APPDATA% (moved from its earlier name's, the first time).
     juce::File prepareDataDir()
     {
+        Product::moveEarlierFolder();
         const auto dir = Product::dataFolder();
         dir.createDirectory();
-        const auto old = juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile ("Patchbay");
-        for (auto* name : { "presets", "Isolated", "plugin-picker.xml", "find-recent.txt" })
-        {
-            const auto from = old.getChildFile (name), to = dir.getChildFile (name);
-            if (to.exists() || ! from.exists())
-                continue;
-            if (from.isDirectory())
-                from.copyDirectoryTo (to);
-            else
-                from.copyFileTo (to);
-        }
         return dir;
     }
 }
@@ -41,7 +30,7 @@ MainComponent::MainComponent()
       statusFile (dataDir.getChildFile ("status.txt")),
       sessionFile (dataDir.getChildFile ("session.xml"))
 {
-    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff" })   // (LIVE COACHING, and Patchbay's desks and looks)
+    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff" })   // (LIVE COACHING, and Faider's desks and looks)
         settings.removeValue (gone);
     look->applyTheme();
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
@@ -181,7 +170,7 @@ MainComponent::MainComponent()
     mixer = std::make_unique<MixerComponent> (engine);
     consoleDesk = ConsoleDesk::make (engine, *mixer, settings.getValue ("deskMode") == "simple",
                                      [this] (bool simple) { settings.setValue ("deskMode", simple ? "simple" : "pro"); settings.saveIfNeeded(); },
-                                     [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Setup")); });   // (the console on the Mixer page; Patchbay's mixer stays behind it for its tools)
+                                     [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Setup")); });   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
     tabs.addTab ("Mixer", juce::Colours::transparentBlack, consoleDesk.get(), false);
     consoleSidebar = ConsoleDesk::makeSidebar (tabs, *consoleDesk);   // (the pages as cards down the left; the tab caps hide)
     addAndMakeVisible (*consoleSidebar);
@@ -1353,7 +1342,7 @@ void MainComponent::paintListBoxItem (int row, juce::Graphics& g, int width, int
     if (selected)
         g.fillAll (Console::Colours::panel().brighter (0.25f));
 
-    // Off in Patchbay: shown in the state column, the row dimmed.
+    // Off in Faider: shown in the state column, the row dimmed.
     const bool off = engine.isDeviceDisabled (e.name);
     const auto cells = deviceCells (e);
 
@@ -1534,7 +1523,7 @@ void MainComponent::timerCallback()
     // Everything here runs on the message thread, so it's spread out: a tick that costs more
     // than a frame shows as a hitch (most visibly while the window is being dragged).
     ++tick;
-    checkClock();   // (also a clock device switched off in Patchbay, or closed by Windows)
+    checkClock();   // (also a clock device switched off in Faider, or closed by Windows)
     engine.refreshLatency();
     engine.refreshDucking();   // follows strips being moved, removed or renamed
     checkAlerts();
@@ -1619,7 +1608,7 @@ void MainComponent::saveSession()
     }
 }
 
-// Session safety: earlier versions in %APPDATA%\Patchbay\history. The first save of a run is
+// Session safety: earlier versions in %APPDATA%\Faider\history. The first save of a run is
 // kept too, so the mix as it was at start can always come back.
 void MainComponent::keepHistory (const juce::String& xml)
 {
@@ -1668,7 +1657,7 @@ void MainComponent::addSessionItems (juce::PopupMenu& menu)
 }
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix
-// (Patchbay restarts), or one channel just as it was then (its level, pan, mute and rack).
+// (Faider restarts), or one channel just as it was then (its level, pan, mute and rack).
 void MainComponent::showTimeline()
 {
     juce::PopupMenu menu;
@@ -1712,8 +1701,8 @@ void MainComponent::showTimeline()
 }
 
 //==============================================================================
-// Named sessions (%APPDATA%\Patchbay\sessions\<name>.xml): the mix saved under a name to come back
-// to, and sessions as files to share or move (EXPORT, IMPORT). Opening one restarts Patchbay with it.
+// Named sessions (%APPDATA%\Faider\sessions\<name>.xml): the mix saved under a name to come back
+// to, and sessions as files to share or move (EXPORT, IMPORT). Opening one restarts Faider with it.
 juce::File MainComponent::sessionsDir() const { return dataDir.getChildFile ("sessions"); }
 
 void MainComponent::saveSessionAs()
@@ -1819,7 +1808,7 @@ void MainComponent::exportSession()
     if (interfaceName.isEmpty() || ! sessionLoaded)
         return;
     sessionChooser = std::make_unique<juce::FileChooser> ("Export the session", juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
-                                                                                    .getChildFile ("Patchbay session.xml"), "*.xml");
+                                                                                    .getChildFile ("Faider session.xml"), "*.xml");
     sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
                                  [this] (const juce::FileChooser& fc)
     {
@@ -1839,19 +1828,19 @@ void MainComponent::importSession()
         if (xml == nullptr || xml->getChildByName ("Strip") == nullptr && xml->getChildByName ("Bus") == nullptr && xml->getChildByName ("Pair") == nullptr)
         {
             if (file != juce::File())
-                logEvent ("sessions: " + file.getFileName() + " isn't a Patchbay session");
+                logEvent ("sessions: " + file.getFileName() + " isn't a Faider session");
             return;
         }
         restoreSession (file, file.getFileNameWithoutExtension());
     });
 }
 
-// Puts an earlier session back: it becomes session.xml and Patchbay restarts with it.
+// Puts an earlier session back: it becomes session.xml and Faider restarts with it.
 void MainComponent::restoreSession (const juce::File& version, const juce::String& named)
 {
     const auto when = version.getLastModificationTime().formatted ("%a %d %b %H:%M");
     juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, named.isNotEmpty() ? "OPEN SESSION" : "RESTORE SESSION",
-                                        (named.isNotEmpty() ? "Open the session \"" + named + "\"?" : "Restore the mix from " + when + "?") + "\nPatchbay restarts.",
+                                        (named.isNotEmpty() ? "Open the session \"" + named + "\"?" : "Restore the mix from " + when + "?") + "\nFaider restarts.",
                                         named.isNotEmpty() ? "OPEN" : "RESTORE", "CANCEL", nullptr,
                                         juce::ModalCallbackFunction::create ([this, version] (int result)
     {
@@ -1861,7 +1850,7 @@ void MainComponent::restoreSession (const juce::File& version, const juce::Strin
         interfaceName.clear();   // nothing saves over it on the way out
         version.copyFileTo (sessionFile);
 
-        // Start again once this copy has gone (only one Patchbay runs at a time): the new copy
+        // Start again once this copy has gone (only one Faider runs at a time): the new copy
         // waits for this one's process to end (--after), however long closing takes.
         const auto exe = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName();
         juce::ChildProcess relaunch;

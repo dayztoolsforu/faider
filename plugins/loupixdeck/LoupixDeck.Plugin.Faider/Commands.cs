@@ -1,7 +1,7 @@
 using System.Text;
 using LoupixDeck.PluginSdk;
 
-namespace LoupixDeck.Plugin.Patchbay;
+namespace LoupixDeck.Plugin.Faider;
 
 // A channel as a command's parameters: its kind ("input", "bus", "output") and name. LoupixDeck
 // keeps them as Command(p1,p2) with no escaping, so a name with , ( ) or & in it is stored as
@@ -25,21 +25,21 @@ internal static class Param
 }
 
 // How a key looks: dark, or lit in the command's colour; the name over what it does, and the
-// channel's level as a bar along the bottom. Patchbay not answering: PATCHBAY OFF.
+// channel's level as a bar along the bottom. Faider not answering: FAIDER OFF.
 internal static class Key
 {
     static readonly PluginColor Dark = PluginColor.FromRgb(30, 32, 36), Dim = PluginColor.FromRgb(120, 124, 130),
                                 LevelColour = PluginColor.FromRgb(70, 200, 100);
 
-    public static bool Draw(IRenderCanvas canvas, PatchbayClient client, string name, string what, bool lit, PluginColor colour,
-                            PatchbayClient.Strip? strip = null)
+    public static bool Draw(IRenderCanvas canvas, FaiderClient client, string name, string what, bool lit, PluginColor colour,
+                            FaiderClient.Strip? strip = null)
     {
         var w = canvas.Width;
         var h = canvas.Height;
         if (client.State == null)
         {
             canvas.Clear(Dark);
-            canvas.DrawText("PATCHBAY\nOFF", 0, 0, w, h, Dim, 13, TextHAlign.Center, TextVAlign.Middle, true, false, false, PluginColor.Black);
+            canvas.DrawText("FAIDER\nOFF", 0, 0, w, h, Dim, 13, TextHAlign.Center, TextVAlign.Middle, true, false, false, PluginColor.Black);
             return true;
         }
         canvas.Clear(lit ? colour : Dark);
@@ -58,9 +58,9 @@ internal static class Key
     public static string Db(double fader) => fader <= -60 ? "OFF" : $"{fader:0.0} dB";
 }
 
-internal abstract class ChannelCommand(PatchbayClient client) : IPluginCommand, IDisplayImageCommand
+internal abstract class ChannelCommand(FaiderClient client) : IPluginCommand, IDisplayImageCommand
 {
-    protected readonly PatchbayClient Client = client;
+    protected readonly FaiderClient Client = client;
     protected static readonly CommandParameter[] ChannelParameters =
         [new CommandParameter("Kind", typeof(string)) { DefaultValue = "input" }, new CommandParameter("Name", typeof(string))];
 
@@ -70,16 +70,16 @@ internal abstract class ChannelCommand(PatchbayClient client) : IPluginCommand, 
     public TimeSpan UpdateInterval => TimeSpan.FromMilliseconds(500);
     public abstract bool RenderImage(CommandContext ctx, IRenderCanvas canvas);
 
-    protected string Route(CommandContext ctx, string what) => PatchbayClient.Path(Param.Kind(ctx), Param.At(ctx, 1), what);
-    protected PatchbayClient.Strip? Strip(CommandContext ctx) => Client.Find(Param.Kind(ctx), Param.At(ctx, 1));
+    protected string Route(CommandContext ctx, string what) => FaiderClient.Path(Param.Kind(ctx), Param.At(ctx, 1), what);
+    protected FaiderClient.Strip? Strip(CommandContext ctx) => Client.Find(Param.Kind(ctx), Param.At(ctx, 1));
 }
 
-internal sealed class MuteCommand(PatchbayClient client) : ChannelCommand(client)
+internal sealed class MuteCommand(FaiderClient client) : ChannelCommand(client)
 {
-    public const string Name = "Patchbay.Mute";
+    public const string Name = "Faider.Mute";
     public override CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Mute", Group = "Patchbay", HiddenFromMenu = true,
+        CommandName = Name, DisplayName = "Mute", Group = "Faider", HiddenFromMenu = true,
         Description = "Mutes or unmutes a channel. Lit red while muted.",
         ParameterTemplate = "({Kind},{Name})", Parameters = ChannelParameters,
     };
@@ -92,12 +92,12 @@ internal sealed class MuteCommand(PatchbayClient client) : ChannelCommand(client
     }
 }
 
-internal sealed class SoloCommand(PatchbayClient client) : ChannelCommand(client)
+internal sealed class SoloCommand(FaiderClient client) : ChannelCommand(client)
 {
-    public const string Name = "Patchbay.Solo";
+    public const string Name = "Faider.Solo";
     public override CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Solo", Group = "Patchbay", HiddenFromMenu = true,
+        CommandName = Name, DisplayName = "Solo", Group = "Faider", HiddenFromMenu = true,
         Description = "Solos an input. Lit yellow while soloed.",
         ParameterTemplate = "({Kind},{Name})", Parameters = ChannelParameters,
     };
@@ -111,12 +111,12 @@ internal sealed class SoloCommand(PatchbayClient client) : ChannelCommand(client
 
 // A fader on a dial: turning moves it a dB a click, the dial's press (or a key) puts it back to
 // 0 dB. Clicks in quick succession build on the last value sent, not the last one read back.
-internal sealed class FaderCommand(PatchbayClient client) : ChannelCommand(client), IAdjustmentCommand
+internal sealed class FaderCommand(FaiderClient client) : ChannelCommand(client), IAdjustmentCommand
 {
-    public const string Name = "Patchbay.Fader";
+    public const string Name = "Faider.Fader";
     public override CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Fader", Group = "Patchbay", HiddenFromMenu = true,
+        CommandName = Name, DisplayName = "Fader", Group = "Faider", HiddenFromMenu = true,
         Description = "Turn: moves a channel's fader a dB a click. Press: back to 0 dB.",
         ParameterTemplate = "({Kind},{Name})", Parameters = ChannelParameters,
     };
@@ -157,12 +157,12 @@ internal sealed class FaderCommand(PatchbayClient client) : ChannelCommand(clien
 }
 
 // One click of a fader, for a dial's turn left / right set up from the menu as a group.
-internal sealed class FaderStepCommand(PatchbayClient client, FaderCommand fader, bool up) : IPluginCommand
+internal sealed class FaderStepCommand(FaiderClient client, FaderCommand fader, bool up) : IPluginCommand
 {
-    public const string UpName = "Patchbay.FaderUp", DownName = "Patchbay.FaderDown";
+    public const string UpName = "Faider.FaderUp", DownName = "Faider.FaderDown";
     public CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = up ? UpName : DownName, DisplayName = up ? "Fader up" : "Fader down", Group = "Patchbay", HiddenFromMenu = true,
+        CommandName = up ? UpName : DownName, DisplayName = up ? "Fader up" : "Fader down", Group = "Faider", HiddenFromMenu = true,
         Description = up ? "Raises a channel's fader 1 dB." : "Lowers a channel's fader 1 dB.",
         ParameterTemplate = "({Kind},{Name})",
         Parameters = [new CommandParameter("Kind", typeof(string)) { DefaultValue = "input" }, new CommandParameter("Name", typeof(string))],
@@ -171,35 +171,35 @@ internal sealed class FaderStepCommand(PatchbayClient client, FaderCommand fader
     public Task Execute(CommandContext ctx) => client.State == null ? Task.CompletedTask : fader.Step(ctx, up ? 1 : -1);
 }
 
-internal sealed class SceneCommand(PatchbayClient client) : IPluginCommand, IDisplayImageCommand
+internal sealed class SceneCommand(FaiderClient client) : IPluginCommand, IDisplayImageCommand
 {
-    public const string Name = "Patchbay.Scene";
+    public const string Name = "Faider.Scene";
     public CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Scene", Group = "Patchbay", HiddenFromMenu = true,
-        Description = "Recalls a Patchbay scene. Lit green while it's the active scene.",
+        CommandName = Name, DisplayName = "Scene", Group = "Faider", HiddenFromMenu = true,
+        Description = "Recalls a Faider scene. Lit green while it's the active scene.",
         ParameterTemplate = "({Scene})", Parameters = [new CommandParameter("Scene", typeof(string))],
     };
     public ButtonTargets SupportedTargets => ButtonTargets.TouchButton | ButtonTargets.SimpleButton;
     public TimeSpan UpdateInterval => TimeSpan.FromMilliseconds(500);
-    public Task Execute(CommandContext ctx) => client.Send(PatchbayClient.Path("scene", Param.At(ctx, 0)));
+    public Task Execute(CommandContext ctx) => client.Send(FaiderClient.Path("scene", Param.At(ctx, 0)));
     public bool RenderImage(CommandContext ctx, IRenderCanvas canvas) =>
         Key.Draw(canvas, client, Param.At(ctx, 0), "SCENE",
                  string.Equals(client.State?.ActiveScene, Param.At(ctx, 0), StringComparison.OrdinalIgnoreCase), PluginColor.FromRgb(60, 190, 90));
 }
 
-internal sealed class MacroCommand(PatchbayClient client) : IPluginCommand, IDisplayImageCommand
+internal sealed class MacroCommand(FaiderClient client) : IPluginCommand, IDisplayImageCommand
 {
-    public const string Name = "Patchbay.Macro";
+    public const string Name = "Faider.Macro";
     public CommandDescriptor Descriptor { get; } = new()
     {
-        CommandName = Name, DisplayName = "Macro", Group = "Patchbay", HiddenFromMenu = true,
-        Description = "Runs a Patchbay macro (pressed and released).",
+        CommandName = Name, DisplayName = "Macro", Group = "Faider", HiddenFromMenu = true,
+        Description = "Runs a Faider macro (pressed and released).",
         ParameterTemplate = "({Macro})", Parameters = [new CommandParameter("Macro", typeof(string))],
     };
     public ButtonTargets SupportedTargets => ButtonTargets.TouchButton | ButtonTargets.SimpleButton;
     public TimeSpan UpdateInterval => TimeSpan.FromSeconds(1);
-    public Task Execute(CommandContext ctx) => client.Send(PatchbayClient.Path("macro", Param.At(ctx, 0)));
+    public Task Execute(CommandContext ctx) => client.Send(FaiderClient.Path("macro", Param.At(ctx, 0)));
     public bool RenderImage(CommandContext ctx, IRenderCanvas canvas) =>
         Key.Draw(canvas, client, Param.At(ctx, 0), "MACRO", false, PluginColor.Black);
 }

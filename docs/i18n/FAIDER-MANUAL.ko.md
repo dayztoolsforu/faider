@@ -1,10 +1,10 @@
-# Patchbay Console 사용자 설명서
+# Faider 사용자 설명서
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **버전 0.1 · Windows 10 (2004) 이상**
 
-Patchbay Console은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우터 겸 믹서입니다.
+Faider은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우터 겸 믹서입니다.
 오디오 인터페이스, Windows 장치, 개별 프로그램에서 소리를 받아 채널 스트립, 버스, 출력을 거친 뒤, 선택한 장치로 재생합니다. 헤드폰, 스피커, 방송, 통화와 게임용 가상 마이크 등 어디든 보낼 수 있습니다.
 
 이 설명서는 앱의 모든 기능을 다루고, 자주 하는 작업을 단계별로 안내하며, 문제가 생겼을 때 할 일을 알려 줍니다.
@@ -48,7 +48,7 @@ Patchbay Console은 대형 콘솔을 모델로 한 Windows용 라이브 오디�
 | | |
 |---|---|
 | **Windows** | Windows 10 버전 2004 이상 또는 Windows 11. 개별 프로그램의 소리를 캡처하려면 2004 이상이 필요합니다 |
-| **오디오 인터페이스** | 선택 사항입니다. ASIO 드라이버를 설치하면 Patchbay Console이 인터페이스의 클럭으로 동작하여 지연이 가장 짧아집니다. 인터페이스가 없으면 Windows 재생 장치 또는 내장 클럭으로 동작합니다([클럭](#clocking) 참조) |
+| **오디오 인터페이스** | 선택 사항입니다. ASIO 드라이버를 설치하면 Faider이 인터페이스의 클럭으로 동작하여 지연이 가장 짧아집니다. 인터페이스가 없으면 Windows 재생 장치 또는 내장 클럭으로 동작합니다([클럭](#clocking) 참조) |
 | **헤드폰** | 믹스를 들을 수 있도록 인터페이스(또는 아무 Windows 재생 장치)에 연결합니다 |
 | **VB-CABLE** | 선택 사항이며 무료입니다 (vb-audio.com/Cable). 가상 마이크로, Discord, 게임, OBS 같은 앱이 믹스를 들을 수 있게 해 줍니다 |
 | **ffmpeg** | 선택 사항입니다. PATH에 `ffmpeg.exe`가 있으면 레코더가 MP3, AAC, Opus, ALAC로도 저장할 수 있습니다 |
@@ -74,17 +74,17 @@ Patchbay Console은 대형 콘솔을 모델로 한 Windows용 라이브 오디�
 
 이 장에서는 설치 프로그램부터 동작하는 설정까지 안내합니다. 마이크 소리가 헤드폰에서 들리고, 앱이 내 마이크를 듣고, 프로그램의 소리가 자기 채널로 들어오는 상태입니다. 순서대로 따라 하세요. 각 단계는 1~2분이면 됩니다.
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### 1단계: Patchbay Console 설치
+### 1단계: Faider 설치
 
-1. 설치 프로그램 `PatchbayConsole-<version>-Setup.exe`를 실행합니다.
+1. 설치 프로그램 `Faider-<version>-Setup.exe`를 실행합니다.
 2. 설치 프로그램에 코드 서명이 없으므로 Windows SmartScreen이 인식되지 않는 앱이라고 경고할 수 있습니다. **추가 정보**를 누른 다음 **실행**을 누릅니다.
 3. 사용권 계약에 동의하고 관리자 권한 요청을 허용합니다. 바탕 화면 바로 가기가 필요하면 설치 중에 선택하세요(기본값은 꺼짐입니다).
-4. 설치 프로그램은 앱을 `C:\Program Files\Patchbay Console`에 넣고 시작 메뉴에 **Patchbay Console**을 추가합니다. 필요한 것은 모두 함께 들어 있습니다.
-5. 마지막 페이지에서 바로 Patchbay Console을 시작할 수 있습니다. VB-CABLE이 설치되어 있지 않으면 VB-CABLE 다운로드 페이지를 열지도 물어봅니다.
+4. 설치 프로그램은 앱을 `C:\Program Files\Faider`에 넣고 시작 메뉴에 **Faider**을 추가합니다. 필요한 것은 모두 함께 들어 있습니다.
+5. 마지막 페이지에서 바로 Faider을 시작할 수 있습니다. VB-CABLE이 설치되어 있지 않으면 VB-CABLE 다운로드 페이지를 열지도 물어봅니다.
 
-믹스와 설정은 프로그램과 별도로 `%APPDATA%\PatchbayConsole`에 저장됩니다. 제거해도 그대로 남습니다.
+믹스와 설정은 프로그램과 별도로 `%APPDATA%\Faider`에 저장됩니다. 제거해도 그대로 남습니다.
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -107,13 +107,13 @@ VB-CABLE은 다른 앱이 고를 수 있는 가상 마이크를 만들어 줍니
 
 출력을 더 빨리 설정하는 방법도 있습니다. 작업 표시줄의 스피커 아이콘을 누르고, 볼륨 슬라이더 옆의 **>**를 누른 뒤 장치를 고릅니다.
 
-실제 장치를 Windows의 기본값으로 유지하세요. Patchbay Console은 라우팅한 곳에서만 케이블로 재생하고, 각 앱이 직접 **CABLE Output**을 마이크로 선택합니다(6단계). Windows의 기본 스피커가 케이블이면 PRE-FLIGHT가 **HEARD ONCE** 아래에 알려 줍니다.
+실제 장치를 Windows의 기본값으로 유지하세요. Faider은 라우팅한 곳에서만 케이블로 재생하고, 각 앱이 직접 **CABLE Output**을 마이크로 선택합니다(6단계). Windows의 기본 스피커가 케이블이면 PRE-FLIGHT가 **HEARD ONCE** 아래에 알려 줍니다.
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### 3단계: Patchbay Console 시작
+### 3단계: Faider 시작
 
-시작 메뉴를 열고 **Patchbay Console**을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 **SETUP**으로 열립니다.
+시작 메뉴를 열고 **Faider**을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 **SETUP**으로 열립니다.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -150,7 +150,7 @@ SETUP은 사이드바에 남아 있습니다. 장치나 프로그램을 추가�
 오른쪽 위의 **상태 표시등**을 봅니다.
 
 - 퍼센트가 표시된 **녹색**: 오디오가 실행 중입니다. 6단계로 넘어갑니다.
-- **빨간색, OFF 표시**: 오디오가 실행되고 있지 않습니다. 다른 프로그램(DAW, 드라이버 제어판)이 인터페이스를 쓰고 있을 수 있습니다. 그 프로그램을 닫고 Patchbay Console을 다시 시작하세요. [18.4](#184-the-interface-wont-start-or-stopped)를 참조하세요.
+- **빨간색, OFF 표시**: 오디오가 실행되고 있지 않습니다. 다른 프로그램(DAW, 드라이버 제어판)이 인터페이스를 쓰고 있을 수 있습니다. 그 프로그램을 닫고 Faider을 다시 시작하세요. [18.4](#184-the-interface-wont-start-or-stopped)를 참조하세요.
 
 표시등을 누르면 **DEVICES**가 열립니다. **STREAMS**에는 사용 중인 클럭(ASIO, Windows, 내장 클럭. [클럭](#clocking) 참조)이 표시되고, **BUFFER**로 버퍼 크기를 설정합니다. 잡음 없이 재생되는 가장 작은 크기가 지연이 가장 짧습니다. 대부분의 시스템에는 256 또는 512 샘플이 적당합니다.
 
@@ -202,8 +202,8 @@ PRO에서 마이크 소리를 다듬으려면:
 ### 9단계: 마무리
 
 - **믹스는 자동으로 저장됩니다.** 변경하고 1초 안에 저장됩니다. 이름을 붙여 버전을 남기려면 **SETTINGS > GENERAL > SAVE SESSION AS...**를 사용하세요.
-- **Windows와 함께 시작:** **SETTINGS > GENERAL > WINDOWS**를 켜면 로그인할 때 Patchbay Console이 트레이에서 시작하여 처음부터 마이크가 작동합니다.
-- **창을 닫아도 오디오는 멈추지 않습니다.** Patchbay Console은 시스템 트레이에서 계속 실행되어 마이크와 헤드폰이 계속 작동합니다. 멈추려면 트레이 아이콘을 마우스 오른쪽 단추로 누르고 **Quit Patchbay Console**을 선택하세요. 트레이에 있는 동안 프로그램을 시작하면 창이 다시 나타납니다.
+- **Windows와 함께 시작:** **SETTINGS > GENERAL > WINDOWS**를 켜면 로그인할 때 Faider이 트레이에서 시작하여 처음부터 마이크가 작동합니다.
+- **창을 닫아도 오디오는 멈추지 않습니다.** Faider은 시스템 트레이에서 계속 실행되어 마이크와 헤드폰이 계속 작동합니다. 멈추려면 트레이 아이콘을 마우스 오른쪽 단추로 누르고 **Quit Faider**을 선택하세요. 트레이에 있는 동안 프로그램을 시작하면 창이 다시 나타납니다.
 
 각 페이지를 처음 열 때 짧은 팁이 설명해 줍니다. 팁은 **SETTINGS > GENERAL > ON START**에서 끌 수 있습니다.
 
@@ -336,7 +336,7 @@ flowchart LR
 
 ### 클럭
 
-클럭을 정하는 장치는 하나입니다. Patchbay Console은 시작할 때 다음 순서로 고릅니다.
+클럭을 정하는 장치는 하나입니다. Faider은 시작할 때 다음 순서로 고릅니다.
 
 1. **ASIO**: ASIO 드라이버를 통한 오디오 인터페이스. 지연이 가장 짧습니다.
 2. **Windows**: ASIO 드라이버가 없을 때 Windows 기본 재생 장치(가상 케이블, 모니터 스피커, VR 헤드셋은 다른 것이 전혀 없을 때만). 인터페이스의 출력은 그 장치의 출력이 되고, 마이크는 Windows 장치로 추가됩니다.
@@ -586,7 +586,7 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 
 ## 9. 플러그인
 
-Patchbay Console은 채널, 버스, 컴바이너 경로에서 **VST3** 플러그인을 호스팅하며 지연을 자동으로 보정합니다.
+Faider은 채널, 버스, 컴바이너 경로에서 **VST3** 플러그인을 호스팅하며 지연을 자동으로 보정합니다.
 
 <a id="adding-a-plugin"></a>
 
@@ -757,7 +757,7 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 | **REC** | 시작과 정지. 화면에 시간, 크기, 남은 시간, 누락된 블록이 있으면 표시됩니다 |
 | **PATH** / **REVEAL** | 폴더 선택 / 탐색기에서 열기 |
 
-녹음은 폴더를 고르지 않으면 `Music\Patchbay Console Recordings`에 저장됩니다. ffmpeg 형식은 먼저 WAV로 녹음하고 정지할 때 변환합니다(변환에 실패해도 WAV는 남습니다). 여유 공간이 1 GB 미만이 되면 녹음은 저절로 멈춥니다.
+녹음은 폴더를 고르지 않으면 `Music\Faider Recordings`에 저장됩니다. ffmpeg 형식은 먼저 WAV로 녹음하고 정지할 때 변환합니다(변환에 실패해도 WAV는 남습니다). 여유 공간이 1 GB 미만이 되면 녹음은 저절로 멈춥니다.
 
 <a id="instant-replay"></a>
 
@@ -778,16 +778,16 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 | **I/O** | ASIO, OUT 또는 IN |
 | **DEVICE**, **HARDWARE** | 이름과 연결된 어댑터 |
 | **FORMAT** | 채널 수와 샘플 레이트 |
-| **STATE** | 활성, 연결 해제됨, 사용 안 함, 또는 **off in Patchbay Console** |
+| **STATE** | 활성, 연결 해제됨, 사용 안 함, 또는 **off in Faider** |
 | **TAGS** | Windows 기본 장치에 붙는 DEFAULT와 CALLS |
 
 헤더를 누르면 정렬됩니다. 장치를 선택하고(Ctrl/Shift로 여러 개), 다음을 사용합니다.
 
 | 키 | |
 |---|---|
-| **EXCLUDE / INCLUDE** | Patchbay Console이 그 장치를 쓰지 않거나(또는 다시 쓰기) 합니다. 제외된 장치는 열리지 않고 목록에서도 빠집니다 |
+| **EXCLUDE / INCLUDE** | Faider이 그 장치를 쓰지 않거나(또는 다시 쓰기) 합니다. 제외된 장치는 열리지 않고 목록에서도 빠집니다 |
 | **DISABLE / ENABLE IN WINDOWS** | Windows 자체에서 장치를 끄거나 켭니다 |
-| **RENAME** | 장치에 붙이는 나만의 이름. Patchbay Console 전체에서 쓰입니다(행을 더블클릭해도 됩니다) |
+| **RENAME** | 장치에 붙이는 나만의 이름. Faider 전체에서 쓰입니다(행을 더블클릭해도 됩니다) |
 
 <a id="streams"></a>
 
@@ -840,7 +840,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | | |
 |---|---|
-| **Restore session** | 트레이 메뉴: 날짜별 이전 믹스(Patchbay Console이 그 믹스로 다시 시작됩니다) |
+| **Restore session** | 트레이 메뉴: 날짜별 이전 믹스(Faider이 그 믹스로 다시 시작됩니다) |
 | **SESSION TIMELINE** | FIND: 보관된 모든 버전. **Restore everything**, 또는 다시 시작하지 않고 **PUT ONE CHANNEL BACK**(그 채널의 레벨, 팬, 음소거, 랙) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: 믹스를 이름을 붙여 보관 |
 | **OPEN, EXPORT OR IMPORT...** | 이름 붙인 믹스 열기(다시 시작됨), 믹스를 파일로 저장, 파일에서 불러오기 |
@@ -919,9 +919,9 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / MUTED와 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
 | **MINI** | 모든 것 위에 뜨는 작은 믹서. **OPEN**은 메인 창으로 돌아갑니다 |
 | **Tray** | 아이콘을 누르면 트레이 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Restore session, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
-| **SteamVR** | SteamVR이 실행되는 동안 SteamVR 대시보드에 PATCHBAY CONSOLE 탭이 나타납니다: RACK, PADS, TAPE, MACROS, DEVICES. 레이저 포인터는 마우스처럼 작동합니다. 파일 대화 상자는 데스크톱에서 마쳐야 합니다 |
+| **SteamVR** | SteamVR이 실행되는 동안 SteamVR 대시보드에 FAIDER 탭이 나타납니다: RACK, PADS, TAPE, MACROS, DEVICES. 레이저 포인터는 마우스처럼 작동합니다. 파일 대화 상자는 데스크톱에서 마쳐야 합니다 |
 
-Patchbay Console은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. SteamVR과 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
+Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. SteamVR과 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
 
 ---
 
@@ -1031,7 +1031,7 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 | 이유 | 할 일 |
 |---|---|
 | 저장된 인터페이스가 연결되어 있지 않음 | 연결한 뒤 **Restore session**(트레이) > "kept:" 버전 |
-| 저장된 인터페이스를 열 수 없음(다른 프로그램이 사용 중) | 다른 프로그램을 닫고 Patchbay Console을 다시 시작합니다. 그동안 믹스 위에 아무것도 덮어쓰지 않습니다 |
+| 저장된 인터페이스를 열 수 없음(다른 프로그램이 사용 중) | 다른 프로그램을 닫고 Faider을 다시 시작합니다. 그동안 믹스 위에 아무것도 덮어쓰지 않습니다 |
 | session.xml을 읽을 수 없음 | **Restore session** > 최근 버전 |
 
 <a id="183-no-sound"></a>
@@ -1052,9 +1052,9 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 ### 18.4 인터페이스가 시작되지 않거나 멈춤
 
 - 다른 프로그램(DAW, 드라이버 제어판)이 사용 중일 수 있습니다. 닫고 다시 시작하세요.
-- 트레이에 **INTERFACE DOWN**: 인터페이스가 스스로 리셋되었고 다시 열리지 않았습니다. DEVICES에서 버퍼 크기를 바꾸거나 Patchbay Console을 다시 시작하세요.
+- 트레이에 **INTERFACE DOWN**: 인터페이스가 스스로 리셋되었고 다시 열리지 않았습니다. DEVICES에서 버퍼 크기를 바꾸거나 Faider을 다시 시작하세요.
 - 인터페이스 자체의 제어판에서 바꾼 레이트나 버퍼 변경은 저절로 반영됩니다.
-- 한동안 인터페이스 없이 실행하려면 Patchbay Console을 다음과 같이 시작하세요: `"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows`(Windows 재생 장치) 또는 `--clock builtin`(내장 클럭). `--clock`에 ASIO 드라이버 이름의 일부(`--clock focusrite`)를 붙이면 그 드라이버를 고릅니다. 믹스는 그대로 가져오며 인터페이스용으로 저장된 상태로 남으므로, 다음 일반 시작에서는 인터페이스로 돌아갑니다.
+- 한동안 인터페이스 없이 실행하려면 Faider을 다음과 같이 시작하세요: `"C:\Program Files\Faider\Faider.exe" --clock windows`(Windows 재생 장치) 또는 `--clock builtin`(내장 클럭). `--clock`에 ASIO 드라이버 이름의 일부(`--clock focusrite`)를 붙이면 그 드라이버를 고릅니다. 믹스는 그대로 가져오며 인터페이스용으로 저장된 상태로 남으므로, 다음 일반 시작에서는 인터페이스로 돌아갑니다.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1077,7 +1077,7 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 
 ### 18.7 소리가 두 번 들리거나 에코가 있음
 
-- 앱 채널이 그 앱이 이미 재생 중인 같은 장치의 출력으로 라우팅되어 있어서, 앱의 소리가 직접 들리고 Patchbay Console을 거쳐서도 들립니다. 앱 채널을 다른 곳으로 라우팅하거나 앱을 다른 장치로 옮기세요.
+- 앱 채널이 그 앱이 이미 재생 중인 같은 장치의 출력으로 라우팅되어 있어서, 앱의 소리가 직접 들리고 Faider을 거쳐서도 들립니다. 앱 채널을 다른 곳으로 라우팅하거나 앱을 다른 장치로 옮기세요.
 - Windows의 기본 스피커가 가상 케이블로 설정되어 있습니다. PRE-FLIGHT > **HEARD ONCE**가 알려 줍니다.
 
 <a id="188-a-route-wont-switch-on"></a>
@@ -1108,7 +1108,7 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 
 ### 18.12 프로그램이 충돌함
 
-보고서가 `%APPDATA%\PatchbayConsole\crash.log`에 기록되고, 미니덤프 `crash.dmp`도 생깁니다. 믹스는 변경하고 1초 안에 저장되므로 잃는 것은 마지막 순간의 변경뿐입니다.
+보고서가 `%APPDATA%\Faider\crash.log`에 기록되고, 미니덤프 `crash.dmp`도 생깁니다. 믹스는 변경하고 1초 안에 저장되므로 잃는 것은 마지막 순간의 변경뿐입니다.
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1158,7 +1158,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. 헤드폰이나 스
 
 ### 19.3 파일
 
-`%APPDATA%\PatchbayConsole` 안:
+`%APPDATA%\Faider` 안:
 
 | 파일 | |
 |---|---|
@@ -1173,7 +1173,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. 헤드폰이나 스
 | `status.txt` | 몇 초마다 찍는 엔진 스냅샷: 장치, 레벨, 버퍼, 드리프트 |
 | `crash.log`, `crash.dmp` | 충돌 보고서 |
 
-프로그램 자체는 `C:\Program Files\Patchbay Console`에 있습니다. 녹음은 다른 폴더를 고르지 않으면 `Music\Patchbay Console Recordings`에 저장됩니다.
+프로그램 자체는 `C:\Program Files\Faider`에 있습니다. 녹음은 다른 폴더를 고르지 않으면 `Music\Faider Recordings`에 저장됩니다.
 
 <a id="194-colours"></a>
 

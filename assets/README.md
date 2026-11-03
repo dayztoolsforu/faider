@@ -1,6 +1,6 @@
 # Assets
 
-What's built into Patchbay Console.exe (CMake `juce_add_binary_data`, target `PatchbayAssets`):
+What's built into Faider.exe (CMake `juce_add_binary_data`, target `FaiderAssets`):
 
 | Path | What | Used by |
 |---|---|---|

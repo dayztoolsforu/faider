@@ -5,7 +5,7 @@
 #include <limits>
 #include <random>
 
-ControlServer::ControlServer (AudioEngine& e) : juce::Thread ("Patchbay control API"), engine (e) {}
+ControlServer::ControlServer (AudioEngine& e) : juce::Thread ("Faider control API"), engine (e) {}
 
 ControlServer::~ControlServer()
 {
@@ -135,7 +135,7 @@ void ControlServer::serve (juce::StreamingSocket& client)
     while (request.getDataSize() < 16384 && ! request.toString().contains ("\r\n\r\n"))
     {
         if (threadShouldExit())
-            return;   // the server is stopping (Patchbay closing, the port changed)
+            return;   // the server is stopping (Faider closing, the port changed)
         if (juce::Time::getMillisecondCounter() - started > (request.getDataSize() == 0 ? firstBytesWithin : allWithin))
             return;
         const int ready = client.waitUntilReady (true, 100);
@@ -154,7 +154,7 @@ void ControlServer::serve (juce::StreamingSocket& client)
     const auto method = lines[0].upToFirstOccurrenceOf (" ", false, false);
     const auto target = lines[0].fromFirstOccurrenceOf (" ", false, false).upToLastOccurrenceOf (" ", false, false);
     const bool marked = std::any_of (lines.begin(), lines.end(), [] (const juce::String& l)
-                                     { return l.upToFirstOccurrenceOf (":", false, false).trim().equalsIgnoreCase ("X-Patchbay"); });
+                                     { return l.upToFirstOccurrenceOf (":", false, false).trim().equalsIgnoreCase ("X-Faider") || l.upToFirstOccurrenceOf (":", false, false).trim().equalsIgnoreCase ("X-Patchbay"); });   // (the earlier name: deck plugins not yet updated)
 
     auto respond = [&client] (int code, const juce::String& status, const juce::String& body, const char* type = "application/json")
     {
@@ -175,7 +175,7 @@ void ControlServer::serve (juce::StreamingSocket& client)
         if (name == "key")   key = v;
     }
     for (auto& l : lines)
-        if (l.upToFirstOccurrenceOf (":", false, false).trim().equalsIgnoreCase ("X-Patchbay-Key"))
+        if (const auto name = l.upToFirstOccurrenceOf (":", false, false).trim(); name.equalsIgnoreCase ("X-Faider-Key") || name.equalsIgnoreCase ("X-Patchbay-Key"))
             key = l.fromFirstOccurrenceOf (":", false, false).trim();
 
     juce::StringArray parts;
@@ -247,7 +247,7 @@ void ControlServer::serve (juce::StreamingSocket& client)
     if (method != "POST")
         return respond (405, "Method Not Allowed", "{\"error\":\"commands are POST\"}");
     if (! marked)
-        return respond (403, "Forbidden", "{\"error\":\"commands need the header X-Patchbay: 1\"}");
+        return respond (403, "Forbidden", "{\"error\":\"commands need the header X-Faider: 1\"}");
 
     // A value that isn't a plain number ("nan", "inf", "loud") goes in as NaN, which perform() refuses.
     const float number = value.isEmpty() || value.containsOnly ("0123456789.-+eE") ? value.getFloatValue()

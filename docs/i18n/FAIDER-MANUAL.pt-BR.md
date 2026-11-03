@@ -1,10 +1,10 @@
-# Manual do usuário do Patchbay Console
+# Manual do usuário do Faider
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **Versão 0.1 · Windows 10 (2004) ou posterior**
 
-O Patchbay Console é um roteador de áudio e mixer ao vivo para Windows, construído em torno de um
+O Faider é um roteador de áudio e mixer ao vivo para Windows, construído em torno de um
 console de grande formato. Ele pega o som da sua interface de áudio, dos seus dispositivos do
 Windows e de cada programa, passa tudo por strips de canal, buses e saídas, e toca o resultado nos
 dispositivos que você escolher: seus fones de ouvido, suas caixas de som, uma transmissão, um
@@ -52,7 +52,7 @@ quando algo dá errado.
 | | |
 |---|---|
 | **Windows** | Windows 10 versão 2004 ou posterior, ou Windows 11. Capturar o som de um único programa exige a versão 2004 ou posterior |
-| **Uma interface de áudio** | Opcional. Com o driver ASIO dela instalado, o Patchbay Console roda no clock da interface para ter o menor atraso. Sem ela, roda no seu dispositivo de reprodução do Windows, ou no clock interno (veja [Sincronização](#clocking)) |
+| **Uma interface de áudio** | Opcional. Com o driver ASIO dela instalado, o Faider roda no clock da interface para ter o menor atraso. Sem ela, roda no seu dispositivo de reprodução do Windows, ou no clock interno (veja [Sincronização](#clocking)) |
 | **Fones de ouvido** | Ligados à sua interface (ou a qualquer dispositivo de reprodução do Windows) para você ouvir a sua mixagem |
 | **VB-CABLE** | Opcional e gratuito (vb-audio.com/Cable). Um microfone virtual, para que apps como Discord, jogos e OBS ouçam a sua mixagem |
 | **ffmpeg** | Opcional. Com `ffmpeg.exe` no seu PATH, o gravador também pode gravar MP3, AAC, Opus e ALAC |
@@ -80,21 +80,21 @@ Este capítulo leva você do instalador a uma configuração funcionando: seu mi
 apps ouvindo o seu mic e o som de um programa em um canal próprio. Siga os passos na ordem. Cada um
 leva um ou dois minutos.
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### Passo 1: instalar o Patchbay Console
+### Passo 1: instalar o Faider
 
-1. Execute o instalador, `PatchbayConsole-<version>-Setup.exe`.
+1. Execute o instalador, `Faider-<version>-Setup.exe`.
 2. O Windows SmartScreen pode avisar sobre um app não reconhecido, porque o instalador não é
    assinado. Clique em **Mais informações** e depois em **Executar assim mesmo**.
 3. Aceite a licença e permita o aviso de administrador. Se quiser um atalho na área de trabalho,
    marque a opção durante a instalação (ela vem desmarcada).
-4. O instalador coloca o app em `C:\Program Files\Patchbay Console` e adiciona o **Patchbay
+4. O instalador coloca o app em `C:\Program Files\Faider` e adiciona o **Faider
    Console** ao menu Iniciar. Tudo o que ele precisa já vem incluído.
-5. Na última página você pode iniciar o Patchbay Console na hora. Se não houver nenhum VB-CABLE
+5. Na última página você pode iniciar o Faider na hora. Se não houver nenhum VB-CABLE
    instalado, ele também oferece abrir a página de download do VB-CABLE.
 
-Sua mixagem e suas configurações ficam em `%APPDATA%\PatchbayConsole`, separadas do programa. Ao
+Sua mixagem e suas configurações ficam em `%APPDATA%\Faider`, separadas do programa. Ao
 desinstalar, elas continuam lá.
 
 <a id="step-2-install-vb-cable-optional"></a>
@@ -129,15 +129,15 @@ quer mixar para os seus próprios fones.
 Um jeito mais rápido de definir a saída: clique no ícone do alto-falante na barra de tarefas, clique
 no **>** ao lado do controle de volume e escolha o seu dispositivo.
 
-Mantenha seus dispositivos reais como padrão do Windows. O Patchbay Console só toca no cabo onde
+Mantenha seus dispositivos reais como padrão do Windows. O Faider só toca no cabo onde
 você o roteia, e cada app escolhe o **CABLE Output** como microfone por conta própria (passo 6). Se o
 alto-falante padrão do Windows for o cabo, o PRE-FLIGHT avisa em **HEARD ONCE**.
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### Passo 3: iniciar o Patchbay Console
+### Passo 3: iniciar o Faider
 
-Abra o menu Iniciar e clique em **Patchbay Console** (ou use o atalho da área de trabalho, se você
+Abra o menu Iniciar e clique em **Faider** (ou use o atalho da área de trabalho, se você
 criou um). Na primeira vez, ele abre em **SETUP**.
 
 <a id="step-4-answer-setups-four-questions"></a>
@@ -183,7 +183,7 @@ Olhe a **luz de status** no canto superior direito.
 
 - **Verde** com uma porcentagem: o áudio está funcionando. Vá para o passo 6.
 - **Vermelha, com OFF**: o áudio não está funcionando. Outro programa pode estar com a sua interface
-  (um DAW, o painel de controle do driver). Feche-o e reinicie o Patchbay Console. Veja
+  (um DAW, o painel de controle do driver). Feche-o e reinicie o Faider. Veja
   [18.4](#184-the-interface-wont-start-or-stopped).
 
 Clique na luz para abrir **DEVICES**. **STREAMS** mostra o clock em uso (ASIO, Windows ou o clock
@@ -253,11 +253,11 @@ estar verdes. Veja [18.1](#181-pre-flight).
 
 - **Sua mixagem se salva sozinha** em até um segundo depois de qualquer mudança. Para guardar uma
   versão com um nome, use **SETTINGS > GENERAL > SAVE SESSION AS...**.
-- **Iniciar com o Windows**: **SETTINGS > GENERAL > WINDOWS** inicia o Patchbay Console na bandeja
+- **Iniciar com o Windows**: **SETTINGS > GENERAL > WINDOWS** inicia o Faider na bandeja
   quando você entra no Windows, para que o seu mic funcione desde o começo.
-- **Fechar a janela não para o áudio.** O Patchbay Console continua rodando na bandeja do sistema
+- **Fechar a janela não para o áudio.** O Faider continua rodando na bandeja do sistema
   para que o seu mic e os seus fones continuem funcionando. Para parar, clique com o botão direito no
-  ícone da bandeja e escolha **Quit Patchbay Console**. Iniciar o programa enquanto ele está na
+  ícone da bandeja e escolha **Quit Faider**. Iniciar o programa enquanto ele está na
   bandeja traz a janela de volta.
 
 Na primeira vez que cada página abre, uma dica curta a explica. Desligue as dicas em
@@ -418,7 +418,7 @@ ou para vários. O strip do combinador mostra quais fontes alimentam cada caminh
 
 ### Sincronização
 
-Um dispositivo define o clock. O Patchbay Console o escolhe nesta ordem ao iniciar:
+Um dispositivo define o clock. O Faider o escolhe nesta ordem ao iniciar:
 
 1. **ASIO**: sua interface de áudio, pelo driver ASIO dela. O menor atraso.
 2. **Windows**: sem driver ASIO, o seu dispositivo de reprodução padrão do Windows (um cabo virtual,
@@ -705,7 +705,7 @@ stems de voz, música e jogo.
 
 ## 9. Plugins
 
-O Patchbay Console hospeda plugins **VST3** em canais, buses e caminhos de combinador, com
+O Faider hospeda plugins **VST3** em canais, buses e caminhos de combinador, com
 compensação automática de latência.
 
 <a id="adding-a-plugin"></a>
@@ -911,7 +911,7 @@ O transporte da barra superior e o strip da fita na mesa controlam o mesmo deck.
 | **REC** | Inicia e para. A tela mostra o tempo, o tamanho, o tempo restante e quaisquer blocos perdidos |
 | **PATH** / **REVEAL** | Escolher a pasta / abri-la no Explorador |
 
-As gravações vão para `Music\Patchbay Console Recordings`, a menos que você escolha uma pasta. Os
+As gravações vão para `Music\Faider Recordings`, a menos que você escolha uma pasta. Os
 formatos do ffmpeg gravam um WAV primeiro e o convertem quando você para (o WAV é mantido se a
 conversão falhar). A gravação para sozinha quando restam menos de 1 GB livres.
 
@@ -936,16 +936,16 @@ multipista escolhido, o replay usa a primeira saída.
 | **I/O** | ASIO, OUT ou IN |
 | **DEVICE**, **HARDWARE** | O nome dele e o adaptador em que está |
 | **FORMAT** | Canais e taxa de amostragem |
-| **STATE** | Ativo, desconectado, desativado, ou **off in Patchbay Console** |
+| **STATE** | Ativo, desconectado, desativado, ou **off in Faider** |
 | **TAGS** | DEFAULT e CALLS para os dispositivos padrão do Windows |
 
 Clique em um cabeçalho para ordenar. Selecione dispositivos (Ctrl/Shift para vários) e use:
 
 | Tecla | |
 |---|---|
-| **EXCLUDE / INCLUDE** | O Patchbay Console para de usar (ou volta a usar) o dispositivo. Dispositivos excluídos nunca são abertos e ficam fora das listas |
+| **EXCLUDE / INCLUDE** | O Faider para de usar (ou volta a usar) o dispositivo. Dispositivos excluídos nunca são abertos e ficam fora das listas |
 | **DISABLE / ENABLE IN WINDOWS** | Desliga ou liga o dispositivo no próprio Windows |
-| **RENAME** | Seu próprio nome para o dispositivo, usado em todo o Patchbay Console (ou clique duas vezes em uma linha) |
+| **RENAME** | Seu próprio nome para o dispositivo, usado em todo o Faider (ou clique duas vezes em uma linha) |
 
 <a id="streams"></a>
 
@@ -1008,7 +1008,7 @@ Sua mixagem se salva sozinha em até um segundo depois de qualquer mudança, e a
 
 | | |
 |---|---|
-| **Restore session** | Menu da bandeja: versões anteriores da sua mixagem por data (o Patchbay Console reinicia com ela) |
+| **Restore session** | Menu da bandeja: versões anteriores da sua mixagem por data (o Faider reinicia com ela) |
 | **SESSION TIMELINE** | FIND: cada versão guardada. **Restore everything**, ou **PUT ONE CHANNEL BACK** (nível, pan, mudo e rack dele) sem reiniciar |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: guardar a mixagem com um nome |
 | **OPEN, EXPORT OR IMPORT...** | Abrir uma mixagem nomeada (reinicia), salvar a mixagem em um arquivo, ou carregar uma de um arquivo |
@@ -1101,9 +1101,9 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 | **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / MUTED e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
 | **MINI** | Um pequeno mixer por cima de tudo. **OPEN** volta para a janela principal |
 | **Bandeja** | Clique no ícone para o mixer da bandeja, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Restore session, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta |
-| **SteamVR** | Uma aba PATCHBAY CONSOLE no painel do SteamVR enquanto o SteamVR roda: RACK, PADS, TAPE, MACROS, DEVICES. O ponteiro laser funciona como um mouse. As caixas de diálogo de arquivo precisam ser concluídas na área de trabalho |
+| **SteamVR** | Uma aba FAIDER no painel do SteamVR enquanto o SteamVR roda: RACK, PADS, TAPE, MACROS, DEVICES. O ponteiro laser funciona como um mouse. As caixas de diálogo de arquivo precisam ser concluídas na área de trabalho |
 
-O Patchbay Console sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma
+O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma
 janela de administrador. Ele se reinicia com direitos comuns, porque o SteamVR e o overlay no jogo
 não conseguem alcançar um programa rodando como administrador. Os poucos passos que exigem um
 administrador (aplicar as configurações do VB-CABLE, reativar um dispositivo que o Windows
@@ -1235,7 +1235,7 @@ Sua mixagem não foi perdida. Quando ela não pode ser usada ao iniciar, é **se
 | Motivo | O que fazer |
 |---|---|
 | A interface salva não está conectada | Conecte-a e depois **Restore session** (bandeja) > a versão «kept:» |
-| A interface salva não pôde ser aberta (outro programa está com ela) | Feche o outro programa e reinicie o Patchbay Console. Nada é salvo por cima da sua mixagem nesse meio-tempo |
+| A interface salva não pôde ser aberta (outro programa está com ela) | Feche o outro programa e reinicie o Faider. Nada é salvo por cima da sua mixagem nesse meio-tempo |
 | O session.xml não pôde ser lido | **Restore session** > uma versão recente |
 
 <a id="183-no-sound"></a>
@@ -1261,11 +1261,11 @@ Siga o caminho do sinal:
 
 - Outro programa pode estar com ela (um DAW, o painel de controle do driver). Feche-o e reinicie.
 - **INTERFACE DOWN** na bandeja: a interface se reiniciou sozinha e não quis abrir de novo. Mude o
-  tamanho do buffer dela em DEVICES ou reinicie o Patchbay Console.
+  tamanho do buffer dela em DEVICES ou reinicie o Faider.
 - Mudanças de taxa ou de buffer feitas no painel de controle da própria interface são percebidas
   sozinhas.
-- Para rodar um tempo sem a interface, inicie o Patchbay Console com
-  `"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows` (seu dispositivo de
+- Para rodar um tempo sem a interface, inicie o Faider com
+  `"C:\Program Files\Faider\Faider.exe" --clock windows` (seu dispositivo de
   reprodução do Windows) ou `--clock builtin` (o clock interno). `--clock` com parte do nome de um
   driver ASIO (`--clock focusrite`) escolhe esse driver. Sua mixagem vai junto e continua salva para
   a sua interface: o próximo início normal volta a ela.
@@ -1295,7 +1295,7 @@ Siga o caminho do sinal:
 ### 18.7 Ouço algo duas vezes, ou um eco
 
 - Um canal de app está roteado para uma saída do mesmo dispositivo em que o app já toca, então você
-  ouve o app direto e pelo Patchbay Console. Roteie o canal do app para outro lugar, ou mude o app
+  ouve o app direto e pelo Faider. Roteie o canal do app para outro lugar, ou mude o app
   para outro dispositivo.
 - O alto-falante padrão do Windows está definido como o cabo virtual. O PRE-FLIGHT > **HEARD ONCE**
   o nomeia.
@@ -1333,7 +1333,7 @@ arquivo. Atualize ou reinstale o plugin. Assim que o arquivo dele mudar, ele é 
 
 ### 18.12 O programa travou
 
-Um relatório é gravado em `%APPDATA%\PatchbayConsole\crash.log`, com um minidump `crash.dmp`. Sua
+Um relatório é gravado em `%APPDATA%\Faider\crash.log`, com um minidump `crash.dmp`. Sua
 mixagem é salva em até um segundo depois de qualquer mudança, então você perde no máximo as mudanças
 do último instante.
 
@@ -1389,7 +1389,7 @@ quanto como dispositivos de comunicação padrão. Veja o [Passo 2](#step-2-inst
 
 ### 19.3 Arquivos
 
-Em `%APPDATA%\PatchbayConsole`:
+Em `%APPDATA%\Faider`:
 
 | Arquivo | |
 |---|---|
@@ -1404,8 +1404,8 @@ Em `%APPDATA%\PatchbayConsole`:
 | `status.txt` | Um instantâneo do motor a cada poucos segundos: dispositivos, níveis, buffers, deriva |
 | `crash.log`, `crash.dmp` | Relatórios de travamento |
 
-O programa em si fica em `C:\Program Files\Patchbay Console`. As gravações vão para
-`Music\Patchbay Console Recordings`, a menos que você escolha outra pasta.
+O programa em si fica em `C:\Program Files\Faider`. As gravações vão para
+`Music\Faider Recordings`, a menos que você escolha outra pasta.
 
 <a id="194-colours"></a>
 

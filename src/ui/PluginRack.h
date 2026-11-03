@@ -79,7 +79,7 @@ public:
             if (auto* instance = dynamic_cast<juce::AudioPluginInstance*> (m.processor))
                 unit->maker = instance->getPluginDescription().manufacturerName.toUpperCase();
             else if (m.processor == nullptr)
-                unit->maker = "PATCHBAY";
+                unit->maker = "FAIDER";
             if (unit->panel != nullptr)
                 addAndMakeVisible (unit->panel);
             else if (m.processor != nullptr)

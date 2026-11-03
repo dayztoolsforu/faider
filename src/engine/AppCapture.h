@@ -7,7 +7,7 @@
 #include "DriftFifo.h"
 
 // Captures one app's audio (and its child processes') using Windows process loopback
-// (Windows 10 2004+). No driver needed: the app keeps playing to its own device and Patchbay
+// (Windows 10 2004+). No driver needed: the app keeps playing to its own device and Faider
 // receives a copy of exactly that app's sound. Runs its own capture thread feeding `fifo`.
 class AppCapture
 {
@@ -47,4 +47,4 @@ uint32_t findAppProcess (const juce::String& exe);
 
 // Cheap (no process list): whether this process is still running.
 bool processIsRunning (uint32_t processId);
-uint32_t thisProcessId();   // Patchbay's own
+uint32_t thisProcessId();   // Faider's own

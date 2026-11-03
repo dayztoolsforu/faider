@@ -3,12 +3,12 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <optional>
 
-// Plugins are tried out in a separate copy of Patchbay before they load into the live desk, so
-// one that crashes or hangs takes down only that copy. "Patchbay.exe --scan <plugin> --out <file>"
+// Plugins are tried out in a separate copy of Faider before they load into the live desk, so
+// one that crashes or hangs takes down only that copy. "Faider.exe --scan <plugin> --out <file>"
 // loads the plugin, runs a block of silence through it, closes it and writes its name and maker
 // to the file. One that passes is remembered (it isn't tested again until its file changes);
 // one that fails is too, with why, and isn't loaded until it's tested again.
-// Kept in %APPDATA%\Patchbay\plugins.xml.
+// Kept in %APPDATA%\Faider\plugins.xml.
 namespace PluginScan
 {
     // In the child copy (Main.cpp): the test itself. Returns the exit code (0: it passed).

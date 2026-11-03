@@ -1,10 +1,10 @@
-# Patchbay Console 用户手册
+# Faider 用户手册
 
-[English](../PATCHBAY-CONSOLE-MANUAL.md)
+[English](../FAIDER-MANUAL.md)
 
 **版本 0.1 · Windows 10 (2004) 或更高版本**
 
-Patchbay Console 是一款 Windows 实时音频路由器兼调音台，以大型调音台为蓝本。
+Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台为蓝本。
 它从你的音频接口、Windows 设备和各个程序获取声音，经过通道条、总线和输出处理，再从你选择的任何设备播放：耳机、音箱、直播，或是用于通话和游戏的虚拟麦克风。
 
 本手册涵盖应用的全部功能，带你一步步完成常见任务，并告诉你出问题时该怎么办。
@@ -48,7 +48,7 @@ Patchbay Console 是一款 Windows 实时音频路由器兼调音台，以大型
 | | |
 |---|---|
 | **Windows** | Windows 10 2004 版或更高版本，或 Windows 11。捕获单个程序的声音需要 2004 或更高版本 |
-| **音频接口** | 可选。安装其 ASIO 驱动后，Patchbay Console 会使用接口的时钟运行，延迟最低。没有接口时，它使用你的 Windows 播放设备，或内置时钟运行(见[时钟](#clocking)) |
+| **音频接口** | 可选。安装其 ASIO 驱动后，Faider 会使用接口的时钟运行，延迟最低。没有接口时，它使用你的 Windows 播放设备，或内置时钟运行(见[时钟](#clocking)) |
 | **耳机** | 接到音频接口(或任何 Windows 播放设备)上，这样你才能听到自己的混音 |
 | **VB-CABLE** | 可选，免费 (vb-audio.com/Cable)。一个虚拟麦克风，让 Discord、游戏、OBS 等应用能听到你的混音 |
 | **ffmpeg** | 可选。PATH 中有 `ffmpeg.exe` 时，录音机还能写出 MP3、AAC、Opus 和 ALAC |
@@ -74,17 +74,17 @@ Patchbay Console 是一款 Windows 实时音频路由器兼调音台，以大型
 
 本章带你从安装程序一直走到一套可用的设置：你的麦克风声音进入耳机，应用能听到你的麦克风，某个程序的声音有自己的通道。请按顺序操作。每一步只需一两分钟。
 
-<a id="step-1-install-patchbay-console"></a>
+<a id="step-1-install-faider"></a>
 
-### 步骤 1：安装 Patchbay Console
+### 步骤 1：安装 Faider
 
-1. 运行安装程序 `PatchbayConsole-<version>-Setup.exe`。
+1. 运行安装程序 `Faider-<version>-Setup.exe`。
 2. 由于安装程序没有代码签名，Windows SmartScreen 可能会提示这是无法识别的应用。点击**更多信息**，然后点击**仍要运行**。
 3. 接受许可协议，并允许管理员权限提示。如果想要桌面快捷方式，请在安装过程中勾选(默认不勾选)。
-4. 安装程序会把应用放到 `C:\Program Files\Patchbay Console`，并在开始菜单中添加 **Patchbay Console**。所需的一切都已包含在内。
-5. 在最后一页，你可以立即启动 Patchbay Console。如果没有安装 VB-CABLE，它还会提示是否打开 VB-CABLE 的下载页面。
+4. 安装程序会把应用放到 `C:\Program Files\Faider`，并在开始菜单中添加 **Faider**。所需的一切都已包含在内。
+5. 在最后一页，你可以立即启动 Faider。如果没有安装 VB-CABLE，它还会提示是否打开 VB-CABLE 的下载页面。
 
-你的混音和设置保存在 `%APPDATA%\PatchbayConsole`，与程序本身分开。卸载时这些内容会保留。
+你的混音和设置保存在 `%APPDATA%\Faider`，与程序本身分开。卸载时这些内容会保留。
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -107,13 +107,13 @@ VB-CABLE 提供一个其他应用可以选用的虚拟麦克风。如果你只�
 
 设置输出还有更快的办法：点击任务栏的扬声器图标，点击音量滑块旁边的 **>**，再选择你的设备。
 
-请让真实设备保持为 Windows 的默认设备。Patchbay Console 只会把声音播放到你设置了路由的线缆上，而每个应用会自己选择 **CABLE Output** 作为麦克风(步骤 6)。如果 Windows 的默认扬声器是线缆，PRE-FLIGHT 会在 **HEARD ONCE** 下报告。
+请让真实设备保持为 Windows 的默认设备。Faider 只会把声音播放到你设置了路由的线缆上，而每个应用会自己选择 **CABLE Output** 作为麦克风(步骤 6)。如果 Windows 的默认扬声器是线缆，PRE-FLIGHT 会在 **HEARD ONCE** 下报告。
 
-<a id="step-3-start-patchbay-console"></a>
+<a id="step-3-start-faider"></a>
 
-### 步骤 3：启动 Patchbay Console
+### 步骤 3：启动 Faider
 
-打开开始菜单，点击 **Patchbay Console**(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，它会打开 **SETUP**。
+打开开始菜单，点击 **Faider**(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，它会打开 **SETUP**。
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -150,7 +150,7 @@ SETUP 会一直留在侧边栏。每当你添加设备或程序时，都可以�
 看右上角的**状态灯**。
 
 - 带百分比的**绿色**：音频正在运行。继续步骤 6。
-- **红色，显示 OFF**：音频没有运行。可能有其他程序占用了你的接口(DAW、驱动的控制面板)。关闭它并重新启动 Patchbay Console。见 [18.4](#184-the-interface-wont-start-or-stopped)。
+- **红色，显示 OFF**：音频没有运行。可能有其他程序占用了你的接口(DAW、驱动的控制面板)。关闭它并重新启动 Faider。见 [18.4](#184-the-interface-wont-start-or-stopped)。
 
 点击状态灯打开 **DEVICES**。**STREAMS** 显示正在使用的时钟(ASIO、Windows 或内置时钟；见[时钟](#clocking))，**BUFFER** 设置其缓冲区大小。不产生爆音的最小值延迟最低。256 或 512 个采样适合大多数系统。
 
@@ -202,8 +202,8 @@ SETUP 会一直留在侧边栏。每当你添加设备或程序时，都可以�
 ### 步骤 9：完成
 
 - **你的混音会自动保存**，任何改动后一秒内就会保存。若要以名称保留一个版本，请使用 **SETTINGS > GENERAL > SAVE SESSION AS...**。
-- **随 Windows 启动：** **SETTINGS > GENERAL > WINDOWS** 会在你登录时让 Patchbay Console 在托盘中启动，这样你的麦克风从一开始就能工作。
-- **关闭窗口不会停止音频。** Patchbay Console 会继续在系统托盘中运行，所以你的麦克风和耳机保持工作。要停止它，请右键点击托盘图标并选择 **Quit Patchbay Console**。程序在托盘中时再次启动它，会让窗口重新出现。
+- **随 Windows 启动：** **SETTINGS > GENERAL > WINDOWS** 会在你登录时让 Faider 在托盘中启动，这样你的麦克风从一开始就能工作。
+- **关闭窗口不会停止音频。** Faider 会继续在系统托盘中运行，所以你的麦克风和耳机保持工作。要停止它，请右键点击托盘图标并选择 **Quit Faider**。程序在托盘中时再次启动它，会让窗口重新出现。
 
 每个页面第一次打开时，都会有一条简短的提示进行说明。可在 **SETTINGS > GENERAL > ON START** 下关闭提示。
 
@@ -336,7 +336,7 @@ flowchart LR
 
 ### 时钟
 
-由一个设备决定时钟。Patchbay Console 启动时按以下顺序选择：
+由一个设备决定时钟。Faider 启动时按以下顺序选择：
 
 1. **ASIO**：你的音频接口，通过其 ASIO 驱动。延迟最低。
 2. **Windows**：没有 ASIO 驱动时，使用你的 Windows 默认播放设备(虚拟线缆、显示器扬声器或 VR 头显，仅在没有其他设备时才用)。你接口的输出会成为该设备的输出，麦克风则作为 Windows 设备添加。
@@ -586,7 +586,7 @@ flowchart LR
 
 ## 9. 插件
 
-Patchbay Console 在通道、总线和组合器路径上承载 **VST3** 插件，并自动补偿延迟。
+Faider 在通道、总线和组合器路径上承载 **VST3** 插件，并自动补偿延迟。
 
 <a id="adding-a-plugin"></a>
 
@@ -757,7 +757,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **REC** | 开始和停止。屏幕显示时间、大小、剩余时间，以及任何丢弃的数据块 |
 | **PATH** / **REVEAL** | 选择文件夹 / 在资源管理器中打开 |
 
-除非你选择了文件夹，录音都保存到 `Music\Patchbay Console Recordings`。ffmpeg 格式会先录成 WAV，停止时再转换(转换失败时会保留 WAV)。剩余空间不足 1 GB 时，录音会自动停止。
+除非你选择了文件夹，录音都保存到 `Music\Faider Recordings`。ffmpeg 格式会先录成 WAV，停止时再转换(转换失败时会保留 WAV)。剩余空间不足 1 GB 时，录音会自动停止。
 
 <a id="instant-replay"></a>
 
@@ -778,16 +778,16 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **I/O** | ASIO、OUT 或 IN |
 | **DEVICE**、**HARDWARE** | 它的名称和它所在的适配器 |
 | **FORMAT** | 声道数和采样率 |
-| **STATE** | 活动、已拔出、已禁用，或 **off in Patchbay Console** |
+| **STATE** | 活动、已拔出、已禁用，或 **off in Faider** |
 | **TAGS** | Windows 默认设备的 DEFAULT 和 CALLS |
 
 点击表头排序。选择设备(Ctrl/Shift 多选)，然后使用：
 
 | 键 | |
 |---|---|
-| **EXCLUDE / INCLUDE** | Patchbay Console 停止(或恢复)使用该设备。被排除的设备永远不会被打开，也不会出现在列表中 |
+| **EXCLUDE / INCLUDE** | Faider 停止(或恢复)使用该设备。被排除的设备永远不会被打开，也不会出现在列表中 |
 | **DISABLE / ENABLE IN WINDOWS** | 在 Windows 本身中关闭或打开该设备 |
-| **RENAME** | 你给设备起的名字，在整个 Patchbay Console 中使用(也可以双击一行) |
+| **RENAME** | 你给设备起的名字，在整个 Faider 中使用(也可以双击一行) |
 
 <a id="streams"></a>
 
@@ -840,7 +840,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **Restore session** | 托盘菜单：按日期列出你混音的早期版本(Patchbay Console 会以它重新启动) |
+| **Restore session** | 托盘菜单：按日期列出你混音的早期版本(Faider 会以它重新启动) |
 | **SESSION TIMELINE** | FIND：保留的每个版本。**Restore everything**，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、静音和机架) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS：以名称保留混音 |
 | **OPEN, EXPORT OR IMPORT...** | 打开命名的混音(会重启)、把混音保存为文件，或从文件载入 |
@@ -919,9 +919,9 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / MUTED 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 位于所有窗口之上的小调音台。**OPEN** 返回主窗口 |
 | **Tray** | 点击图标显示托盘调音台，双击打开窗口。右键点击：Show、场景调用、Restore session、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色 |
-| **SteamVR** | SteamVR 运行期间，SteamVR 仪表板上会出现 PATCHBAY CONSOLE 标签页：RACK、PADS、TAPE、MACROS、DEVICES。激光指针可当作鼠标使用。文件对话框必须在桌面上完成 |
+| **SteamVR** | SteamVR 运行期间，SteamVR 仪表板上会出现 FAIDER 标签页：RACK、PADS、TAPE、MACROS、DEVICES。激光指针可当作鼠标使用。文件对话框必须在桌面上完成 |
 
-Patchbay Console 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为 SteamVR 和游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
+Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为 SteamVR 和游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
 
 ---
 
@@ -1031,7 +1031,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 | 原因 | 该怎么做 |
 |---|---|
 | 保存的接口没有连接 | 连接它，然后 **Restore session**(托盘) > 带 "kept:" 的版本 |
-| 保存的接口无法打开(被其他程序占用) | 关闭其他程序，然后重新启动 Patchbay Console。在此期间不会有任何东西覆盖你的混音 |
+| 保存的接口无法打开(被其他程序占用) | 关闭其他程序，然后重新启动 Faider。在此期间不会有任何东西覆盖你的混音 |
 | 无法读取 session.xml | **Restore session** > 一个较新的版本 |
 
 <a id="183-no-sound"></a>
@@ -1052,9 +1052,9 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 ### 18.4 接口无法启动，或已停止
 
 - 可能有其他程序占用了它(DAW、驱动的控制面板)。关闭它并重新启动。
-- 托盘上的 **INTERFACE DOWN**：接口自己重置了，并且无法重新打开。在 DEVICES 上更改它的缓冲区大小，或重新启动 Patchbay Console。
+- 托盘上的 **INTERFACE DOWN**：接口自己重置了，并且无法重新打开。在 DEVICES 上更改它的缓冲区大小，或重新启动 Faider。
 - 在接口自己的控制面板中所做的采样率或缓冲区更改会被自动识别。
-- 若要暂时不用接口运行，请这样启动 Patchbay Console：`"C:\Program Files\Patchbay Console\Patchbay Console.exe" --clock windows`(你的 Windows 播放设备)或 `--clock builtin`(内置时钟)。`--clock` 后面跟 ASIO 驱动名称的一部分(`--clock focusrite`)会选择那个驱动。你的混音会随之带过去，并仍为你的接口保存：下一次正常启动会回到接口。
+- 若要暂时不用接口运行，请这样启动 Faider：`"C:\Program Files\Faider\Faider.exe" --clock windows`(你的 Windows 播放设备)或 `--clock builtin`(内置时钟)。`--clock` 后面跟 ASIO 驱动名称的一部分(`--clock focusrite`)会选择那个驱动。你的混音会随之带过去，并仍为你的接口保存：下一次正常启动会回到接口。
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1077,7 +1077,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 ### 18.7 我听到两遍声音，或有回声
 
-- 某个应用通道被路由到该应用已经在播放的同一个设备的输出上，所以你既直接听到该应用，又通过 Patchbay Console 听到它。把应用通道路由到别处，或把应用移到另一个设备。
+- 某个应用通道被路由到该应用已经在播放的同一个设备的输出上，所以你既直接听到该应用，又通过 Faider 听到它。把应用通道路由到别处，或把应用移到另一个设备。
 - Windows 的默认扬声器被设成了虚拟线缆。PRE-FLIGHT > **HEARD ONCE** 会指出它。
 
 <a id="188-a-route-wont-switch-on"></a>
@@ -1108,7 +1108,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 ### 18.12 程序崩溃了
 
-报告会写入 `%APPDATA%\PatchbayConsole\crash.log`，并附带小型转储文件 `crash.dmp`。你的混音在任何改动后一秒内就会保存，所以你最多丢失最后一刻的更改。
+报告会写入 `%APPDATA%\Faider\crash.log`，并附带小型转储文件 `crash.dmp`。你的混音在任何改动后一秒内就会保存，所以你最多丢失最后一刻的更改。
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1158,7 +1158,7 @@ Windows 把线缆设成了它的默认设备。请重新把耳机或音箱设为
 
 ### 19.3 文件
 
-位于 `%APPDATA%\PatchbayConsole` 中：
+位于 `%APPDATA%\Faider` 中：
 
 | 文件 | |
 |---|---|
@@ -1173,7 +1173,7 @@ Windows 把线缆设成了它的默认设备。请重新把耳机或音箱设为
 | `status.txt` | 每隔几秒的引擎快照：设备、电平、缓冲区、漂移 |
 | `crash.log`、`crash.dmp` | 崩溃报告 |
 
-程序本身位于 `C:\Program Files\Patchbay Console`。除非你选择其他文件夹，录音都保存到 `Music\Patchbay Console Recordings`。
+程序本身位于 `C:\Program Files\Faider`。除非你选择其他文件夹，录音都保存到 `Music\Faider Recordings`。
 
 <a id="194-colours"></a>
 

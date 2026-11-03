@@ -2,10 +2,10 @@
 
 namespace
 {
-    const juce::Identifier sessionTag { "PatchbaySession" };
+    const juce::Identifier sessionTag { "FaiderSession" };
 
     // Sessions saved before the rename (as AudioHub) load too.
-    bool isSession (const juce::XmlElement& xml) { return xml.hasTagName (sessionTag) || xml.hasTagName ("AudioHubSession"); }
+    bool isSession (const juce::XmlElement& xml) { return xml.hasTagName (sessionTag) || xml.hasTagName ("PatchbaySession") || xml.hasTagName ("AudioHubSession"); }   // (and under the earlier names)
 
     // Colours as "ff3d8fd1"; empty for "use the default".
     juce::String colourToString (juce::Colour c) { return c.isTransparent() ? juce::String() : c.toString(); }
@@ -771,7 +771,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
     for (auto* r : xml.getChildWithTagNameIterator ("AppRule"))
         engine.appRules.push_back ({ r->getStringAttribute ("exe"), r->getStringAttribute ("to") });
     if (xml.getChildByName ("AppTakeover") != nullptr)   // app takeover (a sink for captured apps) is gone
-        log ("session: app takeover is no longer part of Patchbay; apps play on their own devices");
+        log ("session: app takeover is no longer part of Faider; apps play on their own devices");
 
     auto& scenes = engine.getScenes();
     scenes.list.clear();

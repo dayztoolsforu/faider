@@ -76,7 +76,7 @@ struct AppCapture::Impl
 
         // The client let go before its event: Windows can still set the event it was given until
         // then, and a handle closed first can be handed to something else (a thread pool's wait),
-        // which a late SetEvent would then fire. That crashed Patchbay as a captured app closed.
+        // which a late SetEvent would then fire. That crashed Faider as a captured app closed.
         capture.Reset();
         client.Reset();
 
@@ -262,7 +262,7 @@ uint32_t findAppProcess (const juce::String& exe)
 {
     // Prefer a copy that's actually playing audio (several copies of an exe may run, and
     // browsers play from a helper process). Lowest PID keeps the choice stable between calls.
-    // Patchbay's isolated browser instances are captured on their own, never as the browser.
+    // Faider's isolated browser instances are captured on their own, never as the browser.
     uint32_t playing = 0;
     for (auto& a : listAudioApps())
         if (a.exe.equalsIgnoreCase (exe) && (playing == 0 || a.processId < playing) && ! WindowDiscovery::isIsolatedProcess (a.processId))

@@ -38,7 +38,7 @@ int main()
         }
     }
 
-    // As in Patchbay: CABLE Input open and running in this process, then CABLE In 16ch opened.
+    // As in Faider: CABLE Input open and running in this process, then CABLE In 16ch opened.
     Silence silence;
     std::unique_ptr<juce::AudioIODevice> first (wasapi->createDevice ("CABLE Input (VB-Audio Virtual Cable)", {}));
     std::unique_ptr<juce::AudioIODevice> second (wasapi->createDevice ("CABLE In 16ch (VB-Audio Virtual Cable)", {}));

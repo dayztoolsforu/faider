@@ -5,7 +5,7 @@
 #include "../engine/AudioEngine.h"
 #include "../engine/WindowDiscovery.h"
 
-// What the console, the pads, the tape and the SteamVR dashboard use from Patchbay's old mixer:
+// What the console, the pads, the tape and the SteamVR dashboard use from Faider's old mixer:
 // the input and plugin menus, plugin windows, the colour menu, the selected channel, A / B,
 // putting a channel back from a saved session, and the channel pages the headset shows. It draws
 // nothing of its own.

@@ -92,7 +92,7 @@ namespace DevicesTab
 
     // VB-CABLE ("Mic for apps") settings, kept by its driver in HKLM\SOFTWARE\VB-Audio\Cable.
     // Changing them needs administrator approval (one UAC prompt), and the driver only reads
-    // them when it starts, so Apply also restarts the cable driver; Patchbay reconnects to it.
+    // them when it starts, so Apply also restarts the cable driver; Faider reconnects to it.
     class CableSettings : public juce::Component,
                           private juce::Timer
     {
@@ -383,11 +383,11 @@ namespace DevicesTab
     };
 
     // What to do with the devices selected in the list (Ctrl/Shift-click for several):
-    //   Off / On in Patchbay   Patchbay stops (or starts) using them: never opened, so they cost
+    //   Off / On in Faider   Faider stops (or starts) using them: never opened, so they cost
     //                          nothing, and left out of its lists. Windows still has them.
     //   Disable / Enable in Windows   Turns them off (or on) in Windows itself, as Sound settings
     //                          does: one administrator prompt for all of them.
-    //   Rename                 Patchbay's name for one device; Windows' name is unchanged.
+    //   Rename                 Faider's name for one device; Windows' name is unchanged.
     class DeviceTools : public juce::Component,
                         private juce::Timer
     {
@@ -395,19 +395,19 @@ namespace DevicesTab
         DeviceTools (juce::ListBox& deviceList, const juce::Array<EndpointInfo>& all, AudioEngine& e)
             : list (deviceList), endpoints (all), engine (e)
         {
-            offInPatchbay.setTooltip (juce::String ("Don't use in ") + Product::name);
-            onInPatchbay.setTooltip (juce::String ("Use in ") + Product::name);
+            offInFaider.setTooltip (juce::String ("Don't use in ") + Product::name);
+            onInFaider.setTooltip (juce::String ("Use in ") + Product::name);
             disableInWindows.setTooltip ("Turn off in Windows");
             enableInWindows.setTooltip ("Turn on in Windows");
             rename.setTooltip (juce::String ("Rename in ") + Product::name);
 
-            offInPatchbay.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), true); changed(); };
-            onInPatchbay.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), false); changed(); };
+            offInFaider.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), true); changed(); };
+            onInFaider.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), false); changed(); };
             disableInWindows.onClick = [this] { setInWindows (false); };
             enableInWindows.onClick = [this] { setInWindows (true); };
             rename.onClick = [this] { renameSelected(); };
 
-            for (auto* b : { &offInPatchbay, &onInPatchbay, &disableInWindows, &enableInWindows, &rename })
+            for (auto* b : { &offInFaider, &onInFaider, &disableInWindows, &enableInWindows, &rename })
             {
                 b->setWantsKeyboardFocus (false);
                 addAndMakeVisible (b);
@@ -428,8 +428,8 @@ namespace DevicesTab
             count.setText (n == 0 ? juce::String ("Select devices (Ctrl/Shift-click for several)") : juce::String (n) + " selected",
                            juce::dontSendNotification);
             const bool any = ! selectedNames (false).isEmpty(), anyWindows = ! selectedNames (true).isEmpty();
-            offInPatchbay.setEnabled (any);
-            onInPatchbay.setEnabled (any);
+            offInFaider.setEnabled (any);
+            onInFaider.setEnabled (any);
             disableInWindows.setEnabled (anyWindows);
             enableInWindows.setEnabled (anyWindows);
             rename.setEnabled (n == 1);
@@ -445,11 +445,11 @@ namespace DevicesTab
         {
             using Console::KeyRow;
             auto widest = [] (juce::TextButton& a, juce::TextButton& b) { return juce::jmax (KeyRow::columnsFor (a.getButtonText()), KeyRow::columnsFor (b.getButtonText())); };
-            const int inPatchbay = widest (offInPatchbay, onInPatchbay), inWindows = widest (disableInWindows, enableInWindows);
+            const int inFaider = widest (offInFaider, onInFaider), inWindows = widest (disableInWindows, enableInWindows);
 
             KeyRow row (getLocalBounds().reduced (Console::Space::pad, 0));
             row.leftWidth (count, labelWidth)
-               .left (offInPatchbay, inPatchbay).left (onInPatchbay, inPatchbay).group()
+               .left (offInFaider, inFaider).left (onInFaider, inFaider).group()
                .left (disableInWindows, inWindows).left (enableInWindows, inWindows).group()
                .left (rename, KeyRow::columnsFor (rename.getButtonText()));
             const auto rest = row.rest().withTrimmedLeft (Console::Space::pad);
@@ -491,7 +491,7 @@ namespace DevicesTab
         }
 
         // As Sound settings does it: no administrator prompt. Enabling also switches back on any
-        // device whose Windows device node is off (from Device Manager, or Patchbay before this
+        // device whose Windows device node is off (from Device Manager, or Faider before this
         // worked this way): that part needs one administrator prompt, and its output goes to a
         // log, read back to say what Windows made of it.
         void setInWindows (bool enable)
@@ -597,9 +597,9 @@ namespace DevicesTab
         const juce::Array<EndpointInfo>& endpoints;
         AudioEngine& engine;
         juce::Label count, status;
-        const juce::File windowsLog { juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Patchbay-devices.log") };
+        const juce::File windowsLog { juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Faider-devices.log") };
         int waitingFor = 0, checks = 0;
-        juce::TextButton offInPatchbay { "EXCLUDE" }, onInPatchbay { "INCLUDE" },
+        juce::TextButton offInFaider { "EXCLUDE" }, onInFaider { "INCLUDE" },
                          disableInWindows { "DISABLE IN WINDOWS" }, enableInWindows { "ENABLE IN WINDOWS" }, rename { "RENAME" };
     };
 

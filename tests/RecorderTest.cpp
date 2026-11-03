@@ -35,7 +35,7 @@ int main()
     juce::String error;
     const auto file = recorder.start (Recorder::Kind::output, 1, "OUT MUSIC", folder, rate, lock, error);
     check (file.existsAsFile(), "starts a file: " + (file == juce::File() ? error : file.getFileName()));
-    check (file.getFileName().startsWith ("Patchbay Console OUT MUSIC 20"), "named by source and date");
+    check (file.getFileName().startsWith ("Faider OUT MUSIC 20"), "named by source and date");
     check (recorder.isRecording(), "recording");
 
     juce::AudioBuffer<float> tone (2, block), other (2, block);
@@ -130,7 +130,7 @@ int main()
         const std::vector<Recorder::TrackSource> sources { { Recorder::Kind::input, 0, "MIC" }, { Recorder::Kind::input, 1, "MUSIC" },
                                                            { Recorder::Kind::output, 0, "STREAM" } };
         const auto dir = recorder.startMultitrack (sources, folder, rate, lock, error);
-        check (dir.isDirectory() && dir.getFileName().startsWith ("Patchbay Console MULTITRACK 20"), "multitrack: a folder " + (dir == juce::File() ? error : dir.getFileName()));
+        check (dir.isDirectory() && dir.getFileName().startsWith ("Faider MULTITRACK 20"), "multitrack: a folder " + (dir == juce::File() ? error : dir.getFileName()));
         check (recorder.isRecording() && recorder.isMultitracking() && recorder.trackCount() == 3, "multitrack: recording 3 tracks");
         for (int b = 0; b < (int) rate / block; ++b)   // 1 s; MUSIC only the first half
         {

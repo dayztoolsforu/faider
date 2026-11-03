@@ -3,8 +3,8 @@
 #include "engine/AudioEngine.h"
 
 // The whole mix as XML: master device, masters, strips, sends, levels, and each strip's plugin
-// chain with the plugins' own state. Saved to %APPDATA%\Patchbay\session.xml and restored at
-// startup, so Patchbay comes back exactly as it was left.
+// chain with the plugins' own state. Saved to %APPDATA%\Faider\session.xml and restored at
+// startup, so Faider comes back exactly as it was left.
 namespace Session
 {
     std::unique_ptr<juce::XmlElement> save (const AudioEngine&, const juce::String& interfaceName);

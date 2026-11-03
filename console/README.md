@@ -1,11 +1,11 @@
-# Patchbay Console
+# Faider
 
 This folder holds the console: the Mixer page, the Routing page and the strip layouts. Every part is
-drawn in code. The program is **Patchbay Console.exe**. The installer puts it in
-`C:\Program Files\Patchbay Console`; building from source with `Restart Patchbay Console.cmd`
-installs it to `C:\PatchbayConsole`. Your mix and settings live in `%APPDATA%\PatchbayConsole`.
+drawn in code. The program is **Faider.exe**. The installer puts it in
+`C:\Program Files\Faider`; building from source with `Restart Faider.cmd`
+installs it to `C:\Faider`. Your mix and settings live in `%APPDATA%\Faider`.
 
-The full manual is [docs/PATCHBAY-CONSOLE-MANUAL.md](../docs/PATCHBAY-CONSOLE-MANUAL.md). It covers
+The full manual is [docs/FAIDER-CONSOLE-MANUAL.md](../docs/FAIDER-CONSOLE-MANUAL.md). It covers
 every page and control, with how-to guides and troubleshooting. Translations (Español, Français,
 Deutsch, Italiano, Português (Brasil), Nederlands, Polski, Svenska, Türkçe, 日本語, 한국어 and
 简体中文) are in [docs/i18n](../docs/i18n).
@@ -56,11 +56,11 @@ path. Drag a block along its row to move the strip.
 ## Build and run
 
 ```
-cmake --build build --config Release --target PatchbayConsole
+cmake --build build --config Release --target Faider
 ```
 
-`Restart Patchbay Console.cmd` (in the repository's top folder) quits the running copy, builds,
-installs to `C:\PatchbayConsole` and starts it. The first time, it also makes a desktop shortcut.
+`Restart Faider.cmd` (in the repository's top folder) quits the running copy, builds,
+installs to `C:\Faider` and starts it. The first time, it also makes a desktop shortcut.
 
 ## The layout files
 

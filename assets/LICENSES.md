@@ -1,6 +1,6 @@
 # Asset licences
 
-The data built into Patchbay Console.exe, with where it came from and its licence.
+The data built into Faider.exe, with where it came from and its licence.
 
 ## Built in (assets/autoeq)
 

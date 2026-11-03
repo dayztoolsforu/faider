@@ -13,33 +13,19 @@
 <style>
 /* Layout: a hardware manual. A sticky contents rail on the left, one reading column, chapters
      headed like console section legends; the hero shows the channel strip, each section a link. */
+  /* (the home page's charcoal desk: one look across the site) */
   :root {
-    --paper: #e8eaeb; --sheet: #f6f7f7; --ink: #1c2023; --muted: #5a636c; --rule: #c6ccd0;
-    --select: #1f7fa8; --route: #15806a; --bus: #6e52b8; --output: #a8680a; --cut: #b8382c;
-    --key-top: #fbfbfa; --key-bot: #d9dcde; --key-ink: #24292d;
-    --panel: #2a2c30; --panel-ink: #d9dcdf; --panel-dim: #8e959c;
-    --display: "Clash Display", "Segoe UI", sans-serif;
-    --body: "Satoshi", "Segoe UI", system-ui, sans-serif;
-    --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #18191c; --sheet: #202226; --ink: #e2e5e7; --muted: #9aa1a8; --rule: #34383d;
-      --select: #3db4e0; --route: #62d6b4; --bus: #b59cf0; --output: #f2a03c; --cut: #ef6a5f;
-      --key-top: #45484e; --key-bot: #33363b; --key-ink: #eceef0;
-      --panel: #111214; --panel-ink: #d9dcdf; --panel-dim: #7f868d;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #18191c; --sheet: #202226; --ink: #e2e5e7; --muted: #9aa1a8; --rule: #34383d;
+    --paper: #141517; --sheet: #1d1f22; --ink: #e6e8ea; --muted: #9aa1a8; --rule: #33373c;
     --select: #3db4e0; --route: #62d6b4; --bus: #b59cf0; --output: #f2a03c; --cut: #ef6a5f;
     --key-top: #45484e; --key-bot: #33363b; --key-ink: #eceef0;
     --panel: #111214; --panel-ink: #d9dcdf; --panel-dim: #7f868d;
+    --display: "Clash Display", "Segoe UI", sans-serif;
+    --body: "Satoshi", "Segoe UI", system-ui, sans-serif;
+    --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 16px); }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px); }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.62 var(--body); }
   a { color: var(--select); }
@@ -69,7 +55,7 @@
   /* LAYOUT */
   .layout { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 80px;
     display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 40px; align-items: start; }
-  .rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); max-height: calc(100vh - 32px); overflow: auto;
+  .rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); max-height: calc(100vh - 88px); overflow: auto;
     display: grid; gap: 14px; padding-right: 4px; }
   .search { display: grid; gap: 6px; }
   .search label { font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
@@ -187,7 +173,6 @@
   .lightbox img { max-width: 100%; max-height: calc(100vh - 80px); width: auto; height: auto; border-radius: 3px; }
   .lightbox p { margin: 10px 0 0; color: #c9cbce; font-size: 14px; text-align: center; }
 
-  footer.page-foot { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 0 48px; color: var(--muted); font-size: 13px; }
 
   @media (max-width: 920px) {
     .layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
@@ -207,23 +192,35 @@
     .flow-row li:not(:last-child)::after { display: none; }
   }
 
-  /* SITE BAR: back to the home page, the download */
-  .site-bar { background: var(--panel); color: var(--panel-ink); border-bottom: 1px solid rgba(255,255,255,.08); }
-  .site-bar-inner { max-width: 1240px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-  .site-bar a { color: var(--panel-dim); text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
-  .site-bar a:hover { color: var(--panel-ink); }
-  .site-bar .home { display: flex; align-items: center; gap: 10px; color: var(--panel-ink); margin-right: auto; }
-  .site-bar .home img { width: 24px; height: 24px; }
-  .site-bar .dl { color: #10261a; background: linear-gradient(#7ef0a4, #46c873); padding: 8px 12px; border-radius: 3px; }
-  .site-bar .dl:hover { color: #10261a; }
+  /* SITE BAR and FOOTER: the same as every page of the site (assets/site.css) */
+  .site-bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px max(16px, calc((100% - 1240px) / 2 + 16px)); background: rgba(17, 18, 20, .94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, .08); }
+  .site-bar .brand { display: flex; align-items: center; gap: 10px; color: #e6e8ea; text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .site-bar .brand img { width: 24px; height: 24px; }
+  .site-bar nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .site-bar nav > a { color: #9aa1a8; text-decoration: none; font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .2s; }
+  .site-bar nav > a:hover, .site-bar nav > a[aria-current] { color: #e6e8ea; }
+  .site-bar .dl { display: inline-block; color: #10261a; background: linear-gradient(#7ef0a4, #46c873); padding: 8px 12px; border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 3px 8px rgba(0,0,0,.45); transition: transform .18s, filter .18s; }
+  .site-bar nav > a.dl:hover { color: #10261a; transform: translateY(-1px); filter: brightness(1.06); }
+  @media (max-width: 640px) { .site-bar { padding: 10px 16px; } .site-bar nav { gap: 12px; } }
+  .site-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 24px 48px; border-top: 1px solid #33373c;
+    color: #9aa1a8; font: 500 12px/1.6 var(--mono); }
+  .site-foot nav { display: flex; gap: 18px; }
+  .site-foot a { color: #3db4e0; text-decoration: none; }
+  .site-foot a:hover { text-decoration: underline; }
 </style>
 
-<header class="site-bar"><div class="site-bar-inner">
-  <a class="home" href="./"><img src="assets/icon.png" alt="">Faider</a>
-  <a href="./#features">Features</a>
-  <a href="https://github.com/dayztoolsforu/faider">GitHub</a>
-  <a class="dl" data-download href="https://github.com/dayztoolsforu/faider/releases">Download</a>
-</div></header>
+<header class="site-bar">
+  <a class="brand" href="./"><img src="assets/icon.png" alt=""><span>FAIDER</span></a>
+  <nav>
+    <a href="./#features">FEATURES</a>
+    <a href="manual.html" aria-current="page">MANUAL</a>
+    <a href="https://github.com/dayztoolsforu/faider">GITHUB</a>
+    <a class="dl" data-download href="https://github.com/dayztoolsforu/faider/releases">DOWNLOAD</a>
+  </nav>
+</header>
 <div class="hero">
   <div class="hero-inner">
     <div>
@@ -256,7 +253,10 @@
   <main id="manual"></main>
 </div>
 <div class="lightbox" id="lightbox" hidden><div><img id="lightbox-img" alt=""><p id="lightbox-cap"></p></div></div>
-<footer class="page-foot">Faider user manual. Version 0.1.</footer>
+<footer class="site-foot">
+  <span>Faider is free software under the GNU AGPLv3. VST and ASIO are trademarks of Steinberg Media Technologies GmbH.</span>
+  <nav><a href="CREDITS.html">Credits</a><a href="https://github.com/dayztoolsforu/faider">Source on GitHub</a></nav>
+</footer>
 
 <script id="shots-data" type="application/json">{"images/console/setup.jpg": "images/console/setup.jpg", "images/console/simple.jpg": "images/console/simple.jpg", "images/console/mixer.jpg": "images/console/mixer.jpg", "images/console/topbar.jpg": "images/console/topbar.jpg", "images/console/strip-header.jpg": "images/console/strip-header.jpg", "images/console/strip-input.jpg": "images/console/strip-input.jpg", "images/console/strip-dynamics.jpg": "images/console/strip-dynamics.jpg", "images/console/strip-filters.jpg": "images/console/strip-filters.jpg", "images/console/strip-eq.jpg": "images/console/strip-eq.jpg", "images/console/strip-fader.jpg": "images/console/strip-fader.jpg", "images/console/raw-strips.jpg": "images/console/raw-strips.jpg", "images/console/combinators.jpg": "images/console/combinators.jpg", "images/console/outputs.jpg": "images/console/outputs.jpg", "images/console/plugins.jpg": "images/console/plugins.jpg", "images/console/routing.jpg": "images/console/routing.jpg", "images/console/routing-selected.jpg": "images/console/routing-selected.jpg", "images/console/pads.jpg": "images/console/pads.jpg", "images/console/pad-editor.jpg": "images/console/pad-editor.jpg", "images/console/tape.jpg": "images/console/tape.jpg", "images/console/settings.jpg": "images/console/settings.jpg"}</script>
 <template id="lang-en" data-hero="{&quot;title&quot;: &quot;User Manual&quot;, &quot;version&quot;: &quot;Version 0.1 · Windows 10 (2004) or later&quot;, &quot;intro&quot;: &quot;&lt;p&gt;Faider is a live audio router and mixer for Windows, built around a large-format console.\nIt takes sound from your audio interface, your Windows devices and individual programs, runs it\nthrough channel strips, buses and outputs, and plays the result on any devices you choose: your\nheadphones, your speakers, a stream, a virtual microphone for calls and games.&lt;/p&gt;&quot;, &quot;chrome&quot;: [&quot;Search the manual&quot;, &quot;e.g. combinator, crackle, hotkey&quot;, &quot;Contents&quot;, &quot;{n} chapters match&quot;, &quot;1 chapter matches&quot;, &quot;Nothing matches. Try another word.&quot;, &quot;The channel strip, to scale. Click a section.&quot;, &quot;Language&quot;, &quot;Enlarge&quot;]}"><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Contents</span></a></li>

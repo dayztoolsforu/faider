@@ -40,7 +40,8 @@ img { max-width: 100%; display: block; }
 .brand img { width: 24px; height: 24px; }
 .bar nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .bar nav > a { color: var(--dim); font: 600 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .2s var(--ease); }
-.bar nav > a:hover { color: var(--ink); text-decoration: none; }
+.bar nav > a:hover, .bar nav > a[aria-current] { color: var(--ink); text-decoration: none; }
+.foot nav { display: flex; gap: 18px; }
 
 /* Keys: legend on the cap, lit whole when on */
 .key {

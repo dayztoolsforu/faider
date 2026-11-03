@@ -1020,11 +1020,8 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 
 | Karte | |
 |---|---|
-| **SET UP A CONTROLLER** | Geführte Einrichtung für Loupedeck, Stream Deck, MIDI, OSC und die Handy-Seite |
 | **MIDI** | **MIDI MAP** (Ctrl+L); Eingänge und Zuordnungen; ein Schalter pro MIDI-Eingang |
-| **OSC** | **OSC ON (PORT 9000)**; andere Geräte zulassen (Tablet, Handy) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, für die Plugins von Stream Deck und Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Eine Steuerseite für dein Handy (die API muss an sein). Zeigt einen QR-Code |
+| **OSC** | **OSC ON (PORT 9000)**, für Programme auf diesem PC |
 
 ---
 
@@ -1035,8 +1032,7 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klicke ein Bedienelement auf dem Bildschirm an und bewege dann einen Regler oder eine Taste deines Controllers. Fader, Pan, CUT, SOLO, Ein/Aus und Routing-Tasten jedes Strips lassen sich zuordnen, in SIMPLE und PRO, ebenso Szenen, Pads und das Tape. Das Mausrad scrollt das Pult während der Zuordnung (Shift+Rad nach oben und unten) |
-| **Stream Deck / Loupedeck** | Plugins mit Live-Pegelmessern auf den Tasten. Schalte zuerst die API ein |
-| **Phone** | Scanne den QR-Code unter SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Programme auf diesem PC können an Port 9000 senden (er hört nie auf das Netzwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 lässt es wieder los). Leerzeichen in Namen schreibst du als `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Talking-Licht, LIVE / MUTED und Pegel jedes Mikrofonkanals, plus bis zu vier Szenen-Tasten. Nimmt einem Spiel nie den Fokus. Ziehe es an eine beliebige Stelle |
 | **MINI** | Ein kleiner Mixer über allem. **OPEN** führt zurück zum Hauptfenster |
 | **Tray** | Klick auf das Symbol für den Tray-Mixer, Doppelklick öffnet das Fenster. Rechtsklick: Show, Szenen-Abruf, Restore session, Start with Windows, About, Quit. Das Symbol blinkt bei einem Alarm gelb |

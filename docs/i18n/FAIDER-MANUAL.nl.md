@@ -1020,11 +1020,8 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 
 | Kaart | |
 |---|---|
-| **SET UP A CONTROLLER** | Begeleide installatie voor Loupedeck, Stream Deck, MIDI, OSC en de telefoonpagina |
 | **MIDI** | **MIDI MAP** (Ctrl+L); ingangen en toewijzingen; een schakelaar per MIDI-ingang |
-| **OSC** | **OSC ON (PORT 9000)**; andere apparaten toestaan (tablet, telefoon) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, voor de Stream Deck- en Loupedeck-plugins |
-| **PHONE CONTROL (WEB PAGE)** | Een bedieningspagina voor je telefoon (de API moet aan staan). Toont een QR-code |
+| **OSC** | **OSC ON (PORT 9000)**, voor programma's op deze pc |
 
 ---
 
@@ -1035,8 +1032,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
-| **Stream Deck / Loupedeck** | Plugins met live meters op de toetsen. Zet eerst de API aan |
-| **Phone** | Scan de QR-code via SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen (hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / MUTED en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | Een kleine mixer bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
 | **Tray** | Klik op het pictogram voor de mixer in het systeemvak, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Restore session, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing |

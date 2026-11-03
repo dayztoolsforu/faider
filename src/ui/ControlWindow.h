@@ -5,10 +5,9 @@
 #include "Console.h"
  #include "DeskSettings.h"
 
-// CONTROL: everything about controllers in one place (SETTINGS > CONTROL): SET UP A CONTROLLER,
-// MIDI (map mode, inputs and bindings, each input on or off), OSC, the deck plugins' local API
-// and phone control. It follows changes made elsewhere (a MIDI device plugged in, the helper
-// turning the API on) while it's open.
+// CONTROL: everything about controllers in one place (SETTINGS > CONTROL): MIDI (map mode, inputs
+// and bindings, each input on or off) and OSC (this PC only). It follows changes made elsewhere
+// (a MIDI device plugged in) while it's open.
 class ControlPanel : public juce::Component, private juce::Timer
                    , public DeskSettings::WidthFill
 {
@@ -16,15 +15,13 @@ public:
     // What lives in the app rather than the engine.
     struct Hooks
     {
-        std::function<void()> openHelper, toggleMidiMap, openMidiPanel;
-        std::function<bool()> midiMapOn, apiOn, phoneOn;
-        std::function<void (bool)> setApi, setPhone;
-        int apiPort = 0;   // the port the API listens on when switched on (shown on its key)
+        std::function<void()> toggleMidiMap, openMidiPanel;
+        std::function<bool()> midiMapOn;
     };
 
     ControlPanel (RemoteControl& r, Hooks h) : remote (r), hooks (std::move (h))
     {
-        for (auto* l : { &midiHeading, &oscHeading, &apiHeading, &phoneHeading })
+        for (auto* l : { &midiHeading, &oscHeading })
         {
             l->setFont (Console::legendFont (Console::Type::name));   // section headings
             l->setColour (juce::Label::textColourId, Console::Colours::legendDim());
@@ -35,27 +32,12 @@ public:
         noInputs.setColour (juce::Label::textColourId, Console::Colours::legendDim());
         addChildComponent (noInputs);
 
-        helper.setTooltip ("Guided setup for any controller");
-        helper.onClick = [this] { hooks.openHelper(); };
         bindings.onClick = [this] { hooks.openMidiPanel(); };
 
         toggle (midiMap, "Link desk controls to MIDI (Ctrl+L)", [this] { hooks.toggleMidiMap(); });
         toggle (osc, "Listen for OSC messages",
                 [this] { remote.setOscPort (remote.getOscPort() > 0 ? 0 : remote.getOscPreferredPort()); });
-        toggle (oscNetwork, "Let tablets and phones send OSC",
-                [this] { remote.setOscFromNetwork (! remote.isOscFromNetwork()); });
-        toggle (api, "Lets Stream Deck and Loupedeck plugins connect",
-                [this] { hooks.setApi (! hooks.apiOn()); });
-        toggle (phone, "Control the desk from your phone",
-                [this] { hooks.setPhone (! hooks.phoneOn()); });
-
-        api.setButtonText ("API ON  (127.0.0.1:" + juce::String (hooks.apiPort) + ")");
-        for (auto* b : { &helper, &bindings })
-            addAndMakeVisible (b);
-
-        DeskSettings::styleHeading (setupHeading);
-        addAndMakeVisible (setupHeading);
-        helper.setButtonText ("SET UP A CONTROLLER...");
+        addAndMakeVisible (bindings);
         refresh();
         setSize (420, heightFor (420));
         startTimerHz (4);
@@ -100,15 +82,10 @@ private:
             inputs[i]->setToggleState (remote.isInputOn (shownIds[i]), juce::dontSendNotification);
 
         const int port = remote.getOscPort();
-        const bool apiOn = hooks.apiOn();
         midiMap.setToggleState (hooks.midiMapOn(), juce::dontSendNotification);
         bindings.setButtonText ("INPUTS AND BINDINGS (" + juce::String (remote.mappingCount()) + ")...");
         osc.setButtonText ("OSC ON  (PORT " + juce::String (port > 0 ? port : remote.getOscPreferredPort()) + ")");
         osc.setToggleState (port > 0, juce::dontSendNotification);
-        oscNetwork.setToggleState (remote.isOscFromNetwork(), juce::dontSendNotification);
-        api.setToggleState (apiOn, juce::dontSendNotification);
-        phone.setEnabled (apiOn);
-        phone.setToggleState (hooks.phoneOn(), juce::dontSendNotification);
     }
 
     // Only while it's open: closed, the window is only hidden (it would list MIDI devices four
@@ -118,9 +95,9 @@ private:
     // A theme change: the colours set when the window was made, in the new theme's.
     void lookAndFeelChanged() override
     {
-        for (auto* l : { &midiHeading, &oscHeading, &apiHeading, &phoneHeading, &noInputs })
+        for (auto* l : { &midiHeading, &oscHeading, &noInputs })
             l->setColour (juce::Label::textColourId, Console::Colours::legendDim());
-        for (auto* b : { &midiMap, &osc, &oscNetwork, &api, &phone })
+        for (auto* b : { &midiMap, &osc })
             b->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
         for (auto* b : inputs)
             b->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
@@ -128,26 +105,22 @@ private:
     }
 
 public:
-    // SET UP, MIDI, OSC, the deck plugins' API and phone control, each a card, in columns.
+    // MIDI and OSC, each a card, in columns.
     int heightFor (int w) override { return arrangeCards (w, false); }
 private:
     int arrangeCards (int w, bool apply)
     {
         std::vector<DeskSettings::Group> groups;
-        groups.push_back ({ &setupHeading, { { { &helper } } } });
         DeskSettings::Group midi { &midiHeading, { { { &midiMap } }, { { &bindings } } } };
         if (inputs.isEmpty())
             midi.rows.push_back ({ { &noInputs } });
         for (auto* b : inputs)
             midi.rows.push_back ({ { b } });
         groups.push_back (midi);
-        groups.push_back ({ &oscHeading, { { { &osc } }, { { &oscNetwork } } } });
-        groups.push_back ({ &apiHeading, { { { &api } } } });
-        groups.push_back ({ &phoneHeading, { { { &phone } } } });
+        groups.push_back ({ &oscHeading, { { { &osc } } } });
         return DeskSettings::arrange (groups, w, apply, cards, 340);
     }
     std::vector<juce::Rectangle<int>> cards;
-    juce::Label setupHeading { {}, "SET UP A CONTROLLER" };
     void paint (juce::Graphics& g) override
     {
         g.fillAll (DeskSettings::desk());
@@ -158,12 +131,10 @@ private:
 
     RemoteControl& remote;
     Hooks hooks;
-    juce::TextButton helper { "SET UP A CONTROLLER (LOUPEDECK, STREAM DECK, MIDI, OSC, PHONE)..." };
-    juce::Label midiHeading { {}, "MIDI" }, oscHeading { {}, "OSC" },
-                apiHeading { {}, "DECK PLUGINS (LOCAL API)" }, phoneHeading { {}, "PHONE CONTROL (WEB PAGE)" };
+    juce::Label midiHeading { {}, "MIDI" }, oscHeading { {}, "OSC" };
     juce::TextButton midiMap { "MIDI MAP  (CTRL+L)" }, bindings;
     juce::OwnedArray<juce::TextButton> inputs;   // one per MIDI input, in shownIds' order
     juce::StringArray shownIds;
     juce::Label noInputs { {}, "No MIDI inputs" };
-    juce::TextButton osc, oscNetwork { "OSC FROM OTHER DEVICES (TABLET, PHONE)" }, api, phone { "PHONE CONTROL ON" };
+    juce::TextButton osc;
 };

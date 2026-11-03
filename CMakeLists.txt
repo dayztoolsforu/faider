@@ -137,16 +137,6 @@ target_link_libraries(DefaultDeviceTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
-# QR code check (see tests/QrTest.cpp).
-juce_add_console_app(QrTest PRODUCT_NAME "QrTest")
-target_sources(QrTest PRIVATE tests/QrTest.cpp)
-target_compile_definitions(QrTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
-target_link_libraries(QrTest
-    PRIVATE
-        juce::juce_core
-    PUBLIC
-        juce::juce_recommended_config_flags)
-
 # Macro triggers check (see tests/TriggerTest.cpp).
 juce_add_console_app(TriggerTest PRODUCT_NAME "TriggerTest")
 target_sources(TriggerTest PRIVATE tests/TriggerTest.cpp)

@@ -1044,11 +1044,8 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 
 | Cartão | |
 |---|---|
-| **SET UP A CONTROLLER** | Configuração guiada para Loupedeck, Stream Deck, MIDI, OSC e a página para celular |
 | **MIDI** | **MIDI MAP** (Ctrl+L); entradas e atribuições; uma chave por entrada MIDI |
-| **OSC** | **OSC ON (PORT 9000)**; permitir outros dispositivos (tablet, celular) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, para os plugins do Stream Deck e do Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Uma página de controle para o seu celular (precisa da API ligada). Mostra um QR code |
+| **OSC** | **OSC ON (PORT 9000)**, para programas neste PC |
 
 ---
 
@@ -1059,8 +1056,7 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, no SIMPLE e no PRO, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo) |
-| **Stream Deck / Loupedeck** | Plugins com medidores ao vivo nas teclas. Ligue a API primeiro |
-| **Celular** | Escaneie o QR code em SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Programas neste PC podem enviar para a porta 9000 (ele nunca escuta a rede): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 a solta). Escreva os espaços nos nomes como `_` |
 | **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / MUTED e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
 | **MINI** | Um pequeno mixer por cima de tudo. **OPEN** volta para a janela principal |
 | **Bandeja** | Clique no ícone para o mixer da bandeja, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Restore session, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta |

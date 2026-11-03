@@ -334,7 +334,7 @@ bool RemoteControl::setOscPort (int port)
     }
     oscPreferredPort = port;   // what ENABLE comes back to
     oscSocket = std::make_unique<juce::DatagramSocket> (false);
-    if (! oscSocket->bindToPort (port, oscNetwork ? juce::String() : juce::String ("127.0.0.1")) || ! osc.connectToSocket (*oscSocket))
+    if (! oscSocket->bindToPort (port, "127.0.0.1") || ! osc.connectToSocket (*oscSocket))
     {
         osc.disconnect();
         oscSocket.reset();
@@ -342,7 +342,7 @@ bool RemoteControl::setOscPort (int port)
         return false;
     }
     oscPort = port;
-    if (log) log ("osc: listening on port " + juce::String (port) + (oscNetwork ? " (this PC and the network)" : " (this PC only)"));
+    if (log) log ("osc: listening on port " + juce::String (port) + " (this PC only)");
     return true;
 }
 
@@ -437,8 +437,6 @@ juce::String RemoteControl::saveState() const
     juce::XmlElement xml ("Remote");
     xml.setAttribute ("osc", oscPort);
     xml.setAttribute ("oscPreferred", oscPreferredPort);
-    if (oscNetwork)
-        xml.setAttribute ("oscNetwork", true);
     for (auto& id : enabledInputs)
         xml.createNewChildElement ("Input")->setAttribute ("id", id);
     for (auto& [key, target] : mapping)
@@ -463,6 +461,5 @@ void RemoteControl::restoreState (const juce::String& text)
         mapping[m->getStringAttribute ("control")] = m->getStringAttribute ("target");
     openInputs();
     oscPreferredPort = xml->getIntAttribute ("oscPreferred", 9000);
-    oscNetwork = xml->getBoolAttribute ("oscNetwork");
     setOscPort (xml->getIntAttribute ("osc"));
 }

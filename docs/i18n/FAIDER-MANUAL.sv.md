@@ -1021,11 +1021,8 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 
 | Kort | |
 |---|---|
-| **SET UP A CONTROLLER** | Guidad installation för Loupedeck, Stream Deck, MIDI, OSC och telefonsidan |
 | **MIDI** | **MIDI MAP** (Ctrl+L); ingångar och bindningar; en omkopplare per MIDI-ingång |
-| **OSC** | **OSC ON (PORT 9000)**; tillåt andra enheter (surfplatta, telefon) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, för Stream Deck- och Loupedeck-pluginen |
-| **PHONE CONTROL (WEB PAGE)** | En kontrollsida för din telefon (kräver att API:t är på). Visar en QR-kod |
+| **OSC** | **OSC ON (PORT 9000)**, för program på den här datorn |
 
 ---
 
@@ -1036,8 +1033,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
-| **Stream Deck / Loupedeck** | Plugins med levande mätare på tangenterna. Slå på API:t först |
-| **Phone** | Skanna QR-koden från SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Program på den här datorn kan skicka till port 9000 (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / MUTED och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
 | **MINI** | En liten mixer ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
 | **Tray** | Klicka på ikonen för aktivitetsfältets mixer, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Restore session, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm |

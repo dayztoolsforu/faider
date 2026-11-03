@@ -1071,11 +1071,8 @@ console ([5](#5-the-console)).
 
 | Carte | |
 |---|---|
-| **SET UP A CONTROLLER** | Configuration guidée pour Loupedeck, Stream Deck, MIDI, OSC et la page pour téléphone |
 | **MIDI** | **MIDI MAP** (Ctrl+L) ; entrées et assignations ; un commutateur par entrée MIDI |
-| **OSC** | **OSC ON (PORT 9000)** ; autoriser d'autres appareils (tablette, téléphone) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, pour les plugins Stream Deck et Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Une page de commande pour votre téléphone (l'API doit être activée). Affiche un code QR |
+| **OSC** | **OSC ON (PORT 9000)**, pour les programmes de ce PC |
 
 ---
 
@@ -1086,8 +1083,7 @@ console ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas) |
-| **Stream Deck / Loupedeck** | Des plugins avec des vumètres en direct sur les touches. Activez d'abord l'API |
-| **Téléphone** | Scannez le code QR depuis SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000 (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_` |
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / MUTED et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
 | **MINI** | Un petit mixeur au premier plan de tout. **OPEN** revient à la fenêtre principale |
 | **Zone de notification** | Cliquez sur l'icône pour le mixeur de la zone de notification, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Restore session, Start with Windows, About, Quit. L'icône clignote en orange pendant une alerte |

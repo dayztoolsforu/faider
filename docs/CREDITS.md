@@ -16,11 +16,6 @@ What went into Faider. The app shows the same list under SETTINGS > GENERAL > AB
 - **WASAPI** and per-app capture: Microsoft Windows.
 - **ITU-R BS.1770 / EBU R 128**: LOUDNESS (LUFS) and true-peak metering.
 
-## Deck plugins
-
-- **LoupixDeck.PluginSdk 1.34**: RadiatorTwo. MIT licence. The Loupedeck plugin (`plugins/loupixdeck`) is built against it, for [LoupixDeck](https://github.com/RadiatorTwo/LoupixDeck), which provides it at run time.
-- **Stream Deck SDK** (protocol only, nothing bundled): Elgato / Corsair. Stream Deck is a trademark of Corsair.
-
 ## Works with (not included)
 
 - **VB-CABLE**: VB-Audio Software. Virtual cables between apps.

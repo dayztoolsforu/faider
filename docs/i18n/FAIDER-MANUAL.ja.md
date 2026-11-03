@@ -872,11 +872,8 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 | カード | |
 |---|---|
-| **SET UP A CONTROLLER** | Loupedeck、Stream Deck、MIDI、OSC、スマートフォン用ページのガイド付きセットアップ |
 | **MIDI** | **MIDI MAP** (Ctrl+L)、入力とバインド、MIDI 入力ごとのスイッチ |
-| **OSC** | **OSC ON (PORT 9000)**。他のデバイス(タブレット、スマートフォン)を許可 |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**。Stream Deck と Loupedeck のプラグイン用 |
-| **PHONE CONTROL (WEB PAGE)** | スマートフォン用の操作ページ(API をオンにする必要があります)。QR コードが表示されます |
+| **OSC** | **OSC ON (PORT 9000)**。この PC 上のプログラム用 |
 
 ---
 
@@ -887,8 +884,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下) |
-| **Stream Deck / Loupedeck** | キー上にライブメーターが出るプラグイン。先に API をオンにしてください |
-| **Phone** | SETTINGS > CONTROL > PHONE CONTROL の QR コードを読み取ります |
+| **OSC** | この PC 上のプログラムからポート 9000 に送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます |
 | **In-game overlay** (Ctrl+Shift+O) | 各マイクチャンネルのトーキングライト、LIVE / MUTED とレベル、さらに最大 4 つのシーンキー。ゲームからフォーカスを奪いません。好きな位置にドラッグできます |
 | **MINI** | すべての上に表示される小さなミキサー。**OPEN** でメインウィンドウに戻ります |
 | **Tray** | アイコンをクリックするとトレイミキサー、ダブルクリックするとウィンドウが開きます。右クリック: Show、シーンの呼び出し、Restore session、Start with Windows、About、Quit。警告中は、アイコンが琥珀色に点滅します |

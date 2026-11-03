@@ -11,11 +11,9 @@
 #include "ui/Overlay.h"
 #include "ui/MidiMap.h"
 #include "ui/MidiPanel.h"
-#include "ui/ControllerHelper.h"
 #include "ui/SceneBar.h"
 
 #include "engine/MixHistory.h"
-#include "engine/ControlServer.h"
 #include "ui/TrayMixer.h"
 #include "ui/Console.h"
 #include "ui/ControlWindow.h"
@@ -98,8 +96,6 @@ private:
     void setZoom (float);
     void stepZoom (int direction);   // the next stage up (1) or down (-1)
     void structureStep (const juce::String& kind, int index, int slot, bool adding);   // undo for strips and plugins
-    void setControlPort (int port);   // the local control API (0: off), remembered
-    void setPhoneControl (bool on);   // the API open to phones on the network too, remembered
     void toggleMidiMap();             // MIDI MAP mode on / off
     void undoRedo (bool redo);        // a step back or forward, logged and noticed
     void showHistory (juce::PopupMenu::Options where);   // every undo step, to go back to any
@@ -115,7 +111,6 @@ private:
     const juce::uint32 openedAt = juce::Time::getMillisecondCounter();   // (devices found at start-up aren't news)
     void styleEventLog();             // the event log in the theme's colours
     void openMidiPanel();             // the MIDI page: inputs and bindings
-    void openControllerHelper (int startOn = -1);   // SET UP A CONTROLLER: decks, MIDI, OSC, the phone page (startOn: a page)
     void checkAlerts();               // outputs' ALERTS, once a second
     void watchMutedTalk();            // a muted mic channel heard: say so (ten times a second)
     void openCommandPalette();        // Ctrl+K / FIND: everything Faider can do, by name
@@ -172,7 +167,6 @@ private:
     std::unique_ptr<SceneBar> sceneBar;   // in the tab bar, after the tabs
 
     std::unique_ptr<MixHistory> history;  // Ctrl+Z / Ctrl+Y
-    std::unique_ptr<ControlServer> controlServer;   // the local control API, for deck plugins
     std::unique_ptr<MidiMapOverlay> midiMap;        // MIDI MAP mode, while on
     // SETTINGS (SettingsTab.h): GENERAL, MACROS, HOTKEYS and CONTROL.
     std::unique_ptr<SettingsTab> settingsTab;

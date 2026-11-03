@@ -879,11 +879,8 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 
 | Card | |
 |---|---|
-| **SET UP A CONTROLLER** | Guided setup for Loupedeck, Stream Deck, MIDI, OSC and the phone page |
 | **MIDI** | **MIDI MAP** (Ctrl+L); inputs and bindings; a switch per MIDI input |
-| **OSC** | **OSC ON (PORT 9000)**; allow other devices (tablet, phone) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, for the Stream Deck and Loupedeck plugins |
-| **PHONE CONTROL (WEB PAGE)** | A control page for your phone (needs the API on). Shows a QR code |
+| **OSC** | **OSC ON (PORT 9000)**, for programs on this PC |
 
 ---
 
@@ -892,8 +889,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
-| **Stream Deck / Loupedeck** | Plugins with live meters on the keys. Turn the API on first |
-| **Phone** | Scan the QR code from SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / MUTED and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | A small mixer on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the tray mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert |

@@ -1021,11 +1021,8 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 
 | Kart | |
 |---|---|
-| **SET UP A CONTROLLER** | Loupedeck, Stream Deck, MIDI, OSC ve telefon sayfası için yönlendirmeli kurulum |
 | **MIDI** | **MIDI MAP** (Ctrl+L); girişler ve atamalar; her MIDI girişi için bir anahtar |
-| **OSC** | **OSC ON (PORT 9000)**; diğer aygıtlara izin ver (tablet, telefon) |
-| **DECK PLUGINS (LOCAL API)** | Stream Deck ve Loupedeck eklentileri için **API ON (127.0.0.1:9123)** |
-| **PHONE CONTROL (WEB PAGE)** | Telefonun için bir kontrol sayfası (API'nin açık olması gerekir). Bir QR kodu gösterir |
+| **OSC** | Bu bilgisayardaki programlar için **OSC ON (PORT 9000)** |
 
 ---
 
@@ -1036,8 +1033,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
-| **Stream Deck / Loupedeck** | Tuşlarda canlı ölçerli eklentiler. Önce API'yi aç |
-| **Telefon** | QR kodunu SETTINGS > CONTROL > PHONE CONTROL'den tara |
+| **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / MUTED ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Her şeyin üstünde küçük bir mikser. **OPEN** ana pencereye döner |
 | **Tepsi** | Tepsi mikseri için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Restore session, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |

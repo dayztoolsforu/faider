@@ -92,7 +92,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 **Control and automation**
 - Scenes that glide, undo and redo for every mix change, named sessions and a session timeline
 - Macros fired by hotkeys, pads, the API or triggers (an app starts, a device connects, an output falls silent, a time of day)
-- MIDI mapping, OSC, a local HTTP API, a phone control page, and Stream Deck and Loupedeck plugins
+- MIDI mapping, and OSC from programs on the same PC
 - APP RULES (SETTINGS > GENERAL, or FIND) give a program its own channel the moment it starts playing
 - An in-game overlay, a mini mixer and a tray mixer
 
@@ -169,7 +169,6 @@ Set your speakers and microphone back under **Settings > System > Sound**.
 |---|---|
 | User manual, 13 languages | [Faider manual](https://dayztoolsforu.github.io/faider/manual.html) |
 | The app and its layout files | [console/README.md](console/README.md) |
-| Remote control: OSC, HTTP API, deck plugins | [plugins/README.md](plugins/README.md) |
 | All documentation | [docs/README.md](docs/README.md) |
 
 ## How it works
@@ -208,7 +207,6 @@ versions are kept, and a mix that can't be loaded is set aside rather than lost.
 ```
 src/            the engine (engine/), devices (devices/), the interface (ui/)
 console/        the console, the Routing page and the strip layouts (layout/)
-plugins/        Stream Deck and Loupedeck plugins, remote-control documentation
 tests/          engine checks (tools/run-tests.ps1 runs those that need no hardware)
 docs/           manuals, translations and images
 installer/      the Inno Setup script (tools/build-installer.ps1 builds the installer)
@@ -232,7 +230,7 @@ SETTINGS > GENERAL > ABOUT and in [docs/CREDITS.md](docs/CREDITS.md).
 | VST3 SDK (via JUCE) | Steinberg Media Technologies | See the SDK | Plugin hosting |
 | ASIO SDK (optional) | Steinberg Media Technologies | GPLv3 / proprietary | Low-latency drivers |
 
-<sub>Works with, not included: VB-CABLE (VB-Audio Software), FFmpeg, LoupixDeck, Stream Deck (Elgato).
+<sub>Works with, not included: VB-CABLE (VB-Audio Software), FFmpeg.
 VST and ASIO are trademarks of Steinberg Media Technologies GmbH.</sub>
 
 ## Licence

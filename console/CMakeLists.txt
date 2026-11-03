@@ -22,11 +22,9 @@ target_sources(Faider PRIVATE
     ${_src}/engine/Macros.cpp
     ${_src}/engine/Scenes.cpp
     ${_src}/engine/RemoteControl.cpp
-    ${_src}/engine/ControlServer.cpp
     ${_src}/engine/VoiceChain.cpp
     ${_src}/engine/NeuralNoise.cpp
     ${_src}/ui/VoiceChainEditor.cpp
-    ${_src}/ui/ControllerHelper.cpp
     ${_src}/engine/AudioEngine.cpp
     ${_src}/ui/MixerComponent.cpp
     ${_src}/ui/DevicesTab.cpp
@@ -69,24 +67,6 @@ target_link_libraries(Faider
 if(MSVC)
     target_compile_options(Faider PRIVATE $<$<CONFIG:Release>:/Zi>)
     target_link_options(Faider PRIVATE $<$<CONFIG:Release>:/DEBUG:FULL /OPT:REF /OPT:ICF /PDBALTPATH:%_PDB%>)
-endif()
-# The deck plugins beside the program (the controller helper installs them from there). The LoupixDeck one
-# is built with the .NET 10 SDK (dotnet build plugins/loupixdeck/LoupixDeck.Plugin.Faider -c Release); its
-# build is copied if it's there at configure time.
-add_custom_command(TARGET Faider POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-            "${CMAKE_SOURCE_DIR}/plugins/streamdeck/com.faider.desk.sdPlugin"
-            "$<TARGET_FILE_DIR:Faider>/plugins/streamdeck/com.faider.desk.sdPlugin"
-    VERBATIM)
-set(_lpx_console "${CMAKE_SOURCE_DIR}/plugins/loupixdeck/LoupixDeck.Plugin.Faider/bin/Release")
-if(EXISTS "${_lpx_console}/LoupixDeck.Plugin.Faider.dll")
-    add_custom_command(TARGET Faider POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:Faider>/plugins/loupixdeck"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${_lpx_console}/LoupixDeck.Plugin.Faider.dll" "${_lpx_console}/LoupixDeck.Plugin.Faider.deps.json"
-                "${_lpx_console}/plugin.json" "${_lpx_console}/icon.png"
-                "$<TARGET_FILE_DIR:Faider>/plugins/loupixdeck"
-        VERBATIM)
 endif()
 add_custom_command(TARGET Faider POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/layout/mixer.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/mixer-dark.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/master.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/app.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/pads.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/tape.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/combinator.json" "$<TARGET_FILE_DIR:Faider>")

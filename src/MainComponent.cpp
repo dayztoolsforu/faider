@@ -30,7 +30,7 @@ MainComponent::MainComponent()
       statusFile (dataDir.getChildFile ("status.txt")),
       sessionFile (dataDir.getChildFile ("session.xml"))
 {
-    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff", "vrDashboard" })   // (LIVE COACHING, earlier desks and looks, the SteamVR page)
+    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff", "vrDashboard", "controlPort", "phoneControl", "phoneKey" })   // (LIVE COACHING, earlier desks and looks, the SteamVR page, the control API)
         settings.removeValue (gone);
     look->applyTheme();
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
@@ -290,12 +290,6 @@ MainComponent::MainComponent()
         });
     };
 
-    // The local control API (ControlServer.h): on unless switched off.
-    controlServer = std::make_unique<ControlServer> (engine);
-    setControlPort (settings.getIntValue ("controlPort", 0));   // off until turned on (CONTROL menu, SET UP A CONTROLLER)
-    if (settings.getBoolValue ("phoneControl", false))   // off unless switched on
-        setPhoneControl (true);
-
     // A renamed channel: the mixer's selection and banks follow it, and a bus or output keeps its
     // place on the desk (the engine sees to the rest).
     engine.onRenamed = [this] (const juce::String& kind, const juce::String& oldName, const juce::String& newName)
@@ -522,22 +516,11 @@ void MainComponent::makeSettings()
         return list;
     });
 
-    // CONTROL: controllers (MIDI, OSC, deck plugins, phone). Learning is on the strips' and scenes' menus.
+    // CONTROL: controllers (MIDI, OSC). Learning is on the strips' and scenes' menus.
     ControlPanel::Hooks hooks;
-    hooks.openHelper = [this] { openControllerHelper(); };
     hooks.toggleMidiMap = [this] { toggleMidiMap(); };
     hooks.openMidiPanel = [this] { openMidiPanel(); };
     hooks.midiMapOn = [this] { return midiMap != nullptr; };
-    hooks.apiOn = [this] { return controlServer->getPort() > 0; };
-    hooks.phoneOn = [this] { return controlServer->isPhoneOn(); };
-    hooks.setApi = [this] (bool on) { setControlPort (on ? ControlServer::defaultPort : 0); };
-    hooks.setPhone = [this] (bool on)
-    {
-        setPhoneControl (on);
-        if (on)
-            openControllerHelper ((int) ControllerHelper::Device::phone);   // straight to its QR code
-    };
-    hooks.apiPort = ControlServer::defaultPort;
     controlPanel = std::make_unique<ControlPanel> (engine.getRemote(), std::move (hooks));
 
     settingsTab = std::make_unique<SettingsTab>();
@@ -643,9 +626,8 @@ void MainComponent::openCommandPalette()
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
     add ("MIDI MAP", "Ctrl+L - link controls to MIDI", [this] { toggleMidiMap(); });
     for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters"), std::pair ("Macros", "Macros and their triggers"),
-                                    std::pair ("Hotkeys", "Every global hotkey"), std::pair ("Control", "MIDI, OSC, deck plugins, phone") })
+                                    std::pair ("Hotkeys", "Every global hotkey"), std::pair ("Control", "MIDI and OSC") })
         add ("SETTINGS: " + juce::String (section).toUpperCase(), detail, [this, section = juce::String (section)] { openSettings (section); });
-    add ("SET UP A CONTROLLER", "Loupedeck, Stream Deck, MIDI, OSC, phone", [this] { openControllerHelper(); });
     add ("ADD CHANNEL", "Mic, device or app", [this]
     {
         tabs.setCurrentTabIndex (0);
@@ -1065,23 +1047,6 @@ void MainComponent::toggleMidiMap()
     midiMap->toFront (true);
 }
 
-void MainComponent::openControllerHelper (int startOn)
-{
-    ControllerHelper::Hooks hooks;
-    hooks.apiPort = [this] { return controlServer->getPort(); };
-    hooks.turnApiOn = [this] { setControlPort (ControlServer::defaultPort); };
-    hooks.phoneOn = [this] { return controlServer->isPhoneOn(); };
-    hooks.setPhone = [this] (bool on) { setPhoneControl (on); };
-    hooks.phoneLinks = [this] { return ControlServer::phoneAddresses (controlServer->getPort(), settings.getValue ("phoneKey")); };
-    hooks.newPhoneKey = [this]
-    {
-        settings.setValue ("phoneKey", ControlServer::newKey());
-        settings.saveIfNeeded();
-        setPhoneControl (true);   // the server takes the new key: old links stop working
-    };
-    ControllerHelper::show (engine, std::move (hooks), startOn);
-}
-
 void MainComponent::openMidiPanel()
 {
     juce::DialogWindow::LaunchOptions options;
@@ -1091,52 +1056,6 @@ void MainComponent::openMidiPanel()
     options.useNativeTitleBar = true;
     options.resizable = true;
     options.launchAsync();
-}
-
-// Phone control: the control API answers phones on the network too, with this PC's key (made
-// the first time, kept in settings); remembered on or off.
-void MainComponent::setPhoneControl (bool on)
-{
-    auto key = settings.getValue ("phoneKey");
-    if (key.isEmpty() || ControlServer::isOldKey (key))
-    {
-        // A key from before keys got longer is easier to guess: it's replaced, once.
-        if (key.isNotEmpty())
-            logEvent ("phone control: made a longer key; old phone links stop working (scan the new QR code)");
-        key = ControlServer::newKey();
-        settings.setValue ("phoneKey", key);
-    }
-    const int portBefore = controlServer->getPort();
-    const bool ok = controlServer->setPhone (on, key);
-    settings.setValue ("phoneControl", on && ok);
-    // Reopening the server can fail outright (the port taken meanwhile): then the API is off,
-    // and settings say so rather than claim a port that isn't listening.
-    if (portBefore > 0 && controlServer->getPort() == 0)
-    {
-        logEvent ("control API: off (port " + juce::String (portBefore) + " unavailable)");
-        settings.setValue ("controlPort", 0);
-    }
-    settings.saveIfNeeded();
-    if (! on)
-        logEvent ("phone control: off");
-    else if (ok)
-        logEvent ("phone control: on, " + ControlServer::phoneAddresses (controlServer->getPort(), "<key>").joinIntoString (", "));
-    else if (controlServer->getPort() <= 0)
-        logEvent ("phone control: turn the control API on first");
-    else
-        logEvent ("phone control: couldn't open the control API to the network");
-}
-
-
-void MainComponent::setControlPort (int port)
-{
-    if (controlServer->setPort (port))
-        logEvent (port <= 0 ? juce::String ("control API: off")
-                            : "control API: listening on " + juce::String (controlServer->isPhoneOn() ? "this PC and the network" : "127.0.0.1") + ", port " + juce::String (port));
-    else
-        logEvent ("control API: couldn't listen on port " + juce::String (port) + " (in use?)");
-    settings.setValue ("controlPort", port);
-    settings.saveIfNeeded();
 }
 
 MainComponent::~MainComponent()
@@ -1150,9 +1069,8 @@ MainComponent::~MainComponent()
     mini = nullptr;          // (its mixer reads the engine)
     overlay = nullptr;
     settingsTab = nullptr;
-    controlPanel = nullptr;    // it reads the control server and the remote
+    controlPanel = nullptr;    // it reads the remote
     hotkeysPage = nullptr;     // (its list reads the pads, macros and scenes)
-    controlServer = nullptr;   // no more commands while things close
     midiMap = nullptr;
     engine.getRemote().appTarget = nullptr;
     engine.onAdded = nullptr;

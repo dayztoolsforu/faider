@@ -13,7 +13,7 @@ class AudioEngine;
 // knobs follow continuously; keys and notes toggle mute/solo, recall a scene, or press and
 // release a macro.
 //
-// OSC (phones, tablets, Stream Deck OSC plugins), on a UDP port, addresses by name (spaces may be
+// OSC from programs on this PC (never the network), on a UDP port, addresses by name (spaces may be
 // written as _):  /faider/input/MIC_FOCUS/fader -12.0   (dB)
 //                 /faider/output/MISC/mute 1            /faider/bus/SUMMING/pan -0.5
 //                 /faider/input/VR/solo 1               /faider/scene GAMING
@@ -64,8 +64,6 @@ public:
 
     // OSC from other devices (a tablet) as well as this PC. Off: it listens on 127.0.0.1 only, so
     // nothing on the network can change the mix (OSC carries no key). Saved with the state.
-    void setOscFromNetwork (bool on) { oscNetwork = on; if (oscPort > 0) setOscPort (oscPort); }
-    bool isOscFromNetwork() const { return oscNetwork; }
 
     // One command, as OSC addresses it after /faider: { "input", "MIC FOCUS", "fader" } with a
     // value in dB, { "scene", "GAMING" }, { "macro", "GO LIVE" }. Without a value, mute and solo
@@ -93,6 +91,5 @@ private:
     juce::OSCReceiver osc;
     std::unique_ptr<juce::DatagramSocket> oscSocket;   // what osc listens on (after osc: it goes first)
     int oscPort = 0, oscPreferredPort = 9000;
-    bool oscNetwork = false;   // OSC from other devices too (else this PC only)
     std::shared_ptr<bool> alive = std::make_shared<bool> (true);   // MIDI handed over after this has gone is dropped
 };

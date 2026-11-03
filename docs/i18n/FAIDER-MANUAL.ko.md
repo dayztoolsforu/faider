@@ -872,11 +872,8 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | 카드 | |
 |---|---|
-| **SET UP A CONTROLLER** | Loupedeck, Stream Deck, MIDI, OSC, 휴대폰 페이지의 안내형 설정 |
 | **MIDI** | **MIDI MAP** (Ctrl+L), 입력과 바인딩, MIDI 입력마다 스위치 |
-| **OSC** | **OSC ON (PORT 9000)**. 다른 장치(태블릿, 휴대폰) 허용 |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, Stream Deck과 Loupedeck 플러그인용 |
-| **PHONE CONTROL (WEB PAGE)** | 휴대폰용 제어 페이지(API가 켜져 있어야 함). QR 코드가 표시됩니다 |
+| **OSC** | **OSC ON (PORT 9000)**. 이 PC의 프로그램용 |
 
 ---
 
@@ -887,8 +884,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 SIMPLE과 PRO에서 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래) |
-| **Stream Deck / Loupedeck** | 키에 실시간 미터가 표시되는 플러그인. 먼저 API를 켜세요 |
-| **Phone** | SETTINGS > CONTROL > PHONE CONTROL의 QR 코드를 스캔합니다 |
+| **OSC** | 이 PC의 프로그램은 포트 9000으로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다 |
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / MUTED와 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
 | **MINI** | 모든 것 위에 뜨는 작은 믹서. **OPEN**은 메인 창으로 돌아갑니다 |
 | **Tray** | 아이콘을 누르면 트레이 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Restore session, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |

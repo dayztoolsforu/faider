@@ -58,6 +58,8 @@ Type: files; Name: "{autoprograms}\{#EarlierName}.lnk"
 Type: files; Name: "{autodesktop}\{#EarlierName}.lnk"
 ; (the SteamVR library earlier versions put next to the exe)
 Type: files; Name: "{app}\openvr_api.dll"
+; (the Stream Deck and Loupedeck plugins earlier versions shipped)
+Type: filesandordirs; Name: "{app}\plugins"
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"

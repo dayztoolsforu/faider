@@ -1033,11 +1033,8 @@ sulla console ([5](#5-the-console)).
 
 | Scheda | |
 |---|---|
-| **SET UP A CONTROLLER** | Configurazione guidata per Loupedeck, Stream Deck, MIDI, OSC e la pagina per telefono |
 | **MIDI** | **MIDI MAP** (Ctrl+L); ingressi e assegnazioni; un interruttore per ogni ingresso MIDI |
-| **OSC** | **OSC ON (PORT 9000)**; consenti altri dispositivi (tablet, telefono) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, per i plugin di Stream Deck e Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Una pagina di controllo per il telefono (richiede l'API attiva). Mostra un codice QR |
+| **OSC** | **OSC ON (PORT 9000)**, per i programmi su questo PC |
 
 ---
 
@@ -1048,8 +1045,7 @@ sulla console ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Fai clic su un controllo sullo schermo, poi muovi una manopola o un tasto del tuo controller. Si possono assegnare fader, pan, CUT, SOLO, accensione e tasti di instradamento di ogni strip, in SIMPLE e in PRO, oltre a scene, pad e tape. Durante l'assegnazione la rotellina del mouse fa scorrere la console (Shift+rotellina su e giù) |
-| **Stream Deck / Loupedeck** | Plugin con meter dal vivo sui tasti. Attiva prima l'API |
-| **Telefono** | Scansiona il codice QR da SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | I programmi su questo PC possono inviare alla porta 9000 (non ascolta mai la rete): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la rilascia). Scrivi gli spazi nei nomi come `_` |
 | **Overlay nel gioco** (Ctrl+Shift+O) | La spia di parlato di ogni canale microfono, LIVE / MUTED e livello, più fino a quattro tasti scena. Non toglie mai il focus a un gioco. Trascinalo dove vuoi |
 | **MINI** | Un piccolo mixer sopra a tutto. **OPEN** torna alla finestra principale |
 | **Area di notifica** | Fai clic sull'icona per il mixer dell'area di notifica, doppio clic per aprire la finestra. Clic destro: Show, richiamo scene, Restore session, Start with Windows, About, Quit. L'icona lampeggia in ambra durante un allarme |

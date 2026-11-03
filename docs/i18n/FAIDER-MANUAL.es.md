@@ -1055,11 +1055,8 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 
 | Tarjeta | |
 |---|---|
-| **SET UP A CONTROLLER** | Configuración guiada para Loupedeck, Stream Deck, MIDI, OSC y la página para el teléfono |
 | **MIDI** | **MIDI MAP** (Ctrl+L); entradas y asignaciones; un conmutador por entrada MIDI |
-| **OSC** | **OSC ON (PORT 9000)**; permitir otros dispositivos (tableta, teléfono) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, para los plugins de Stream Deck y Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Una página de control para tu teléfono (necesita la API activada). Muestra un código QR |
+| **OSC** | **OSC ON (PORT 9000)**, para programas de este PC |
 
 ---
 
@@ -1070,8 +1067,7 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Haz clic en un control en pantalla y luego mueve una perilla o una tecla de tu controlador. Se pueden asignar el fader, el pan, CUT, SOLO, el encendido y las teclas de enrutamiento de cada strip, en SIMPLE y en PRO, así como las escenas, los pads y la cinta. La rueda del ratón desplaza la mesa mientras asignas (Mayús+rueda arriba y abajo) |
-| **Stream Deck / Loupedeck** | Plugins con medidores en vivo en las teclas. Activa antes la API |
-| **Teléfono** | Escanea el código QR desde SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Los programas de este PC pueden enviar al puerto 9000 (nunca escucha la red): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la suelta). Escribe los espacios de los nombres como `_` |
 | **Overlay en el juego** (Ctrl+Mayús+O) | La luz de voz de cada canal de micro, LIVE / MUTED y el nivel, más hasta cuatro teclas de escena. Nunca le quita el foco a un juego. Arrástralo adonde quieras |
 | **MINI** | Un pequeño mezclador encima de todo. **OPEN** vuelve a la ventana principal |
 | **Bandeja** | Haz clic en el icono para el mezclador de la bandeja, doble clic para abrir la ventana. Clic derecho: Show, recuperar escena, Restore session, Start with Windows, About, Quit. El icono parpadea en ámbar durante una alerta |

@@ -872,11 +872,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | 卡片 | |
 |---|---|
-| **SET UP A CONTROLLER** | Loupedeck、Stream Deck、MIDI、OSC 和手机页面的引导式设置 |
 | **MIDI** | **MIDI MAP** (Ctrl+L)；输入和绑定；每个 MIDI 输入一个开关 |
-| **OSC** | **OSC ON (PORT 9000)**；允许其他设备(平板、手机) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**，供 Stream Deck 和 Loupedeck 插件使用 |
-| **PHONE CONTROL (WEB PAGE)** | 供你手机使用的控制页面(需要开启 API)。显示二维码 |
+| **OSC** | **OSC ON (PORT 9000)**，供这台电脑上的程序使用 |
 
 ---
 
@@ -887,8 +884,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
-| **Stream Deck / Loupedeck** | 按键上有实时电平表的插件。请先开启 API |
-| **Phone** | 从 SETTINGS > CONTROL > PHONE CONTROL 扫描二维码 |
+| **OSC** | 这台电脑上的程序可以发送到端口 9000(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_` |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / MUTED 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 位于所有窗口之上的小调音台。**OPEN** 返回主窗口 |
 | **Tray** | 点击图标显示托盘调音台，双击打开窗口。右键点击：Show、场景调用、Restore session、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色 |

@@ -7,5 +7,4 @@
 
 ## Also
 
-- [Remote control](../plugins/README.md): OSC, the HTTP API, the phone page, Stream Deck and Loupedeck plugins
 - [Credits](CREDITS.md): the libraries and data the app is built on

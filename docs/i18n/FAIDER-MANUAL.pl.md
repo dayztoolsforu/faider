@@ -1024,11 +1024,8 @@ na konsoli ([5](#5-the-console)).
 
 | Karta | |
 |---|---|
-| **SET UP A CONTROLLER** | Prowadzona konfiguracja dla Loupedeck, Stream Deck, MIDI, OSC i strony na telefon |
 | **MIDI** | **MIDI MAP** (Ctrl+L); wejścia i powiązania; przełącznik dla każdego wejścia MIDI |
-| **OSC** | **OSC ON (PORT 9000)**; zezwól innym urządzeniom (tablet, telefon) |
-| **DECK PLUGINS (LOCAL API)** | **API ON (127.0.0.1:9123)**, dla wtyczek Stream Deck i Loupedeck |
-| **PHONE CONTROL (WEB PAGE)** | Strona sterowania na telefon (wymaga włączonego API). Pokazuje kod QR |
+| **OSC** | **OSC ON (PORT 9000)**, dla programów na tym komputerze |
 
 ---
 
@@ -1039,8 +1036,7 @@ na konsoli ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, w SIMPLE i w PRO, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół) |
-| **Stream Deck / Loupedeck** | Wtyczki z miernikami na żywo na klawiszach. Najpierw włącz API |
-| **Telefon** | Zeskanuj kod QR z SETTINGS > CONTROL > PHONE CONTROL |
+| **OSC** | Programy na tym komputerze mogą wysyłać na port 9000 (nigdy nie nasłuchuje sieci): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 je zwalnia). Spacje w nazwach zapisuj jako `_` |
 | **Nakładka w grze** (Ctrl+Shift+O) | Kontrolka mówienia każdego kanału mikrofonu, LIVE / MUTED i poziom, plus do czterech klawiszy scen. Nigdy nie odbiera fokusu grze. Przeciągnij ją gdziekolwiek |
 | **MINI** | Mały mikser nad wszystkim. **OPEN** wraca do głównego okna |
 | **Zasobnik** | Kliknij ikonę, żeby zobaczyć mikser w zasobniku, kliknij dwukrotnie, żeby otworzyć okno. Prawy przycisk: Show, przywołanie sceny, Restore session, Start with Windows, About, Quit. Ikona miga na bursztynowo podczas alarmu |

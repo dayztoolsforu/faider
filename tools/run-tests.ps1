@@ -8,7 +8,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $cmake = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 if (-not $cmake) { $cmake = 'C:\Program Files\CMake\bin\cmake.exe' }
 
-$tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'QrTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'AppCaptureTest'
+$tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'AppCaptureTest'
 
 Write-Host 'Building the checks...'
 & $cmake --build (Join-Path $root 'build') --config Release --target $tests | Out-Null

@@ -1653,24 +1653,12 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Guided setup for Loupedeck, Stream Deck, MIDI, OSC and the phone page</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); inputs and bindings; a switch per MIDI input</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; allow other devices (tablet, phone)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, for the Stream Deck and Loupedeck plugins</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>A control page for your phone (needs the API on). Shows a QR code</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, for programs on this PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -1690,12 +1678,8 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 <td>Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins with live meters on the keys. Turn the API on first</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>Scan the QR code from SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Programs on this PC can send to port 9000 (it never listens to the network): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 releases it). Write spaces in names as <code>_</code></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -3518,24 +3502,12 @@ de la página también funcionan en la consola (<a href="#5-the-console">5</a>).
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Configuración guiada para Loupedeck, Stream Deck, MIDI, OSC y la página para el teléfono</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); entradas y asignaciones; un conmutador por entrada MIDI</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; permitir otros dispositivos (tableta, teléfono)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, para los plugins de Stream Deck y Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Una página de control para tu teléfono (necesita la API activada). Muestra un código QR</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, para programas de este PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -3555,12 +3527,8 @@ de la página también funcionan en la consola (<a href="#5-the-console">5</a>).
 <td>Haz clic en un control en pantalla y luego mueve una perilla o una tecla de tu controlador. Se pueden asignar el fader, el pan, CUT, SOLO, el encendido y las teclas de enrutamiento de cada strip, en SIMPLE y en PRO, así como las escenas, los pads y la cinta. La rueda del ratón desplaza la mesa mientras asignas (Mayús+rueda arriba y abajo)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins con medidores en vivo en las teclas. Activa antes la API</td>
-</tr>
-<tr>
-<td><strong>Teléfono</strong></td>
-<td>Escanea el código QR desde SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Los programas de este PC pueden enviar al puerto 9000 (nunca escucha la red): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 la suelta). Escribe los espacios de los nombres como <code>_</code></td>
 </tr>
 <tr>
 <td><strong>Overlay en el juego</strong> (Ctrl+Mayús+O)</td>
@@ -5411,24 +5379,12 @@ console (<a href="#5-the-console">5</a>).</p>
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Configuration guidée pour Loupedeck, Stream Deck, MIDI, OSC et la page pour téléphone</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L) ; entrées et assignations ; un commutateur par entrée MIDI</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span> ; autoriser d'autres appareils (tablette, téléphone)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, pour les plugins Stream Deck et Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Une page de commande pour votre téléphone (l'API doit être activée). Affiche un code QR</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, pour les programmes de ce PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -5448,12 +5404,8 @@ console (<a href="#5-the-console">5</a>).</p>
 <td>Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Des plugins avec des vumètres en direct sur les touches. Activez d'abord l'API</td>
-</tr>
-<tr>
-<td><strong>Téléphone</strong></td>
-<td>Scannez le code QR depuis SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Les programmes de ce PC peuvent envoyer vers le port 9000 (il n'écoute jamais le réseau) : <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 la relâche). Écrivez les espaces des noms sous la forme <code>_</code></td>
 </tr>
 <tr>
 <td><strong>Overlay en jeu</strong> (Ctrl+Maj+O)</td>
@@ -7255,24 +7207,12 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Geführte Einrichtung für Loupedeck, Stream Deck, MIDI, OSC und die Handy-Seite</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); Eingänge und Zuordnungen; ein Schalter pro MIDI-Eingang</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; andere Geräte zulassen (Tablet, Handy)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, für die Plugins von Stream Deck und Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Eine Steuerseite für dein Handy (die API muss an sein). Zeigt einen QR-Code</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, für Programme auf diesem PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -7292,12 +7232,8 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 <td>Klicke ein Bedienelement auf dem Bildschirm an und bewege dann einen Regler oder eine Taste deines Controllers. Fader, Pan, CUT, SOLO, Ein/Aus und Routing-Tasten jedes Strips lassen sich zuordnen, in SIMPLE und PRO, ebenso Szenen, Pads und das Tape. Das Mausrad scrollt das Pult während der Zuordnung (Shift+Rad nach oben und unten)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins mit Live-Pegelmessern auf den Tasten. Schalte zuerst die API ein</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>Scanne den QR-Code unter SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Programme auf diesem PC können an Port 9000 senden (er hört nie auf das Netzwerk): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 lässt es wieder los). Leerzeichen in Namen schreibst du als <code>_</code></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -9096,24 +9032,12 @@ sulla console (<a href="#5-the-console">5</a>).</p>
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Configurazione guidata per Loupedeck, Stream Deck, MIDI, OSC e la pagina per telefono</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); ingressi e assegnazioni; un interruttore per ogni ingresso MIDI</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; consenti altri dispositivi (tablet, telefono)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, per i plugin di Stream Deck e Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Una pagina di controllo per il telefono (richiede l'API attiva). Mostra un codice QR</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, per i programmi su questo PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -9133,12 +9057,8 @@ sulla console (<a href="#5-the-console">5</a>).</p>
 <td>Fai clic su un controllo sullo schermo, poi muovi una manopola o un tasto del tuo controller. Si possono assegnare fader, pan, CUT, SOLO, accensione e tasti di instradamento di ogni strip, in SIMPLE e in PRO, oltre a scene, pad e tape. Durante l'assegnazione la rotellina del mouse fa scorrere la console (Shift+rotellina su e giù)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugin con meter dal vivo sui tasti. Attiva prima l'API</td>
-</tr>
-<tr>
-<td><strong>Telefono</strong></td>
-<td>Scansiona il codice QR da SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>I programmi su questo PC possono inviare alla porta 9000 (non ascolta mai la rete): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 la rilascia). Scrivi gli spazi nei nomi come <code>_</code></td>
 </tr>
 <tr>
 <td><strong>Overlay nel gioco</strong> (Ctrl+Shift+O)</td>
@@ -10951,24 +10871,12 @@ THE MIXER da página também funcionam no console (<a href="#5-the-console">5</a
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Configuração guiada para Loupedeck, Stream Deck, MIDI, OSC e a página para celular</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); entradas e atribuições; uma chave por entrada MIDI</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; permitir outros dispositivos (tablet, celular)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, para os plugins do Stream Deck e do Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Uma página de controle para o seu celular (precisa da API ligada). Mostra um QR code</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, para programas neste PC</td>
 </tr>
 </tbody>
 </table></div>
@@ -10988,12 +10896,8 @@ THE MIXER da página também funcionam no console (<a href="#5-the-console">5</a
 <td>Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, no SIMPLE e no PRO, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins com medidores ao vivo nas teclas. Ligue a API primeiro</td>
-</tr>
-<tr>
-<td><strong>Celular</strong></td>
-<td>Escaneie o QR code em SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Programas neste PC podem enviar para a porta 9000 (ele nunca escuta a rede): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 a solta). Escreva os espaços nos nomes como <code>_</code></td>
 </tr>
 <tr>
 <td><strong>Overlay no jogo</strong> (Ctrl+Shift+O)</td>
@@ -12786,24 +12690,12 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Begeleide installatie voor Loupedeck, Stream Deck, MIDI, OSC en de telefoonpagina</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); ingangen en toewijzingen; een schakelaar per MIDI-ingang</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; andere apparaten toestaan (tablet, telefoon)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, voor de Stream Deck- en Loupedeck-plugins</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Een bedieningspagina voor je telefoon (de API moet aan staan). Toont een QR-code</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, voor programma's op deze pc</td>
 </tr>
 </tbody>
 </table></div>
@@ -12823,12 +12715,8 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 <td>Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins met live meters op de toetsen. Zet eerst de API aan</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>Scan de QR-code via SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Programma's op deze pc kunnen naar poort 9000 sturen (hij luistert nooit naar het netwerk): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 laat hem los). Schrijf spaties in namen als <code>_</code></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -14618,24 +14506,12 @@ na konsoli (<a href="#5-the-console">5</a>).</p>
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Prowadzona konfiguracja dla Loupedeck, Stream Deck, MIDI, OSC i strony na telefon</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); wejścia i powiązania; przełącznik dla każdego wejścia MIDI</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; zezwól innym urządzeniom (tablet, telefon)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, dla wtyczek Stream Deck i Loupedeck</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Strona sterowania na telefon (wymaga włączonego API). Pokazuje kod QR</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, dla programów na tym komputerze</td>
 </tr>
 </tbody>
 </table></div>
@@ -14655,12 +14531,8 @@ na konsoli (<a href="#5-the-console">5</a>).</p>
 <td>Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, w SIMPLE i w PRO, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Wtyczki z miernikami na żywo na klawiszach. Najpierw włącz API</td>
-</tr>
-<tr>
-<td><strong>Telefon</strong></td>
-<td>Zeskanuj kod QR z SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Programy na tym komputerze mogą wysyłać na port 9000 (nigdy nie nasłuchuje sieci): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 je zwalnia). Spacje w nazwach zapisuj jako <code>_</code></td>
 </tr>
 <tr>
 <td><strong>Nakładka w grze</strong> (Ctrl+Shift+O)</td>
@@ -16448,24 +16320,12 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Guidad installation för Loupedeck, Stream Deck, MIDI, OSC och telefonsidan</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); ingångar och bindningar; en omkopplare per MIDI-ingång</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; tillåt andra enheter (surfplatta, telefon)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, för Stream Deck- och Loupedeck-pluginen</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>En kontrollsida för din telefon (kräver att API:t är på). Visar en QR-kod</td>
+<td><span class="key">OSC ON (PORT 9000)</span>, för program på den här datorn</td>
 </tr>
 </tbody>
 </table></div>
@@ -16485,12 +16345,8 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 <td>Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Plugins med levande mätare på tangenterna. Slå på API:t först</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>Skanna QR-koden från SETTINGS &gt; CONTROL &gt; PHONE CONTROL</td>
+<td><span class="key">OSC</span></td>
+<td>Program på den här datorn kan skicka till port 9000 (den lyssnar aldrig på nätverket): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 släpper det). Skriv mellanslag i namn som <code>_</code></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -18277,24 +18133,12 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Loupedeck, Stream Deck, MIDI, OSC ve telefon sayfası için yönlendirmeli kurulum</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L); girişler ve atamalar; her MIDI girişi için bir anahtar</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>; diğer aygıtlara izin ver (tablet, telefon)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td>Stream Deck ve Loupedeck eklentileri için <span class="key">API ON (127.0.0.1:9123)</span></td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>Telefonun için bir kontrol sayfası (API'nin açık olması gerekir). Bir QR kodu gösterir</td>
+<td>Bu bilgisayardaki programlar için <span class="key">OSC ON (PORT 9000)</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -18314,12 +18158,8 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 <td>Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>Tuşlarda canlı ölçerli eklentiler. Önce API'yi aç</td>
-</tr>
-<tr>
-<td><strong>Telefon</strong></td>
-<td>QR kodunu SETTINGS &gt; CONTROL &gt; PHONE CONTROL'den tara</td>
+<td><span class="key">OSC</span></td>
+<td>Bu bilgisayardaki programlar 9000 numaralı porta gönderebilir (ağı asla dinlemez): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 bırakır). Adlardaki boşlukları <code>_</code> olarak yaz</td>
 </tr>
 <tr>
 <td><strong>Oyun içi kaplama</strong> (Ctrl+Shift+O)</td>
@@ -19959,24 +19799,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Loupedeck、Stream Deck、MIDI、OSC、スマートフォン用ページのガイド付きセットアップ</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)、入力とバインド、MIDI 入力ごとのスイッチ</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>。他のデバイス(タブレット、スマートフォン)を許可</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>。Stream Deck と Loupedeck のプラグイン用</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>スマートフォン用の操作ページ(API をオンにする必要があります)。QR コードが表示されます</td>
+<td><span class="key">OSC ON (PORT 9000)</span>。この PC 上のプログラム用</td>
 </tr>
 </tbody>
 </table></div>
@@ -19996,12 +19824,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>キー上にライブメーターが出るプラグイン。先に API をオンにしてください</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>SETTINGS &gt; CONTROL &gt; PHONE CONTROL の QR コードを読み取ります</td>
+<td><span class="key">OSC</span></td>
+<td>この PC 上のプログラムからポート 9000 に送信できます(ネットワークからは一切受け付けません): <code>/faider/input/NAME/fader -12</code> (dB)、<code>/faider/output/NAME/mute 1</code>、<code>/faider/bus/NAME/pan -0.5</code>、<code>/faider/input/NAME/solo 1</code>、<code>/faider/scene NAME</code>、<code>/faider/macro/NAME 1</code> (0 で解除)。名前のスペースは <code>_</code> と書きます</td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -21601,24 +21425,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Loupedeck, Stream Deck, MIDI, OSC, 휴대폰 페이지의 안내형 설정</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L), 입력과 바인딩, MIDI 입력마다 스위치</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>. 다른 장치(태블릿, 휴대폰) 허용</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>, Stream Deck과 Loupedeck 플러그인용</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>휴대폰용 제어 페이지(API가 켜져 있어야 함). QR 코드가 표시됩니다</td>
+<td><span class="key">OSC ON (PORT 9000)</span>. 이 PC의 프로그램용</td>
 </tr>
 </tbody>
 </table></div>
@@ -21638,12 +21450,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 SIMPLE과 PRO에서 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>키에 실시간 미터가 표시되는 플러그인. 먼저 API를 켜세요</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>SETTINGS &gt; CONTROL &gt; PHONE CONTROL의 QR 코드를 스캔합니다</td>
+<td><span class="key">OSC</span></td>
+<td>이 PC의 프로그램은 포트 9000으로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0이면 해제). 이름의 공백은 <code>_</code>로 씁니다</td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -23243,24 +23051,12 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><span class="key">SET UP A CONTROLLER</span></td>
-<td>Loupedeck、Stream Deck、MIDI、OSC 和手机页面的引导式设置</td>
-</tr>
-<tr>
 <td><span class="key">MIDI</span></td>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)；输入和绑定；每个 MIDI 输入一个开关</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td><span class="key">OSC ON (PORT 9000)</span>；允许其他设备(平板、手机)</td>
-</tr>
-<tr>
-<td><span class="key">DECK PLUGINS (LOCAL API)</span></td>
-<td><span class="key">API ON (127.0.0.1:9123)</span>，供 Stream Deck 和 Loupedeck 插件使用</td>
-</tr>
-<tr>
-<td><span class="key">PHONE CONTROL (WEB PAGE)</span></td>
-<td>供你手机使用的控制页面(需要开启 API)。显示二维码</td>
+<td><span class="key">OSC ON (PORT 9000)</span>，供这台电脑上的程序使用</td>
 </tr>
 </tbody>
 </table></div>
@@ -23280,12 +23076,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下)</td>
 </tr>
 <tr>
-<td><strong>Stream Deck / Loupedeck</strong></td>
-<td>按键上有实时电平表的插件。请先开启 API</td>
-</tr>
-<tr>
-<td><strong>Phone</strong></td>
-<td>从 SETTINGS &gt; CONTROL &gt; PHONE CONTROL 扫描二维码</td>
+<td><span class="key">OSC</span></td>
+<td>这台电脑上的程序可以发送到端口 9000(它从不监听网络)：<code>/faider/input/NAME/fader -12</code> (dB)、<code>/faider/output/NAME/mute 1</code>、<code>/faider/bus/NAME/pan -0.5</code>、<code>/faider/input/NAME/solo 1</code>、<code>/faider/scene NAME</code>、<code>/faider/macro/NAME 1</code> (0 表示松开)。名称中的空格写成 <code>_</code></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>

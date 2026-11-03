@@ -3,7 +3,6 @@
 #include "Console.h"
 #include "ConsoleControls.h"
 #include "MidiMap.h"
-#include "PanelSlot.h"
 #include "../engine/AppCapture.h"
 #include "../devices/WindowsDefault.h"
 
@@ -477,20 +476,6 @@ public:
             stopCapturing ({});
     }
 
-    // Lent to the headset (PanelSlot): no LOAD (its file dialog opens on the monitor) and no hotkey
-    // LEARN (no keys reach the page) there.
-    void parentHierarchyChanged() override
-    {
-        const bool nowLent = PanelSlot::isLentOut (*this);
-        if (nowLent == lent)
-            return;
-        lent = nowLent;
-        if (capturing)
-            stopCapturing ({});   // (shows the pad again)
-        else
-            show (index);
-    }
-
     void show (int i)
     {
         index = i;
@@ -512,8 +497,7 @@ public:
         const bool used = p.file.isNotEmpty() || p.macro.isNotEmpty();   // a macro-only pad needs no sound
         for (auto* c : std::initializer_list<juce::Component*> { &name, &colour })
             c->setEnabled (used);
-        hotkey.setEnabled (used && ! lent);
-        load.setEnabled (! lent);
+        hotkey.setEnabled (used);
 
         macro.clear (juce::dontSendNotification);
         macro.addItem ("NONE", 1);
@@ -608,7 +592,7 @@ private:
     PadsPanel& owner;
     AudioEngine& engine;
     int index = 0;
-    bool capturing = false, lent = false;
+    bool capturing = false;
     juce::Label title, name, file, modeLabel { {}, "MODE" }, chokeLabel { {}, "CHOKE" }, levelLabel { {}, "LEVEL" },
                 hotkeyLabel { {}, "HOTKEY" }, hotkeyNote, macroLabel { {}, "MACRO" },
                 trimLabel { {}, "TRIM" }, fadeInLabel { {}, "FADE IN" }, fadeOutLabel { {}, "FADE OUT" };
@@ -740,7 +724,7 @@ public:
             hotkey.setButtonText (m == nullptr || m->hotkey.isEmpty() ? juce::String ("NONE") : m->hotkey.toUpperCase());
         for (auto* c : std::initializer_list<juce::Component*> { &name, &run, &undo, &addStep, &addTrigger })
             c->setEnabled (m != nullptr);
-        hotkey.setEnabled (m != nullptr && ! lent);
+        hotkey.setEnabled (m != nullptr);
         title.setText (m != nullptr ? juce::String ("MACRO") : juce::String ("NO MACROS: CLICK + NEW"), juce::dontSendNotification);
 
         rows.clear();
@@ -777,19 +761,6 @@ public:
     }
 
     void focusLost (FocusChangeType) override { if (capturing) stopCapturing ({}); }
-
-    // Lent to the headset (PanelSlot): no hotkey LEARN there (no keys reach the page).
-    void parentHierarchyChanged() override
-    {
-        const bool nowLent = PanelSlot::isLentOut (*this);
-        if (nowLent == lent)
-            return;
-        lent = nowLent;
-        if (capturing)
-            stopCapturing ({});   // (refreshes)
-        else
-            refresh();
-    }
 
     void lookAndFeelChanged() override
     {
@@ -1187,7 +1158,7 @@ private:
     PadsPanel& owner;
     AudioEngine& engine;
     int current = 0;
-    bool capturing = false, lent = false;
+    bool capturing = false;
     juce::Label title { {}, "MACRO" }, name, hotkeyLabel { {}, "HOTKEY" }, hotkeyNote, stepsLabel { {}, "ACTIONS" }, triggersLabel { {}, "TRIGGERS" };
     juce::TextButton run { "FIRE" }, undo { "MOMENTARY" }, hotkey { "NONE" }, addStep { "+ ACTION" }, addTrigger { "+ TRIGGER" };
     juce::Viewport steps;

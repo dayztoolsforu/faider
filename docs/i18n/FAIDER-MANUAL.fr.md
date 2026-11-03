@@ -34,7 +34,7 @@ vous dit quoi faire quand quelque chose ne va pas.
 13. [Périphériques](#13-devices)
 14. [Scènes, annulation et sessions](#14-scenes-undo-and-sessions)
 15. [Réglages](#15-settings)
-16. [Télécommande, overlay, zone de notification et VR](#16-remote-control-overlay-tray-and-vr)
+16. [Télécommande, overlay et zone de notification](#16-remote-control-overlay-and-tray)
 17. [Guides pratiques](#17-how-to-guides)
 18. [Dépannage](#18-troubleshooting)
 19. [Référence](#19-reference)
@@ -1074,7 +1074,6 @@ en crème quand ils sont activés.
 | **ZOOM** | 100 %, 125 %, 150 %, **CUSTOM...** (75–200 %) |
 | **METER STANDARD** | Comment les vumètres lisent le niveau (crête d'échantillon avec une chute rapide par défaut ; IEC et autres) |
 | **CHANNEL METER POINT** | **PRE HPF** (source brute), **PRE FADER** (après les effets), **POST ON** (après le fader, par défaut) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Version et crédits |
 
 <a id="macros"></a>
@@ -1122,7 +1121,7 @@ console ([5](#5-the-console)).
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Télécommande, overlay, zone de notification et VR
+## 16. Télécommande, overlay et zone de notification
 
 | | |
 |---|---|
@@ -1132,13 +1131,12 @@ console ([5](#5-the-console)).
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / MUTED et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
 | **MINI** | Un petit mixeur au premier plan de tout. **OPEN** revient à la fenêtre principale |
 | **Zone de notification** | Cliquez sur l'icône pour le mixeur de la zone de notification, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Restore session, Start with Windows, About, Quit. L'icône clignote en orange pendant une alerte |
-| **SteamVR** | Un onglet FAIDER sur le tableau de bord SteamVR pendant que SteamVR tourne : RACK, PADS, TAPE, MACROS, DEVICES. Le pointeur laser fonctionne comme une souris. Les boîtes de dialogue de fichiers doivent être terminées sur le bureau |
 
-Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis
-une fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que SteamVR et
-l'overlay en jeu ne peuvent pas atteindre un programme exécuté en administrateur. Les rares étapes
-qui exigent un administrateur (appliquer les réglages de VB-CABLE, réactiver un périphérique que
-Windows a désactivé) demandent elles-mêmes la permission.
+Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis une
+fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que l'overlay en jeu ne
+peut pas atteindre un programme exécuté en administrateur. Les rares étapes qui exigent un
+administrateur (appliquer les réglages de VB-CABLE, réactiver un périphérique que Windows a
+désactivé) demandent elles-mêmes la permission.
 
 ---
 

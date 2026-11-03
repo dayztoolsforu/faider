@@ -5,10 +5,9 @@
 #include "../engine/AudioEngine.h"
 #include "../engine/WindowDiscovery.h"
 
-// What the console, the pads, the tape and the SteamVR dashboard use from Faider's old mixer:
-// the input and plugin menus, plugin windows, the colour menu, the selected channel, A / B,
-// putting a channel back from a saved session, and the channel pages the headset shows. It draws
-// nothing of its own.
+// What the console, the pads and the tape use from Faider's old mixer: the input and plugin menus,
+// plugin windows, the colour menu, the selected channel and putting a channel back from a
+// saved session. It draws nothing of its own.
 class MixerComponent : public juce::Component
 {
 public:
@@ -24,18 +23,10 @@ public:
     // A channel renamed: the selection follows it.
     void renamed (const juce::String& kind, const juce::String& oldName, const juce::String& newName);
 
-    // That channel's page made on its own, open on its RACK (the VR dashboard shows one in the
-    // headset). Null if there's no such channel.
-    std::unique_ptr<juce::Component> createRackPage (const juce::String& key);
-
     // A channel ("input:NAME" or "bus:NAME") put back as a saved session had it: its level, pan,
     // mute and whole rack (from that session's <Strip> or <Pair>). False if it isn't there now,
     // or a plugin of its is locked.
     bool revertChannel (const juce::String& key, const juce::XmlElement& saved);
-
-    // A / B on a channel's page: flip it to settings `slot` (0 A, 1 B); which it's on now.
-    void compare (const juce::String& key, int slot);
-    int compareSlot (const juce::String& key) const;
 
     // A plugin chain: an input strip's, a bus's (a pair), or a combinator path's. Outputs have none.
     struct InsertTarget
@@ -63,24 +54,16 @@ public:
     bool pluginLocked (const juce::AudioPluginInstance*) const;   // LOCK in the rack: can't be moved or removed
     void openEditor (juce::AudioProcessor&);
     void closeEditor (juce::AudioProcessor*);   // just its window (the racks keep showing it)
-    void closeEditorsFor (InsertTarget);        // a chain about to go: its windows, and every page lets go of its plugins
+    void closeEditorsFor (InsertTarget);        // a chain about to go: its plugins' windows
 
 private:
-    class SelectedPage;
     class PluginWindow;
-    std::vector<juce::Component::SafePointer<SelectedPage>> otherPages;   // made by createRackPage
-    void releaseFromPages (juce::AudioProcessor*);   // every page showing a plugin lets go of it (called before it's removed)
 
     void select (const juce::String& key) { selectedKey = key; if (onSelect) onSelect (key); }
     juce::String selectedKey;
     bool resolveSource (AudioEngine::Source&, juce::String& stripName);
     void insertPlugin (InsertTarget, const juce::String& path);
     std::vector<std::unique_ptr<juce::AudioPluginInstance>>* chainOf (InsertTarget) const;
-
-    // A / B per channel (compare): each slot's built-in processing and plugin states.
-    struct CompareSlot { juce::MemoryBlock channel; std::vector<juce::MemoryBlock> plugins; bool kept = false; };
-    struct Compare { int active = 0; CompareSlot slots[2]; };
-    std::map<juce::String, Compare> compares;
 
     AudioEngine& engine;
     juce::SharedResourcePointer<WindowDiscovery::Scanner> windows;   // program windows and browser tabs for the input menus

@@ -33,7 +33,7 @@ ters gittiğinde ne yapacağını söyler.
 13. [Aygıtlar](#13-devices)
 14. [Sahneler, geri alma ve oturumlar](#14-scenes-undo-and-sessions)
 15. [Ayarlar](#15-settings)
-16. [Uzaktan kontrol, kaplama, tepsi ve VR](#16-remote-control-overlay-tray-and-vr)
+16. [Uzaktan kontrol, kaplama ve tepsi](#16-remote-control-overlay-and-tray)
 17. [Nasıl yapılır kılavuzları](#17-how-to-guides)
 18. [Sorun giderme](#18-troubleshooting)
 19. [Başvuru](#19-reference)
@@ -1017,7 +1017,6 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Ölçerlerin nasıl okuduğu (varsayılan olarak hızlı düşüşlü örnek tepesi; IEC ve diğerleri) |
 | **CHANNEL METER POINT** | **PRE HPF** (ham kaynak), **PRE FADER** (efektlerden sonra), **POST ON** (fader'dan sonra, varsayılan) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Sürüm ve emeği geçenler |
 
 <a id="macros"></a>
@@ -1064,7 +1063,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Uzaktan kontrol, kaplama, tepsi ve VR
+## 16. Uzaktan kontrol, kaplama ve tepsi
 
 | | |
 |---|---|
@@ -1074,12 +1073,11 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / MUTED ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Her şeyin üstünde küçük bir mikser. **OPEN** ana pencereye döner |
 | **Tepsi** | Tepsi mikseri için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Restore session, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
-| **SteamVR** | SteamVR çalışırken SteamVR panosunda bir FAIDER sekmesi: RACK, PADS, TAPE, MACROS, DEVICES. Lazer işaretçi fare gibi çalışır. Dosya iletişim kutuları masaüstünde bitirilmelidir |
 
-Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla
-çalışır. SteamVR ve oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini
-sıradan haklarla yeniden başlatır. Yönetici gerektiren birkaç adım (VB-CABLE ayarlarını uygulamak,
-Windows'un kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
+Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
+Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla
+yeniden başlatır. Yönetici gerektiren birkaç adım (VB-CABLE ayarlarını uygulamak, Windows'un
+kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 
 ---
 

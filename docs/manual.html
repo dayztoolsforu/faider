@@ -276,7 +276,7 @@
 <li><a href="#13-devices"><span class="toc-num">13</span>Devices</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Scenes, undo and sessions</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Settings</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Remote control, overlay, tray and VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Remote control, overlay and tray</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>How-to guides</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Hear yourself: set up a microphone</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Let apps hear your mic (Discord, games, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Bring a program into the mix</a></li><li><a href="#174-reorder-channels">17.4 Reorder channels</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Group channels into a bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Parallel processing with a combinator</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Make a stream mix and a headphone mix</a></li><li><a href="#178-record">17.8 Record</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Make a push-to-talk key</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Troubleshooting</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 My mix is gone, a fresh mix started</a></li><li><a href="#183-no-sound">18.3 No sound</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 The interface won't start, or stopped</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Clicks, crackles or dropouts</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 An app doesn't appear in ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 I hear something twice, or an echo</a></li><li><a href="#188-a-route-wont-switch-on">18.8 A route won't switch on</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 I can't change anything on a strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Dragging a channel does nothing</a></li><li><a href="#1811-a-plugin-wont-load">18.11 A plugin won't load</a></li><li><a href="#1812-the-program-crashed">18.12 The program crashed</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Recording stopped by itself</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 No sound from Windows after installing VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Reference</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Contents</span><h2></h2></header>
@@ -296,7 +296,7 @@
 <li><a href="#13-devices">Devices</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Scenes, undo and sessions</a></li>
 <li><a href="#15-settings">Settings</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Remote control, overlay, tray and VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Remote control, overlay and tray</a></li>
 <li><a href="#17-how-to-guides">How-to guides</a></li>
 <li><a href="#18-troubleshooting">Troubleshooting</a></li>
 <li><a href="#19-reference">Reference</a></li>
@@ -1635,10 +1635,6 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 <td><span class="key">PRE HPF</span> (raw source), <span class="key">PRE FADER</span> (after effects), <span class="key">POST ON</span> (after the fader, default)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Version and credits</td>
 </tr>
@@ -1697,7 +1693,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Remote control, overlay, tray and VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Remote control, overlay and tray</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1730,15 +1726,11 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 <td><strong>Tray</strong></td>
 <td>Click the icon for the tray mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>A FAIDER tab on the SteamVR dashboard while SteamVR runs: RACK, PADS, TAPE, MACROS, DEVICES. The laser pointer works as a mouse. File dialogs must be finished on the desktop</td>
-</tr>
 </tbody>
 </table></div>
 <p>Faider always runs with your ordinary user rights, even when it's started from an
-administrator window. It restarts itself with ordinary rights, because SteamVR and the in-game
-overlay can't reach a program running as administrator. The few steps that need an administrator
+administrator window. It restarts itself with ordinary rights, because the in-game overlay can't
+reach a program running as administrator. The few steps that need an administrator
 (applying VB-CABLE settings, re-enabling a device Windows has switched off) ask for permission
 themselves.</p>
 
@@ -2131,7 +2123,7 @@ and as the default communication devices. See <a href="#step-2-install-vb-cable-
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivos</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Escenas, deshacer y sesiones</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Ajustes</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Control remoto, overlay, bandeja y VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Control remoto, overlay y bandeja</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Guías prácticas</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Oírte: configurar un micrófono</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Dejar que las aplicaciones oigan tu micro (Discord, juegos, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Llevar un programa a la mezcla</a></li><li><a href="#174-reorder-channels">17.4 Reordenar canales</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Agrupar canales en un bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Procesamiento paralelo con un combinador</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Hacer una mezcla para el stream y otra para los auriculares</a></li><li><a href="#178-record">17.8 Grabar</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Crear una tecla push-to-talk</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Solución de problemas</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Mi mezcla ha desaparecido, empezó una mezcla nueva</a></li><li><a href="#183-no-sound">18.3 No hay sonido</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 La interfaz no arranca, o se detuvo</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Chasquidos, crepitaciones o cortes</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Una aplicación no aparece en ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Oigo algo dos veces, o un eco</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Una ruta no se activa</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 No puedo cambiar nada en un strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Arrastrar un canal no hace nada</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Un plugin no se carga</a></li><li><a href="#1812-the-program-crashed">18.12 El programa se cerró por un error</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 La grabación se detuvo sola</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Windows no suena después de instalar VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Referencia</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Contenido</span><h2></h2></header>
@@ -2151,7 +2143,7 @@ and as the default communication devices. See <a href="#step-2-install-vb-cable-
 <li><a href="#13-devices">Dispositivos</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Escenas, deshacer y sesiones</a></li>
 <li><a href="#15-settings">Ajustes</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Control remoto, overlay, bandeja y VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Control remoto, overlay y bandeja</a></li>
 <li><a href="#17-how-to-guides">Guías prácticas</a></li>
 <li><a href="#18-troubleshooting">Solución de problemas</a></li>
 <li><a href="#19-reference">Referencia</a></li>
@@ -3527,10 +3519,6 @@ cuadrados que brillan en color crema cuando están activados.</p>
 <td><span class="key">PRE HPF</span> (fuente en bruto), <span class="key">PRE FADER</span> (tras los efectos), <span class="key">POST ON</span> (tras el fader, predeterminado)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Versión y créditos</td>
 </tr>
@@ -3590,7 +3578,7 @@ de la página también funcionan en la consola (<a href="#5-the-console">5</a>).
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Control remoto, overlay, bandeja y VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Control remoto, overlay y bandeja</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -3623,17 +3611,13 @@ de la página también funcionan en la consola (<a href="#5-the-console">5</a>).
 <td><strong>Bandeja</strong></td>
 <td>Haz clic en el icono para el mezclador de la bandeja, doble clic para abrir la ventana. Clic derecho: Show, recuperar escena, Restore session, Start with Windows, About, Quit. El icono parpadea en ámbar durante una alerta</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Una pestaña FAIDER en el panel de SteamVR mientras SteamVR está en marcha: RACK, PADS, TAPE, MACROS, DEVICES. El puntero láser funciona como un ratón. Los cuadros de diálogo de archivos hay que terminarlos en el escritorio</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider siempre se ejecuta con tus derechos de usuario normales, incluso si se inicia desde
-una ventana de administrador. Se reinicia solo con derechos normales, porque SteamVR y el overlay en
-el juego no pueden alcanzar un programa que se ejecuta como administrador. Los pocos pasos que
-necesitan un administrador (aplicar los ajustes de VB-CABLE, volver a habilitar un dispositivo que
-Windows ha apagado) piden permiso por sí mismos.</p>
+<p>Faider siempre se ejecuta con tus derechos de usuario normales, incluso si se inicia desde una
+ventana de administrador. Se reinicia solo con derechos normales, porque el overlay en el juego no
+puede alcanzar un programa que se ejecuta como administrador. Los pocos pasos que necesitan un
+administrador (aplicar los ajustes de VB-CABLE, volver a habilitar un dispositivo que Windows ha
+apagado) piden permiso por sí mismos.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Guías prácticas</h2></header>
@@ -4039,7 +4023,7 @@ Consulta el <a href="#step-2-install-vb-cable-optional">paso 2</a>.</p>
 <li><a href="#13-devices"><span class="toc-num">13</span>Périphériques</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Scènes, annulation et sessions</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Réglages</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Télécommande, overlay, zone de notification et VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Télécommande, overlay et zone de notification</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Guides pratiques</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Vous entendre : configurer un microphone</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Laisser les applications entendre votre micro (Discord, jeux, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Amener un programme dans le mix</a></li><li><a href="#174-reorder-channels">17.4 Réordonner les canaux</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Grouper des canaux dans un bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Traitement parallèle avec un combinateur</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Faire un mix de stream et un mix de casque</a></li><li><a href="#178-record">17.8 Enregistrer</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Créer une touche push-to-talk</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Dépannage</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Mon mix a disparu, un nouveau mix a démarré</a></li><li><a href="#183-no-sound">18.3 Pas de son</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 L'interface ne démarre pas, ou s'est arrêtée</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Clics, craquements ou coupures</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Une application n'apparaît pas dans ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 J'entends quelque chose deux fois, ou un écho</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Une liaison ne s'active pas</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Je ne peux rien changer sur une tranche</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Faire glisser un canal ne fait rien</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Un plugin ne se charge pas</a></li><li><a href="#1812-the-program-crashed">18.12 Le programme a planté</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 L'enregistrement s'est arrêté tout seul</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Plus de son de Windows après l'installation de VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Référence</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Sommaire</span><h2></h2></header>
@@ -4059,7 +4043,7 @@ Consulta el <a href="#step-2-install-vb-cable-optional">paso 2</a>.</p>
 <li><a href="#13-devices">Périphériques</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Scènes, annulation et sessions</a></li>
 <li><a href="#15-settings">Réglages</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Télécommande, overlay, zone de notification et VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Télécommande, overlay et zone de notification</a></li>
 <li><a href="#17-how-to-guides">Guides pratiques</a></li>
 <li><a href="#18-troubleshooting">Dépannage</a></li>
 <li><a href="#19-reference">Référence</a></li>
@@ -5453,10 +5437,6 @@ en crème quand ils sont activés.</p>
 <td><span class="key">PRE HPF</span> (source brute), <span class="key">PRE FADER</span> (après les effets), <span class="key">POST ON</span> (après le fader, par défaut)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Version et crédits</td>
 </tr>
@@ -5517,7 +5497,7 @@ console (<a href="#5-the-console">5</a>).</p>
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Télécommande, overlay, zone de notification et VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Télécommande, overlay et zone de notification</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -5550,17 +5530,13 @@ console (<a href="#5-the-console">5</a>).</p>
 <td><strong>Zone de notification</strong></td>
 <td>Cliquez sur l'icône pour le mixeur de la zone de notification, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Restore session, Start with Windows, About, Quit. L'icône clignote en orange pendant une alerte</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Un onglet FAIDER sur le tableau de bord SteamVR pendant que SteamVR tourne : RACK, PADS, TAPE, MACROS, DEVICES. Le pointeur laser fonctionne comme une souris. Les boîtes de dialogue de fichiers doivent être terminées sur le bureau</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis
-une fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que SteamVR et
-l'overlay en jeu ne peuvent pas atteindre un programme exécuté en administrateur. Les rares étapes
-qui exigent un administrateur (appliquer les réglages de VB-CABLE, réactiver un périphérique que
-Windows a désactivé) demandent elles-mêmes la permission.</p>
+<p>Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis une
+fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que l'overlay en jeu ne
+peut pas atteindre un programme exécuté en administrateur. Les rares étapes qui exigent un
+administrateur (appliquer les réglages de VB-CABLE, réactiver un périphérique que Windows a
+désactivé) demandent elles-mêmes la permission.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Guides pratiques</h2></header>
@@ -5967,7 +5943,7 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 <li><a href="#13-devices"><span class="toc-num">13</span>Geräte</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Szenen, Rückgängig und Sitzungen</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Einstellungen</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Fernsteuerung, Overlay, Tray und VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Fernsteuerung, Overlay und Tray</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Anleitungen</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Dich selbst hören: ein Mikrofon einrichten</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Apps dein Mikrofon hören lassen (Discord, Spiele, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Ein Programm in den Mix holen</a></li><li><a href="#174-reorder-channels">17.4 Kanäle umordnen</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Kanäle in einem Bus gruppieren</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Parallelverarbeitung mit einem Combinator</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Einen Stream-Mix und einen Kopfhörer-Mix machen</a></li><li><a href="#178-record">17.8 Aufnehmen</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Eine Push-to-Talk-Taste machen</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Fehlerbehebung</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Mein Mix ist weg, ein frischer Mix hat begonnen</a></li><li><a href="#183-no-sound">18.3 Kein Ton</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 Das Interface startet nicht oder ist stehen geblieben</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Klicken, Knistern oder Aussetzer</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Eine App erscheint nicht unter ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Ich höre etwas doppelt, oder ein Echo</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Eine Route lässt sich nicht einschalten</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Ich kann nichts an einem Strip ändern</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Das Ziehen eines Kanals bewirkt nichts</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Ein Plugin lässt sich nicht laden</a></li><li><a href="#1812-the-program-crashed">18.12 Das Programm ist abgestürzt</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Die Aufnahme hat von selbst gestoppt</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Kein Ton von Windows nach der Installation von VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Referenz</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Inhalt</span><h2></h2></header>
@@ -5987,7 +5963,7 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 <li><a href="#13-devices">Geräte</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Szenen, Rückgängig und Sitzungen</a></li>
 <li><a href="#15-settings">Einstellungen</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Fernsteuerung, Overlay, Tray und VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Fernsteuerung, Overlay und Tray</a></li>
 <li><a href="#17-how-to-guides">Anleitungen</a></li>
 <li><a href="#18-troubleshooting">Fehlerbehebung</a></li>
 <li><a href="#19-reference">Referenz</a></li>
@@ -7325,10 +7301,6 @@ Mix beginnt. Siehe <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</
 <td><span class="key">PRE HPF</span> (rohe Quelle), <span class="key">PRE FADER</span> (nach den Effekten), <span class="key">POST ON</span> (nach dem Fader, Standard)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Version und Danksagung</td>
 </tr>
@@ -7387,7 +7359,7 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Fernsteuerung, Overlay, Tray und VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Fernsteuerung, Overlay und Tray</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -7420,15 +7392,11 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 <td><strong>Tray</strong></td>
 <td>Klick auf das Symbol für den Tray-Mixer, Doppelklick öffnet das Fenster. Rechtsklick: Show, Szenen-Abruf, Restore session, Start with Windows, About, Quit. Das Symbol blinkt bei einem Alarm gelb</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Ein Tab FAIDER im SteamVR-Dashboard, solange SteamVR läuft: RACK, PADS, TAPE, MACROS, DEVICES. Der Laserpointer funktioniert wie eine Maus. Dateidialoge müssen am Desktop abgeschlossen werden</td>
-</tr>
 </tbody>
 </table></div>
 <p>Faider läuft immer mit deinen normalen Benutzerrechten, auch wenn es aus einem Administratorfenster gestartet wird.
-Es startet sich selbst mit normalen Rechten neu, weil SteamVR und das In-Game-Overlay ein Programm, das als Administrator läuft,
-nicht erreichen können. Die wenigen Schritte, die einen Administrator brauchen
+Es startet sich selbst mit normalen Rechten neu, weil das In-Game-Overlay ein Programm, das als Administrator läuft,
+nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 (VB-CABLE-Einstellungen anwenden, ein von Windows ausgeschaltetes Gerät wieder aktivieren), fragen selbst nach der Erlaubnis.</p>
 
 </section>
@@ -7820,7 +7788,7 @@ und als Standardkommunikationsgeräte. Siehe <a href="#step-2-install-vb-cable-o
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivi</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Scene, annulla e sessioni</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Impostazioni</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Controllo remoto, overlay, area di notifica e VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Controllo remoto, overlay e area di notifica</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Guide pratiche</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Ascoltati: configura un microfono</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Fai sentire il tuo microfono alle app (Discord, giochi, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Porta un programma nel mix</a></li><li><a href="#174-reorder-channels">17.4 Riordina i canali</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Raggruppa i canali in un bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Elaborazione parallela con un combinatore</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Crea un mix per lo stream e un mix per le cuffie</a></li><li><a href="#178-record">17.8 Registra</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Crea un tasto push-to-talk</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Risoluzione dei problemi</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Il mio mix è sparito, è partito un mix nuovo</a></li><li><a href="#183-no-sound">18.3 Nessun suono</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 L'interfaccia non parte, o si è fermata</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Click, crepitii o interruzioni</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Un'app non compare in ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Sento qualcosa due volte, o un'eco</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Una route non si attiva</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Non posso cambiare nulla su una strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Trascinare un canale non fa nulla</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Un plugin non si carica</a></li><li><a href="#1812-the-program-crashed">18.12 Il programma è andato in crash</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 La registrazione si è fermata da sola</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Windows non ha suono dopo l'installazione di VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Riferimento</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Indice</span><h2></h2></header>
@@ -7840,7 +7808,7 @@ und als Standardkommunikationsgeräte. Siehe <a href="#step-2-install-vb-cable-o
 <li><a href="#13-devices">Dispositivi</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Scene, annulla e sessioni</a></li>
 <li><a href="#15-settings">Impostazioni</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Controllo remoto, overlay, area di notifica e VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Controllo remoto, overlay e area di notifica</a></li>
 <li><a href="#17-how-to-guides">Guide pratiche</a></li>
 <li><a href="#18-troubleshooting">Risoluzione dei problemi</a></li>
 <li><a href="#19-reference">Riferimento</a></li>
@@ -9193,10 +9161,6 @@ crema quando sono accesi.</p>
 <td><span class="key">PRE HPF</span> (sorgente grezza), <span class="key">PRE FADER</span> (dopo gli effetti), <span class="key">POST ON</span> (dopo il fader, predefinito)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Versione e crediti</td>
 </tr>
@@ -9255,7 +9219,7 @@ sulla console (<a href="#5-the-console">5</a>).</p>
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Controllo remoto, overlay, area di notifica e VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Controllo remoto, overlay e area di notifica</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -9288,15 +9252,11 @@ sulla console (<a href="#5-the-console">5</a>).</p>
 <td><strong>Area di notifica</strong></td>
 <td>Fai clic sull'icona per il mixer dell'area di notifica, doppio clic per aprire la finestra. Clic destro: Show, richiamo scene, Restore session, Start with Windows, About, Quit. L'icona lampeggia in ambra durante un allarme</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Una scheda FAIDER sulla dashboard di SteamVR mentre SteamVR è in funzione: RACK, PADS, TAPE, MACROS, DEVICES. Il puntatore laser funziona come un mouse. Le finestre di dialogo dei file vanno completate sul desktop</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra
-di amministratore. Si riavvia da solo con diritti normali, perché SteamVR e l'overlay nel gioco non
-possono raggiungere un programma eseguito come amministratore. I pochi passaggi che richiedono un
+<p>Faider funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra di
+amministratore. Si riavvia da solo con diritti normali, perché l'overlay nel gioco non può
+raggiungere un programma eseguito come amministratore. I pochi passaggi che richiedono un
 amministratore (applicare le impostazioni di VB-CABLE, riattivare un dispositivo che Windows ha
 spento) chiedono da soli il permesso.</p>
 
@@ -9692,7 +9652,7 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 <li><a href="#13-devices"><span class="toc-num">13</span>Dispositivos</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Cenas, desfazer e sessões</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Configurações</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Controle remoto, overlay, bandeja e VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Controle remoto, overlay e bandeja</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Guias práticos</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Se ouvir: configurar um microfone</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Deixar os apps ouvirem o seu mic (Discord, jogos, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Trazer um programa para a mixagem</a></li><li><a href="#174-reorder-channels">17.4 Reordenar canais</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Agrupar canais em um bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Processamento paralelo com um combinador</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Fazer uma mixagem para a transmissão e outra para os fones</a></li><li><a href="#178-record">17.8 Gravar</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Criar uma tecla push-to-talk</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Solução de problemas</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Minha mixagem sumiu, uma mixagem nova começou</a></li><li><a href="#183-no-sound">18.3 Sem som</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 A interface não inicia, ou parou</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Estalos, chiados ou falhas</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Um app não aparece em ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Ouço algo duas vezes, ou um eco</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Uma rota não liga</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Não consigo mudar nada em um strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Arrastar um canal não faz nada</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Um plugin não carrega</a></li><li><a href="#1812-the-program-crashed">18.12 O programa travou</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 A gravação parou sozinha</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Sem som do Windows depois de instalar o VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Referência</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Conteúdo</span><h2></h2></header>
@@ -9712,7 +9672,7 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 <li><a href="#13-devices">Dispositivos</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Cenas, desfazer e sessões</a></li>
 <li><a href="#15-settings">Configurações</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Controle remoto, overlay, bandeja e VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Controle remoto, overlay e bandeja</a></li>
 <li><a href="#17-how-to-guides">Guias práticos</a></li>
 <li><a href="#18-troubleshooting">Solução de problemas</a></li>
 <li><a href="#19-reference">Referência</a></li>
@@ -11076,10 +11036,6 @@ creme quando ligadas.</p>
 <td><span class="key">PRE HPF</span> (fonte bruta), <span class="key">PRE FADER</span> (depois dos efeitos), <span class="key">POST ON</span> (depois do fader, padrão)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Versão e créditos</td>
 </tr>
@@ -11139,7 +11095,7 @@ THE MIXER da página também funcionam no console (<a href="#5-the-console">5</a
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Controle remoto, overlay, bandeja e VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Controle remoto, overlay e bandeja</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -11172,17 +11128,13 @@ THE MIXER da página também funcionam no console (<a href="#5-the-console">5</a
 <td><strong>Bandeja</strong></td>
 <td>Clique no ícone para o mixer da bandeja, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Restore session, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Uma aba FAIDER no painel do SteamVR enquanto o SteamVR roda: RACK, PADS, TAPE, MACROS, DEVICES. O ponteiro laser funciona como um mouse. As caixas de diálogo de arquivo precisam ser concluídas na área de trabalho</td>
-</tr>
 </tbody>
 </table></div>
-<p>O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma
-janela de administrador. Ele se reinicia com direitos comuns, porque o SteamVR e o overlay no jogo
-não conseguem alcançar um programa rodando como administrador. Os poucos passos que exigem um
-administrador (aplicar as configurações do VB-CABLE, reativar um dispositivo que o Windows
-desligou) pedem permissão por conta própria.</p>
+<p>O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma janela
+de administrador. Ele se reinicia com direitos comuns, porque o overlay no jogo não consegue
+alcançar um programa rodando como administrador. Os poucos passos que exigem um administrador
+(aplicar as configurações do VB-CABLE, reativar um dispositivo que o Windows desligou) pedem
+permissão por conta própria.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Guias práticos</h2></header>
@@ -11580,7 +11532,7 @@ quanto como dispositivos de comunicação padrão. Veja o <a href="#step-2-insta
 <li><a href="#13-devices"><span class="toc-num">13</span>Apparaten</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Scènes, ongedaan maken en sessies</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Instellingen</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Afstandsbediening, overlay, systeemvak en VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Afstandsbediening, overlay en systeemvak</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Handleidingen</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Jezelf horen: een microfoon instellen</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Apps je microfoon laten horen (Discord, games, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Een programma in de mix brengen</a></li><li><a href="#174-reorder-channels">17.4 Kanalen herschikken</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Kanalen groeperen in een bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Parallelle bewerking met een combinator</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Een streammix en een koptelefoonmix maken</a></li><li><a href="#178-record">17.8 Opnemen</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Een push-to-talk-toets maken</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Problemen oplossen</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Mijn mix is weg, er is een verse mix begonnen</a></li><li><a href="#183-no-sound">18.3 Geen geluid</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 De interface start niet, of is gestopt</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Klikken, gekraak of uitvallen</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Een app verschijnt niet in ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Ik hoor iets dubbel, of een echo</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Een route gaat niet aan</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Ik kan niets veranderen aan een strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Een kanaal slepen doet niets</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Een plugin laadt niet</a></li><li><a href="#1812-the-program-crashed">18.12 Het programma is gecrasht</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Opnemen is vanzelf gestopt</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Geen geluid van Windows na het installeren van VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Naslag</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Inhoud</span><h2></h2></header>
@@ -11600,7 +11552,7 @@ quanto como dispositivos de comunicação padrão. Veja o <a href="#step-2-insta
 <li><a href="#13-devices">Apparaten</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Scènes, ongedaan maken en sessies</a></li>
 <li><a href="#15-settings">Instellingen</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Afstandsbediening, overlay, systeemvak en VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Afstandsbediening, overlay en systeemvak</a></li>
 <li><a href="#17-how-to-guides">Handleidingen</a></li>
 <li><a href="#18-troubleshooting">Problemen oplossen</a></li>
 <li><a href="#19-reference">Naslag</a></li>
@@ -12938,10 +12890,6 @@ verse mix. Zie <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 <td><span class="key">PRE HPF</span> (ruwe bron), <span class="key">PRE FADER</span> (na de effecten), <span class="key">POST ON</span> (na de fader, standaard)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Versie en dankbetuigingen</td>
 </tr>
@@ -13000,7 +12948,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Afstandsbediening, overlay, systeemvak en VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Afstandsbediening, overlay en systeemvak</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -13033,15 +12981,11 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 <td><strong>Tray</strong></td>
 <td>Klik op het pictogram voor de mixer in het systeemvak, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Restore session, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Een tabblad FAIDER op het SteamVR-dashboard zolang SteamVR draait: RACK, PADS, TAPE, MACROS, DEVICES. De laserpointer werkt als een muis. Bestandsdialogen moeten op het bureaublad worden afgerond</td>
-</tr>
 </tbody>
 </table></div>
 <p>Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
-Het start zichzelf opnieuw met gewone rechten, omdat SteamVR en de in-game overlay een programma dat als beheerder draait
-niet kunnen bereiken. De paar stappen die een beheerder nodig hebben
+Het start zichzelf opnieuw met gewone rechten, omdat de in-game overlay een programma dat als beheerder draait
+niet kan bereiken. De paar stappen die een beheerder nodig hebben
 (VB-CABLE-instellingen toepassen, een door Windows uitgezet apparaat weer inschakelen) vragen zelf om toestemming.</p>
 
 </section>
@@ -13433,7 +13377,7 @@ en als standaardcommunicatieapparaten. Zie <a href="#step-2-install-vb-cable-opt
 <li><a href="#13-devices"><span class="toc-num">13</span>Urządzenia</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Sceny, cofanie i sesje</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Ustawienia</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Zdalne sterowanie, nakładka, zasobnik i VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Zdalne sterowanie, nakładka i zasobnik</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Poradniki krok po kroku</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Usłysz siebie: ustaw mikrofon</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Pozwól aplikacjom słyszeć twój mikrofon (Discord, gry, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Wprowadź program do miksu</a></li><li><a href="#174-reorder-channels">17.4 Zmień kolejność kanałów</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Zgrupuj kanały w bus</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Przetwarzanie równoległe z kombinatorem</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Zrób miks do streamu i miks do słuchawek</a></li><li><a href="#178-record">17.8 Nagrywanie</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Zrób klawisz push-to-talk</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Rozwiązywanie problemów</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Mój miks zniknął, wystartował nowy</a></li><li><a href="#183-no-sound">18.3 Brak dźwięku</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 Interfejs nie startuje albo się zatrzymał</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Trzaski, chrobotanie lub zaniki</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Aplikacja nie pojawia się w ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Słyszę coś dwa razy albo echo</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Trasa nie chce się włączyć</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Nie mogę nic zmienić na pasku</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Przeciąganie kanału nic nie robi</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Wtyczka się nie ładuje</a></li><li><a href="#1812-the-program-crashed">18.12 Program się wysypał</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Nagrywanie samo się zatrzymało</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Brak dźwięku z Windows po instalacji VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Dodatek</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Spis treści</span><h2></h2></header>
@@ -13453,7 +13397,7 @@ en als standaardcommunicatieapparaten. Zie <a href="#step-2-install-vb-cable-opt
 <li><a href="#13-devices">Urządzenia</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Sceny, cofanie i sesje</a></li>
 <li><a href="#15-settings">Ustawienia</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Zdalne sterowanie, nakładka, zasobnik i VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Zdalne sterowanie, nakładka i zasobnik</a></li>
 <li><a href="#17-how-to-guides">Poradniki krok po kroku</a></li>
 <li><a href="#18-troubleshooting">Rozwiązywanie problemów</a></li>
 <li><a href="#19-reference">Dodatek</a></li>
@@ -14796,10 +14740,6 @@ tracony, i startuje nowy miks. Zobacz <a href="#182-my-mix-is-gone-a-fresh-mix-s
 <td><span class="key">PRE HPF</span> (surowe źródło), <span class="key">PRE FADER</span> (po efektach), <span class="key">POST ON</span> (po faderze, domyślnie)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Wersja i autorzy</td>
 </tr>
@@ -14857,7 +14797,7 @@ na konsoli (<a href="#5-the-console">5</a>).</p>
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Zdalne sterowanie, nakładka, zasobnik i VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Zdalne sterowanie, nakładka i zasobnik</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -14890,17 +14830,13 @@ na konsoli (<a href="#5-the-console">5</a>).</p>
 <td><strong>Zasobnik</strong></td>
 <td>Kliknij ikonę, żeby zobaczyć mikser w zasobniku, kliknij dwukrotnie, żeby otworzyć okno. Prawy przycisk: Show, przywołanie sceny, Restore session, Start with Windows, About, Quit. Ikona miga na bursztynowo podczas alarmu</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>Karta FAIDER na pulpicie SteamVR, gdy SteamVR działa: RACK, PADS, TAPE, MACROS, DEVICES. Wskaźnik laserowy działa jak mysz. Okna dialogowe plików trzeba dokończyć na pulpicie</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider zawsze działa z twoimi zwykłymi uprawnieniami użytkownika, nawet gdy uruchomiono go
-z okna administratora. Uruchamia się wtedy ponownie ze zwykłymi uprawnieniami, bo SteamVR i nakładka
-w grze nie sięgają do programu działającego jako administrator. Te nieliczne kroki, które wymagają
-administratora (zastosowanie ustawień VB-CABLE, ponowne włączenie urządzenia wyłączonego przez
-Windows), same proszą o zgodę.</p>
+<p>Faider zawsze działa z twoimi zwykłymi uprawnieniami użytkownika, nawet gdy uruchomiono go z okna
+administratora. Uruchamia się wtedy ponownie ze zwykłymi uprawnieniami, bo nakładka w grze nie sięga
+do programu działającego jako administrator. Te nieliczne kroki, które wymagają administratora
+(zastosowanie ustawień VB-CABLE, ponowne włączenie urządzenia wyłączonego przez Windows), same
+proszą o zgodę.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Poradniki krok po kroku</h2></header>
@@ -15291,7 +15227,7 @@ jak i jako domyślne urządzenia komunikacji. Zobacz <a href="#step-2-install-vb
 <li><a href="#13-devices"><span class="toc-num">13</span>Enheter</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Scener, ångra och sessioner</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Inställningar</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Fjärrstyrning, overlay, aktivitetsfält och VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Fjärrstyrning, overlay och aktivitetsfält</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Guider</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Hör dig själv: ställ in en mikrofon</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Låt appar höra din mikrofon (Discord, spel, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Ta in ett program i mixen</a></li><li><a href="#174-reorder-channels">17.4 Ordna om kanaler</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Gruppera kanaler i en buss</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Parallell bearbetning med en combinator</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Gör en streammix och en hörlursmix</a></li><li><a href="#178-record">17.8 Spela in</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Gör en push-to-talk-tangent</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Felsökning</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Min mix är borta, en ny mix startade</a></li><li><a href="#183-no-sound">18.3 Inget ljud</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 Gränssnittet startar inte, eller stannade</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Klick, knaster eller avbrott</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 En app dyker inte upp i ADD APP</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Jag hör något två gånger, eller ett eko</a></li><li><a href="#188-a-route-wont-switch-on">18.8 En rutt går inte att slå på</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Jag kan inte ändra något på en strip</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Att dra en kanal gör ingenting</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Ett plugin går inte att läsa in</a></li><li><a href="#1812-the-program-crashed">18.12 Programmet kraschade</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Inspelningen stoppade av sig själv</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 Inget ljud från Windows efter installation av VB-CABLE</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Referens</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">Innehåll</span><h2></h2></header>
@@ -15311,7 +15247,7 @@ jak i jako domyślne urządzenia komunikacji. Zobacz <a href="#step-2-install-vb
 <li><a href="#13-devices">Enheter</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Scener, ångra och sessioner</a></li>
 <li><a href="#15-settings">Inställningar</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Fjärrstyrning, overlay, aktivitetsfält och VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Fjärrstyrning, overlay och aktivitetsfält</a></li>
 <li><a href="#17-how-to-guides">Guider</a></li>
 <li><a href="#18-troubleshooting">Felsökning</a></li>
 <li><a href="#19-reference">Referens</a></li>
@@ -16650,10 +16586,6 @@ mix startar. Se <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 <td><span class="key">PRE HPF</span> (rå källa), <span class="key">PRE FADER</span> (efter effekterna), <span class="key">POST ON</span> (efter fadern, standard)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Version och tack</td>
 </tr>
@@ -16712,7 +16644,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Fjärrstyrning, overlay, aktivitetsfält och VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Fjärrstyrning, overlay och aktivitetsfält</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -16745,14 +16677,10 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 <td><strong>Tray</strong></td>
 <td>Klicka på ikonen för aktivitetsfältets mixer, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Restore session, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>En flik FAIDER på SteamVR-dashboarden medan SteamVR körs: RACK, PADS, TAPE, MACROS, DEVICES. Laserpekaren fungerar som en mus. Fildialoger måste avslutas på skrivbordet</td>
-</tr>
 </tbody>
 </table></div>
 <p>Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
-Det startar om sig själv med vanliga rättigheter, eftersom SteamVR och in-game overlay inte kan nå ett program som körs som administratör.
+Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.
 De få steg som kräver en administratör
 (tillämpa VB-CABLE-inställningar, aktivera igen en enhet som Windows har stängt av) ber själva om tillstånd.</p>
 
@@ -17145,7 +17073,7 @@ och som standardkommunikationsenheter. Se <a href="#step-2-install-vb-cable-opti
 <li><a href="#13-devices"><span class="toc-num">13</span>Aygıtlar</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>Sahneler, geri alma ve oturumlar</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>Ayarlar</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>Uzaktan kontrol, kaplama, tepsi ve VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>Uzaktan kontrol, kaplama ve tepsi</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>Nasıl yapılır kılavuzları</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 Kendini duy: bir mikrofon kur</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 Uygulamaların mikrofonunu duymasını sağla (Discord, oyunlar, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 Bir programı karışıma kat</a></li><li><a href="#174-reorder-channels">17.4 Kanalların sırasını değiştir</a></li><li><a href="#175-group-channels-into-a-bus">17.5 Kanalları bir bus'ta grupla</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 Kombinatörle paralel işleme</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 Bir yayın karışımı ve bir kulaklık karışımı yap</a></li><li><a href="#178-record">17.8 Kayıt</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 Bir bas-konuş tuşu yap</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>Sorun giderme</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 Karışımım gitti, yeni bir karışım başladı</a></li><li><a href="#183-no-sound">18.3 Ses yok</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 Arabirim başlamıyor ya da durdu</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 Tıkırtılar, çıtırtılar veya kesilmeler</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 Bir uygulama ADD APP'te görünmüyor</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 Bir şeyi iki kez veya yankı olarak duyuyorum</a></li><li><a href="#188-a-route-wont-switch-on">18.8 Bir yönlendirme açılmıyor</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 Bir şeritte hiçbir şeyi değiştiremiyorum</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 Bir kanalı sürüklemek bir şey yapmıyor</a></li><li><a href="#1811-a-plugin-wont-load">18.11 Bir eklenti yüklenmiyor</a></li><li><a href="#1812-the-program-crashed">18.12 Program çöktü</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 Kayıt kendiliğinden durdu</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 VB-CABLE kurulduktan sonra Windows'tan ses gelmiyor</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>Başvuru</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">İçindekiler</span><h2></h2></header>
@@ -17165,7 +17093,7 @@ och som standardkommunikationsenheter. Se <a href="#step-2-install-vb-cable-opti
 <li><a href="#13-devices">Aygıtlar</a></li>
 <li><a href="#14-scenes-undo-and-sessions">Sahneler, geri alma ve oturumlar</a></li>
 <li><a href="#15-settings">Ayarlar</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">Uzaktan kontrol, kaplama, tepsi ve VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">Uzaktan kontrol, kaplama ve tepsi</a></li>
 <li><a href="#17-how-to-guides">Nasıl yapılır kılavuzları</a></li>
 <li><a href="#18-troubleshooting">Sorun giderme</a></li>
 <li><a href="#19-reference">Başvuru</a></li>
@@ -18503,10 +18431,6 @@ dosya bozuk), kaybolmak yerine <strong>bir kenara ayrılır</strong> ve yeni bir
 <td><span class="key">PRE HPF</span> (ham kaynak), <span class="key">PRE FADER</span> (efektlerden sonra), <span class="key">POST ON</span> (fader'dan sonra, varsayılan)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>Sürüm ve emeği geçenler</td>
 </tr>
@@ -18566,7 +18490,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>Uzaktan kontrol, kaplama, tepsi ve VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>Uzaktan kontrol, kaplama ve tepsi</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -18599,16 +18523,12 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 <td><strong>Tepsi</strong></td>
 <td>Tepsi mikseri için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Restore session, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>SteamVR çalışırken SteamVR panosunda bir FAIDER sekmesi: RACK, PADS, TAPE, MACROS, DEVICES. Lazer işaretçi fare gibi çalışır. Dosya iletişim kutuları masaüstünde bitirilmelidir</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla
-çalışır. SteamVR ve oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini
-sıradan haklarla yeniden başlatır. Yönetici gerektiren birkaç adım (VB-CABLE ayarlarını uygulamak,
-Windows'un kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
+<p>Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
+Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla
+yeniden başlatır. Yönetici gerektiren birkaç adım (VB-CABLE ayarlarını uygulamak, Windows'un
+kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Nasıl yapılır kılavuzları</h2></header>
@@ -18997,7 +18917,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices"><span class="toc-num">13</span>デバイス</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>シーン、元に戻す、セッション</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>設定</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>リモート操作、オーバーレイ、トレイ、VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>リモート操作、オーバーレイ、トレイ</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>操作ガイド</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 自分の声を聞く: マイクを設定する</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 アプリにマイクを聞かせる(Discord、ゲーム、OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 プログラムをミックスに入れる</a></li><li><a href="#174-reorder-channels">17.4 チャンネルを並べ替える</a></li><li><a href="#175-group-channels-into-a-bus">17.5 チャンネルをバスにまとめる</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 コンバイネーターでパラレル処理をする</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 配信用ミックスとヘッドホン用ミックスを作る</a></li><li><a href="#178-record">17.8 録音する</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 プッシュトゥトークのキーを作る</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>トラブルシューティング</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 ミックスが消えて、新しいミックスで始まった</a></li><li><a href="#183-no-sound">18.3 音が出ない</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 インターフェースが起動しない、または止まった</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 クリック音、ノイズ、音切れ</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 アプリが ADD APP に表示されない</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 二重に聞こえる、またはエコーがある</a></li><li><a href="#188-a-route-wont-switch-on">18.8 ルートがオンにならない</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 ストリップで何も変更できない</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 チャンネルをドラッグしても何も起きない</a></li><li><a href="#1811-a-plugin-wont-load">18.11 プラグインが読み込まれない</a></li><li><a href="#1812-the-program-crashed">18.12 プログラムがクラッシュした</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 録音が自動で止まった</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 VB-CABLE のインストール後、Windows の音が出ない</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>リファレンス</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">目次</span><h2></h2></header>
@@ -19017,7 +18937,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices">デバイス</a></li>
 <li><a href="#14-scenes-undo-and-sessions">シーン、元に戻す、セッション</a></li>
 <li><a href="#15-settings">設定</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">リモート操作、オーバーレイ、トレイ、VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">リモート操作、オーバーレイ、トレイ</a></li>
 <li><a href="#17-how-to-guides">操作ガイド</a></li>
 <li><a href="#18-troubleshooting">トラブルシューティング</a></li>
 <li><a href="#19-reference">リファレンス</a></li>
@@ -20213,10 +20133,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><span class="key">PRE HPF</span>(元の音源)、<span class="key">PRE FADER</span>(エフェクトの後)、<span class="key">POST ON</span>(フェーダーの後、既定)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>バージョンとクレジット</td>
 </tr>
@@ -20266,7 +20182,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>リモート操作、オーバーレイ、トレイ、VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>リモート操作、オーバーレイ、トレイ</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -20299,13 +20215,9 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><strong>Tray</strong></td>
 <td>アイコンをクリックするとトレイミキサー、ダブルクリックするとウィンドウが開きます。右クリック: Show、シーンの呼び出し、Restore session、Start with Windows、About、Quit。警告中は、アイコンが琥珀色に点滅します</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>SteamVR の実行中、SteamVR ダッシュボードに FAIDER タブが表示されます。RACK、PADS、TAPE、MACROS、DEVICES。レーザーポインターはマウスとして使えます。ファイルダイアログは、デスクトップで完了させる必要があります</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider は、管理者のウィンドウから起動された場合でも、常に通常のユーザー権限で動作します。自分で通常の権限で再起動します。SteamVR とゲーム内オーバーレイは、管理者として動いているプログラムに届かないためです。管理者権限が必要な少数の操作(VB-CABLE の設定の適用、Windows がオフにしたデバイスの再有効化)は、自分で許可を求めます。</p>
+<p>Faider は、管理者のウィンドウから起動された場合でも、常に通常のユーザー権限で動作します。自分で通常の権限で再起動します。ゲーム内オーバーレイは、管理者として動いているプログラムに届かないためです。管理者権限が必要な少数の操作(VB-CABLE の設定の適用、Windows がオフにしたデバイスの再有効化)は、自分で許可を求めます。</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>操作ガイド</h2></header>
@@ -20657,7 +20569,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices"><span class="toc-num">13</span>장치</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>씬, 실행 취소, 세션</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>설정</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>원격 제어, 오버레이, 트레이, VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>원격 제어, 오버레이, 트레이</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>사용 가이드</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 내 소리 듣기: 마이크 설정하기</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 앱이 내 마이크를 듣게 하기 (Discord, 게임, OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 프로그램을 믹스에 넣기</a></li><li><a href="#174-reorder-channels">17.4 채널 순서 바꾸기</a></li><li><a href="#175-group-channels-into-a-bus">17.5 채널을 버스로 묶기</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 컴바이너로 병렬 처리하기</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 방송용 믹스와 헤드폰용 믹스 만들기</a></li><li><a href="#178-record">17.8 녹음하기</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 푸시 투 토크 키 만들기</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>문제 해결</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 믹스가 사라지고 새 믹스로 시작됨</a></li><li><a href="#183-no-sound">18.3 소리가 나지 않음</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 인터페이스가 시작되지 않거나 멈춤</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 클릭 소리, 잡음, 끊김</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 앱이 ADD APP에 나타나지 않음</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 소리가 두 번 들리거나 에코가 있음</a></li><li><a href="#188-a-route-wont-switch-on">18.8 루트가 켜지지 않음</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 스트립에서 아무것도 바꿀 수 없음</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 채널을 드래그해도 아무 일도 일어나지 않음</a></li><li><a href="#1811-a-plugin-wont-load">18.11 플러그인이 로드되지 않음</a></li><li><a href="#1812-the-program-crashed">18.12 프로그램이 충돌함</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 녹음이 저절로 멈춤</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 VB-CABLE 설치 후 Windows에서 소리가 나지 않음</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>참조</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">목차</span><h2></h2></header>
@@ -20677,7 +20589,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices">장치</a></li>
 <li><a href="#14-scenes-undo-and-sessions">씬, 실행 취소, 세션</a></li>
 <li><a href="#15-settings">설정</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">원격 제어, 오버레이, 트레이, VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">원격 제어, 오버레이, 트레이</a></li>
 <li><a href="#17-how-to-guides">사용 가이드</a></li>
 <li><a href="#18-troubleshooting">문제 해결</a></li>
 <li><a href="#19-reference">참조</a></li>
@@ -21873,10 +21785,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><span class="key">PRE HPF</span>(원래 소스), <span class="key">PRE FADER</span>(이펙트 뒤), <span class="key">POST ON</span>(페이더 뒤, 기본값)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>버전과 크레딧</td>
 </tr>
@@ -21926,7 +21834,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>원격 제어, 오버레이, 트레이, VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>원격 제어, 오버레이, 트레이</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -21959,13 +21867,9 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><strong>Tray</strong></td>
 <td>아이콘을 누르면 트레이 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Restore session, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>SteamVR이 실행되는 동안 SteamVR 대시보드에 FAIDER 탭이 나타납니다: RACK, PADS, TAPE, MACROS, DEVICES. 레이저 포인터는 마우스처럼 작동합니다. 파일 대화 상자는 데스크톱에서 마쳐야 합니다</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. SteamVR과 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.</p>
+<p>Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>사용 가이드</h2></header>
@@ -22317,7 +22221,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices"><span class="toc-num">13</span>设备</a></li>
 <li><a href="#14-scenes-undo-and-sessions"><span class="toc-num">14</span>场景、撤销和会话</a></li>
 <li><a href="#15-settings"><span class="toc-num">15</span>设置</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr"><span class="toc-num">16</span>远程控制、悬浮层、托盘和 VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray"><span class="toc-num">16</span>远程控制、悬浮层和托盘</a></li>
 <li><a href="#17-how-to-guides"><span class="toc-num">17</span>操作指南</a><ul class="toc-sub"><li><a href="#171-hear-yourself-set-up-a-microphone">17.1 听到自己：设置麦克风</a></li><li><a href="#172-let-apps-hear-your-mic-discord-games-obs">17.2 让应用听到你的麦克风(Discord、游戏、OBS)</a></li><li><a href="#173-bring-a-program-into-the-mix">17.3 把程序带入混音</a></li><li><a href="#174-reorder-channels">17.4 重新排列通道</a></li><li><a href="#175-group-channels-into-a-bus">17.5 把通道编成一条总线</a></li><li><a href="#176-parallel-processing-with-a-combinator">17.6 用组合器进行并行处理</a></li><li><a href="#177-make-a-stream-mix-and-a-headphone-mix">17.7 制作直播混音和耳机混音</a></li><li><a href="#178-record">17.8 录音</a></li><li><a href="#179-make-a-push-to-talk-key">17.9 制作按键通话键</a></li></ul></li>
 <li><a href="#18-troubleshooting"><span class="toc-num">18</span>故障排除</a><ul class="toc-sub"><li><a href="#181-pre-flight">18.1 PRE-FLIGHT</a></li><li><a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2 我的混音不见了，开始了一个全新的混音</a></li><li><a href="#183-no-sound">18.3 没有声音</a></li><li><a href="#184-the-interface-wont-start-or-stopped">18.4 接口无法启动，或已停止</a></li><li><a href="#185-clicks-crackles-or-dropouts">18.5 咔嗒声、爆音或掉音</a></li><li><a href="#186-an-app-doesnt-appear-in-add-app">18.6 应用没有出现在 ADD APP 中</a></li><li><a href="#187-i-hear-something-twice-or-an-echo">18.7 我听到两遍声音，或有回声</a></li><li><a href="#188-a-route-wont-switch-on">18.8 路由无法打开</a></li><li><a href="#189-i-cant-change-anything-on-a-strip">18.9 我无法更改通道条上的任何东西</a></li><li><a href="#1810-dragging-a-channel-does-nothing">18.10 拖动通道没有反应</a></li><li><a href="#1811-a-plugin-wont-load">18.11 插件无法加载</a></li><li><a href="#1812-the-program-crashed">18.12 程序崩溃了</a></li><li><a href="#1813-recording-stopped-by-itself">18.13 录音自己停止了</a></li><li><a href="#1814-no-sound-from-windows-after-installing-vb-cable">18.14 安装 VB-CABLE 后 Windows 没有声音</a></li></ul></li>
 <li><a href="#19-reference"><span class="toc-num">19</span>参考</a></li></nav><div data-part="main"><section class="chapter" id="contents"><header class="chapter-head"><span class="chapter-num">目录</span><h2></h2></header>
@@ -22337,7 +22241,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <li><a href="#13-devices">设备</a></li>
 <li><a href="#14-scenes-undo-and-sessions">场景、撤销和会话</a></li>
 <li><a href="#15-settings">设置</a></li>
-<li><a href="#16-remote-control-overlay-tray-and-vr">远程控制、悬浮层、托盘和 VR</a></li>
+<li><a href="#16-remote-control-overlay-and-tray">远程控制、悬浮层和托盘</a></li>
 <li><a href="#17-how-to-guides">操作指南</a></li>
 <li><a href="#18-troubleshooting">故障排除</a></li>
 <li><a href="#19-reference">参考</a></li>
@@ -23533,10 +23437,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><span class="key">PRE HPF</span>(原始声源)、<span class="key">PRE FADER</span>(效果之后)、<span class="key">POST ON</span>(推子之后，默认)</td>
 </tr>
 <tr>
-<td><span class="key">STEAMVR</span></td>
-<td><span class="key">RACK ON THE STEAMVR DASHBOARD</span></td>
-</tr>
-<tr>
 <td><span class="key">ABOUT</span></td>
 <td>版本和致谢</td>
 </tr>
@@ -23586,7 +23486,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </table></div>
 
 </section>
-<section class="chapter" id="16-remote-control-overlay-tray-and-vr"><header class="chapter-head"><span class="chapter-num">16</span><h2>远程控制、悬浮层、托盘和 VR</h2></header>
+<section class="chapter" id="16-remote-control-overlay-and-tray"><header class="chapter-head"><span class="chapter-num">16</span><h2>远程控制、悬浮层和托盘</h2></header>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -23619,13 +23519,9 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td><strong>Tray</strong></td>
 <td>点击图标显示托盘调音台，双击打开窗口。右键点击：Show、场景调用、Restore session、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色</td>
 </tr>
-<tr>
-<td><strong>SteamVR</strong></td>
-<td>SteamVR 运行期间，SteamVR 仪表板上会出现 FAIDER 标签页：RACK、PADS、TAPE、MACROS、DEVICES。激光指针可当作鼠标使用。文件对话框必须在桌面上完成</td>
-</tr>
 </tbody>
 </table></div>
-<p>Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为 SteamVR 和游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。</p>
+<p>Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。</p>
 
 </section>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>操作指南</h2></header>

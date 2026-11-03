@@ -29,7 +29,7 @@ tells you what to do when something goes wrong.
 13. [Devices](#13-devices)
 14. [Scenes, undo and sessions](#14-scenes-undo-and-sessions)
 15. [Settings](#15-settings)
-16. [Remote control, overlay, tray and VR](#16-remote-control-overlay-tray-and-vr)
+16. [Remote control, overlay and tray](#16-remote-control-overlay-and-tray)
 17. [How-to guides](#17-how-to-guides)
 18. [Troubleshooting](#18-troubleshooting)
 19. [Reference](#19-reference)
@@ -876,7 +876,6 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
 | **CHANNEL METER POINT** | **PRE HPF** (raw source), **PRE FADER** (after effects), **POST ON** (after the fader, default) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Version and credits |
 
 ### MACROS
@@ -914,7 +913,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 
 ---
 
-## 16. Remote control, overlay, tray and VR
+## 16. Remote control, overlay and tray
 
 | | |
 |---|---|
@@ -924,11 +923,10 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / MUTED and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | A small mixer on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the tray mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert |
-| **SteamVR** | A FAIDER tab on the SteamVR dashboard while SteamVR runs: RACK, PADS, TAPE, MACROS, DEVICES. The laser pointer works as a mouse. File dialogs must be finished on the desktop |
 
 Faider always runs with your ordinary user rights, even when it's started from an
-administrator window. It restarts itself with ordinary rights, because SteamVR and the in-game
-overlay can't reach a program running as administrator. The few steps that need an administrator
+administrator window. It restarts itself with ordinary rights, because the in-game overlay can't
+reach a program running as administrator. The few steps that need an administrator
 (applying VB-CABLE settings, re-enabling a device Windows has switched off) ask for permission
 themselves.
 

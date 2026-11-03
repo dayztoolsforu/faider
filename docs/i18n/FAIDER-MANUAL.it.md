@@ -33,7 +33,7 @@ ti dice cosa fare quando qualcosa non va.
 13. [Dispositivi](#13-devices)
 14. [Scene, annulla e sessioni](#14-scenes-undo-and-sessions)
 15. [Impostazioni](#15-settings)
-16. [Controllo remoto, overlay, area di notifica e VR](#16-remote-control-overlay-tray-and-vr)
+16. [Controllo remoto, overlay e area di notifica](#16-remote-control-overlay-and-tray)
 17. [Guide pratiche](#17-how-to-guides)
 18. [Risoluzione dei problemi](#18-troubleshooting)
 19. [Riferimento](#19-reference)
@@ -1032,7 +1032,6 @@ crema quando sono accesi.
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Come leggono i meter (picco di campione con caduta rapida per impostazione predefinita; IEC e altri) |
 | **CHANNEL METER POINT** | **PRE HPF** (sorgente grezza), **PRE FADER** (dopo gli effetti), **POST ON** (dopo il fader, predefinito) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Versione e crediti |
 
 <a id="macros"></a>
@@ -1078,7 +1077,7 @@ sulla console ([5](#5-the-console)).
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Controllo remoto, overlay, area di notifica e VR
+## 16. Controllo remoto, overlay e area di notifica
 
 | | |
 |---|---|
@@ -1088,11 +1087,10 @@ sulla console ([5](#5-the-console)).
 | **Overlay nel gioco** (Ctrl+Shift+O) | La spia di parlato di ogni canale microfono, LIVE / MUTED e livello, più fino a quattro tasti scena. Non toglie mai il focus a un gioco. Trascinalo dove vuoi |
 | **MINI** | Un piccolo mixer sopra a tutto. **OPEN** torna alla finestra principale |
 | **Area di notifica** | Fai clic sull'icona per il mixer dell'area di notifica, doppio clic per aprire la finestra. Clic destro: Show, richiamo scene, Restore session, Start with Windows, About, Quit. L'icona lampeggia in ambra durante un allarme |
-| **SteamVR** | Una scheda FAIDER sulla dashboard di SteamVR mentre SteamVR è in funzione: RACK, PADS, TAPE, MACROS, DEVICES. Il puntatore laser funziona come un mouse. Le finestre di dialogo dei file vanno completate sul desktop |
 
-Faider funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra
-di amministratore. Si riavvia da solo con diritti normali, perché SteamVR e l'overlay nel gioco non
-possono raggiungere un programma eseguito come amministratore. I pochi passaggi che richiedono un
+Faider funziona sempre con i tuoi normali diritti utente, anche se avviato da una finestra di
+amministratore. Si riavvia da solo con diritti normali, perché l'overlay nel gioco non può
+raggiungere un programma eseguito come amministratore. I pochi passaggi che richiedono un
 amministratore (applicare le impostazioni di VB-CABLE, riattivare un dispositivo che Windows ha
 spento) chiedono da soli il permesso.
 

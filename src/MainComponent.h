@@ -8,9 +8,7 @@
 #include "ui/PadsPanel.h"
 #include "ui/TapePanel.h"
 #include "ui/ToolsTab.h"
-#include "ui/PanelSlot.h"
 #include "ui/Overlay.h"
-#include "vr/VrDashboard.h"
 #include "ui/MidiMap.h"
 #include "ui/MidiPanel.h"
 #include "ui/ControllerHelper.h"
@@ -159,7 +157,6 @@ private:
     juce::String micOutputName() const;
 
     std::unique_ptr<Overlay> overlay;   // the in-game overlay (Overlay.h)
-    std::unique_ptr<VrDashboard> vrDashboard;   // the rack in the headset (SteamVR dashboard)
     void toggleOverlay();
 
     using PageTabs = Console::KeyTabs;
@@ -171,14 +168,13 @@ private:
     std::unique_ptr<juce::Component> setupPage;        // (SETUP: Simple.h)
     std::unique_ptr<PadsPanel> pads;
     std::unique_ptr<TapePanel> tape;
-    std::unique_ptr<PanelSlot> padsSlot, tapeSlot, macrosSlot, devicesSlot;   // the pages' places on the desk
     std::unique_ptr<ToolsTab> tools;      // the TOOLS tab: PADS and TAPE on tabs of their own
     std::unique_ptr<SceneBar> sceneBar;   // in the tab bar, after the tabs
 
     std::unique_ptr<MixHistory> history;  // Ctrl+Z / Ctrl+Y
     std::unique_ptr<ControlServer> controlServer;   // the local control API, for deck plugins
     std::unique_ptr<MidiMapOverlay> midiMap;        // MIDI MAP mode, while on
-    // SETTINGS (SettingsTab.h): GENERAL, LOOK, METERS, MACROS, HOTKEYS, CONTROL and VR.
+    // SETTINGS (SettingsTab.h): GENERAL, MACROS, HOTKEYS and CONTROL.
     std::unique_ptr<SettingsTab> settingsTab;
     std::unique_ptr<OptionsPage> generalPage;
     std::unique_ptr<HotkeysPage> hotkeysPage;

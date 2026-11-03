@@ -46,7 +46,6 @@ Source: "{#Source}\*"; Excludes: "*.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
 Source: "..\docs\CREDITS.md"; DestDir: "{app}\licences"; Flags: ignoreversion
 Source: "..\third_party\rnnoise\COPYING"; DestDir: "{app}\licences"; DestName: "rnnoise.txt"; Flags: ignoreversion
-Source: "..\third_party\openvr\LICENSE"; DestDir: "{app}\licences"; DestName: "openvr.txt"; Flags: ignoreversion
 Source: "{#CRT}\msvcp140.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#CRT}\vcruntime140.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#CRT}\vcruntime140_1.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -57,6 +56,8 @@ Source: "{#CRT}\vcruntime140_1.dll"; DestDir: "{app}"; Flags: ignoreversion
 Type: filesandordirs; Name: "{autopf}\{#EarlierName}"
 Type: files; Name: "{autoprograms}\{#EarlierName}.lnk"
 Type: files; Name: "{autodesktop}\{#EarlierName}.lnk"
+; (the SteamVR library earlier versions put next to the exe)
+Type: files; Name: "{app}\openvr_api.dll"
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"

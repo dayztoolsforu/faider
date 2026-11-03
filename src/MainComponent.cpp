@@ -30,7 +30,7 @@ MainComponent::MainComponent()
       statusFile (dataDir.getChildFile ("status.txt")),
       sessionFile (dataDir.getChildFile ("session.xml"))
 {
-    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff" })   // (LIVE COACHING, and Faider's desks and looks)
+    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff", "vrDashboard" })   // (LIVE COACHING, earlier desks and looks, the SteamVR page)
         settings.removeValue (gone);
     look->applyTheme();
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
@@ -195,14 +195,9 @@ MainComponent::MainComponent()
     pads = std::make_unique<PadsPanel> (engine, *mixer);
     tape = std::make_unique<TapePanel> (engine, *mixer);
 
-    // (each in a slot of its own, so the SteamVR dashboard can borrow it: PanelSlot.h)
-    padsSlot = std::make_unique<PanelSlot> (*pads);
-    tapeSlot = std::make_unique<PanelSlot> (*tape);
-    macrosSlot = std::make_unique<PanelSlot> (pads->getMacrosPage());   // (on SETTINGS: makeSettings)
-    devicesSlot = std::make_unique<PanelSlot> (devicesPanel);
-    tools = std::make_unique<ToolsTab> (std::initializer_list<std::pair<juce::String, juce::Component*>> { { "Pads", padsSlot.get() }, { "Tape", tapeSlot.get() } });
+    tools = std::make_unique<ToolsTab> (std::initializer_list<std::pair<juce::String, juce::Component*>> { { "Pads", pads.get() }, { "Tape", tape.get() } });
     tabs.addTab ("Tools", juce::Colours::transparentBlack, tools.get(), false);
-    tabs.addTab ("Devices", juce::Colours::transparentBlack, devicesSlot.get(), false);
+    tabs.addTab ("Devices", juce::Colours::transparentBlack, &devicesPanel, false);
     devicesPanel.getTools().onDevicesChanged = [this] { sortDevices(); };
 
     // Devices list order: a column (DevicesTab::columns), "-" in front for descending; remembered.
@@ -327,12 +322,6 @@ MainComponent::MainComponent()
         tape->replayHotkey = key;
 
     // The in-game overlay: Ctrl+Shift+O anywhere shows and hides it; where it was dragged is remembered.
-    // The rack in the headset: on the SteamVR dashboard whenever SteamVR is running.
-    vrDashboard = std::make_unique<VrDashboard> (engine, *mixer);
-    vrDashboard->log = [this] (const juce::String& m) { logEvent (m); };
-    vrDashboard->sections = { { "PADS", padsSlot.get() }, { "TAPE", tapeSlot.get() }, { "MACROS", macrosSlot.get() },
-                              { "DEVICES", devicesSlot.get() } };
-    vrDashboard->setEnabled (settings.getBoolValue ("vrDashboard", true));
 
     overlay = std::make_unique<Overlay> (engine);
     // (Remembered in screen pixels: the zoom scales window positions, so a zoom change would move it.)
@@ -485,16 +474,6 @@ void MainComponent::makeSettings()
     general.heading ("CHANNEL METER POINT");
     general.choice ({ "PRE HPF  (RAW SOURCE)", "PRE FADER  (AFTER EFFECTS)", "POST ON  (AFTER THE FADER)" },
                     [] { return AudioEngine::meterPoint.load(); }, [] (int i) { AudioEngine::meterPoint = i; });
-    general.heading ("STEAMVR");
-    general.toggle ("RACK ON THE STEAMVR DASHBOARD", juce::String (Product::name) + "'s pages on the SteamVR dashboard whenever SteamVR runs",
-                    [this] { return vrDashboard != nullptr && vrDashboard->isEnabled(); },
-                    [this, remember] (bool on)
-                    {
-                        if (vrDashboard == nullptr)
-                            return;
-                        vrDashboard->setEnabled (on);
-                        remember ("vrDashboard", on);
-                    });
     general.heading ("ABOUT");
     general.action (juce::String ("ABOUT ") + Product::nameUpper + "...", "Version and credits", [] { AboutBox::show(); });
     general.finish();
@@ -563,7 +542,7 @@ void MainComponent::makeSettings()
 
     settingsTab = std::make_unique<SettingsTab>();
     settingsTab->addSection ("General", *generalPage, false);
-    settingsTab->addSection ("Macros", *macrosSlot, true);
+    settingsTab->addSection ("Macros", pads->getMacrosPage(), true);
     settingsTab->addSection ("Hotkeys", *hotkeysPage, false);
     settingsTab->addSection ("Control", *controlPanel, false);
     tabs.addTab ("Settings", juce::Colours::transparentBlack, settingsTab.get(), false);
@@ -663,7 +642,7 @@ void MainComponent::openCommandPalette()
     add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The tray mixer's channels, on top of everything", [this] { toggleMini(); });
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
     add ("MIDI MAP", "Ctrl+L - link controls to MIDI", [this] { toggleMidiMap(); });
-    for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters, SteamVR"), std::pair ("Macros", "Macros and their triggers"),
+    for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters"), std::pair ("Macros", "Macros and their triggers"),
                                     std::pair ("Hotkeys", "Every global hotkey"), std::pair ("Control", "MIDI, OSC, deck plugins, phone") })
         add ("SETTINGS: " + juce::String (section).toUpperCase(), detail, [this, section = juce::String (section)] { openSettings (section); });
     add ("SET UP A CONTROLLER", "Loupedeck, Stream Deck, MIDI, OSC, phone", [this] { openControllerHelper(); });
@@ -1169,7 +1148,6 @@ MainComponent::~MainComponent()
     engine.getScenes().onStructureChanged = nullptr;   // (it calls into the mixer)
 
     mini = nullptr;          // (its mixer reads the engine)
-    vrDashboard = nullptr;   // (its rack page belongs to the mixer)
     overlay = nullptr;
     settingsTab = nullptr;
     controlPanel = nullptr;    // it reads the control server and the remote

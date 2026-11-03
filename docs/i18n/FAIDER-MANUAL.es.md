@@ -34,7 +34,7 @@ dice qué hacer cuando algo va mal.
 13. [Dispositivos](#13-devices)
 14. [Escenas, deshacer y sesiones](#14-scenes-undo-and-sessions)
 15. [Ajustes](#15-settings)
-16. [Control remoto, overlay, bandeja y VR](#16-remote-control-overlay-tray-and-vr)
+16. [Control remoto, overlay y bandeja](#16-remote-control-overlay-and-tray)
 17. [Guías prácticas](#17-how-to-guides)
 18. [Solución de problemas](#18-troubleshooting)
 19. [Referencia](#19-reference)
@@ -1054,7 +1054,6 @@ cuadrados que brillan en color crema cuando están activados.
 | **ZOOM** | 100 %, 125 %, 150 %, **CUSTOM...** (75–200 %) |
 | **METER STANDARD** | Cómo leen los medidores (pico de muestra con caída rápida por defecto; IEC y otros) |
 | **CHANNEL METER POINT** | **PRE HPF** (fuente en bruto), **PRE FADER** (tras los efectos), **POST ON** (tras el fader, predeterminado) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Versión y créditos |
 
 <a id="macros"></a>
@@ -1101,7 +1100,7 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Control remoto, overlay, bandeja y VR
+## 16. Control remoto, overlay y bandeja
 
 | | |
 |---|---|
@@ -1111,13 +1110,12 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 | **Overlay en el juego** (Ctrl+Mayús+O) | La luz de voz de cada canal de micro, LIVE / MUTED y el nivel, más hasta cuatro teclas de escena. Nunca le quita el foco a un juego. Arrástralo adonde quieras |
 | **MINI** | Un pequeño mezclador encima de todo. **OPEN** vuelve a la ventana principal |
 | **Bandeja** | Haz clic en el icono para el mezclador de la bandeja, doble clic para abrir la ventana. Clic derecho: Show, recuperar escena, Restore session, Start with Windows, About, Quit. El icono parpadea en ámbar durante una alerta |
-| **SteamVR** | Una pestaña FAIDER en el panel de SteamVR mientras SteamVR está en marcha: RACK, PADS, TAPE, MACROS, DEVICES. El puntero láser funciona como un ratón. Los cuadros de diálogo de archivos hay que terminarlos en el escritorio |
 
-Faider siempre se ejecuta con tus derechos de usuario normales, incluso si se inicia desde
-una ventana de administrador. Se reinicia solo con derechos normales, porque SteamVR y el overlay en
-el juego no pueden alcanzar un programa que se ejecuta como administrador. Los pocos pasos que
-necesitan un administrador (aplicar los ajustes de VB-CABLE, volver a habilitar un dispositivo que
-Windows ha apagado) piden permiso por sí mismos.
+Faider siempre se ejecuta con tus derechos de usuario normales, incluso si se inicia desde una
+ventana de administrador. Se reinicia solo con derechos normales, porque el overlay en el juego no
+puede alcanzar un programa que se ejecuta como administrador. Los pocos pasos que necesitan un
+administrador (aplicar los ajustes de VB-CABLE, volver a habilitar un dispositivo que Windows ha
+apagado) piden permiso por sí mismos.
 
 ---
 

@@ -34,7 +34,6 @@ target_sources(Faider PRIVATE
     ${_src}/ui/TapePanel.cpp
     ${_src}/ui/Hotkeys.cpp
     ${_src}/ui/Overlay.cpp
-    ${_src}/vr/VrDashboard.cpp
     ${_src}/devices/EndpointWatcher.cpp
     ${_src}/devices/WindowsDefault.cpp
     ${_src}/ui/WindowBackground.cpp
@@ -53,7 +52,6 @@ if(ASIO_SDK_DIR)
     target_compile_definitions(Faider PRIVATE JUCE_ASIO=1)
     target_include_directories(Faider PRIVATE "${ASIO_SDK_DIR}/common")
 endif()
-target_include_directories(Faider PRIVATE "${CMAKE_SOURCE_DIR}/third_party/openvr/headers")
 target_link_libraries(Faider
     PRIVATE
         FaiderAssets
@@ -61,13 +59,10 @@ target_link_libraries(Faider
         juce::juce_dsp
         juce::juce_osc
         rnnoise
-        "${CMAKE_SOURCE_DIR}/third_party/openvr/lib/win64/openvr_api.lib"
         ole32
-        delayimp
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_warning_flags)
-target_link_options(Faider PRIVATE "/DELAYLOAD:openvr_api.dll")
 # A PDB for the release build too (the code is the same): crash.log's module+offset lines and
 # crash.dmp (Main.cpp, CrashLog) can then be read back to the function. The exe names its PDB without
 # the build folder's path.
@@ -94,5 +89,4 @@ if(EXISTS "${_lpx_console}/LoupixDeck.Plugin.Faider.dll")
         VERBATIM)
 endif()
 add_custom_command(TARGET Faider POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/third_party/openvr/bin/win64/openvr_api.dll" "$<TARGET_FILE_DIR:Faider>"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/layout/mixer.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/mixer-dark.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/master.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/app.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/pads.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/tape.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/combinator.json" "$<TARGET_FILE_DIR:Faider>")

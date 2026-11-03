@@ -33,7 +33,7 @@ en vertelt wat je kunt doen als er iets misgaat.
 13. [Apparaten](#13-devices)
 14. [Scènes, ongedaan maken en sessies](#14-scenes-undo-and-sessions)
 15. [Instellingen](#15-settings)
-16. [Afstandsbediening, overlay, systeemvak en VR](#16-remote-control-overlay-tray-and-vr)
+16. [Afstandsbediening, overlay en systeemvak](#16-remote-control-overlay-and-tray)
 17. [Handleidingen](#17-how-to-guides)
 18. [Problemen oplossen](#18-troubleshooting)
 19. [Naslag](#19-reference)
@@ -1017,7 +1017,6 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Hoe meters aflezen (standaard sample peak met snelle terugval; IEC en andere) |
 | **CHANNEL METER POINT** | **PRE HPF** (ruwe bron), **PRE FADER** (na de effecten), **POST ON** (na de fader, standaard) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Versie en dankbetuigingen |
 
 <a id="macros"></a>
@@ -1063,7 +1062,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Afstandsbediening, overlay, systeemvak en VR
+## 16. Afstandsbediening, overlay en systeemvak
 
 | | |
 |---|---|
@@ -1073,11 +1072,10 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / MUTED en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | Een kleine mixer bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
 | **Tray** | Klik op het pictogram voor de mixer in het systeemvak, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Restore session, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing |
-| **SteamVR** | Een tabblad FAIDER op het SteamVR-dashboard zolang SteamVR draait: RACK, PADS, TAPE, MACROS, DEVICES. De laserpointer werkt als een muis. Bestandsdialogen moeten op het bureaublad worden afgerond |
 
 Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
-Het start zichzelf opnieuw met gewone rechten, omdat SteamVR en de in-game overlay een programma dat als beheerder draait
-niet kunnen bereiken. De paar stappen die een beheerder nodig hebben
+Het start zichzelf opnieuw met gewone rechten, omdat de in-game overlay een programma dat als beheerder draait
+niet kan bereiken. De paar stappen die een beheerder nodig hebben
 (VB-CABLE-instellingen toepassen, een door Windows uitgezet apparaat weer inschakelen) vragen zelf om toestemming.
 
 ---

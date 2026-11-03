@@ -4,7 +4,6 @@
 #include "DotMatrix.h"
 #include "Hotkeys.h"
 #include "MidiMap.h"
-#include "PanelSlot.h"
 
 namespace
 {
@@ -228,7 +227,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
         juce::PopupMenu m;
         m.addSectionHeader ("REPLAY");
         m.addItem (replayHotkey.isEmpty() ? juce::String ("Assign hotkey...") : "Hotkey: " + replayHotkey + "...",
-                   ! PanelSlot::isLentOut (*this), false, [this]   // (not in the headset: no keys reach it)
+                   true, false, [this]
         {
             learningReplayKey = true;
             replaySave.setButtonText ("LEARN...");
@@ -614,17 +613,7 @@ void TapePanel::timerCallback()
     recordSource.setEnabled (! recording);
     recordFormat.setEnabled (! recording);
 
-    // Lent to the headset (PanelSlot): no file dialogs (they open on the monitor) and no replay
-    // hotkey LEARN (no keys reach the page) there.
-    const bool lent = PanelSlot::isLentOut (*this);
-    recordFolder.setEnabled (! recording && ! lent);
-    addFilesButton.setEnabled (! lent);
-    addFolderButton.setEnabled (! lent);
-    if (lent && learningReplayKey)
-    {
-        learningReplayKey = false;   // (SAVE's label is put back below)
-        setWantsKeyboardFocus (false);
-    }
+    recordFolder.setEnabled (! recording);
     if (frame++ % fps == 0)   // once a second: the file's size, and how long the drive has room for
     {
         if (recording)

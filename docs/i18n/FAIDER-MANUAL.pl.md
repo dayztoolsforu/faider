@@ -33,7 +33,7 @@ i mówi, co zrobić, gdy coś nie działa.
 13. [Urządzenia](#13-devices)
 14. [Sceny, cofanie i sesje](#14-scenes-undo-and-sessions)
 15. [Ustawienia](#15-settings)
-16. [Zdalne sterowanie, nakładka, zasobnik i VR](#16-remote-control-overlay-tray-and-vr)
+16. [Zdalne sterowanie, nakładka i zasobnik](#16-remote-control-overlay-and-tray)
 17. [Poradniki krok po kroku](#17-how-to-guides)
 18. [Rozwiązywanie problemów](#18-troubleshooting)
 19. [Dodatek](#19-reference)
@@ -1022,7 +1022,6 @@ tracony, i startuje nowy miks. Zobacz [18.2](#182-my-mix-is-gone-a-fresh-mix-sta
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Jak odczytują mierniki (domyślnie szczyt próbki z szybkim opadaniem; IEC i inne) |
 | **CHANNEL METER POINT** | **PRE HPF** (surowe źródło), **PRE FADER** (po efektach), **POST ON** (po faderze, domyślnie) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Wersja i autorzy |
 
 <a id="macros"></a>
@@ -1067,7 +1066,7 @@ na konsoli ([5](#5-the-console)).
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Zdalne sterowanie, nakładka, zasobnik i VR
+## 16. Zdalne sterowanie, nakładka i zasobnik
 
 | | |
 |---|---|
@@ -1077,13 +1076,12 @@ na konsoli ([5](#5-the-console)).
 | **Nakładka w grze** (Ctrl+Shift+O) | Kontrolka mówienia każdego kanału mikrofonu, LIVE / MUTED i poziom, plus do czterech klawiszy scen. Nigdy nie odbiera fokusu grze. Przeciągnij ją gdziekolwiek |
 | **MINI** | Mały mikser nad wszystkim. **OPEN** wraca do głównego okna |
 | **Zasobnik** | Kliknij ikonę, żeby zobaczyć mikser w zasobniku, kliknij dwukrotnie, żeby otworzyć okno. Prawy przycisk: Show, przywołanie sceny, Restore session, Start with Windows, About, Quit. Ikona miga na bursztynowo podczas alarmu |
-| **SteamVR** | Karta FAIDER na pulpicie SteamVR, gdy SteamVR działa: RACK, PADS, TAPE, MACROS, DEVICES. Wskaźnik laserowy działa jak mysz. Okna dialogowe plików trzeba dokończyć na pulpicie |
 
-Faider zawsze działa z twoimi zwykłymi uprawnieniami użytkownika, nawet gdy uruchomiono go
-z okna administratora. Uruchamia się wtedy ponownie ze zwykłymi uprawnieniami, bo SteamVR i nakładka
-w grze nie sięgają do programu działającego jako administrator. Te nieliczne kroki, które wymagają
-administratora (zastosowanie ustawień VB-CABLE, ponowne włączenie urządzenia wyłączonego przez
-Windows), same proszą o zgodę.
+Faider zawsze działa z twoimi zwykłymi uprawnieniami użytkownika, nawet gdy uruchomiono go z okna
+administratora. Uruchamia się wtedy ponownie ze zwykłymi uprawnieniami, bo nakładka w grze nie sięga
+do programu działającego jako administrator. Te nieliczne kroki, które wymagają administratora
+(zastosowanie ustawień VB-CABLE, ponowne włączenie urządzenia wyłączonego przez Windows), same
+proszą o zgodę.
 
 ---
 

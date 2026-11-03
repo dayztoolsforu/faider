@@ -30,7 +30,7 @@ Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台�
 13. [设备](#13-devices)
 14. [场景、撤销和会话](#14-scenes-undo-and-sessions)
 15. [设置](#15-settings)
-16. [远程控制、悬浮层、托盘和 VR](#16-remote-control-overlay-tray-and-vr)
+16. [远程控制、悬浮层和托盘](#16-remote-control-overlay-and-tray)
 17. [操作指南](#17-how-to-guides)
 18. [故障排除](#18-troubleshooting)
 19. [参考](#19-reference)
@@ -872,7 +872,6 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **ZOOM** | 100%、125%、150%、**CUSTOM...**(75–200%) |
 | **METER STANDARD** | 电平表的读数方式(默认是快速回落的采样峰值；IEC 及其他) |
 | **CHANNEL METER POINT** | **PRE HPF**(原始声源)、**PRE FADER**(效果之后)、**POST ON**(推子之后，默认) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | 版本和致谢 |
 
 <a id="macros"></a>
@@ -909,7 +908,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. 远程控制、悬浮层、托盘和 VR
+## 16. 远程控制、悬浮层和托盘
 
 | | |
 |---|---|
@@ -919,9 +918,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / MUTED 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 位于所有窗口之上的小调音台。**OPEN** 返回主窗口 |
 | **Tray** | 点击图标显示托盘调音台，双击打开窗口。右键点击：Show、场景调用、Restore session、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色 |
-| **SteamVR** | SteamVR 运行期间，SteamVR 仪表板上会出现 FAIDER 标签页：RACK、PADS、TAPE、MACROS、DEVICES。激光指针可当作鼠标使用。文件对话框必须在桌面上完成 |
 
-Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为 SteamVR 和游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
+Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
 
 ---
 

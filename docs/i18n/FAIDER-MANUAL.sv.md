@@ -33,7 +33,7 @@ och berättar vad du ska göra när något går fel.
 13. [Enheter](#13-devices)
 14. [Scener, ångra och sessioner](#14-scenes-undo-and-sessions)
 15. [Inställningar](#15-settings)
-16. [Fjärrstyrning, overlay, aktivitetsfält och VR](#16-remote-control-overlay-tray-and-vr)
+16. [Fjärrstyrning, overlay och aktivitetsfält](#16-remote-control-overlay-and-tray)
 17. [Guider](#17-how-to-guides)
 18. [Felsökning](#18-troubleshooting)
 19. [Referens](#19-reference)
@@ -1018,7 +1018,6 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Hur mätare läser (sample peak med snabbt fall som standard; IEC och andra) |
 | **CHANNEL METER POINT** | **PRE HPF** (rå källa), **PRE FADER** (efter effekterna), **POST ON** (efter fadern, standard) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Version och tack |
 
 <a id="macros"></a>
@@ -1064,7 +1063,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Fjärrstyrning, overlay, aktivitetsfält och VR
+## 16. Fjärrstyrning, overlay och aktivitetsfält
 
 | | |
 |---|---|
@@ -1074,10 +1073,9 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / MUTED och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
 | **MINI** | En liten mixer ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
 | **Tray** | Klicka på ikonen för aktivitetsfältets mixer, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Restore session, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm |
-| **SteamVR** | En flik FAIDER på SteamVR-dashboarden medan SteamVR körs: RACK, PADS, TAPE, MACROS, DEVICES. Laserpekaren fungerar som en mus. Fildialoger måste avslutas på skrivbordet |
 
 Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
-Det startar om sig själv med vanliga rättigheter, eftersom SteamVR och in-game overlay inte kan nå ett program som körs som administratör.
+Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.
 De få steg som kräver en administratör
 (tillämpa VB-CABLE-inställningar, aktivera igen en enhet som Windows har stängt av) ber själva om tillstånd.
 

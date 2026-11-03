@@ -34,7 +34,7 @@ quando algo dá errado.
 13. [Dispositivos](#13-devices)
 14. [Cenas, desfazer e sessões](#14-scenes-undo-and-sessions)
 15. [Configurações](#15-settings)
-16. [Controle remoto, overlay, bandeja e VR](#16-remote-control-overlay-tray-and-vr)
+16. [Controle remoto, overlay e bandeja](#16-remote-control-overlay-and-tray)
 17. [Guias práticos](#17-how-to-guides)
 18. [Solução de problemas](#18-troubleshooting)
 19. [Referência](#19-reference)
@@ -1044,7 +1044,6 @@ creme quando ligadas.
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Como os medidores leem (pico de amostra com queda rápida por padrão; IEC e outros) |
 | **CHANNEL METER POINT** | **PRE HPF** (fonte bruta), **PRE FADER** (depois dos efeitos), **POST ON** (depois do fader, padrão) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Versão e créditos |
 
 <a id="macros"></a>
@@ -1091,7 +1090,7 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Controle remoto, overlay, bandeja e VR
+## 16. Controle remoto, overlay e bandeja
 
 | | |
 |---|---|
@@ -1101,13 +1100,12 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 | **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / MUTED e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
 | **MINI** | Um pequeno mixer por cima de tudo. **OPEN** volta para a janela principal |
 | **Bandeja** | Clique no ícone para o mixer da bandeja, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Restore session, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta |
-| **SteamVR** | Uma aba FAIDER no painel do SteamVR enquanto o SteamVR roda: RACK, PADS, TAPE, MACROS, DEVICES. O ponteiro laser funciona como um mouse. As caixas de diálogo de arquivo precisam ser concluídas na área de trabalho |
 
-O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma
-janela de administrador. Ele se reinicia com direitos comuns, porque o SteamVR e o overlay no jogo
-não conseguem alcançar um programa rodando como administrador. Os poucos passos que exigem um
-administrador (aplicar as configurações do VB-CABLE, reativar um dispositivo que o Windows
-desligou) pedem permissão por conta própria.
+O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma janela
+de administrador. Ele se reinicia com direitos comuns, porque o overlay no jogo não consegue
+alcançar um programa rodando como administrador. Os poucos passos que exigem um administrador
+(aplicar as configurações do VB-CABLE, reativar um dispositivo que o Windows desligou) pedem
+permissão por conta própria.
 
 ---
 

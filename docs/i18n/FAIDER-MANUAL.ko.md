@@ -30,7 +30,7 @@ Faider은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우�
 13. [장치](#13-devices)
 14. [씬, 실행 취소, 세션](#14-scenes-undo-and-sessions)
 15. [설정](#15-settings)
-16. [원격 제어, 오버레이, 트레이, VR](#16-remote-control-overlay-tray-and-vr)
+16. [원격 제어, 오버레이, 트레이](#16-remote-control-overlay-and-tray)
 17. [사용 가이드](#17-how-to-guides)
 18. [문제 해결](#18-troubleshooting)
 19. [참조](#19-reference)
@@ -872,7 +872,6 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...**(75–200%) |
 | **METER STANDARD** | 미터의 표시 방식(기본값은 빠르게 떨어지는 샘플 피크. IEC 등) |
 | **CHANNEL METER POINT** | **PRE HPF**(원래 소스), **PRE FADER**(이펙트 뒤), **POST ON**(페이더 뒤, 기본값) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | 버전과 크레딧 |
 
 <a id="macros"></a>
@@ -909,7 +908,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. 원격 제어, 오버레이, 트레이, VR
+## 16. 원격 제어, 오버레이, 트레이
 
 | | |
 |---|---|
@@ -919,9 +918,8 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / MUTED와 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
 | **MINI** | 모든 것 위에 뜨는 작은 믹서. **OPEN**은 메인 창으로 돌아갑니다 |
 | **Tray** | 아이콘을 누르면 트레이 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Restore session, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
-| **SteamVR** | SteamVR이 실행되는 동안 SteamVR 대시보드에 FAIDER 탭이 나타납니다: RACK, PADS, TAPE, MACROS, DEVICES. 레이저 포인터는 마우스처럼 작동합니다. 파일 대화 상자는 데스크톱에서 마쳐야 합니다 |
 
-Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. SteamVR과 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
+Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
 
 ---
 

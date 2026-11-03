@@ -11,8 +11,6 @@ FetchContent_Declare(juce
     GIT_TAG        8.0.12   # 8.0.5+ fixes Direct2D window-drag lag; 8.0.13 has reported Direct2D regressions
     GIT_SHALLOW    ON)
 FetchContent_MakeAvailable(juce)
-include(cmake/PatchJuce.cmake)   # popup menus in the SteamVR dashboard's page (see there)
-faider_patch_juce(${juce_SOURCE_DIR})
 
 # RNNoise 0.2 (Xiph.Org / Jean-Marc Valin, BSD licence: third_party/rnnoise/COPYING), with its
 # built-in model. Plain C on its SSE2 path; no run-time CPU dispatch.

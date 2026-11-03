@@ -21,7 +21,7 @@
 #pragma comment (lib, "ole32.lib")
 #pragma comment (lib, "oleaut32.lib")
 
-// NOT AS ADMINISTRATOR. SteamVR, its dashboard and the in-game overlay run with the desktop's
+// NOT AS ADMINISTRATOR. The in-game overlay and the games it shows over run with the desktop's
 // ordinary rights, and Windows keeps them from reaching (or taking input from) an elevated
 // program. A copy started elevated (from an administrator terminal, say) starts itself again
 // through the desktop's shell, which gives it the shell's ordinary rights, and goes. Steps that

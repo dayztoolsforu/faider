@@ -94,13 +94,13 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 - Macros fired by hotkeys, pads, the API or triggers (an app starts, a device connects, an output falls silent, a time of day)
 - MIDI mapping, OSC, a local HTTP API, a phone control page, and Stream Deck and Loupedeck plugins
 - APP RULES (SETTINGS > GENERAL, or FIND) give a program its own channel the moment it starts playing
-- A SteamVR dashboard tab, an in-game overlay, a mini mixer and a tray mixer
+- An in-game overlay, a mini mixer and a tray mixer
 
 **Reliability**
 - One clock: every secondary device and captured program is resampled to the master clock (an ASIO interface, a Windows playback device or the built-in clock), with drift correction
 - Devices remembered by name, with live stream statistics and a full event log
 - PRE-FLIGHT checks the setup on start: the interface, the mic cable and its route, muted mics, feedback and doubling
-- Runs with ordinary user rights, so SteamVR and the overlay can reach it. Started as administrator, it restarts itself normally
+- Runs with ordinary user rights, so the in-game overlay can reach it. Started as administrator, it restarts itself normally
 
 ## Screenshots
 
@@ -206,7 +206,7 @@ versions are kept, and a mix that can't be loaded is set aside rather than lost.
 ### Repository layout
 
 ```
-src/            the engine (engine/), devices (devices/), the interface (ui/), SteamVR (vr/)
+src/            the engine (engine/), devices (devices/), the interface (ui/)
 console/        the console, the Routing page and the strip layouts (layout/)
 plugins/        Stream Deck and Loupedeck plugins, remote-control documentation
 tests/          engine checks (tools/run-tests.ps1 runs those that need no hardware)
@@ -215,7 +215,7 @@ installer/      the Inno Setup script (tools/build-installer.ps1 builds the inst
 tools/          build, install and test scripts
 assets/         program icons and the headphone profiles
 cmake/          a small patch applied to JUCE at configure time
-third_party/    RNNoise and OpenVR (the optional ASIO SDK goes here, not committed)
+third_party/    RNNoise (the optional ASIO SDK goes here, not committed)
 ```
 
 ## Acknowledgements
@@ -227,7 +227,6 @@ SETTINGS > GENERAL > ABOUT and in [docs/CREDITS.md](docs/CREDITS.md).
 |---|---|---|---|
 | [JUCE](https://juce.com) 8.0.12 | Raw Material Software | AGPLv3 / commercial | Audio devices, plugin hosting, file formats, the interface |
 | [RNNoise](https://github.com/xiph/rnnoise) 0.2 | Jean-Marc Valin, Xiph.Org Foundation, Mozilla, Amazon | BSD 3-clause | Noise reduction |
-| [OpenVR](https://github.com/ValveSoftware/openvr) | Valve Corporation | BSD 3-clause | The SteamVR dashboard |
 | [AutoEq](https://github.com/jaakkopasanen/AutoEq) | Jaakko Pasanen | MIT | Headphone correction profiles |
 | FLAC, Ogg Vorbis (via JUCE) | Xiph.Org Foundation | BSD | Recording formats |
 | VST3 SDK (via JUCE) | Steinberg Media Technologies | See the SDK | Plugin hosting |

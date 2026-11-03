@@ -33,7 +33,7 @@ häufigsten Aufgaben und sagt dir, was du tun kannst, wenn etwas schiefgeht.
 13. [Geräte](#13-devices)
 14. [Szenen, Rückgängig und Sitzungen](#14-scenes-undo-and-sessions)
 15. [Einstellungen](#15-settings)
-16. [Fernsteuerung, Overlay, Tray und VR](#16-remote-control-overlay-tray-and-vr)
+16. [Fernsteuerung, Overlay und Tray](#16-remote-control-overlay-and-tray)
 17. [Anleitungen](#17-how-to-guides)
 18. [Fehlerbehebung](#18-troubleshooting)
 19. [Referenz](#19-reference)
@@ -1017,7 +1017,6 @@ Mix beginnt. Siehe [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Wie Pegelmesser anzeigen (standardmäßig Sample Peak mit schnellem Abfall; IEC und andere) |
 | **CHANNEL METER POINT** | **PRE HPF** (rohe Quelle), **PRE FADER** (nach den Effekten), **POST ON** (nach dem Fader, Standard) |
-| **STEAMVR** | **RACK ON THE STEAMVR DASHBOARD** |
 | **ABOUT** | Version und Danksagung |
 
 <a id="macros"></a>
@@ -1063,7 +1062,7 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 
 <a id="16-remote-control-overlay-tray-and-vr"></a>
 
-## 16. Fernsteuerung, Overlay, Tray und VR
+## 16. Fernsteuerung, Overlay und Tray
 
 | | |
 |---|---|
@@ -1073,11 +1072,10 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 | **In-game overlay** (Ctrl+Shift+O) | Talking-Licht, LIVE / MUTED und Pegel jedes Mikrofonkanals, plus bis zu vier Szenen-Tasten. Nimmt einem Spiel nie den Fokus. Ziehe es an eine beliebige Stelle |
 | **MINI** | Ein kleiner Mixer über allem. **OPEN** führt zurück zum Hauptfenster |
 | **Tray** | Klick auf das Symbol für den Tray-Mixer, Doppelklick öffnet das Fenster. Rechtsklick: Show, Szenen-Abruf, Restore session, Start with Windows, About, Quit. Das Symbol blinkt bei einem Alarm gelb |
-| **SteamVR** | Ein Tab FAIDER im SteamVR-Dashboard, solange SteamVR läuft: RACK, PADS, TAPE, MACROS, DEVICES. Der Laserpointer funktioniert wie eine Maus. Dateidialoge müssen am Desktop abgeschlossen werden |
 
 Faider läuft immer mit deinen normalen Benutzerrechten, auch wenn es aus einem Administratorfenster gestartet wird.
-Es startet sich selbst mit normalen Rechten neu, weil SteamVR und das In-Game-Overlay ein Programm, das als Administrator läuft,
-nicht erreichen können. Die wenigen Schritte, die einen Administrator brauchen
+Es startet sich selbst mit normalen Rechten neu, weil das In-Game-Overlay ein Programm, das als Administrator läuft,
+nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 (VB-CABLE-Einstellungen anwenden, ein von Windows ausgeschaltetes Gerät wieder aktivieren), fragen selbst nach der Erlaubnis.
 
 ---

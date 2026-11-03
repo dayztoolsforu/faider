@@ -663,16 +663,6 @@ namespace Console
     public:
         Look() { applyTheme(); }
 
-        // Where a menu (or a combo box's list) without a parent of its own opens: on the desktop,
-        // unless `menuParent` says otherwise (the SteamVR dashboard keeps its menus in its page).
-        static inline std::function<juce::Component* (const juce::PopupMenu::Options&)> menuParent;
-        juce::Component* getParentComponentForMenuOptions (const juce::PopupMenu::Options& options) override
-        {
-            if (auto* parent = options.getParentComponent())
-                return parent;
-            return menuParent != nullptr ? menuParent (options) : nullptr;
-        }
-
         void applyTheme()
         {
             // The theme's typeface for all printing (screens and the event log keep their own);

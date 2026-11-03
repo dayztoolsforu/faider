@@ -96,12 +96,11 @@ namespace LargeFormat
     {
         // A key: a pale grey bevelled cap on a soft shadow, its
         // top edge catching the light; lit, the cap takes a faint tint of its colour and the legend
-        // glows in it (a lamp behind the lettering), its light spilling round the key.
+        // glows in it (a lamp behind the lettering), nothing spilling round the key.
         r = r.reduced (1.0f);
         const float lit = juce::jlimit (0.0f, 1.0f, litLevel), corner = 2.5f;
         g.setColour (juce::Colours::black.withAlpha (0.5f));
         g.fillRoundedRectangle (r.translated (0.0f, 1.5f), corner);
-        bloom (g, r, lamp, lit * 0.5f, corner, 3.0f);
         const auto cap = r.withTrimmedBottom (1.0f).translated (0.0f, press * 0.8f);
         if (! enabled)   // NOT AVAILABLE: a flat dark cap, its legend still clear (never see-through)
         {
@@ -156,7 +155,6 @@ namespace LargeFormat
         g.setColour (juce::Colours::black.withAlpha (0.6f));
         g.fillRoundedRectangle (r.translated (0.0f, 1.2f), corner);
         const auto cap = r.withTrimmedBottom (1.0f).translated (0.0f, press * 0.8f);
-        bloom (g, cap, lamp, lit * 0.6f, corner, 3.0f);   // (its light on the panel)
         if (! enabled)   // (not available: flat and dark, its legend still clear)
         {
             g.setColour (juce::Colour (0xff3e4044));

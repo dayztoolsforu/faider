@@ -2511,8 +2511,6 @@ private:
             g.setColour (juce::Colours::black.withAlpha (0.55f * (1.0f - touched.press)));
             g.fillRoundedRectangle (r.translated (0.0f, 1.5f * zoom), corner);
             const auto cap = r.translated (0.0f, touched.press * 1.5f * zoom);
-            if (lit > 0.01f)
-                LargeFormat::bloom (g, cap, lamp, 0.8f * lit, corner, 4.0f * zoom);
             const float shine = 1.0f + 0.14f * touched.hover - 0.22f * touched.press;
             g.setGradientFill (juce::ColourGradient (juce::Colour (0xffc4c6c9).interpolatedWith (lamp.brighter (0.3f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getY(),
                                                      juce::Colour (0xff85878b).interpolatedWith (lamp.darker (0.25f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getBottom(), false));
@@ -2603,8 +2601,6 @@ private:
                 const auto cell = padCell (r, i).translated (0.0f, touched.press * 1.5f * zoom);
                 const bool loaded = pad.sound != nullptr, on = pads.isPlaying (index);
                 const auto colour = pad.colour.isTransparent() ? juce::Colour (0xff62d6b4) : pad.colour;
-                if (on)
-                    LargeFormat::bloom (g, cell, colour, 0.9f, 3.0f, 4.0f * zoom);
                 g.setColour ((on ? colour.withMultipliedBrightness (0.9f) : loaded ? juce::Colour (0xff3a3d42) : juce::Colour (0xff26282c))
                                  .brighter (0.25f * touched.hover).darker (0.4f * touched.press));
                 g.fillRoundedRectangle (cell, 3.0f);

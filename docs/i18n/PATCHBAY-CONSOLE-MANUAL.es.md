@@ -90,8 +90,7 @@ pasos en orden. Cada uno lleva un minuto o dos.
 3. Acepta la licencia y permite el aviso de administrador. Si quieres un acceso directo en el
    escritorio, márcalo durante el proceso (está desmarcado por defecto).
 4. El instalador pone la aplicación en `C:\Program Files\Patchbay Console` y añade **Patchbay
-   Console** al menú Inicio. Si tu PC no tiene el runtime de Microsoft Visual C++, también lo
-   instala.
+   Console** al menú Inicio. Todo lo que necesita viene incluido.
 5. En la última página puedes iniciar Patchbay Console de inmediato. Si no hay ningún VB-CABLE
    instalado, también ofrece abrir la página de descarga de VB-CABLE.
 

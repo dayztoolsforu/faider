@@ -89,7 +89,7 @@ stappen in volgorde. Elke stap kost een of twee minuten.
 3. Accepteer de licentie en sta de beheerdersvraag toe. Wil je een bureaubladsnelkoppeling, vink die
    dan onderweg aan (standaard staat hij uit).
 4. Het installatieprogramma zet de app in `C:\Program Files\Patchbay Console` en voegt **Patchbay Console**
-   toe aan het Startmenu. Ontbreekt de Microsoft Visual C++ runtime op je pc, dan installeert het die ook.
+   toe aan het Startmenu. Alles wat de app nodig heeft, zit erbij.
 5. Op de laatste pagina kun je Patchbay Console meteen starten. Is er geen VB-CABLE geïnstalleerd, dan
    biedt het ook aan de downloadpagina van VB-CABLE te openen.
 

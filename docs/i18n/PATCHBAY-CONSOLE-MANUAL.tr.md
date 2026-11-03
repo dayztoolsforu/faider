@@ -89,7 +89,7 @@ dakika sürer.
 3. Lisansı kabul et ve yönetici istemine izin ver. Masaüstü kısayolu istiyorsan yol boyunca
    işaretle (varsayılan olarak kapalıdır).
 4. Yükleyici uygulamayı `C:\Program Files\Patchbay Console` içine koyar ve **Patchbay Console**'u
-   Başlat menüsüne ekler. Bilgisayarında Microsoft Visual C++ çalışma zamanı yoksa onu da kurar.
+   Başlat menüsüne ekler. Uygulamanın ihtiyaç duyduğu her şey onunla birlikte gelir.
 5. Son sayfada Patchbay Console'u hemen başlatabilirsin. VB-CABLE kurulu değilse VB-CABLE'ın indirme
    sayfasını açmayı da önerir.
 

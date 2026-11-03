@@ -75,7 +75,7 @@ takes a minute or two.
 3. Accept the licence and allow the administrator prompt. If you want a desktop shortcut, tick it
    on the way (it's off by default).
 4. The installer puts the app in `C:\Program Files\Patchbay Console` and adds **Patchbay Console**
-   to the Start menu. If your PC lacks the Microsoft Visual C++ runtime, it installs that too.
+   to the Start menu. Everything it needs comes with it.
 5. On the last page you can start Patchbay Console straight away. If no VB-CABLE is installed, it
    also offers to open VB-CABLE's download page.
 

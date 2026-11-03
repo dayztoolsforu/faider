@@ -89,7 +89,7 @@ ordning. Varje steg tar en eller två minuter.
 3. Godkänn licensen och tillåt administratörsfrågan. Vill du ha en genväg på skrivbordet, kryssa i den
    på vägen (den är avstängd som standard).
 4. Installationsprogrammet lägger appen i `C:\Program Files\Patchbay Console` och lägger till **Patchbay Console**
-   i Start-menyn. Saknar din dator Microsoft Visual C++-körtiden installerar det den också.
+   i Start-menyn. Allt som appen behöver följer med.
 5. På sista sidan kan du starta Patchbay Console direkt. Om ingen VB-CABLE är installerad
    erbjuder det också att öppna nedladdningssidan för VB-CABLE.
 

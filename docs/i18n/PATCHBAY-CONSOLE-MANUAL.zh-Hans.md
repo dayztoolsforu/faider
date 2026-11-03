@@ -81,7 +81,7 @@ Patchbay Console 是一款 Windows 实时音频路由器兼调音台，以大型
 1. 运行安装程序 `PatchbayConsole-<version>-Setup.exe`。
 2. 由于安装程序没有代码签名，Windows SmartScreen 可能会提示这是无法识别的应用。点击**更多信息**，然后点击**仍要运行**。
 3. 接受许可协议，并允许管理员权限提示。如果想要桌面快捷方式，请在安装过程中勾选(默认不勾选)。
-4. 安装程序会把应用放到 `C:\Program Files\Patchbay Console`，并在开始菜单中添加 **Patchbay Console**。如果你的电脑缺少 Microsoft Visual C++ 运行库，它也会一并安装。
+4. 安装程序会把应用放到 `C:\Program Files\Patchbay Console`，并在开始菜单中添加 **Patchbay Console**。所需的一切都已包含在内。
 5. 在最后一页，你可以立即启动 Patchbay Console。如果没有安装 VB-CABLE，它还会提示是否打开 VB-CABLE 的下载页面。
 
 你的混音和设置保存在 `%APPDATA%\PatchbayConsole`，与程序本身分开。卸载时这些内容会保留。

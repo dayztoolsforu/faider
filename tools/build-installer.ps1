@@ -38,16 +38,21 @@ foreach ($text in [Text.Encoding]::ASCII.GetString($bytes), [Text.Encoding]::Uni
     }
 }
 
-# The VC++ runtime installer of the toolset that built the exe (Build Tools' VC\Redist\MSVC\<version>)
+# The C++ runtime DLLs of the toolset that built the exe (Build Tools' VC\Redist\MSVC\<version>\x64\
+# Microsoft.VC*.CRT), the newest there: installed next to the exe, so no runtime installer has to run
+# (it can wait unseen for another Windows install to finish).
 $linker = (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^CMAKE_LINKER:FILEPATH=(.+)$').Matches[0].Groups[1].Value -replace '/', '\'
 $vcRoot = $linker -replace '\\Tools\\MSVC\\.*$', ''
-$redist = Get-ChildItem (Join-Path $vcRoot 'Redist\MSVC') -Recurse -Filter vc_redist.x64.exe |
-    Sort-Object { [version]$_.VersionInfo.FileVersion } -Descending | Select-Object -First 1
-if (-not $redist) { throw "No vc_redist.x64.exe under $vcRoot\Redist\MSVC" }
-$vc = [version]$redist.VersionInfo.FileVersion
+$crt = Get-ChildItem (Join-Path $vcRoot 'Redist\MSVC\*\x64\Microsoft.VC*.CRT') -Directory |
+    Where-Object { Test-Path (Join-Path $_.FullName 'vcruntime140_1.dll') } |
+    Sort-Object { [version](Get-Item (Join-Path $_.FullName 'vcruntime140.dll')).VersionInfo.FileVersion } -Descending | Select-Object -First 1
+if (-not $crt) { throw "No x64 C++ runtime folder under $vcRoot\Redist\MSVC" }
+foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
+    if (-not (Test-Path (Join-Path $crt.FullName $dll))) { throw "$dll is missing from $($crt.FullName)" }
+}
+$vc = (Get-Item (Join-Path $crt.FullName 'vcruntime140.dll')).VersionInfo.FileVersion
 
-Write-Host "Packing $version (VC++ runtime $vc)..."
-& $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DVCRedist=$($redist.FullName)" `
-    "/DVCMajor=$($vc.Major)" "/DVCMinor=$($vc.Minor)" "/DVCBld=$($vc.Build)" (Join-Path $root 'installer\PatchbayConsole.iss')
+Write-Host "Packing $version (C++ runtime $vc)..."
+& $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DCRT=$($crt.FullName)" (Join-Path $root 'installer\PatchbayConsole.iss')
 if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed.' }
 Get-Item (Join-Path $build "installer\PatchbayConsole-$version-Setup.exe") | ForEach-Object { "{0}  {1:N1} MB" -f $_.FullName, ($_.Length / 1MB) }

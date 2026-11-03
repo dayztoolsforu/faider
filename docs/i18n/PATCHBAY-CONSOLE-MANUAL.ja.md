@@ -81,7 +81,7 @@ Patchbay Console は、大型コンソールをモデルにした Windows 用の
 1. インストーラー `PatchbayConsole-<version>-Setup.exe` を実行します。
 2. インストーラーにコード署名がないため、Windows SmartScreen が未認識のアプリとして警告することがあります。**詳細情報**をクリックし、**実行**をクリックします。
 3. 使用許諾に同意し、管理者権限の確認を許可します。デスクトップのショートカットが必要な場合は、途中でチェックを入れてください(初期状態ではオフです)。
-4. インストーラーはアプリを `C:\Program Files\Patchbay Console` に置き、スタートメニューに **Patchbay Console** を追加します。PC に Microsoft Visual C++ ランタイムがない場合は、それも一緒にインストールします。
+4. インストーラーはアプリを `C:\Program Files\Patchbay Console` に置き、スタートメニューに **Patchbay Console** を追加します。必要なものはすべて同梱されています。
 5. 最後のページで、すぐに Patchbay Console を起動できます。VB-CABLE がインストールされていない場合は、VB-CABLE のダウンロードページを開くかどうかも尋ねられます。
 
 ミックスと設定は、プログラムとは別に `%APPDATA%\PatchbayConsole` に保存されます。アンインストールしても、これらは残ります。

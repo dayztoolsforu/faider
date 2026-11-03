@@ -1,6 +1,7 @@
 ; The Patchbay Console installer (Inno Setup 6). Built by tools\build-installer.ps1, which passes
-; AppVersion, Source (the Release artefacts folder), Icon and VCRedist (vc_redist.x64.exe of the
-; toolset that built the exe) with its version.
+; AppVersion, Source (the Release artefacts folder), Icon and CRT (the C++ runtime DLLs of the
+; toolset that built the exe, from its redist folder: they go next to the exe, so no separate
+; runtime installer runs).
 
 #ifndef AppVersion
   #error Run tools\build-installer.ps1 (it passes the version and the build folders)
@@ -31,6 +32,8 @@ Compression=lzma2/max
 SolidCompression=yes
 CloseApplications=yes
 LicenseFile=..\LICENSE
+; (a log of every step in %TEMP%, "Setup Log <date>.txt": what it was doing if it stops)
+SetupLogging=yes
 
 [Tasks]
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -41,32 +44,19 @@ Source: "..\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreve
 Source: "..\docs\CREDITS.md"; DestDir: "{app}\licences"; Flags: ignoreversion
 Source: "..\third_party\rnnoise\COPYING"; DestDir: "{app}\licences"; DestName: "rnnoise.txt"; Flags: ignoreversion
 Source: "..\third_party\openvr\LICENSE"; DestDir: "{app}\licences"; DestName: "openvr.txt"; Flags: ignoreversion
-Source: "{#VCRedist}"; DestDir: "{tmp}"; DestName: "vc_redist.x64.exe"; Flags: deleteafterinstall; Check: VCRedistNeeded
+Source: "{#CRT}\msvcp140.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#CRT}\vcruntime140.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#CRT}\vcruntime140_1.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopicon
 
 [Run]
-Filename: "{tmp}\vc_redist.x64.exe"; Parameters: "/install /quiet /norestart"; StatusMsg: "Installing the Microsoft Visual C++ runtime..."; Check: VCRedistNeeded
 Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent runasoriginaluser
 Filename: "https://vb-audio.com/Cable/"; Description: "Get VB-CABLE (vb-audio.com), the virtual cable Patchbay Console feeds your mic through"; Flags: shellexec nowait postinstall skipifsilent runasoriginaluser; Check: not HasVbCable
 
 [Code]
-// The runtime the exe was built against (or newer) already installed?
-function VCRedistNeeded: Boolean;
-var
-  Major, Minor, Bld: Cardinal;
-begin
-  Result := True;
-  if RegQueryDWordValue (HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Major', Major)
-     and RegQueryDWordValue (HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Minor', Minor)
-     and RegQueryDWordValue (HKLM64, 'SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64', 'Bld', Bld) then
-    Result := (Major < {#VCMajor})
-              or ((Major = {#VCMajor}) and (Minor < {#VCMinor}))
-              or ((Major = {#VCMajor}) and (Minor = {#VCMinor}) and (Bld < {#VCBld}));
-end;
-
 // Any VB-Audio playback device (VB-CABLE, its A/B cables, VoiceMeeter) present?
 function HasVbCable: Boolean;
 var

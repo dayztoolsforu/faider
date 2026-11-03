@@ -40,6 +40,28 @@ namespace Unelevated
         return ok && elevation.TokenIsElevated != 0;
     }
 
+    // The desktop's shell running elevated too (User Account Control off, the built-in Administrator,
+    // Windows Sandbox), or no shell at all: starting again through it would bring back the same
+    // rights, over and over, so there's no point.
+    bool shellIsElevated()
+    {
+        DWORD shellId = 0;
+        if (GetWindowThreadProcessId (GetShellWindow(), &shellId) == 0 || shellId == 0)
+            return true;
+        HANDLE shell = OpenProcess (PROCESS_QUERY_LIMITED_INFORMATION, FALSE, shellId);
+        if (shell == nullptr)
+            return false;
+        HANDLE token = nullptr;
+        TOKEN_ELEVATION elevation {};
+        DWORD size = 0;
+        const bool ok = OpenProcessToken (shell, TOKEN_QUERY, &token)
+                        && GetTokenInformation (token, TokenElevation, &elevation, sizeof (elevation), &size);
+        if (token != nullptr)
+            CloseHandle (token);
+        CloseHandle (shell);
+        return ok && elevation.TokenIsElevated != 0;
+    }
+
     // Runs `exe args` as the desktop would (Explorer's ShellExecute: its rights, not ours).
     bool launchAsShell (const juce::String& exe, const juce::String& args)
     {
@@ -195,8 +217,9 @@ public:
     PatchbayApplication()
     {
         const auto args = getCommandLineParameterArray();
+        // (a copy that is itself such a restart, still elevated, never starts again: no loop)
         if (Unelevated::isElevated() && ! args.contains ("--scan") && ! args.contains ("--quit") && ! args.contains ("--allow-admin")
-            && Unelevated::restartUnelevated (args))
+            && ! args.contains ("--after") && ! Unelevated::shellIsElevated() && Unelevated::restartUnelevated (args))
             ExitProcess (0);   // (the copy with ordinary rights takes over)
         if (const int i = args.indexOf ("--after"); i >= 0)
             for (int waited = 0; waited < 60000 && processIsRunning ((uint32_t) args[i + 1].getLargeIntValue()); waited += 100)

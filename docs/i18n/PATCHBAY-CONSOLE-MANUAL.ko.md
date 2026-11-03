@@ -81,7 +81,7 @@ Patchbay Console은 대형 콘솔을 모델로 한 Windows용 라이브 오디�
 1. 설치 프로그램 `PatchbayConsole-<version>-Setup.exe`를 실행합니다.
 2. 설치 프로그램에 코드 서명이 없으므로 Windows SmartScreen이 인식되지 않는 앱이라고 경고할 수 있습니다. **추가 정보**를 누른 다음 **실행**을 누릅니다.
 3. 사용권 계약에 동의하고 관리자 권한 요청을 허용합니다. 바탕 화면 바로 가기가 필요하면 설치 중에 선택하세요(기본값은 꺼짐입니다).
-4. 설치 프로그램은 앱을 `C:\Program Files\Patchbay Console`에 넣고 시작 메뉴에 **Patchbay Console**을 추가합니다. PC에 Microsoft Visual C++ 런타임이 없으면 함께 설치합니다.
+4. 설치 프로그램은 앱을 `C:\Program Files\Patchbay Console`에 넣고 시작 메뉴에 **Patchbay Console**을 추가합니다. 필요한 것은 모두 함께 들어 있습니다.
 5. 마지막 페이지에서 바로 Patchbay Console을 시작할 수 있습니다. VB-CABLE이 설치되어 있지 않으면 VB-CABLE 다운로드 페이지를 열지도 물어봅니다.
 
 믹스와 설정은 프로그램과 별도로 `%APPDATA%\PatchbayConsole`에 저장됩니다. 제거해도 그대로 남습니다.

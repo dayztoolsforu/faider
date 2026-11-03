@@ -147,8 +147,8 @@ The first configure fetches JUCE. To build, install and start it in one step, ru
 To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php) and run
 `tools\build-installer.ps1`. It builds the Release app and writes
 `build\installer\PatchbayConsole-<version>-Setup.exe`. That installer puts the app in Program Files,
-adds the Microsoft Visual C++ runtime when it's missing, and offers VB-CABLE's download page when no
-VB-Audio device is found. The version comes from `CMakeLists.txt`.
+with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
+when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
 The website is the `docs` folder, published by GitHub Pages. Its manual page, `docs/manual.html`, is
 built from the manual and its translations: after changing them, run `pip install markdown` once,

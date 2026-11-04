@@ -685,7 +685,8 @@ juce::String Session::getInterfaceName (const juce::XmlElement& xml)
     return isSession (xml) ? xml.getStringAttribute ("master") : juce::String();
 }
 
-bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const std::function<void (const juce::String&)>& log)
+bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const std::function<void (const juce::String&)>& log,
+                       const juce::Array<EndpointInfo>& endpoints)
 {
     if (! isSession (xml))
         return false;
@@ -700,7 +701,22 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
     disabled.addLines (xml.getStringAttribute ("disabledDevices"));
     disabled.removeEmptyStrings();
     if (! disabled.isEmpty())
-        engine.setDeviceDisabled (disabled, true);
+    {
+        // The devices that are on the machine and working are switched off, and said so. The
+        // others keep their setting (so they are still off when they come back), but nothing
+        // is said about them: a device that is not there, or is not working, is not worth a line
+        // in the log, and the list of them would otherwise grow with every device ever taken
+        // off the machine.
+        juce::StringArray here, elsewhere;
+        for (auto& name : disabled)
+        {
+            const bool present = std::any_of (endpoints.begin(), endpoints.end(),
+                                              [&] (const EndpointInfo& e) { return e.name == name && e.isActive(); });
+            (present ? here : elsewhere).add (name);
+        }
+        engine.setDeviceDisabled (here, true);
+        engine.setDeviceDisabled (elsewhere, true, false);
+    }
 
     for (auto* d : xml.getChildWithTagNameIterator ("DeviceName"))
         setDeviceAlias (d->getStringAttribute ("device"), d->getStringAttribute ("name"));

@@ -139,7 +139,7 @@ MainComponent::MainComponent()
     {
         engine.refreshDevices();   // works out which Windows adapter the master is
 
-        if (session != nullptr && Session::restore (engine, *session, [this] (const juce::String& e) { logEvent (e); }))
+        if (session != nullptr && Session::restore (engine, *session, [this] (const juce::String& e) { logEvent (e); }, endpoints))
             logEvent ("session: restored " + juce::String ((int) engine.getStrips().size()) + " channels, "
                       + juce::String ((int) engine.getMasters().size()) + " masters");
         else

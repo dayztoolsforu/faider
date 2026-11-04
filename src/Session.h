@@ -11,7 +11,8 @@ namespace Session
 
     // Rebuilds masters and strips in an engine whose master is already running. Plugins that
     // fail to load are logged and skipped. Returns false if the XML isn't a session.
-    bool restore (AudioEngine&, const juce::XmlElement&, const std::function<void (const juce::String&)>& log);
+    bool restore (AudioEngine&, const juce::XmlElement&, const std::function<void (const juce::String&)>& log,
+              const juce::Array<EndpointInfo>& endpoints);
 
     juce::String getInterfaceName (const juce::XmlElement&);
 

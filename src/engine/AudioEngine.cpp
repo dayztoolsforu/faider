@@ -1747,7 +1747,7 @@ void AudioEngine::setDeviceHidden (const juce::String& deviceName, bool hidden)
         hiddenDevices.removeString (deviceName);
 }
 
-void AudioEngine::setDeviceDisabled (const juce::StringArray& deviceNames, bool disabled)
+void AudioEngine::setDeviceDisabled (const juce::StringArray& deviceNames, bool disabled, bool sayIt)
 {
     for (auto& name : deviceNames)
     {
@@ -1755,7 +1755,8 @@ void AudioEngine::setDeviceDisabled (const juce::StringArray& deviceNames, bool 
             disabledDevices.addIfNotAlreadyThere (name);
         else
             disabledDevices.removeString (name);
-        log ("device " + name + (disabled ? ": off in Faider" : ": on in Faider"));
+        if (sayIt)
+            log ("device " + name + (disabled ? ": off in Faider" : ": on in Faider"));
     }
     refreshDevices();   // closes the streams of devices now off, reopens ones back on
 }

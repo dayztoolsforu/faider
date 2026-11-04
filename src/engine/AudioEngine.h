@@ -622,7 +622,10 @@ public:
     // nothing, and left out of lists. An output or input set to one stays silent.
     const juce::StringArray& getDisabledDevices() const { return disabledDevices; }
     bool isDeviceDisabled (const juce::String& deviceName) const { return disabledDevices.contains (deviceName); }
-    void setDeviceDisabled (const juce::StringArray& deviceNames, bool disabled);
+    // `sayIt` false leaves the log alone: for a device that is not on the machine now. Its
+    // setting is kept, so it is still off when it comes back, but there is nothing to say
+    // about a device that is not there.
+    void setDeviceDisabled (const juce::StringArray& deviceNames, bool disabled, bool sayIt = true);
 
     // Pairs: a Strip whose source is everything sent to it (Source::bus).
     Strip* addBus (const juce::String& name);

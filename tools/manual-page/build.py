@@ -91,7 +91,7 @@ def convert(text):
     for b in re.findall(r"<pre><code[^>]*>.*?</code></pre>", out, flags=re.S):
         out = out.replace(b, flow(b) if "flowchart" in b else b)
     out = re.sub(r"<strong>(.*?)</strong>", strong, out)
-    out = re.sub(r"<p>(?:\s*<img [^>]+>\s*)+</p>", shots, out)
+    out = re.sub(r"<p>\s*<img [^>]+>(?:\s*<img [^>]+>)*\s*</p>", shots, out)   # (one way to match each run of images)
     out = out.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
     out = out.replace("<blockquote>", '<aside class="note">').replace("</blockquote>", "</aside>").replace("<hr />", "")
     short = re.sub(r"^Faider\s*[:\-–—]?\s*", "", title).strip() or title
@@ -150,8 +150,8 @@ for code, native, rel in LANGS:
         if bad:
             print(f"{code}: links to nowhere: {bad[:5]}")
     sections, toc = chapters(out)
-    hero_json = html.escape(json.dumps({**hero, "chrome": CHROME.get(code, CHROME["en"])}, ensure_ascii=False), quote=True)
-    templates.append(f'<template id="lang-{code}" data-hero="{hero_json}"><nav data-part="toc">{toc}</nav><div data-part="main">{sections}</div></template>')
+    hero_json = html.escape(json.dumps({**{k: v for k, v in hero.items() if k != "intro"}, "chrome": CHROME.get(code, CHROME["en"])}, ensure_ascii=False), quote=True)
+    templates.append(f'<template id="lang-{code}" data-hero="{hero_json}"><div data-part="intro">{hero["intro"]}</div><nav data-part="toc">{toc}</nav><div data-part="main">{sections}</div></template>')
     names[code] = native
     built.append(code)
 

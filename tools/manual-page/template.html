@@ -267,20 +267,21 @@
     const tpl = $('lang-' + code) || $('lang-en');
     code = tpl.id.slice(5);
     const hero = JSON.parse(tpl.dataset.hero);
+    // (a part of the language's template, copied node for node: nothing is read back in as HTML)
+    const part = name => tpl.content.querySelector('[data-part="' + name + '"]').cloneNode(true).childNodes;
     chrome = hero.chrome;
     $('hero-eyebrow').textContent = hero.title;
     $('hero-em').textContent = hero.title;
-    $('hero-intro').innerHTML = hero.intro;
+    $('hero-intro').replaceChildren (...part ('intro'));
     $('hero-version').textContent = hero.version;
     $('strip-cap').textContent = chrome[6];
     $('lang-label').textContent = chrome[7];
     $('q-label').textContent = chrome[0];
     q.placeholder = chrome[1];
     $('toc-mobile-title').textContent = chrome[2];
-    const toc = tpl.content.querySelector('[data-part="toc"]').innerHTML;
-    $('toc').innerHTML = toc;
-    $('toc-mobile').innerHTML = toc;
-    $('manual-body').innerHTML = tpl.content.querySelector('[data-part="main"]').innerHTML;
+    $('toc').replaceChildren (...part ('toc'));
+    $('toc-mobile').replaceChildren (...part ('toc'));
+    $('manual-body').replaceChildren (...part ('main'));
     document.querySelectorAll('img[data-shot]').forEach(img => { img.src = shots[img.dataset.shot] || ''; });
     chapters = [...document.querySelectorAll('.chapter')];
     text = chapters.map(c => c.textContent.toLowerCase());

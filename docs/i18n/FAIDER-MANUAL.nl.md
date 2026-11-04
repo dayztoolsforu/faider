@@ -614,6 +614,21 @@ De schakelaar **EQ IN** zet de hele EQ in of uit (hetzelfde als de EQ-toets in d
 | **safe** | Solo safe: dit kanaal blijft hoorbaar als andere op solo staan |
 | **listen** | Luisteren naar het key-signaal van de dynamiek |
 
+### Stem effecten
+
+Naast de verwerking van de strip heeft elk kanaal zijn eigen stem effecten:
+
+| Effect | Wat het doet |
+|---|---|
+| **ROBOT** | Ringmodulatie: de stem wordt met een toon vermenigvuldigd en klinkt metaalachtig |
+| **ECHO** | Een vertraging, tot een seconde |
+| **RADIO** | Begrensd tot 300 Hz - 3 kHz en overstuurd, het klinkt als een kleine speaker |
+| **PITCH** | De stem omhoog of omlaag, tot een octaaf elke kant op |
+
+Ze worden met een macro geschakeld: de actie **FX ON**, **FX OFF** of **FX TOGGLE**, met het kanaal
+als doel ([15](#15-settings)). Een pad, een sneltoets, een trigger of de afstandsbediening kan die
+macro starten, zodat de effecten met de mix mee komen en gaan.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -996,7 +1011,7 @@ Een macro is een lijst **acties** die wordt uitgevoerd via een sneltoets, een pa
 1. Klik op **+ NEW** en geef hem een naam (dubbelklik op de naam).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, fadetijd), ASSIGN ON/OFF/TOGGLE (een route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (een stem effect, zie [Stem effecten](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Optioneel **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (gedurende n seconden), MASTER HAS SOUND, TIME (24 uur).

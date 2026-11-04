@@ -522,6 +522,21 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 | **safe** | 솔로 세이프: 다른 채널이 솔로일 때도 이 채널은 들립니다 |
 | **listen** | 다이내믹스의 키 신호를 듣습니다 |
 
+### 음성 효과
+
+스트립 자체의 처리에 더해, 각 채널에는 자체 음성 효과가 있습니다.
+
+| 효과 | 하는 일 |
+|---|---|
+| **ROBOT** | 링 모듈레이션: 음에 톤을 곱해 금속적인 소리를 냅니다 |
+| **ECHO** | 최대 1초의 지연 |
+| **RADIO** | 300 Hz - 3 kHz 대역으로 제한하고 왜곡해 작은 스피커처럼 만듭니다 |
+| **PITCH** | 음을 위나 아래로, 한 방향당 최대 옥타브까지 바꿉니다 |
+
+매크로로 전환합니다: 액션 **FX ON**, **FX OFF**, **FX TOGGLE** 에 채널을 대상으로 지정합니다
+([15](#15-settings)). 패드, 단축키, 트리거, 원격 제어로 매크로를 실행할 수 있으므로, 효과는 믹스와 함께
+켜지고 꺼집니다.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -855,7 +870,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 매크로는 단축키, 패드, 트리거, 원격 제어로 실행되는 **액션**의 목록입니다.
 
 1. **+ NEW**를 누르고 이름을 붙입니다(이름을 더블클릭).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, 페이드 시간), ASSIGN ON/OFF/TOGGLE (루트), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
+2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, 페이드 시간), ASSIGN ON/OFF/TOGGLE (루트), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (음성 효과, [음성 효과](#voice-effects) 참조), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
 3. 필요하면 **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER SILENT (n초 동안), MASTER HAS SOUND, TIME (24시간제).
 4. 필요하면 **HOTKEY**와 **MOMENTARY**(키를 놓으면 액션이 취소됩니다. 푸시 투 토크용).
 5. **FIRE**는 지금 실행합니다.

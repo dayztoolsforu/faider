@@ -613,6 +613,21 @@ devre dışıdır. Sonuna kadar yukarı çevrilince alçak geçiren devre dış�
 | **safe** | Solo safe: başkaları solodayken bu kanal duyulur kalır |
 | **listen** | Dinamiklerin key sinyalini dinle |
 
+### Ses efektleri
+
+Stripler kendi işlemesine ek olarak, her kanal kendi ses efektlerini taşır:
+
+| Efekt | Ne yapar |
+|---|---|
+| **ROBOT** | Halka modülasyonu: ses bir tonla çarpılır ve metalik duyulur |
+| **ECHO** | Bir gecikme, en fazla bir saniye |
+| **RADIO** | 300 Hz - 3 kHz ile sınırlanır ve sürülür, küçük bir hoparlör gibi duyulur |
+| **PITCH** | Ses yukarı veya aşağı gider, her iki yönde de bir oktava kadar |
+
+Bir makro ile açılıp kapanırlar: **FX ON**, **FX OFF** veya **FX TOGGLE** eylemi, hedefi kanal olmak
+üzere ([15](#15-settings)). Bir pad, bir kısayol, bir tetikleyici ya da uzaktan kontrol bu makroyu
+çalıştırabilir, böylece efektler mixle birlikte gelip gider.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -997,7 +1012,7 @@ Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrol
 1. **+ NEW**'e tıkla, sonra ona ad ver (adına çift tıkla).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, geçiş süresi), ASSIGN ON/OFF/TOGGLE (bir
    yönlendirme), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE,
-   TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT
+   TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (bir ses efekti, bkz. [Ses efektleri](#voice-effects)), WINDOWS DEFAULT
    OUTPUT/INPUT, PLUGIN SETTING.
 3. İsteğe bağlı olarak **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED,
    MASTER SILENT (n saniye), MASTER HAS SOUND, TIME (24 saat).

@@ -531,6 +531,21 @@ The **EQ IN** switch puts the whole EQ in or out (the same as the header's EQ ke
 | **safe** | Solo safe: this channel stays audible when others are soloed |
 | **listen** | Listen to the dynamics' key signal |
 
+### Voice effects
+
+Beside the strip's own processing, every channel carries four voice effects of its own:
+
+| Effect | What it does |
+|---|---|
+| **ROBOT** | Ring modulation: the voice is multiplied by a tone, so it sounds metallic |
+| **ECHO** | A delay, up to a second |
+| **RADIO** | Band-limited to 300 Hz - 3 kHz and driven, so it sounds like a small speaker |
+| **PITCH** | The voice moved up or down, up to an octave either way |
+
+They are switched with a macro: the action **FX ON**, **FX OFF** or **FX TOGGLE**, with the channel
+as its target ([15](#15-settings)). A pad, a hotkey, a trigger or remote control can fire that
+macro, so the effects come and go with the mix.
+
 ---
 
 ## 7. Raw strips: apps, pads, tape and combinators
@@ -859,8 +874,8 @@ A macro is a list of **actions** run from a hotkey, a pad, a trigger or remote c
 1. Click **+ NEW**, then name it (double-click the name).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, fade time), ASSIGN ON/OFF/TOGGLE (a route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
-   SETTING.
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (a voice effect, see
+   [Voice effects](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
 3. Optionally, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (for n seconds), MASTER HAS SOUND, TIME (24-hour).
 4. Optionally, a **HOTKEY**, and **MOMENTARY** (the actions are undone when the key is released,

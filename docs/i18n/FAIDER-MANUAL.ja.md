@@ -522,6 +522,21 @@ LED は、コンプレッサーとゲートがオフの間も、オンなら*ど
 | **safe** | ソロセーフ: 他がソロのとき、このチャンネルは聞こえたままです |
 | **listen** | ダイナミクスのキー信号を聞きます |
 
+### 音声エフェクト
+
+ストリップ自身の処理に加え、各チャンネルには独自の音声エフェクトが4つあります。
+
+| エフェクト | 働き |
+|---|---|
+| **ROBOT** | リングモジュレーション: 声にトーンを掛け、金属的な音にします |
+| **ECHO** | 最大1秒のディレイ |
+| **RADIO** | 300 Hz - 3 kHz に帯域制限し、歪ませて小さなスピーカー처럼します |
+| **PITCH** | 声を上下、最高1オクターブまで変えます |
+
+これらはマクロで切り替えます: アクション **FX ON**、**FX OFF**、**FX TOGGLE** にチャンネルを対象にします
+([15](#15-settings))。パッド、ホットキー、トリガー、リモート操作からマクロを呼べるので、エフェクトはミックスと
+一緒に切り替えられます。
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -855,7 +870,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 マクロは、ホットキー、パッド、トリガー、リモート操作から実行される**アクション**のリストです。
 
 1. **+ NEW** をクリックし、名前を付けます(名前をダブルクリック)。
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE、SET FADER (dB、フェード時間)、ASSIGN ON/OFF/TOGGLE (ルート)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
+2. **+ ACTION**: MUTE ON/OFF/TOGGLE、SET FADER (dB、フェード時間)、ASSIGN ON/OFF/TOGGLE (ルート)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE (音声エフェクト、[音声エフェクト](#voice-effects) を参照)、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
 3. 必要なら **+ TRIGGER**: APP STARTS、APP STOPS、DEVICE CONNECTED、DEVICE DISCONNECTED、MASTER SILENT (n 秒間)、MASTER HAS SOUND、TIME (24 時間制)。
 4. 必要なら **HOTKEY** と、**MOMENTARY**(キーを離したときにアクションが取り消されます。プッシュトゥトーク用)。
 5. **FIRE** で今すぐ実行します。

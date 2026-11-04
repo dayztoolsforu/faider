@@ -642,6 +642,21 @@ Le commutateur **EQ IN** active ou désactive tout l'égaliseur (comme la touche
 | **safe** | Solo safe : ce canal reste audible quand d'autres sont en solo |
 | **listen** | Écouter le signal de clé de la dynamique |
 
+### Effets vocaux
+
+Outre le traitement de la tranche, chaque canal porte ses propres effets vocaux :
+
+| Effet | Ce qu'il fait |
+|---|---|
+| **ROBOT** | Modulation en anneau : la voix est multipliée par un ton et devient métallique |
+| **ECHO** | Un délai, jusqu'à une seconde |
+| **RADIO** | Limité à 300 Hz - 3 kHz et saturé, il sonne comme un petit haut-parleur |
+| **PITCH** | La voix monte ou descend, jusqu'à une octave dans chaque sens |
+
+Ils s'activent avec une macro : l'action **FX ON**, **FX OFF** ou **FX TOGGLE**, avec le canal pour
+cible ([15](#15-settings)). Un pad, un raccourci clavier, un déclencheur ou la télécommande peut
+lancer cette macro, si bien que les effets vont et viennent avec le mixage.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -1046,7 +1061,7 @@ une télécommande.
 1. Cliquez sur **+ NEW**, puis nommez-la (double-clic sur le nom).
 2. **+ ACTION** : MUTE ON/OFF/TOGGLE, SET FADER (dB, durée du fondu), ASSIGN ON/OFF/TOGGLE (une
    liaison), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT
-   NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT,
+   NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (un effet vocal, voir [Effets vocaux](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT,
    PLUGIN SETTING.
 3. Facultativement, **+ TRIGGER** : APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED,
    MASTER SILENT (pendant n secondes), MASTER HAS SOUND, TIME (24 heures).

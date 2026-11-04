@@ -618,6 +618,21 @@ Przełącznik **EQ IN** włącza lub wyłącza cały EQ (tak samo jak klawisz EQ
 | **safe** | Solo safe: ten kanał pozostaje słyszalny, gdy inne są w solo |
 | **listen** | Odsłuch sygnału klucza dynamiki |
 
+### Efekty głosowe
+
+Oprócz przetwarzania na pasku każdy kanał ma własne efekty głosowe:
+
+| Efekt | Co robi |
+|---|---|
+| **ROBOT** | Modulacja pierścieniowa: głos mnożony przez ton, brzmi metalicznie |
+| **ECHO** | Opóźnienie, do jednej sekundy |
+| **RADIO** | Ograniczone do 300 Hz - 3 kHz i przesterowane, brzmi jak mały głośnik |
+| **PITCH** | Głos w górę lub w dół, do oktawy w każdą stronę |
+
+Włącza się je makrem: akcja **FX ON**, **FX OFF** albo **FX TOGGLE**, z kanałem jako celem
+([15](#15-settings)). Pad, skrót klawiszowy, wyzwalacz albo zdalne sterowanie może uruchomić to
+makro, więc efekty przychodzą i odchodzą razem z miksem.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -1001,7 +1016,7 @@ Makro to lista **akcji** uruchamianych skrótem klawiszowym, padem, wyzwalaczem 
 1. Kliknij **+ NEW**, potem nazwij je (dwukrotne kliknięcie nazwy).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, czas zanikania), ASSIGN ON/OFF/TOGGLE (trasa),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (efekt głosowy, zob. [Efekty głosowe](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Opcjonalnie **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (przez n sekund), MASTER HAS SOUND, TIME (24-godzinny).

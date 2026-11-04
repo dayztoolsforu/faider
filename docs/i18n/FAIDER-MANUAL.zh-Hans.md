@@ -522,6 +522,20 @@ flowchart LR
 | **safe** | 独奏安全：其他通道被独奏时，该通道仍可听见 |
 | **listen** | 监听动态处理的键控信号 |
 
+### 语音特效
+
+除了推子条自身的处理，每个通道还带有自己的语音特效：
+
+| 特效 | 作用 |
+|---|---|
+| **ROBOT** | 环形调制：声音与一个音调相乘，听起来像金属声 |
+| **ECHO** | 延迟，最长一秒 |
+| **RADIO** | 限制在 300 Hz - 3 kHz 并加入过载，听起来像一只小音箱 |
+| **PITCH** | 声音升高或降低，两个方向最多各一个八度 |
+
+它们用宏切换：动作为 **FX ON**、**FX OFF** 或 **FX TOGGLE**，目标是通道 ([15](#15-settings))。
+打击垫、快捷键、触发器或远程控制都可以触发这个宏，所以特效随混音一起进出。
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -855,7 +869,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 宏是由快捷键、打击垫、触发器或远程控制运行的**动作**列表。
 
 1. 点击 **+ NEW**，然后命名(双击名称)。
-2. **+ ACTION**：MUTE ON/OFF/TOGGLE、SET FADER (dB、渐变时间)、ASSIGN ON/OFF/TOGGLE (一条路由)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
+2. **+ ACTION**：MUTE ON/OFF/TOGGLE、SET FADER (dB、渐变时间)、ASSIGN ON/OFF/TOGGLE (一条路由)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE (一个语音特效，见 [语音特效](#voice-effects))、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
 3. 可选，**+ TRIGGER**：APP STARTS、APP STOPS、DEVICE CONNECTED、DEVICE DISCONNECTED、MASTER SILENT (持续 n 秒)、MASTER HAS SOUND、TIME (24 小时制)。
 4. 可选，一个 **HOTKEY** 和 **MOMENTARY**(松开按键时撤销这些动作，用于按键通话)。
 5. **FIRE** 立即运行。

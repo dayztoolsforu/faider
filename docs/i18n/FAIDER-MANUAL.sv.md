@@ -615,6 +615,21 @@ Omkopplaren **EQ IN** slår hela EQ:n in eller ut (samma som headerns EQ-tangent
 | **safe** | Solo safe: den här kanalen förblir hörbar när andra soloas |
 | **listen** | Lyssna på dynamikens key-signal |
 
+### Rösteffekter
+
+Utöver stripens egen bearbetning bär varje kanal sina egna rösteffekter:
+
+| Effekt | Vad det gör |
+|---|---|
+| **ROBOT** | Ringmodulering: rösten multipliceras med en ton och låter metallisk |
+| **ECHO** | En fördröjning, upp till en sekund |
+| **RADIO** | Begränsad till 300 Hz - 3 kHz och överstyrd, den låter som en liten högtalare |
+| **PITCH** | Rösten flyttas uppåt eller nedåt, upp till en oktav åt båda håll |
+
+De kopplas med ett makro: åtgärden **FX ON**, **FX OFF** eller **FX TOGGLE**, med kanalen som mål
+([15](#15-settings)). En pad, ett kortkommando, en trigger eller fjärrstyrningen kan köra makrot,
+så effekterna kommer och går med mixen.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -997,7 +1012,7 @@ Ett makro är en lista med **åtgärder** som körs från ett kortkommando, en p
 1. Klicka på **+ NEW** och ge det ett namn (dubbelklicka på namnet).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, tonningstid), ASSIGN ON/OFF/TOGGLE (en rutt),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (en rösteffekt, se [Rösteffekter](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Valfritt **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (i n sekunder), MASTER HAS SOUND, TIME (24 timmar).

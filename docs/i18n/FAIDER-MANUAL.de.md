@@ -614,6 +614,21 @@ Der Schalter **EQ IN** schaltet den ganzen EQ ein oder aus (dasselbe wie die EQ-
 | **safe** | Solo Safe: Dieser Kanal bleibt hörbar, wenn andere auf Solo stehen |
 | **listen** | Das Key-Signal der Dynamik abhören |
 
+### Stimmeffekte
+
+Neben der Verarbeitung des Strips trägt jeder Kanal vier eigene Stimmeffekte:
+
+| Effekt | Was er macht |
+|---|---|
+| **ROBOT** | Ringmodulation: Die Stimme wird mit einem Ton multipliziert und klingt dadurch metallisch |
+| **ECHO** | Eine Verzögerung, bis zu einer Sekunde |
+| **RADIO** | Auf 300 Hz - 3 kHz begrenzt und getrieben, es klingt wie ein kleiner Lautsprecher |
+| **PITCH** | Die Stimme nach oben oder unten verschoben, bis zu einer Oktave in beide Richtungen |
+
+Geschaltet werden sie mit einem Makro: der Aktion **FX ON**, **FX OFF** oder **FX TOGGLE**, mit dem
+Kanal als Ziel ([15](#15-settings)). Ein Pad, ein Hotkey, ein Trigger oder die Fernsteuerung kann
+das Makro auslösen, so dass die Effekte mit dem Mix kommen und gehen.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -996,7 +1011,7 @@ Ein Makro ist eine Liste von **Aktionen**, die per Hotkey, Pad, Trigger oder Fer
 1. Klicke auf **+ NEW** und benenne es (Doppelklick auf den Namen).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, Fade-Zeit), ASSIGN ON/OFF/TOGGLE (eine Route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (ein Stimmeffekt, siehe [Stimmeffekte](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Optional **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (für n Sekunden), MASTER HAS SOUND, TIME (24 Stunden).

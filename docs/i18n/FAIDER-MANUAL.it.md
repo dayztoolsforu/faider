@@ -624,6 +624,21 @@ L'interruttore **EQ IN** inserisce o esclude tutto l'EQ (come il tasto EQ dell'h
 | **safe** | Solo safe: questo canale resta udibile quando altri sono in solo |
 | **listen** | Ascolta il segnale key della dinamica |
 
+### Effetti vocali
+
+Oltre all'elaborazione della strip, ogni canale porta i suoi effetti vocali:
+
+| Effetto | Cosa fa |
+|---|---|
+| **ROBOT** | Modulazione ad anello: la voce viene moltiplicata per un tono e suona metallica |
+| **ECHO** | Un ritardo, fino a un secondo |
+| **RADIO** | Limitato a 300 Hz - 3 kHz e saturato, suona come un piccolo altoparlante |
+| **PITCH** | La voce sale o scende, fino a un'ottava per ogni verso |
+
+Si commutano con una macro: l'azione **FX ON**, **FX OFF** o **FX TOGGLE**, con il canale come
+destinatario ([15](#15-settings)). Un pad, un tasto rapido, un trigger o il controllo remoto può
+far partire quella macro, così gli effetti entrano ed escono con il mix.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -1009,7 +1024,7 @@ Una macro è un elenco di **azioni** eseguite da un tasto rapido, un pad, un tri
 1. Fai clic su **+ NEW**, poi dagli un nome (doppio clic sul nome).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, tempo di dissolvenza), ASSIGN ON/OFF/TOGGLE (una route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
-   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
+   RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (un effetto vocale, vedi [Effetti vocali](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Facoltativamente, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
    SILENT (per n secondi), MASTER HAS SOUND, TIME (24 ore).

@@ -635,6 +635,21 @@ El conmutador **EQ IN** activa o desactiva todo el EQ (igual que la tecla EQ de 
 | **safe** | Solo safe: este canal sigue audible cuando otros están en solo |
 | **listen** | Escuchar la señal de control de la dinámica |
 
+### Efectos de voz
+
+Además del procesamiento del strip, cada canal lleva sus propios efectos de voz:
+
+| Efecto | Qué hace |
+|---|---|
+| **ROBOT** | Modulación en anillo: la voz se multiplica por un tono y suena metálica |
+| **ECHO** | Un retardo, hasta un segundo |
+| **RADIO** | Limitado a 300 Hz - 3 kHz y saturado, suena como un altavoz pequeño |
+| **PITCH** | La voz sube o baja, hasta una octava en cada dirección |
+
+Se cambian con una macro: la acción **FX ON**, **FX OFF** o **FX TOGGLE**, con el canal como
+destino ([15](#15-settings)). Un pad, una tecla de atajo, un activador o el control remoto puede
+disparar esa macro, así que los efectos entran y salen con la mezcla.
+
 ---
 
 <a id="7-raw-strips-apps-pads-tape-and-combinators"></a>
@@ -1031,7 +1046,7 @@ disparador o un control remoto.
 1. Haz clic en **+ NEW** y ponle nombre (doble clic en el nombre).
 2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, tiempo de fundido), ASSIGN ON/OFF/TOGGLE (una
    ruta), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT
-   NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE, WINDOWS DEFAULT OUTPUT/INPUT,
+   NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (un efecto de voz, ver [Efectos de voz](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT,
    PLUGIN SETTING.
 3. Opcionalmente, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED,
    MASTER SILENT (durante n segundos), MASTER HAS SOUND, TIME (24 horas).

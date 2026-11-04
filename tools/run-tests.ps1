@@ -3,12 +3,25 @@
 # AppRoutingTest, the WASAPI probes) and the plugin-loading one (PluginScanTest) aren't run here.
 #
 #   powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
+#
+# AppCaptureTest needs an audio output device to capture from, so a machine without one
+# can't run it. Name the checks to run to leave it out:
+#
+#   powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1 -Tests MeterTest,PadsTest
+
+param([string[]]$Tests)
 
 $root = Split-Path -Parent $PSScriptRoot
 $cmake = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 if (-not $cmake) { $cmake = 'C:\Program Files\CMake\bin\cmake.exe' }
 
-$tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'AppCaptureTest'
+$tests = $Tests
+if ($tests) {
+    $tests = @($tests -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+}
+if (-not $tests) {
+    $tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'AppCaptureTest'
+}
 
 Write-Host 'Building the checks...'
 & $cmake --build (Join-Path $root 'build') --config Release --target $tests | Out-Null

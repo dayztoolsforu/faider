@@ -15,6 +15,7 @@
   <img src="https://img.shields.io/badge/JUCE-8.0.12-8DC63F" alt="JUCE 8.0.12">
   <img src="https://img.shields.io/badge/audio-ASIO%20%C2%B7%20WASAPI-555" alt="ASIO · WASAPI">
   <img src="https://img.shields.io/badge/plugins-VST3-555" alt="VST3">
+  <a href="https://github.com/dayztoolsforu/faider/actions/workflows/checks.yml"><img src="https://github.com/dayztoolsforu/faider/actions/workflows/checks.yml/badge.svg" alt="Checks"></a>
   <a href="https://dayztoolsforu.github.io/faider/#manual"><img src="https://img.shields.io/badge/manual-13%20languages-2ea44f" alt="Manual in 13 languages"></a>
   <img src="https://img.shields.io/badge/licence-AGPLv3-blue" alt="AGPLv3">
 </p>

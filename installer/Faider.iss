@@ -42,7 +42,9 @@ SetupLogging=yes
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#Source}\*"; Excludes: "*.pdb"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; (openvr_api.dll is left in the build folder by an older build and is not used: excluded here, so
+; [InstallDelete] can take it off a machine that has it)
+Source: "{#Source}\*"; Excludes: "*.pdb,openvr_api.dll"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
 Source: "..\docs\CREDITS.md"; DestDir: "{app}\licences"; Flags: ignoreversion
 Source: "..\third_party\rnnoise\COPYING"; DestDir: "{app}\licences"; DestName: "rnnoise.txt"; Flags: ignoreversion

@@ -1,0 +1,17 @@
+# Build output
+/build/
+/out/
+/.vs/
+
+# The Steinberg ASIO SDK is licensed separately and is not redistributed
+/third_party/asiosdk*/
+/third_party/downloads/
+
+# Build output from the deck plugins
+/plugins/**/bin/
+/plugins/**/obj/
+
+# The asset library stays local; only what the program uses and the licences are kept
+/assets/knobs/
+/assets/textures/
+/assets/ui/

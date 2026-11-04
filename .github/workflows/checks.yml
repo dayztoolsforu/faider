@@ -1,0 +1,41 @@
+name: Checks
+
+on:
+  push:
+    branches: [ "dev", "main" ]
+  pull_request:
+    branches: [ "dev", "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    name: Build the program and run the checks
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Show the toolchain
+        run: |
+          cmake --version
+          git --version
+
+      # The program is built here, without the ASIO SDK (it is licensed separately and
+      # is not redistributed): the build then runs on Windows devices only, which is
+      # enough to catch a broken build.
+      - name: Configure
+        run: cmake -S . -B build -A x64
+
+      - name: Build the program
+        run: cmake --build build --config Release --target Faider
+
+      # AppCaptureTest is left out: it needs an audio output device to capture from,
+      # and a build machine has none. It runs with the rest on a machine that has one.
+      - name: Run the checks
+        run: >-
+          powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
+          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest

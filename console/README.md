@@ -5,7 +5,7 @@ drawn in code. The program is **Faider.exe**. The installer puts it in
 `C:\Program Files\Faider`; building from source with `Restart Faider.cmd`
 installs it to `C:\Faider`. Your mix and settings live in `%APPDATA%\Faider`.
 
-The full manual is [docs/FAIDER-CONSOLE-MANUAL.md](../docs/FAIDER-CONSOLE-MANUAL.md). It covers
+The full manual is [docs/FAIDER-MANUAL.md](../docs/FAIDER-MANUAL.md). It covers
 every page and control, with how-to guides and troubleshooting. Translations (Español, Français,
 Deutsch, Italiano, Português (Brasil), Nederlands, Polski, Svenska, Türkçe, 日本語, 한국어 and
 简体中文) are in [docs/i18n](../docs/i18n).

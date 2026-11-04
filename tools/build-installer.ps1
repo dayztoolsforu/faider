@@ -24,10 +24,24 @@ if (-not (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^ASI
 $version = (Select-String -Path (Join-Path $root 'CMakeLists.txt') -Pattern 'project\s*\(\s*\w+\s+VERSION\s+([\d.]+)').Matches[0].Groups[1].Value
 
 Write-Host 'Building...'
+
+# The version is in the resource file JUCE writes (the one Windows shows in the file properties),
+# and JUCE's rule for that file doesn't watch the version: it is handed the info file as an
+# argument but doesn't depend on it, so a new version leaves the old one in the resource. The
+# file is put back here so it is written again with the version of this build.
+$resource = Join-Path $build 'console\Faider_artefacts\JuceLibraryCode\Faider_resources.rc'
+if (Test-Path $resource) { Remove-Item $resource -Force }
+
 $ErrorActionPreference = 'Continue'   # (CMake's warnings on stderr aren't failures: the exit code says)
 & $cmake --build $build --config Release --target Faider 2>&1 | ForEach-Object { "$_" }
 if ($LASTEXITCODE -ne 0) { throw 'The build failed.' }
 $ErrorActionPreference = 'Stop'
+
+# The exe carries the version in its file properties: it has to be this one
+$fileVersion = (Get-Item (Join-Path $source 'Faider.exe')).VersionInfo.FileVersion
+if ($fileVersion -ne $version) {
+    throw "Faider.exe says version $fileVersion, but this build is ${version}: not packed"
+}
 
 # Nothing from the build machine's user folder (paths baked in at compile time) goes out in the exe
 $bytes = [IO.File]::ReadAllBytes((Join-Path $source 'Faider.exe'))

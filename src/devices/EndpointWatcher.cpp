@@ -150,8 +150,33 @@ namespace
         return result;
     }
 
-    // ASIO drivers register under HKLM\SOFTWARE\ASIO\<name> with a CLSID value. Presence of
-    // the hardware can't be known without loading the driver, so they're reported active.
+    // ASIO drivers register under HKLM\SOFTWARE\ASIO\<name> with a CLSID value. The registration
+    // outlives the driver, so the file behind it is looked for: a driver that is registered but
+    // whose file is gone is reported as not present, rather than as one that is there.
+    // The file behind a registered ASIO driver: the registration outlives the driver (the app
+    // it came with is uninstalled, the file is removed), and a driver whose file is gone cannot
+    // be opened. Windows keeps the registration either way, so the file is the truth.
+    bool asioDriverIsThere (const juce::String& clsid)
+    {
+        const auto keyText = juce::String ("CLSID\\") + clsid + "\\InprocServer32";
+
+        for (auto flags : { (DWORD) 0, (DWORD) KEY_WOW64_32KEY })   // (a 32-bit driver registers in its own view)
+        {
+            HKEY inproc = nullptr;
+            if (RegOpenKeyExW (HKEY_CLASSES_ROOT, keyText.toWideCharPointer(), 0, KEY_READ | flags, &inproc) != ERROR_SUCCESS)
+                continue;
+
+            wchar_t path[MAX_PATH] = {};
+            DWORD size = sizeof (path);
+            const auto found = RegGetValueW (inproc, nullptr, nullptr, RRF_RT_REG_SZ, nullptr, path, &size) == ERROR_SUCCESS;
+            RegCloseKey (inproc);
+
+            if (found && juce::File (juce::String (path)).existsAsFile())
+                return true;
+        }
+        return false;
+    }
+
     juce::Array<EndpointInfo> scanAsio()
     {
         juce::Array<EndpointInfo> result;
@@ -178,7 +203,7 @@ namespace
             info.api = "ASIO";
             info.id = "asio:" + juce::String (clsid);
             info.name = juce::String (name);
-            info.state = 1;
+            info.state = asioDriverIsThere (juce::String (clsid)) ? 1 : 4;   // (4: not present)
             result.add (info);
         }
 

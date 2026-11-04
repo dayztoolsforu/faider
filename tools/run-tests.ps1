@@ -24,8 +24,13 @@ if (-not $tests) {
 }
 
 Write-Host 'Building the checks...'
-& $cmake --build (Join-Path $root 'build') --config Release --target $tests | Out-Null
-if ($LASTEXITCODE -ne 0) { Write-Host 'The build failed.' -ForegroundColor Red; exit 1 }
+# The build's words are kept for when it fails: a build machine needs to say what went wrong.
+$buildOutput = & $cmake --build (Join-Path $root 'build') --config Release --target $tests 2>&1 | Out-String
+if ($LASTEXITCODE -ne 0) {
+    Write-Host $buildOutput -ForegroundColor Red
+    Write-Host 'The build failed.' -ForegroundColor Red
+    exit 1
+}
 
 $failed = @()
 foreach ($t in $tests) {

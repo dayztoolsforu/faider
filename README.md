@@ -212,7 +212,6 @@ docs/           manuals, translations and images
 installer/      the Inno Setup script (tools/build-installer.ps1 builds the installer)
 tools/          build, install and test scripts
 assets/         program icons and the headphone profiles
-cmake/          a small patch applied to JUCE at configure time
 third_party/    RNNoise (the optional ASIO SDK goes here, not committed)
 ```
 

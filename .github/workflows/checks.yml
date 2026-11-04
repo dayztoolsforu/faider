@@ -10,6 +10,11 @@ on:
 permissions:
   contents: read
 
+# A new push makes the run before it pointless, so it is stopped.
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-check:
     name: Build the program and run the checks

@@ -204,5 +204,15 @@ target_link_libraries(BuffersTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# The look a theme file describes check (see tests/ThemeTest.cpp).
+juce_add_console_app(ThemeTest PRODUCT_NAME "ThemeTest")
+target_sources(ThemeTest PRIVATE tests/ThemeTest.cpp src/ui/Theme.cpp)
+target_compile_definitions(ThemeTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_link_libraries(ThemeTest
+    PRIVATE
+        juce::juce_graphics
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # The application: Faider (console/README.md).
 add_subdirectory(console)

@@ -89,6 +89,9 @@ private:
     void saveSessionAs();
     void showSessions (juce::PopupMenu::Options where);
     void showAppRules (juce::PopupMenu::Options where);   // APP RULES: where each app goes when it starts playing
+    void showLooks (juce::PopupMenu::Options where);      // LOOK: the console's colours and typeface
+    void saveLookAs();
+    void repaintEverything();                              // a new look: every view drawn again
     void exportSession();
     void importSession();
     std::unique_ptr<juce::FileChooser> sessionChooser;

@@ -7,6 +7,7 @@
 #include "ui/WindowBackground.h"
 #include "ui/WindowSnap.h"
 #include "ui/AboutBox.h"
+#include "ui/Theme.h"
 #include "StartWithWindows.h"
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
 #include "../console/src/Simple.h"     // (SIMPLE and SETUP)
@@ -167,6 +168,18 @@ MainComponent::MainComponent()
     // combinators (SIMPLE doesn't show them), then PRO.
     if (! settings.containsKey ("deskMode"))
         settings.setValue ("deskMode", engine.getBuses().empty() ? "simple" : "pro");
+
+    // The look, as it was left (the built-in one the first time). A look file that has gone or
+    // is broken leaves the built-in alone.
+    {
+        const auto chosen = settings.getValue ("look", "Default");
+        if (! Theme::useLook (chosen))
+        {
+            Theme::useLook ("Default");
+            settings.setValue ("look", "Default");
+        }
+    }
+
     mixer = std::make_unique<MixerComponent> (engine);
     consoleDesk = ConsoleDesk::make (engine, *mixer, settings.getValue ("deskMode") == "simple",
                                      [this] (bool simple) { settings.setValue ("deskMode", simple ? "simple" : "pro"); settings.saveIfNeeded(); },
@@ -400,6 +413,11 @@ void MainComponent::makeSettings()
 
     generalPage = std::make_unique<OptionsPage>();
     auto& general = *generalPage;
+    general.heading ("LOOK");
+    general.action ("LOOK...", "The console's colours and typeface", [this]
+    {
+        showLooks (juce::PopupMenu::Options().withMousePosition());
+    });
     general.heading ("WINDOWS");
     general.toggle ("START WITH WINDOWS", juce::String ("Open ") + Product::name + " (in the tray) when you sign in",
                     [] { return StartWithWindows::isOn(); }, [] (bool on) { StartWithWindows::set (on); });
@@ -1621,6 +1639,56 @@ void MainComponent::saveSessionAs()
             safe->logEvent ("sessions: saved as " + name);
             safe->toasts.show ("scene", "Session saved", name);
         }
+    }), true);
+}
+
+// A new look: every view drawn again. The desk remembers the look's generation, so it draws
+// all of itself; the rest is ordinary painting.
+static void repaintEveryView (juce::Component& component)
+{
+    component.repaint();
+    for (auto* child : component.getChildren())
+        repaintEveryView (*child);
+}
+
+void MainComponent::repaintEverything()
+{
+    // The main window is this component. The overlay and the mini mixer paint from the look
+    // every time they redraw, so they follow on their own.
+    repaintEveryView (*this);
+}
+
+// LOOK: the console's colours and typeface, from %APPDATA%\Faider\looks. A look file that is
+// missing or broken leaves the built-in one in place.
+void MainComponent::showLooks (juce::PopupMenu::Options where)
+{
+    juce::PopupMenu menu;
+    const auto current = Theme::currentLookName();
+    for (const auto& name : Theme::lookNames())
+        menu.addItem (name, true, name == current, [this, name]
+        {
+            if (! Theme::useLook (name))
+                return;
+            settings.setValue ("look", name);
+            settings.saveIfNeeded();
+            repaintEverything();
+        });
+    menu.addSeparator();
+    menu.addItem ("SAVE THIS LOOK AS...", [this] { saveLookAs(); });
+    menu.showMenuAsync (where);
+}
+
+void MainComponent::saveLookAs()
+{
+    auto* w = new juce::AlertWindow ("Save this look as", {}, juce::MessageBoxIconType::NoIcon);
+    w->addTextEditor ("name", "");
+    w->addButton ("OK", 1, juce::KeyPress (juce::KeyPress::returnKey));
+    w->addButton ("Cancel", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+    w->enterModalState (true, juce::ModalCallbackFunction::create ([w] (int result)
+    {
+        const auto wanted = w->getTextEditorContents ("name").trim();
+        if (result == 1 && wanted.isNotEmpty() && ! Theme::saveLookAs (wanted))
+            juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "LOOK", "The look could not be written.");
     }), true);
 }
 

@@ -35,7 +35,8 @@ target_sources(Faider PRIVATE
     ${_src}/devices/EndpointWatcher.cpp
     ${_src}/devices/WindowsDefault.cpp
     ${_src}/ui/WindowBackground.cpp
-    ${_src}/ui/WindowSnap.cpp)
+    ${_src}/ui/WindowSnap.cpp
+    ${_src}/ui/Theme.cpp)
 target_compile_definitions(Faider PRIVATE
     FAIDER_DATA_FOLDER="Faider"
     JUCE_WEB_BROWSER=0

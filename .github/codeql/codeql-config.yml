@@ -1,0 +1,8 @@
+# The code scanning setup GitHub runs on its own reads this file.
+# The vendored code is not ours to change, and the pages the site is built from are
+# written by tools\manual-page\build.py, so the scan is left off them.
+paths-ignore:
+  - third_party/**
+  - docs/index.html
+  - docs/manual.html
+  - docs/CREDITS.html

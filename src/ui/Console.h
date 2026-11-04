@@ -27,6 +27,8 @@ namespace Console
         inline juce::Colour capText()       { return Theme::get().capText; }
         inline juce::Colour aluminium()     { return Theme::get().plateColour; }   // the fader plate
         inline juce::Colour slot()          { return Theme::get().slot; }         // recessed fields: selectors, plugin slots
+        inline juce::Colour shadow()        { return Theme::get().shadow; }       // the shade under a module
+        inline juce::Colour highlight()     { return Theme::get().highlight; }    // the light along an edge
 
         // Knobs.
         inline juce::Colour knobGrey()      { return Theme::get().knobGrey; }

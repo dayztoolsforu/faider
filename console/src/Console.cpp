@@ -1677,7 +1677,8 @@ private:
             shownStrips.assign ((size_t) channels, -1);
         }
         const juce::int64 whole = (bind.isOn (ch, "power", true) ? 1 : 0) | (ch == selected ? 2 : 0) | (isDark (ch) ? 4 : 0)
-                                | ((juce::int64) channelColour (ch).getARGB() << 3);
+                                | ((juce::int64) channelColour (ch).getARGB() << 3)
+                                | ((juce::int64) Theme::generation() << 35);   // (a new look: all of it again)
         const bool all = std::exchange (shownStrips[(size_t) ch], whole) != whole;
         if (all)
             repaint (stripArea (ch));

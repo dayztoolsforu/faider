@@ -4,6 +4,11 @@
 
 // The console's look: every colour the program paints with, in one place. Every view reads it
 // (Theme::get()) when it paints. It copies a style of desk, never a maker's logos or names.
+//
+// The look in force is a set of tokens. It starts as the one built into the program and can be
+// replaced by a file in %APPDATA%\Faider\looks, so a different set of colours, a different
+// typeface and different measures can be written by hand and put in place. Whatever a file
+// leaves out falls back to the built-in, so a part-written file still works.
 namespace Theme
 {
     struct Style
@@ -29,34 +34,50 @@ namespace Theme
         // LEDs and lamps.
         juce::Colour ledGreen, ledYellow, ledRed, ledBlue, muteLamp, soloLamp, powerLamp;
 
+        // The light of the one you're working on (a tab, SEL, a chosen option).
+        juce::Colour selection;
+
+        // The shading the panels are drawn with: the shadow under a module, the light on its edge.
+        juce::Colour shadow, highlight;
+
         // The printing's typeface: one Windows ships with, with a real bold and crisp at small sizes.
         juce::String font;
+        float fontLegend, fontCaption, fontReadout;
 
         // Keys' corners.
         float keyRadius;
-
-        // The light of the one you're working on (a tab, SEL, a chosen option).
-        juce::Colour selection;
     };
 
-    // A classic large-format studio console: flat charcoal modules printed in white, square keys
-    // that light amber, knob caps by section (HF red, HMF green, LMF blue, LF black, dynamics and
-    // sends grey), green LEDs, long faders on a dark bay.
-    inline const Style& get()
-    {
-        static const Style style
-        {
-            juce::Colour (0xff141416), juce::Colour (0xff1e1e20), juce::Colour (0xff19191b), juce::Colour (0xff0b0b0c),
-            juce::Colour (0xffdadcdd), juce::Colour (0xff8a9398), juce::Colour (0xff151618), juce::Colour (0xff2b2c30),
-            juce::Colour (0xffc9ccd0), juce::Colour (0xffa6aaae), juce::Colour (0xff1d1f22),
-            juce::Colour (0xff2a2b2f),
-            juce::Colour (0xfff4f6f8), juce::Colour (0xff111316), juce::Colour (0xff141518),
-            juce::Colour (0xffb8bcc1), juce::Colour (0xffd2352b), juce::Colour (0xff3f9a52), juce::Colour (0xff2f68b8), juce::Colour (0xff1f2023),
-            juce::Colour (0xff4cff6a), juce::Colour (0xffffc83a), juce::Colour (0xffff3b30), juce::Colour (0xff3d8fe0),
-            juce::Colour (0xffff4a3a), juce::Colour (0xffffd84a), juce::Colour (0xfffff0c8),   // cut red, solo yellow, power cream
-            "Segoe UI", 2.0f,
-            juce::Colour (0xffffc83a)   // lit keys amber
-        };
-        return style;
-    }
+    // The look built into the program.
+    const Style& defaultStyle();
+
+    // The look in force.
+    const Style& get();
+
+    // The name of the look in force ("Default" for the built-in one).
+    juce::String currentLookName();
+
+    // A number that changes whenever the look in force does. Views that draw only what changed
+    // keep it in what they remember, so a new look is drawn in full.
+    int generation();
+
+    // The folder the looks are kept in: %APPDATA%\Faider\looks.
+    juce::File looksFolder();
+
+    // The looks that can be put in force: the built-in one, then every file in the folder.
+    juce::StringArray lookNames();
+
+    // Put a look in force by name ("Default" is the built-in one). False if there is no such
+    // look, in which case the look in force stays as it is.
+    bool useLook (const juce::String& name);
+
+    // Write the look in force to the folder under a new name.
+    bool saveLookAs (const juce::String& name);
+
+    // Read a look from JSON: the colours as "#rrggbb" or "#rrggbbaa". Whatever the text leaves
+    // out falls back to the built-in. The built-in look in force is never changed by this.
+    Style styleFromJson (const juce::String& json);
+
+    // The look in force as JSON, in the shape styleFromJson reads.
+    juce::String styleToJson (const Style& style, const juce::String& name);
 }

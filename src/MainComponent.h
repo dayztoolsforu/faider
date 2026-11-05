@@ -106,6 +106,8 @@ private:
     std::vector<PreflightPanel::Check> preflightChecks();
     void showTip (const juce::String& page);             // a page's first-run tip (once)
     void showPreflight (bool onlyIfWrong);
+    void showSetup ();                   // SETUP in its own window: not a page (first start, FIND, SIMPLE's key)
+    void closeSetup ();
     std::vector<PreflightPanel::Check> zeroChecks();   // ZERO DESK: things left set (solos, DIM, the oscillator, KEY LISTEN...)
     void showZero();               // PRE-FLIGHT (on start: only if something's wrong)
     std::unique_ptr<juce::DocumentWindow> mini;
@@ -163,7 +165,7 @@ private:
     std::unique_ptr<juce::Component> consoleDesk;   // (the Mixer page)
     std::unique_ptr<juce::Component> consoleSidebar;   // (and its pages as cards down the left)
     std::unique_ptr<juce::Component> consoleRouting;   // (its Routing page: the desk's strips as blocks)
-    std::unique_ptr<juce::Component> setupPage;        // (SETUP: Simple.h)
+    juce::Component::SafePointer<juce::DialogWindow> setupWindow;   // (SETUP, shown in its own window: Simple.h)
     std::unique_ptr<PadsPanel> pads;
     std::unique_ptr<TapePanel> tape;
     std::unique_ptr<ToolsTab> tools;      // the TOOLS tab: PADS and TAPE on tabs of their own

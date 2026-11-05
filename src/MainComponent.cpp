@@ -183,7 +183,7 @@ MainComponent::MainComponent()
     mixer = std::make_unique<MixerComponent> (engine);
     consoleDesk = ConsoleDesk::make (engine, *mixer, settings.getValue ("deskMode") == "simple",
                                      [this] (bool simple) { settings.setValue ("deskMode", simple ? "simple" : "pro"); settings.saveIfNeeded(); },
-                                     [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Setup")); });   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
+                                     [this] { showSetup(); });   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
     tabs.addTab ("Mixer", juce::Colours::transparentBlack, consoleDesk.get(), false);
     consoleSidebar = ConsoleDesk::makeSidebar (tabs, *consoleDesk);   // (the pages as cards down the left; the tab caps hide)
     addAndMakeVisible (*consoleSidebar);
@@ -194,17 +194,8 @@ MainComponent::MainComponent()
         mixer->setSelected (chosen);
     consoleRouting = ConsoleDesk::makeRouting (*consoleDesk);
     tabs.addTab ("Routing", juce::Colours::transparentBlack, consoleRouting.get(), false);
-    // SETUP: the questions, then the mix built from them (Simple.h); done, the Mixer in SIMPLE.
-    setupPage = Simple::makeSetup (engine, [this]
-    {
-        settings.setValue ("deskMode", "simple");
-        settings.saveIfNeeded();
-        ConsoleDesk::setSimple (*consoleDesk, true);
-        tabs.setCurrentTabIndex (0);
-    });
-    tabs.addTab ("Setup", juce::Colours::transparentBlack, setupPage.get(), false);
-    if (firstEver && started)
-        tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Setup"));
+    // SETUP is not a page: it asks its questions in its own window (showSetup), from a first start,
+    // from FIND, and from the SETUP key on the SIMPLE desk. The pages are the desk, routing and work.
     pads = std::make_unique<PadsPanel> (engine, *mixer);
     tape = std::make_unique<TapePanel> (engine, *mixer);
 
@@ -343,6 +334,10 @@ MainComponent::MainComponent()
         logEvent ("overlay: Ctrl+Shift+O is taken by another app (open it from FIND)");
     if (settings.getBoolValue ("overlayShown"))
         toggleOverlay();
+    // A first start: SETUP comes before anything else, a moment after the window is up.
+    if (firstEver && started)
+        juce::Timer::callAfterDelay (800, [safe = juce::Component::SafePointer<MainComponent> (this)]
+                                       { if (safe != nullptr && safe->isShowing()) safe->showSetup(); });
     // PRE-FLIGHT, once the audio and devices have settled, if something needs a look (in the
     // tray: a notice instead of a dialog).
     if (settings.getBoolValue ("preflightOnStart", true) && ! firstEver)   // (a first start: SETUP comes first)
@@ -444,7 +439,7 @@ void MainComponent::makeSettings()
                     [this] { return settings.getBoolValue ("tips", true); }, [remember] (bool on) { remember ("tips", on); });
     general.action ("SHOW THE TIPS AGAIN", "Each page's tip once more, as it's next shown", [this, remember]
     {
-        for (auto* page : { "Mixer", "Routing", "Setup", "Tools", "Devices", "Settings" })
+        for (auto* page : { "Mixer", "Routing", "Tools", "Devices", "Settings" })
             settings.removeValue (juce::String ("tipSeen_") + page);
         remember ("tips", true);
         showTip ("Settings");
@@ -627,6 +622,7 @@ void MainComponent::openCommandPalette()
     add ("APP RULES", "Where each app goes when it starts playing", [this] { showAppRules (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("SESSIONS", "Open a saved mix, export or import one", [this] { showSessions (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, muted mics, things heard twice", [this] { showPreflight (false); });
+    add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
     add ("ZERO DESK", "Things left set: solos, DIM, the oscillator, key listen, gains far off", [this] { showZero(); });
     add ("COMPARE MIXES", "Flip between saved mix versions (A / B / C) and see what each changes", [this]
     {
@@ -1869,7 +1865,6 @@ void MainComponent::showTip (const juce::String& page)
     static const std::pair<const char*, const char*> tips[] {
         { "Mixer",    "SIMPLE / PRO above the strips shows the same mix either way. Left/right selects a channel, M cuts it, S solos it, up/down moves its fader." },
         { "Routing",  "Click one block, then another, to route between them. Click again, or Esc, to let go." },
-        { "Setup",    "Run it again any time: it adds what's missing and never removes anything." },
         { "Tools",    "Pads play into the PADS channel. Give pads, macros and scenes hotkeys in SETTINGS > HOTKEYS." },
         { "Devices",  "Each device's latency and drops are listed under STREAMS; the light in the top bar sums them up." },
         { "Settings", "FIND (Ctrl+K) reaches every setting and action by name. HISTORY (Ctrl+H) goes back to any step." },
@@ -1951,6 +1946,45 @@ void MainComponent::showPreflight (bool onlyIfWrong)
     o.resizable = false;
     o.componentToCentreAround = this;
     o.launchAsync();
+}
+
+// SETUP: its own window, not a page. It asks its questions and adds what's missing; the desk goes on
+// running behind it, and a window closed without pressing BUILD leaves the mix as it was.
+void MainComponent::showSetup ()
+{
+    if (setupWindow != nullptr)
+    {
+        setupWindow->toFront (true);
+        return;
+    }
+
+    auto panel = Simple::makeSetup (engine, [this]
+    {
+        settings.setValue ("deskMode", "simple");
+        settings.saveIfNeeded();
+        ConsoleDesk::setSimple (*consoleDesk, true);
+        tabs.setCurrentTabIndex (0);
+        closeSetup();
+    });
+
+    panel->setSize (940, 620);   // (as a page it was sized by the tabs; a window asks its content)
+    juce::DialogWindow::LaunchOptions o;
+    o.content.setOwned (panel.release());
+    o.dialogTitle = "Set up the mix";
+    o.dialogBackgroundColour = Console::Colours::panel();
+    o.useNativeTitleBar = true;
+    o.resizable = true;
+    o.componentToCentreAround = this;
+    setupWindow = o.launchAsync();
+}
+
+// Dismissed a moment later than it is asked: the click that ends SETUP is still on the stack, and the
+// window's going takes the page it holds with it.
+void MainComponent::closeSetup ()
+{
+    if (setupWindow != nullptr)
+        juce::Timer::callAfterDelay (50, [w = juce::Component::SafePointer<juce::DialogWindow> (setupWindow.getComponent())]
+                                    { if (w != nullptr) w->closeButtonPressed(); });
 }
 
 // ZERO DESK: as engineers zero a console before a session, the things a last session (or a

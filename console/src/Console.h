@@ -9,7 +9,7 @@ class MixerComponent;
 namespace ConsoleDesk
 {
     // `simple`: SIMPLE (Simple.h) to start with, else the whole console; the top bar's switch
-    // changes it and says so (`modeChanged`). `openSetup`: the SETUP page shown.
+    // changes it and says so (`modeChanged`). `openSetup`: the SETUP window shown (it is not a page).
     std::unique_ptr<juce::Component> make (AudioEngine&, MixerComponent&, bool simple, std::function<void (bool simple)> modeChanged, std::function<void()> openSetup);
     void setSimple (juce::Component& console, bool simple);
 

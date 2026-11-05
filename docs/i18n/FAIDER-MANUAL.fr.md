@@ -142,7 +142,7 @@ signale sous **HEARD ONCE**.
 ### Étape 3 : démarrer Faider
 
 Ouvrez le menu Démarrer et cliquez sur **Faider** (ou utilisez le raccourci du bureau, si
-vous en avez créé un). La première fois, l'application s'ouvre sur **SETUP**.
+vous en avez créé un). La première fois, **SETUP** s'ouvre dans sa propre fenêtre.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -177,8 +177,8 @@ Ce que crée chaque réponse :
 Vos microphones ne sont pas routés vers votre propre casque, donc vous n'entendez pas d'écho
 retardé de votre voix. Pour vous entendre, allumez la touche **HEADPHONES** du micro (étape 6).
 
-SETUP reste dans la barre latérale. Relancez-le chaque fois que vous ajoutez un périphérique ou un
-programme. Il ajoute ce qui manque et ne retire jamais rien.
+SETUP n'est pas une page : relancez-le depuis **FIND** (**SETUP: BUILD A MIX**) ou la touche **SETUP**
+de SIMPLE chaque fois que vous ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -275,7 +275,7 @@ La configuration est terminée. Le reste de ce manuel décrit chaque partie en d
 
 ### La barre latérale
 
-Les pages sont des cartes le long de la gauche : **MIXER**, **ROUTING**, **SETUP**, **TOOLS**,
+Les pages sont des cartes le long de la gauche : **MIXER**, **ROUTING**, **TOOLS**,
 **DEVICES**, **SETTINGS**. La page affichée a un bord bleu allumé. Pendant que le Mixer est
 affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHANNEL** et **ADD APP**) :
 
@@ -1040,6 +1040,7 @@ en crème quand ils sont activés.
 
 | Carte | Réglages |
 |---|---|
+| **LOOK** | **LOOK...** : les couleurs et le type de lettres du pupitre, depuis un fichier LOOK (voir [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS** : s'ouvre dans la zone de notification quand vous ouvrez votre session |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (un avis quand un micro coupé dépasse -30 dBFS) |
 | **APPS** | **APP RULES...** : vers quel bus ou quelle sortie va un programme quand il se met à jouer (aussi dans **FIND**). Retirer le canal d'un programme retire sa règle |
@@ -1052,6 +1053,35 @@ en crème quand ils sont activés.
 | **ABOUT** | Version et crédits |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Un **LOOK** est chaque couleur dont le pupitre se dessine, avec le type de lettres et les tailles qui
+vont avec. Les tranches, les affichages, les boutons, les touches et les lampes se dessinent tous depuis
+le LOOK en vigueur : un seul LOOK change donc tout le pupitre à la fois.
+
+**LOOK...** liste les LOOK que vous avez et met en vigueur celui que vous choisissez ; le pupitre est
+redessiné dès qu'il change. **SAVE THIS LOOK AS...** écrit le LOOK en vigueur dans un nouveau fichier,
+sous le nom que vous lui donnez.
+
+Un LOOK est un fichier dans `%APPDATA%\Faider\looks`, écrit en JSON : vous pouvez donc l'écrire à la
+main et le copier sur une autre machine. Un fichier absent ou abîmé laisse en place le LOOK intégré, et
+ce qu'un fichier omet revient à la valeur intégrée : un fichier écrit à moitié fonctionne quand même.
+
+| | |
+|---|---|
+| `name` | Le nom du LOOK, tel qu'il apparaît dans la liste |
+| `font` | Un type de lettres fourni par Windows, net aux petites tailles du pupitre |
+| `keyRadius` | L'arrondi des coins d'une touche, en pixels |
+| `fontSizes` | `legend`, `caption`, `readout` : les trois tailles de texte |
+| `colours` | Chaque couleur, en `#rrggbb`, ou `#rrggbbaa` quand une partie est transparente |
+
+Les couleurs portent le nom des parties du pupitre : `background`, `panel`, `panelDark`, `rim`, `slot`,
+`legend`, `legendDim`, `namePlate` ; les touches `capTop`, `capBottom`, `capText` ; la plaque imprimée
+des faders `plateColour` ; les affichages `screenLit`, `screenGlass`, `screenBezel` ; les boutons par
+fonction `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown` ; les lampes `ledGreen`,
+`ledYellow`, `ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp` ; `selection`, la lumière de ce
+sur quoi vous travaillez ; et `shadow` et `highlight`, l'ombrage dont les champs se dessinent.
 
 ### MACROS
 
@@ -1405,6 +1435,7 @@ Dans `%APPDATA%\Faider` :
 | `sessions\` | Mix nommés |
 | `session-unloaded-*.xml` | Mix mis de côté au démarrage |
 | `settings.xml` | Préférences |
+| `looks\` | Les LOOKS : un fichier JSON chacun (voir [LOOKS](#looks)) |
 | `console.xml` | Types de tranche, espaceurs, choix de SELECT et de METER |
 | `plugins.xml` | Les plugins trouvés et le résultat du test de chacun |
 | `events.log` | Tout ce qui s'est passé (rotation à 5 Mo) |

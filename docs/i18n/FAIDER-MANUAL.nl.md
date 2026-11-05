@@ -136,7 +136,7 @@ van Windows de kabel, dan meldt PRE-FLIGHT dat onder **HEARD ONCE**.
 ### Stap 3: Faider starten
 
 Open het Startmenu en klik op **Faider** (of gebruik de bureaubladsnelkoppeling, als je die hebt gemaakt).
-De eerste keer opent het op **SETUP**.
+De eerste keer opent **SETUP** in een eigen venster.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -169,8 +169,8 @@ Wat elk antwoord maakt:
 Je microfoons worden niet naar je eigen koptelefoon gerouteerd, zodat je geen vertraagde echo van je
 stem hoort. Om jezelf te horen, zet je de toets **HEADPHONES** van de microfoon aan (stap 6).
 
-SETUP blijft in de zijbalk staan. Start het opnieuw als je een apparaat of programma toevoegt. Het voegt toe wat
-ontbreekt en verwijdert nooit iets.
+SETUP is geen pagina: start het opnieuw via **FIND** (**SETUP: BUILD A MIX**) of de **SETUP**-toets in
+SIMPLE als je een apparaat of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -262,7 +262,7 @@ Daarmee is de installatie klaar. De rest van deze handleiding behandelt elk onde
 
 ### De zijbalk
 
-De pagina's zijn kaarten langs de linkerkant: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+De pagina's zijn kaarten langs de linkerkant: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. De pagina die je ziet, heeft een oplichtende blauwe rand. Zolang de Mixer zichtbaar is, heeft de zijbalk ook
 deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 
@@ -991,6 +991,7 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 | Kaart | Instellingen |
 |---|---|
+| **LOOK** | **LOOK...**: de kleuren en het lettertype van de tafel, uit een LOOK-bestand (zie [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: opent in het systeemvak wanneer je je aanmeldt |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (een melding als een gedempte microfoon boven -30 dBFS komt) |
 | **APPS** | **APP RULES...**: naar welke bus of uitgang een programma gaat als het begint te spelen (ook in **FIND**). Het kanaal van een programma verwijderen verwijdert zijn regel |
@@ -1003,6 +1004,36 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ABOUT** | Versie en dankbetuigingen |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Een **LOOK** is elke kleur waarmee de tafel tekent, met het lettertype en de maten erbij. De strips, de
+schermen, de knoppen, de toetsen en de lampjes tekenen allemaal vanuit de LOOK die geldt: één LOOK
+verandert dus de hele tafel tegelijk.
+
+**LOOK...** toont de LOOKS die je hebt en zet de LOOK in werking die jij kiest; de tafel wordt meteen
+opnieuw getekend. **SAVE THIS LOOK AS...** schrijft de geldende LOOK naar een nieuw bestand, onder een
+naam die jij geeft.
+
+Een LOOK is één bestand in `%APPDATA%\Faider\looks`, geschreven als JSON, dus je kunt het met de hand
+schrijven en naar een andere machine kopiëren. Een ontbrekend of kapot bestand laat de ingebouwde LOOK
+staan, en wat een bestand overslaat valt terug op de ingebouwde waarde: een half geschreven bestand werkt
+nog steeds.
+
+| | |
+|---|---|
+| `name` | De naam van de LOOK, zoals hij in de lijst staat |
+| `font` | Eén lettertype dat Windows meelevert, scherp op de kleine maten van de tafel |
+| `keyRadius` | Hoe rond de hoeken van een toets zijn, in pixels |
+| `fontSizes` | `legend`, `caption`, `readout`: de drie lettergroottes |
+| `colours` | Elke kleur, als `#rrggbb` of `#rrggbbaa` waar een deel doorzichtig is |
+
+De kleuren dragen de naam van het deel van de tafel: `background`, `panel`, `panelDark`, `rim`, `slot`,
+`legend`, `legendDim`, `namePlate`; de toetsdoppen `capTop`, `capBottom`, `capText`; de gedrukte plaat
+van de faders `plateColour`; de schermen `screenLit`, `screenGlass`, `screenBezel`; de knoppen per
+functie `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; de lampjes `ledGreen`, `ledYellow`,
+`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, het licht van wat je bedient; en
+`shadow` en `highlight`, de shading waarmee de velden getekend worden.
 
 ### MACROS
 
@@ -1338,6 +1369,7 @@ In `%APPDATA%\Faider`:
 | `sessions\` | Benoemde mixen |
 | `session-unloaded-*.xml` | Bij het starten opzijgezette mixen |
 | `settings.xml` | Voorkeuren |
+| `looks\` | De LOOKS, elk één JSON-bestand (zie [LOOKS](#looks)) |
 | `console.xml` | Striptypen, spacers, keuzes bij SELECT en METER |
 | `plugins.xml` | De gevonden plugins en hoe elk is getest |
 | `events.log` | Alles wat er is gebeurd (roteert bij 5 MB) |

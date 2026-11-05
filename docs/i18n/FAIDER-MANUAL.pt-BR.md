@@ -138,7 +138,7 @@ alto-falante padrão do Windows for o cabo, o PRE-FLIGHT avisa em **HEARD ONCE**
 ### Passo 3: iniciar o Faider
 
 Abra o menu Iniciar e clique em **Faider** (ou use o atalho da área de trabalho, se você
-criou um). Na primeira vez, ele abre em **SETUP**.
+criou um). Na primeira vez, o **SETUP** abre em sua própria janela.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -172,8 +172,8 @@ O que cada resposta cria:
 Seus microfones não são roteados para os seus próprios fones, então você não ouve um eco atrasado da
 sua voz. Para se ouvir, acenda a tecla **HEADPHONES** do mic (passo 6).
 
-O SETUP fica na barra lateral. Execute-o de novo sempre que adicionar um dispositivo ou um programa.
-Ele adiciona o que falta e nunca remove nada.
+O SETUP não é uma página: execute-o de novo pelo **FIND** (**SETUP: BUILD A MIX**) ou pela tecla **SETUP** do
+SIMPLE sempre que adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -268,7 +268,7 @@ Com isso a configuração está pronta. O resto deste manual cobre cada parte em
 
 ### A barra lateral
 
-As páginas são cartões ao longo da esquerda: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**,
+As páginas são cartões ao longo da esquerda: **MIXER**, **ROUTING**, **TOOLS**,
 **DEVICES**, **SETTINGS**. A página exibida tem uma borda azul acesa. Enquanto o Mixer está
 aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHANNEL** e **ADD APP**):
 
@@ -1014,6 +1014,7 @@ creme quando ligadas.
 
 | Cartão | Configurações |
 |---|---|
+| **LOOK** | **LOOK...**: as cores e o tipo de letra da mesa, de um arquivo LOOK (ver [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: abre na bandeja quando você entra no Windows |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (um aviso quando um mic mudo passa de -30 dBFS) |
 | **APPS** | **APP RULES...**: para qual bus ou saída um programa vai quando começa a tocar (também em **FIND**). Remover o canal de um programa remove a regra dele |
@@ -1026,6 +1027,35 @@ creme quando ligadas.
 | **ABOUT** | Versão e créditos |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Um **LOOK** é cada cor com que a mesa desenha, junto com o tipo de letra e os tamanhos que vão com ele.
+Os strips, as leituras, os botões, as teclas e as lâmpadas desenham todas a partir do LOOK em vigor, então
+um LOOK muda a mesa inteira de uma vez.
+
+**LOOK...** lista os LOOKS que você tem e põe em vigor o que você escolher; a mesa é desenhada de novo no
+momento em que muda. **SAVE THIS LOOK AS...** grava o LOOK em vigor num arquivo novo, com o nome que você
+der a ele.
+
+Um LOOK é um arquivo em `%APPDATA%\Faider\looks`, escrito como JSON, então você pode escrevê-lo à mão e
+copiá-lo para outra máquina. Um arquivo que falta ou está quebrado deixa no lugar o LOOK embutido, e o que
+um arquivo não traz volta ao valor embutido: um arquivo escrito pela metade ainda funciona.
+
+| | |
+|---|---|
+| `name` | O nome do LOOK, como aparece na lista |
+| `font` | Um tipo de letra que o Windows já traz, para ficar nítido nos tamanhos pequenos da mesa |
+| `keyRadius` | O quanto arredondados são os cantos de uma tecla, em pixels |
+| `fontSizes` | `legend`, `caption`, `readout`: os três tamanhos de texto |
+| `colours` | Cada cor, como `#rrggbb`, ou `#rrggbbaa` quando uma parte é transparente |
+
+As cores levam o nome de cada parte da mesa: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; as teclas `capTop`, `capBottom`, `capText`; a placa impressa dos faders
+`plateColour`; as leituras `screenLit`, `screenGlass`, `screenBezel`; os botões por função `knobGrey`,
+`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; as lâmpadas `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
+`muteLamp`, `soloLamp`, `powerLamp`; `selection`, a luz do que você está usando; e `shadow` e `highlight`,
+o sombreado com que os campos são desenhados.
 
 ### MACROS
 
@@ -1369,6 +1399,7 @@ Em `%APPDATA%\Faider`:
 | `sessions\` | Mixagens nomeadas |
 | `session-unloaded-*.xml` | Mixagens separadas ao iniciar |
 | `settings.xml` | Preferências |
+| `looks\` | Os LOOKS: um arquivo JSON cada (ver [LOOKS](#looks)) |
 | `console.xml` | Tipos de strip, espaçadores, escolhas de SELECT e METER |
 | `plugins.xml` | Os plugins encontrados e como cada um foi no teste |
 | `events.log` | Tudo o que aconteceu (rotaciona em 5 MB) |

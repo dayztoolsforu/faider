@@ -118,7 +118,7 @@ speaker is the cable, PRE-FLIGHT reports it under **HEARD ONCE**.
 ### Step 3: Start Faider
 
 Open the Start menu and click **Faider** (or use the desktop shortcut, if you made one).
-The first time, it opens on **SETUP**.
+The first time, **SETUP** opens in its own window.
 
 ### Step 4: Answer SETUP's four questions
 
@@ -149,8 +149,8 @@ What each answer makes:
 Your microphones aren't routed to your own headphones, so you don't hear a delayed echo of your
 voice. To hear yourself, light the mic's **HEADPHONES** key (step 6).
 
-SETUP stays in the sidebar. Run it again whenever you add a device or a program. It adds what's
-missing and never removes anything.
+SETUP is not a page: run it again from **FIND** (**SETUP: BUILD A MIX**), or the **SETUP** key in
+SIMPLE, whenever you add a device or a program. It adds what's missing and never removes anything.
 
 ### Step 5: Check the audio is running
 
@@ -228,7 +228,7 @@ That's the setup done. The rest of this manual covers each part in detail.
 
 ### The sidebar
 
-The pages are cards down the left: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+The pages are cards down the left: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. The page showing has a lit blue edge. While the Mixer shows, the sidebar also has
 these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 
@@ -856,6 +856,7 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 | Card | Settings |
 |---|---|
+| **LOOK** | **LOOK...**: the console's colours and typeface, from a look file (see [Looks](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: opens in the tray when you sign in |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (a notice when a muted mic is above -30 dBFS) |
 | **APPS** | **APP RULES...**: which bus or output a program goes to when it starts playing (also in **FIND**). Removing a program's channel removes its rule |
@@ -866,6 +867,35 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
 | **CHANNEL METER POINT** | **PRE HPF** (raw source), **PRE FADER** (after effects), **POST ON** (after the fader, default) |
 | **ABOUT** | Version and credits |
+
+### LOOKS
+
+A **look** is every colour the console paints with, together with the typeface and the sizes that go
+with it. The strips, the readouts, the knobs, the keys and the lamps all draw from the look in force,
+so one look changes the whole desk at once.
+
+**LOOK...** lists the looks you have and puts the one you choose in force; the desk is drawn again the
+moment it changes. **SAVE THIS LOOK AS...** writes the look in force to a new file under a name you
+give it.
+
+A look is one file in `%APPDATA%\Faider\looks`, written as JSON, so you can write one by hand and copy
+it to another machine. A file that is missing or broken leaves the built-in look in place, and whatever
+a file leaves out falls back to the built-in value: a part-written file still works.
+
+| | |
+|---|---|
+| `name` | The look's name, as it appears in the list |
+| `font` | One typeface Windows ships with, so it stays crisp at the desk's small sizes |
+| `keyRadius` | How round a key's corners are, in pixels |
+| `fontSizes` | `legend`, `caption`, `readout`: the three printing sizes |
+| `colours` | Every colour, as `#rrggbb`, or `#rrggbbaa` where a part is see-through |
+
+The colours are the desk's parts by name: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; the key caps `capTop`, `capBottom`, `capText`; the faders' printed plate
+`plateColour`; the readouts `screenLit`, `screenGlass`, `screenBezel`; the knobs by function `knobGrey`,
+`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; the lamps `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
+`muteLamp`, `soloLamp`, `powerLamp`; `selection`, the light of the one you are working on; and `shadow`
+and `highlight`, the shading the panels are drawn with.
 
 ### MACROS
 
@@ -1138,6 +1168,7 @@ In `%APPDATA%\Faider`:
 | `sessions\` | Named mixes |
 | `session-unloaded-*.xml` | Mixes set aside at start |
 | `settings.xml` | Preferences |
+| `looks\` | The looks: one JSON file each (see [Looks](#looks)) |
 | `console.xml` | Strip types, spacers, SELECT and METER choices |
 | `plugins.xml` | The plugins found and how each one tested |
 | `events.log` | Everything that happened (rotates at 5 MB) |

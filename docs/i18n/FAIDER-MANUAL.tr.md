@@ -136,7 +136,7 @@ Windows'un varsayılan hoparlörü kablo ise PRE-FLIGHT bunu **HEARD ONCE** alt�
 ### Adım 3: Faider'i başlat
 
 Başlat menüsünü aç ve **Faider**'a tıkla (ya da yaptıysan masaüstü kısayolunu kullan).
-İlk seferde **SETUP** ile açılır.
+İlk seferde **SETUP** kendi penceresinde açılır.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -169,8 +169,8 @@ Her yanıtın yaptığı şey:
 Mikrofonların kendi kulaklığına yönlendirilmez, böylece sesinin gecikmeli bir yankısını duymazsın.
 Kendini duymak için mikrofonun **HEADPHONES** tuşunu yak (adım 6).
 
-SETUP kenar çubuğunda kalır. Bir aygıt ya da program eklediğinde yeniden çalıştır. Eksik olanı
-ekler, hiçbir şeyi silmez.
+SETUP bir sayfa değil: bir aygıt ya da program eklediğinde **FIND** (**SETUP: BUILD A MIX**) üzerinden ya da
+SIMPLE'daki **SETUP** tuşuyla yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -261,7 +261,7 @@ Kurulum bu kadar. Kılavuzun geri kalanı her bölümü ayrıntılı anlatır.
 
 ### Kenar çubuğu
 
-Sayfalar solda aşağı doğru kartlardır: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+Sayfalar solda aşağı doğru kartlardır: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Görünen sayfanın kenarı parlak mavidir. Mixer görünürken kenar çubuğunda şu kartlar da
 bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 
@@ -991,6 +991,7 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 
 | Kart | Ayarlar |
 |---|---|
+| **LOOK** | **LOOK...**: konsolun renkleri ve yazı tipi, bir LOOK dosyasından (bkz. [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: oturum açtığında tepside açılır |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim) |
 | **APPS** | **APP RULES...**: bir program çalmaya başladığında hangi bus'a veya çıkışa gideceği (**FIND**'da da). Bir programın kanalını kaldırmak kuralını kaldırır |
@@ -1003,6 +1004,34 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 | **ABOUT** | Sürüm ve emeği geçenler |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Bir **LOOK**, konsolün boyadığı her renk, yanında yazı tipi ve ona eşlik eden ölçüler demektir. Şeritler,
+göstergeler, düğmeler, tuşlar ve lambalar hepsi yürürlükteki LOOK'tan çizer; bir LOOK bütün konsolu birden
+değiştirir.
+
+**LOOK...**, sahip olduğun LOOK'ları listeler ve seçtiğini yürürlüğe koyar; değiştiği anda konsol baştan
+çizilir. **SAVE THIS LOOK AS...**, yürürlükteki LOOK'u senin verdiğin bir adla yeni bir dosyaya yazar.
+
+Bir LOOK, `%APPDATA%\Faider\looks` içinde JSON olarak yazılmış tek bir dosyadır; yani elle yazıp başka bir
+makineye kopyalayabilirsin. Eksik ya da bozuk bir dosya yerleşik LOOK'u yerinde bırakır ve bir dosyanın
+atladığı şey yerleşik değere döner: yarısı yazılmış bir dosya yine çalışır.
+
+| | |
+|---|---|
+| `name` | LOOK'un adı, listede göründüğü gibi |
+| `font` | Windows'un birlikte verdiği bir yazı tipi, ki konsolun küçük ölçülerinde net kalsın |
+| `keyRadius` | Bir tuşun köşelerinin ne kadar yuvarlak olduğu, piksel olarak |
+| `fontSizes` | `legend`, `caption`, `readout`: üç baskı ölçüsü |
+| `colours` | Her renk, `#rrggbb` olarak, ya da bir bölüm şeffafsa `#rrggbbaa` olarak |
+
+Renkler konsolun parçalarının adını taşır: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; tuş kapakları `capTop`, `capBottom`, `capText`; faderların baskılı plakası
+`plateColour`; göstergeler `screenLit`, `screenGlass`, `screenBezel`; düğmeler işleve göre `knobGrey`,
+`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lambalar `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
+`muteLamp`, `soloLamp`, `powerLamp`; `selection`, üzerinde çalıştığın şeyin ışığı; ve `shadow` ile
+`highlight`, alanların boyandığı gölgelendirme.
 
 ### MACROS
 
@@ -1338,6 +1367,7 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 | `sessions\` | Adlı karışımlar |
 | `session-unloaded-*.xml` | Başlangıçta kenara ayrılan karışımlar |
 | `settings.xml` | Tercihler |
+| `looks\` | LOOK'lar: her biri bir JSON dosyası (bkz. [LOOKS](#looks)) |
 | `console.xml` | Şerit türleri, boşluklar, SELECT ve METER seçimleri |
 | `plugins.xml` | Bulunan eklentiler ve her birinin sınav sonucu |
 | `events.log` | Olan her şey (5 MB'ta döner) |

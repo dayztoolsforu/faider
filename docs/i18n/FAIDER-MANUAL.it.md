@@ -138,7 +138,7 @@ l'altoparlante predefinito di Windows è il cavo, PRE-FLIGHT lo segnala sotto **
 ### Passo 3: Avvia Faider
 
 Apri il menu Start e fai clic su **Faider** (o usa il collegamento sul desktop, se
-l'hai creato). La prima volta si apre su **SETUP**.
+l'hai creato). La prima volta, **SETUP** si apre in una finestra sua.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -171,8 +171,8 @@ Cosa crea ogni risposta:
 I tuoi microfoni non sono instradati alle tue cuffie, così non senti un'eco ritardata della tua
 voce. Per sentirti, accendi il tasto **HEADPHONES** del microfono (passo 6).
 
-SETUP resta nella barra laterale. Eseguilo di nuovo ogni volta che aggiungi un dispositivo o un
-programma. Aggiunge ciò che manca e non toglie mai nulla.
+SETUP non è una pagina: eseguilo di nuovo da **FIND** (**SETUP: BUILD A MIX**) o dal tasto **SETUP** di
+SIMPLE ogni volta che aggiungi un dispositivo o un programma. Aggiunge ciò che manca e non toglie mai nulla.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -267,7 +267,7 @@ La configurazione è finita. Il resto del manuale tratta ogni parte nel dettagli
 
 ### La barra laterale
 
-Le pagine sono schede lungo il lato sinistro: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**,
+Le pagine sono schede lungo il lato sinistro: **MIXER**, **ROUTING**, **TOOLS**,
 **DEVICES**, **SETTINGS**. La pagina visualizzata ha un bordo blu acceso. Mentre è visibile il
 Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo **ADD CHANNEL** e **ADD APP**):
 
@@ -1004,6 +1004,7 @@ crema quando sono accesi.
 
 | Scheda | Impostazioni |
 |---|---|
+| **LOOK** | **LOOK...**: i colori e il tipo di carattere della console, da un file LOOK (vedi [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: si apre nell'area di notifica quando accedi |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (un avviso quando un microfono in mute è sopra -30 dBFS) |
 | **APPS** | **APP RULES...**: a quale bus o uscita va un programma quando inizia a suonare (anche in **FIND**). Rimuovere il canale di un programma ne rimuove la regola |
@@ -1016,6 +1017,35 @@ crema quando sono accesi.
 | **ABOUT** | Versione e crediti |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Un **LOOK** è ogni colore con cui la console disegna, insieme al tipo di carattere e alle misure che lo
+accompagnano. Le strip, i display, le manopole, i tasti e le lampade disegnano tutti dal LOOK in vigore:
+un LOOK cambia quindi tutta la console in un colpo.
+
+**LOOK...** elenca i LOOK che hai e mette in vigore quello che scegli; la console viene ridisegnata nel
+momento in cui cambia. **SAVE THIS LOOK AS...** scrive il LOOK in vigore in un file nuovo, col nome che
+gli dai.
+
+Un LOOK è un file in `%APPDATA%\Faider\looks`, scritto in JSON: puoi scriverlo a mano e copiarlo su un
+altro PC. Un file che manca o è corrotto lascia in vigore il LOOK integrato, e ciò che un file non
+contiene torna al valore integrato: un file scritto a metà funziona comunque.
+
+| | |
+|---|---|
+| `name` | Il nome del LOOK, come appare nell'elenco |
+| `font` | Un tipo di carattere incluso in Windows, nitido alle misure piccole della console |
+| `keyRadius` | Quanto sono arrotondati gli angoli di un tasto, in pixel |
+| `fontSizes` | `legend`, `caption`, `readout`: le tre misure di stampa |
+| `colours` | Ogni colore, come `#rrggbb`, o `#rrggbbaa` dove una parte è trasparente |
+
+I colori portano il nome delle parti della console: `background`, `panel`, `panelDark`, `rim`, `slot`,
+`legend`, `legendDim`, `namePlate`; i tasti `capTop`, `capBottom`, `capText`; la placca stampata dei
+fader `plateColour`; i display `screenLit`, `screenGlass`, `screenBezel`; le manopole per funzione
+`knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; le lampade `ledGreen`, `ledYellow`,
+`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, la luce di ciò su cui stai
+lavorando; e `shadow` e `highlight`, l'ombreggiatura con cui sono disegnati i campi.
 
 ### MACROS
 
@@ -1355,6 +1385,7 @@ In `%APPDATA%\Faider`:
 | `sessions\` | Mix con nome |
 | `session-unloaded-*.xml` | Mix messi da parte all'avvio |
 | `settings.xml` | Preferenze |
+| `looks\` | I LOOK: un file JSON ciascuno (vedi [LOOKS](#looks)) |
 | `console.xml` | Tipi di strip, spacer, scelte di SELECT e METER |
 | `plugins.xml` | I plugin trovati e come ognuno ha superato la prova |
 | `events.log` | Tutto ciò che è successo (ruota a 5 MB) |

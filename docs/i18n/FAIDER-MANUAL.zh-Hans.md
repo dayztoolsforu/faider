@@ -113,7 +113,7 @@ VB-CABLE 提供一个其他应用可以选用的虚拟麦克风。如果你只�
 
 ### 步骤 3：启动 Faider
 
-打开开始菜单，点击 **Faider**(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，它会打开 **SETUP**。
+打开开始菜单，点击 **Faider**(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，**SETUP** 会在自己的窗口中打开。
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -141,7 +141,7 @@ SETUP 每页问一个问题，共四个，并根据你的回答建立混音。�
 
 你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请点亮麦克风的 **HEADPHONES** 键(步骤 6)。
 
-SETUP 会一直留在侧边栏。每当你添加设备或程序时，都可以再次运行。它会补上缺少的内容，不会删除任何东西。
+SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 **FIND**(**SETUP: BUILD A MIX**) 或 SIMPLE 中的 **SETUP** 按键再次运行它。它会补上缺少的内容，不会删除任何东西。
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -213,7 +213,7 @@ SETUP 会一直留在侧边栏。每当你添加设备或程序时，都可以�
 
 ### 侧边栏
 
-页面是左侧自上而下排列的卡片：**MIXER**、**ROUTING**、**SETUP**、**TOOLS**、**DEVICES**、**SETTINGS**。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 **ADD CHANNEL** 和 **ADD APP**)：
+页面是左侧自上而下排列的卡片：**MIXER**、**ROUTING**、**TOOLS**、**DEVICES**、**SETTINGS**。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 **ADD CHANNEL** 和 **ADD APP**)：
 
 | 分组 | 卡片 | 作用 |
 |---|---|---|
@@ -851,6 +851,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | 卡片 | 设置 |
 |---|---|
+| **LOOK** | **LOOK...**：调音台的颜色与字体，取自 LOOK 文件（见 [LOOKS](#looks)） |
 | **WINDOWS** | **START WITH WINDOWS**：你登录时在托盘中打开 |
 | **DESK** | **WARN IF I TALK WHILE MUTED**(静音的麦克风超过 -30 dBFS 时给出通知) |
 | **APPS** | **APP RULES...**：程序开始播放时它去往哪条总线或输出(也可在 **FIND** 中找到)。删除程序的通道会同时删除它的规则 |
@@ -863,6 +864,24 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **ABOUT** | 版本和致谢 |
 
 <a id="macros"></a>
+
+### LOOKS
+
+**LOOK** 就是调音台绘制时使用的每一种颜色，再加上与之相配的字体和尺寸。通道条、数值显示、旋钮、按键和指示灯都从当前生效的 LOOK 取值绘制，所以换一个 LOOK，整张调音台会一起变。
+
+**LOOK...** 列出你已有的 LOOK，并启用你选中的那个；一有改变，调音台就会立刻重新绘制。**SAVE THIS LOOK AS...** 会把当前生效的 LOOK 写成一个新文件，名字由你定。
+
+一个 LOOK 就是 `%APPDATA%\Faider\looks` 里的一个 JSON 文件，因此你可以手写一个，再复制到别的电脑上。文件缺失或损坏时，内置 LOOK 保持不变；文件里没写的项目会退回内置值——只写了一半的文件照样能用。
+
+| | |
+|---|---|
+| `name` | LOOK 的名字，也就是列表里显示的样子 |
+| `font` | Windows 自带的一种字体，在调音台的小字号下依然清楚 |
+| `keyRadius` | 按键圆角有多圆，以像素计 |
+| `fontSizes` | `legend`、`caption`、`readout`：三种印刷尺寸 |
+| `colours` | 每个颜色写成 `#rrggbb`，需要透明时写成 `#rrggbbaa` |
+
+颜色的名字就是调音台各部分的名称：`background`、`panel`、`panelDark`、`rim`、`slot`、`legend`、`legendDim`、`namePlate`；按键的键帽是 `capTop`、`capBottom`、`capText`；推子的印制面板是 `plateColour`；数值显示是 `screenLit`、`screenGlass`、`screenBezel`；按功能分的旋钮是 `knobGrey`、`knobRed`、`knobGreen`、`knobBlue`、`knobBrown`；指示灯是 `ledGreen`、`ledYellow`、`ledRed`、`ledBlue`、`muteLamp`、`soloLamp`、`powerLamp`；`selection` 是你正在操作那一项的光；`shadow` 和 `highlight` 则是面板绘制所用的明暗。
 
 ### MACROS
 
@@ -1149,6 +1168,7 @@ Windows 把线缆设成了它的默认设备。请重新把耳机或音箱设为
 | `sessions\` | 命名的混音 |
 | `session-unloaded-*.xml` | 启动时搁置的混音 |
 | `settings.xml` | 偏好设置 |
+| `looks\` | LOOK 文件，每个一个 JSON（见 [LOOKS](#looks)） |
 | `console.xml` | 通道条类型、间隔条、SELECT 和 METER 的选择 |
 | `plugins.xml` | 找到的插件，以及每个插件的测试结果 |
 | `events.log` | 发生过的一切(达到 5 MB 时轮换) |

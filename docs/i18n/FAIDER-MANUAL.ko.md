@@ -113,7 +113,7 @@ VB-CABLE은 다른 앱이 고를 수 있는 가상 마이크를 만들어 줍니
 
 ### 3단계: Faider 시작
 
-시작 메뉴를 열고 **Faider**을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 **SETUP**으로 열립니다.
+시작 메뉴를 열고 **Faider**을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 **SETUP**이 별도 창으로 열립니다.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -141,7 +141,7 @@ SETUP은 페이지마다 하나씩 네 가지 질문을 하고, 답에 맞춰 �
 
 마이크는 자신의 헤드폰으로는 라우팅되지 않으므로, 지연된 내 목소리의 에코가 들리지 않습니다. 자신의 소리를 듣고 싶으면 마이크의 **HEADPHONES** 키를 켜세요(6단계).
 
-SETUP은 사이드바에 남아 있습니다. 장치나 프로그램을 추가할 때마다 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.
+SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 **FIND**(**SETUP: BUILD A MIX**)나 SIMPLE의 **SETUP** 키로 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -213,7 +213,7 @@ SETUP은 사이드바에 남아 있습니다. 장치나 프로그램을 추가�
 
 ### 사이드바
 
-페이지는 왼쪽에 세로로 놓인 카드입니다. **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**, **SETTINGS**. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다(SIMPLE에서는 **ADD CHANNEL**과 **ADD APP**만).
+페이지는 왼쪽에 세로로 놓인 카드입니다. **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**, **SETTINGS**. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다(SIMPLE에서는 **ADD CHANNEL**과 **ADD APP**만).
 
 | 그룹 | 카드 | 기능 |
 |---|---|---|
@@ -852,6 +852,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | 카드 | 설정 |
 |---|---|
+| **LOOK** | **LOOK...**: 데스크의 색과 글꼴을 LOOK 파일에서 가져옵니다 (아래 [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: 로그인할 때 트레이에서 열림 |
 | **DESK** | **WARN IF I TALK WHILE MUTED**(음소거된 마이크가 -30 dBFS를 넘으면 알림) |
 | **APPS** | **APP RULES...**: 프로그램이 재생을 시작할 때 어느 버스나 출력으로 갈지(**FIND**에서도 열 수 있음). 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다 |
@@ -864,6 +865,24 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **ABOUT** | 버전과 크레딧 |
 
 <a id="macros"></a>
+
+### LOOKS
+
+**LOOK**은 데스크가 그리는 데 쓰는 모든 색에 글꼴과 함께 쓰는 크기를 담은 것입니다. 스트립, 수치 표시, 노브, 키, 램프가 모두 실행 중인 LOOK에서 그리기 때문에, LOOK 하나를 바꾸면 데스크 전체가 한꺼번에 바뀝니다.
+
+**LOOK...**은 가지고 있는 LOOK을 나열하고 고른 것을 실행합니다. 바뀌는 즉시 데스크가 다시 그려집니다. **SAVE THIS LOOK AS...**는 실행 중인 LOOK을 당신이 지은 이름으로 새 파일에 씁니다.
+
+LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으로 써서 다른 기기로 복사할 수도 있습니다. 파일이 없거나 망가졌다면 기본 LOOK이 그대로 남고, 파일이 생략한 것은 기본 값으로 돌아갑니다. 끝까지 쓰지 않은 파일도 계속 동작합니다.
+
+| | |
+|---|---|
+| `name` | 목록에 나타나는 LOOK의 이름 |
+| `font` | Windows가 함께 제공하는 글꼴. 데스크의 작은 크기도 선명하게 유지됩니다 |
+| `keyRadius` | 키 모서리의 둥근 정도, 픽셀 단위 |
+| `fontSizes` | `legend`, `caption`, `readout`: 세 가지 인쇄 크기 |
+| `colours` | 모든 색은 `#rrggbb`, 일부가 반투명하면 `#rrggbbaa` |
+
+색은 데스크의 부분 이름으로 붙어 있습니다: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`, `legendDim`, `namePlate`. 키 윗면이 `capTop`, `capBottom`, `capText`. 페이더의 인쇄 판이 `plateColour`. 수치 표시가 `screenLit`, `screenGlass`, `screenBezel`. 기능별 노브가 `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`. 램프가 `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`. `selection`은 작업 중인 것의 빛이고, `shadow`와 `highlight`는 면이 그려지는 그늘입니다.
 
 ### MACROS
 
@@ -1150,6 +1169,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. 헤드폰이나 스
 | `sessions\` | 이름 붙인 믹스 |
 | `session-unloaded-*.xml` | 시작할 때 따로 보관된 믹스 |
 | `settings.xml` | 환경 설정 |
+| `looks\` | LOOK들 (각각 JSON 파일 하나, 아래 [LOOKS](#looks)) |
 | `console.xml` | 스트립 종류, 스페이서, SELECT와 METER 선택 |
 | `plugins.xml` | 찾은 플러그인과 각각의 테스트 결과 |
 | `events.log` | 일어난 모든 일(5 MB에서 교체) |

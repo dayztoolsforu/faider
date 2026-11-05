@@ -113,7 +113,7 @@ VB-CABLE を使うと、他のアプリが選べる仮想マイクができま�
 
 ### ステップ 3: Faider を起動する
 
-スタートメニューを開いて **Faider** をクリックします(作成した場合はデスクトップのショートカットでも起動できます)。初回は **SETUP** で開きます。
+スタートメニューを開いて **Faider** をクリックします(作成した場合はデスクトップのショートカットでも起動できます)。初回は **SETUP** が別のウィンドウで開きます。
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -141,7 +141,7 @@ SETUP は 1 ページに 1 つ、4 つの質問をして、答えに合わせて
 
 マイクは自分のヘッドホンにはルーティングされないので、遅れて返ってくる自分の声のエコーは聞こえません。自分の声を聞きたいときは、マイクの **HEADPHONES** キーを点灯させます(ステップ 6)。
 
-SETUP はサイドバーに残ります。デバイスやプログラムを追加したら、いつでも実行し直せます。足りないものを追加するだけで、何も削除しません。
+SETUP はページではありません。デバイスやプログラムを追加したら、**FIND**(**SETUP: BUILD A MIX**) や SIMPLE の **SETUP** キーからいつでも実行し直せます。足りないものを追加するだけで、何も削除しません。
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -213,7 +213,7 @@ SETUP はサイドバーに残ります。デバイスやプログラムを追�
 
 ### サイドバー
 
-ページは左に縦に並んだカードです。**MIXER**、**ROUTING**、**SETUP**、**TOOLS**、**DEVICES**、**SETTINGS**。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます(SIMPLE では **ADD CHANNEL** と **ADD APP** だけです)。
+ページは左に縦に並んだカードです。**MIXER**、**ROUTING**、**TOOLS**、**DEVICES**、**SETTINGS**。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます(SIMPLE では **ADD CHANNEL** と **ADD APP** だけです)。
 
 | グループ | カード | 働き |
 |---|---|---|
@@ -852,6 +852,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 | カード | 設定 |
 |---|---|
+| **LOOK** | **LOOK...**: 卓の色と書体を LOOK ファイルから取ります(下記 [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: サインイン時にトレイで開きます |
 | **DESK** | **WARN IF I TALK WHILE MUTED**(ミュート中のマイクが -30 dBFS を超えたときの通知) |
 | **APPS** | **APP RULES...**: プログラムが再生を始めたとき、どのバスや出力へ送るか(**FIND** からも開けます)。プログラムのチャンネルを削除すると、そのルールも削除されます |
@@ -864,6 +865,24 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 | **ABOUT** | バージョンとクレジット |
 
 <a id="macros"></a>
+
+### LOOKS
+
+**LOOK** は、卓が描くのに使うすべての色に、書体と、それに見えるサイズまで含めたものです。ストリップも、数値表示も、ノブも、キーも、ランプも、有効な LOOK から描くので、LOOK を一つ変えると卓全体が同時に変わります。
+
+**LOOK...** は手元にある LOOK を並べ、選んだものを有効にします。変わった瞬間に卓は描き直されます。**SAVE THIS LOOK AS...** は、有効な LOOK を、あなたが付けた名前で新しいファイルに書き出します。
+
+LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。手で書いて、別のマシンにコピーすることもできます。ファイルが無かったり壊れていたりすれば組み込みの LOOK がそのまま残り、ファイルに書かれていない項目は組み込みの値に戻ります。途中でやめたファイルでも使えます。
+
+| | |
+|---|---|
+| `name` | 一覧に表われる LOOK の名前 |
+| `font` | Windows に添付されている書体。卓の小さいサイズでもくっきりします |
+| `keyRadius` | キーの角の丸さ。ピクセル数 |
+| `fontSizes` | `legend`、`caption`、`readout`: 文字の 3 つのサイズ |
+| `colours` | すべての色。`#rrggbb`、半透明の箇所があるときは `#rrggbbaa` |
+
+色は卓の部位の名前で並びます: `background`、`panel`、`panelDark`、`rim`、`slot`、`legend`、`legendDim`、`namePlate`。キーの天板が `capTop`、`capBottom`、`capText`。フェーダーの印刷盤が `plateColour`。数値表示が `screenLit`、`screenGlass`、`screenBezel`。機能別のノブが `knobGrey`、`knobRed`、`knobGreen`、`knobBlue`、`knobBrown`。ランプが `ledGreen`、`ledYellow`、`ledRed`、`ledBlue`、`muteLamp`、`soloLamp`、`powerLamp`。`selection` は作業中の対象の光、`shadow` と `highlight` は面が描かれるときの陰影です。
 
 ### MACROS
 
@@ -1150,6 +1169,7 @@ Windows がケーブルを既定のデバイスにしています。ヘッドホ
 | `sessions\` | 名前付きのミックス |
 | `session-unloaded-*.xml` | 起動時に別に保管されたミックス |
 | `settings.xml` | 環境設定 |
+| `looks\` | LOOK(一つにつき JSON ファイル 1 つ、下記 [LOOKS](#looks)) |
 | `console.xml` | ストリップの種類、スペーサー、SELECT と METER の選択 |
 | `plugins.xml` | 見つかったプラグインと、それぞれのテスト結果 |
 | `events.log` | 起こったことすべて(5 MB でローテーション) |

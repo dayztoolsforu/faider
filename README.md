@@ -60,9 +60,7 @@ and tape, and output strips with a bus compressor. On the Routing page every str
 its place on the desk. Click one block, then another, and the route between them goes on or off.
 
 **SIMPLE** shows the same mix with the processing hidden: each channel's fader, meter, CUT, SOLO and
-a big key for every output. **SETUP** builds a mix from four questions (where you listen, your
-microphones, how apps hear you, which programs get a channel). It opens on the first start. The
-switch in the top bar flips the whole console between SIMPLE and PRO.
+a big key for every output. The switch in the top bar flips the whole console between SIMPLE and PRO.
 
 | | |
 |---|---|

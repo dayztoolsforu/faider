@@ -136,7 +136,7 @@ Standardlautsprecher von Windows das Kabel, meldet PRE-FLIGHT das unter **HEARD 
 ### Schritt 3: Faider starten
 
 Öffne das Startmenü und klicke auf **Faider** (oder nimm die Desktop-Verknüpfung, falls du eine angelegt hast).
-Beim ersten Mal öffnet es sich auf **SETUP**.
+Beim ersten Mal öffnet sich **SETUP** in einem eigenen Fenster.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -169,8 +169,8 @@ Was jede Antwort erzeugt:
 Deine Mikrofone werden nicht auf deine eigenen Kopfhörer geroutet, damit du kein verzögertes Echo deiner
 Stimme hörst. Um dich selbst zu hören, schalte die Taste **HEADPHONES** des Mikrofons ein (Schritt 6).
 
-SETUP bleibt in der Seitenleiste. Starte es erneut, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was
-fehlt, und entfernt nie etwas.
+SETUP ist keine Seite: starte es über **FIND** (**SETUP: BUILD A MIX**) oder die **SETUP**-Taste in
+SIMPLE neu, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was fehlt, und entfernt nie etwas.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -262,7 +262,7 @@ Damit ist die Einrichtung fertig. Der Rest dieses Handbuchs behandelt jeden Teil
 
 ### Die Seitenleiste
 
-Die Seiten sind Karten am linken Rand: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+Die Seiten sind Karten am linken Rand: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Die aktuelle Seite hat einen leuchtend blauen Rand. Solange der Mixer zu sehen ist, hat die Seitenleiste außerdem
 diese Karten (in SIMPLE nur **ADD CHANNEL** und **ADD APP**):
 
@@ -991,6 +991,7 @@ Mix beginnt. Siehe [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 | Karte | Einstellungen |
 |---|---|
+| **LOOK** | **LOOK...**: die Farben und die Schrift des Pults, aus einer LOOK-Datei (siehe [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: öffnet im Tray, wenn du dich anmeldest |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (eine Meldung, wenn ein stummes Mikrofon über -30 dBFS liegt) |
 | **APPS** | **APP RULES...**: auf welchen Bus oder Ausgang ein Programm geht, wenn es zu spielen beginnt (auch in **FIND**). Das Entfernen des Kanals eines Programms entfernt seine Regel |
@@ -1003,6 +1004,36 @@ Mix beginnt. Siehe [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ABOUT** | Version und Danksagung |
 
 <a id="macros"></a>
+
+### LOOKS
+
+Ein **LOOK** ist jede Farbe, mit der das Pult zeichnet, dazu die Schrift und die Größen, die dazugehören.
+Die Strips, die Anzeigen, die Regler, die Tasten und die Lampen zeichnen alle aus dem LOOK, der gerade
+gilt — ein LOOK verändert also das ganze Pult auf einmal.
+
+**LOOK...** listet, welche LOOKS du hast, und setzt den gewählten in Kraft; das Pult wird in dem
+Augenblick neu gezeichnet, in dem er sich ändert. **SAVE THIS LOOK AS...** schreibt den LOOK, der gilt,
+in eine neue Datei unter einem Namen, den du angibst.
+
+Ein LOOK ist eine Datei in `%APPDATA%\Faider\looks`, als JSON geschrieben — du kannst sie also von Hand
+schreiben und auf einen anderen Rechner kopieren. Eine fehlende oder beschädigte Datei lässt den
+eingebauten LOOK stehen, und was eine Datei auslässt, fällt auf den eingebauten Wert zurück: eine
+teilweise geschriebene Datei funktioniert weiter.
+
+| | |
+|---|---|
+| `name` | Der Name des LOOKS, wie er in der Liste erscheint |
+| `font` | Eine Schrift, die Windows mitliefert, damit sie auf dem Pult klein scharf bleibt |
+| `keyRadius` | Wie rund die Ecken einer Taste sind, in Pixeln |
+| `fontSizes` | `legend`, `caption`, `readout`: die drei Schriftgrößen |
+| `colours` | Jede Farbe als `#rrggbb`, oder `#rrggbbaa`, wo ein Teil durchsichtig ist |
+
+Die Farben heißen nach den Teilen des Pults: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; die Tastenkappen `capTop`, `capBottom`, `capText`; die gedruckte Platte der
+Fader `plateColour`; die Anzeigen `screenLit`, `screenGlass`, `screenBezel`; die Regler nach Funktion
+`knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; die Lampen `ledGreen`, `ledYellow`,
+`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, das Licht des ausgewählten Stücks;
+sowie `shadow` und `highlight`, die Schattierung, mit der die Felder gezeichnet werden.
 
 ### MACROS
 
@@ -1338,6 +1369,7 @@ In `%APPDATA%\Faider`:
 | `sessions\` | Benannte Mixe |
 | `session-unloaded-*.xml` | Beim Start beiseitegelegte Mixe |
 | `settings.xml` | Einstellungen |
+| `looks\` | Die LOOKS, je eine JSON-Datei (siehe [LOOKS](#looks)) |
 | `console.xml` | Strip-Typen, Spacer, Wahl bei SELECT und METER |
 | `plugins.xml` | Die gefundenen Plugins und wie jedes getestet wurde |
 | `events.log` | Alles, was passiert ist (rotiert bei 5 MB) |

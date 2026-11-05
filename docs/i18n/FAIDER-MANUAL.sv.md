@@ -136,7 +136,7 @@ standardhögtalare är kabeln rapporterar PRE-FLIGHT det under **HEARD ONCE**.
 ### Steg 3: Starta Faider
 
 Öppna Start-menyn och klicka på **Faider** (eller använd genvägen på skrivbordet, om du skapade en).
-Första gången öppnas den på **SETUP**.
+Första gången öppnas **SETUP** i ett eget fönster.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -169,8 +169,8 @@ Vad varje svar skapar:
 Dina mikrofoner routas inte till dina egna hörlurar, så du hör inget fördröjt eko av din
 röst. För att höra dig själv tänder du mikrofonens tangent **HEADPHONES** (steg 6).
 
-SETUP finns kvar i sidofältet. Kör den igen när du lägger till en enhet eller ett program. Den lägger till det som
-saknas och tar aldrig bort något.
+SETUP är ingen sida: kör den igen från **FIND** (**SETUP: BUILD A MIX**) eller **SETUP**-tangenten i SIMPLE
+när du lägger till en enhet eller ett program. Den lägger till det som saknas och tar aldrig bort något.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -262,7 +262,7 @@ Det var installationen. Resten av den här handboken går igenom varje del i det
 
 ### Sidofältet
 
-Sidorna är kort längs vänster kant: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+Sidorna är kort längs vänster kant: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Sidan som visas har en lysande blå kant. Medan Mixer visas har sidofältet också
 de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 
@@ -992,6 +992,7 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 | Kort | Inställningar |
 |---|---|
+| **LOOK** | **LOOK...**: bordets färger och typsnitt, från en LOOK-fil (se [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: öppnas i aktivitetsfältets notisyta när du loggar in |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (en notis när en ljudlös mikrofon ligger över -30 dBFS) |
 | **APPS** | **APP RULES...**: vilken buss eller utgång ett program går till när det börjar spela (finns också i **FIND**). Att ta bort ett programs kanal tar bort dess regel |
@@ -1004,6 +1005,34 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ABOUT** | Version och tack |
 
 <a id="macros"></a>
+
+### LOOKS
+
+En **LOOK** är varje färg bordet ritar med, tillsammans med typsnittet och de storlekar som hör till.
+Stripsarna, displayerna, reglagen, tangenterna och lamporna ritar alla från den LOOK som gäller, så en
+LOOK ändrar hela bordet på en gång.
+
+**LOOK...** listar de LOOK:ar du har och sätter den du väljer i kraft; bordet ritas om i det ögonblick den
+ändras. **SAVE THIS LOOK AS...** skriver LOOK:en som gäller till en ny fil med ett namn du ger den.
+
+En LOOK är en fil i `%APPDATA%\Faider\looks`, skriven som JSON, så du kan skriva den för hand och kopiera
+den till en annan dator. En fil som saknas eller är trasig låter den inbyggda LOOK:en stå kvar, och det en
+fil utelämnar faller tillbaka på det inbyggda värdet: en halvskriven fil fungerar ändå.
+
+| | |
+|---|---|
+| `name` | LOOK:ens namn, som det visas i listan |
+| `font` | Ett typsnitt Windows levererar med, så det håller sig skarpt på bordets små storlekar |
+| `keyRadius` | Hur rundade en tangents hörn är, i pixlar |
+| `fontSizes` | `legend`, `caption`, `readout`: de tre textstorlekarna |
+| `colours` | Varje färg, som `#rrggbb`, eller `#rrggbbaa` där en del är genomskinlig |
+
+Färgerna bär namn efter bordets delar: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; tangenterna `capTop`, `capBottom`, `capText`; den tryckta plattan under faderna
+`plateColour`; displayerna `screenLit`, `screenGlass`, `screenBezel`; reglagen efter funktion `knobGrey`,
+`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lamporna `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
+`muteLamp`, `soloLamp`, `powerLamp`; `selection`, ljuset på det du arbetar med; och `shadow` och
+`highlight`, nyanseringen som fälten ritas med.
 
 ### MACROS
 
@@ -1339,6 +1368,7 @@ I `%APPDATA%\Faider`:
 | `sessions\` | Namngivna mixar |
 | `session-unloaded-*.xml` | Mixar som lagts åt sidan vid start |
 | `settings.xml` | Inställningar |
+| `looks\` | LOOK:arna, en JSON-fil vardera (se [LOOKS](#looks)) |
 | `console.xml` | Striptyper, spacers, val under SELECT och METER |
 | `plugins.xml` | Pluginen som hittats och hur vart och ett testades |
 | `events.log` | Allt som hände (roterar vid 5 MB) |

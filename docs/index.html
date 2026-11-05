@@ -266,14 +266,6 @@
       <img src="images/console/simple.jpg" alt="The SIMPLE desk: faders, meters and a key per output">
     </article>
 
-    <article class="feature reveal">
-      <div class="copy">
-        <h2>Set up in four questions</h2>
-        <p>On the first start, SETUP asks where you listen, which microphones you use, how apps should hear you and which programs get a channel. Then it builds the mix.</p>
-      </div>
-      <img src="images/console/setup.jpg" alt="SETUP asking which microphones you speak into">
-    </article>
-
     <article class="feature flip reveal">
       <div class="copy">
         <h2>Pads, tape and a recorder</h2>
@@ -554,7 +546,7 @@ route it, and each app picks <strong>CABLE Output</strong> as its microphone its
 speaker is the cable, PRE-FLIGHT reports it under <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Step 3: Start Faider</h3>
 <p>Open the Start menu and click <strong>Faider</strong> (or use the desktop shortcut, if you made one).
-The first time, it opens on <span class="key">SETUP</span>.</p>
+The first time, <span class="key">SETUP</span> opens in its own window.</p>
 <h3 id="step-4-answer-setups-four-questions">Step 4: Answer SETUP's four questions</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUP&#x27;s microphones page: IN 1 and the headset mic chosen"><img data-shot="images/console/setup.jpg" alt="SETUP&#x27;s microphones page: IN 1 and the headset mic chosen" loading="lazy"></button><figcaption>SETUP&#x27;s microphones page: IN 1 and the headset mic chosen</figcaption></figure></div>
 <p>SETUP asks four questions, one per page, and builds your mix from your answers. Click the cards to
@@ -599,8 +591,8 @@ goes back.</p>
 </table></div>
 <p>Your microphones aren't routed to your own headphones, so you don't hear a delayed echo of your
 voice. To hear yourself, light the mic's <span class="key">HEADPHONES</span> key (step 6).</p>
-<p>SETUP stays in the sidebar. Run it again whenever you add a device or a program. It adds what's
-missing and never removes anything.</p>
+<p>SETUP is not a page: run it again from <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>), or the <span class="key">SETUP</span> key in
+SIMPLE, whenever you add a device or a program. It adds what's missing and never removes anything.</p>
 <h3 id="step-5-check-the-audio-is-running">Step 5: Check the audio is running</h3>
 <p>Look at the <strong>health light</strong> at the top right.</p>
 <ul>
@@ -678,7 +670,7 @@ attention (not on the very first start, when SETUP comes first). Run it any time
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>The window</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="The Mixer page with a demo mix: two microphones, two app channels, the pads and the tape, three buses and two outputs"><img data-shot="images/console/mixer.jpg" alt="The Mixer page with a demo mix: two microphones, two app channels, the pads and the tape, three buses and two outputs" loading="lazy"></button><figcaption>The Mixer page with a demo mix: two microphones, two app channels, the pads and the tape, three buses and two outputs</figcaption></figure></div>
 <h3 id="the-sidebar">The sidebar</h3>
-<p>The pages are cards down the left: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>The pages are cards down the left: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. The page showing has a lit blue edge. While the Mixer shows, the sidebar also has
 these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -1738,6 +1730,10 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: the console's colours and typeface, from a look file (see <a href="#looks">Looks</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: opens in the tray when you sign in</td>
 </tr>
@@ -1779,6 +1775,52 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>A <strong>look</strong> is every colour the console paints with, together with the typeface and the sizes that go
+with it. The strips, the readouts, the knobs, the keys and the lamps all draw from the look in force,
+so one look changes the whole desk at once.</p>
+<p><span class="key">LOOK...</span> lists the looks you have and puts the one you choose in force; the desk is drawn again the
+moment it changes. <span class="key">SAVE THIS LOOK AS...</span> writes the look in force to a new file under a name you
+give it.</p>
+<p>A look is one file in <code>%APPDATA%\Faider\looks</code>, written as JSON, so you can write one by hand and copy
+it to another machine. A file that is missing or broken leaves the built-in look in place, and whatever
+a file leaves out falls back to the built-in value: a part-written file still works.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>The look's name, as it appears in the list</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>One typeface Windows ships with, so it stays crisp at the desk's small sizes</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>How round a key's corners are, in pixels</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: the three printing sizes</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Every colour, as <code>#rrggbb</code>, or <code>#rrggbbaa</code> where a part is see-through</td>
+</tr>
+</tbody>
+</table></div>
+<p>The colours are the desk's parts by name: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; the key caps <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; the faders' printed plate
+<code>plateColour</code>; the readouts <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; the knobs by function <code>knobGrey</code>,
+<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; the lamps <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
+<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, the light of the one you are working on; and <code>shadow</code>
+and <code>highlight</code>, the shading the panels are drawn with.</p>
 <h3 id="macros">MACROS</h3>
 <p>A macro is a list of <strong>actions</strong> run from a hotkey, a pad, a trigger or remote control.</p>
 <ol>
@@ -2167,6 +2209,10 @@ and as the default communication devices. See <a href="#step-2-install-vb-cable-
 <td>Preferences</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>The looks: one JSON file each (see <a href="#looks">Looks</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Strip types, spacers, SELECT and METER choices</td>
 </tr>
@@ -2408,7 +2454,7 @@ el cable donde tú lo enrutas, y cada aplicación elige <strong>CABLE Output</st
 ONCE</strong>.</p>
 <h3 id="step-3-start-faider">Paso 3: iniciar Faider</h3>
 <p>Abre el menú Inicio y haz clic en <strong>Faider</strong> (o usa el acceso directo del escritorio, si
-creaste uno). La primera vez se abre en <span class="key">SETUP</span>.</p>
+creaste uno). La primera vez, <span class="key">SETUP</span> se abre en su propia ventana.</p>
 <h3 id="step-4-answer-setups-four-questions">Paso 4: responder las cuatro preguntas de SETUP</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La página de micrófonos de SETUP: IN 1 y el micro de los auriculares elegidos"><img data-shot="images/console/setup.jpg" alt="La página de micrófonos de SETUP: IN 1 y el micro de los auriculares elegidos" loading="lazy"></button><figcaption>La página de micrófonos de SETUP: IN 1 y el micro de los auriculares elegidos</figcaption></figure></div>
 <p>SETUP hace cuatro preguntas, una por página, y construye tu mezcla con tus respuestas. Haz clic en
@@ -2454,8 +2500,8 @@ avanza, <span class="key">BACK</span> retrocede.</p>
 </table></div>
 <p>Tus micrófonos no se enrutan a tus propios auriculares, así que no oyes un eco retardado de tu voz.
 Para oírte, enciende la tecla <span class="key">HEADPHONES</span> del micro (paso 6).</p>
-<p>SETUP se queda en la barra lateral. Vuelve a ejecutarlo cada vez que añadas un dispositivo o un
-programa. Añade lo que falta y nunca quita nada.</p>
+<p>SETUP no es una página: vuelve a ejecutarlo desde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) o desde la tecla
+<span class="key">SETUP</span> de SIMPLE cada vez que añadas un dispositivo o un programa. Añade lo que falta y nunca quita nada.</p>
 <h3 id="step-5-check-the-audio-is-running">Paso 5: comprobar que el audio funciona</h3>
 <p>Mira la <strong>luz de estado</strong> arriba a la derecha.</p>
 <ul>
@@ -2537,7 +2583,7 @@ verde. Consulta <a href="#181-pre-flight">18.1</a>.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>La ventana</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La página Mixer con una mezcla de demostración: dos micrófonos, dos canales de aplicaciones, los pads y la cinta, tres buses y dos salidas"><img data-shot="images/console/mixer.jpg" alt="La página Mixer con una mezcla de demostración: dos micrófonos, dos canales de aplicaciones, los pads y la cinta, tres buses y dos salidas" loading="lazy"></button><figcaption>La página Mixer con una mezcla de demostración: dos micrófonos, dos canales de aplicaciones, los pads y la cinta, tres buses y dos salidas</figcaption></figure></div>
 <h3 id="the-sidebar">La barra lateral</h3>
-<p>Las páginas son tarjetas a lo largo de la izquierda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>,
+<p>Las páginas son tarjetas a lo largo de la izquierda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La página que se muestra tiene un borde azul encendido. Mientras se
 muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, solo <span class="key">ADD CHANNEL</span> y
 <span class="key">ADD APP</span>):</p>
@@ -3621,6 +3667,10 @@ cuadrados que brillan en color crema cuando están activados.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: los colores y el tipo de letra de la mesa, desde un archivo LOOK (ver <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: se abre en la bandeja cuando inicias sesión</td>
 </tr>
@@ -3662,6 +3712,51 @@ cuadrados que brillan en color crema cuando están activados.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Un <span class="key">LOOK</span> es cada color con el que se dibuja la mesa, junto con el tipo de letra y los tamaños que lo
+acompañan. Los strips, las lecturas, los mandos, las teclas y las lámparas se dibujan todas desde el LOOK
+en vigor, así que un LOOK cambia la mesa entera de golpe.</p>
+<p><span class="key">LOOK...</span> lista los LOOK que tienes y pone en vigor el que elijas; la mesa se dibuja de nuevo en cuanto
+cambia. <span class="key">SAVE THIS LOOK AS...</span> escribe el LOOK en vigor en un archivo nuevo con el nombre que le des.</p>
+<p>Un LOOK es un archivo en <code>%APPDATA%\Faider\looks</code>, escrito como JSON, así que puedes escribirlo a mano y
+copiarlo a otra máquina. Un archivo que falta o está roto deja en su sitio el LOOK integrado, y lo que un
+archivo omita vuelve al valor integrado: un archivo escrito a medias sigue funcionando.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>El nombre del LOOK, tal como aparece en la lista</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Un tipo de letra que Windows incluye, para que se vea nítido en los tamaños pequeños</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Lo redondeadas que son las esquinas de una tecla, en píxeles</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: los tres tamaños de texto</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Cada color, como <code>#rrggbb</code>, o <code>#rrggbbaa</code> donde una parte es transparente</td>
+</tr>
+</tbody>
+</table></div>
+<p>Los colores llevan el nombre de cada parte de la mesa: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
+<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; las teclas <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; la placa impresa de los
+faders <code>plateColour</code>; las lecturas <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; los mandos por función
+<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; las lámparas <code>ledGreen</code>, <code>ledYellow</code>,
+<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, la luz de lo que tienes
+seleccionado; y <code>shadow</code> y <code>highlight</code>, el sombreado con el que se dibujan los campos.</p>
 <h3 id="macros">MACROS</h3>
 <p>Una macro es una lista de <strong>acciones</strong> que se ejecutan desde un atajo de teclado, un pad, un
 disparador o un control remoto.</p>
@@ -4065,6 +4160,10 @@ Consulta el <a href="#step-2-install-vb-cable-optional">paso 2</a>.</p>
 <td>Preferencias</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>Los LOOKS: un archivo JSON cada uno (ver <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Tipos de strip, separadores, opciones de SELECT y METER</td>
 </tr>
@@ -4306,7 +4405,7 @@ comme microphone (étape 6). Si le haut-parleur par défaut de Windows est le c�
 signale sous <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Étape 3 : démarrer Faider</h3>
 <p>Ouvrez le menu Démarrer et cliquez sur <strong>Faider</strong> (ou utilisez le raccourci du bureau, si
-vous en avez créé un). La première fois, l'application s'ouvre sur <span class="key">SETUP</span>.</p>
+vous en avez créé un). La première fois, <span class="key">SETUP</span> s'ouvre dans sa propre fenêtre.</p>
 <h3 id="step-4-answer-setups-four-questions">Étape 4 : répondre aux quatre questions de SETUP</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La page des microphones de SETUP : IN 1 et le micro du casque choisis"><img data-shot="images/console/setup.jpg" alt="La page des microphones de SETUP : IN 1 et le micro du casque choisis" loading="lazy"></button><figcaption>La page des microphones de SETUP : IN 1 et le micro du casque choisis</figcaption></figure></div>
 <p>SETUP pose quatre questions, une par page, et construit votre mix d'après vos réponses. Cliquez sur
@@ -4353,8 +4452,8 @@ les cartes pour choisir. Sur toutes les pages sauf la troisième, vous pouvez en
 </table></div>
 <p>Vos microphones ne sont pas routés vers votre propre casque, donc vous n'entendez pas d'écho
 retardé de votre voix. Pour vous entendre, allumez la touche <span class="key">HEADPHONES</span> du micro (étape 6).</p>
-<p>SETUP reste dans la barre latérale. Relancez-le chaque fois que vous ajoutez un périphérique ou un
-programme. Il ajoute ce qui manque et ne retire jamais rien.</p>
+<p>SETUP n'est pas une page : relancez-le depuis <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) ou la touche <span class="key">SETUP</span>
+de SIMPLE chaque fois que vous ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.</p>
 <h3 id="step-5-check-the-audio-is-running">Étape 5 : vérifier que l'audio fonctionne</h3>
 <p>Regardez le <strong>voyant d'état</strong> en haut à droite.</p>
 <ul>
@@ -4437,7 +4536,7 @@ Chaque ligne doit être verte. Voir <a href="#181-pre-flight">18.1</a>.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>La fenêtre</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La page Mixer avec un mix de démonstration : deux microphones, deux canaux d&#x27;applications, les pads et la bande, trois bus et deux sorties"><img data-shot="images/console/mixer.jpg" alt="La page Mixer avec un mix de démonstration : deux microphones, deux canaux d&#x27;applications, les pads et la bande, trois bus et deux sorties" loading="lazy"></button><figcaption>La page Mixer avec un mix de démonstration : deux microphones, deux canaux d&#x27;applications, les pads et la bande, trois bus et deux sorties</figcaption></figure></div>
 <h3 id="the-sidebar">La barre latérale</h3>
-<p>Les pages sont des cartes le long de la gauche : <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>,
+<p>Les pages sont des cartes le long de la gauche : <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La page affichée a un bord bleu allumé. Pendant que le Mixer est
 affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement <span class="key">ADD CHANNEL</span> et <span class="key">ADD APP</span>) :</p>
 <div class="table-wrap"><table>
@@ -5532,6 +5631,10 @@ en crème quand ils sont activés.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span> : les couleurs et le type de lettres du pupitre, depuis un fichier LOOK (voir <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span> : s'ouvre dans la zone de notification quand vous ouvrez votre session</td>
 </tr>
@@ -5573,6 +5676,52 @@ en crème quand ils sont activés.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Un <span class="key">LOOK</span> est chaque couleur dont le pupitre se dessine, avec le type de lettres et les tailles qui
+vont avec. Les tranches, les affichages, les boutons, les touches et les lampes se dessinent tous depuis
+le LOOK en vigueur : un seul LOOK change donc tout le pupitre à la fois.</p>
+<p><span class="key">LOOK...</span> liste les LOOK que vous avez et met en vigueur celui que vous choisissez ; le pupitre est
+redessiné dès qu'il change. <span class="key">SAVE THIS LOOK AS...</span> écrit le LOOK en vigueur dans un nouveau fichier,
+sous le nom que vous lui donnez.</p>
+<p>Un LOOK est un fichier dans <code>%APPDATA%\Faider\looks</code>, écrit en JSON : vous pouvez donc l'écrire à la
+main et le copier sur une autre machine. Un fichier absent ou abîmé laisse en place le LOOK intégré, et
+ce qu'un fichier omet revient à la valeur intégrée : un fichier écrit à moitié fonctionne quand même.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Le nom du LOOK, tel qu'il apparaît dans la liste</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Un type de lettres fourni par Windows, net aux petites tailles du pupitre</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>L'arrondi des coins d'une touche, en pixels</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code> : les trois tailles de texte</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Chaque couleur, en <code>#rrggbb</code>, ou <code>#rrggbbaa</code> quand une partie est transparente</td>
+</tr>
+</tbody>
+</table></div>
+<p>Les couleurs portent le nom des parties du pupitre : <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
+<code>legend</code>, <code>legendDim</code>, <code>namePlate</code> ; les touches <code>capTop</code>, <code>capBottom</code>, <code>capText</code> ; la plaque imprimée
+des faders <code>plateColour</code> ; les affichages <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code> ; les boutons par
+fonction <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code> ; les lampes <code>ledGreen</code>,
+<code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code> ; <code>selection</code>, la lumière de ce
+sur quoi vous travaillez ; et <code>shadow</code> et <code>highlight</code>, l'ombrage dont les champs se dessinent.</p>
 <h3 id="macros">MACROS</h3>
 <p>Une macro est une liste d'<strong>actions</strong> lancées depuis un raccourci clavier, un pad, un déclencheur ou
 une télécommande.</p>
@@ -5978,6 +6127,10 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 <td>Préférences</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>Les LOOKS : un fichier JSON chacun (voir <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Types de tranche, espaceurs, choix de SELECT et de METER</td>
 </tr>
@@ -6213,7 +6366,7 @@ Kabel, wenn du dorthin routest, und jede App wählt <strong>CABLE Output</strong
 Standardlautsprecher von Windows das Kabel, meldet PRE-FLIGHT das unter <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Schritt 3: Faider starten</h3>
 <p>Öffne das Startmenü und klicke auf <strong>Faider</strong> (oder nimm die Desktop-Verknüpfung, falls du eine angelegt hast).
-Beim ersten Mal öffnet es sich auf <span class="key">SETUP</span>.</p>
+Beim ersten Mal öffnet sich <span class="key">SETUP</span> in einem eigenen Fenster.</p>
 <h3 id="step-4-answer-setups-four-questions">Schritt 4: Die vier Fragen von SETUP beantworten</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Die Mikrofonseite von SETUP: IN 1 und das Headset-Mikrofon sind gewählt"><img data-shot="images/console/setup.jpg" alt="Die Mikrofonseite von SETUP: IN 1 und das Headset-Mikrofon sind gewählt" loading="lazy"></button><figcaption>Die Mikrofonseite von SETUP: IN 1 und das Headset-Mikrofon sind gewählt</figcaption></figure></div>
 <p>SETUP stellt vier Fragen, eine pro Seite, und baut aus deinen Antworten deinen Mix. Wähle mit einem Klick auf die Karten.
@@ -6258,8 +6411,8 @@ geht zurück.</p>
 </table></div>
 <p>Deine Mikrofone werden nicht auf deine eigenen Kopfhörer geroutet, damit du kein verzögertes Echo deiner
 Stimme hörst. Um dich selbst zu hören, schalte die Taste <span class="key">HEADPHONES</span> des Mikrofons ein (Schritt 6).</p>
-<p>SETUP bleibt in der Seitenleiste. Starte es erneut, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was
-fehlt, und entfernt nie etwas.</p>
+<p>SETUP ist keine Seite: starte es über <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) oder die <span class="key">SETUP</span>-Taste in
+SIMPLE neu, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was fehlt, und entfernt nie etwas.</p>
 <h3 id="step-5-check-the-audio-is-running">Schritt 5: Prüfen, ob das Audio läuft</h3>
 <p>Sieh dir das <strong>Gesundheitslicht</strong> oben rechts an.</p>
 <ul>
@@ -6337,7 +6490,7 @@ Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren, Plug
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>Das Fenster</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Die Seite Mixer mit einem Demo-Mix: zwei Mikrofone, zwei App-Kanäle, die Pads und das Tape, drei Busse und zwei Ausgänge"><img data-shot="images/console/mixer.jpg" alt="Die Seite Mixer mit einem Demo-Mix: zwei Mikrofone, zwei App-Kanäle, die Pads und das Tape, drei Busse und zwei Ausgänge" loading="lazy"></button><figcaption>Die Seite Mixer mit einem Demo-Mix: zwei Mikrofone, zwei App-Kanäle, die Pads und das Tape, drei Busse und zwei Ausgänge</figcaption></figure></div>
 <h3 id="the-sidebar">Die Seitenleiste</h3>
-<p>Die Seiten sind Karten am linken Rand: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>Die Seiten sind Karten am linken Rand: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Die aktuelle Seite hat einen leuchtend blauen Rand. Solange der Mixer zu sehen ist, hat die Seitenleiste außerdem
 diese Karten (in SIMPLE nur <span class="key">ADD CHANNEL</span> und <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -7396,6 +7549,10 @@ Mix beginnt. Siehe <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: die Farben und die Schrift des Pults, aus einer LOOK-Datei (siehe <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: öffnet im Tray, wenn du dich anmeldest</td>
 </tr>
@@ -7437,6 +7594,53 @@ Mix beginnt. Siehe <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Ein <span class="key">LOOK</span> ist jede Farbe, mit der das Pult zeichnet, dazu die Schrift und die Größen, die dazugehören.
+Die Strips, die Anzeigen, die Regler, die Tasten und die Lampen zeichnen alle aus dem LOOK, der gerade
+gilt — ein LOOK verändert also das ganze Pult auf einmal.</p>
+<p><span class="key">LOOK...</span> listet, welche LOOKS du hast, und setzt den gewählten in Kraft; das Pult wird in dem
+Augenblick neu gezeichnet, in dem er sich ändert. <span class="key">SAVE THIS LOOK AS...</span> schreibt den LOOK, der gilt,
+in eine neue Datei unter einem Namen, den du angibst.</p>
+<p>Ein LOOK ist eine Datei in <code>%APPDATA%\Faider\looks</code>, als JSON geschrieben — du kannst sie also von Hand
+schreiben und auf einen anderen Rechner kopieren. Eine fehlende oder beschädigte Datei lässt den
+eingebauten LOOK stehen, und was eine Datei auslässt, fällt auf den eingebauten Wert zurück: eine
+teilweise geschriebene Datei funktioniert weiter.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Der Name des LOOKS, wie er in der Liste erscheint</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Eine Schrift, die Windows mitliefert, damit sie auf dem Pult klein scharf bleibt</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Wie rund die Ecken einer Taste sind, in Pixeln</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: die drei Schriftgrößen</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Jede Farbe als <code>#rrggbb</code>, oder <code>#rrggbbaa</code>, wo ein Teil durchsichtig ist</td>
+</tr>
+</tbody>
+</table></div>
+<p>Die Farben heißen nach den Teilen des Pults: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; die Tastenkappen <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; die gedruckte Platte der
+Fader <code>plateColour</code>; die Anzeigen <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; die Regler nach Funktion
+<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; die Lampen <code>ledGreen</code>, <code>ledYellow</code>,
+<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, das Licht des ausgewählten Stücks;
+sowie <code>shadow</code> und <code>highlight</code>, die Schattierung, mit der die Felder gezeichnet werden.</p>
 <h3 id="macros">MACROS</h3>
 <p>Ein Makro ist eine Liste von <strong>Aktionen</strong>, die per Hotkey, Pad, Trigger oder Fernsteuerung ausgeführt wird.</p>
 <ol>
@@ -7824,6 +8028,10 @@ und als Standardkommunikationsgeräte. Siehe <a href="#step-2-install-vb-cable-o
 <td>Einstellungen</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>Die LOOKS, je eine JSON-Datei (siehe <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Strip-Typen, Spacer, Wahl bei SELECT und METER</td>
 </tr>
@@ -8061,7 +8269,7 @@ dove lo instradi tu, e ogni app sceglie da sola <strong>CABLE Output</strong> co
 l'altoparlante predefinito di Windows è il cavo, PRE-FLIGHT lo segnala sotto <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Passo 3: Avvia Faider</h3>
 <p>Apri il menu Start e fai clic su <strong>Faider</strong> (o usa il collegamento sul desktop, se
-l'hai creato). La prima volta si apre su <span class="key">SETUP</span>.</p>
+l'hai creato). La prima volta, <span class="key">SETUP</span> si apre in una finestra sua.</p>
 <h3 id="step-4-answer-setups-four-questions">Passo 4: Rispondi alle quattro domande di SETUP</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La pagina dei microfoni di SETUP: IN 1 e il microfono della cuffia scelti"><img data-shot="images/console/setup.jpg" alt="La pagina dei microfoni di SETUP: IN 1 e il microfono della cuffia scelti" loading="lazy"></button><figcaption>La pagina dei microfoni di SETUP: IN 1 e il microfono della cuffia scelti</figcaption></figure></div>
 <p>SETUP ti fa quattro domande, una per pagina, e costruisce il tuo mix dalle risposte. Fai clic sulle
@@ -8106,8 +8314,8 @@ schede per scegliere. In ogni pagina tranne la terza puoi sceglierne più di una
 </table></div>
 <p>I tuoi microfoni non sono instradati alle tue cuffie, così non senti un'eco ritardata della tua
 voce. Per sentirti, accendi il tasto <span class="key">HEADPHONES</span> del microfono (passo 6).</p>
-<p>SETUP resta nella barra laterale. Eseguilo di nuovo ogni volta che aggiungi un dispositivo o un
-programma. Aggiunge ciò che manca e non toglie mai nulla.</p>
+<p>SETUP non è una pagina: eseguilo di nuovo da <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) o dal tasto <span class="key">SETUP</span> di
+SIMPLE ogni volta che aggiungi un dispositivo o un programma. Aggiunge ciò che manca e non toglie mai nulla.</p>
 <h3 id="step-5-check-the-audio-is-running">Passo 5: Controlla che l'audio sia in funzione</h3>
 <p>Guarda la <strong>spia di salute</strong> in alto a destra.</p>
 <ul>
@@ -8188,7 +8396,7 @@ in <strong>SETTINGS &gt; GENERAL &gt; ON START</strong>.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>La finestra</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La pagina Mixer con un mix dimostrativo: due microfoni, due canali app, i pad e il tape, tre bus e due uscite"><img data-shot="images/console/mixer.jpg" alt="La pagina Mixer con un mix dimostrativo: due microfoni, due canali app, i pad e il tape, tre bus e due uscite" loading="lazy"></button><figcaption>La pagina Mixer con un mix dimostrativo: due microfoni, due canali app, i pad e il tape, tre bus e due uscite</figcaption></figure></div>
 <h3 id="the-sidebar">La barra laterale</h3>
-<p>Le pagine sono schede lungo il lato sinistro: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>,
+<p>Le pagine sono schede lungo il lato sinistro: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La pagina visualizzata ha un bordo blu acceso. Mentre è visibile il
 Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo <span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -9255,6 +9463,10 @@ crema quando sono accesi.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: i colori e il tipo di carattere della console, da un file LOOK (vedi <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: si apre nell'area di notifica quando accedi</td>
 </tr>
@@ -9296,6 +9508,52 @@ crema quando sono accesi.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Un <span class="key">LOOK</span> è ogni colore con cui la console disegna, insieme al tipo di carattere e alle misure che lo
+accompagnano. Le strip, i display, le manopole, i tasti e le lampade disegnano tutti dal LOOK in vigore:
+un LOOK cambia quindi tutta la console in un colpo.</p>
+<p><span class="key">LOOK...</span> elenca i LOOK che hai e mette in vigore quello che scegli; la console viene ridisegnata nel
+momento in cui cambia. <span class="key">SAVE THIS LOOK AS...</span> scrive il LOOK in vigore in un file nuovo, col nome che
+gli dai.</p>
+<p>Un LOOK è un file in <code>%APPDATA%\Faider\looks</code>, scritto in JSON: puoi scriverlo a mano e copiarlo su un
+altro PC. Un file che manca o è corrotto lascia in vigore il LOOK integrato, e ciò che un file non
+contiene torna al valore integrato: un file scritto a metà funziona comunque.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Il nome del LOOK, come appare nell'elenco</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Un tipo di carattere incluso in Windows, nitido alle misure piccole della console</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Quanto sono arrotondati gli angoli di un tasto, in pixel</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: le tre misure di stampa</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Ogni colore, come <code>#rrggbb</code>, o <code>#rrggbbaa</code> dove una parte è trasparente</td>
+</tr>
+</tbody>
+</table></div>
+<p>I colori portano il nome delle parti della console: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
+<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; i tasti <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; la placca stampata dei
+fader <code>plateColour</code>; i display <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; le manopole per funzione
+<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; le lampade <code>ledGreen</code>, <code>ledYellow</code>,
+<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, la luce di ciò su cui stai
+lavorando; e <code>shadow</code> e <code>highlight</code>, l'ombreggiatura con cui sono disegnati i campi.</p>
 <h3 id="macros">MACROS</h3>
 <p>Una macro è un elenco di <strong>azioni</strong> eseguite da un tasto rapido, un pad, un trigger o un controllo remoto.</p>
 <ol>
@@ -9687,6 +9945,10 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 <td>Preferenze</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>I LOOK: un file JSON ciascuno (vedi <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Tipi di strip, spacer, scelte di SELECT e METER</td>
 </tr>
@@ -9924,7 +10186,7 @@ você o roteia, e cada app escolhe o <strong>CABLE Output</strong> como microfon
 alto-falante padrão do Windows for o cabo, o PRE-FLIGHT avisa em <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Passo 3: iniciar o Faider</h3>
 <p>Abra o menu Iniciar e clique em <strong>Faider</strong> (ou use o atalho da área de trabalho, se você
-criou um). Na primeira vez, ele abre em <span class="key">SETUP</span>.</p>
+criou um). Na primeira vez, o <span class="key">SETUP</span> abre em sua própria janela.</p>
 <h3 id="step-4-answer-setups-four-questions">Passo 4: responder às quatro perguntas do SETUP</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="A página de microfones do SETUP: IN 1 e o mic do headset escolhidos"><img data-shot="images/console/setup.jpg" alt="A página de microfones do SETUP: IN 1 e o mic do headset escolhidos" loading="lazy"></button><figcaption>A página de microfones do SETUP: IN 1 e o mic do headset escolhidos</figcaption></figure></div>
 <p>O SETUP faz quatro perguntas, uma por página, e monta a sua mixagem a partir das respostas. Clique
@@ -9970,8 +10232,8 @@ nos cartões para escolher. Em todas as páginas, exceto a terceira, você pode 
 </table></div>
 <p>Seus microfones não são roteados para os seus próprios fones, então você não ouve um eco atrasado da
 sua voz. Para se ouvir, acenda a tecla <span class="key">HEADPHONES</span> do mic (passo 6).</p>
-<p>O SETUP fica na barra lateral. Execute-o de novo sempre que adicionar um dispositivo ou um programa.
-Ele adiciona o que falta e nunca remove nada.</p>
+<p>O SETUP não é uma página: execute-o de novo pelo <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) ou pela tecla <span class="key">SETUP</span> do
+SIMPLE sempre que adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.</p>
 <h3 id="step-5-check-the-audio-is-running">Passo 5: conferir se o áudio está funcionando</h3>
 <p>Olhe a <strong>luz de status</strong> no canto superior direito.</p>
 <ul>
@@ -10052,7 +10314,7 @@ estar verdes. Veja <a href="#181-pre-flight">18.1</a>.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>A janela</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="A página Mixer com uma mixagem de demonstração: dois microfones, dois canais de apps, os pads e a fita, três buses e duas saídas"><img data-shot="images/console/mixer.jpg" alt="A página Mixer com uma mixagem de demonstração: dois microfones, dois canais de apps, os pads e a fita, três buses e duas saídas" loading="lazy"></button><figcaption>A página Mixer com uma mixagem de demonstração: dois microfones, dois canais de apps, os pads e a fita, três buses e duas saídas</figcaption></figure></div>
 <h3 id="the-sidebar">A barra lateral</h3>
-<p>As páginas são cartões ao longo da esquerda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>,
+<p>As páginas são cartões ao longo da esquerda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. A página exibida tem uma borda azul acesa. Enquanto o Mixer está
 aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só <span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -11128,6 +11390,10 @@ creme quando ligadas.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: as cores e o tipo de letra da mesa, de um arquivo LOOK (ver <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: abre na bandeja quando você entra no Windows</td>
 </tr>
@@ -11169,6 +11435,52 @@ creme quando ligadas.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Um <span class="key">LOOK</span> é cada cor com que a mesa desenha, junto com o tipo de letra e os tamanhos que vão com ele.
+Os strips, as leituras, os botões, as teclas e as lâmpadas desenham todas a partir do LOOK em vigor, então
+um LOOK muda a mesa inteira de uma vez.</p>
+<p><span class="key">LOOK...</span> lista os LOOKS que você tem e põe em vigor o que você escolher; a mesa é desenhada de novo no
+momento em que muda. <span class="key">SAVE THIS LOOK AS...</span> grava o LOOK em vigor num arquivo novo, com o nome que você
+der a ele.</p>
+<p>Um LOOK é um arquivo em <code>%APPDATA%\Faider\looks</code>, escrito como JSON, então você pode escrevê-lo à mão e
+copiá-lo para outra máquina. Um arquivo que falta ou está quebrado deixa no lugar o LOOK embutido, e o que
+um arquivo não traz volta ao valor embutido: um arquivo escrito pela metade ainda funciona.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>O nome do LOOK, como aparece na lista</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Um tipo de letra que o Windows já traz, para ficar nítido nos tamanhos pequenos da mesa</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>O quanto arredondados são os cantos de uma tecla, em pixels</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: os três tamanhos de texto</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Cada cor, como <code>#rrggbb</code>, ou <code>#rrggbbaa</code> quando uma parte é transparente</td>
+</tr>
+</tbody>
+</table></div>
+<p>As cores levam o nome de cada parte da mesa: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; as teclas <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; a placa impressa dos faders
+<code>plateColour</code>; as leituras <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; os botões por função <code>knobGrey</code>,
+<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; as lâmpadas <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
+<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, a luz do que você está usando; e <code>shadow</code> e <code>highlight</code>,
+o sombreado com que os campos são desenhados.</p>
 <h3 id="macros">MACROS</h3>
 <p>Uma macro é uma lista de <strong>ações</strong> executadas por uma tecla de atalho, um pad, um gatilho ou um
 controle remoto.</p>
@@ -11564,6 +11876,10 @@ quanto como dispositivos de comunicação padrão. Veja o <a href="#step-2-insta
 <td>Preferências</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>Os LOOKS: um arquivo JSON cada (ver <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Tipos de strip, espaçadores, escolhas de SELECT e METER</td>
 </tr>
@@ -11799,7 +12115,7 @@ naartoe routeert, en elke app kiest zelf <strong>CABLE Output</strong> als micro
 van Windows de kabel, dan meldt PRE-FLIGHT dat onder <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Stap 3: Faider starten</h3>
 <p>Open het Startmenu en klik op <strong>Faider</strong> (of gebruik de bureaubladsnelkoppeling, als je die hebt gemaakt).
-De eerste keer opent het op <span class="key">SETUP</span>.</p>
+De eerste keer opent <span class="key">SETUP</span> in een eigen venster.</p>
 <h3 id="step-4-answer-setups-four-questions">Stap 4: De vier vragen van SETUP beantwoorden</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="De microfoonpagina van SETUP: IN 1 en de headsetmicrofoon gekozen"><img data-shot="images/console/setup.jpg" alt="De microfoonpagina van SETUP: IN 1 en de headsetmicrofoon gekozen" loading="lazy"></button><figcaption>De microfoonpagina van SETUP: IN 1 en de headsetmicrofoon gekozen</figcaption></figure></div>
 <p>SETUP stelt vier vragen, één per pagina, en bouwt je mix uit je antwoorden. Klik op de kaarten om
@@ -11844,8 +12160,8 @@ gaat terug.</p>
 </table></div>
 <p>Je microfoons worden niet naar je eigen koptelefoon gerouteerd, zodat je geen vertraagde echo van je
 stem hoort. Om jezelf te horen, zet je de toets <span class="key">HEADPHONES</span> van de microfoon aan (stap 6).</p>
-<p>SETUP blijft in de zijbalk staan. Start het opnieuw als je een apparaat of programma toevoegt. Het voegt toe wat
-ontbreekt en verwijdert nooit iets.</p>
+<p>SETUP is geen pagina: start het opnieuw via <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) of de <span class="key">SETUP</span>-toets in
+SIMPLE als je een apparaat of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.</p>
 <h3 id="step-5-check-the-audio-is-running">Stap 5: Controleren of de audio draait</h3>
 <p>Kijk naar het <strong>gezondheidslicht</strong> rechtsboven.</p>
 <ul>
@@ -11923,7 +12239,7 @@ console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinator
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>Het venster</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="De pagina Mixer met een demomix: twee microfoons, twee appkanalen, de pads en de tape, drie bussen en twee uitgangen"><img data-shot="images/console/mixer.jpg" alt="De pagina Mixer met een demomix: twee microfoons, twee appkanalen, de pads en de tape, drie bussen en twee uitgangen" loading="lazy"></button><figcaption>De pagina Mixer met een demomix: twee microfoons, twee appkanalen, de pads en de tape, drie bussen en twee uitgangen</figcaption></figure></div>
 <h3 id="the-sidebar">De zijbalk</h3>
-<p>De pagina's zijn kaarten langs de linkerkant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>De pagina's zijn kaarten langs de linkerkant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. De pagina die je ziet, heeft een oplichtende blauwe rand. Zolang de Mixer zichtbaar is, heeft de zijbalk ook
 deze kaarten (in SIMPLE alleen <span class="key">ADD CHANNEL</span> en <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -12982,6 +13298,10 @@ verse mix. Zie <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: de kleuren en het lettertype van de tafel, uit een LOOK-bestand (zie <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: opent in het systeemvak wanneer je je aanmeldt</td>
 </tr>
@@ -13023,6 +13343,53 @@ verse mix. Zie <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Een <span class="key">LOOK</span> is elke kleur waarmee de tafel tekent, met het lettertype en de maten erbij. De strips, de
+schermen, de knoppen, de toetsen en de lampjes tekenen allemaal vanuit de LOOK die geldt: één LOOK
+verandert dus de hele tafel tegelijk.</p>
+<p><span class="key">LOOK...</span> toont de LOOKS die je hebt en zet de LOOK in werking die jij kiest; de tafel wordt meteen
+opnieuw getekend. <span class="key">SAVE THIS LOOK AS...</span> schrijft de geldende LOOK naar een nieuw bestand, onder een
+naam die jij geeft.</p>
+<p>Een LOOK is één bestand in <code>%APPDATA%\Faider\looks</code>, geschreven als JSON, dus je kunt het met de hand
+schrijven en naar een andere machine kopiëren. Een ontbrekend of kapot bestand laat de ingebouwde LOOK
+staan, en wat een bestand overslaat valt terug op de ingebouwde waarde: een half geschreven bestand werkt
+nog steeds.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>De naam van de LOOK, zoals hij in de lijst staat</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Eén lettertype dat Windows meelevert, scherp op de kleine maten van de tafel</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Hoe rond de hoeken van een toets zijn, in pixels</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: de drie lettergroottes</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Elke kleur, als <code>#rrggbb</code> of <code>#rrggbbaa</code> waar een deel doorzichtig is</td>
+</tr>
+</tbody>
+</table></div>
+<p>De kleuren dragen de naam van het deel van de tafel: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
+<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; de toetsdoppen <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; de gedrukte plaat
+van de faders <code>plateColour</code>; de schermen <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; de knoppen per
+functie <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; de lampjes <code>ledGreen</code>, <code>ledYellow</code>,
+<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, het licht van wat je bedient; en
+<code>shadow</code> en <code>highlight</code>, de shading waarmee de velden getekend worden.</p>
 <h3 id="macros">MACROS</h3>
 <p>Een macro is een lijst <strong>acties</strong> die wordt uitgevoerd via een sneltoets, een pad, een trigger of afstandsbediening.</p>
 <ol>
@@ -13410,6 +13777,10 @@ en als standaardcommunicatieapparaten. Zie <a href="#step-2-install-vb-cable-opt
 <td>Voorkeuren</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>De LOOKS, elk één JSON-bestand (zie <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Striptypen, spacers, keuzes bij SELECT en METER</td>
 </tr>
@@ -13646,7 +14017,7 @@ gdzie go skierujesz, a każda aplikacja sama wybiera <strong>CABLE Output</stron
 domyślnym głośnikiem Windows jest kabel, PRE-FLIGHT zgłosi to w <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Krok 3: Uruchom Faider</h3>
 <p>Otwórz menu Start i kliknij <strong>Faider</strong> (albo użyj skrótu na pulpicie, jeśli go utworzono).
-Za pierwszym razem otwiera się na <span class="key">SETUP</span>.</p>
+Za pierwszym razem <span class="key">SETUP</span> otwiera się we własnym oknie.</p>
 <h3 id="step-4-answer-setups-four-questions">Krok 4: Odpowiedz na cztery pytania SETUP</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Strona mikrofonów w SETUP: wybrane IN 1 i mikrofon zestawu słuchawkowego"><img data-shot="images/console/setup.jpg" alt="Strona mikrofonów w SETUP: wybrane IN 1 i mikrofon zestawu słuchawkowego" loading="lazy"></button><figcaption>Strona mikrofonów w SETUP: wybrane IN 1 i mikrofon zestawu słuchawkowego</figcaption></figure></div>
 <p>SETUP zadaje cztery pytania, po jednym na stronie, i buduje twój miks z odpowiedzi. Klikaj karty,
@@ -13691,8 +14062,8 @@ dalej, <span class="key">BACK</span> wraca.</p>
 </table></div>
 <p>Twoje mikrofony nie są skierowane do twoich słuchawek, więc nie słyszysz opóźnionego echa własnego
 głosu. Żeby usłyszeć siebie, zapal klawisz <span class="key">HEADPHONES</span> mikrofonu (krok 6).</p>
-<p>SETUP zostaje na panelu bocznym. Uruchom go ponownie, gdy dodasz urządzenie lub program. Dodaje to,
-czego brakuje, i niczego nie usuwa.</p>
+<p>SETUP to nie strona: uruchom go ponownie z <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) albo z klawisza <span class="key">SETUP</span>
+w SIMPLE, gdy dodasz urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.</p>
 <h3 id="step-5-check-the-audio-is-running">Krok 5: Sprawdź, czy audio działa</h3>
 <p>Spójrz na <strong>kontrolkę stanu</strong> w prawym górnym rogu.</p>
 <ul>
@@ -13772,7 +14143,7 @@ Zobacz <a href="#181-pre-flight">18.1</a>.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>Okno</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Strona Mixer z miksem demonstracyjnym: dwa mikrofony, dwa kanały aplikacji, pady i tape, trzy busy i dwa wyjścia"><img data-shot="images/console/mixer.jpg" alt="Strona Mixer z miksem demonstracyjnym: dwa mikrofony, dwa kanały aplikacji, pady i tape, trzy busy i dwa wyjścia" loading="lazy"></button><figcaption>Strona Mixer z miksem demonstracyjnym: dwa mikrofony, dwa kanały aplikacji, pady i tape, trzy busy i dwa wyjścia</figcaption></figure></div>
 <h3 id="the-sidebar">Panel boczny</h3>
-<p>Strony są kartami po lewej stronie: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>Strony są kartami po lewej stronie: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Widoczna strona ma jasnoniebieską krawędź. Gdy widać Mixer, panel boczny ma też te
 karty (w SIMPLE tylko <span class="key">ADD CHANNEL</span> i <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -14833,6 +15204,10 @@ tracony, i startuje nowy miks. Zobacz <a href="#182-my-mix-is-gone-a-fresh-mix-s
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: kolory i krój pisma konsoli, z pliku LOOK (patrz <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: otwiera się w zasobniku przy logowaniu</td>
 </tr>
@@ -14874,6 +15249,51 @@ tracony, i startuje nowy miks. Zobacz <a href="#182-my-mix-is-gone-a-fresh-mix-s
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p><span class="key">LOOK</span> to każdy kolor, którym konsola rysuje, razem z krojem pisma i rozmiarami, które do niego
+pasują. Paski, odczyty, gałki, klawisze i lampki rysują z LOOK-a obowiązującego, więc jeden LOOK zmienia
+całą konsolę naraz.</p>
+<p><span class="key">LOOK...</span> pokazuje LOOK-i, które masz, i włącza wybrany; konsola jest rysowana na nowo w chwili zmiany.
+<span class="key">SAVE THIS LOOK AS...</span> zapisuje obowiązujący LOOK do nowego pliku pod nazwą, którą nadasz.</p>
+<p>LOOK to jeden plik w <code>%APPDATA%\Faider\looks</code>, zapisany jako JSON, więc możesz napisać go ręcznie i
+skopiować na inny komputer. Brakujący lub uszkodzony plik zostawia LOOK wbudowany, a to, czego plik nie
+podaje, wraca do wartości wbudowanej: częściowo napisany plik nadal działa.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Nazwa LOOK-a, jak pojawia się na liście</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Krój pisma, który Windows ma w zestawie, więc ostry przy małych rozmiarach</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Jak zaokrąglone są narożniki klawisza, w pikselach</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: trzy rozmiary druku</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Każdy kolor jako <code>#rrggbb</code>, albo <code>#rrggbbaa</code>, gdy część jest przezroczysta</td>
+</tr>
+</tbody>
+</table></div>
+<p>Kolory noszą nazwy części konsoli: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; klawisze <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; nadrukowana płytka faderów
+<code>plateColour</code>; odczyty <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; gałki według funkcji <code>knobGrey</code>,
+<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lampki <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
+<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, światło tego, nad czym pracujesz; oraz <code>shadow</code>
+i <code>highlight</code>, cieniowanie, którym rysowane są pola.</p>
 <h3 id="macros">MACROS</h3>
 <p>Makro to lista <strong>akcji</strong> uruchamianych skrótem klawiszowym, padem, wyzwalaczem albo zdalnym sterowaniem.</p>
 <ol>
@@ -15261,6 +15681,10 @@ jak i jako domyślne urządzenia komunikacji. Zobacz <a href="#step-2-install-vb
 <td>Preferencje</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>LOOK-i: po jednym pliku JSON (patrz <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Rodzaje pasków, odstępy, wybory SELECT i METER</td>
 </tr>
@@ -15496,7 +15920,7 @@ routar, och varje app väljer själv <strong>CABLE Output</strong> som sin mikro
 standardhögtalare är kabeln rapporterar PRE-FLIGHT det under <span class="key">HEARD ONCE</span>.</p>
 <h3 id="step-3-start-faider">Steg 3: Starta Faider</h3>
 <p>Öppna Start-menyn och klicka på <strong>Faider</strong> (eller använd genvägen på skrivbordet, om du skapade en).
-Första gången öppnas den på <span class="key">SETUP</span>.</p>
+Första gången öppnas <span class="key">SETUP</span> i ett eget fönster.</p>
 <h3 id="step-4-answer-setups-four-questions">Steg 4: Svara på SETUPs fyra frågor</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUPs mikrofonsida: IN 1 och headsetmikrofonen valda"><img data-shot="images/console/setup.jpg" alt="SETUPs mikrofonsida: IN 1 och headsetmikrofonen valda" loading="lazy"></button><figcaption>SETUPs mikrofonsida: IN 1 och headsetmikrofonen valda</figcaption></figure></div>
 <p>SETUP ställer fyra frågor, en per sida, och bygger din mix av svaren. Klicka på korten för att
@@ -15541,8 +15965,8 @@ går tillbaka.</p>
 </table></div>
 <p>Dina mikrofoner routas inte till dina egna hörlurar, så du hör inget fördröjt eko av din
 röst. För att höra dig själv tänder du mikrofonens tangent <span class="key">HEADPHONES</span> (steg 6).</p>
-<p>SETUP finns kvar i sidofältet. Kör den igen när du lägger till en enhet eller ett program. Den lägger till det som
-saknas och tar aldrig bort något.</p>
+<p>SETUP är ingen sida: kör den igen från <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) eller <span class="key">SETUP</span>-tangenten i SIMPLE
+när du lägger till en enhet eller ett program. Den lägger till det som saknas och tar aldrig bort något.</p>
 <h3 id="step-5-check-the-audio-is-running">Steg 5: Kontrollera att ljudet går</h3>
 <p>Titta på <strong>hälsolampan</strong> uppe till höger.</p>
 <ul>
@@ -15620,7 +16044,7 @@ konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, 
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>Fönstret</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Sidan Mixer med en demomix: två mikrofoner, två appkanaler, padsen och tapen, tre bussar och två utgångar"><img data-shot="images/console/mixer.jpg" alt="Sidan Mixer med en demomix: två mikrofoner, två appkanaler, padsen och tapen, tre bussar och två utgångar" loading="lazy"></button><figcaption>Sidan Mixer med en demomix: två mikrofoner, två appkanaler, padsen och tapen, tre bussar och två utgångar</figcaption></figure></div>
 <h3 id="the-sidebar">Sidofältet</h3>
-<p>Sidorna är kort längs vänster kant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>Sidorna är kort längs vänster kant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Sidan som visas har en lysande blå kant. Medan Mixer visas har sidofältet också
 de här korten (i SIMPLE bara <span class="key">ADD CHANNEL</span> och <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -16680,6 +17104,10 @@ mix startar. Se <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: bordets färger och typsnitt, från en LOOK-fil (se <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: öppnas i aktivitetsfältets notisyta när du loggar in</td>
 </tr>
@@ -16721,6 +17149,51 @@ mix startar. Se <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>En <span class="key">LOOK</span> är varje färg bordet ritar med, tillsammans med typsnittet och de storlekar som hör till.
+Stripsarna, displayerna, reglagen, tangenterna och lamporna ritar alla från den LOOK som gäller, så en
+LOOK ändrar hela bordet på en gång.</p>
+<p><span class="key">LOOK...</span> listar de LOOK:ar du har och sätter den du väljer i kraft; bordet ritas om i det ögonblick den
+ändras. <span class="key">SAVE THIS LOOK AS...</span> skriver LOOK:en som gäller till en ny fil med ett namn du ger den.</p>
+<p>En LOOK är en fil i <code>%APPDATA%\Faider\looks</code>, skriven som JSON, så du kan skriva den för hand och kopiera
+den till en annan dator. En fil som saknas eller är trasig låter den inbyggda LOOK:en stå kvar, och det en
+fil utelämnar faller tillbaka på det inbyggda värdet: en halvskriven fil fungerar ändå.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>LOOK:ens namn, som det visas i listan</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Ett typsnitt Windows levererar med, så det håller sig skarpt på bordets små storlekar</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Hur rundade en tangents hörn är, i pixlar</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: de tre textstorlekarna</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Varje färg, som <code>#rrggbb</code>, eller <code>#rrggbbaa</code> där en del är genomskinlig</td>
+</tr>
+</tbody>
+</table></div>
+<p>Färgerna bär namn efter bordets delar: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; tangenterna <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; den tryckta plattan under faderna
+<code>plateColour</code>; displayerna <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; reglagen efter funktion <code>knobGrey</code>,
+<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lamporna <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
+<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, ljuset på det du arbetar med; och <code>shadow</code> och
+<code>highlight</code>, nyanseringen som fälten ritas med.</p>
 <h3 id="macros">MACROS</h3>
 <p>Ett makro är en lista med <strong>åtgärder</strong> som körs från ett kortkommando, en pad, en trigger eller fjärrstyrning.</p>
 <ol>
@@ -17108,6 +17581,10 @@ och som standardkommunikationsenheter. Se <a href="#step-2-install-vb-cable-opti
 <td>Inställningar</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>LOOK:arna, en JSON-fil vardera (se <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Striptyper, spacers, val under SELECT och METER</td>
 </tr>
@@ -17343,7 +17820,7 @@ yönlendirdiğin yerde çalar ve her uygulama mikrofon olarak <strong>CABLE Outp
 Windows'un varsayılan hoparlörü kablo ise PRE-FLIGHT bunu <span class="key">HEARD ONCE</span> altında bildirir.</p>
 <h3 id="step-3-start-faider">Adım 3: Faider'i başlat</h3>
 <p>Başlat menüsünü aç ve <strong>Faider</strong>'a tıkla (ya da yaptıysan masaüstü kısayolunu kullan).
-İlk seferde <span class="key">SETUP</span> ile açılır.</p>
+İlk seferde <span class="key">SETUP</span> kendi penceresinde açılır.</p>
 <h3 id="step-4-answer-setups-four-questions">Adım 4: SETUP'ın dört sorusunu yanıtla</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUP&#x27;ın mikrofon sayfası: IN 1 ve kulaklık mikrofonu seçili"><img data-shot="images/console/setup.jpg" alt="SETUP&#x27;ın mikrofon sayfası: IN 1 ve kulaklık mikrofonu seçili" loading="lazy"></button><figcaption>SETUP&#x27;ın mikrofon sayfası: IN 1 ve kulaklık mikrofonu seçili</figcaption></figure></div>
 <p>SETUP, her sayfada bir tane olmak üzere dört soru sorar ve karışımını yanıtlarından kurar. Seçmek
@@ -17388,8 +17865,8 @@ ilerler, <span class="key">BACK</span> geri döner.</p>
 </table></div>
 <p>Mikrofonların kendi kulaklığına yönlendirilmez, böylece sesinin gecikmeli bir yankısını duymazsın.
 Kendini duymak için mikrofonun <span class="key">HEADPHONES</span> tuşunu yak (adım 6).</p>
-<p>SETUP kenar çubuğunda kalır. Bir aygıt ya da program eklediğinde yeniden çalıştır. Eksik olanı
-ekler, hiçbir şeyi silmez.</p>
+<p>SETUP bir sayfa değil: bir aygıt ya da program eklediğinde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) üzerinden ya da
+SIMPLE'daki <span class="key">SETUP</span> tuşuyla yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.</p>
 <h3 id="step-5-check-the-audio-is-running">Adım 5: Sesin çalıştığını kontrol et</h3>
 <p>Sağ üstteki <strong>durum ışığına</strong> bak.</p>
 <ul>
@@ -17466,7 +17943,7 @@ altından kapat.</p>
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>Pencere</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Örnek bir karışımla Mixer sayfası: iki mikrofon, iki uygulama kanalı, pad&#x27;ler ve tape, üç bus ve iki çıkış"><img data-shot="images/console/mixer.jpg" alt="Örnek bir karışımla Mixer sayfası: iki mikrofon, iki uygulama kanalı, pad&#x27;ler ve tape, üç bus ve iki çıkış" loading="lazy"></button><figcaption>Örnek bir karışımla Mixer sayfası: iki mikrofon, iki uygulama kanalı, pad&#x27;ler ve tape, üç bus ve iki çıkış</figcaption></figure></div>
 <h3 id="the-sidebar">Kenar çubuğu</h3>
-<p>Sayfalar solda aşağı doğru kartlardır: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
+<p>Sayfalar solda aşağı doğru kartlardır: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Görünen sayfanın kenarı parlak mavidir. Mixer görünürken kenar çubuğunda şu kartlar da
 bulunur (SIMPLE'da yalnızca <span class="key">ADD CHANNEL</span> ve <span class="key">ADD APP</span>):</p>
 <div class="table-wrap"><table>
@@ -18526,6 +19003,10 @@ dosya bozuk), kaybolmak yerine <strong>bir kenara ayrılır</strong> ve yeni bir
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: konsolun renkleri ve yazı tipi, bir LOOK dosyasından (bkz. <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: oturum açtığında tepside açılır</td>
 </tr>
@@ -18567,6 +19048,51 @@ dosya bozuk), kaybolmak yerine <strong>bir kenara ayrılır</strong> ve yeni bir
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p>Bir <span class="key">LOOK</span>, konsolün boyadığı her renk, yanında yazı tipi ve ona eşlik eden ölçüler demektir. Şeritler,
+göstergeler, düğmeler, tuşlar ve lambalar hepsi yürürlükteki LOOK'tan çizer; bir LOOK bütün konsolu birden
+değiştirir.</p>
+<p><span class="key">LOOK...</span>, sahip olduğun LOOK'ları listeler ve seçtiğini yürürlüğe koyar; değiştiği anda konsol baştan
+çizilir. <span class="key">SAVE THIS LOOK AS...</span>, yürürlükteki LOOK'u senin verdiğin bir adla yeni bir dosyaya yazar.</p>
+<p>Bir LOOK, <code>%APPDATA%\Faider\looks</code> içinde JSON olarak yazılmış tek bir dosyadır; yani elle yazıp başka bir
+makineye kopyalayabilirsin. Eksik ya da bozuk bir dosya yerleşik LOOK'u yerinde bırakır ve bir dosyanın
+atladığı şey yerleşik değere döner: yarısı yazılmış bir dosya yine çalışır.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>LOOK'un adı, listede göründüğü gibi</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Windows'un birlikte verdiği bir yazı tipi, ki konsolun küçük ölçülerinde net kalsın</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>Bir tuşun köşelerinin ne kadar yuvarlak olduğu, piksel olarak</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: üç baskı ölçüsü</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>Her renk, <code>#rrggbb</code> olarak, ya da bir bölüm şeffafsa <code>#rrggbbaa</code> olarak</td>
+</tr>
+</tbody>
+</table></div>
+<p>Renkler konsolun parçalarının adını taşır: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
+<code>legendDim</code>, <code>namePlate</code>; tuş kapakları <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; faderların baskılı plakası
+<code>plateColour</code>; göstergeler <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; düğmeler işleve göre <code>knobGrey</code>,
+<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lambalar <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
+<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, üzerinde çalıştığın şeyin ışığı; ve <code>shadow</code> ile
+<code>highlight</code>, alanların boyandığı gölgelendirme.</p>
 <h3 id="macros">MACROS</h3>
 <p>Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrolden çalıştırılan
 <strong>eylemler</strong> listesidir.</p>
@@ -18954,6 +19480,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>Tercihler</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>LOOK'lar: her biri bir JSON dosyası (bkz. <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>Şerit türleri, boşluklar, SELECT ve METER seçimleri</td>
 </tr>
@@ -19167,7 +19697,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>出力をすばやく設定する方法もあります。タスクバーのスピーカーアイコンをクリックし、音量スライダーの横の <strong>&gt;</strong> をクリックして、デバイスを選びます。</p>
 <p>本物のデバイスを Windows の既定のままにしておいてください。Faider は、ルーティングした先でだけケーブルに再生します。各アプリは自分で <strong>CABLE Output</strong> をマイクとして選びます(ステップ 6)。Windows の既定のスピーカーがケーブルになっていると、PRE-FLIGHT が <span class="key">HEARD ONCE</span> の下で知らせます。</p>
 <h3 id="step-3-start-faider">ステップ 3: Faider を起動する</h3>
-<p>スタートメニューを開いて <strong>Faider</strong> をクリックします(作成した場合はデスクトップのショートカットでも起動できます)。初回は <span class="key">SETUP</span> で開きます。</p>
+<p>スタートメニューを開いて <strong>Faider</strong> をクリックします(作成した場合はデスクトップのショートカットでも起動できます)。初回は <span class="key">SETUP</span> が別のウィンドウで開きます。</p>
 <h3 id="step-4-answer-setups-four-questions">ステップ 4: SETUP の 4 つの質問に答える</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUP のマイクのページ: IN 1 とヘッドセットのマイクを選択した状態"><img data-shot="images/console/setup.jpg" alt="SETUP のマイクのページ: IN 1 とヘッドセットのマイクを選択した状態" loading="lazy"></button><figcaption>SETUP のマイクのページ: IN 1 とヘッドセットのマイクを選択した状態</figcaption></figure></div>
 <p>SETUP は 1 ページに 1 つ、4 つの質問をして、答えに合わせてミックスを作ります。カードをクリックして選びます。3 ページ目以外は、複数選べます。<span class="key">NEXT</span> で進み、<span class="key">BACK</span> で戻ります。</p>
@@ -19207,7 +19737,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>マイクは自分のヘッドホンにはルーティングされないので、遅れて返ってくる自分の声のエコーは聞こえません。自分の声を聞きたいときは、マイクの <span class="key">HEADPHONES</span> キーを点灯させます(ステップ 6)。</p>
-<p>SETUP はサイドバーに残ります。デバイスやプログラムを追加したら、いつでも実行し直せます。足りないものを追加するだけで、何も削除しません。</p>
+<p>SETUP はページではありません。デバイスやプログラムを追加したら、<span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) や SIMPLE の <span class="key">SETUP</span> キーからいつでも実行し直せます。足りないものを追加するだけで、何も削除しません。</p>
 <h3 id="step-5-check-the-audio-is-running">ステップ 5: オーディオが動いているか確認する</h3>
 <p>右上の<strong>ヘルスライト</strong>を見ます。</p>
 <ul>
@@ -19265,7 +19795,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>ウィンドウ</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ"><img data-shot="images/console/mixer.jpg" alt="デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ" loading="lazy"></button><figcaption>デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ</figcaption></figure></div>
 <h3 id="the-sidebar">サイドバー</h3>
-<p>ページは左に縦に並んだカードです。<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">SETUP</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます(SIMPLE では <span class="key">ADD CHANNEL</span> と <span class="key">ADD APP</span> だけです)。</p>
+<p>ページは左に縦に並んだカードです。<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます(SIMPLE では <span class="key">ADD CHANNEL</span> と <span class="key">ADD APP</span> だけです)。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -20234,6 +20764,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: 卓の色と書体を LOOK ファイルから取ります(下記 <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: サインイン時にトレイで開きます</td>
 </tr>
@@ -20275,6 +20809,41 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p><span class="key">LOOK</span> は、卓が描くのに使うすべての色に、書体と、それに見えるサイズまで含めたものです。ストリップも、数値表示も、ノブも、キーも、ランプも、有効な LOOK から描くので、LOOK を一つ変えると卓全体が同時に変わります。</p>
+<p><span class="key">LOOK...</span> は手元にある LOOK を並べ、選んだものを有効にします。変わった瞬間に卓は描き直されます。<span class="key">SAVE THIS LOOK AS...</span> は、有効な LOOK を、あなたが付けた名前で新しいファイルに書き出します。</p>
+<p>LOOK は <code>%APPDATA%\Faider\looks</code> にある JSON のファイル 1 つです。手で書いて、別のマシンにコピーすることもできます。ファイルが無かったり壊れていたりすれば組み込みの LOOK がそのまま残り、ファイルに書かれていない項目は組み込みの値に戻ります。途中でやめたファイルでも使えます。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>一覧に表われる LOOK の名前</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Windows に添付されている書体。卓の小さいサイズでもくっきりします</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>キーの角の丸さ。ピクセル数</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>、<code>caption</code>、<code>readout</code>: 文字の 3 つのサイズ</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>すべての色。<code>#rrggbb</code>、半透明の箇所があるときは <code>#rrggbbaa</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>色は卓の部位の名前で並びます: <code>background</code>、<code>panel</code>、<code>panelDark</code>、<code>rim</code>、<code>slot</code>、<code>legend</code>、<code>legendDim</code>、<code>namePlate</code>。キーの天板が <code>capTop</code>、<code>capBottom</code>、<code>capText</code>。フェーダーの印刷盤が <code>plateColour</code>。数値表示が <code>screenLit</code>、<code>screenGlass</code>、<code>screenBezel</code>。機能別のノブが <code>knobGrey</code>、<code>knobRed</code>、<code>knobGreen</code>、<code>knobBlue</code>、<code>knobBrown</code>。ランプが <code>ledGreen</code>、<code>ledYellow</code>、<code>ledRed</code>、<code>ledBlue</code>、<code>muteLamp</code>、<code>soloLamp</code>、<code>powerLamp</code>。<code>selection</code> は作業中の対象の光、<code>shadow</code> と <code>highlight</code> は面が描かれるときの陰影です。</p>
 <h3 id="macros">MACROS</h3>
 <p>マクロは、ホットキー、パッド、トリガー、リモート操作から実行される<strong>アクション</strong>のリストです。</p>
 <ol>
@@ -20613,6 +21182,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>環境設定</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>LOOK(一つにつき JSON ファイル 1 つ、下記 <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>ストリップの種類、スペーサー、SELECT と METER の選択</td>
 </tr>
@@ -20825,7 +21398,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>출력을 더 빨리 설정하는 방법도 있습니다. 작업 표시줄의 스피커 아이콘을 누르고, 볼륨 슬라이더 옆의 <strong>&gt;</strong>를 누른 뒤 장치를 고릅니다.</p>
 <p>실제 장치를 Windows의 기본값으로 유지하세요. Faider은 라우팅한 곳에서만 케이블로 재생하고, 각 앱이 직접 <strong>CABLE Output</strong>을 마이크로 선택합니다(6단계). Windows의 기본 스피커가 케이블이면 PRE-FLIGHT가 <span class="key">HEARD ONCE</span> 아래에 알려 줍니다.</p>
 <h3 id="step-3-start-faider">3단계: Faider 시작</h3>
-<p>시작 메뉴를 열고 <strong>Faider</strong>을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 <span class="key">SETUP</span>으로 열립니다.</p>
+<p>시작 메뉴를 열고 <strong>Faider</strong>을 누릅니다(만들었다면 바탕 화면 바로 가기를 써도 됩니다). 처음에는 <span class="key">SETUP</span>이 별도 창으로 열립니다.</p>
 <h3 id="step-4-answer-setups-four-questions">4단계: SETUP의 네 가지 질문에 답하기</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUP의 마이크 페이지: IN 1과 헤드셋 마이크가 선택된 모습"><img data-shot="images/console/setup.jpg" alt="SETUP의 마이크 페이지: IN 1과 헤드셋 마이크가 선택된 모습" loading="lazy"></button><figcaption>SETUP의 마이크 페이지: IN 1과 헤드셋 마이크가 선택된 모습</figcaption></figure></div>
 <p>SETUP은 페이지마다 하나씩 네 가지 질문을 하고, 답에 맞춰 믹스를 만듭니다. 카드를 눌러 선택합니다. 세 번째 페이지를 제외하면 여러 개를 고를 수 있습니다. <span class="key">NEXT</span>로 넘어가고 <span class="key">BACK</span>으로 돌아갑니다.</p>
@@ -20865,7 +21438,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>마이크는 자신의 헤드폰으로는 라우팅되지 않으므로, 지연된 내 목소리의 에코가 들리지 않습니다. 자신의 소리를 듣고 싶으면 마이크의 <span class="key">HEADPHONES</span> 키를 켜세요(6단계).</p>
-<p>SETUP은 사이드바에 남아 있습니다. 장치나 프로그램을 추가할 때마다 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.</p>
+<p>SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>)나 SIMPLE의 <span class="key">SETUP</span> 키로 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.</p>
 <h3 id="step-5-check-the-audio-is-running">5단계: 오디오가 실행 중인지 확인</h3>
 <p>오른쪽 위의 <strong>상태 표시등</strong>을 봅니다.</p>
 <ul>
@@ -20923,7 +21496,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>창</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개"><img data-shot="images/console/mixer.jpg" alt="데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개" loading="lazy"></button><figcaption>데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개</figcaption></figure></div>
 <h3 id="the-sidebar">사이드바</h3>
-<p>페이지는 왼쪽에 세로로 놓인 카드입니다. <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">SETUP</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다(SIMPLE에서는 <span class="key">ADD CHANNEL</span>과 <span class="key">ADD APP</span>만).</p>
+<p>페이지는 왼쪽에 세로로 놓인 카드입니다. <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다(SIMPLE에서는 <span class="key">ADD CHANNEL</span>과 <span class="key">ADD APP</span>만).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -21892,6 +22465,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>: 데스크의 색과 글꼴을 LOOK 파일에서 가져옵니다 (아래 <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>: 로그인할 때 트레이에서 열림</td>
 </tr>
@@ -21933,6 +22510,41 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p><span class="key">LOOK</span>은 데스크가 그리는 데 쓰는 모든 색에 글꼴과 함께 쓰는 크기를 담은 것입니다. 스트립, 수치 표시, 노브, 키, 램프가 모두 실행 중인 LOOK에서 그리기 때문에, LOOK 하나를 바꾸면 데스크 전체가 한꺼번에 바뀝니다.</p>
+<p><span class="key">LOOK...</span>은 가지고 있는 LOOK을 나열하고 고른 것을 실행합니다. 바뀌는 즉시 데스크가 다시 그려집니다. <span class="key">SAVE THIS LOOK AS...</span>는 실행 중인 LOOK을 당신이 지은 이름으로 새 파일에 씁니다.</p>
+<p>LOOK은 <code>%APPDATA%\Faider\looks</code>에 있는 JSON 파일 하나입니다. 손으로 써서 다른 기기로 복사할 수도 있습니다. 파일이 없거나 망가졌다면 기본 LOOK이 그대로 남고, 파일이 생략한 것은 기본 값으로 돌아갑니다. 끝까지 쓰지 않은 파일도 계속 동작합니다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>목록에 나타나는 LOOK의 이름</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Windows가 함께 제공하는 글꼴. 데스크의 작은 크기도 선명하게 유지됩니다</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>키 모서리의 둥근 정도, 픽셀 단위</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>, <code>caption</code>, <code>readout</code>: 세 가지 인쇄 크기</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>모든 색은 <code>#rrggbb</code>, 일부가 반투명하면 <code>#rrggbbaa</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>색은 데스크의 부분 이름으로 붙어 있습니다: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>, <code>legendDim</code>, <code>namePlate</code>. 키 윗면이 <code>capTop</code>, <code>capBottom</code>, <code>capText</code>. 페이더의 인쇄 판이 <code>plateColour</code>. 수치 표시가 <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>. 기능별 노브가 <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>. 램프가 <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>. <code>selection</code>은 작업 중인 것의 빛이고, <code>shadow</code>와 <code>highlight</code>는 면이 그려지는 그늘입니다.</p>
 <h3 id="macros">MACROS</h3>
 <p>매크로는 단축키, 패드, 트리거, 원격 제어로 실행되는 <strong>액션</strong>의 목록입니다.</p>
 <ol>
@@ -22271,6 +22883,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>환경 설정</td>
 </tr>
 <tr>
+<td><code>looks\</code></td>
+<td>LOOK들 (각각 JSON 파일 하나, 아래 <a href="#looks">LOOKS</a>)</td>
+</tr>
+<tr>
 <td><code>console.xml</code></td>
 <td>스트립 종류, 스페이서, SELECT와 METER 선택</td>
 </tr>
@@ -22483,7 +23099,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>设置输出还有更快的办法：点击任务栏的扬声器图标，点击音量滑块旁边的 <strong>&gt;</strong>，再选择你的设备。</p>
 <p>请让真实设备保持为 Windows 的默认设备。Faider 只会把声音播放到你设置了路由的线缆上，而每个应用会自己选择 <strong>CABLE Output</strong> 作为麦克风(步骤 6)。如果 Windows 的默认扬声器是线缆，PRE-FLIGHT 会在 <span class="key">HEARD ONCE</span> 下报告。</p>
 <h3 id="step-3-start-faider">步骤 3：启动 Faider</h3>
-<p>打开开始菜单，点击 <strong>Faider</strong>(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，它会打开 <span class="key">SETUP</span>。</p>
+<p>打开开始菜单，点击 <strong>Faider</strong>(或者使用桌面快捷方式，如果你创建了的话)。第一次启动时，<span class="key">SETUP</span> 会在自己的窗口中打开。</p>
 <h3 id="step-4-answer-setups-four-questions">步骤 4：回答 SETUP 的四个问题</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SETUP 的麦克风页面：已选择 IN 1 和耳麦麦克风"><img data-shot="images/console/setup.jpg" alt="SETUP 的麦克风页面：已选择 IN 1 和耳麦麦克风" loading="lazy"></button><figcaption>SETUP 的麦克风页面：已选择 IN 1 和耳麦麦克风</figcaption></figure></div>
 <p>SETUP 每页问一个问题，共四个，并根据你的回答建立混音。点击卡片进行选择。除第三页外，每页都可以多选。<span class="key">NEXT</span> 继续，<span class="key">BACK</span> 返回。</p>
@@ -22523,7 +23139,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tbody>
 </table></div>
 <p>你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请点亮麦克风的 <span class="key">HEADPHONES</span> 键(步骤 6)。</p>
-<p>SETUP 会一直留在侧边栏。每当你添加设备或程序时，都可以再次运行。它会补上缺少的内容，不会删除任何东西。</p>
+<p>SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) 或 SIMPLE 中的 <span class="key">SETUP</span> 按键再次运行它。它会补上缺少的内容，不会删除任何东西。</p>
 <h3 id="step-5-check-the-audio-is-running">步骤 5：检查音频是否在运行</h3>
 <p>看右上角的<strong>状态灯</strong>。</p>
 <ul>
@@ -22581,7 +23197,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>窗口</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出"><img data-shot="images/console/mixer.jpg" alt="带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出" loading="lazy"></button><figcaption>带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出</figcaption></figure></div>
 <h3 id="the-sidebar">侧边栏</h3>
-<p>页面是左侧自上而下排列的卡片：<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">SETUP</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 <span class="key">ADD CHANNEL</span> 和 <span class="key">ADD APP</span>)：</p>
+<p>页面是左侧自上而下排列的卡片：<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 <span class="key">ADD CHANNEL</span> 和 <span class="key">ADD APP</span>)：</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -23549,6 +24165,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
+<td><span class="key">LOOK</span></td>
+<td><span class="key">LOOK...</span>：调音台的颜色与字体，取自 LOOK 文件（见 <a href="#looks">LOOKS</a>）</td>
+</tr>
+<tr>
 <td><span class="key">WINDOWS</span></td>
 <td><span class="key">START WITH WINDOWS</span>：你登录时在托盘中打开</td>
 </tr>
@@ -23590,6 +24210,41 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
+<h3 id="looks">LOOKS</h3>
+<p><span class="key">LOOK</span> 就是调音台绘制时使用的每一种颜色，再加上与之相配的字体和尺寸。通道条、数值显示、旋钮、按键和指示灯都从当前生效的 LOOK 取值绘制，所以换一个 LOOK，整张调音台会一起变。</p>
+<p><span class="key">LOOK...</span> 列出你已有的 LOOK，并启用你选中的那个；一有改变，调音台就会立刻重新绘制。<span class="key">SAVE THIS LOOK AS...</span> 会把当前生效的 LOOK 写成一个新文件，名字由你定。</p>
+<p>一个 LOOK 就是 <code>%APPDATA%\Faider\looks</code> 里的一个 JSON 文件，因此你可以手写一个，再复制到别的电脑上。文件缺失或损坏时，内置 LOOK 保持不变；文件里没写的项目会退回内置值——只写了一半的文件照样能用。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>LOOK 的名字，也就是列表里显示的样子</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Windows 自带的一种字体，在调音台的小字号下依然清楚</td>
+</tr>
+<tr>
+<td><code>keyRadius</code></td>
+<td>按键圆角有多圆，以像素计</td>
+</tr>
+<tr>
+<td><code>fontSizes</code></td>
+<td><code>legend</code>、<code>caption</code>、<code>readout</code>：三种印刷尺寸</td>
+</tr>
+<tr>
+<td><code>colours</code></td>
+<td>每个颜色写成 <code>#rrggbb</code>，需要透明时写成 <code>#rrggbbaa</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>颜色的名字就是调音台各部分的名称：<code>background</code>、<code>panel</code>、<code>panelDark</code>、<code>rim</code>、<code>slot</code>、<code>legend</code>、<code>legendDim</code>、<code>namePlate</code>；按键的键帽是 <code>capTop</code>、<code>capBottom</code>、<code>capText</code>；推子的印制面板是 <code>plateColour</code>；数值显示是 <code>screenLit</code>、<code>screenGlass</code>、<code>screenBezel</code>；按功能分的旋钮是 <code>knobGrey</code>、<code>knobRed</code>、<code>knobGreen</code>、<code>knobBlue</code>、<code>knobBrown</code>；指示灯是 <code>ledGreen</code>、<code>ledYellow</code>、<code>ledRed</code>、<code>ledBlue</code>、<code>muteLamp</code>、<code>soloLamp</code>、<code>powerLamp</code>；<code>selection</code> 是你正在操作那一项的光；<code>shadow</code> 和 <code>highlight</code> 则是面板绘制所用的明暗。</p>
 <h3 id="macros">MACROS</h3>
 <p>宏是由快捷键、打击垫、触发器或远程控制运行的<strong>动作</strong>列表。</p>
 <ol>
@@ -23926,6 +24581,10 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><code>settings.xml</code></td>
 <td>偏好设置</td>
+</tr>
+<tr>
+<td><code>looks\</code></td>
+<td>LOOK 文件，每个一个 JSON（见 <a href="#looks">LOOKS</a>）</td>
 </tr>
 <tr>
 <td><code>console.xml</code></td>

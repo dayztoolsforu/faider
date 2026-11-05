@@ -137,7 +137,7 @@ domyślnym głośnikiem Windows jest kabel, PRE-FLIGHT zgłosi to w **HEARD ONCE
 ### Krok 3: Uruchom Faider
 
 Otwórz menu Start i kliknij **Faider** (albo użyj skrótu na pulpicie, jeśli go utworzono).
-Za pierwszym razem otwiera się na **SETUP**.
+Za pierwszym razem **SETUP** otwiera się we własnym oknie.
 
 <a id="step-4-answer-setups-four-questions"></a>
 
@@ -170,8 +170,8 @@ Co tworzy każda odpowiedź:
 Twoje mikrofony nie są skierowane do twoich słuchawek, więc nie słyszysz opóźnionego echa własnego
 głosu. Żeby usłyszeć siebie, zapal klawisz **HEADPHONES** mikrofonu (krok 6).
 
-SETUP zostaje na panelu bocznym. Uruchom go ponownie, gdy dodasz urządzenie lub program. Dodaje to,
-czego brakuje, i niczego nie usuwa.
+SETUP to nie strona: uruchom go ponownie z **FIND** (**SETUP: BUILD A MIX**) albo z klawisza **SETUP**
+w SIMPLE, gdy dodasz urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -265,7 +265,7 @@ To koniec konfiguracji. Reszta podręcznika omawia każdą część szczegółow
 
 ### Panel boczny
 
-Strony są kartami po lewej stronie: **MIXER**, **ROUTING**, **SETUP**, **TOOLS**, **DEVICES**,
+Strony są kartami po lewej stronie: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Widoczna strona ma jasnoniebieską krawędź. Gdy widać Mixer, panel boczny ma też te
 karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
 
@@ -996,6 +996,7 @@ tracony, i startuje nowy miks. Zobacz [18.2](#182-my-mix-is-gone-a-fresh-mix-sta
 
 | Karta | Ustawienia |
 |---|---|
+| **LOOK** | **LOOK...**: kolory i krój pisma konsoli, z pliku LOOK (patrz [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: otwiera się w zasobniku przy logowaniu |
 | **DESK** | **WARN IF I TALK WHILE MUTED** (komunikat, gdy wyciszony mikrofon przekracza -30 dBFS) |
 | **APPS** | **APP RULES...**: do którego busa lub wyjścia trafia program, gdy zaczyna grać (także w **FIND**). Usunięcie kanału programu usuwa jego regułę |
@@ -1008,6 +1009,34 @@ tracony, i startuje nowy miks. Zobacz [18.2](#182-my-mix-is-gone-a-fresh-mix-sta
 | **ABOUT** | Wersja i autorzy |
 
 <a id="macros"></a>
+
+### LOOKS
+
+**LOOK** to każdy kolor, którym konsola rysuje, razem z krojem pisma i rozmiarami, które do niego
+pasują. Paski, odczyty, gałki, klawisze i lampki rysują z LOOK-a obowiązującego, więc jeden LOOK zmienia
+całą konsolę naraz.
+
+**LOOK...** pokazuje LOOK-i, które masz, i włącza wybrany; konsola jest rysowana na nowo w chwili zmiany.
+**SAVE THIS LOOK AS...** zapisuje obowiązujący LOOK do nowego pliku pod nazwą, którą nadasz.
+
+LOOK to jeden plik w `%APPDATA%\Faider\looks`, zapisany jako JSON, więc możesz napisać go ręcznie i
+skopiować na inny komputer. Brakujący lub uszkodzony plik zostawia LOOK wbudowany, a to, czego plik nie
+podaje, wraca do wartości wbudowanej: częściowo napisany plik nadal działa.
+
+| | |
+|---|---|
+| `name` | Nazwa LOOK-a, jak pojawia się na liście |
+| `font` | Krój pisma, który Windows ma w zestawie, więc ostry przy małych rozmiarach |
+| `keyRadius` | Jak zaokrąglone są narożniki klawisza, w pikselach |
+| `fontSizes` | `legend`, `caption`, `readout`: trzy rozmiary druku |
+| `colours` | Każdy kolor jako `#rrggbb`, albo `#rrggbbaa`, gdy część jest przezroczysta |
+
+Kolory noszą nazwy części konsoli: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
+`legendDim`, `namePlate`; klawisze `capTop`, `capBottom`, `capText`; nadrukowana płytka faderów
+`plateColour`; odczyty `screenLit`, `screenGlass`, `screenBezel`; gałki według funkcji `knobGrey`,
+`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lampki `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
+`muteLamp`, `soloLamp`, `powerLamp`; `selection`, światło tego, nad czym pracujesz; oraz `shadow`
+i `highlight`, cieniowanie, którym rysowane są pola.
 
 ### MACROS
 
@@ -1343,6 +1372,7 @@ W `%APPDATA%\Faider`:
 | `sessions\` | Nazwane miksy |
 | `session-unloaded-*.xml` | Miksy odłożone na bok przy starcie |
 | `settings.xml` | Preferencje |
+| `looks\` | LOOK-i: po jednym pliku JSON (patrz [LOOKS](#looks)) |
 | `console.xml` | Rodzaje pasków, odstępy, wybory SELECT i METER |
 | `plugins.xml` | Znalezione wtyczki i wynik testu każdej z nich |
 | `events.log` | Wszystko, co się wydarzyło (rotuje przy 5 MB) |

@@ -1050,12 +1050,13 @@ um arquivo não traz volta ao valor embutido: um arquivo escrito pela metade ain
 | `fontSizes` | `legend`, `caption`, `readout`: os três tamanhos de texto |
 | `colours` | Cada cor, como `#rrggbb`, ou `#rrggbbaa` quando uma parte é transparente |
 
-As cores levam o nome de cada parte da mesa: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; as teclas `capTop`, `capBottom`, `capText`; a placa impressa dos faders
-`plateColour`; as leituras `screenLit`, `screenGlass`, `screenBezel`; os botões por função `knobGrey`,
-`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; as lâmpadas `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
-`muteLamp`, `soloLamp`, `powerLamp`; `selection`, a luz do que você está usando; e `shadow` e `highlight`,
-o sombreado com que os campos são desenhados.
+As cores levam o nome da parte que desenham: os campos e a impressão, as teclas, a placa dos faders, as
+leituras, os botões por função, as lâmpadas, os corpos dos strips, a aparência de um canal, de um bus e
+de uma saída, o acento, os rebaixos e o sombreado. **SAVE THIS LOOK AS...** escreve todos os nomes que o
+LOOK tem; o mais rápido é mudar algo na mesa, salvar e editar esse arquivo.
+
+Um grupo `palette` nomeia as cores que um arquivo de layout pode pôr numa parte: `red`, `green`, `blue`,
+`black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

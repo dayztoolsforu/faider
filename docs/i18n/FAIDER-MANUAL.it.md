@@ -1040,12 +1040,13 @@ contiene torna al valore integrato: un file scritto a metà funziona comunque.
 | `fontSizes` | `legend`, `caption`, `readout`: le tre misure di stampa |
 | `colours` | Ogni colore, come `#rrggbb`, o `#rrggbbaa` dove una parte è trasparente |
 
-I colori portano il nome delle parti della console: `background`, `panel`, `panelDark`, `rim`, `slot`,
-`legend`, `legendDim`, `namePlate`; i tasti `capTop`, `capBottom`, `capText`; la placca stampata dei
-fader `plateColour`; i display `screenLit`, `screenGlass`, `screenBezel`; le manopole per funzione
-`knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; le lampade `ledGreen`, `ledYellow`,
-`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, la luce di ciò su cui stai
-lavorando; e `shadow` e `highlight`, l'ombreggiatura con cui sono disegnati i campi.
+I colori portano il nome della parte che disegnano: i campi e la stampa, i tasti, la placca dei fader,
+i display, le manopole per funzione, le lampade, i corpi delle strip, l'aspetto di un canale, di un bus e
+di un'uscita, l'accento, gli incavi e l'ombreggiatura. **SAVE THIS LOOK AS...** scrive ogni nome che il
+LOOK ha; il modo più rapido è cambiare una cosa sulla console, salvarla e modificare quel file.
+
+Un gruppo `palette` nomina i colori che un file di disposizione può mettere su una parte: `red`, `green`,
+`blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

@@ -1028,12 +1028,14 @@ nog steeds.
 | `fontSizes` | `legend`, `caption`, `readout`: de drie lettergroottes |
 | `colours` | Elke kleur, als `#rrggbb` of `#rrggbbaa` waar een deel doorzichtig is |
 
-De kleuren dragen de naam van het deel van de tafel: `background`, `panel`, `panelDark`, `rim`, `slot`,
-`legend`, `legendDim`, `namePlate`; de toetsdoppen `capTop`, `capBottom`, `capText`; de gedrukte plaat
-van de faders `plateColour`; de schermen `screenLit`, `screenGlass`, `screenBezel`; de knoppen per
-functie `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; de lampjes `ledGreen`, `ledYellow`,
-`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, het licht van wat je bedient; en
-`shadow` en `highlight`, de shading waarmee de velden getekend worden.
+De kleuren dragen de naam van het deel dat ze tekenen: de velden en de print, de toetsen, de plaat van de
+faders, de schermen, de knoppen per functie, de lampjes, de lichamen van de strips, hoe een kanaal, een
+bus en een uitgang eruitzien, het accent, de uitsparingen en de shading. **SAVE THIS LOOK AS...** schrijft
+elke naam die de LOOK heeft; het snelst begin je door iets op de tafel te veranderen, het op te slaan en
+dat bestand te bewerken.
+
+Een groep `palette` noemt de kleuren die een lay-outbestand op een deel kan leggen: `red`, `green`, `blue`,
+`black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

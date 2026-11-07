@@ -1060,12 +1060,14 @@ archivo omita vuelve al valor integrado: un archivo escrito a medias sigue funci
 | `fontSizes` | `legend`, `caption`, `readout`: los tres tamaños de texto |
 | `colours` | Cada color, como `#rrggbb`, o `#rrggbbaa` donde una parte es transparente |
 
-Los colores llevan el nombre de cada parte de la mesa: `background`, `panel`, `panelDark`, `rim`, `slot`,
-`legend`, `legendDim`, `namePlate`; las teclas `capTop`, `capBottom`, `capText`; la placa impresa de los
-faders `plateColour`; las lecturas `screenLit`, `screenGlass`, `screenBezel`; los mandos por función
-`knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; las lámparas `ledGreen`, `ledYellow`,
-`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, la luz de lo que tienes
-seleccionado; y `shadow` y `highlight`, el sombreado con el que se dibujan los campos.
+Los colores llevan el nombre de la parte que pintan: los campos y la impresión, las teclas, la placa de
+los faders, las lecturas, los mandos por función, las lámparas, los cuerpos de los strips, el aspecto de
+un canal, un bus y una salida, el acento, los huecos y el sombreado. **SAVE THIS LOOK AS...** escribe
+todos los nombres que tiene el LOOK; lo más rápido es cambiar algo en la mesa, guardarlo y editar ese
+archivo.
+
+Un grupo `palette` nombra los colores que un archivo de disposición puede poner en una parte: `red`,
+`green`, `blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

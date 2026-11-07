@@ -1026,12 +1026,13 @@ atladığı şey yerleşik değere döner: yarısı yazılmış bir dosya yine �
 | `fontSizes` | `legend`, `caption`, `readout`: üç baskı ölçüsü |
 | `colours` | Her renk, `#rrggbb` olarak, ya da bir bölüm şeffafsa `#rrggbbaa` olarak |
 
-Renkler konsolun parçalarının adını taşır: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; tuş kapakları `capTop`, `capBottom`, `capText`; faderların baskılı plakası
-`plateColour`; göstergeler `screenLit`, `screenGlass`, `screenBezel`; düğmeler işleve göre `knobGrey`,
-`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lambalar `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
-`muteLamp`, `soloLamp`, `powerLamp`; `selection`, üzerinde çalıştığın şeyin ışığı; ve `shadow` ile
-`highlight`, alanların boyandığı gölgelendirme.
+Renkler, boyadıkları parçanın adını taşır: alanlar ve baskı, tuşlar, faderların plakası, göstergeler,
+işlev göre düğmeler, lambalar, şeritlerin gövdeleri, bir kanalın, bus'ın ve çıkışın görünüşü, vurgu,
+çukurlar ve gölgelendirme. **SAVE THIS LOOK AS...**, LOOK'un sahip olduğu her adı yazar; en hızlısı
+masada bir şeyi değiştirip kaydetmek ve sonra o dosyayı düzenlemek.
+
+Bir `palette` grubu, bir yerleşim dosyasının bir parçaya verebileceği renkleri adlandırır: `red`,
+`green`, `blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

@@ -881,7 +881,9 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | `fontSizes` | `legend`、`caption`、`readout`：三种印刷尺寸 |
 | `colours` | 每个颜色写成 `#rrggbb`，需要透明时写成 `#rrggbbaa` |
 
-颜色的名字就是调音台各部分的名称：`background`、`panel`、`panelDark`、`rim`、`slot`、`legend`、`legendDim`、`namePlate`；按键的键帽是 `capTop`、`capBottom`、`capText`；推子的印制面板是 `plateColour`；数值显示是 `screenLit`、`screenGlass`、`screenBezel`；按功能分的旋钮是 `knobGrey`、`knobRed`、`knobGreen`、`knobBlue`、`knobBrown`；指示灯是 `ledGreen`、`ledYellow`、`ledRed`、`ledBlue`、`muteLamp`、`soloLamp`、`powerLamp`；`selection` 是你正在操作那一项的光；`shadow` 和 `highlight` 则是面板绘制所用的明暗。
+颜色的名字就是它绘制的那部分：面板与印刷、按键、推子的面板、数值显示、按功能分的旋钮、指示灯、通道条的体、通道／总线／输出的样子、强调色、凹槽和明暗。**SAVE THIS LOOK AS...** 会把 LOOK 拥有的每个名字都写出来，所以最快的办法是在调音台上改一下、保存它，再编辑那个文件。
+
+`palette` 这一组列出布局文件可以加在某个部件上的颜色：`red`、`green`、`blue`、`black`、`white`、`violet`、`grey`、`cream`、`orange`、`amber`、`teal`、`salmon`。
 
 ### MACROS
 

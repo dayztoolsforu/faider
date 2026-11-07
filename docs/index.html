@@ -1815,12 +1815,13 @@ a file leaves out falls back to the built-in value: a part-written file still wo
 </tr>
 </tbody>
 </table></div>
-<p>The colours are the desk's parts by name: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; the key caps <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; the faders' printed plate
-<code>plateColour</code>; the readouts <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; the knobs by function <code>knobGrey</code>,
-<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; the lamps <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
-<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, the light of the one you are working on; and <code>shadow</code>
-and <code>highlight</code>, the shading the panels are drawn with.</p>
+<p>The colours are named after the part they paint: the panels and the printing, the keys, the faders'
+plate, the readouts, the knobs by function, the lamps, the strips' bodies, what a channel, a bus and an
+output look like, the accent, the recesses and the shading. <span class="key">SAVE THIS LOOK AS...</span> writes out every
+name the look has, so the quickest way to begin is to change one thing on the desk, save it, and edit
+that file.</p>
+<p>A <code>palette</code> group names the colours a layout file can put on a part: <code>red</code>, <code>green</code>, <code>blue</code>, <code>black</code>,
+<code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>A macro is a list of <strong>actions</strong> run from a hotkey, a pad, a trigger or remote control.</p>
 <ol>
@@ -3751,12 +3752,13 @@ archivo omita vuelve al valor integrado: un archivo escrito a medias sigue funci
 </tr>
 </tbody>
 </table></div>
-<p>Los colores llevan el nombre de cada parte de la mesa: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
-<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; las teclas <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; la placa impresa de los
-faders <code>plateColour</code>; las lecturas <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; los mandos por función
-<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; las lámparas <code>ledGreen</code>, <code>ledYellow</code>,
-<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, la luz de lo que tienes
-seleccionado; y <code>shadow</code> y <code>highlight</code>, el sombreado con el que se dibujan los campos.</p>
+<p>Los colores llevan el nombre de la parte que pintan: los campos y la impresión, las teclas, la placa de
+los faders, las lecturas, los mandos por función, las lámparas, los cuerpos de los strips, el aspecto de
+un canal, un bus y una salida, el acento, los huecos y el sombreado. <span class="key">SAVE THIS LOOK AS...</span> escribe
+todos los nombres que tiene el LOOK; lo más rápido es cambiar algo en la mesa, guardarlo y editar ese
+archivo.</p>
+<p>Un grupo <code>palette</code> nombra los colores que un archivo de disposición puede poner en una parte: <code>red</code>,
+<code>green</code>, <code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Una macro es una lista de <strong>acciones</strong> que se ejecutan desde un atajo de teclado, un pad, un
 disparador o un control remoto.</p>
@@ -5716,12 +5718,13 @@ ce qu'un fichier omet revient à la valeur intégrée : un fichier écrit à moi
 </tr>
 </tbody>
 </table></div>
-<p>Les couleurs portent le nom des parties du pupitre : <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
-<code>legend</code>, <code>legendDim</code>, <code>namePlate</code> ; les touches <code>capTop</code>, <code>capBottom</code>, <code>capText</code> ; la plaque imprimée
-des faders <code>plateColour</code> ; les affichages <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code> ; les boutons par
-fonction <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code> ; les lampes <code>ledGreen</code>,
-<code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code> ; <code>selection</code>, la lumière de ce
-sur quoi vous travaillez ; et <code>shadow</code> et <code>highlight</code>, l'ombrage dont les champs se dessinent.</p>
+<p>Les couleurs portent le nom de la partie qu'elles dessinent : les champs et l'impression, les touches,
+la plaque des faders, les affichages, les boutons par fonction, les lampes, les corps des tranches,
+l'aspect d'un canal, d'un bus et d'une sortie, l'accent, les creux et l'ombrage. <span class="key">SAVE THIS LOOK AS...</span>
+écrit chacun des noms que le LOOK possède ; le plus simple est de changer un point sur le pupitre, de le
+sauvegarder, puis d'éditer ce fichier.</p>
+<p>Un groupe <code>palette</code> nomme les couleurs qu'un fichier de disposition peut poser sur une partie : <code>red</code>,
+<code>green</code>, <code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Une macro est une liste d'<strong>actions</strong> lancées depuis un raccourci clavier, un pad, un déclencheur ou
 une télécommande.</p>
@@ -7635,12 +7638,13 @@ teilweise geschriebene Datei funktioniert weiter.</p>
 </tr>
 </tbody>
 </table></div>
-<p>Die Farben heißen nach den Teilen des Pults: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; die Tastenkappen <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; die gedruckte Platte der
-Fader <code>plateColour</code>; die Anzeigen <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; die Regler nach Funktion
-<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; die Lampen <code>ledGreen</code>, <code>ledYellow</code>,
-<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, das Licht des ausgewählten Stücks;
-sowie <code>shadow</code> und <code>highlight</code>, die Schattierung, mit der die Felder gezeichnet werden.</p>
+<p>Die Farben sind nach dem Teil benannt, den sie malen: die Felder und die Beschriftung, die Tasten, die
+Platte der Fader, die Anzeigen, die Regler nach Funktion, die Lampen, die Gehäuse der Strips, wie ein
+Kanal, ein Bus und ein Ausgang aussehen, der Akzent, die Vertiefungen und die Schattierung.
+<span class="key">SAVE THIS LOOK AS...</span> schreibt jeden Namen auf, den der LOOK hat — am schnellsten fängst du an, indem
+du im Pult etwas änderst, es speicherst und diese Datei bearbeitest.</p>
+<p>Eine Gruppe <code>palette</code> nennt die Farben, die eine Layoutdatei auf ein Teil legen kann: <code>red</code>, <code>green</code>,
+<code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Ein Makro ist eine Liste von <strong>Aktionen</strong>, die per Hotkey, Pad, Trigger oder Fernsteuerung ausgeführt wird.</p>
 <ol>
@@ -9548,12 +9552,12 @@ contiene torna al valore integrato: un file scritto a metà funziona comunque.</
 </tr>
 </tbody>
 </table></div>
-<p>I colori portano il nome delle parti della console: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
-<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; i tasti <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; la placca stampata dei
-fader <code>plateColour</code>; i display <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; le manopole per funzione
-<code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; le lampade <code>ledGreen</code>, <code>ledYellow</code>,
-<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, la luce di ciò su cui stai
-lavorando; e <code>shadow</code> e <code>highlight</code>, l'ombreggiatura con cui sono disegnati i campi.</p>
+<p>I colori portano il nome della parte che disegnano: i campi e la stampa, i tasti, la placca dei fader,
+i display, le manopole per funzione, le lampade, i corpi delle strip, l'aspetto di un canale, di un bus e
+di un'uscita, l'accento, gli incavi e l'ombreggiatura. <span class="key">SAVE THIS LOOK AS...</span> scrive ogni nome che il
+LOOK ha; il modo più rapido è cambiare una cosa sulla console, salvarla e modificare quel file.</p>
+<p>Un gruppo <code>palette</code> nomina i colori che un file di disposizione può mettere su una parte: <code>red</code>, <code>green</code>,
+<code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Una macro è un elenco di <strong>azioni</strong> eseguite da un tasto rapido, un pad, un trigger o un controllo remoto.</p>
 <ol>
@@ -11475,12 +11479,12 @@ um arquivo não traz volta ao valor embutido: um arquivo escrito pela metade ain
 </tr>
 </tbody>
 </table></div>
-<p>As cores levam o nome de cada parte da mesa: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; as teclas <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; a placa impressa dos faders
-<code>plateColour</code>; as leituras <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; os botões por função <code>knobGrey</code>,
-<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; as lâmpadas <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
-<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, a luz do que você está usando; e <code>shadow</code> e <code>highlight</code>,
-o sombreado com que os campos são desenhados.</p>
+<p>As cores levam o nome da parte que desenham: os campos e a impressão, as teclas, a placa dos faders, as
+leituras, os botões por função, as lâmpadas, os corpos dos strips, a aparência de um canal, de um bus e
+de uma saída, o acento, os rebaixos e o sombreado. <span class="key">SAVE THIS LOOK AS...</span> escreve todos os nomes que o
+LOOK tem; o mais rápido é mudar algo na mesa, salvar e editar esse arquivo.</p>
+<p>Um grupo <code>palette</code> nomeia as cores que um arquivo de layout pode pôr numa parte: <code>red</code>, <code>green</code>, <code>blue</code>,
+<code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Uma macro é uma lista de <strong>ações</strong> executadas por uma tecla de atalho, um pad, um gatilho ou um
 controle remoto.</p>
@@ -13384,12 +13388,13 @@ nog steeds.</p>
 </tr>
 </tbody>
 </table></div>
-<p>De kleuren dragen de naam van het deel van de tafel: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>,
-<code>legend</code>, <code>legendDim</code>, <code>namePlate</code>; de toetsdoppen <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; de gedrukte plaat
-van de faders <code>plateColour</code>; de schermen <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; de knoppen per
-functie <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; de lampjes <code>ledGreen</code>, <code>ledYellow</code>,
-<code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, het licht van wat je bedient; en
-<code>shadow</code> en <code>highlight</code>, de shading waarmee de velden getekend worden.</p>
+<p>De kleuren dragen de naam van het deel dat ze tekenen: de velden en de print, de toetsen, de plaat van de
+faders, de schermen, de knoppen per functie, de lampjes, de lichamen van de strips, hoe een kanaal, een
+bus en een uitgang eruitzien, het accent, de uitsparingen en de shading. <span class="key">SAVE THIS LOOK AS...</span> schrijft
+elke naam die de LOOK heeft; het snelst begin je door iets op de tafel te veranderen, het op te slaan en
+dat bestand te bewerken.</p>
+<p>Een groep <code>palette</code> noemt de kleuren die een lay-outbestand op een deel kan leggen: <code>red</code>, <code>green</code>, <code>blue</code>,
+<code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Een macro is een lijst <strong>acties</strong> die wordt uitgevoerd via een sneltoets, een pad, een trigger of afstandsbediening.</p>
 <ol>
@@ -15288,12 +15293,12 @@ podaje, wraca do wartości wbudowanej: częściowo napisany plik nadal działa.<
 </tr>
 </tbody>
 </table></div>
-<p>Kolory noszą nazwy części konsoli: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; klawisze <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; nadrukowana płytka faderów
-<code>plateColour</code>; odczyty <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; gałki według funkcji <code>knobGrey</code>,
-<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lampki <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
-<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, światło tego, nad czym pracujesz; oraz <code>shadow</code>
-i <code>highlight</code>, cieniowanie, którym rysowane są pola.</p>
+<p>Kolory noszą nazwy części, które rysują: pola i druk, klawisze, płytkę faderów, odczyty, gałki według
+funkcji, lampki, korpusy pasków, wygląd kanału, magistrali i wyjścia, akcent, wgłębienia i cieniowanie.
+<span class="key">SAVE THIS LOOK AS...</span> wypisuje każdą nazwę, którą LOOK ma — najszybciej więc zacząć od zmiany czegoś na
+konsoli, zapisania tego i edycji tego pliku.</p>
+<p>Grupa <code>palette</code> nazywa kolory, które plik układu może położyć na część: <code>red</code>, <code>green</code>, <code>blue</code>, <code>black</code>,
+<code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Makro to lista <strong>akcji</strong> uruchamianych skrótem klawiszowym, padem, wyzwalaczem albo zdalnym sterowaniem.</p>
 <ol>
@@ -17188,12 +17193,12 @@ fil utelämnar faller tillbaka på det inbyggda värdet: en halvskriven fil fung
 </tr>
 </tbody>
 </table></div>
-<p>Färgerna bär namn efter bordets delar: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; tangenterna <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; den tryckta plattan under faderna
-<code>plateColour</code>; displayerna <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; reglagen efter funktion <code>knobGrey</code>,
-<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lamporna <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
-<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, ljuset på det du arbetar med; och <code>shadow</code> och
-<code>highlight</code>, nyanseringen som fälten ritas med.</p>
+<p>Färgerna bär namn efter den del de ritar: fälten och trycken, tangenterna, plattan under faderna,
+displayerna, reglagen efter funktion, lamporna, striparnas kroppar, hur en kanal, en buss och en utgång
+ser ut, accenten, urtagen och nyanseringen. <span class="key">SAVE THIS LOOK AS...</span> skriver varje namn som LOOK:en har;
+det snabbaste är att ändra något på bordet, spara det och redigera den filen.</p>
+<p>En grupp <code>palette</code> namnger de färger en layoutfil kan lägga på en del: <code>red</code>, <code>green</code>, <code>blue</code>, <code>black</code>,
+<code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Ett makro är en lista med <strong>åtgärder</strong> som körs från ett kortkommando, en pad, en trigger eller fjärrstyrning.</p>
 <ol>
@@ -19087,12 +19092,12 @@ atladığı şey yerleşik değere döner: yarısı yazılmış bir dosya yine �
 </tr>
 </tbody>
 </table></div>
-<p>Renkler konsolun parçalarının adını taşır: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>,
-<code>legendDim</code>, <code>namePlate</code>; tuş kapakları <code>capTop</code>, <code>capBottom</code>, <code>capText</code>; faderların baskılı plakası
-<code>plateColour</code>; göstergeler <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>; düğmeler işleve göre <code>knobGrey</code>,
-<code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>; lambalar <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>,
-<code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>; <code>selection</code>, üzerinde çalıştığın şeyin ışığı; ve <code>shadow</code> ile
-<code>highlight</code>, alanların boyandığı gölgelendirme.</p>
+<p>Renkler, boyadıkları parçanın adını taşır: alanlar ve baskı, tuşlar, faderların plakası, göstergeler,
+işlev göre düğmeler, lambalar, şeritlerin gövdeleri, bir kanalın, bus'ın ve çıkışın görünüşü, vurgu,
+çukurlar ve gölgelendirme. <span class="key">SAVE THIS LOOK AS...</span>, LOOK'un sahip olduğu her adı yazar; en hızlısı
+masada bir şeyi değiştirip kaydetmek ve sonra o dosyayı düzenlemek.</p>
+<p>Bir <code>palette</code> grubu, bir yerleşim dosyasının bir parçaya verebileceği renkleri adlandırır: <code>red</code>,
+<code>green</code>, <code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrolden çalıştırılan
 <strong>eylemler</strong> listesidir.</p>
@@ -20843,7 +20848,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
-<p>色は卓の部位の名前で並びます: <code>background</code>、<code>panel</code>、<code>panelDark</code>、<code>rim</code>、<code>slot</code>、<code>legend</code>、<code>legendDim</code>、<code>namePlate</code>。キーの天板が <code>capTop</code>、<code>capBottom</code>、<code>capText</code>。フェーダーの印刷盤が <code>plateColour</code>。数値表示が <code>screenLit</code>、<code>screenGlass</code>、<code>screenBezel</code>。機能別のノブが <code>knobGrey</code>、<code>knobRed</code>、<code>knobGreen</code>、<code>knobBlue</code>、<code>knobBrown</code>。ランプが <code>ledGreen</code>、<code>ledYellow</code>、<code>ledRed</code>、<code>ledBlue</code>、<code>muteLamp</code>、<code>soloLamp</code>、<code>powerLamp</code>。<code>selection</code> は作業中の対象の光、<code>shadow</code> と <code>highlight</code> は面が描かれるときの陰影です。</p>
+<p>色は、描く部分の名前で付いています。面と印刷、キー、フェーダーの盤面、数値表示、機能別のノブ、ランプ、ストリップの胴体、チャンネル・バス・出力の見え方、アクセント、くぼみ、それに陰影です。<span class="key">SAVE THIS LOOK AS...</span> は LOOK が持つ名前をすべて書き出します。いちばん手軽なのは、卓で何かを変えてそれを保存し、そのファイルを編集することです。</p>
+<p><code>palette</code> のグループは、レイアウト ファイルが部分に指定できる色を名前で並べます: <code>red</code>、<code>green</code>、<code>blue</code>、<code>black</code>、<code>white</code>、<code>violet</code>、<code>grey</code>、<code>cream</code>、<code>orange</code>、<code>amber</code>、<code>teal</code>、<code>salmon</code>。</p>
 <h3 id="macros">MACROS</h3>
 <p>マクロは、ホットキー、パッド、トリガー、リモート操作から実行される<strong>アクション</strong>のリストです。</p>
 <ol>
@@ -22544,7 +22550,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
-<p>색은 데스크의 부분 이름으로 붙어 있습니다: <code>background</code>, <code>panel</code>, <code>panelDark</code>, <code>rim</code>, <code>slot</code>, <code>legend</code>, <code>legendDim</code>, <code>namePlate</code>. 키 윗면이 <code>capTop</code>, <code>capBottom</code>, <code>capText</code>. 페이더의 인쇄 판이 <code>plateColour</code>. 수치 표시가 <code>screenLit</code>, <code>screenGlass</code>, <code>screenBezel</code>. 기능별 노브가 <code>knobGrey</code>, <code>knobRed</code>, <code>knobGreen</code>, <code>knobBlue</code>, <code>knobBrown</code>. 램프가 <code>ledGreen</code>, <code>ledYellow</code>, <code>ledRed</code>, <code>ledBlue</code>, <code>muteLamp</code>, <code>soloLamp</code>, <code>powerLamp</code>. <code>selection</code>은 작업 중인 것의 빛이고, <code>shadow</code>와 <code>highlight</code>는 면이 그려지는 그늘입니다.</p>
+<p>색은 그리는 부분의 이름을 따서 붙습니다. 면과 인쇄, 키, 페이더의 판, 수치 표시, 기능별 노브, 램프, 스트립의 몸통, 채널·버스·출력의 모습, 강조색, 홈, 그리고 그늘입니다. <span class="key">SAVE THIS LOOK AS...</span>는 LOOK이 가진 이름을 모두 적어 냅니다. 그러니 데스크에서 무엇인가를 바꾸고 저장한 뒤 그 파일을 고치는 것이 가장 빠릅니다.</p>
+<p><code>palette</code> 묶음은 레이아웃 파일이 부분에 입힐 수 있는 색을 이름으로 적습니다: <code>red</code>, <code>green</code>, <code>blue</code>, <code>black</code>, <code>white</code>, <code>violet</code>, <code>grey</code>, <code>cream</code>, <code>orange</code>, <code>amber</code>, <code>teal</code>, <code>salmon</code>.</p>
 <h3 id="macros">MACROS</h3>
 <p>매크로는 단축키, 패드, 트리거, 원격 제어로 실행되는 <strong>액션</strong>의 목록입니다.</p>
 <ol>
@@ -24244,7 +24251,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 </tbody>
 </table></div>
-<p>颜色的名字就是调音台各部分的名称：<code>background</code>、<code>panel</code>、<code>panelDark</code>、<code>rim</code>、<code>slot</code>、<code>legend</code>、<code>legendDim</code>、<code>namePlate</code>；按键的键帽是 <code>capTop</code>、<code>capBottom</code>、<code>capText</code>；推子的印制面板是 <code>plateColour</code>；数值显示是 <code>screenLit</code>、<code>screenGlass</code>、<code>screenBezel</code>；按功能分的旋钮是 <code>knobGrey</code>、<code>knobRed</code>、<code>knobGreen</code>、<code>knobBlue</code>、<code>knobBrown</code>；指示灯是 <code>ledGreen</code>、<code>ledYellow</code>、<code>ledRed</code>、<code>ledBlue</code>、<code>muteLamp</code>、<code>soloLamp</code>、<code>powerLamp</code>；<code>selection</code> 是你正在操作那一项的光；<code>shadow</code> 和 <code>highlight</code> 则是面板绘制所用的明暗。</p>
+<p>颜色的名字就是它绘制的那部分：面板与印刷、按键、推子的面板、数值显示、按功能分的旋钮、指示灯、通道条的体、通道／总线／输出的样子、强调色、凹槽和明暗。<span class="key">SAVE THIS LOOK AS...</span> 会把 LOOK 拥有的每个名字都写出来，所以最快的办法是在调音台上改一下、保存它，再编辑那个文件。</p>
+<p><code>palette</code> 这一组列出布局文件可以加在某个部件上的颜色：<code>red</code>、<code>green</code>、<code>blue</code>、<code>black</code>、<code>white</code>、<code>violet</code>、<code>grey</code>、<code>cream</code>、<code>orange</code>、<code>amber</code>、<code>teal</code>、<code>salmon</code>。</p>
 <h3 id="macros">MACROS</h3>
 <p>宏是由快捷键、打击垫、触发器或远程控制运行的<strong>动作</strong>列表。</p>
 <ol>

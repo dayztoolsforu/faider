@@ -1028,12 +1028,14 @@ teilweise geschriebene Datei funktioniert weiter.
 | `fontSizes` | `legend`, `caption`, `readout`: die drei Schriftgrößen |
 | `colours` | Jede Farbe als `#rrggbb`, oder `#rrggbbaa`, wo ein Teil durchsichtig ist |
 
-Die Farben heißen nach den Teilen des Pults: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; die Tastenkappen `capTop`, `capBottom`, `capText`; die gedruckte Platte der
-Fader `plateColour`; die Anzeigen `screenLit`, `screenGlass`, `screenBezel`; die Regler nach Funktion
-`knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; die Lampen `ledGreen`, `ledYellow`,
-`ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`; `selection`, das Licht des ausgewählten Stücks;
-sowie `shadow` und `highlight`, die Schattierung, mit der die Felder gezeichnet werden.
+Die Farben sind nach dem Teil benannt, den sie malen: die Felder und die Beschriftung, die Tasten, die
+Platte der Fader, die Anzeigen, die Regler nach Funktion, die Lampen, die Gehäuse der Strips, wie ein
+Kanal, ein Bus und ein Ausgang aussehen, der Akzent, die Vertiefungen und die Schattierung.
+**SAVE THIS LOOK AS...** schreibt jeden Namen auf, den der LOOK hat — am schnellsten fängst du an, indem
+du im Pult etwas änderst, es speicherst und diese Datei bearbeitest.
+
+Eine Gruppe `palette` nennt die Farben, die eine Layoutdatei auf ein Teil legen kann: `red`, `green`,
+`blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

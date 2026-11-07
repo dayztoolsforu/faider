@@ -882,7 +882,9 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 | `fontSizes` | `legend`, `caption`, `readout`: 세 가지 인쇄 크기 |
 | `colours` | 모든 색은 `#rrggbb`, 일부가 반투명하면 `#rrggbbaa` |
 
-색은 데스크의 부분 이름으로 붙어 있습니다: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`, `legendDim`, `namePlate`. 키 윗면이 `capTop`, `capBottom`, `capText`. 페이더의 인쇄 판이 `plateColour`. 수치 표시가 `screenLit`, `screenGlass`, `screenBezel`. 기능별 노브가 `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown`. 램프가 `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp`. `selection`은 작업 중인 것의 빛이고, `shadow`와 `highlight`는 면이 그려지는 그늘입니다.
+색은 그리는 부분의 이름을 따서 붙습니다. 면과 인쇄, 키, 페이더의 판, 수치 표시, 기능별 노브, 램프, 스트립의 몸통, 채널·버스·출력의 모습, 강조색, 홈, 그리고 그늘입니다. **SAVE THIS LOOK AS...**는 LOOK이 가진 이름을 모두 적어 냅니다. 그러니 데스크에서 무엇인가를 바꾸고 저장한 뒤 그 파일을 고치는 것이 가장 빠릅니다.
+
+`palette` 묶음은 레이아웃 파일이 부분에 입힐 수 있는 색을 이름으로 적습니다: `red`, `green`, `blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

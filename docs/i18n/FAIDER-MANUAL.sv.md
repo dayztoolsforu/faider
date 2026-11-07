@@ -1027,12 +1027,13 @@ fil utelämnar faller tillbaka på det inbyggda värdet: en halvskriven fil fung
 | `fontSizes` | `legend`, `caption`, `readout`: de tre textstorlekarna |
 | `colours` | Varje färg, som `#rrggbb`, eller `#rrggbbaa` där en del är genomskinlig |
 
-Färgerna bär namn efter bordets delar: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; tangenterna `capTop`, `capBottom`, `capText`; den tryckta plattan under faderna
-`plateColour`; displayerna `screenLit`, `screenGlass`, `screenBezel`; reglagen efter funktion `knobGrey`,
-`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lamporna `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
-`muteLamp`, `soloLamp`, `powerLamp`; `selection`, ljuset på det du arbetar med; och `shadow` och
-`highlight`, nyanseringen som fälten ritas med.
+Färgerna bär namn efter den del de ritar: fälten och trycken, tangenterna, plattan under faderna,
+displayerna, reglagen efter funktion, lamporna, striparnas kroppar, hur en kanal, en buss och en utgång
+ser ut, accenten, urtagen och nyanseringen. **SAVE THIS LOOK AS...** skriver varje namn som LOOK:en har;
+det snabbaste är att ändra något på bordet, spara det och redigera den filen.
+
+En grupp `palette` namnger de färger en layoutfil kan lägga på en del: `red`, `green`, `blue`, `black`,
+`white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

@@ -1031,12 +1031,13 @@ podaje, wraca do wartości wbudowanej: częściowo napisany plik nadal działa.
 | `fontSizes` | `legend`, `caption`, `readout`: trzy rozmiary druku |
 | `colours` | Każdy kolor jako `#rrggbb`, albo `#rrggbbaa`, gdy część jest przezroczysta |
 
-Kolory noszą nazwy części konsoli: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; klawisze `capTop`, `capBottom`, `capText`; nadrukowana płytka faderów
-`plateColour`; odczyty `screenLit`, `screenGlass`, `screenBezel`; gałki według funkcji `knobGrey`,
-`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; lampki `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
-`muteLamp`, `soloLamp`, `powerLamp`; `selection`, światło tego, nad czym pracujesz; oraz `shadow`
-i `highlight`, cieniowanie, którym rysowane są pola.
+Kolory noszą nazwy części, które rysują: pola i druk, klawisze, płytkę faderów, odczyty, gałki według
+funkcji, lampki, korpusy pasków, wygląd kanału, magistrali i wyjścia, akcent, wgłębienia i cieniowanie.
+**SAVE THIS LOOK AS...** wypisuje każdą nazwę, którą LOOK ma — najszybciej więc zacząć od zmiany czegoś na
+konsoli, zapisania tego i edycji tego pliku.
+
+Grupa `palette` nazywa kolory, które plik układu może położyć na część: `red`, `green`, `blue`, `black`,
+`white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

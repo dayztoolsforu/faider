@@ -890,12 +890,14 @@ a file leaves out falls back to the built-in value: a part-written file still wo
 | `fontSizes` | `legend`, `caption`, `readout`: the three printing sizes |
 | `colours` | Every colour, as `#rrggbb`, or `#rrggbbaa` where a part is see-through |
 
-The colours are the desk's parts by name: `background`, `panel`, `panelDark`, `rim`, `slot`, `legend`,
-`legendDim`, `namePlate`; the key caps `capTop`, `capBottom`, `capText`; the faders' printed plate
-`plateColour`; the readouts `screenLit`, `screenGlass`, `screenBezel`; the knobs by function `knobGrey`,
-`knobRed`, `knobGreen`, `knobBlue`, `knobBrown`; the lamps `ledGreen`, `ledYellow`, `ledRed`, `ledBlue`,
-`muteLamp`, `soloLamp`, `powerLamp`; `selection`, the light of the one you are working on; and `shadow`
-and `highlight`, the shading the panels are drawn with.
+The colours are named after the part they paint: the panels and the printing, the keys, the faders'
+plate, the readouts, the knobs by function, the lamps, the strips' bodies, what a channel, a bus and an
+output look like, the accent, the recesses and the shading. **SAVE THIS LOOK AS...** writes out every
+name the look has, so the quickest way to begin is to change one thing on the desk, save it, and edit
+that file.
+
+A `palette` group names the colours a layout file can put on a part: `red`, `green`, `blue`, `black`,
+`white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

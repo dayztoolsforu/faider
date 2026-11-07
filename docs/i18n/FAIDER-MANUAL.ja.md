@@ -882,7 +882,9 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 | `fontSizes` | `legend`、`caption`、`readout`: 文字の 3 つのサイズ |
 | `colours` | すべての色。`#rrggbb`、半透明の箇所があるときは `#rrggbbaa` |
 
-色は卓の部位の名前で並びます: `background`、`panel`、`panelDark`、`rim`、`slot`、`legend`、`legendDim`、`namePlate`。キーの天板が `capTop`、`capBottom`、`capText`。フェーダーの印刷盤が `plateColour`。数値表示が `screenLit`、`screenGlass`、`screenBezel`。機能別のノブが `knobGrey`、`knobRed`、`knobGreen`、`knobBlue`、`knobBrown`。ランプが `ledGreen`、`ledYellow`、`ledRed`、`ledBlue`、`muteLamp`、`soloLamp`、`powerLamp`。`selection` は作業中の対象の光、`shadow` と `highlight` は面が描かれるときの陰影です。
+色は、描く部分の名前で付いています。面と印刷、キー、フェーダーの盤面、数値表示、機能別のノブ、ランプ、ストリップの胴体、チャンネル・バス・出力の見え方、アクセント、くぼみ、それに陰影です。**SAVE THIS LOOK AS...** は LOOK が持つ名前をすべて書き出します。いちばん手軽なのは、卓で何かを変えてそれを保存し、そのファイルを編集することです。
+
+`palette` のグループは、レイアウト ファイルが部分に指定できる色を名前で並べます: `red`、`green`、`blue`、`black`、`white`、`violet`、`grey`、`cream`、`orange`、`amber`、`teal`、`salmon`。
 
 ### MACROS
 

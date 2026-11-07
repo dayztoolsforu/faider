@@ -1076,12 +1076,14 @@ ce qu'un fichier omet revient à la valeur intégrée : un fichier écrit à moi
 | `fontSizes` | `legend`, `caption`, `readout` : les trois tailles de texte |
 | `colours` | Chaque couleur, en `#rrggbb`, ou `#rrggbbaa` quand une partie est transparente |
 
-Les couleurs portent le nom des parties du pupitre : `background`, `panel`, `panelDark`, `rim`, `slot`,
-`legend`, `legendDim`, `namePlate` ; les touches `capTop`, `capBottom`, `capText` ; la plaque imprimée
-des faders `plateColour` ; les affichages `screenLit`, `screenGlass`, `screenBezel` ; les boutons par
-fonction `knobGrey`, `knobRed`, `knobGreen`, `knobBlue`, `knobBrown` ; les lampes `ledGreen`,
-`ledYellow`, `ledRed`, `ledBlue`, `muteLamp`, `soloLamp`, `powerLamp` ; `selection`, la lumière de ce
-sur quoi vous travaillez ; et `shadow` et `highlight`, l'ombrage dont les champs se dessinent.
+Les couleurs portent le nom de la partie qu'elles dessinent : les champs et l'impression, les touches,
+la plaque des faders, les affichages, les boutons par fonction, les lampes, les corps des tranches,
+l'aspect d'un canal, d'un bus et d'une sortie, l'accent, les creux et l'ombrage. **SAVE THIS LOOK AS...**
+écrit chacun des noms que le LOOK possède ; le plus simple est de changer un point sur le pupitre, de le
+sauvegarder, puis d'éditer ce fichier.
+
+Un groupe `palette` nomme les couleurs qu'un fichier de disposition peut poser sur une partie : `red`,
+`green`, `blue`, `black`, `white`, `violet`, `grey`, `cream`, `orange`, `amber`, `teal`, `salmon`.
 
 ### MACROS
 

@@ -296,7 +296,7 @@ namespace
             g.fillRoundedRectangle (r.translated (0.0f, 1.5f), 3.0f);
             g.setColour (fill);
             g.fillRoundedRectangle (box, 3.0f);
-            g.setColour (hover > 0.0f ? juce::Colour (0xff3db4e0) : on || viaBus ? colour : juce::Colour (0xff4a4d52));
+            g.setColour (hover > 0.0f ? Console::Colours::accent() : on || viaBus ? colour : Console::Colours::chromeOn());
             g.drawRoundedRectangle (box.reduced (0.5f), 3.0f, hover > 0.0f || viaBus ? 1.6f : 1.0f);
             auto label = box.reduced (8.0f, 0.0f);
             if (viaBus && ! on)
@@ -305,14 +305,14 @@ namespace
                 g.setFont (LargeFormat::print (9.0f));
                 g.drawText ("VIA BUS", label.removeFromRight (44.0f), juce::Justification::centredRight, false);
             }
-            g.setColour (on ? juce::Colour (0xff10201b) : viaBus ? colour.brighter (0.35f) : juce::Colour (0xffd8dadc));
+            g.setColour (on ? Console::Colours::litInk() : viaBus ? colour.brighter (0.35f) : Console::Colours::inkBright());
             g.setFont (LargeFormat::print (12.0f));
             g.drawFittedText (text, label.toNearestInt(), viaBus && ! on ? juce::Justification::centredLeft : juce::Justification::centred, 1, 0.8f);
         }
 
         void nameBar (juce::Graphics& g, juce::Rectangle<float> r, const juce::String& text, juce::Colour colour, juce::Colour kindColour, bool on, Hit::Kind nameKind, Hit::Kind powerKind, int index)
         {
-            g.setColour (juce::Colour (0xff1a1b1d));
+            g.setColour (Console::Colours::stripBody());
             g.fillRect (r);
             const auto band = colour.isTransparent() ? kindColour : colour;
             g.setColour (band.withAlpha (0.25f));
@@ -325,15 +325,15 @@ namespace
             hits.push_back ({ r.withTrimmedLeft (r.getHeight()), nameKind, index });
             if (overOf (powerArea) > 0.0f)
             {
-                g.setColour (juce::Colour (0xff3db4e0).withAlpha (0.3f));
+                g.setColour (Console::Colours::accent().withAlpha (0.3f));
                 g.fillEllipse (icon.expanded (icon.getWidth() * 0.45f));
             }
             juce::Path power;
             power.addCentredArc (icon.getCentreX(), icon.getCentreY(), icon.getWidth() * 0.5f, icon.getHeight() * 0.5f, 0.0f, 0.6f, juce::MathConstants<float>::twoPi - 0.6f, true);
-            g.setColour (on ? juce::Colour (0xfff2a03c) : juce::Colour (0xff9a9da2));
+            g.setColour (on ? Console::Colours::palette ("orange") : juce::Colour (0xff9a9da2));
             g.strokePath (power, juce::PathStrokeType (1.8f));
             g.drawLine (icon.getCentreX(), icon.getY() - 1.0f, icon.getCentreX(), icon.getCentreY(), 1.8f);
-            g.setColour (on ? juce::Colours::white : juce::Colour (0xffa6a9ae));
+            g.setColour (on ? juce::Colours::white : Console::Colours::inkFaint());
             g.setFont (LargeFormat::print (12.5f));
             g.drawFittedText (text, r.withTrimmedLeft (r.getHeight()).withTrimmedRight (6.0f).toNearestInt(), juce::Justification::centred, 1, 0.8f);
         }
@@ -341,7 +341,7 @@ namespace
         void subline (juce::Graphics& g, juce::Rectangle<float> r, const juce::String& text, bool asKey, Hit hit)
         {
             if (asKey)
-                return key (g, r, text, 0.0f, juce::Colour (0xfffff0c8), hit);
+                return key (g, r, text, 0.0f, Console::Colours::powerLamp(), hit);
             g.setColour (DeskSettings::text());
             g.setFont (LargeFormat::print (10.5f));
             g.drawFittedText (text, r.toNearestInt(), juce::Justification::centred, 1, 0.8f);
@@ -357,7 +357,7 @@ namespace
             const auto scale = r.removeFromLeft (28.0f).reduced (0.0f, 14.0f);
             const auto travel = r.reduced (0.0f, 14.0f);
             const float slotX = travel.getCentreX();
-            g.setColour (juce::Colour (0xff0b0b0c));
+            g.setColour (Console::Colours::rim());
             g.fillRoundedRectangle (juce::Rectangle<float> (6.0f, travel.getHeight()).withCentre ({ slotX, travel.getCentreY() }), 3.0f);
             g.setFont (LargeFormat::print (9.5f, false));
             for (auto [db, label] : { std::pair (12.0f, "+12"), std::pair (6.0f, "+6"), std::pair (0.0f, "0"), std::pair (-10.0f, "-10"), std::pair (-20.0f, "-20"),
@@ -381,7 +381,7 @@ namespace
             g.fillRect (cap.withSizeKeepingCentre (cap.getWidth(), 2.0f));
             if (moving || hovering)
             {
-                g.setColour (juce::Colour (0xff3db4e0).withAlpha (moving ? 0.95f : 0.6f));
+                g.setColour (Console::Colours::accent().withAlpha (moving ? 0.95f : 0.6f));
                 g.drawRoundedRectangle (cap.expanded (1.5f), 3.5f, 1.6f);
             }
             // The meter: two bars, -48 dB up, 3 dB a segment.
@@ -419,7 +419,7 @@ namespace
 
         void readout (juce::Graphics& g, juce::Rectangle<float> r, float gain)
         {
-            g.setColour (juce::Colour (0xff140807));
+            g.setColour (Console::Colours::stopLamp().withMultipliedBrightness (0.09f));
             g.fillRoundedRectangle (r, 2.0f);
             g.setColour (juce::Colour (0xffff5a44));
             g.setFont (LargeFormat::print (13.0f));
@@ -430,7 +430,7 @@ namespace
         {
             auto& s = *engine.getStrips()[(size_t) i];
             auto r = area.toFloat();
-            g.setColour (juce::Colour (0xff222427));
+            g.setColour (Console::Colours::bay());
             g.fillRoundedRectangle (r, 4.0f);
             nameBar (g, r.removeFromTop (nameH), s.name, s.colour, Console::Colours::kindInput(), s.enabled.load(), Hit::name, Hit::power, i);
             subline (g, r.removeFromTop (sourceH).reduced (6.0f, 4.0f), sourceText (engine, s), false, {});
@@ -441,19 +441,19 @@ namespace
             for (int place = 0; place < (int) masters.size(); ++place)
             {
                 const int m = order.output (place);
-                const auto lamp = masters[(size_t) m]->colour.isTransparent() ? juce::Colour (0xff62d6b4) : masters[(size_t) m]->colour;
+                const auto lamp = masters[(size_t) m]->colour.isTransparent() ? Console::Colours::palette ("teal") : masters[(size_t) m]->colour;
                 routeKey (g, routes.removeFromTop (routeH).reduced (8.0f, 3.0f), masters[(size_t) m]->name, s.sends[(size_t) m].load(), viaBus.count (m) > 0, lamp, { {}, Hit::route, i, m });
             }
             r.setTop ((float) area.getY() + body);
             auto foot = r.removeFromBottom (44.0f).reduced (8.0f, 6.0f);
-            key (g, foot.removeFromLeft (foot.getWidth() * 0.5f - 3.0f), "CUT", s.mute.load() ? 1.0f : 0.0f, juce::Colour (0xffef5a4f), { {}, Hit::cut, i });
+            key (g, foot.removeFromLeft (foot.getWidth() * 0.5f - 3.0f), "CUT", s.mute.load() ? 1.0f : 0.0f, Console::Colours::stopLamp(), { {}, Hit::cut, i });
             foot.removeFromLeft (6.0f);
             key (g, foot, "SOLO", s.solo.load() ? 1.0f : 0.0f, juce::Colour (0xfff2c14e), { {}, Hit::solo, i });
             readout (g, r.removeFromBottom (26.0f).reduced (10.0f, 2.0f), s.gain.load());
             faderAndMeter (g, r.reduced (12.0f, 4.0f), s.gain.load(), s.peakL.load(), s.peakR.load(), { {}, Hit::fader, i });
             if (! s.enabled.load())   // OFF: dimmed, still readable, its power switch still lit to switch it back
             {
-                g.setColour (juce::Colour (0xff1c1d20).withAlpha (0.5f));
+                g.setColour (Console::Colours::bayDark().withAlpha (0.5f));
                 g.fillRoundedRectangle (area.toFloat().withTrimmedTop (34.0f), 4.0f);
             }
         }
@@ -470,12 +470,12 @@ namespace
             subline (g, r.removeFromTop (routeH).reduced (8.0f, 3.0f), deviceText (engine, m), true, { {}, Hit::outDevice, i });   // (level with its first route)
             r.setTop ((float) area.getY() + body);
             auto foot = r.removeFromBottom (44.0f).reduced (8.0f, 6.0f);
-            key (g, foot, "CUT", m.mute.load() ? 1.0f : 0.0f, juce::Colour (0xffef5a4f), { {}, Hit::outCut, i });
+            key (g, foot, "CUT", m.mute.load() ? 1.0f : 0.0f, Console::Colours::stopLamp(), { {}, Hit::outCut, i });
             readout (g, r.removeFromBottom (26.0f).reduced (10.0f, 2.0f), m.gain.load());
             faderAndMeter (g, r.reduced (12.0f, 4.0f), m.gain.load(), m.peakL.load(), m.peakR.load(), { {}, Hit::outFader, i });
             if (! m.enabled.load())
             {
-                g.setColour (juce::Colour (0xff1c1d20).withAlpha (0.5f));
+                g.setColour (Console::Colours::bayDark().withAlpha (0.5f));
                 g.fillRoundedRectangle (area.toFloat().withTrimmedTop (34.0f), 4.0f);
             }
         }
@@ -484,7 +484,7 @@ namespace
         {
             auto r = area.toFloat();
             for (auto& [text, kind] : keys)
-                key (g, r.removeFromTop (nameH + 6.0f).withTrimmedBottom (6.0f), text, 0.0f, juce::Colour (0xfffff0c8), { {}, kind });   // (level with the name bars)
+                key (g, r.removeFromTop (nameH + 6.0f).withTrimmedBottom (6.0f), text, 0.0f, Console::Colours::powerLamp(), { {}, kind });   // (level with the name bars)
         }
 
         void paintEmpty (juce::Graphics& g)
@@ -493,7 +493,7 @@ namespace
             g.setFont (LargeFormat::print (16.0f));
             const auto c = getLocalBounds().toFloat().getCentre();
             g.drawText ("NO CHANNELS YET", juce::Rectangle<float> (300.0f, 24.0f).withCentre (c.translated (0.0f, -30.0f)), juce::Justification::centred, false);
-            key (g, juce::Rectangle<float> (160.0f, 36.0f).withCentre (c.translated (0.0f, 12.0f)), "SETUP", 0.0f, juce::Colour (0xff3db4e0), { {}, Hit::setup });
+            key (g, juce::Rectangle<float> (160.0f, 36.0f).withCentre (c.translated (0.0f, 12.0f)), "SETUP", 0.0f, Console::Colours::accent(), { {}, Hit::setup });
         }
 
         int hitAt (juce::Point<float> p) const
@@ -794,7 +794,7 @@ namespace
                 const bool hover = r.contains (over) && ! c.fixed;
                 g.setColour (c.on ? juce::Colour (0xff22303d) : hover ? juce::Colour (0xff2c2f33) : juce::Colour (0xff1d1f22));
                 g.fillRoundedRectangle (r, 4.0f);
-                g.setColour (c.on ? juce::Colour (0xff3db4e0) : hover ? juce::Colour (0xff3db4e0).withAlpha (0.6f) : juce::Colour (0xff3a3d42));
+                g.setColour (c.on ? Console::Colours::accent() : hover ? Console::Colours::accent().withAlpha (0.6f) : juce::Colour (0xff3a3d42));
                 g.drawRoundedRectangle (r.reduced (0.5f), 4.0f, c.on ? 1.6f : 1.0f);
                 g.setColour (c.on ? juce::Colours::white : DeskSettings::text());
                 g.setFont (LargeFormat::print (12.5f));

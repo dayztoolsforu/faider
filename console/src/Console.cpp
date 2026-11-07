@@ -20,23 +20,11 @@
 
 namespace
 {
+    // A colour a layout file names. All of them come from the look now, so a look file can repaint
+    // the parts the layouts put colour on (see Console::Colours::palette).
     juce::Colour named (const juce::String& name)
     {
-        const auto& t = Theme::get();
-        if (name == "red")    return juce::Colour (0xff8e1f22);
-        if (name == "green")  return juce::Colour (0xff3d7a3f);
-        if (name == "blue")   return juce::Colour (0xff2c78c0);
-        if (name == "black")  return juce::Colour (0xff2b2c2f);
-        if (name == "white")  return juce::Colour (0xffc9cacc);
-        if (name == "violet") return juce::Colour (0xffb35fa4);
-        if (name == "grey")   return juce::Colour (0xff5d5e62);
-        if (name == "yellow") return t.ledYellow;
-        if (name == "cream")  return juce::Colour (0xfffff0c8);
-        if (name == "orange") return juce::Colour (0xfff2a03c);
-        if (name == "amber")  return juce::Colour (0xfff7a64a);
-        if (name == "teal")   return juce::Colour (0xff62d6b4);
-        if (name == "salmon") return juce::Colour (0xffe8a587);
-        return t.knobGrey;
+        return Console::Colours::palette (name);
     }
 
     // THE KNOB: a matte cap in its
@@ -58,7 +46,7 @@ namespace
         g.setColour (juce::Colours::black.withAlpha (0.45f));
         g.fillEllipse (juce::Rectangle<float> (d, d).withCentre (c.translated (0.0f, d * 0.05f)).expanded (d * 0.02f));
         const auto skirt = juce::Rectangle<float> (d, d).withCentre (c);
-        g.setGradientFill (juce::ColourGradient (juce::Colour (0xff6e6f73), c.x, skirt.getY(), juce::Colour (0xff48494c), c.x, skirt.getBottom(), false));
+        g.setGradientFill (juce::ColourGradient (Console::Colours::skirtTop(), c.x, skirt.getY(), Console::Colours::skirtBottom(), c.x, skirt.getBottom(), false));
         g.fillEllipse (skirt);
         // The skirt's grip: eight notches (one under the knob's foot at the middle), and the black
         // index mark under the pointer, all turning with it.
@@ -794,11 +782,11 @@ public:
             g.fillRect (area);
             for (auto& sec : layout.sections)   // (the sections' seams carried across, so the desk reads as one)
             {
-                g.setColour (juce::Colour (0xff0a0a0b));
+                g.setColour (Console::Colours::recess());
                 g.fillRect (area.withY (y0).withHeight (juce::jmax (1.0f, 1.5f * zoom)));
                 y0 += sec.height * zoom;
             }
-            g.setColour (juce::Colour (0xff0a0a0b));
+            g.setColour (Console::Colours::recess());
             g.fillRect (juce::Rectangle<float> (area.getRight(), 40.0f, 2.0f * zoom, total));
         }
         for (int ch = 0; ch < channels; ++ch)
@@ -812,7 +800,7 @@ public:
             const float w = (layout.width + 2.0f) * zoom;
             g.setColour (juce::Colour (0xff111214));
             g.fillRect (juce::Rectangle<float> (stripX (dragging), 40.0f, w, h));
-            g.setColour (juce::Colour (0xff3db4e0));
+            g.setColour (Console::Colours::accent());
             g.fillRect (juce::Rectangle<float> (gapX (dragging, insertionGap (dragging, dragX)) - 2.0f * zoom, 40.0f, 4.0f * zoom, h));
             const float x = dragX - dragGrab;
             g.setColour (juce::Colours::black.withAlpha (0.4f));
@@ -834,8 +822,8 @@ public:
         {
             const auto at = juce::AffineTransform::scale (zoom).translated (x0, y0);
             const auto area = juce::Rectangle<float> (layout.width, s.height).transformedBy (at);
-            g.setColour (s.panel == "dark" ? juce::Colour (0xff222021) : s.panel == "name" ? (ch == selected ? juce::Colour (0xff2f6f86) : bind.isMaster (ch) ? juce::Colour (0xff4a3816) : bind.isBus (ch) ? juce::Colour (0xff3a2d4c) : juce::Colour (0xff1a1b1d))
-                                            : light ? juce::Colour (0xff78797f) : juce::Colour (0xff16181a));
+            g.setColour (s.panel == "dark" ? Console::Colours::stripDark() : s.panel == "name" ? (ch == selected ? Console::Colours::accent().withMultipliedBrightness (0.60f) : bind.isMaster (ch) ? Console::Colours::kindOutput().withMultipliedBrightness (0.36f) : bind.isBus (ch) ? Console::Colours::kindBus().withMultipliedBrightness (0.37f) : Console::Colours::stripBody())
+                                            : light ? Console::Colours::stripLight() : Console::Colours::stripBody());
             g.fillRect (area);
             if (const auto colour = channelColour (ch); s.panel == "name" && ! colour.isTransparent())   // (its own colour, as Faider shows it: a band along the bar)
             {
@@ -844,7 +832,7 @@ public:
                 g.setColour (colour);
                 g.fillRect (area.withHeight (juce::jmax (2.0f, 4.0f * zoom)));
             }
-            g.setColour (light && s.panel.isEmpty() ? juce::Colour (0xff525255) : juce::Colour (0xff0a0a0b));
+            g.setColour (light && s.panel.isEmpty() ? Console::Colours::stripLight().withMultipliedBrightness (0.68f) : Console::Colours::recess());
             g.fillRect (area.withHeight (juce::jmax (1.0f, 1.5f * zoom)));
             for (auto& item : s.items)
             {
@@ -869,7 +857,7 @@ public:
                 if (sec.panel == "name") { nameH = sec.height * zoom; break; }
                 nameTop += sec.height * zoom;
             }
-            g.setColour (juce::Colour (0xff1c1d20).withAlpha (0.5f * off));   // (dimmed, not hidden: everything on it still reads)
+            g.setColour (Console::Colours::bayDark().withAlpha (0.5f * off));   // (dimmed, not hidden: everything on it still reads)
             g.fillRect (column.withBottom (nameTop));
             g.fillRect (column.withTop (nameTop + nameH));
             g.setColour (juce::Colour (0xff808286).withAlpha (0.14f * off));   // (the colour washed out of it)
@@ -878,15 +866,15 @@ public:
             const auto tag = juce::Rectangle<float> (46.0f * zoom, 18.0f * zoom).withCentre ({ column.getCentreX(), nameTop + nameH + 16.0f * zoom });
             g.setColour (juce::Colour (0xff101113).withAlpha (0.9f * off));
             g.fillRoundedRectangle (tag, 3.0f * zoom);
-            g.setColour (juce::Colour (0xffc9cbce).withAlpha (off));
+            g.setColour (Console::Colours::ink().withAlpha (off));
             g.setFont (LargeFormat::print (juce::jmax (9.0f, 11.0f * zoom)));
             g.drawText ("OFF", tag, juce::Justification::centred, false);
         }
-        g.setColour (juce::Colour (0xff0a0a0b));   // (the seam between strips)
+        g.setColour (Console::Colours::recess());   // (the seam between strips)
         g.fillRect (juce::Rectangle<float> (x0 + layout.width * zoom, 40.0f, 2.0f * zoom, y0 - 40.0f));
         if (ch == selected)   // SEL: the strip you're on, outlined in blue
         {
-            g.setColour (juce::Colour (0xff3db4e0));
+            g.setColour (Console::Colours::accent());
             g.drawRect (juce::Rectangle<float> (x0, 40.0f, layout.width * zoom, y0 - 40.0f).reduced (1.0f), juce::jmax (1.5f, 2.0f * zoom));
         }
     }
@@ -1144,7 +1132,7 @@ public:
         g.fillRoundedRectangle (box, corner);
         g.setColour (colour.brighter (0.25f * t.hover).withAlpha (juce::jmin (1.0f, 0.75f + 0.25f * juce::jmax (lit, t.hover))));
         g.drawRoundedRectangle (box, corner, 1.0f + 0.7f * t.hover);
-        g.setColour (lit > 0.5f ? juce::Colour (0xff10201b) : colour.brighter (0.3f * t.hover));
+        g.setColour (lit > 0.5f ? Console::Colours::litInk() : colour.brighter (0.3f * t.hover));
         g.setFont (LargeFormat::print (fontHeight));
         g.drawFittedText (text, box.reduced (3.0f * zoom, 0.0f).toNearestInt(), juce::Justification::centred, 1, 0.8f);
     }
@@ -1862,7 +1850,7 @@ private:
             tag = juce::Rectangle<float> (w, ht).withCentre ({ r.getCentreX(), r.getBottom() + ht * 0.5f + 3.0f * zoom });
         g.setColour (juce::Colours::black.withAlpha (0.85f));
         g.fillRoundedRectangle (tag, 3.0f);
-        g.setColour (juce::Colour (0xff3db4e0).withAlpha (0.8f));
+        g.setColour (Console::Colours::accent().withAlpha (0.8f));
         g.drawRoundedRectangle (tag, 3.0f, 1.0f);
         g.setColour (juce::Colours::white);
         g.drawText (text, tag, juce::Justification::centred, false);
@@ -2492,7 +2480,7 @@ private:
             const bool turning = held.item == &item && held.ch == ch;
             if (const float over = eased (ch, item.id + "#over", turning || (hovered.item == &item && hovered.ch == ch) ? 1.0f : 0.0f); over > 0.01f)
             {
-                g.setColour (juce::Colour (0xff3db4e0).withAlpha ((turning ? 0.95f : 0.6f) * over));   // (under the mouse: ringed; turning: brighter)
+                g.setColour (Console::Colours::accent().withAlpha ((turning ? 0.95f : 0.6f) * over));   // (under the mouse: ringed; turning: brighter)
                 g.drawEllipse (r.expanded (3.0f * zoom), juce::jmax (1.2f, 1.8f * zoom));
             }
             if (item.name.isNotEmpty())
@@ -2515,10 +2503,10 @@ private:
             if (lit > 0.01f)
                 LargeFormat::bloom (g, cap, lamp, 0.8f * lit, corner, 4.0f * zoom);
             const float shine = 1.0f + 0.14f * touched.hover - 0.22f * touched.press;
-            g.setGradientFill (juce::ColourGradient (juce::Colour (0xffc4c6c9).interpolatedWith (lamp.brighter (0.3f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getY(),
-                                                     juce::Colour (0xff85878b).interpolatedWith (lamp.darker (0.25f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getBottom(), false));
+            g.setGradientFill (juce::ColourGradient (Console::Colours::knobTop().interpolatedWith (lamp.brighter (0.3f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getY(),
+                                                     Console::Colours::knobBottom().interpolatedWith (lamp.darker (0.25f), lit).withMultipliedBrightness (shine), cap.getX(), cap.getBottom(), false));
             g.fillRoundedRectangle (cap, corner);
-            g.setColour (touched.hover > 0.01f ? juce::Colour (0xff3db4e0).withAlpha (0.4f + 0.5f * touched.hover) : juce::Colours::black.withAlpha (0.6f));
+            g.setColour (touched.hover > 0.01f ? Console::Colours::accent().withAlpha (0.4f + 0.5f * touched.hover) : juce::Colours::black.withAlpha (0.6f));
             g.drawRoundedRectangle (cap, corner, 1.0f + 0.5f * touched.hover);
             if (lit > 0.5f && item.lamp == "orange")   // (the power symbol on the IN switch)
             {
@@ -2558,7 +2546,7 @@ private:
             {
                 const auto& inserts = bind.strip (ch)->inserts;
                 const auto text = inserts.front()->getName().toUpperCase() + (inserts.size() > 1 ? " +" + juce::String ((int) inserts.size() - 1) : juce::String());
-                drawBox (g, pc, juce::Colour (0xffe8a587), 0.0f, touch (ch, "plugins", pc), text, juce::jmax (9.0f, pc.getHeight() * 0.62f), 2.0f * zoom);
+                drawBox (g, pc, Console::Colours::palette ("salmon"), 0.0f, touch (ch, "plugins", pc), text, juce::jmax (9.0f, pc.getHeight() * 0.62f), 2.0f * zoom);
             }
         }
         else if (item.kind == "routes")
@@ -2594,7 +2582,7 @@ private:
             {
                 const auto k = padBankKey (r, b);
                 const auto touched = touch (ch, "bank" + juce::String (b), k);
-                LargeFormat::key (g, k, juce::String::charToString ((juce::juce_wchar) ('A' + b)), b == padBank ? 1.0f : 0.0f, juce::Colour (0xfff2a03c), true, touched.press * 1.5f, touched.hover);
+                LargeFormat::key (g, k, juce::String::charToString ((juce::juce_wchar) ('A' + b)), b == padBank ? 1.0f : 0.0f, Console::Colours::palette ("orange"), true, touched.press * 1.5f, touched.hover);
             }
             for (int i = 0; i < Pads::perBank; ++i)
             {
@@ -2603,25 +2591,25 @@ private:
                 const auto touched = touch (ch, "pad" + juce::String (index), padCell (r, i));
                 const auto cell = padCell (r, i).translated (0.0f, touched.press * 1.5f * zoom);
                 const bool loaded = pad.sound != nullptr, on = pads.isPlaying (index);
-                const auto colour = pad.colour.isTransparent() ? juce::Colour (0xff62d6b4) : pad.colour;
+                const auto colour = pad.colour.isTransparent() ? Console::Colours::palette ("teal") : pad.colour;
                 if (on)
                     LargeFormat::bloom (g, cell, colour, 0.9f, 3.0f, 4.0f * zoom);
                 g.setColour ((on ? colour.withMultipliedBrightness (0.9f) : loaded ? juce::Colour (0xff3a3d42) : juce::Colour (0xff26282c))
                                  .brighter (0.25f * touched.hover).darker (0.4f * touched.press));
                 g.fillRoundedRectangle (cell, 3.0f);
-                g.setColour (touched.hover > 0.01f ? juce::Colour (0xff3db4e0).withAlpha (0.4f + 0.5f * touched.hover) : juce::Colours::black.withAlpha (0.65f));
+                g.setColour (touched.hover > 0.01f ? Console::Colours::accent().withAlpha (0.4f + 0.5f * touched.hover) : juce::Colours::black.withAlpha (0.65f));
                 g.drawRoundedRectangle (cell, 3.0f, 1.0f + 0.5f * touched.hover);
                 if (on)
                 {
                     g.setColour (juce::Colours::white.withAlpha (0.8f));
                     g.fillRect (cell.withTop (cell.getBottom() - 3.0f * zoom).withWidth (cell.getWidth() * pads.progress (index)));
                 }
-                g.setColour (on ? juce::Colour (0xff101214) : loaded ? juce::Colour (0xffd8dadc) : juce::Colour (0xff8a8e94));   // (empty: dimmer, still readable)
+                g.setColour (on ? juce::Colour (0xff101214) : loaded ? Console::Colours::inkBright() : juce::Colour (0xff8a8e94));   // (empty: dimmer, still readable)
                 g.setFont (LargeFormat::print (juce::jmax (9.0f, 10.0f * zoom)));
                 g.drawFittedText (loaded && pad.name.isNotEmpty() ? pad.name.toUpperCase() : juce::String (index + 1), cell.reduced (3.0f).toNearestInt(), juce::Justification::centred, 2, 0.8f);
             }
             const auto stopTouch = touch (ch, "stopall", padStopKey (r));
-            LargeFormat::key (g, padStopKey (r), "STOP ALL", 0.0f, juce::Colour (0xffef5a4f), true, stopTouch.press * 1.5f, stopTouch.hover);
+            LargeFormat::key (g, padStopKey (r), "STOP ALL", 0.0f, Console::Colours::stopLamp(), true, stopTouch.press * 1.5f, stopTouch.hover);
         }
         else if (item.kind == "tape")
         {
@@ -2629,12 +2617,12 @@ private:
             // ADD, then the playlist (the track in the deck lit).
             auto& tape = engine->getTape();
             const auto screen = tapeArea (r, "screen");
-            g.setColour (juce::Colour (0xff0e1713));
+            g.setColour (Console::Colours::tapeGlass());
             g.fillRoundedRectangle (screen, 3.0f);
             g.setColour (juce::Colours::black);
             g.drawRoundedRectangle (screen, 3.0f, 1.0f);
             auto clock = [] (double t) { const int s = juce::jmax (0, (int) t); return juce::String (s / 60) + ":" + juce::String (s % 60).paddedLeft ('0', 2); };
-            g.setColour (juce::Colour (0xff6fe3a8));
+            g.setColour (Console::Colours::tapeInk());
             g.setFont (LargeFormat::print (juce::jmax (9.0f, 11.0f * zoom)));
             const auto title = juce::isPositiveAndBelow (tape.current(), tape.size()) ? tape.file (tape.current()).getFileNameWithoutExtension().toUpperCase() : juce::String ("NO TRACK");
             g.drawFittedText (title, screen.reduced (6.0f * zoom, 0.0f).withTrimmedBottom (screen.getHeight() * 0.45f).toNearestInt(), juce::Justification::centredLeft, 1, 0.8f);
@@ -2642,7 +2630,7 @@ private:
             const auto bar = tapeArea (r, "bar");
             g.setColour (juce::Colour (0xff0b0c0d));
             g.fillRoundedRectangle (bar, 2.0f);
-            g.setColour (juce::Colour (0xfff2a03c));
+            g.setColour (Console::Colours::palette ("orange"));
             if (tape.length() > 0.0)
                 g.fillRoundedRectangle (bar.withWidth (bar.getWidth() * (float) juce::jlimit (0.0, 1.0, tape.position() / tape.length())), 2.0f);
             for (auto& k : transportKeys())   // (as a deck's: the symbols every transport uses)
@@ -2650,11 +2638,11 @@ private:
                 const bool lit = (k == "PLAY" && tape.isPlaying()) || (k == "PAUSE" && ! tape.isPlaying() && tape.isLoaded() && tape.position() > 0.0);
                 const auto key = tapeArea (r, k);
                 const auto touched = touch (ch, "tape" + k, key);
-                LargeFormat::key (g, key, {}, lit ? 1.0f : 0.0f, k == "PAUSE" ? juce::Colour (0xfff2a03c) : juce::Colour (0xff4fd07a), true, touched.press * 1.5f, touched.hover);
-                drawTransport (g, k, key.translated (0.0f, touched.press * 1.5f).reduced (key.getWidth() * 0.26f, key.getHeight() * 0.28f), lit ? juce::Colour (0xff10201b) : juce::Colour (0xff26282b));
+                LargeFormat::key (g, key, {}, lit ? 1.0f : 0.0f, k == "PAUSE" ? Console::Colours::palette ("orange") : Console::Colours::runLamp(), true, touched.press * 1.5f, touched.hover);
+                drawTransport (g, k, key.translated (0.0f, touched.press * 1.5f).reduced (key.getWidth() * 0.26f, key.getHeight() * 0.28f), lit ? Console::Colours::litInk() : juce::Colour (0xff26282b));
             }
-            for (auto [k, text, lit, lamp] : { std::tuple (juce::String ("SHUFFLE"), juce::String ("SHUFFLE"), tape.getShuffle(), juce::Colour (0xfff2a03c)),
-                                               std::tuple (juce::String ("ADD"), juce::String ("ADD..."), false, juce::Colour (0xfffff0c8)) })
+            for (auto [k, text, lit, lamp] : { std::tuple (juce::String ("SHUFFLE"), juce::String ("SHUFFLE"), tape.getShuffle(), Console::Colours::palette ("orange")),
+                                               std::tuple (juce::String ("ADD"), juce::String ("ADD..."), false, Console::Colours::powerLamp()) })
             {
                 const auto touched = touch (ch, "tape" + k, tapeArea (r, k));
                 LargeFormat::key (g, tapeArea (r, k), text, lit ? 1.0f : 0.0f, lamp, true, touched.press * 1.5f, touched.hover);
@@ -2671,9 +2659,9 @@ private:
             {
                 const auto row = list.withY (list.getY() + (float) (i - first) * rowH).withHeight (rowH - 2.0f);
                 const bool here = i == tape.current();
-                g.setColour (here ? juce::Colour (0xff2f6f86) : juce::Colour (0xff222427));
+                g.setColour (here ? Console::Colours::accent().withMultipliedBrightness (0.60f) : Console::Colours::bay());
                 g.fillRoundedRectangle (row, 2.0f);
-                g.setColour (here ? juce::Colours::white : juce::Colour (0xffc9cbce));
+                g.setColour (here ? juce::Colours::white : Console::Colours::ink());
                 g.drawFittedText (juce::String (i + 1) + "  " + tape.file (i).getFileNameWithoutExtension().toUpperCase(), row.reduced (5.0f * zoom, 0.0f).toNearestInt(), juce::Justification::centredLeft, 1, 0.8f);
             }
             if (tape.size() == 0)
@@ -2695,7 +2683,7 @@ private:
                     g.drawFittedText (part.text, part.r.toNearestInt(), juce::Justification::centredLeft, 1, 0.85f);
                     continue;
                 }
-                const auto colour = part.kind == 1 ? juce::Colour (0xff62d6b4) : juce::Colour (0xffe8a587);   // (feeds: teal; plugins: salmon)
+                const auto colour = part.kind == 1 ? Console::Colours::palette ("teal") : Console::Colours::palette ("salmon");   // (feeds: teal; plugins: salmon)
                 drawBox (g, part.r, colour, 0.0f, touch (ch, "part:" + part.text, part.r), part.text, g_font_size, 3.0f);
             }
         }
@@ -2714,12 +2702,12 @@ private:
                 for (int i = 0; i < (int) s->inserts.size() && (float) (i + 1) * rowH <= r.getHeight(); ++i)
                 {
                     const auto row = r.withY (r.getY() + (float) i * rowH).withHeight (rowH - 3.0f * zoom);
-                    g.setColour (juce::Colour (0xff222427));
+                    g.setColour (Console::Colours::bay());
                     g.fillRoundedRectangle (row, 3.0f);
                     g.setColour (juce::Colours::black.withAlpha (0.6f));
                     g.drawRoundedRectangle (row, 3.0f, 1.0f);
                     auto* o = engine != nullptr ? engine->insertOptions (s->inserts[(size_t) i].get()) : nullptr;
-                    g.setColour (o != nullptr && o->bypassed.load() ? juce::Colour (0xff7d8086) : juce::Colour (0xffd8dadc));
+                    g.setColour (o != nullptr && o->bypassed.load() ? juce::Colour (0xff7d8086) : Console::Colours::inkBright());
                     g.drawFittedText (juce::String (i + 1) + "  " + s->inserts[(size_t) i]->getName().toUpperCase(), row.reduced (6.0f * zoom, 0.0f).toNearestInt(), juce::Justification::centredLeft, 1, 0.85f);
                 }
         }
@@ -2727,15 +2715,15 @@ private:
         {
             // A VU-style meter: a cream face, its scale 0 to 20 dB of gain reduction, the needle falling from 0.
             const float gr = juce::jlimit (0.0f, 20.0f, -bind.busReduction (ch));
-            g.setColour (juce::Colour (0xff0b0b0c));
+            g.setColour (Console::Colours::rim());
             g.fillRoundedRectangle (r, 4.0f * zoom);
             const auto face = r.reduced (5.0f * zoom);
-            g.setGradientFill (juce::ColourGradient (juce::Colour (0xfff1ead2), face.getX(), face.getY(), juce::Colour (0xffd8ceaa), face.getX(), face.getBottom(), false));
+            g.setGradientFill (juce::ColourGradient (Console::Colours::vuTop(), face.getX(), face.getY(), Console::Colours::vuBottom(), face.getX(), face.getBottom(), false));
             g.fillRoundedRectangle (face, 3.0f * zoom);
             const juce::Point<float> pivot (face.getCentreX(), face.getBottom() + face.getHeight() * 0.35f);
             const float radius = face.getHeight() * 1.05f, a0 = juce::degreesToRadians (40.0f), a1 = juce::degreesToRadians (-40.0f);
             auto at = [&pivot] (float a, float rr) { return juce::Point<float> (pivot.x + rr * std::sin (a), pivot.y - rr * std::cos (a)); };
-            g.setColour (juce::Colour (0xff2a2a2a));
+            g.setColour (Console::Colours::vuInk());
             g.setFont (LargeFormat::print (9.0f * juce::jmax (0.8f, zoom)));
             for (int db : { 0, 3, 6, 10, 14, 20 })
             {
@@ -2760,11 +2748,11 @@ private:
         else if (item.kind == "screen")
         {
             const bool orange = item.colour == "orange";
-            g.setColour (orange ? juce::Colour (0xff22150d) : juce::Colour (0xff0e1713));
+            g.setColour (orange ? Console::Colours::palette ("orange").withMultipliedBrightness (0.14f) : Console::Colours::tapeGlass());
             g.fillRoundedRectangle (r, 2.0f * zoom);
             g.setColour (juce::Colours::black);
             g.drawRoundedRectangle (r, 2.0f * zoom, 1.0f);
-            g.setColour (orange ? juce::Colour (0xfff2a24a) : juce::Colour (0xff6fe3a8));
+            g.setColour (orange ? juce::Colour (0xfff2a24a) : Console::Colours::tapeInk());
             g.setFont (LargeFormat::print (r.getHeight() * 0.55f, false));
             g.drawText (bind.text (ch, item.id, item.text), r, juce::Justification::centred, false);
         }
@@ -2777,13 +2765,13 @@ private:
             const auto touched = touch (ch, "power", r.withWidth (r.getHeight()), true);
             if (touched.hover > 0.01f)
             {
-                g.setColour (juce::Colour (0xff3db4e0).withAlpha (0.25f * touched.hover + 0.2f * touched.press));
+                g.setColour (Console::Colours::accent().withAlpha (0.25f * touched.hover + 0.2f * touched.press));
                 g.fillEllipse (icon.expanded (icon.getWidth() * 0.45f));
             }
-            g.setColour ((on ? juce::Colour (0xfff2a03c) : juce::Colour (0xff9a9da2)).brighter (0.4f * touched.hover));
+            g.setColour ((on ? Console::Colours::palette ("orange") : juce::Colour (0xff9a9da2)).brighter (0.4f * touched.hover));
             g.strokePath (power, juce::PathStrokeType (1.6f * zoom));
             g.drawLine (icon.getCentreX(), icon.getY() - 1.0f * zoom, icon.getCentreX(), icon.getCentreY(), 1.6f * zoom);
-            g.setColour (on ? juce::Colour (0xffd8dadc) : juce::Colour (0xffa6a9ae));
+            g.setColour (on ? Console::Colours::inkBright() : Console::Colours::inkFaint());
             g.setFont (LargeFormat::print (r.getHeight() * 0.42f));
             g.drawText (bind.text (ch, "name", {}), r.withTrimmedLeft (r.getHeight()), juce::Justification::centred, false);
         }
@@ -2870,7 +2858,7 @@ private:
         else if (item.kind == "fader")
         {
             // The slot down the middle, and the long cream cap with its ridges at the level.
-            g.setColour (juce::Colour (0xff0b0b0c));
+            g.setColour (Console::Colours::rim());
             g.fillRoundedRectangle (r.withSizeKeepingCentre (6.0f * zoom, r.getHeight()), 3.0f * zoom);
             const float y = r.getBottom() - bind.get (ch, item.id, 0.75f) * r.getHeight();
             const auto cap = juce::Rectangle<float> (r.getWidth() * 0.8f, 58.0f * zoom).withCentre ({ r.getCentreX(), y });
@@ -2886,7 +2874,7 @@ private:
             const bool moving = held.item == &item && held.ch == ch;
             if (const float over = eased (ch, item.id + "#over", moving || (hovered.item == &item && hovered.ch == ch) ? 1.0f : 0.0f); over > 0.01f)
             {
-                g.setColour (juce::Colour (0xff3db4e0).withAlpha ((moving ? 0.95f : 0.6f) * over));
+                g.setColour (Console::Colours::accent().withAlpha ((moving ? 0.95f : 0.6f) * over));
                 g.drawRoundedRectangle (cap.expanded (1.5f * zoom), 3.5f * zoom, juce::jmax (1.2f, 1.6f * zoom));
             }
         }
@@ -3012,7 +3000,7 @@ private:
     float dragFrom = 0.0f;
     bool light = false;   // (the strip being drawn is a light grey one)
     // The print on the strip: light on both greys.
-    juce::Colour ink() const { return light ? juce::Colour (0xffdcdde0) : juce::Colour (0xff9aa0a6); }
+    juce::Colour ink() const { return light ? juce::Colour (0xffdcdde0) : Console::Colours::inkDim(); }
 };
 
 // The console as Faider's Mixer page: the strips in a scrolling view.
@@ -3033,8 +3021,8 @@ namespace ConsoleDesk
 
         void paint (juce::Graphics& g) override
         {
-            g.fillAll (juce::Colour (0xff17181a));
-            g.setColour (juce::Colour (0xff0a0a0b));
+            g.fillAll (Console::Colours::rail());
+            g.setColour (Console::Colours::recess());
             g.fillRect (getLocalBounds().removeFromTop (2));
             auto* s = bench.selectedStrip();
             auto* engine = bench.getEngine();
@@ -3070,7 +3058,7 @@ namespace ConsoleDesk
                 drawCard (g, i, *s->inserts[(size_t) i], *engine);
             const auto add = cardArea ((int) s->inserts.size()).toFloat();
             DeskSettings::card (g, add, false, hovered == addHover);
-            g.setColour (juce::Colour (0xffc9cbce));
+            g.setColour (Console::Colours::ink());
             g.setFont (LargeFormat::print (12.0f));
             g.drawText ("+  ADD PLUGIN", add, juce::Justification::centred, false);
         }
@@ -3111,7 +3099,7 @@ namespace ConsoleDesk
         }
 
     private:
-        static juce::Colour print() { return juce::Colour (0xff8a9398); }
+        static juce::Colour print() { return Console::Colours::legendDim(); }
         juce::Rectangle<int> summaryArea() const { return { 16, 14, 240, getHeight() - 28 }; }
         juce::Rectangle<int> cardArea (int i) const { return { 270 + i * 282, 14, 270, getHeight() - 28 }; }
         static constexpr int addHover = 1000;
@@ -3175,7 +3163,7 @@ namespace ConsoleDesk
             const auto meter = r.removeFromTop (8).toFloat();
             g.setColour (juce::Colour (0xff0b0c0d));
             g.fillRoundedRectangle (meter, 2.0f);
-            const auto colour = cpu > 5.0f ? juce::Colour (0xffef5a4f) : cpu > 2.0f ? juce::Colour (0xfff2a03c) : juce::Colour (0xff4fd07a);
+            const auto colour = cpu > 5.0f ? Console::Colours::stopLamp() : cpu > 2.0f ? Console::Colours::palette ("orange") : Console::Colours::runLamp();
             g.setColour (colour);
             g.fillRoundedRectangle (meter.withWidth (juce::jmax (2.0f, meter.getWidth() * juce::jmin (1.0f, cpu / 10.0f))), 2.0f);
             r.removeFromTop (8);
@@ -3190,14 +3178,14 @@ namespace ConsoleDesk
             else if (cpu > 5.0f) flag = "HEAVY";
             if (flag.isNotEmpty())
             {
-                g.setColour (bypassed ? juce::Colour (0xfff2a03c) : juce::Colour (0xffef5a4f));
+                g.setColour (bypassed ? Console::Colours::palette ("orange") : Console::Colours::stopLamp());
                 g.setFont (LargeFormat::print (11.0f));
                 g.drawFittedText (flag, r.removeFromTop (16), juce::Justification::centredLeft, 1, 0.85f);
             }
             for (auto [key, area] : keys (i))
             {
                 const bool lit = key == "BYPASS" && bypassed;
-                LargeFormat::key (g, area.toFloat(), key, lit ? 1.0f : 0.0f, juce::Colour (0xfff2a03c), true, 0.0f, 0.0f);
+                LargeFormat::key (g, area.toFloat(), key, lit ? 1.0f : 0.0f, Console::Colours::palette ("orange"), true, 0.0f, 0.0f);
             }
         }
 
@@ -3221,7 +3209,7 @@ namespace ConsoleDesk
         void paint (juce::Graphics& g) override
         {
             g.fillAll (juce::Colour (0xff222326));
-            g.setColour (juce::Colour (0xff0a0a0b));
+            g.setColour (Console::Colours::recess());
             g.fillRect (getLocalBounds().removeFromBottom (1));
             auto& tape = engine.getTape();
             const auto screen = screenArea();
@@ -3229,7 +3217,7 @@ namespace ConsoleDesk
             g.fillRoundedRectangle (screen, 3.0f);
             g.setColour (juce::Colours::black.withAlpha (0.6f));
             g.drawRoundedRectangle (screen, 3.0f, 1.0f);
-            const auto green = juce::Colour (0xff62d6b4);
+            const auto green = Console::Colours::palette ("teal");
             auto text = screen.reduced (10.0f, 0.0f);
             g.setColour (green);
             g.setFont (LargeFormat::print (18.0f));
@@ -3246,9 +3234,9 @@ namespace ConsoleDesk
             {
                 const auto& k = keys()[i];
                 const auto key = keyArea (i);
-                const auto lamp = k == "REC" ? juce::Colour (0xffef5a4f) : k == "LOOP" ? juce::Colour (0xfff2a03c) : juce::Colour (0xff4fd07a);
+                const auto lamp = k == "REC" ? Console::Colours::stopLamp() : k == "LOOP" ? Console::Colours::palette ("orange") : Console::Colours::runLamp();
                 LargeFormat::key (g, key, {}, lit[i], lamp, true, held == i ? 1.5f : 0.0f, key.contains (over) ? 1.0f : 0.0f);
-                const auto ink = lit[i] > 0.5f ? juce::Colour (0xff10201b) : k == "REC" ? juce::Colour (0xffb8302a) : juce::Colour (0xff26282b);
+                const auto ink = lit[i] > 0.5f ? Console::Colours::litInk() : k == "REC" ? juce::Colour (0xffb8302a) : juce::Colour (0xff26282b);
                 Bench::drawTransport (g, k, key.reduced (key.getWidth() * 0.3f, key.getHeight() * 0.28f), ink);
                 if (k == "LOOP" && tape.repeat == Tape::Repeat::one)   // (one track over)
                 {
@@ -3280,7 +3268,7 @@ namespace ConsoleDesk
                 const bool on = (i == 1) != isSimple(), hover = half.contains (over) && ! on;
                 if (hover)
                 {
-                    g.setColour (juce::Colour (0xff3db4e0).withAlpha (0.7f));
+                    g.setColour (Console::Colours::accent().withAlpha (0.7f));
                     g.drawRoundedRectangle (half.reduced (2.0f), 3.0f, 1.2f);
                 }
                 g.setColour (on ? juce::Colour (0xff141517) : hover ? juce::Colours::white : juce::Colour (0xffc2c5c9));
@@ -3492,14 +3480,14 @@ namespace ConsoleDesk
 
         void paint (juce::Graphics& g) override
         {
-            g.fillAll (juce::Colour (0xff17181a));
+            g.fillAll (Console::Colours::rail());
             build();
             for (int row = 0; row < 3; ++row)
             {
                 const auto band = juce::Rectangle<float> (0.0f, rowTop[row], (float) getWidth(), bandH);
                 g.setColour (juce::Colour (0xff1f2023));
                 g.fillRect (band);
-                g.setColour (juce::Colour (0xff0a0a0b));
+                g.setColour (Console::Colours::recess());
                 g.fillRect (band.withHeight (1.0f));
                 g.fillRect (band.withY (band.getBottom() - 1.0f).withHeight (1.0f));
             }
@@ -3511,7 +3499,7 @@ namespace ConsoleDesk
                 if (const auto* b = blockFor (pressed))
                 {
                     const float dx = (float) view.stripsView().getViewPositionX();
-                    g.setColour (juce::Colour (0xff3db4e0));
+                    g.setColour (Console::Colours::accent());
                     g.fillRect (juce::Rectangle<float> (bench.gapX (pressed, bench.insertionGap (pressed, deskX (dragAt))) - dx - 2.0f, b->r.getY() - 6.0f, 4.0f, b->r.getHeight() + 12.0f));
                     auto lifted = *b;
                     lifted.r.setX (dragAt - grab);
@@ -3520,7 +3508,7 @@ namespace ConsoleDesk
                     drawBlock (g, lifted);
                 }
             g.setFont (LargeFormat::print (11.0f));
-            g.setColour (juce::Colour (0xff9aa0a6));
+            g.setColour (Console::Colours::inkDim());
             for (int row = 0; row < 3; ++row)   // (each row's name, at its left)
                 g.drawText (row == 0 ? "INPUTS" : row == 1 ? "BUSES" : "OUTPUTS", juce::Rectangle<float> (12.0f, rowTop[row] + 4.0f, 120.0f, 14.0f), juce::Justification::centredLeft, false);
         }
@@ -3598,8 +3586,8 @@ namespace ConsoleDesk
 
         static constexpr float blockH = 48.0f, bandH = 22.0f + blockH + 12.0f, top = 16.0f;
 
-        static juce::Colour rowColour (int row) { return row == 0 ? juce::Colour (0xff62d6b4) : row == 1 ? juce::Colour (0xffb59cf0) : juce::Colour (0xfff2a03c); }
-        static juce::Colour rowFill (int row)   { return row == 0 ? juce::Colour (0xff2a2c30) : row == 1 ? juce::Colour (0xff3a2d4c) : juce::Colour (0xff4a3816); }
+        static juce::Colour rowColour (int row) { return row == 0 ? Console::Colours::palette ("teal") : row == 1 ? juce::Colour (0xffb59cf0) : Console::Colours::palette ("orange"); }
+        static juce::Colour rowFill (int row)   { return row == 0 ? juce::Colour (0xff2a2c30) : row == 1 ? Console::Colours::kindBus().withMultipliedBrightness (0.37f) : Console::Colours::kindOutput().withMultipliedBrightness (0.36f); }
 
         // The blocks where they are now, the rows spaced down the page for the lanes between them,
         // and the wires.
@@ -3815,13 +3803,13 @@ namespace ConsoleDesk
             g.fillRect (r.reduced (3.0f, 0.0f).withHeight (1.0f).translated (0.0f, 1.0f));
             if (held)
             {
-                LargeFormat::bloom (g, r, juce::Colour (0xff3db4e0), 0.5f + 0.3f * glow, 3.0f, 6.0f);
-                g.setColour (juce::Colour (0xff3db4e0));
+                LargeFormat::bloom (g, r, Console::Colours::accent(), 0.5f + 0.3f * glow, 3.0f, 6.0f);
+                g.setColour (Console::Colours::accent());
                 g.drawRoundedRectangle (r, 3.0f, 2.0f);
             }
             else
             {
-                g.setColour (linked ? rowColour (b.row) : over ? juce::Colour (0xff3db4e0).withAlpha (0.75f) : juce::Colours::black.withAlpha (0.6f));
+                g.setColour (linked ? rowColour (b.row) : over ? Console::Colours::accent().withAlpha (0.75f) : juce::Colours::black.withAlpha (0.6f));
                 g.drawRoundedRectangle (r.reduced (0.5f), 3.0f, linked || over ? 1.6f : 1.0f);
             }
             if (over && ! held)   // (under the mouse: the face lifts)
@@ -3831,12 +3819,12 @@ namespace ConsoleDesk
             }
             auto text = r.reduced (8.0f, 0.0f);
             auto nameArea = b.paths > 0 ? text.removeFromTop (26.0f) : text;
-            g.setColour (b.off ? juce::Colour (0xffa6a9ae) : b.ch < 0 ? juce::Colour (0xffb8bcc1) : juce::Colours::white);
+            g.setColour (b.off ? Console::Colours::inkFaint() : b.ch < 0 ? juce::Colour (0xffb8bcc1) : juce::Colours::white);
             g.setFont (LargeFormat::print (12.0f));
             g.drawFittedText (b.name, nameArea.toNearestInt(), juce::Justification::centredLeft, 1, 0.8f);
             if (b.ch >= 0)
             {
-                g.setColour (juce::Colour (0xff9aa0a6));
+                g.setColour (Console::Colours::inkDim());
                 g.setFont (LargeFormat::print (10.0f));
                 g.drawText (juce::String (b.ch + 1).paddedLeft ('0', 3), nameArea.withTrimmedTop (4.0f).withHeight (12.0f), juce::Justification::topRight, false);
             }
@@ -3855,7 +3843,7 @@ namespace ConsoleDesk
             }
             if (b.off)   // (switched off: dimmed, as on the desk, its name still clear)
             {
-                g.setColour (juce::Colour (0xff1c1d20).withAlpha (0.4f));
+                g.setColour (Console::Colours::bayDark().withAlpha (0.4f));
                 g.fillRoundedRectangle (r, 3.0f);
             }
         }
@@ -3955,9 +3943,9 @@ namespace ConsoleDesk
         void paint (juce::Graphics& g) override
         {
             g.fillAll (juce::Colour (0xff2b2d30));
-            g.setColour (juce::Colour (0xff17181a));
+            g.setColour (Console::Colours::rail());
             g.fillRect (getLocalBounds().removeFromRight (1));
-            g.setColour (juce::Colour (0xff9aa0a6));
+            g.setColour (Console::Colours::inkDim());
             g.setFont (LargeFormat::print (textSize));
             g.drawText ("FAIDER", juce::Rectangle<int> (14, 10, getWidth() - 20, 20), juce::Justification::centredLeft, false);
             const auto names = tabs.getTabNames();
@@ -3965,7 +3953,7 @@ namespace ConsoleDesk
                 card (g, cardArea (i), names[i].toUpperCase(), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);
             if (! onMixer())   // (the desk's own cards only while the channels show)
                 return;
-            g.setColour (juce::Colour (0xff9aa0a6));
+            g.setColour (Console::Colours::inkDim());
             g.setFont (LargeFormat::print (textSize));
             g.drawText ("DESK", deskTitle(), juce::Justification::centredLeft, false);
             card (g, actionArea (0), "ADD CHANNEL", "plus", false, hovered == 100, pushed == 100);
@@ -4077,7 +4065,7 @@ namespace ConsoleDesk
         }
         static void heading (juce::Graphics& g, const juce::String& text, juce::Rectangle<int> r)
         {
-            g.setColour (juce::Colour (0xff9aa0a6));
+            g.setColour (Console::Colours::inkDim());
             g.setFont (LargeFormat::print (textSize));
             g.drawText (text, r, juce::Justification::centredLeft, false);
         }
@@ -4085,16 +4073,16 @@ namespace ConsoleDesk
         static void pill (juce::Graphics& g, juce::Rectangle<int> r, const juce::String& text, bool on, bool hover, bool press = false)
         {
             const auto rf = r.toFloat().translated (0.0f, press ? 1.0f : 0.0f);
-            g.setColour ((on ? juce::Colour (0xff4a4d52) : hover ? juce::Colour (0xff3f4247) : juce::Colour (0xff313337)).darker (press ? 0.35f : 0.0f));
+            g.setColour ((on ? Console::Colours::chromeOn() : hover ? Console::Colours::chromeHover() : Console::Colours::chromeOff()).darker (press ? 0.35f : 0.0f));
             g.fillRoundedRectangle (rf, 3.0f);
-            g.setColour (hover ? juce::Colour (0xff3db4e0).withAlpha (0.7f) : juce::Colours::black.withAlpha (0.55f));
+            g.setColour (hover ? Console::Colours::accent().withAlpha (0.7f) : juce::Colours::black.withAlpha (0.55f));
             g.drawRoundedRectangle (rf.reduced (0.5f), 3.0f, 1.0f);
             if (on)
             {
-                g.setColour (juce::Colour (0xff3db4e0));
+                g.setColour (Console::Colours::accent());
                 g.fillRoundedRectangle (rf.withWidth (3.0f), 1.5f);
             }
-            g.setColour (on || hover ? juce::Colours::white : juce::Colour (0xffc9cbce));
+            g.setColour (on || hover ? juce::Colours::white : Console::Colours::ink());
             g.setFont (LargeFormat::print (textSize));
             g.drawFittedText (text, rf.toNearestInt().reduced (4, 0), juce::Justification::centred, 1, 0.8f);
         }
@@ -4108,7 +4096,7 @@ namespace ConsoleDesk
                 g.fillRoundedRectangle (rf, 3.0f);
             }
             const auto bar = rf.withWidth (3.0f).reduced (0.0f, 4.0f);
-            g.setColour (juce::Colour (0xff3db4e0));
+            g.setColour (Console::Colours::accent());
             if (inView)
                 g.fillRoundedRectangle (bar, 1.5f);
             else
@@ -4129,18 +4117,18 @@ namespace ConsoleDesk
         static void card (juce::Graphics& g, juce::Rectangle<int> r, const juce::String& text, const juce::String& icon, bool on, bool hover, bool press = false)
         {
             const auto rf = r.toFloat().translated (0.0f, press ? 1.0f : 0.0f);
-            g.setColour ((on ? juce::Colour (0xff4a4d52) : hover ? juce::Colour (0xff3f4247) : juce::Colour (0xff313337)).darker (press ? 0.35f : 0.0f));
+            g.setColour ((on ? Console::Colours::chromeOn() : hover ? Console::Colours::chromeHover() : Console::Colours::chromeOff()).darker (press ? 0.35f : 0.0f));
             g.fillRoundedRectangle (rf, 3.0f);
-            g.setColour (hover ? juce::Colour (0xff3db4e0).withAlpha (0.7f) : juce::Colours::black.withAlpha (0.55f));
+            g.setColour (hover ? Console::Colours::accent().withAlpha (0.7f) : juce::Colours::black.withAlpha (0.55f));
             g.drawRoundedRectangle (rf.reduced (0.5f), 3.0f, 1.0f);
             g.setColour (juce::Colours::white.withAlpha (on ? 0.14f : 0.06f));   // (its top edge catching the light)
             g.fillRect (rf.reduced (3.0f, 0.0f).withHeight (1.0f).translated (0.0f, 1.0f));
             if (on)
             {
-                g.setColour (juce::Colour (0xff3db4e0));
+                g.setColour (Console::Colours::accent());
                 g.fillRoundedRectangle (rf.withWidth (3.0f), 1.5f);
             }
-            const auto ink = on || hover ? juce::Colours::white : juce::Colour (0xffc9cbce);
+            const auto ink = on || hover ? juce::Colours::white : Console::Colours::ink();
             drawIcon (g, icon, rf.withWidth (rf.getHeight()).reduced (9.0f).translated (4.0f, 0.0f), ink);
             g.setColour (ink);
             g.setFont (LargeFormat::print (textSize));

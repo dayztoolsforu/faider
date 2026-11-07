@@ -20,7 +20,7 @@ if ($tests) {
     $tests = @($tests -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 }
 if (-not $tests) {
-    $tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'ThemeTest', 'AppCaptureTest'
+    $tests = 'MeterTest', 'PadsTest', 'TapeTest', 'NoiseReducerTest', 'VoiceChainTest', 'TriggerTest', 'RecorderTest', 'BuffersTest', 'ThemeTest', 'LookRenderTest', 'AppCaptureTest'
 }
 
 Write-Host 'Building the checks...'

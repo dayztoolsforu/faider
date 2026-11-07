@@ -214,5 +214,15 @@ target_link_libraries(ThemeTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# The desk paints from the look, not from colours written in by hand (see tests/LookRenderTest.cpp).
+juce_add_console_app(LookRenderTest PRODUCT_NAME "LookRenderTest")
+target_sources(LookRenderTest PRIVATE tests/LookRenderTest.cpp src/ui/Theme.cpp)
+target_compile_definitions(LookRenderTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_link_libraries(LookRenderTest
+    PRIVATE
+        juce::juce_gui_basics
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # The application: Faider (console/README.md).
 add_subdirectory(console)

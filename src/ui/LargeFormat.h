@@ -74,7 +74,7 @@ namespace LargeFormat
         const auto r = juce::Rectangle<float> (size + 1.0f, size + 1.0f).withCentre (c);
         if (lit)
             bloom (g, r, colour, 1.0f, r.getWidth() * 0.5f, 3.5f);
-        g.setColour (juce::Colour (0xff0b0b0c));
+        g.setColour (Theme::get().rim);
         g.fillEllipse (r.expanded (1.4f));
         if (lit)
         {
@@ -127,7 +127,7 @@ namespace LargeFormat
         g.fillRoundedRectangle (cap, corner);
         g.setColour (juce::Colours::white.withAlpha (0.5f));   // (its top edge catching the light)
         g.fillRect (cap.reduced (corner, 0.0f).withHeight (1.0f).translated (0.0f, 0.5f));
-        g.setColour (hover > 0.01f ? juce::Colour (0xff3db4e0).withAlpha (0.35f + 0.5f * hover) : juce::Colours::black.withAlpha (0.55f));
+        g.setColour (hover > 0.01f ? Theme::get().accent.withAlpha (0.35f + 0.5f * hover) : juce::Colours::black.withAlpha (0.55f));
         g.drawRoundedRectangle (cap, corner, 0.9f + 0.5f * hover);
         if (text.isEmpty())
             return;
@@ -181,7 +181,7 @@ namespace LargeFormat
         g.fillRoundedRectangle (cap, corner);
         g.setColour (juce::Colours::white.withAlpha ((0.28f + 0.2f * lit) * fade));   // (its top edge catching the light)
         g.fillRect (cap.reduced (corner, 0.0f).withHeight (1.0f).translated (0.0f, 0.5f));
-        g.setColour (hover > 0.01f ? juce::Colour (0xff3db4e0).withAlpha (0.35f + 0.5f * hover) : juce::Colours::black.withAlpha (0.65f));
+        g.setColour (hover > 0.01f ? Theme::get().accent.withAlpha (0.35f + 0.5f * hover) : juce::Colours::black.withAlpha (0.65f));
         g.drawRoundedRectangle (cap, corner, 0.8f + 0.5f * hover);
         if (text.isEmpty())
             return;

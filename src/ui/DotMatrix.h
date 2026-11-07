@@ -126,7 +126,7 @@ namespace DotMatrix
     inline void ledType (juce::Graphics& g, const juce::String& text, juce::Rectangle<float> area)
     {
         const auto red = juce::Colour (0xffff3a24);
-        g.setColour (juce::Colour (0xff140807));
+        g.setColour (Theme::get().stopLamp.withMultipliedBrightness (0.09f));
         g.fillRoundedRectangle (area.reduced (0.5f), 3.0f);
         g.setColour (juce::Colours::black);
         g.drawRoundedRectangle (area.reduced (0.5f), 3.0f, 1.0f);
@@ -181,7 +181,7 @@ namespace DotMatrix
             return false;
 
         const auto red = juce::Colour (0xffff3a24);
-        g.setColour (juce::Colour (0xff140807));
+        g.setColour (Theme::get().stopLamp.withMultipliedBrightness (0.09f));
         g.fillRoundedRectangle (area.reduced (0.5f), 3.0f);
         g.setColour (juce::Colours::black);
         g.drawRoundedRectangle (area.reduced (0.5f), 3.0f, 1.0f);

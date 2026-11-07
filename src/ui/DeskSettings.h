@@ -68,30 +68,30 @@ namespace DeskSettings
     inline void styleHeading (juce::Label& l)
     {
         l.setFont (LargeFormat::print (12.5f));
-        l.setColour (juce::Label::textColourId, juce::Colour (0xff8a9398));
+        l.setColour (juce::Label::textColourId, Theme::get().legendDim);
     }
     inline void styleText (juce::Label& l)
     {
         l.setFont (LargeFormat::print (11.5f));
-        l.setColour (juce::Label::textColourId, juce::Colour (0xffc9cbce));
+        l.setColour (juce::Label::textColourId, Theme::get().ink);
     }
     inline juce::Colour desk()    { return juce::Colour (0xff141517); }
-    inline juce::Colour cardFill(){ return juce::Colour (0xff222427); }
-    inline juce::Colour print()   { return juce::Colour (0xff8a9398); }
-    inline juce::Colour text()    { return juce::Colour (0xffc9cbce); }
+    inline juce::Colour cardFill(){ return Theme::get().bay; }
+    inline juce::Colour print()   { return Theme::get().legendDim; }
+    inline juce::Colour text()    { return Theme::get().ink; }
 
     // A card: a dark panel on the desk, its top edge catching the light; `on` lit grey with a blue edge.
     inline void card (juce::Graphics& g, juce::Rectangle<float> r, bool on = false, bool hover = false)
     {
-        g.setColour (on ? juce::Colour (0xff4a4d52) : hover ? juce::Colour (0xff34373b) : cardFill());
+        g.setColour (on ? Theme::get().chromeOn : hover ? juce::Colour (0xff34373b) : cardFill());
         g.fillRoundedRectangle (r, 4.0f);
-        g.setColour (hover ? juce::Colour (0xff3db4e0).withAlpha (0.7f) : juce::Colours::black.withAlpha (0.6f));
+        g.setColour (hover ? Theme::get().accent.withAlpha (0.7f) : juce::Colours::black.withAlpha (0.6f));
         g.drawRoundedRectangle (r.reduced (0.5f), 4.0f, 1.0f);
         g.setColour (juce::Colours::white.withAlpha (on ? 0.14f : 0.05f));
         g.fillRect (r.reduced (4.0f, 0.0f).withHeight (1.0f).translated (0.0f, 1.0f));
         if (on)
         {
-            g.setColour (juce::Colour (0xff3db4e0));
+            g.setColour (Theme::get().accent);
             g.fillRoundedRectangle (r.withWidth (3.0f), 1.5f);
         }
     }
@@ -106,17 +106,17 @@ namespace DeskSettings
             auto r = getLocalBounds().toFloat();
             const auto square = r.removeFromLeft (r.getHeight()).reduced (5.0f).translated (0.0f, down ? 0.6f : 0.0f);
             const bool on = getToggleState();
-            const auto lamp = juce::Colour (0xfffff0c8);
+            const auto lamp = Theme::get().powerLamp;
             g.setColour (juce::Colours::black.withAlpha (0.55f));
             g.fillRoundedRectangle (square.translated (0.0f, 1.2f), 2.0f);
             if (on)
                 LargeFormat::bloom (g, square, lamp, 0.7f, 2.0f, 3.0f);
             const float shine = (over ? 1.14f : 1.0f) * (down ? 0.78f : 1.0f);   // (over: brighter; held: darker, as it sinks)
             g.setGradientFill (on ? juce::ColourGradient (lamp.brighter (0.2f).withMultipliedBrightness (shine), square.getX(), square.getY(), lamp.darker (0.2f).withMultipliedBrightness (shine), square.getX(), square.getBottom(), false)
-                                  : juce::ColourGradient (juce::Colour (0xffc4c6c9).withMultipliedBrightness (shine), square.getX(), square.getY(),
-                                                          juce::Colour (0xff85878b).withMultipliedBrightness (shine), square.getX(), square.getBottom(), false));
+                                  : juce::ColourGradient (Theme::get().knobTop.withMultipliedBrightness (shine), square.getX(), square.getY(),
+                                                          Theme::get().knobBottom.withMultipliedBrightness (shine), square.getX(), square.getBottom(), false));
             g.fillRoundedRectangle (square, 2.0f);
-            g.setColour (over ? juce::Colour (0xff3db4e0) : juce::Colours::black.withAlpha (0.6f));
+            g.setColour (over ? Theme::get().accent : juce::Colours::black.withAlpha (0.6f));
             g.drawRoundedRectangle (square, 2.0f, over ? 1.4f : 0.9f);
             g.setColour (on || over ? juce::Colour (0xffeceef0) : DeskSettings::text());
             g.setFont (LargeFormat::print (11.5f));

@@ -30,8 +30,69 @@ namespace Console
         inline juce::Colour shadow()        { return Theme::get().shadow; }       // the shade under a module
         inline juce::Colour highlight()     { return Theme::get().highlight; }    // the light along an edge
 
+        // The desk's own blue: lit edges, a key under the pointer, the rail of the page showing.
+        inline juce::Colour accent()        { return Theme::get().accent; }
+
+        // Printing on the chrome, rather than on a module.
+        inline juce::Colour ink()           { return Theme::get().ink; }        // text on a key that is not lit
+        inline juce::Colour inkDim()        { return Theme::get().inkDim; }     // labels on the sidebar and rails
+        inline juce::Colour litInk()        { return Theme::get().litInk; }     // the dark ink a lit key prints with
+        inline juce::Colour inkBright()     { return Theme::get().inkBright; }   // plugin names, a combinator's path
+        inline juce::Colour inkFaint()      { return Theme::get().inkFaint; }    // a control that is off
+
+        // The strip's own body: which of the two a Light/Dark strip shows, and the section under a name bar.
+        inline juce::Colour stripLight()    { return Theme::get().stripLight; }
+        inline juce::Colour stripDark()     { return Theme::get().stripDark; }
+        inline juce::Colour stripBody()     { return Theme::get().stripBody; }
+
+        // The darks the desk sinks into.
+        inline juce::Colour recess()        { return Theme::get().recess; }
+        inline juce::Colour bay()           { return Theme::get().bay; }
+        inline juce::Colour bayDark()       { return Theme::get().bayDark; }
+        inline juce::Colour rail()          { return Theme::get().rail; }
+
+        // A card that is not lit: off, under the pointer, showing.
+        inline juce::Colour chromeOff()     { return Theme::get().chromeOff; }
+        inline juce::Colour chromeHover()   { return Theme::get().chromeHover; }
+        inline juce::Colour chromeOn()      { return Theme::get().chromeOn; }
+
+        // The transport's lamps and the load light.
+        inline juce::Colour runLamp()       { return Theme::get().runLamp; }
+        inline juce::Colour stopLamp()      { return Theme::get().stopLamp; }
+
+        // The colours a layout file names ("colour": "teal"), and the meanings they carry on the desk.
+        inline juce::Colour palette (const juce::String& name)
+        {
+            const auto& t = Theme::get();
+            if (name == "red")    return t.palRed;
+            if (name == "green")  return t.palGreen;
+            if (name == "blue")   return t.palBlue;
+            if (name == "black")  return t.palBlack;
+            if (name == "white")  return t.palWhite;
+            if (name == "violet") return t.palViolet;
+            if (name == "grey")   return t.palGrey;
+            if (name == "yellow") return t.ledYellow;
+            if (name == "cream")  return t.palCream;
+            if (name == "orange") return t.palOrange;
+            if (name == "amber")  return t.palAmber;
+            if (name == "teal")   return t.palTeal;
+            if (name == "salmon") return t.palSalmon;
+            return t.knobGrey;
+        }
+
         // Knobs.
         inline juce::Colour knobGrey()      { return Theme::get().knobGrey; }
+
+        // A knob's metal and the skirt it stands on; the VU's face and its printing; the tape's screen.
+        inline juce::Colour knobTop()       { return Theme::get().knobTop; }
+        inline juce::Colour knobBottom()    { return Theme::get().knobBottom; }
+        inline juce::Colour skirtTop()      { return Theme::get().skirtTop; }
+        inline juce::Colour skirtBottom()   { return Theme::get().skirtBottom; }
+        inline juce::Colour vuTop()         { return Theme::get().vuTop; }
+        inline juce::Colour vuBottom()      { return Theme::get().vuBottom; }
+        inline juce::Colour vuInk()         { return Theme::get().vuInk; }
+        inline juce::Colour tapeGlass()     { return Theme::get().tapeGlass; }
+        inline juce::Colour tapeInk()       { return Theme::get().tapeInk; }
 
         // LEDs and lamps.
         inline juce::Colour ledGreen()      { return Theme::get().ledGreen; }
@@ -61,9 +122,9 @@ namespace Console
 
         // Channel kinds: colour bars, cables, scribble strips and unit stripes, the same in every view
         // (a channel's own colour replaces its kind's).
-        inline juce::Colour kindInput()     { return juce::Colour (0xff3d8fd1); }
-        inline juce::Colour kindBus()       { return juce::Colour (0xff9a6ad1); }
-        inline juce::Colour kindOutput()    { return juce::Colour (0xffd18a3d); }
+        inline juce::Colour kindInput()     { return Theme::get().kindInput; }
+        inline juce::Colour kindBus()       { return Theme::get().kindBus; }
+        inline juce::Colour kindOutput()    { return Theme::get().kindOutput; }
 
         // A strip's scribble strip (its name at the top): the printing colour as the strip,
         // the panel as the writing (white with black text on dark desks, black on light ones).
@@ -407,16 +468,16 @@ namespace Console
             {
                 const bool on = getToggleState();
                 const auto r = getLocalBounds().toFloat().reduced ((float) capInsetX, (float) capInsetY);
-                g.setColour (on ? juce::Colour (0xff4a4d52) : over ? juce::Colour (0xff383b3f) : juce::Colour (0xff313337));
+                g.setColour (on ? Colours::chromeOn() : over ? juce::Colour (0xff383b3f) : Colours::chromeOff());
                 g.fillRoundedRectangle (r, 3.0f);
                 g.setColour (juce::Colours::black.withAlpha (0.55f));
                 g.drawRoundedRectangle (r.reduced (0.5f), 3.0f, 1.0f);
                 if (on)
                 {
-                    g.setColour (juce::Colour (0xff3db4e0));
+                    g.setColour (Colours::accent());
                     g.fillRoundedRectangle (r.withWidth (3.0f), 1.5f);
                 }
-                g.setColour (on ? juce::Colours::white : juce::Colour (0xffc9cbce));
+                g.setColour (on ? juce::Colours::white : Colours::ink());
                 g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
                 g.drawText (getButtonText().toUpperCase(), r, juce::Justification::centred, false);
             }
@@ -549,7 +610,7 @@ namespace Console
         if (vertical)   // the console's long fader: a black round-ended slot, a white ribbed cap
         {
             const auto slotR = juce::Rectangle<float> (track.getCentreX() - 3.5f, track.getY(), 7.0f, track.getHeight());
-            g.setColour (juce::Colour (0xff0b0b0c));
+            g.setColour (Colours::rim());
             g.fillRoundedRectangle (slotR, 3.5f);
             // (a tall cream cap with ridges above and below a black index
             // band, lit from above, darker at its foot, on a deep soft shadow)
@@ -591,7 +652,7 @@ namespace Console
         }
         const auto slot = vertical ? juce::Rectangle<float> (track.getCentreX() - 2.5f, track.getY(), 5.0f, track.getHeight())
                                    : juce::Rectangle<float> (track.getX(), track.getCentreY() - 2.5f, track.getWidth(), 5.0f);
-        g.setColour (juce::Colour (0xff0b0b0c));
+        g.setColour (Colours::rim());
         g.fillRoundedRectangle (slot, 2.0f);
         g.setColour (juce::Colours::white.withAlpha (0.35f));
         if (vertical) g.drawVerticalLine ((int) slot.getRight(), slot.getY() + 2.0f, slot.getBottom() - 2.0f);

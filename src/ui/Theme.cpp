@@ -36,6 +36,18 @@ namespace Theme
             s.knobBlue = juce::Colour (0xff2f68b8);
             s.knobBrown = juce::Colour (0xff1f2023);
 
+            s.knobTop = juce::Colour (0xffc4c6c9);
+            s.knobBottom = juce::Colour (0xff85878b);
+            s.skirtTop = juce::Colour (0xff6e6f73);
+            s.skirtBottom = juce::Colour (0xff48494c);
+
+            s.vuTop = juce::Colour (0xfff1ead2);
+            s.vuBottom = juce::Colour (0xffd8ceaa);
+            s.vuInk = juce::Colour (0xff2a2a2a);
+
+            s.tapeGlass = juce::Colour (0xff0e1713);
+            s.tapeInk = juce::Colour (0xff6fe3a8);
+
             s.ledGreen = juce::Colour (0xff4cff6a);
             s.ledYellow = juce::Colour (0xffffc83a);
             s.ledRed = juce::Colour (0xffff3b30);
@@ -45,6 +57,41 @@ namespace Theme
             s.powerLamp = juce::Colour (0xfffff0c8);  // power cream
 
             s.selection = juce::Colour (0xffffc83a);  // lit keys amber
+
+            s.accent = juce::Colour (0xff3db4e0);     // the desk's blue
+
+            s.ink = juce::Colour (0xffc9cbce);
+            s.inkDim = juce::Colour (0xff9aa0a6);
+            s.litInk = juce::Colour (0xff10201b);
+            s.inkBright = juce::Colour (0xffd8dadc);
+            s.inkFaint = juce::Colour (0xffa6a9ae);
+
+            s.recess = juce::Colour (0xff0a0a0b);
+            s.bay = juce::Colour (0xff222427);
+            s.bayDark = juce::Colour (0xff1c1d20);
+            s.rail = juce::Colour (0xff17181a);
+
+            s.chromeOff = juce::Colour (0xff313337);
+            s.chromeHover = juce::Colour (0xff3f4247);
+            s.chromeOn = juce::Colour (0xff4a4d52);
+
+            s.runLamp = juce::Colour (0xff4fd07a);
+            s.stopLamp = juce::Colour (0xffef5a4f);
+
+            s.kindInput = juce::Colour (0xff3d8fd1);
+            s.kindBus = juce::Colour (0xff9a6ad1);
+            s.kindOutput = juce::Colour (0xffd18a3d);
+
+            s.stripLight = juce::Colour (0xff78797f);
+            s.stripDark = juce::Colour (0xff222021);
+            s.stripBody = juce::Colour (0xff16181a);
+
+            s.palRed = juce::Colour (0xff8e1f22);     s.palGreen = juce::Colour (0xff3d7a3f);
+            s.palBlue = juce::Colour (0xff2c78c0);    s.palBlack = juce::Colour (0xff2b2c2f);
+            s.palWhite = juce::Colour (0xffc9cacc);   s.palViolet = juce::Colour (0xffb35fa4);
+            s.palGrey = juce::Colour (0xff5d5e62);    s.palCream = juce::Colour (0xfffff0c8);
+            s.palOrange = juce::Colour (0xfff2a03c);  s.palAmber = juce::Colour (0xfff7a64a);
+            s.palTeal = juce::Colour (0xff62d6b4);    s.palSalmon = juce::Colour (0xffe8a587);
 
             s.shadow = juce::Colour (0x73000000);
             s.highlight = juce::Colour (0x33ffffff);
@@ -257,6 +304,15 @@ namespace Theme
         s.knobGreen = colourFrom (colours, "knobGreen", s.knobGreen);
         s.knobBlue = colourFrom (colours, "knobBlue", s.knobBlue);
         s.knobBrown = colourFrom (colours, "knobBrown", s.knobBrown);
+        s.knobTop = colourFrom (colours, "knobTop", s.knobTop);
+        s.knobBottom = colourFrom (colours, "knobBottom", s.knobBottom);
+        s.skirtTop = colourFrom (colours, "skirtTop", s.skirtTop);
+        s.skirtBottom = colourFrom (colours, "skirtBottom", s.skirtBottom);
+        s.vuTop = colourFrom (colours, "vuTop", s.vuTop);
+        s.vuBottom = colourFrom (colours, "vuBottom", s.vuBottom);
+        s.vuInk = colourFrom (colours, "vuInk", s.vuInk);
+        s.tapeGlass = colourFrom (colours, "tapeGlass", s.tapeGlass);
+        s.tapeInk = colourFrom (colours, "tapeInk", s.tapeInk);
         s.ledGreen = colourFrom (colours, "ledGreen", s.ledGreen);
         s.ledYellow = colourFrom (colours, "ledYellow", s.ledYellow);
         s.ledRed = colourFrom (colours, "ledRed", s.ledRed);
@@ -265,8 +321,44 @@ namespace Theme
         s.soloLamp = colourFrom (colours, "soloLamp", s.soloLamp);
         s.powerLamp = colourFrom (colours, "powerLamp", s.powerLamp);
         s.selection = colourFrom (colours, "selection", s.selection);
+        s.accent = colourFrom (colours, "accent", s.accent);
+        s.ink = colourFrom (colours, "ink", s.ink);
+        s.inkDim = colourFrom (colours, "inkDim", s.inkDim);
+        s.litInk = colourFrom (colours, "litInk", s.litInk);
+        s.inkBright = colourFrom (colours, "inkBright", s.inkBright);
+        s.inkFaint = colourFrom (colours, "inkFaint", s.inkFaint);
+        s.recess = colourFrom (colours, "recess", s.recess);
+        s.bay = colourFrom (colours, "bay", s.bay);
+        s.bayDark = colourFrom (colours, "bayDark", s.bayDark);
+        s.rail = colourFrom (colours, "rail", s.rail);
+        s.chromeOff = colourFrom (colours, "chromeOff", s.chromeOff);
+        s.chromeHover = colourFrom (colours, "chromeHover", s.chromeHover);
+        s.chromeOn = colourFrom (colours, "chromeOn", s.chromeOn);
+        s.runLamp = colourFrom (colours, "runLamp", s.runLamp);
+        s.stopLamp = colourFrom (colours, "stopLamp", s.stopLamp);
+        s.kindInput = colourFrom (colours, "kindInput", s.kindInput);
+        s.kindBus = colourFrom (colours, "kindBus", s.kindBus);
+        s.kindOutput = colourFrom (colours, "kindOutput", s.kindOutput);
+        s.stripLight = colourFrom (colours, "stripLight", s.stripLight);
+        s.stripDark = colourFrom (colours, "stripDark", s.stripDark);
+        s.stripBody = colourFrom (colours, "stripBody", s.stripBody);
         s.shadow = colourFrom (colours, "shadow", s.shadow);
         s.highlight = colourFrom (colours, "highlight", s.highlight);
+
+        // The palette a layout file names from. "yellow" is the look's own lamp, not a token.
+        const auto palette = propertyOf (parsed, "palette");
+        s.palRed = colourFrom (palette, "red", s.palRed);
+        s.palGreen = colourFrom (palette, "green", s.palGreen);
+        s.palBlue = colourFrom (palette, "blue", s.palBlue);
+        s.palBlack = colourFrom (palette, "black", s.palBlack);
+        s.palWhite = colourFrom (palette, "white", s.palWhite);
+        s.palViolet = colourFrom (palette, "violet", s.palViolet);
+        s.palGrey = colourFrom (palette, "grey", s.palGrey);
+        s.palCream = colourFrom (palette, "cream", s.palCream);
+        s.palOrange = colourFrom (palette, "orange", s.palOrange);
+        s.palAmber = colourFrom (palette, "amber", s.palAmber);
+        s.palTeal = colourFrom (palette, "teal", s.palTeal);
+        s.palSalmon = colourFrom (palette, "salmon", s.palSalmon);
 
         s.font = stringFrom (parsed, "font", s.font);
         s.keyRadius = floatFrom (parsed, "keyRadius", s.keyRadius);
@@ -290,12 +382,31 @@ namespace Theme
             { "screenLit", s.screenLit }, { "screenGlass", s.screenGlass }, { "screenBezel", s.screenBezel },
             { "knobGrey", s.knobGrey }, { "knobRed", s.knobRed }, { "knobGreen", s.knobGreen },
             { "knobBlue", s.knobBlue }, { "knobBrown", s.knobBrown },
+            { "knobTop", s.knobTop }, { "knobBottom", s.knobBottom },
+            { "skirtTop", s.skirtTop }, { "skirtBottom", s.skirtBottom },
+            { "vuTop", s.vuTop }, { "vuBottom", s.vuBottom }, { "vuInk", s.vuInk },
+            { "tapeGlass", s.tapeGlass }, { "tapeInk", s.tapeInk },
             { "ledGreen", s.ledGreen }, { "ledYellow", s.ledYellow }, { "ledRed", s.ledRed },
             { "ledBlue", s.ledBlue }, { "muteLamp", s.muteLamp }, { "soloLamp", s.soloLamp },
-            { "powerLamp", s.powerLamp }, { "selection", s.selection },
+            { "powerLamp", s.powerLamp }, { "selection", s.selection }, { "accent", s.accent },
+            { "ink", s.ink }, { "inkDim", s.inkDim }, { "litInk", s.litInk },
+            { "inkBright", s.inkBright }, { "inkFaint", s.inkFaint },
+            { "recess", s.recess }, { "bay", s.bay }, { "bayDark", s.bayDark }, { "rail", s.rail },
+            { "chromeOff", s.chromeOff }, { "chromeHover", s.chromeHover }, { "chromeOn", s.chromeOn },
+            { "runLamp", s.runLamp }, { "stopLamp", s.stopLamp },
+            { "kindInput", s.kindInput }, { "kindBus", s.kindBus }, { "kindOutput", s.kindOutput },
+            { "stripLight", s.stripLight }, { "stripDark", s.stripDark }, { "stripBody", s.stripBody },
             { "shadow", s.shadow }, { "highlight", s.highlight }
         };
         const auto count = sizeof (entries) / sizeof (entries[0]);
+
+        struct Entry palette[] {
+            { "red", s.palRed }, { "green", s.palGreen }, { "blue", s.palBlue },
+            { "black", s.palBlack }, { "white", s.palWhite }, { "violet", s.palViolet },
+            { "grey", s.palGrey }, { "cream", s.palCream }, { "orange", s.palOrange },
+            { "amber", s.palAmber }, { "teal", s.palTeal }, { "salmon", s.palSalmon }
+        };
+        const auto paletteCount = sizeof (palette) / sizeof (palette[0]);
 
         juce::String text;
         text << "{\n";
@@ -310,7 +421,12 @@ namespace Theme
             text << "    \"" << entries[i].name << "\": \"" << colourToText (entries[i].colour) << "\""
                  << (i + 1 < count ? "," : "") << "\n";
 
-        text << "  }\n}\n";
+        text << "  },\n  \"palette\": { ";
+        for (size_t i = 0; i < paletteCount; ++i)
+            text << "\"" << palette[i].name << "\": \"" << colourToText (palette[i].colour) << "\""
+                 << (i + 1 < paletteCount ? ", " : " }");
+
+        text << "\n}\n";
         return text;
     }
 }

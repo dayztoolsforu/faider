@@ -31,11 +31,54 @@ namespace Theme
         // Knobs' colours by function.
         juce::Colour knobGrey, knobRed, knobGreen, knobBlue, knobBrown;
 
+        // A knob's own metal: the cap's top and bottom, and the skirt it stands on.
+        juce::Colour knobTop, knobBottom, skirtTop, skirtBottom;
+
+        // The VU meter's cream face (top and bottom of its gradient) and the printing on it.
+        juce::Colour vuTop, vuBottom, vuInk;
+
+        // The tape's screen: its dark glass and the mint it prints in.
+        juce::Colour tapeGlass, tapeInk;
+
         // LEDs and lamps.
         juce::Colour ledGreen, ledYellow, ledRed, ledBlue, muteLamp, soloLamp, powerLamp;
 
         // The light of the one you're working on (a tab, SEL, a chosen option).
         juce::Colour selection;
+
+        // The desk's own blue: lit edges, a key under the pointer, the rail of the page showing.
+        juce::Colour accent;
+
+        // Printing on the desk's chrome (not the legends, which sit above the modules).
+        juce::Colour ink;         // text on a key that is not lit
+        juce::Colour inkDim;      // labels printed on the sidebar and the rails
+        juce::Colour litInk;      // the dark ink a lit key prints with
+        juce::Colour inkBright;   // the brightest printing: plugin names, a combinator's path
+        juce::Colour inkFaint;    // printing on a control that is off
+
+        // The darks the desk sinks into.
+        juce::Colour recess;      // the deepest: the wells behind screens and buttons
+        juce::Colour bay;         // the plate a plugin list or a slot sits on
+        juce::Colour bayDark;     // the same, dimmed
+        juce::Colour rail;        // the rail behind the strips, the sidebar's edge
+
+        // A card that is not lit: off, under the pointer, and showing.
+        juce::Colour chromeOff, chromeHover, chromeOn;
+
+        // The transport's lamps and the load light: a green that says running, a red that says stop.
+        juce::Colour runLamp, stopLamp;
+
+        // What a channel, a bus and an output look like: the name bar's colour, and the wash a
+        // selected one gets. Everything else about a strip comes from these.
+        juce::Colour kindInput, kindBus, kindOutput;
+
+        // The strip's own body: the Light strip's panel, the Dark strip's panel, and the section
+        // a name bar sits on.
+        juce::Colour stripLight, stripDark, stripBody;
+
+        // The colours a layout file can name for a part (`"colour": "teal"`).
+        juce::Colour palRed, palGreen, palBlue, palBlack, palWhite, palViolet, palGrey,
+                     palCream, palOrange, palAmber, palTeal, palSalmon;
 
         // The shading the panels are drawn with: the shadow under a module, the light on its edge.
         juce::Colour shadow, highlight;

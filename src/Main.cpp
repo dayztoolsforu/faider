@@ -4,6 +4,7 @@
 #include <exception>
 #include "MainComponent.h"
 #include "StartWithWindows.h"
+#include "AudioBoost.h"
 #include "engine/PluginScan.h"
 #include "engine/AppCapture.h"
 #include "ui/AboutBox.h"
@@ -217,7 +218,9 @@ public:
     {
         const auto args = getCommandLineParameterArray();
         // (a copy that is itself such a restart, still elevated, never starts again: no loop)
+        // (BOOST WINDOWS AUDIO's helper is meant to be elevated: it stays as it is)
         if (Unelevated::isElevated() && ! args.contains ("--scan") && ! args.contains ("--quit") && ! args.contains ("--allow-admin")
+            && ! args.contains (AudioBoost::flag)
             && ! args.contains ("--after") && ! Unelevated::shellIsElevated() && Unelevated::restartUnelevated (args))
             ExitProcess (0);   // (the copy with ordinary rights takes over)
         if (const int i = args.indexOf ("--after"); i >= 0)
@@ -230,10 +233,23 @@ public:
 
     const juce::String getApplicationName() override    { return JUCE_APPLICATION_NAME_STRING; }
     const juce::String getApplicationVersion() override { return JUCE_APPLICATION_VERSION_STRING; }
-    bool moreThanOneInstanceAllowed() override          { return getCommandLineParameters().contains ("--scan"); }   // a plugin test runs beside the desk
+    bool moreThanOneInstanceAllowed() override   // a plugin test, or BOOST WINDOWS AUDIO's helper, runs beside the desk
+    {
+        const auto commandLine = getCommandLineParameters();
+        return commandLine.contains ("--scan") || commandLine.contains (AudioBoost::flag);
+    }
 
     void initialise (const juce::String& commandLine) override
     {
+        // BOOST WINDOWS AUDIO's helper (AudioBoost.h), started elevated by the desk: audiodg to
+        // High priority, then out with how it went. No window, no audio, no files.
+        if (commandLine.contains (AudioBoost::flag))
+        {
+            setApplicationReturnValue (AudioBoost::runHelper (getCommandLineParameterArray()));
+            quit();
+            return;
+        }
+
         // A plugin test (PluginScan.h): no window, no audio; the test, then out.
         if (commandLine.contains ("--scan"))
         {

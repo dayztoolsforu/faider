@@ -9,6 +9,7 @@ target_sources(Faider PRIVATE
     src/Simple.cpp
     ${_src}/Main.cpp
     ${_src}/MainComponent.cpp
+    ${_src}/AudioBoost.cpp
     ${_src}/Session.cpp
     ${_src}/engine/DriftFifo.cpp
     ${_src}/engine/BuiltInClock.cpp

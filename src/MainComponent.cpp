@@ -1937,6 +1937,7 @@ void MainComponent::showPreflight (bool onlyIfWrong)
     auto panel = std::make_unique<PreflightPanel> ([this] { return preflightChecks(); });
     if (onlyIfWrong && panel->allClear())
         return;
+    panel->setOtherKey ("ZERO THE DESK", "Things left set: solos, key listen, gains far off, masters cut", [this] { showZero(); });
     logEvent (onlyIfWrong ? "pre-flight: something needs a look" : "pre-flight");
     juce::DialogWindow::LaunchOptions o;
     o.content.setOwned (panel.release());

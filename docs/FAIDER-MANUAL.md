@@ -1027,6 +1027,9 @@ up if something is wrong. Each row has a light, the finding and a fix:
 | **MIC CHANNELS** | Something on the way to the mic is muted | **UNMUTE** |
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
 
+**ZERO THE DESK** (bottom left; also **ZERO DESK** in FIND) checks what a last session can leave
+set: solos, key listen, gain trims more than 12 dB off, and cut masters. Each has a **FIX**.
+
 ### 18.2 My mix is gone, a fresh mix started
 
 Your mix isn't lost. When it can't be used at start, it's **set aside** as

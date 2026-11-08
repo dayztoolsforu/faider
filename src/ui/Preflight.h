@@ -6,6 +6,7 @@
 // PRE-FLIGHT: before going live, the setup at a glance. A row per check, a light (green: fine,
 // red: not), what it found, and a FIX key where one click can put it right. Shown a few seconds
 // after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
+// ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, or FIND).
 class PreflightPanel : public juce::Component
 {
 public:
@@ -59,10 +60,22 @@ public:
                 const auto r = rowArea ((int) i);
                 fixes[(int) i]->setBounds (r.getRight() - 130, r.getY() + 4, 130, Space::key);
             }
-        again.setBounds (getLocalBounds().reduced (Space::pad).removeFromBottom (Space::key).removeFromRight (160));
+        auto bottom = getLocalBounds().reduced (Space::pad).removeFromBottom (Space::key);
+        again.setBounds (bottom.removeFromRight (160));
+        other.setBounds (bottom.removeFromLeft (160));
     }
 
     bool allClear() const { return std::all_of (checks.begin(), checks.end(), [] (const Check& c) { return c.ok; }); }
+
+    // A key at the bottom left, for the other list (PRE-FLIGHT's ZERO THE DESK).
+    void setOtherKey (const juce::String& text, const juce::String& tip, std::function<void()> onClick)
+    {
+        other.setButtonText (text);
+        other.setTooltip (tip);
+        other.onClick = std::move (onClick);
+        addAndMakeVisible (other);
+        resized();
+    }
 
 private:
     static constexpr int rowH = 58;
@@ -98,5 +111,5 @@ private:
     std::function<std::vector<Check>()> recheck;
     std::vector<Check> checks;
     juce::OwnedArray<juce::TextButton> fixes;   // per check (null where there's none)
-    juce::TextButton again { "CHECK AGAIN" };
+    juce::TextButton again { "CHECK AGAIN" }, other;
 };

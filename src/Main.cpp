@@ -119,6 +119,7 @@ namespace Unelevated
         }
         next.add ("--after");
         next.add (juce::String ((juce::uint64) GetCurrentProcessId()));
+        AllowSetForegroundWindow (ASFW_ANY);   // (the new copy may take the foreground this one was given)
         return launchAsShell (juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName(), next.joinIntoString (" "));
     }
 }
@@ -265,9 +266,10 @@ public:
                                   "Audio keeps playing. To stop, right-click the tray icon and Quit.");
         };
 
-        // Started by Windows at login: stay in the tray.
+        // Started by Windows at login: stay in the tray. Otherwise in front: a copy that an elevated
+        // one started again through the shell would else open behind the window it was started from.
         if (! commandLine.contains ("--minimised"))
-            mainWindow->setVisible (true);
+            mainWindow->bringBack();
         startedAt = juce::Time::getMillisecondCounter();   // (loading the session can take a while)
     }
 

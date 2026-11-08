@@ -9,6 +9,7 @@
 #include "../../src/ui/Console.h"
 #include "../../src/ui/DeskSettings.h"
 #include "../../src/ui/MidiMap.h"
+#include "../../src/ui/WindowsDefaults.h"
 #include <set>
 
 namespace
@@ -126,8 +127,7 @@ namespace
 
     bool isCable (const EndpointInfo& e, const juce::Array<EndpointInfo>& all)
     {
-        return virtualMicPartner (e, all).isNotEmpty() || e.name.containsIgnoreCase ("Voicemeeter")
-            || e.adapter.containsIgnoreCase ("Virtual Cable") || e.adapter.containsIgnoreCase ("VB-Audio");
+        return WindowsDefaults::isVirtual (e, all);
     }
 
     //==============================================================================
@@ -756,6 +756,15 @@ namespace
                 b->setWantsKeyboardFocus (false);
             }
             back.onClick = [this] { if (step > 0) show (step - 1); };
+            // On the cable's page, while Windows' default speaker or mic is the cable (as installing it leaves them).
+            addChildComponent (defaults);
+            defaults.setWantsKeyboardFocus (false);
+            defaults.setTooltip ("Windows plays or records on the cable: pick your real speakers and mic as its defaults, for calls too");
+            defaults.onClick = [this]
+            {
+                WindowsDefaults::showMenu (engine.getEndpoints(), juce::PopupMenu::Options().withTargetComponent (defaults),
+                                           [this] (const juce::String& e) { engine.logEvent (e); });
+            };
             next.onClick = [this]
             {
                 if (step == apps)
@@ -823,6 +832,7 @@ namespace
             next.setBounds (keys.removeFromRight (180));
             keys.removeFromRight (8);
             back.setBounds (keys.removeFromRight (120));
+            defaults.setBounds (keys.removeFromLeft (180));
         }
 
         void mouseMove (const juce::MouseEvent& e) override { over = e.position; repaint(); }
@@ -853,7 +863,7 @@ namespace
 
         AudioEngine& engine;
         std::function<void()> finished;
-        juce::TextButton back { "BACK" }, next { "NEXT" };
+        juce::TextButton back { "BACK" }, next { "NEXT" }, defaults { "SET MY DEFAULTS" };
         int step = 0;
         std::vector<Choice> choices;
         std::map<int, juce::StringArray> picked;   // each step's answers, by key
@@ -989,6 +999,7 @@ namespace
                 remember();
             }
             back.setVisible (step > 0 && step < ready);
+            defaults.setVisible (step == cable && WindowsDefaults::onCable (endpoints).isNotEmpty());
             next.setButtonText (step == apps ? "BUILD THE MIX" : step == ready ? "OPEN THE MIXER" : "NEXT");
             resized();
             repaint();

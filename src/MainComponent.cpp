@@ -7,6 +7,7 @@
 #include "ui/WindowSnap.h"
 #include "ui/AboutBox.h"
 #include "ui/Theme.h"
+#include "ui/WindowsDefaults.h"
 #include "StartWithWindows.h"
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
 #include "../console/src/Simple.h"     // (SIMPLE and SETUP)
@@ -620,6 +621,8 @@ void MainComponent::openCommandPalette()
     add ("SESSIONS", "Open a saved mix, export or import one", [this] { showSessions (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, cut mics, things heard twice", [this] { showPreflight (false); });
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
+    add ("WINDOWS DEFAULTS", "Your real speakers and mic as Windows' defaults, for calls too (not the cable)",
+         [this] { showWindowsDefaults (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("ZERO DESK", "Things left set: solos, key listen, gains far off, outputs cut", [this] { showZero(); });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
     add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The outputs' faders in a small window, PIN keeps it on top", [this] { toggleMini(); });
@@ -1916,12 +1919,28 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
                                     s->mute = false;
                         } });
 
+    // Windows' default speaker or mic (or the ones for calls) on the cable: a VB-CABLE install does that.
+    const auto onCable = WindowsDefaults::onCable (allEndpoints);
+    checks.push_back ({ "Windows defaults", onCable.isEmpty() ? "Windows plays and records on real devices, not the cable"
+                                                              : "Windows' " + onCable + ". Pick your real ones",
+                        onCable.isEmpty(), "SET MY DEFAULTS", [this] { showWindowsDefaults (juce::PopupMenu::Options().withMousePosition()); } });
+
     auto problems = engine.findDoubling();
+    for (int i = problems.size(); --i >= 0;)   // (the cable as the default speaker: said above)
+        if (problems[i].startsWith ("Windows' default speaker is"))
+            problems.remove (i);
     if (const auto loop = engine.findFeedbackLoop(); loop.isNotEmpty())
         problems.insert (0, "Feedback loop: " + loop);
     checks.push_back ({ "Heard once", problems.isEmpty() ? "Nothing plays twice, nothing loops back" : problems.joinIntoString (" "),
                         problems.isEmpty(), "SOUND SETTINGS", [] { juce::URL ("ms-settings:sound").launchInDefaultBrowser(); } });
     return checks;
+}
+
+// SET MY DEFAULTS (WindowsDefaults.h): a real speaker and mic as Windows' defaults, for calls too.
+void MainComponent::showWindowsDefaults (juce::PopupMenu::Options where)
+{
+    WindowsDefaults::showMenu (engine.getEndpoints(), where, [safe = juce::Component::SafePointer<MainComponent> (this)] (const juce::String& e)
+                               { if (safe != nullptr) safe->logEvent (e); });
 }
 
 void MainComponent::showPreflight (bool onlyIfWrong)

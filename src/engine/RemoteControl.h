@@ -62,6 +62,9 @@ public:
     bool setOscPort (int port);
     int getOscPort() const { return oscPort; }
     int getOscPreferredPort() const { return oscPreferredPort; }   // the port last listened on (9000 to start)
+    // The port OSC listens on when it's switched on (1024-65535; saved with the state). On now: it
+    // moves there. False if the port isn't one, or it couldn't be opened (OSC is off then).
+    bool setOscPreferredPort (int port);
 
     // OSC from other devices (a tablet) as well as this PC. Off: it listens on 127.0.0.1 only, so
     // nothing on the network can change the mix (OSC carries no key). Saved with the state.

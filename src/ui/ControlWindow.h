@@ -36,6 +36,9 @@ public:
         toggle (osc, "Listen for OSC messages",
                 [this] { remote.setOscPort (remote.getOscPort() > 0 ? 0 : remote.getOscPreferredPort()); });
         addAndMakeVisible (bindings);
+        portKey.setTooltip ("The port OSC listens on (this PC only)");
+        portKey.onClick = [this] { askPort(); };
+        addAndMakeVisible (portKey);
         refresh();
         setSize (420, heightFor (420));
         startTimerHz (4);
@@ -65,6 +68,29 @@ private:
         osc.setToggleState (port > 0, juce::dontSendNotification);
     }
 
+    // PORT...: a number from 1024 to 65535; OSC moves there if it's on, else uses it when it's switched on.
+    void askPort()
+    {
+        auto* box = new juce::AlertWindow ("OSC PORT", "A port from 1024 to 65535 (programs on this PC send to it):", juce::MessageBoxIconType::NoIcon);
+        box->addTextEditor ("port", juce::String (remote.getOscPreferredPort()));
+        if (auto* editor = box->getTextEditor ("port"))
+            editor->setInputRestrictions (5, "0123456789");
+        box->addButton ("SET", 1, juce::KeyPress (juce::KeyPress::returnKey));
+        box->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+        box->enterModalState (true, juce::ModalCallbackFunction::create ([self = juce::Component::SafePointer<ControlPanel> (this), box] (int result)
+        {
+            if (result != 1 || self == nullptr)
+                return;
+            const int wanted = box->getTextEditorContents ("port").getIntValue();
+            if (wanted < 1024 || wanted > 65535)
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::NoIcon, "OSC PORT", "A port is a number from 1024 to 65535.");
+            else if (! self->remote.setOscPreferredPort (wanted))
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::NoIcon, "OSC PORT",
+                                                        "Port " + juce::String (wanted) + " couldn't be opened (another program may have it). OSC is off.");
+            self->refresh();
+        }), true);
+    }
+
     // Only while it's open: closed, the window is only hidden.
     void timerCallback() override { if (isShowing()) refresh(); }
 
@@ -86,7 +112,7 @@ private:
     {
         std::vector<DeskSettings::Group> groups;
         groups.push_back ({ &midiHeading, { { { &midiMap } }, { { &bindings } } } });
-        groups.push_back ({ &oscHeading, { { { &osc } } } });
+        groups.push_back ({ &oscHeading, { { { &osc, &portKey }, 90 } } });
         return DeskSettings::arrange (groups, w, apply, cards, 340);
     }
     std::vector<juce::Rectangle<int>> cards;
@@ -102,5 +128,5 @@ private:
     Hooks hooks;
     juce::Label midiHeading { {}, "MIDI" }, oscHeading { {}, "OSC" };
     juce::TextButton midiMap { "MIDI MAP  (CTRL+L)" }, bindings;
-    juce::TextButton osc;
+    juce::TextButton osc, portKey { "PORT..." };
 };

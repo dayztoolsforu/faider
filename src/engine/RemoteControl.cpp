@@ -346,6 +346,15 @@ bool RemoteControl::setOscPort (int port)
     return true;
 }
 
+bool RemoteControl::setOscPreferredPort (int port)
+{
+    if (port < 1024 || port > 65535)
+        return false;
+    oscPreferredPort = port;
+    if (log) log ("osc: port " + juce::String (port));
+    return oscPort > 0 && oscPort != port ? setOscPort (port) : true;   // on now: it moves there
+}
+
 // /faider/<kind>/<NAME>/<fader|pan|mute|solo> <value>, /faider/scene <NAME>, /faider/macro/<NAME> <1|0>
 void RemoteControl::oscMessageReceived (const juce::OSCMessage& m)
 {

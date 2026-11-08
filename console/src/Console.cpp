@@ -664,7 +664,7 @@ private:
         static const std::map<juce::String, const char*> map {
             { "polarity", "polarity" }, { "hfBell", "highBell" }, { "lfBell", "lowBell" }, { "eqIn", "eqOn" }, { "eqKey", "eqOn" }, { "chainEq", "eqOn" },
             { "exp", "gateExpand" }, { "filtKey", "filterToKey" }, { "extKey", "keyExternal" },
-            { "pre", "inputOn" }, { "listen", "keyListen" }, { "pk", "compPeak" } };
+            { "pre", "inputOn" }, { "listen", "keyListen" }, { "pk", "compPeak" }, { "noise", "nrOn" } };
         const auto it = map.find (id);
         return it != map.end() ? it->second : nullptr;
     }
@@ -2346,6 +2346,28 @@ private:
                 en.setStripSource (index, next);
                 en.refreshDevices();
             });
+        if (s->channel != nullptr && ! isApp (ch) && ! isCombinator (ch))   // NOISE: the strip's NOISE key, its kind and how deep
+        {
+            auto& params = s->channel->params;
+            auto set = [again] (const char* id, float v)
+            {
+                if (auto* st = again(); st != nullptr && st->channel != nullptr)
+                    if (auto* p = st->channel->params.getParameter (id))
+                        p->setValueNotifyingHost (p->convertTo0to1 (v));
+            };
+            const bool neural = params.getRawParameterValue ("nrType")->load() < 0.5f;
+            const float depth = params.getRawParameterValue ("nrDepth")->load();
+            juce::PopupMenu noise;
+            const bool on = params.getRawParameterValue ("nrOn")->load() > 0.5f;
+            noise.addItem ("ON", true, on, [this, set, on] { set ("nrOn", on ? 0.0f : 1.0f); repaint(); });
+            noise.addSeparator();
+            noise.addItem ("NEURAL", true, neural, [set] { set ("nrType", 0.0f); });   // (at 48 kHz; at other rates it runs SPECTRAL)
+            noise.addItem ("SPECTRAL", true, ! neural, [set] { set ("nrType", 1.0f); });
+            noise.addSectionHeader ("DEPTH");
+            for (float db : { -6.0f, -12.0f, -18.0f, -24.0f, -30.0f })
+                noise.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (depth - db) < 0.5f, [set, db] { set ("nrDepth", db); });
+            menu.addSubMenu ("NOISE", noise);
+        }
         menu.addSeparator();
         MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
         if (bus && s->combinator && mixer != nullptr)   // A COMBINATOR: its paths, each with its plugins

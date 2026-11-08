@@ -627,6 +627,26 @@
      "text": "FILT",
      "size": 14,
      "align": "left"
+    },
+    {
+     "kind": "label",
+     "x": 105.5,
+     "y": 22.1,
+     "w": 55.0,
+     "h": 27.5,
+     "text": "NOISE",
+     "size": 12,
+     "align": "right"
+    },
+    {
+     "kind": "switch",
+     "x": 166.6,
+     "y": 20.6,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "noise",
+     "lamp": "orange",
+     "lit": false
     }
    ]
   },

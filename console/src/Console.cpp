@@ -2229,9 +2229,15 @@ private:
             if (juce::isPositiveAndBelow (index, (int) masters.size()))
                 change (*masters[(size_t) index]);
         };
-        const int silentFor = m->silenceAlert > 0 ? m->silenceAlert : 10;   // (10 s of quiet, unless the session says otherwise)
-        menu.addItem ("ALERT IF SILENT (" + juce::String (silentFor) + " S)", true, m->silenceAlert > 0,
-                      [alert, on = m->silenceAlert > 0, silentFor] { alert ([on, silentFor] (AudioEngine::Master& mm) { mm.silenceAlert = on ? 0 : silentFor; }); });
+        juce::PopupMenu silent;   // (how long it's quiet first; a session's other time shows as its own)
+        auto silentLabel = [] (int s) { return s % 60 == 0 ? juce::String (s / 60) + " MIN" : juce::String (s) + " S"; };
+        std::vector<int> times { 0, 10, 30, 60, 300 };
+        if (m->silenceAlert > 0 && std::find (times.begin(), times.end(), m->silenceAlert) == times.end())
+            times.insert (std::upper_bound (times.begin(), times.end(), m->silenceAlert), m->silenceAlert);
+        for (int t : times)
+            silent.addItem (t == 0 ? juce::String ("OFF") : silentLabel (t), true, m->silenceAlert == t || (t == 0 && m->silenceAlert < 0),
+                            [alert, t] { alert ([t] (AudioEngine::Master& mm) { mm.silenceAlert = t; }); });
+        menu.addSubMenu ("ALERT IF SILENT", silent, true, nullptr, m->silenceAlert > 0);
         menu.addItem ("ALERT IF CLIPPING", true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
         MixerComponent::addMiniMixerItem (menu, *engine, stripKey (ch));
         menu.addSeparator();

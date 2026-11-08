@@ -2426,8 +2426,7 @@ private:
         }
         if (s->channel != nullptr && ! isApp (ch) && ! isCombinator (ch))   // KEY FROM: what EXT's dynamics hear
             menu.addSubMenu ("KEY FROM", keyFromMenu (ch, false), true, nullptr, s->keyFrom.isNotEmpty());
-        if (bus || s->source.kind != AudioEngine::Source::app)   // DUCK UNDER: dips while another input is heard (not an app: it plays as it comes)
-        {
+        {   // DUCK UNDER: dips while another input is heard (an app too: music under a mic)
             auto duck = [this, again] (std::function<void (AudioEngine::Strip&)> change)
             {
                 if (auto* st = again())

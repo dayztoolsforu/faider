@@ -2936,8 +2936,8 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
         for (int ch = 0; ch < 2; ++ch)
             s.rawBuffer.copyFrom (ch, 0, buf, ch, 0, numSamples);
 
-    // A captured program (browser, game, player) has assign, mute and cue only: its EQ,
-    // dynamics, inserts, duck, pan and fader are switched out (kept, but not run).
+    // A captured program (browser, game, player) has assign, mute, cue and DUCK UNDER only: its
+    // EQ, dynamics, inserts, pan and fader are switched out (kept, but not run).
     const bool program = s.source.kind == Source::app;
 
     // The channel's processing: its rack (built-in units and plugins, as patched).
@@ -2953,9 +2953,10 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
 
     // Auto-duck, keyed by its input's level after that input's fader (last block's, if that
     // strip comes later in the order). Down in about 20 ms, held 150 ms, back over the release.
+    // An app ducks too (its key level is read the same way: no wait on its capture).
     {
         float target = 1.0f;
-        const int key = program ? -1 : s.duckSource.load();
+        const int key = s.duckSource.load();
         if (juce::isPositiveAndBelow (key, (int) strips.size()))
         {
             const auto& k = *strips[(size_t) key];

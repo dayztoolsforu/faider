@@ -2144,7 +2144,7 @@ private:
     }
 
     // A strip's menu: what it takes in (a channel), where it goes, mono or stereo, its name, removing it.
-    // AN OUTPUT's menu: the device it plays on, renaming it, removing it.
+    // AN OUTPUT's menu: the device it plays on, its headphone correction, renaming it, removing it.
     void showDeviceMenu (int ch)
     {
         auto* m = bind.master (ch);
@@ -2213,6 +2213,7 @@ private:
         juce::PopupMenu menu;
         menu.addSectionHeader ("OUTPUT: " + m->name);
         menu.addItem ("DEVICE...", [this, ch] { showDeviceMenu (ch); });
+        MixerComponent::addHeadphoneMenu (menu, *engine, index);   // (correction for the headphones it plays on)
         menu.addSeparator();
         menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
         menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });

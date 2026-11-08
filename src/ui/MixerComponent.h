@@ -40,6 +40,10 @@ public:
     // Colour picker: a palette plus "Default". Adds the entries to `menu` (as a submenu named "Colour").
     static void addColourMenu (juce::PopupMenu& menu, juce::Colour current, std::function<void (juce::Colour)> onPick);
 
+    // HEADPHONE EQ: an output's headphone correction (HeadphoneEq.h), NONE or a profile by brand,
+    // added to `menu` as a submenu (ticked while one is on).
+    static void addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine&, int output);
+
     // A moment after setting up an app channel, a routing change with app channels, or Windows'
     // defaults changing: says if anything would be heard twice or feed back
     // (AudioEngine::findDoubling, findFeedbackLoop).

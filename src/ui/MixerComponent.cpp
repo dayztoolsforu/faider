@@ -508,6 +508,44 @@ void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current,
     menu.addSubMenu ("COLOUR", colours);
 }
 
+// HEADPHONE EQ: NONE, then the bundled profiles by brand (mostly the name's first word), A-Z.
+void MixerComponent::addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine& engine, int output)
+{
+    auto& masters = engine.getMasters();
+    if (! juce::isPositiveAndBelow (output, (int) masters.size()))
+        return;
+    const auto current = masters[(size_t) output]->headphoneProfile;
+    auto pick = [&engine, output] (const juce::String& profile) { engine.setHeadphoneEq (output, profile); };
+
+    std::map<juce::String, std::vector<juce::String>> brands;
+    for (auto& p : HeadphoneEq::profiles())
+    {
+        auto brand = p.name.upToFirstOccurrenceOf (" ", false, false);
+        for (auto* longer : { "Bowers & Wilkins", "Tin HiFi", "Turtle Beach" })   // (brands of more than one word)
+            if (p.name.startsWithIgnoreCase (juce::String (longer) + " "))
+                brand = longer;
+        brands[brand.toUpperCase()].push_back (p.name);
+    }
+    juce::StringArray order;
+    for (auto& [brand, names] : brands)
+        order.add (brand);
+    order.sortNatural();
+
+    juce::PopupMenu eq;
+    eq.addItem ("NONE", true, current.isEmpty(), [pick] { pick ({}); });
+    eq.addSeparator();
+    for (auto& brand : order)
+    {
+        auto names = brands[brand];
+        std::sort (names.begin(), names.end(), alphabetical);
+        juce::PopupMenu models;
+        for (auto& name : names)
+            models.addItem (name.toUpperCase(), true, name == current, [pick, name] { pick (name); });
+        eq.addSubMenu (brand, models, true, nullptr, std::find (names.begin(), names.end(), current) != names.end());
+    }
+    menu.addSubMenu ("HEADPHONE EQ", eq, true, nullptr, current.isNotEmpty());
+}
+
 namespace
 {
     // Where "to the mic" sends an app's channel: a bus whose sound ends up only on outputs that

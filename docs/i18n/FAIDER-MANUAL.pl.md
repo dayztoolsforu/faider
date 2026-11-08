@@ -271,7 +271,7 @@ karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
 
 | Grupa | Karta | Co robi |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Otwiera menu wejść: wejścia interfejsu, urządzenia Windows, aplikacje, okna programów i karty przeglądarki, pady, tape |
+| **DESK** | **ADD CHANNEL** | Otwiera menu wejść: wejścia interfejsu, urządzenia Windows, aplikacje, okna programów, przeglądarkę (całą albo jedną wyizolowaną kartę), ton testowy. Pady i tape dostają swój kanał na własnych stronach (**TOOLS**) |
 | | **ADD APP** | Wylicza programy, które teraz grają. Wybranie jednego daje mu kanał |
 | | **ADD BUS** | Bus albo kombinator (na początek dwie ścieżki) |
 | | **PLUGINS** | Wysuwa panel wtyczek pod paski (zobacz [9](#9-plugins)) |
@@ -1058,7 +1058,7 @@ na konsoli ([5](#5-the-console)).
 
 | Karta | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); wejścia i powiązania; przełącznik dla każdego wejścia MIDI |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, gdzie każde wejście MIDI włącza się lub wyłącza |
 | **OSC** | **OSC ON (PORT 9000)**, dla programów na tym komputerze |
 
 ---

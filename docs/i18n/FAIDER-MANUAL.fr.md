@@ -281,7 +281,7 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHAN
 
 | Groupe | Carte | Ce qu'elle fait |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Ouvre le menu des entrées : entrées de l'interface, périphériques Windows, applications, fenêtres de programmes et onglets de navigateur, pads, bande |
+| **DESK** | **ADD CHANNEL** | Ouvre le menu des entrées : entrées de l'interface, périphériques Windows, applications, fenêtres de programmes, un navigateur (entier, ou un seul onglet isolé), la tonalité de test. Les pads et la bande obtiennent leur tranche depuis leurs propres pages (**TOOLS**) |
 | | **ADD APP** | Liste les programmes qui jouent du son en ce moment. Choisissez-en un pour lui donner un canal |
 | | **ADD BUS** | Un bus, ou un combinateur (deux chemins au départ) |
 | | **PLUGINS** | Fait monter le panneau des plugins sous les tranches (voir [9](#9-plugins)) |
@@ -1107,7 +1107,7 @@ console ([5](#5-the-console)).
 
 | Carte | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L) ; entrées et assignations ; un commutateur par entrée MIDI |
+| **MIDI** | **MIDI MAP** (Ctrl+L) ; **INPUTS AND BINDINGS**, où chaque entrée MIDI est activée ou désactivée |
 | **OSC** | **OSC ON (PORT 9000)**, pour les programmes de ce PC |
 
 ---

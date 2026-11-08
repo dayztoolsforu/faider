@@ -268,7 +268,7 @@ diese Karten (in SIMPLE nur **ADD CHANNEL** und **ADD APP**):
 
 | Gruppe | Karte | Was sie tut |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Öffnet das Eingangsmenü: Interface-Eingänge, Windows-Geräte, Apps, Programmfenster und Browser-Tabs, Pads, Tape |
+| **DESK** | **ADD CHANNEL** | Öffnet das Eingangsmenü: Interface-Eingänge, Windows-Geräte, Apps, Programmfenster, einen Browser (ganz oder einen einzelnen Tab isoliert), den Testton. Pads und Tape bekommen ihren Kanal auf ihren eigenen Seiten (**TOOLS**) |
 | | **ADD APP** | Listet die Programme auf, die gerade Klang abspielen. Wähle eines, um ihm einen Kanal zu geben |
 | | **ADD BUS** | Ein Bus oder ein Combinator (zu Beginn zwei Pfade) |
 | | **PLUGINS** | Schiebt das Plugin-Panel unter den Strips hoch (siehe [9](#9-plugins)) |
@@ -1058,7 +1058,7 @@ Ctrl, Alt oder eine F-Taste enthalten und funktionieren, während ein Spiel den 
 
 | Karte | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); Eingänge und Zuordnungen; ein Schalter pro MIDI-Eingang |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, wo jeder MIDI-Eingang ein- oder ausgeschaltet wird |
 | **OSC** | **OSC ON (PORT 9000)**, für Programme auf diesem PC |
 
 ---

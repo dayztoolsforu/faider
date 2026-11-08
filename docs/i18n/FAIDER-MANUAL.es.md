@@ -278,7 +278,7 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, sol
 
 | Grupo | Tarjeta | Qué hace |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Abre el menú de entradas: entradas de la interfaz, dispositivos de Windows, aplicaciones, ventanas de programas y pestañas del navegador, pads, cinta |
+| **DESK** | **ADD CHANNEL** | Abre el menú de entradas: entradas de la interfaz, dispositivos de Windows, aplicaciones, ventanas de programas, un navegador (entero, o una sola pestaña aislada), el tono de prueba. Los pads y la cinta obtienen su canal desde sus propias páginas (**TOOLS**) |
 | | **ADD APP** | Enumera los programas que están reproduciendo sonido ahora. Elige uno para darle un canal |
 | | **ADD BUS** | Un bus, o un combinador (dos caminos al empezar) |
 | | **PLUGINS** | Hace subir el panel de plugins bajo los strips (consulta [9](#9-plugins)) |
@@ -1090,7 +1090,7 @@ de la página también funcionan en la consola ([5](#5-the-console)).
 
 | Tarjeta | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); entradas y asignaciones; un conmutador por entrada MIDI |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, donde cada entrada MIDI se activa o desactiva |
 | **OSC** | **OSC ON (PORT 9000)**, para programas de este PC |
 
 ---

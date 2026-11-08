@@ -268,7 +268,7 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 
 | Groep | Kaart | Wat het doet |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Opent het ingangenmenu: interface-ingangen, Windows-apparaten, apps, programmavensters en browsertabs, pads, tape |
+| **DESK** | **ADD CHANNEL** | Opent het ingangenmenu: interface-ingangen, Windows-apparaten, apps, programmavensters, een browser (geheel, of één tabblad geïsoleerd), de testtoon. Pads en tape krijgen hun kanaal via hun eigen pagina's (**TOOLS**) |
 | | **ADD APP** | Toont de programma's die nu geluid afspelen. Kies er een om het een kanaal te geven |
 | | **ADD BUS** | Een bus, of een combinator (om mee te beginnen twee paden) |
 | | **PLUGINS** | Schuift het pluginpaneel omhoog onder de strips (zie [9](#9-plugins)) |
@@ -1058,7 +1058,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 
 | Kaart | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); ingangen en toewijzingen; een schakelaar per MIDI-ingang |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, waar elke MIDI-ingang aan- of uitgezet wordt |
 | **OSC** | **OSC ON (PORT 9000)**, voor programma's op deze pc |
 
 ---

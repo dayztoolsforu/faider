@@ -273,7 +273,7 @@ Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo **ADD CHANNEL**
 
 | Gruppo | Scheda | Cosa fa |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Apre il menu degli ingressi: ingressi dell'interfaccia, dispositivi Windows, app, finestre di programmi e schede del browser, pad, tape |
+| **DESK** | **ADD CHANNEL** | Apre il menu degli ingressi: ingressi dell'interfaccia, dispositivi Windows, app, finestre di programmi, un browser (intero, o una singola scheda isolata), il tono di prova. Pad e tape ottengono il loro canale dalle proprie pagine (**TOOLS**) |
 | | **ADD APP** | Elenca i programmi che stanno suonando adesso. Sceglierne uno gli dà un canale |
 | | **ADD BUS** | Un bus, o un combinatore (due percorsi per cominciare) |
 | | **PLUGINS** | Fa salire il pannello dei plugin sotto le strip (vedi [9](#9-plugins)) |
@@ -1068,7 +1068,7 @@ sulla console ([5](#5-the-console)).
 
 | Scheda | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); ingressi e assegnazioni; un interruttore per ogni ingresso MIDI |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, dove ogni ingresso MIDI si attiva o disattiva |
 | **OSC** | **OSC ON (PORT 9000)**, per i programmi su questo PC |
 
 ---

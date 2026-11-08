@@ -268,7 +268,7 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 
 | Grupp | Kort | Vad det gör |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Öppnar ingångsmenyn: gränssnittets ingångar, Windows-enheter, appar, programfönster och webbläsarflikar, pads, tape |
+| **DESK** | **ADD CHANNEL** | Öppnar ingångsmenyn: gränssnittets ingångar, Windows-enheter, appar, programfönster, en webbläsare (hela, eller en enskild flik isolerad), testtonen. Pads och tape får sin kanal från sina egna sidor (**TOOLS**) |
 | | **ADD APP** | Listar programmen som spelar ljud nu. Välj ett för att ge det en kanal |
 | | **ADD BUS** | En buss, eller en combinator (två vägar till att börja med) |
 | | **PLUGINS** | Skjuter upp pluginpanelen under strippar (se [9](#9-plugins)) |
@@ -1056,7 +1056,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 
 | Kort | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); ingångar och bindningar; en omkopplare per MIDI-ingång |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, där varje MIDI-ingång slås på eller av |
 | **OSC** | **OSC ON (PORT 9000)**, för program på den här datorn |
 
 ---

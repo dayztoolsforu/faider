@@ -267,7 +267,7 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 
 | Grup | Kart | Ne yapar |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Giriş menüsünü açar: arabirim girişleri, Windows aygıtları, uygulamalar, program pencereleri ve tarayıcı sekmeleri, pad'ler, tape |
+| **DESK** | **ADD CHANNEL** | Giriş menüsünü açar: arabirim girişleri, Windows aygıtları, uygulamalar, program pencereleri, bir tarayıcı (tamamı ya da tek bir sekme yalıtılmış olarak), test tonu. Pad'ler ve tape kanallarını kendi sayfalarından (**TOOLS**) alır |
 | | **ADD APP** | Şu anda ses çalan programları listeler. Birini seçmek ona bir kanal verir |
 | | **ADD BUS** | Bir bus ya da bir kombinatör (başlangıçta iki yol) |
 | | **PLUGINS** | Eklenti panelini şeritlerin altından yukarı kaydırır (bkz. [9](#9-plugins)) |
@@ -1056,7 +1056,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 
 | Kart | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); girişler ve atamalar; her MIDI girişi için bir anahtar |
+| **MIDI** | **MIDI MAP** (Ctrl+L); her MIDI girişinin açılıp kapatıldığı **INPUTS AND BINDINGS** |
 | **OSC** | Bu bilgisayardaki programlar için **OSC ON (PORT 9000)** |
 
 ---

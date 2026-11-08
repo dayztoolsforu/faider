@@ -274,7 +274,7 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHA
 
 | Grupo | Cartão | O que faz |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Abre o menu de entradas: entradas da interface, dispositivos do Windows, apps, janelas de programas e abas do navegador, pads, fita |
+| **DESK** | **ADD CHANNEL** | Abre o menu de entradas: entradas da interface, dispositivos do Windows, apps, janelas de programas, um navegador (inteiro, ou uma única aba isolada), o tom de teste. Pads e fita ganham seu canal nas próprias páginas (**TOOLS**) |
 | | **ADD APP** | Lista os programas que estão tocando som agora. Escolha um para dar um canal a ele |
 | | **ADD BUS** | Um bus, ou um combinador (dois caminhos para começar) |
 | | **PLUGINS** | Sobe o painel de plugins sob os strips (veja [9](#9-plugins)) |
@@ -1079,7 +1079,7 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 
 | Cartão | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); entradas e atribuições; uma chave por entrada MIDI |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, onde cada entrada MIDI é ligada ou desligada |
 | **OSC** | **OSC ON (PORT 9000)**, para programas neste PC |
 
 ---

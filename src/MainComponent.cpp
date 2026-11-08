@@ -1894,7 +1894,7 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
     for (int b = 0; b < (int) engine.getMasters().size(); ++b)
         if (engine.getMasters()[(size_t) b]->name == mic)
             micBus = b;
-    checks.push_back ({ "Mic master", mic.isNotEmpty() ? mic + " plays into the mic cable" : "No master plays into the mic cable (CABLE Input)",
+    checks.push_back ({ "Mic output", mic.isNotEmpty() ? mic + " plays into the mic cable" : "No output plays into the mic cable (CABLE Input)",
                         mic.isNotEmpty(), "ROUTING", [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Routing")); } });
 
     // The mics on their way there, and whether any is muted.
@@ -1929,7 +1929,7 @@ void MainComponent::showPreflight (bool onlyIfWrong)
     auto panel = std::make_unique<PreflightPanel> ([this] { return preflightChecks(); });
     if (onlyIfWrong && panel->allClear())
         return;
-    panel->setOtherKey ("ZERO THE DESK", "Things left set: solos, key listen, gains far off, masters cut", [this] { showZero(); });
+    panel->setOtherKey ("ZERO THE DESK", "Things left set: solos, key listen, gains far off, outputs cut", [this] { showZero(); });
     logEvent (onlyIfWrong ? "pre-flight: something needs a look" : "pre-flight");
     juce::DialogWindow::LaunchOptions o;
     o.content.setOwned (panel.release());
@@ -2010,7 +2010,7 @@ std::vector<PreflightPanel::Check> MainComponent::zeroChecks()
     for (auto& m : engine.getMasters())
         if (m->mute.load())
             cutMasters.add (m->name);
-    row ("Masters", cutMasters, "cut: nothing leaves them", "No master cut", [this] { for (auto& m : engine.getMasters()) m->mute = false; });
+    row ("Outputs", cutMasters, "cut: nothing leaves them", "No output cut", [this] { for (auto& m : engine.getMasters()) m->mute = false; });
     return checks;
 }
 

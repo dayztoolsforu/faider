@@ -603,7 +603,7 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
         if (apps.isEmpty())
             toMic.addItem ("(no apps playing audio)", false, false, [] {});
         menu.addSubMenu (route.index >= 0 ? "SEND AN APP TO THE MIC  (via " + route.name + ")"
-                                          : juce::String ("SEND AN APP TO THE MIC  (no mic cable master yet)"),
+                                          : juce::String ("SEND AN APP TO THE MIC  (no mic cable output yet)"),
                          toMic, route.index >= 0);
         menu.addSeparator();
     }

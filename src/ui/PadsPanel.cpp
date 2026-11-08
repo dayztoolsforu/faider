@@ -1002,7 +1002,7 @@ private:
                 }
                 box.addSectionHeading ("Buses");
                 for (auto& s : eng.getBuses()) item ("bus:" + s->name, s->name);
-                box.addSectionHeading ("Masters");
+                box.addSectionHeading ("Outputs");
                 for (auto& b : eng.getMasters()) item ("output:" + b->name, b->name);
             }
             if (chosen.isNotEmpty() && ! keys.contains (chosen))
@@ -1038,7 +1038,7 @@ private:
         TriggerRow (MacroEditor& e, int i) : editor (e), index (i)
         {
             using W = Macros::Trigger::When;
-            const char* names[] = { "APP STARTS", "APP STOPS", "DEVICE CONNECTED", "DEVICE DISCONNECTED", "MASTER SILENT", "MASTER HAS SOUND", "TIME" };
+            const char* names[] = { "APP STARTS", "APP STOPS", "DEVICE CONNECTED", "DEVICE DISCONNECTED", "OUTPUT SILENT", "OUTPUT HAS SOUND", "TIME" };
             for (int w = 0; w <= (int) W::time; ++w)
                 when.addItem (names[w], w + 1);
             when.setSelectedId ((int) trigger().when + 1, juce::dontSendNotification);

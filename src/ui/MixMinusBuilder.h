@@ -7,10 +7,10 @@
 #include "Theme.h"
 
 // MIX-MINUS AND STEMS: as the console builds a mix-minus feed for each caller and music /
-// dialogue / effects stems through its groups. Per channel: MINUS (a master that's the main mix
+// dialogue / effects stems through its groups. Per channel: MINUS (an output that's the main mix
 // without that channel: the feed for that guest's call, so they don't hear themselves) and a STEM
-// (VOICE, MUSIC or GAME: a master each, fed by the channels picked, to record apart). BUILD makes
-// the masters (named MINUS <guest> and STEM <kind>, on no device yet: pick theirs in MASTERS).
+// (VOICE, MUSIC or GAME: an output each, fed by the channels picked, to record apart). BUILD makes
+// the outputs (named MINUS <guest> and STEM <kind>, on no device yet: pick theirs in OUTPUTS).
 class MixMinusBuilder : public juce::Component
 {
 public:
@@ -49,7 +49,7 @@ public:
             row->stem.setClickingTogglesState (false);
             row->stem.onClick = [row] { row->stemKind = (row->stemKind + 1) % 4; row->stem.setButtonText (stemNames[row->stemKind]); };
             row->stem.setButtonText (stemNames[0]);
-            row->stem.setTooltip ("Which stem it goes to (a master each, to record apart)");
+            row->stem.setTooltip ("Which stem it goes to (an output each, to record apart)");
             addAndMakeVisible (row->minus);
             addAndMakeVisible (row->stem);
         }
@@ -128,7 +128,7 @@ private:
                     s->sends[index] = true;
             ++made;
         }
-        engine.logEvent ("mix-minus and stems: " + juce::String (made) + " masters made (put them on devices in MASTERS)");
+        engine.logEvent ("mix-minus and stems: " + juce::String (made) + " outputs made (put them on devices in OUTPUTS)");
         if (built)
             built();
         if (auto* dw = findParentComponentOfClass<juce::DialogWindow>())

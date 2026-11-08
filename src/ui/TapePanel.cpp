@@ -618,6 +618,18 @@ void TapePanel::timerCallback()
         if (! recording)
         {
             const auto formats = Recorder::formats();
+            if (recordFormat.getNumItems() != (int) formats.size())   // (FFmpeg picked or gone: its formats come or go)
+            {
+                recordFormat.clear (juce::dontSendNotification);
+                for (int i = 0; i < (int) formats.size(); ++i)
+                {
+                    recordFormat.addItem (formats[(size_t) i].name, i + 1);
+                    if (formats[(size_t) i].id == recorder.format)
+                        recordFormat.setSelectedId (i + 1, juce::dontSendNotification);
+                }
+                if (recordFormat.getSelectedId() == 0)
+                    recordFormat.setSelectedId (1, juce::dontSendNotification);
+            }
             for (int i = 0; i < (int) formats.size(); ++i)
             {
                 const auto text = formats[(size_t) i].name + "   " + roughTime (recorder.secondsThatFit (formats[(size_t) i].id, rate, tracks));

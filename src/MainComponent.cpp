@@ -36,6 +36,8 @@ MainComponent::MainComponent()
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
     tooltips.setOpaque (false);   // the look draws a rounded card with a drop shadow round it
     Metering::setStandard (settings.getValue ("meterStandard", "peak"));
+    if (const auto exe = settings.getValue ("ffmpegPath"); exe.isNotEmpty())   // (SETTINGS > GENERAL > FFMPEG)
+        Recorder::setFfmpeg (juce::File (exe));
     AudioEngine::meterPoint = juce::jlimit (0, 2, settings.getIntValue ("meterPoint", 2));
 
     eventLog.setMultiLine (true);
@@ -519,6 +521,10 @@ void MainComponent::makeSettings()
     general.heading ("CHANNEL METER POINT");
     general.choice ({ "IN  (RAW SOURCE)", "PRE  (AFTER EFFECTS)", "POST  (AFTER THE FADER)" },
                     [] { return AudioEngine::meterPoint.load(); }, [] (int i) { AudioEngine::meterPoint = i; });
+    general.heading ("RECORDING");
+    general.actionShowing ([] { const auto f = Recorder::ffmpeg(); return "FFMPEG: " + (f.existsAsFile() ? f.getFullPathName() : juce::String ("NOT FOUND")); },
+                           "MP3, AAC, Opus and ALAC recording need ffmpeg.exe: pick it here, or have it on the PATH",
+                           [this] { pickFfmpeg(); });
     general.heading ("UPDATES");
     general.toggle ("CHECK FOR UPDATES", "Once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else",
                     [this] { return settings.getBoolValue ("checkForUpdates", true); },
@@ -1925,6 +1931,40 @@ void MainComponent::restoreSession (const juce::File& version, const juce::Strin
         relaunch.start ("\"" + exe + "\" --after " + juce::String (thisProcessId()), 0);
         juce::JUCEApplication::getInstance()->systemRequestedQuit();
     }));
+}
+
+// FFMPEG: ffmpeg.exe picked (it's used before the PATH's). With one picked, a menu also offers to
+// go back to the PATH's.
+void MainComponent::pickFfmpeg()
+{
+    auto choose = [this]
+    {
+        const auto start = Recorder::ffmpeg().existsAsFile() ? Recorder::ffmpeg() : juce::File::getSpecialLocation (juce::File::globalApplicationsDirectory);
+        chooser = std::make_unique<juce::FileChooser> ("Pick ffmpeg.exe", start, "ffmpeg.exe");
+        chooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles, [this] (const juce::FileChooser& fc)
+        {
+            const auto exe = fc.getResult();
+            if (! exe.existsAsFile())
+                return;
+            Recorder::setFfmpeg (exe);
+            settings.setValue ("ffmpegPath", exe.getFullPathName());
+            settings.saveIfNeeded();
+            logEvent ("recording: ffmpeg is " + exe.getFullPathName());
+        });
+    };
+    if (settings.getValue ("ffmpegPath").isEmpty())
+        return choose();
+    juce::PopupMenu menu;
+    menu.addItem ("PICK FFMPEG.EXE...", choose);
+    const auto onPath = Recorder::ffmpegOnPath();
+    menu.addItem (onPath.existsAsFile() ? "USE THE ONE ON THE PATH" : "FORGET IT (NONE ON THE PATH)", [this]
+    {
+        Recorder::setFfmpeg ({});
+        settings.removeValue ("ffmpegPath");
+        settings.saveIfNeeded();
+        logEvent ("recording: ffmpeg from the PATH");
+    });
+    menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
 }
 
 // DEVICES > CLOCK: switching the clock under a running mix (an interface's inputs and outputs

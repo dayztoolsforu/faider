@@ -104,7 +104,19 @@ Recorder::Format Recorder::formatFor (const juce::String& id)
     return formats().front();
 }
 
-juce::File Recorder::ffmpeg()
+namespace
+{
+    juce::CriticalSection chosenLock;
+    juce::File chosenFfmpeg;   // SETTINGS > GENERAL > FFMPEG
+}
+
+void Recorder::setFfmpeg (const juce::File& exe)
+{
+    const juce::ScopedLock sl (chosenLock);
+    chosenFfmpeg = exe;
+}
+
+juce::File Recorder::ffmpegOnPath()
 {
     static const juce::File found = []
     {
@@ -116,6 +128,16 @@ juce::File Recorder::ffmpeg()
         return juce::File();
     }();
     return found;
+}
+
+juce::File Recorder::ffmpeg()
+{
+    {
+        const juce::ScopedLock sl (chosenLock);
+        if (chosenFfmpeg.existsAsFile())
+            return chosenFfmpeg;
+    }
+    return ffmpegOnPath();
 }
 
 std::unique_ptr<juce::AudioFormatWriter> Recorder::createWriter (const juce::String& id, std::unique_ptr<juce::OutputStream>& stream,

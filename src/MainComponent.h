@@ -105,6 +105,8 @@ private:
     void exportSession();
     void importSession();
     std::unique_ptr<juce::FileChooser> sessionChooser;
+    std::unique_ptr<juce::FileChooser> chooser;   // FFMPEG's and the problem report's
+    void pickFfmpeg();                            // SETTINGS > GENERAL > FFMPEG
     juce::Time lastHistory;
     void setZoom (float);
     void stepZoom (int direction);   // the next stage up (1) or down (-1)

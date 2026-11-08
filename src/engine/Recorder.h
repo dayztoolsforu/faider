@@ -44,8 +44,8 @@ public:
 
     // File formats: WAV (16, 24, 32-bit, 32-bit float; past 4 GB it becomes RF64), FLAC (16, 24),
     // AIFF (16, 24; 4 GB at most), Ogg Vorbis 128-320 kbps (all written directly), and with FFmpeg
-    // on the PATH MP3 128-320 kbps, AAC, Opus and ALAC (recorded as a 24-bit WAV, then converted by
-    // FFmpeg in the background). `format` is the TAPE tab's choice (saved with the session).
+    // (picked in SETTINGS, or on the PATH) MP3 128-320 kbps, AAC, Opus and ALAC (recorded as a 24-bit
+    // WAV, then converted by FFmpeg in the background). `format` is the TAPE tab's choice (saved with the session).
     struct Format
     {
         juce::String id, name, extension;
@@ -57,7 +57,9 @@ public:
     };
     static std::vector<Format> formats();
     static Format formatFor (const juce::String& id);
-    static juce::File ffmpeg();   // where FFmpeg is, or a missing File
+    static juce::File ffmpeg();   // where FFmpeg is (the one picked, else the PATH's), or a missing File
+    static juce::File ffmpegOnPath();
+    static void setFfmpeg (const juce::File& exe);   // the one picked in SETTINGS (none: the PATH's)
     juce::String format { "wav24" };
 
     // Disk space (message thread). A recording stops, its file finished, when less than

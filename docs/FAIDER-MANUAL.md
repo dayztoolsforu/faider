@@ -189,8 +189,8 @@ If you hear a program twice, see [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** and **+ APP** add channels. **+ OUTPUT** adds an output on a device that has none.
 The device key under an output's name changes where it plays. Right-click a name for **RENAME...**,
-the colour and **REMOVE**. Removing a program's channel also removes its app rule, so the channel
-doesn't come back by itself.
+the colour, **HEADPHONE EQ** (an output), **IN THE MINI MIXER** and **REMOVE**. Removing a
+program's channel also removes its app rule, so the channel doesn't come back by itself.
 
 ### Step 7: PRO, for the whole console
 
@@ -375,10 +375,10 @@ The desk shows every strip from left to right: **channels**, then **buses** (vio
 | **HEADER** | Level bars, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number |
 | **INPUT** | Trim, polarity, mic drive, the input switch and stereo width |
 | **DYNAMICS** | Compressor and gate |
-| **FILTERS** | Low-pass and high-pass |
+| **FILTERS** | Low-pass, high-pass and the NOISE switch |
 | **EQ** | Four bands |
 | **NAME** | The name bar and power switch |
-| **FADER** | Pan, SOLO, CUT, SEL, the fader and its readout |
+| **FADER** | Pan, SOLO, CUT, SEL, the fader and its readout, the DUCK lamp |
 
 ### Mouse and keyboard
 
@@ -426,7 +426,10 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 | **ROUTE TO** | Every bus and output device, ticked where it's sent |
 | **PLUGINS** | Open one, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Channels only |
+| **NOISE** | Noise reduction: **ON** (as the strip's NOISE switch), **NEURAL** or **SPECTRAL**, and its **DEPTH** (-6 to -30 dB) |
+| **DUCK UNDER** | Another channel this one dips under while that channel is heard, or **NONE**, and how far it dips (**DEPTH**, -6 to -24 dB). Not on an app channel |
 | **COLOUR** | The channel's colour, shown along its name bar and on its Routing block |
+| **IN THE MINI MIXER** | Ticked: the strip has a fader in the mini mixer (see [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
 | **RENAME...** | |
 | **REMOVE** | Deletes the channel or bus |
@@ -496,6 +499,10 @@ set them before putting them in.
 **lp** (low-pass) and **hp** (high-pass). Turned all the way down, the high-pass is out. Turned all
 the way up, the low-pass is out.
 
+**NOISE** switches noise reduction in or out: hiss, hum and room noise are taken down while the
+voice stays. Right-click the strip > **NOISE** for **NEURAL** (the default, at 48 kHz; at other
+rates it runs as SPECTRAL) or **SPECTRAL**, and for how deep it goes. Off, it costs nothing.
+
 ### EQ
 
 ![EQ: HF, HMF, LMF and LF, with the EQ IN switch](images/console/strip-eq.jpg)
@@ -522,6 +529,7 @@ The **EQ IN** switch puts the whole EQ in or out (the same as the header's EQ ke
 | **Fader** | Level, +12 dB to off. The readout below shows the level in dB |
 | **safe** | Solo safe: this channel stays audible when others are soloed |
 | **listen** | Listen to the dynamics' key signal |
+| **duck** | Lights while the channel is dipped under another (right-click > **DUCK UNDER**) |
 
 ### Voice effects
 
@@ -581,7 +589,10 @@ Each output has its own dark strip:
 | **MIX EQ** | In switch, HF gain and freq, LF gain and freq |
 | **CUT**, **SEL**, fader | As on a channel |
 
-Right-click an output for **DEVICE...**, spacers, **RENAME...** and **REMOVE**.
+Right-click an output for **DEVICE...**, **HEADPHONE EQ** (headphone correction: **NONE**, or your
+model, listed by brand), **ALERT IF SILENT** (10 seconds under -60 dBFS) and **ALERT IF CLIPPING**
+(while LIMIT is off), which flash the tray icon and write to the event log, **IN THE MINI MIXER**,
+spacers, **RENAME...** and **REMOVE**.
 
 Outputs are made for you, one per device (see [Outputs are devices](#outputs-are-devices)).
 
@@ -929,7 +940,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
 | **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
-| **MINI** | The mini mixer: a small window with each output's fader, meter and **CUT**. **PIN** keeps it on top of everything. **OPEN** returns to the main window |
+| **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Start with Windows, About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an

@@ -81,6 +81,10 @@ private:
     juce::String pickClock (bool asio, bool announce = true);
     void checkClock();
     bool clockForced = false;   // started with --clock: the built-in clock stays (no device takes over)
+    bool clockFromCommandLine = false;   // --clock given (it wins over DEVICES > CLOCK)
+    juce::String clockChosenAtStart;     // DEVICES > CLOCK's choice as this run started ("" the interface, "builtin", "windows:NAME")
+    void chooseClock (const juce::String& choice);   // DEVICES > CLOCK: kept, for the next start (RESTART NOW offered)
+    void restartFaider();                // quits, and a new copy starts once this one has gone
     juce::String savedMaster;   // started with --clock: the mix's own interface, saved instead of the chosen clock
     juce::String masterToSave() const { return clockForced && savedMaster.isNotEmpty() ? savedMaster : interfaceName; }
     juce::StringArray clockRefused;   // clocks that wouldn't start, until the devices change (pickClock skips them)

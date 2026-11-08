@@ -5,7 +5,7 @@
 #include "../engine/AudioEngine.h"
 #include "Console.h"
 
-// The Devices tab: VB-CABLE's settings (while it's installed) and the device tools at the top,
+// The Devices tab: what sets the clock, VB-CABLE's settings (while it's installed) and the device tools at the top,
 // every audio device in fixed columns, then the stream diagnostics (latency, dropouts) and the
 // event log at the bottom.
 namespace DevicesTab
@@ -243,6 +243,99 @@ namespace DevicesTab
         juce::TextButton apply { "APPLY" };
         bool installed = false;
         int savedRate = 0, savedLatency = 0, checks = 0;
+    };
+
+    // CLOCK: what sets the clock: the interface (ASIO, Faider's own pick, as without a choice), a
+    // Windows playback device, or the built-in clock. Kept by the app (`choice`, `choose`) and
+    // used from the next start, as --clock is; --clock on the command line still wins.
+    class ClockBar : public juce::Component,
+                     private juce::Timer
+    {
+    public:
+        ClockBar (AudioEngine& e, const juce::Array<EndpointInfo>& all) : engine (e), endpoints (all)
+        {
+            title.setText ("CLOCK", juce::dontSendNotification);
+            title.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
+            addAndMakeVisible (title);
+            pick.setTooltip ("What sets the clock, from the next start");
+            pick.onClick = [this] { showMenu(); };
+            addAndMakeVisible (pick);
+            status.setFont (juce::FontOptions (Console::Type::body));
+            status.setColour (juce::Label::textColourId, Console::Colours::legendDim());
+            addAndMakeVisible (status);
+            startTimerHz (2);
+        }
+
+        std::function<juce::String()> choice;             // "" (the interface), "builtin" or "windows:NAME"
+        std::function<void (const juce::String&)> choose;
+        std::function<juce::String()> note;               // after the state now: a choice waiting for the next start, --clock
+
+        void lookAndFeelChanged() override { status.setColour (juce::Label::textColourId, Console::Colours::legendDim()); }
+
+        void resized() override
+        {
+            Console::KeyRow row (getLocalBounds().reduced (Console::Space::pad, 0));
+            row.leftWidth (title, labelWidth).left (pick, 4);
+            const auto rest = row.rest().withTrimmedLeft (Console::Space::pad);
+            status.setBounds (rest.withSizeKeepingCentre (rest.getWidth(), Console::Space::key));
+        }
+
+        void paint (juce::Graphics& g) override
+        {
+            g.fillAll (Console::Colours::panel());
+            g.setColour (juce::Colours::black.withAlpha (0.5f));
+            g.fillRect (0, getHeight() - 1, getWidth(), 1);
+        }
+
+    private:
+        static juce::String keyText (const juce::String& c)
+        {
+            if (c == "builtin")
+                return "SET BY: THE BUILT-IN CLOCK";
+            if (c.startsWith (AudioEngine::windowsClockPrefix))
+                return "SET BY: " + c.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false).toUpperCase();
+            return "SET BY: THE INTERFACE";
+        }
+
+        void timerCallback() override
+        {
+            const auto c = choice ? choice() : juce::String();
+            if (const auto text = keyText (c); text != pick.getButtonText())
+                pick.setButtonText (text);
+            const auto device = engine.getClock() == AudioEngine::Clock::asio ? engine.getInterfaceAdapter() : engine.getClockDevice();
+            auto text = "Now: " + engine.getClockName() + (device.isNotEmpty() ? " (" + device + ")" : juce::String());
+            if (note)
+                if (const auto more = note(); more.isNotEmpty())
+                    text << ". " << more;
+            if (text != status.getText())
+                status.setText (text, juce::dontSendNotification);
+        }
+
+        void showMenu()
+        {
+            const auto c = choice ? choice() : juce::String();
+            auto set = [this] (const juce::String& to) { if (choose) choose (to); timerCallback(); };
+            juce::PopupMenu menu, devices;
+            menu.addSectionHeader ("WHAT SETS THE CLOCK (FROM THE NEXT START)");
+            menu.addItem ("THE INTERFACE (ASIO)", true, c.isEmpty(), [set] { set ({}); });
+            for (auto& e : endpoints)
+                if (e.api == "WASAPI" && e.isOutput && e.isActive() && ! engine.isDeviceDisabled (e.name))
+                {
+                    const auto key = AudioEngine::windowsClockPrefix + e.name;
+                    devices.addItem (endpointDisplayName (e).toUpperCase(), true, c == key, [set, key] { set (key); });
+                }
+            if (const auto name = c.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false);
+                name.isNotEmpty() && std::none_of (endpoints.begin(), endpoints.end(), [&name] (const EndpointInfo& e) { return e.isOutput && e.isActive() && e.name == name; }))
+                devices.addItem (name.toUpperCase() + " (NOT CONNECTED)", true, true, [set, c] { set (c); });   // (the one chosen, while it's away)
+            menu.addSubMenu ("A WINDOWS PLAYBACK DEVICE", devices, devices.getNumItems() > 0, juce::Image(), c.startsWith (AudioEngine::windowsClockPrefix));
+            menu.addItem ("THE BUILT-IN CLOCK", true, c == "builtin", [set] { set ("builtin"); });
+            menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (pick));
+        }
+
+        AudioEngine& engine;
+        const juce::Array<EndpointInfo>& endpoints;
+        juce::Label title, status;
+        juce::TextButton pick;
     };
 
     // Diagnostics: every open stream with the latency it adds and every dropout so far, plus
@@ -608,8 +701,9 @@ namespace DevicesTab
     {
     public:
         Panel (juce::ListBox& deviceList, const juce::Array<EndpointInfo>& endpoints, AudioEngine& engine)
-            : list (deviceList), tools (deviceList, endpoints, engine), streams (engine)
+            : list (deviceList), clock (engine, endpoints), tools (deviceList, endpoints, engine), streams (engine)
         {
+            addAndMakeVisible (clock);
             addAndMakeVisible (cable);
             addAndMakeVisible (tools);
             addAndMakeVisible (header);
@@ -620,6 +714,7 @@ namespace DevicesTab
         }
 
         DeviceTools& getTools() { return tools; }
+        ClockBar& getClock() { return clock; }
         Header& getHeader() { return header; }
 
         // The app's event log, along the bottom of this tab.
@@ -635,6 +730,7 @@ namespace DevicesTab
             auto r = getLocalBounds();
             if (eventLog != nullptr)
                 eventLog->setBounds (r.removeFromBottom (juce::jmin (160, r.getHeight() / 3)));
+            clock.setBounds (r.removeFromTop (barHeight));
             if (cable.isInstalled())
                 cable.setBounds (r.removeFromTop (barHeight));
             tools.setBounds (r.removeFromTop (barHeight));
@@ -645,6 +741,7 @@ namespace DevicesTab
 
     private:
         juce::ListBox& list;
+        ClockBar clock;
         CableSettings cable;
         DeviceTools tools;
         Header header;

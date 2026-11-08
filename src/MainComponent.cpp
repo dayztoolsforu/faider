@@ -80,11 +80,27 @@ MainComponent::MainComponent()
                   + " (the SESSION TIMELINE brings it back)");
     };
 
-    // --clock builtin | windows | <ASIO driver>: starts on that clock, with the saved mix.
+    // --clock builtin | windows | <ASIO driver>: starts on that clock, with the saved mix. Without
+    // it, DEVICES > CLOCK's choice does the same ("builtin", or "windows:" and a playback device).
     const auto args = juce::JUCEApplicationBase::getCommandLineParameterArray();
+    juce::String wanted;
     if (const int i = args.indexOf ("--clock"); i >= 0 && i + 1 < args.size())
     {
-        const auto wanted = args[i + 1].unquoted();
+        wanted = args[i + 1].unquoted();
+        clockFromCommandLine = true;
+    }
+    else
+        wanted = clockChosenAtStart = settings.getValue ("clock");
+    if (wanted.startsWith (AudioEngine::windowsClockPrefix))
+    {
+        // A playback device by name: if it's there now, else the best Windows one.
+        const auto device = wanted.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false);
+        const bool there = std::any_of (endpoints.begin(), endpoints.end(), [&] (auto& e)
+                                        { return e.api == "WASAPI" && e.isOutput && e.isActive() && e.name == device && ! engine.isDeviceDisabled (e.name); });
+        interfaceName = there ? wanted : pickClock (false);
+    }
+    else if (wanted.isNotEmpty())
+    {
         interfaceName = wanted.equalsIgnoreCase ("builtin") ? AudioEngine::builtInClock
                       : wanted.equalsIgnoreCase ("windows") ? pickClock (false) : wanted;
         // Part of a driver's name: its whole name - the saved mix's own driver if it's one that
@@ -100,8 +116,11 @@ MainComponent::MainComponent()
         }
         else if (interfaceName == wanted)
             interfaceName = savedName;
+    }
+    if (wanted.isNotEmpty())
+    {
         savedMaster = savedName;   // (a run on a chosen clock leaves the mix's own interface as it was)
-        logEvent ("master: " + interfaceName + " (--clock)");
+        logEvent ("master: " + interfaceName + (clockFromCommandLine ? " (--clock)" : " (DEVICES > CLOCK)"));
         clockForced = true;
     }
     else if (! savedInterfacePresent)
@@ -202,6 +221,15 @@ MainComponent::MainComponent()
     tabs.addTab ("Tools", juce::Colours::transparentBlack, tools.get(), false);
     tabs.addTab ("Devices", juce::Colours::transparentBlack, &devicesPanel, false);
     devicesPanel.getTools().onDevicesChanged = [this] { sortDevices(); };
+    auto& clockBar = devicesPanel.getClock();
+    clockBar.choice = [this] { return settings.getValue ("clock"); };
+    clockBar.choose = [this] (const juce::String& c) { chooseClock (c); };
+    clockBar.note = [this]
+    {
+        if (clockFromCommandLine)
+            return juce::String ("--clock on the command line sets it for this run");
+        return settings.getValue ("clock") != clockChosenAtStart ? juce::String ("The new choice takes effect when ") + Product::name + " starts again" : juce::String();
+    };
 
     // Devices list order: a column (DevicesTab::columns), "-" in front for descending; remembered.
     if (const auto sort = settings.getValue ("deviceSort"); sort.isNotEmpty())
@@ -1897,6 +1925,35 @@ void MainComponent::restoreSession (const juce::File& version, const juce::Strin
         relaunch.start ("\"" + exe + "\" --after " + juce::String (thisProcessId()), 0);
         juce::JUCEApplication::getInstance()->systemRequestedQuit();
     }));
+}
+
+// DEVICES > CLOCK: switching the clock under a running mix (an interface's inputs and outputs
+// going) isn't safe, so the choice is kept for the next start, and a restart offered.
+void MainComponent::chooseClock (const juce::String& choice)
+{
+    if (choice == settings.getValue ("clock"))
+        return;
+    settings.setValue ("clock", choice);
+    settings.saveIfNeeded();
+    logEvent ("clock: from the next start, set by " + (choice.isEmpty() ? juce::String ("the interface") : choice == "builtin" ? juce::String ("the built-in clock")
+                                                       : choice.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false)));
+    if (choice == clockChosenAtStart && ! clockFromCommandLine)
+        return;   // (back to what this run started on)
+    juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, "CLOCK",
+                                        juce::String ("The new clock takes effect when ") + Product::name + " starts again. Restart now? The sound stops for a few seconds.",
+                                        "RESTART NOW", "LATER", nullptr,
+                                        juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
+                                        { if (result == 1 && safe != nullptr) safe->restartFaider(); }));
+}
+
+// As RESTORE does, with the mix as it is: it's saved on the way out, and the new copy waits for
+// this one's process to end (--after).
+void MainComponent::restartFaider()
+{
+    const auto exe = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName();
+    juce::ChildProcess relaunch;
+    relaunch.start ("\"" + exe + "\" --after " + juce::String (thisProcessId()), 0);
+    juce::JUCEApplication::getInstance()->systemRequestedQuit();
 }
 
 void MainComponent::logEvent (const juce::String& event)

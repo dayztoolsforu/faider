@@ -30,8 +30,8 @@ on, record (the first output) and loop (all, one, off).
 
 ## The console
 
-Each channel has a **Light strip** or a **Dark strip**. Pick one per channel with right-click >
-Strip type > Light strip / Dark strip. Microphones start on the Dark strip.
+Every channel and bus has the same channel strip (`layout/mixer.json`). Its INPUT section has
+trim, polarity, mic drive, the input switch and stereo width.
 
 Apps, the pads and the tape get a raw strip. It has no built-in effects, takes plugins if you want
 them, and carries the tool's own controls. A combinator's strip shows each path, what feeds it and

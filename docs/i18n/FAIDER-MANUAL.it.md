@@ -437,7 +437,7 @@ viola), poi **uscite** (barra del nome ambra). Ogni strip ha sette sezioni, dall
 | Sezione | Contiene |
 |---|---|
 | **HEADER** | Barre di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip |
-| **INPUT** | Trim, polarità (e sulla Dark strip, drive del microfono e interruttore d'ingresso) |
+| **INPUT** | Trim, polarità, drive del microfono, interruttore d'ingresso e larghezza stereo |
 | **DYNAMICS** | Compressore e gate |
 | **FILTERS** | Passa-basso e passa-alto |
 | **EQ** | Quattro bande |
@@ -484,16 +484,6 @@ Non viene elaborata, e il suo dispositivo o programma viene rilasciato. Finché 
 essa non si può cambiare nulla**: manopole, tasti e pannello dei plugin ignorano i clic, e il suo
 menu offre solo **Turn on** e gli spacer. Fai di nuovo clic sul simbolo di accensione per riaccenderla.
 
-<a id="strip-types"></a>
-
-### Tipi di strip
-
-Ogni canale può usare la **Light strip** o la **Dark strip**: clic destro > **Strip type** >
-**Light strip** / **Dark strip**. Gli ingressi dell'interfaccia, i dispositivi di registrazione
-(microfoni) e i bus partono scuri. Tutto il resto parte chiaro. La Dark strip aggiunge il **drive**
-del microfono e l'interruttore d'ingresso, e toglie l'attacco veloce del compressore e l'hold del
-gate. La tua scelta viene ricordata per ogni canale.
-
 <a id="spacers"></a>
 
 ### Spacer
@@ -512,7 +502,6 @@ spacer before** / **Add spacer after**. Clic destro su uno spacer per **Narrow**
 | **Route to** | Ogni bus e dispositivo di uscita, con la spunta dove viene mandato |
 | **Plugins** | Aprine uno, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Solo canali |
-| **Strip type** | **Light strip** o **Dark strip** |
 | **Colour** | Il colore del canale, mostrato lungo la sua barra del nome e sul suo blocco in Routing |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -548,11 +537,11 @@ spacer before** / **Add spacer after**. Clic destro su uno spacer per **Narrow**
 
 | Controllo | |
 |---|---|
-| **in trim** | Guadagno d'ingresso |
+| **IN TRIM** | Guadagno d'ingresso |
 | **ø** | Inversione di polarità |
-| **WIDTH** (Light strip) | Larghezza stereo: 0 % mono, 100 % così com'è, 200 % il doppio più larga. Attenuata su un canale mono |
-| **mic** (Dark strip) | Drive: aggiunge calore e livello (mostrato in percentuale) |
-| **pre** (Dark strip) | Lo stadio d'ingresso inserito o escluso |
+| **MIC** | Drive: aggiunge calore e livello (mostrato in percentuale). Il LED verde accanto si accende finché la sorgente ha segnale |
+| **PRE** | Lo stadio d'ingresso inserito o escluso (escluso: trim, polarità e drive vengono bypassati) |
+| **WIDTH** | Larghezza stereo: 0 % mono, 100 % così com'è, 200 % il doppio più larga. Attenuata su un canale mono |
 
 <a id="dynamics"></a>
 
@@ -1113,8 +1102,8 @@ spento) chiedono da soli il permesso.
 ### 17.1 Ascoltati: configura un microfono
 
 1. **ADD CHANNEL** > l'ingresso della tua interfaccia (o un dispositivo di registrazione di Windows).
-   Compare con una Dark strip.
-2. Parla e regola **in trim** in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.
+   Compare come una nuova strip di canale.
+2. Parla e regola **IN TRIM** in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.
 3. Instradalo: fai clic sulla casella di instradamento per l'uscita delle tue cuffie (o usa la pagina Routing).
 4. Puliscilo: **hp** per togliere il rumble (attorno a 80–100 Hz), poi gate e compressore (**IN**
    su DYNAMICS), poi EQ.
@@ -1387,7 +1376,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mix messi da parte all'avvio |
 | `settings.xml` | Preferenze |
 | `looks\` | I LOOK: un file JSON ciascuno (vedi [LOOKS](#looks)) |
-| `console.xml` | Tipi di strip, spacer, scelte di SELECT e METER |
+| `console.xml` | Spacer, scelte di SELECT e METER |
 | `plugins.xml` | I plugin trovati e come ognuno ha superato la prova |
 | `events.log` | Tutto ciò che è successo (ruota a 5 MB) |
 | `status.txt` | Un'istantanea del motore ogni pochi secondi: dispositivi, livelli, buffer, drift |

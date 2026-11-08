@@ -351,7 +351,7 @@ flowchart LR
 | 部分 | 内容 |
 |---|---|
 | **HEADER** | 电平条、FILT / EQ / EXT 键、处理顺序、路由框、通道条编号 |
-| **INPUT** | 输入微调、极性(在 Dark strip 上还有麦克风驱动和输入开关) |
+| **INPUT** | 输入微调、极性、麦克风驱动、输入开关和立体声宽度 |
 | **DYNAMICS** | 压缩器和门限 |
 | **FILTERS** | 低通和高通 |
 | **EQ** | 四个频段 |
@@ -390,12 +390,6 @@ flowchart LR
 
 点击名称栏左边的电源符号。通道条会淡出并变灰。它不再被处理，它的设备或程序也会被释放。关闭期间，**它上面的任何东西都不能更改**：旋钮、按键和插件面板都会忽略点击，它的菜单只提供 **Turn on** 和间隔条。再次点击电源符号即可恢复。
 
-<a id="strip-types"></a>
-
-### 通道条类型
-
-每个通道可以使用 **Light strip** 或 **Dark strip**：右键点击 > **Strip type** > **Light strip** / **Dark strip**。接口输入、录制设备(麦克风)和总线起始为 Dark，其他的起始为 Light。Dark strip 增加了麦克风 **drive** 和输入开关，并去掉了压缩器的 fast 起音和门限的 hold。你的选择会按通道记住。
-
 <a id="spacers"></a>
 
 ### 间隔条
@@ -412,7 +406,6 @@ flowchart LR
 | **Route to** | 每条总线和每个输出设备，已发送的地方打勾 |
 | **Plugins** | 打开一个、**Add plugin...**、**Remove** |
 | **Make mono / Make stereo** | 仅限通道 |
-| **Strip type** | **Light strip** 或 **Dark strip** |
 | **Colour** | 通道的颜色，显示在它的名称栏上和它的 ROUTING 方块上 |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -448,11 +441,11 @@ flowchart LR
 
 | 控件 | |
 |---|---|
-| **in trim** | 输入增益 |
+| **IN TRIM** | 输入增益 |
 | **ø** | 极性反转 |
-| **WIDTH** (Light strip) | 立体声宽度：0 % 为单声道，100 % 保持原样，200 % 为两倍宽。在单声道通道上显示为淡色 |
-| **mic** (Dark strip) | 驱动：增加温暖感和电平(以百分比显示) |
-| **pre** (Dark strip) | 接入或旁路输入级 |
+| **MIC** | 驱动：增加温暖感和电平(以百分比显示)。信号源有信号时，它旁边的绿色 LED 会亮起 |
+| **PRE** | 接入或旁路输入级(旁路时，输入微调、极性和驱动都被绕过) |
+| **WIDTH** | 立体声宽度：0 % 为单声道，100 % 保持原样，200 % 为两倍宽。在单声道通道上显示为淡色 |
 
 <a id="dynamics"></a>
 
@@ -936,8 +929,8 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.1 听到自己：设置麦克风
 
-1. **ADD CHANNEL** > 你的接口输入(或 Windows 录制设备)。它以 Dark strip 出现。
-2. 说话，并设置 **in trim**，使电平条的峰值在 -12 到 -6 dB 左右。
+1. **ADD CHANNEL** > 你的接口输入(或 Windows 录制设备)。它会作为一个新的通道条出现。
+2. 说话，并设置 **IN TRIM**，使电平条的峰值在 -12 到 -6 dB 左右。
 3. 设置路由：点击你耳机输出的路由框(或使用 ROUTING 页面)。
 4. 清理声音：用 **hp** 去除低频噪声(80–100 Hz 左右)，然后是门限和压缩器(DYNAMICS 上的 **IN**)，再是 EQ。
 
@@ -1171,7 +1164,7 @@ Windows 把线缆设成了它的默认设备。请重新把耳机或音箱设为
 | `session-unloaded-*.xml` | 启动时搁置的混音 |
 | `settings.xml` | 偏好设置 |
 | `looks\` | LOOK 文件，每个一个 JSON（见 [LOOKS](#looks)） |
-| `console.xml` | 通道条类型、间隔条、SELECT 和 METER 的选择 |
+| `console.xml` | 间隔条、SELECT 和 METER 的选择 |
 | `plugins.xml` | 找到的插件，以及每个插件的测试结果 |
 | `events.log` | 发生过的一切(达到 5 MB 时轮换) |
 | `status.txt` | 每隔几秒的引擎快照：设备、电平、缓冲区、漂移 |

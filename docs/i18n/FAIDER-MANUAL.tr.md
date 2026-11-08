@@ -429,7 +429,7 @@ Konsol tüm şeritleri soldan sağa gösterir: **kanallar**, sonra **bus'lar** (
 | Bölüm | İçeriği |
 |---|---|
 | **HEADER** | Seviye çubukları, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası |
-| **INPUT** | Trim, polarite (ve Dark strip'te mikrofon drive'ı ile giriş anahtarı) |
+| **INPUT** | Trim, polarite, mikrofon drive'ı, giriş anahtarı ve stereo genişlik |
 | **DYNAMICS** | Kompresör ve gate |
 | **FILTERS** | Alçak geçiren ve yüksek geçiren |
 | **EQ** | Dört bant |
@@ -474,15 +474,6 @@ programı serbest bırakılır. Kapalıyken **üzerinde hiçbir şey değiştiri
 eklenti paneli tıklamaları yok sayar ve menüsü yalnızca **Turn on** ile boşlukları sunar. Geri
 getirmek için güç simgesine yeniden tıkla.
 
-<a id="strip-types"></a>
-
-### Şerit türleri
-
-Her kanal **Light strip** ya da **Dark strip** kullanabilir: sağ tık > **Strip type** >
-**Light strip** / **Dark strip**. Arabirim girişleri, kayıt aygıtları (mikrofonlar) ve bus'lar koyu
-başlar. Geri kalan her şey açık başlar. Dark strip mikrofon **drive**'ını ve giriş anahtarını ekler,
-kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal başına hatırlanır.
-
 <a id="spacers"></a>
 
 ### Boşluklar
@@ -501,7 +492,6 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 | **Route to** | Her bus ve çıkış aygıtı, gönderildiği yerlerde işaretli |
 | **Plugins** | Birini aç, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Yalnızca kanallar |
-| **Strip type** | **Light strip** veya **Dark strip** |
 | **Colour** | Kanalın rengi, ad çubuğu boyunca ve Routing'deki bloğunda gösterilir |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -537,11 +527,11 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 | Kontrol | |
 |---|---|
-| **in trim** | Giriş kazancı |
+| **IN TRIM** | Giriş kazancı |
 | **ø** | Polarite ters çevirme |
-| **WIDTH** (Light strip) | Stereo genişlik: %0 mono, %100 olduğu gibi, %200 iki kat geniş. Mono kanalda soluk |
-| **mic** (Dark strip) | Drive: sıcaklık ve seviye ekler (yüzde olarak gösterilir) |
-| **pre** (Dark strip) | Giriş katı devrede veya devre dışı |
+| **MIC** | Drive: sıcaklık ve seviye ekler (yüzde olarak gösterilir). Yanındaki yeşil LED, kaynakta sinyal varken yanar |
+| **PRE** | Giriş katı devrede veya devre dışı (devre dışıyken trim, polarite ve drive atlanır) |
+| **WIDTH** | Stereo genişlik: %0 mono, %100 olduğu gibi, %200 iki kat geniş. Mono kanalda soluk |
 
 <a id="dynamics"></a>
 
@@ -1098,8 +1088,8 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 
 ### 17.1 Kendini duy: bir mikrofon kur
 
-1. **ADD CHANNEL** > arabirim girişin (veya bir Windows kayıt aygıtı). Dark strip ile görünür.
-2. Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde **in trim**'i ayarla.
+1. **ADD CHANNEL** > arabirim girişin (veya bir Windows kayıt aygıtı). Yeni bir kanal şeridi olarak görünür.
+2. Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde **IN TRIM**'i ayarla.
 3. Yönlendir: kulaklığının çıkışı için yönlendirme kutusuna tıkla (ya da Routing sayfasını kullan).
 4. Temizle: uğultuyu gidermek için **hp** (80–100 Hz civarı), sonra gate ve kompresör (DYNAMICS'te
    **IN**), sonra EQ.
@@ -1369,7 +1359,7 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 | `session-unloaded-*.xml` | Başlangıçta kenara ayrılan karışımlar |
 | `settings.xml` | Tercihler |
 | `looks\` | LOOK'lar: her biri bir JSON dosyası (bkz. [LOOKS](#looks)) |
-| `console.xml` | Şerit türleri, boşluklar, SELECT ve METER seçimleri |
+| `console.xml` | Boşluklar, SELECT ve METER seçimleri |
 | `plugins.xml` | Bulunan eklentiler ve her birinin sınav sonucu |
 | `events.log` | Olan her şey (5 MB'ta döner) |
 | `status.txt` | Motorun birkaç saniyede bir anlık görüntüsü: aygıtlar, seviyeler, tamponlar, drift |

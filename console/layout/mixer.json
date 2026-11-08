@@ -106,7 +106,7 @@
      "kind": "knob",
      "id": "trim",
      "x": 20.6,
-     "y": 71.1,
+     "y": 19.1,
      "size": 65.7,
      "colour": "black",
      "name": ""
@@ -114,7 +114,7 @@
     {
      "kind": "label",
      "x": 0.0,
-     "y": 148.3,
+     "y": 88.7,
      "w": 107.0,
      "h": 21.4,
      "text": "IN TRIM",
@@ -122,9 +122,37 @@
      "align": "centre"
     },
     {
+     "kind": "knob",
+     "id": "drive",
+     "x": 20.6,
+     "y": 126.1,
+     "size": 65.7,
+     "colour": "red",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 201.8,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "MIC",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "lamp",
+     "x": 78.0,
+     "y": 204.1,
+     "w": 16.8,
+     "h": 16.8,
+     "id": "signal",
+     "colour": "green"
+    },
+    {
      "kind": "label",
      "x": 140.6,
-     "y": 93.2,
+     "y": 34.4,
      "w": 22.9,
      "h": 27.5,
      "text": "Ø",
@@ -134,12 +162,32 @@
     {
      "kind": "switch",
      "x": 166.6,
-     "y": 91.7,
+     "y": 32.9,
      "w": 30.6,
      "h": 30.6,
      "id": "polarity",
      "lamp": "cream",
      "lit": false
+    },
+    {
+     "kind": "label",
+     "x": 105.5,
+     "y": 86.5,
+     "w": 55.0,
+     "h": 27.5,
+     "text": "PRE",
+     "size": 12,
+     "align": "right"
+    },
+    {
+     "kind": "switch",
+     "x": 166.6,
+     "y": 85.0,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "pre",
+     "lamp": "red",
+     "lit": true
     },
     {
      "kind": "knob",

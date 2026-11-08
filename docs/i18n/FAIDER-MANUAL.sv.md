@@ -431,7 +431,7 @@ Bordet visar varje strip från vänster till höger: **kanaler**, sedan **bussar
 | Avsnitt | Innehåller |
 |---|---|
 | **HEADER** | Nivåstaplar, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret |
-| **INPUT** | Trim, polaritet (och på Dark strip mikrofon-drive och ingångsomkopplaren) |
+| **INPUT** | Trim, polaritet, mikrofon-drive, ingångsomkopplaren och stereobredd |
 | **DYNAMICS** | Kompressor och gate |
 | **FILTERS** | Lågpass och högpass |
 | **EQ** | Fyra band |
@@ -476,15 +476,6 @@ och dess enhet eller program släpps. Medan den är avstängd **kan ingenting p�
 rattar, tangenter och pluginpanelen ignorerar klick, och dess meny erbjuder bara **Turn on** och spacers.
 Klicka på strömsymbolen igen för att få tillbaka den.
 
-<a id="strip-types"></a>
-
-### Striptyper
-
-Varje kanal kan använda **Light strip** eller **Dark strip**: högerklicka > **Strip type** >
-**Light strip** / **Dark strip**. Gränssnittets ingångar, inspelningsenheter (mikrofoner) och bussar börjar
-mörka. Allt annat börjar ljust. Dark strip lägger till mikrofon-**drive** och ingångsomkopplaren
-och tar bort kompressorns snabba attack och gatens hold. Ditt val kommer ihåg per kanal.
-
 <a id="spacers"></a>
 
 ### Spacers
@@ -503,7 +494,6 @@ spacer**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 | **Route to** | Varje buss och utgångsenhet, ikryssad där den skickas |
 | **Plugins** | Öppna ett, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Bara kanaler |
-| **Strip type** | **Light strip** eller **Dark strip** |
 | **Colour** | Kanalens färg, visad längs dess namnlist och på dess Routing-block |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -539,11 +529,11 @@ spacer**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 | Kontroll | |
 |---|---|
-| **in trim** | Ingångsförstärkning |
+| **IN TRIM** | Ingångsförstärkning |
 | **ø** | Vänd polariteten |
-| **WIDTH** (Light strip) | Stereobredd: 0 % mono, 100 % som den är, 200 % dubbelt så bred. Svag på en monokanal |
-| **mic** (Dark strip) | Drive: lägger till värme och nivå (visas som procent) |
-| **pre** (Dark strip) | Ingångssteget in eller ut |
+| **MIC** | Drive: lägger till värme och nivå (visas som procent). Den gröna lampan bredvid lyser medan källan har signal |
+| **PRE** | Ingångssteget in eller ut (ut: trim, polaritet och drive förbikopplas) |
+| **WIDTH** | Stereobredd: 0 % mono, 100 % som den är, 200 % dubbelt så bred. Svag på en monokanal |
 
 <a id="dynamics"></a>
 
@@ -1098,9 +1088,9 @@ De få steg som kräver en administratör
 
 ### 17.1 Hör dig själv: ställ in en mikrofon
 
-1. **ADD CHANNEL** > din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp med en Dark
-   strip.
-2. Prata och ställ in **in trim** så att nivåstaplarna toppar kring -12 till -6 dB.
+1. **ADD CHANNEL** > din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp som en ny
+   kanalstrip.
+2. Prata och ställ in **IN TRIM** så att nivåstaplarna toppar kring -12 till -6 dB.
 3. Routa den: klicka på routingrutan för dina hörlurars utgång (eller använd sidan Routing).
 4. Rensa upp den: **hp** för att ta bort buller (runt 80–100 Hz), sedan gate och kompressor (**IN**
    på DYNAMICS), sedan EQ.
@@ -1370,7 +1360,7 @@ I `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mixar som lagts åt sidan vid start |
 | `settings.xml` | Inställningar |
 | `looks\` | LOOK:arna, en JSON-fil vardera (se [LOOKS](#looks)) |
-| `console.xml` | Striptyper, spacers, val under SELECT och METER |
+| `console.xml` | Spacers, val under SELECT och METER |
 | `plugins.xml` | Pluginen som hittats och hur vart och ett testades |
 | `events.log` | Allt som hände (roterar vid 5 MB) |
 | `status.txt` | En ögonblicksbild av motorn med några sekunders mellanrum: enheter, nivåer, buffertar, drift |

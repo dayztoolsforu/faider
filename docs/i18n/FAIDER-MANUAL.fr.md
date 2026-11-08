@@ -452,7 +452,7 @@ en bas :
 | Section | Contient |
 |---|---|
 | **HEADER** | Les barres de niveau, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche |
-| **INPUT** | Trim, polarité (et sur la Dark strip, le drive du micro et le commutateur d'entrée) |
+| **INPUT** | Trim, polarité, drive du micro, le commutateur d'entrée et largeur stéréo |
 | **DYNAMICS** | Compresseur et gate |
 | **FILTERS** | Passe-bas et passe-haut |
 | **EQ** | Quatre bandes |
@@ -500,16 +500,6 @@ désactivée, **rien ne peut y être modifié** : les potentiomètres, les touch
 plugins ignorent les clics, et son menu ne propose que **Turn on** et des espaceurs. Cliquez de
 nouveau sur le symbole d'alimentation pour la réactiver.
 
-<a id="strip-types"></a>
-
-### Types de tranche
-
-Chaque canal peut utiliser la **Light strip** ou la **Dark strip** : clic droit > **Strip type** >
-**Light strip** / **Dark strip**. Les entrées de l'interface, les périphériques d'enregistrement
-(microphones) et les bus démarrent en sombre. Tout le reste démarre en clair. La Dark strip ajoute le
-**drive** du micro et le commutateur d'entrée, et retire l'attaque rapide du compresseur et le hold
-du gate. Votre choix est mémorisé pour chaque canal.
-
 <a id="spacers"></a>
 
 ### Espaceurs
@@ -529,7 +519,6 @@ quand cette tranche bouge.
 | **Route to** | Chaque bus et chaque périphérique de sortie, coché là où le signal est envoyé |
 | **Plugins** | En ouvrir un, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Canaux seulement |
-| **Strip type** | **Light strip** ou **Dark strip** |
 | **Colour** | La couleur du canal, affichée le long de sa barre de nom et sur son bloc de la page Routing |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -565,11 +554,11 @@ quand cette tranche bouge.
 
 | Commande | |
 |---|---|
-| **in trim** | Gain d'entrée |
+| **IN TRIM** | Gain d'entrée |
 | **ø** | Inversion de polarité |
-| **WIDTH** (Light strip) | Largeur stéréo : 0 % mono, 100 % telle quelle, 200 % deux fois plus large. Estompée sur un canal mono |
-| **mic** (Dark strip) | Drive : ajoute de la chaleur et du niveau (affiché en pourcentage) |
-| **pre** (Dark strip) | L'étage d'entrée activé ou désactivé |
+| **MIC** | Drive : ajoute de la chaleur et du niveau (affiché en pourcentage). La LED verte à côté s'allume tant que la source a du signal |
+| **PRE** | L'étage d'entrée activé ou désactivé (désactivé : le trim, la polarité et le drive sont contournés) |
+| **WIDTH** | Largeur stéréo : 0 % mono, 100 % telle quelle, 200 % deux fois plus large. Estompée sur un canal mono |
 
 <a id="dynamics"></a>
 
@@ -1152,8 +1141,8 @@ désactivé) demandent elles-mêmes la permission.
 ### 17.1 Vous entendre : configurer un microphone
 
 1. **ADD CHANNEL** > l'entrée de votre interface (ou un périphérique d'enregistrement Windows). Il
-   apparaît avec une Dark strip.
-2. Parlez, et réglez **in trim** pour que les barres de niveau culminent vers -12 à -6 dB.
+   apparaît comme une nouvelle tranche de canal.
+2. Parlez, et réglez **IN TRIM** pour que les barres de niveau culminent vers -12 à -6 dB.
 3. Routez-le : cliquez sur la case de routage de la sortie de votre casque (ou utilisez la page
    Routing).
 4. Nettoyez-le : **hp** pour retirer les grondements (vers 80–100 Hz), puis le gate et le
@@ -1438,7 +1427,7 @@ Dans `%APPDATA%\Faider` :
 | `session-unloaded-*.xml` | Mix mis de côté au démarrage |
 | `settings.xml` | Préférences |
 | `looks\` | Les LOOKS : un fichier JSON chacun (voir [LOOKS](#looks)) |
-| `console.xml` | Types de tranche, espaceurs, choix de SELECT et de METER |
+| `console.xml` | Espaceurs, choix de SELECT et de METER |
 | `plugins.xml` | Les plugins trouvés et le résultat du test de chacun |
 | `events.log` | Tout ce qui s'est passé (rotation à 5 Mo) |
 | `status.txt` | Un instantané du moteur toutes les quelques secondes : périphériques, niveaux, tampons, dérive |

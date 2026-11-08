@@ -373,7 +373,7 @@ The desk shows every strip from left to right: **channels**, then **buses** (vio
 | Section | Holds |
 |---|---|
 | **HEADER** | Level bars, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number |
-| **INPUT** | Trim, polarity (and on the Dark strip, mic drive and the input switch) |
+| **INPUT** | Trim, polarity, mic drive, the input switch and stereo width |
 | **DYNAMICS** | Compressor and gate |
 | **FILTERS** | Low-pass and high-pass |
 | **EQ** | Four bands |
@@ -412,13 +412,6 @@ processed, and its device or program is let go. While it's off, **nothing on it 
 knobs, keys and the plugin panel ignore clicks, and its menu only offers **Turn on** and spacers.
 Click the power symbol again to bring it back.
 
-### Strip types
-
-Each channel can use the **Light strip** or the **Dark strip**: right-click > **Strip type** >
-**Light strip** / **Dark strip**. Interface inputs, recording devices (microphones) and buses start
-dark. Everything else starts light. The Dark strip adds mic **drive** and the input switch, and
-drops the compressor's fast attack and the gate's hold. Your choice is remembered per channel.
-
 ### Spacers
 
 Spacers are blank strips that give you room between groups. Right-click a strip > **Add spacer
@@ -433,7 +426,6 @@ spacer**. A spacer stays with the strip it follows when that strip moves.
 | **Route to** | Every bus and output device, ticked where it's sent |
 | **Plugins** | Open one, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Channels only |
-| **Strip type** | **Light strip** or **Dark strip** |
 | **Colour** | The channel's colour, shown along its name bar and on its Routing block |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -463,11 +455,11 @@ spacer**. A spacer stays with the strip it follows when that strip moves.
 
 | Control | |
 |---|---|
-| **in trim** | Input gain |
+| **IN TRIM** | Input gain |
 | **ø** | Polarity invert |
-| **WIDTH** (Light strip) | Stereo width: 0 % mono, 100 % as it is, 200 % twice as wide. Faint on a mono channel |
-| **mic** (Dark strip) | Drive: adds warmth and level (shown as a percentage) |
-| **pre** (Dark strip) | The input stage in or out |
+| **MIC** | Drive: adds warmth and level (shown as a percentage). The green LED beside it lights while the source has signal |
+| **PRE** | The input stage in or out (out: trim, polarity and drive are bypassed) |
+| **WIDTH** | Stereo width: 0 % mono, 100 % as it is, 200 % twice as wide. Faint on a mono channel |
 
 ### DYNAMICS
 
@@ -953,9 +945,9 @@ themselves.
 
 ### 17.1 Hear yourself: set up a microphone
 
-1. **ADD CHANNEL** > your interface input (or a Windows recording device). It appears with a Dark
-   strip.
-2. Speak, and set **in trim** so the level bars peak around -12 to -6 dB.
+1. **ADD CHANNEL** > your interface input (or a Windows recording device). It appears as a new
+   channel strip.
+2. Speak, and set **IN TRIM** so the level bars peak around -12 to -6 dB.
 3. Route it: click the routing box for your headphones' output (or use the Routing page).
 4. Clean it up: **hp** to remove rumble (around 80–100 Hz), then the gate and compressor (**IN**
    on DYNAMICS), then EQ.
@@ -1171,7 +1163,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mixes set aside at start |
 | `settings.xml` | Preferences |
 | `looks\` | The looks: one JSON file each (see [Looks](#looks)) |
-| `console.xml` | Strip types, spacers, SELECT and METER choices |
+| `console.xml` | Spacers, SELECT and METER choices |
 | `plugins.xml` | The plugins found and how each one tested |
 | `events.log` | Everything that happened (rotates at 5 MB) |
 | `status.txt` | A snapshot of the engine every few seconds: devices, levels, buffers, drift |

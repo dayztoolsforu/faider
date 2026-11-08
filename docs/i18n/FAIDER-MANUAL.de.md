@@ -430,7 +430,7 @@ Das Pult zeigt alle Strips von links nach rechts: **Kanäle**, dann **Busse** (v
 | Bereich | Enthält |
 |---|---|
 | **HEADER** | Pegelbalken, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer |
-| **INPUT** | Trim, Polarität (und am Dark strip Mikrofon-Drive und der Eingangsschalter) |
+| **INPUT** | Trim, Polarität, Mikrofon-Drive, der Eingangsschalter und Stereobreite |
 | **DYNAMICS** | Kompressor und Gate |
 | **FILTERS** | Tiefpass und Hochpass |
 | **EQ** | Vier Bänder |
@@ -475,15 +475,6 @@ bearbeitet, und sein Gerät oder Programm wird freigegeben. Solange er aus ist, 
 Regler, Tasten und das Plugin-Panel ignorieren Klicks, und sein Menü bietet nur **Turn on** und Spacer an.
 Klicke erneut auf das Ein-Symbol, um ihn zurückzuholen.
 
-<a id="strip-types"></a>
-
-### Strip-Typen
-
-Jeder Kanal kann den **Light strip** oder den **Dark strip** verwenden: Rechtsklick > **Strip type** >
-**Light strip** / **Dark strip**. Interface-Eingänge, Aufnahmegeräte (Mikrofone) und Busse starten
-dunkel. Alles andere startet hell. Der Dark strip fügt Mikrofon-**Drive** und den Eingangsschalter hinzu
-und lässt dafür den schnellen Attack des Kompressors und das Hold des Gates weg. Deine Wahl wird pro Kanal gespeichert.
-
 <a id="spacers"></a>
 
 ### Spacer
@@ -502,7 +493,6 @@ spacer**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 | **Route to** | Jeder Bus und jedes Ausgabegerät, abgehakt, wohin gesendet wird |
 | **Plugins** | Eines öffnen, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Nur Kanäle |
-| **Strip type** | **Light strip** oder **Dark strip** |
 | **Colour** | Die Farbe des Kanals, entlang seiner Namensleiste und an seinem Routing-Block zu sehen |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -538,11 +528,11 @@ spacer**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 
 | Bedienelement | |
 |---|---|
-| **in trim** | Eingangsverstärkung |
+| **IN TRIM** | Eingangsverstärkung |
 | **ø** | Polarität umkehren |
-| **WIDTH** (Light strip) | Stereobreite: 0 % Mono, 100 % wie vorhanden, 200 % doppelt so breit. Blass bei einem Mono-Kanal |
-| **mic** (Dark strip) | Drive: fügt Wärme und Pegel hinzu (als Prozentzahl angezeigt) |
-| **pre** (Dark strip) | Die Eingangsstufe ein oder aus |
+| **MIC** | Drive: fügt Wärme und Pegel hinzu (als Prozentzahl angezeigt). Die grüne LED daneben leuchtet, solange die Quelle Signal hat |
+| **PRE** | Die Eingangsstufe ein oder aus (aus: Trim, Polarität und Drive werden umgangen) |
+| **WIDTH** | Stereobreite: 0 % Mono, 100 % wie vorhanden, 200 % doppelt so breit. Blass bei einem Mono-Kanal |
 
 <a id="dynamics"></a>
 
@@ -1100,9 +1090,9 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 
 ### 17.1 Dich selbst hören: ein Mikrofon einrichten
 
-1. **ADD CHANNEL** > dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint mit einem Dark
-   strip.
-2. Sprich und stelle **in trim** so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.
+1. **ADD CHANNEL** > dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint als neuer
+   Kanalzug.
+2. Sprich und stelle **IN TRIM** so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.
 3. Route ihn: Klicke auf die Routing-Box für den Ausgang deiner Kopfhörer (oder nutze die Seite Routing).
 4. Mach ihn sauber: **hp**, um Rumpeln zu entfernen (etwa 80–100 Hz), dann Gate und Kompressor (**IN**
    an DYNAMICS), dann EQ.
@@ -1372,7 +1362,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Beim Start beiseitegelegte Mixe |
 | `settings.xml` | Einstellungen |
 | `looks\` | Die LOOKS, je eine JSON-Datei (siehe [LOOKS](#looks)) |
-| `console.xml` | Strip-Typen, Spacer, Wahl bei SELECT und METER |
+| `console.xml` | Spacer, Wahl bei SELECT und METER |
 | `plugins.xml` | Die gefundenen Plugins und wie jedes getestet wurde |
 | `events.log` | Alles, was passiert ist (rotiert bei 5 MB) |
 | `status.txt` | Eine Momentaufnahme der Engine alle paar Sekunden: Geräte, Pegel, Puffer, Drift |

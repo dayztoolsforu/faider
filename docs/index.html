@@ -250,7 +250,7 @@
     <article class="feature reveal">
       <div class="copy">
         <h2>A full strip on every channel</h2>
-        <p>Filters, neural noise reduction, gate and expander, a compressor with mix and peak or RMS detection, four-band EQ, de-esser, auto-level and voice effects. Choose a Light or a Dark strip per channel.</p>
+        <p>Filters, neural noise reduction, gate and expander, a compressor with mix and peak or RMS detection, four-band EQ, de-esser, auto-level and voice effects.</p>
       </div>
       <div class="pair">
         <img src="images/console/strip-dynamics.jpg" alt="The DYNAMICS section on two strips">
@@ -882,7 +882,7 @@ playback device that's plugged in takes over from it.</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polarity (and on the Dark strip, mic drive and the input switch)</td>
+<td>Trim, polarity, mic drive, the input switch and stereo width</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -965,11 +965,6 @@ shows, and the one FIND, hotkeys and remote controls act on.</p>
 processed, and its device or program is let go. While it's off, <strong>nothing on it can be changed</strong>:
 knobs, keys and the plugin panel ignore clicks, and its menu only offers <strong>Turn on</strong> and spacers.
 Click the power symbol again to bring it back.</p>
-<h3 id="strip-types">Strip types</h3>
-<p>Each channel can use the <strong>Light strip</strong> or the <strong>Dark strip</strong>: right-click &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Interface inputs, recording devices (microphones) and buses start
-dark. Everything else starts light. The Dark strip adds mic <strong>drive</strong> and the input switch, and
-drops the compressor's fast attack and the gate's hold. Your choice is remembered per channel.</p>
 <h3 id="spacers">Spacers</h3>
 <p>Spacers are blank strips that give you room between groups. Right-click a strip &gt; <strong>Add spacer
 before</strong> / <strong>Add spacer after</strong>. Right-click a spacer for <strong>Narrow</strong>, <strong>Add another</strong> and <strong>Remove
@@ -998,10 +993,6 @@ spacer</strong>. A spacer stays with the strip it follows when that strip moves.
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Channels only</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> or <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -1075,7 +1066,7 @@ spacer</strong>. A spacer stays with the strip it follows when that strip moves.
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Input gain</td>
 </tr>
 <tr>
@@ -1083,16 +1074,16 @@ spacer</strong>. A spacer stays with the strip it follows when that strip moves.
 <td>Polarity invert</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: adds warmth and level (shown as a percentage). The green LED beside it lights while the source has signal</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>The input stage in or out (out: trim, polarity and drive are bypassed)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Stereo width: 0 % mono, 100 % as it is, 200 % twice as wide. Faint on a mono channel</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: adds warmth and level (shown as a percentage)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>The input stage in or out</td>
 </tr>
 </tbody>
 </table></div>
@@ -1904,9 +1895,9 @@ themselves.</p>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>How-to guides</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Hear yourself: set up a microphone</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; your interface input (or a Windows recording device). It appears with a Dark
-   strip.</li>
-<li>Speak, and set <strong>in trim</strong> so the level bars peak around -12 to -6 dB.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; your interface input (or a Windows recording device). It appears as a new
+   channel strip.</li>
+<li>Speak, and set <span class="key">IN TRIM</span> so the level bars peak around -12 to -6 dB.</li>
 <li>Route it: click the routing box for your headphones' output (or use the Routing page).</li>
 <li>Clean it up: <strong>hp</strong> to remove rumble (around 80–100 Hz), then the gate and compressor (<span class="key">IN</span>
    on DYNAMICS), then EQ.</li>
@@ -2215,7 +2206,7 @@ and as the default communication devices. See <a href="#step-2-install-vb-cable-
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Strip types, spacers, SELECT and METER choices</td>
+<td>Spacers, SELECT and METER choices</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -2802,7 +2793,7 @@ secciones, de arriba abajo:</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polaridad (y en el Dark strip, el drive del micro y el conmutador de entrada)</td>
+<td>Trim, polaridad, drive del micro, el conmutador de entrada y anchura estéreo</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -2888,12 +2879,6 @@ pone gris. No se procesa, y su dispositivo o programa se libera. Mientras está 
 puede cambiar nada en él</strong>: las perillas, las teclas y el panel de plugins ignoran los clics, y su
 menú solo ofrece <strong>Turn on</strong> y separadores. Haz clic otra vez en el símbolo de encendido para
 recuperarlo.</p>
-<h3 id="strip-types">Tipos de strip</h3>
-<p>Cada canal puede usar el <strong>Light strip</strong> o el <strong>Dark strip</strong>: clic derecho &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Las entradas de la interfaz, los dispositivos de grabación
-(micrófonos) y los buses empiezan oscuros. Todo lo demás empieza claro. El Dark strip añade el
-<strong>drive</strong> del micro y el conmutador de entrada, y quita el ataque rápido del compresor y el hold
-del gate. Tu elección se recuerda para cada canal.</p>
 <h3 id="spacers">Separadores</h3>
 <p>Los separadores son strips en blanco que te dan espacio entre grupos. Clic derecho en un strip &gt;
 <strong>Add spacer before</strong> / <strong>Add spacer after</strong>. Clic derecho en un separador para <strong>Narrow</strong>, <strong>Add
@@ -2923,10 +2908,6 @@ mueve.</p>
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Solo canales</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> o <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -3000,7 +2981,7 @@ mueve.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Ganancia de entrada</td>
 </tr>
 <tr>
@@ -3008,16 +2989,16 @@ mueve.</p>
 <td>Inversión de polaridad</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: añade calidez y nivel (se muestra como porcentaje). El LED verde a su lado se enciende mientras la fuente tiene señal</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>La etapa de entrada dentro o fuera (fuera: el trim, la polaridad y el drive quedan en bypass)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Anchura estéreo: 0 % mono, 100 % tal cual, 200 % el doble de ancho. Atenuado en un canal mono</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: añade calidez y nivel (se muestra como porcentaje)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>La etapa de entrada dentro o fuera</td>
 </tr>
 </tbody>
 </table></div>
@@ -3843,8 +3824,8 @@ apagado) piden permiso por sí mismos.</p>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Oírte: configurar un micrófono</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; la entrada de tu interfaz (o un dispositivo de grabación de Windows). Aparece
-   con un Dark strip.</li>
-<li>Habla, y ajusta <strong>in trim</strong> para que las barras de nivel lleguen a unos -12 a -6 dB.</li>
+   como un nuevo strip de canal.</li>
+<li>Habla, y ajusta <span class="key">IN TRIM</span> para que las barras de nivel lleguen a unos -12 a -6 dB.</li>
 <li>Enrútalo: haz clic en la casilla de enrutamiento de la salida de tus auriculares (o usa la página
    Routing).</li>
 <li>Límpialo: <strong>hp</strong> para quitar los retumbos (hacia 80–100 Hz), luego el gate y el compresor
@@ -4167,7 +4148,7 @@ Consulta el <a href="#step-2-install-vb-cable-optional">paso 2</a>.</p>
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Tipos de strip, separadores, opciones de SELECT y METER</td>
+<td>Separadores, opciones de SELECT y METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -4758,7 +4739,7 @@ en bas :</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polarité (et sur la Dark strip, le drive du micro et le commutateur d'entrée)</td>
+<td>Trim, polarité, drive du micro, le commutateur d'entrée et largeur stéréo</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -4844,12 +4825,6 @@ grise. Elle n'est pas traitée, et son périphérique ou son programme est libé
 désactivée, <strong>rien ne peut y être modifié</strong> : les potentiomètres, les touches et le panneau des
 plugins ignorent les clics, et son menu ne propose que <strong>Turn on</strong> et des espaceurs. Cliquez de
 nouveau sur le symbole d'alimentation pour la réactiver.</p>
-<h3 id="strip-types">Types de tranche</h3>
-<p>Chaque canal peut utiliser la <strong>Light strip</strong> ou la <strong>Dark strip</strong> : clic droit &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Les entrées de l'interface, les périphériques d'enregistrement
-(microphones) et les bus démarrent en sombre. Tout le reste démarre en clair. La Dark strip ajoute le
-<strong>drive</strong> du micro et le commutateur d'entrée, et retire l'attaque rapide du compresseur et le hold
-du gate. Votre choix est mémorisé pour chaque canal.</p>
 <h3 id="spacers">Espaceurs</h3>
 <p>Les espaceurs sont des tranches vides qui vous donnent de la place entre des groupes. Clic droit sur
 une tranche &gt; <strong>Add spacer before</strong> / <strong>Add spacer after</strong>. Clic droit sur un espaceur pour
@@ -4879,10 +4854,6 @@ quand cette tranche bouge.</p>
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Canaux seulement</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> ou <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -4956,7 +4927,7 @@ quand cette tranche bouge.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Gain d'entrée</td>
 </tr>
 <tr>
@@ -4964,16 +4935,16 @@ quand cette tranche bouge.</p>
 <td>Inversion de polarité</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive : ajoute de la chaleur et du niveau (affiché en pourcentage). La LED verte à côté s'allume tant que la source a du signal</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>L'étage d'entrée activé ou désactivé (désactivé : le trim, la polarité et le drive sont contournés)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Largeur stéréo : 0 % mono, 100 % telle quelle, 200 % deux fois plus large. Estompée sur un canal mono</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive : ajoute de la chaleur et du niveau (affiché en pourcentage)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>L'étage d'entrée activé ou désactivé</td>
 </tr>
 </tbody>
 </table></div>
@@ -5810,8 +5781,8 @@ désactivé) demandent elles-mêmes la permission.</p>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Vous entendre : configurer un microphone</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; l'entrée de votre interface (ou un périphérique d'enregistrement Windows). Il
-   apparaît avec une Dark strip.</li>
-<li>Parlez, et réglez <strong>in trim</strong> pour que les barres de niveau culminent vers -12 à -6 dB.</li>
+   apparaît comme une nouvelle tranche de canal.</li>
+<li>Parlez, et réglez <span class="key">IN TRIM</span> pour que les barres de niveau culminent vers -12 à -6 dB.</li>
 <li>Routez-le : cliquez sur la case de routage de la sortie de votre casque (ou utilisez la page
    Routing).</li>
 <li>Nettoyez-le : <strong>hp</strong> pour retirer les grondements (vers 80–100 Hz), puis le gate et le
@@ -6135,7 +6106,7 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Types de tranche, espaceurs, choix de SELECT et de METER</td>
+<td>Espaceurs, choix de SELECT et de METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -6704,7 +6675,7 @@ angeschlossenes Wiedergabegerät von ihm.</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, Polarität (und am Dark strip Mikrofon-Drive und der Eingangsschalter)</td>
+<td>Trim, Polarität, Mikrofon-Drive, der Eingangsschalter und Stereobreite</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -6787,11 +6758,6 @@ zeigt und auf den FIND, Hotkeys und Fernsteuerungen wirken.</p>
 bearbeitet, und sein Gerät oder Programm wird freigegeben. Solange er aus ist, <strong>lässt sich nichts an ihm ändern</strong>:
 Regler, Tasten und das Plugin-Panel ignorieren Klicks, und sein Menü bietet nur <strong>Turn on</strong> und Spacer an.
 Klicke erneut auf das Ein-Symbol, um ihn zurückzuholen.</p>
-<h3 id="strip-types">Strip-Typen</h3>
-<p>Jeder Kanal kann den <strong>Light strip</strong> oder den <strong>Dark strip</strong> verwenden: Rechtsklick &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Interface-Eingänge, Aufnahmegeräte (Mikrofone) und Busse starten
-dunkel. Alles andere startet hell. Der Dark strip fügt Mikrofon-<strong>Drive</strong> und den Eingangsschalter hinzu
-und lässt dafür den schnellen Attack des Kompressors und das Hold des Gates weg. Deine Wahl wird pro Kanal gespeichert.</p>
 <h3 id="spacers">Spacer</h3>
 <p>Spacer sind leere Strips, die dir Platz zwischen Gruppen geben. Rechtsklick auf einen Strip &gt; <strong>Add spacer
 before</strong> / <strong>Add spacer after</strong>. Rechtsklick auf einen Spacer für <strong>Narrow</strong>, <strong>Add another</strong> und <strong>Remove
@@ -6820,10 +6786,6 @@ spacer</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Nur Kanäle</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> oder <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -6897,7 +6859,7 @@ spacer</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Eingangsverstärkung</td>
 </tr>
 <tr>
@@ -6905,16 +6867,16 @@ spacer</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 <td>Polarität umkehren</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: fügt Wärme und Pegel hinzu (als Prozentzahl angezeigt). Die grüne LED daneben leuchtet, solange die Quelle Signal hat</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>Die Eingangsstufe ein oder aus (aus: Trim, Polarität und Drive werden umgangen)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Stereobreite: 0 % Mono, 100 % wie vorhanden, 200 % doppelt so breit. Blass bei einem Mono-Kanal</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: fügt Wärme und Pegel hinzu (als Prozentzahl angezeigt)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>Die Eingangsstufe ein oder aus</td>
 </tr>
 </tbody>
 </table></div>
@@ -7726,9 +7688,9 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Anleitungen</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Dich selbst hören: ein Mikrofon einrichten</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint mit einem Dark
-   strip.</li>
-<li>Sprich und stelle <strong>in trim</strong> so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint als neuer
+   Kanalzug.</li>
+<li>Sprich und stelle <span class="key">IN TRIM</span> so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.</li>
 <li>Route ihn: Klicke auf die Routing-Box für den Ausgang deiner Kopfhörer (oder nutze die Seite Routing).</li>
 <li>Mach ihn sauber: <strong>hp</strong>, um Rumpeln zu entfernen (etwa 80–100 Hz), dann Gate und Kompressor (<span class="key">IN</span>
    an DYNAMICS), dann EQ.</li>
@@ -8037,7 +7999,7 @@ und als Standardkommunikationsgeräte. Siehe <a href="#step-2-install-vb-cable-o
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Strip-Typen, Spacer, Wahl bei SELECT und METER</td>
+<td>Spacer, Wahl bei SELECT und METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -8613,7 +8575,7 @@ viola), poi <strong>uscite</strong> (barra del nome ambra). Ogni strip ha sette 
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polarità (e sulla Dark strip, drive del microfono e interruttore d'ingresso)</td>
+<td>Trim, polarità, drive del microfono, interruttore d'ingresso e larghezza stereo</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -8698,12 +8660,6 @@ il suo fader di 0,5 dB (3 dB con <span class="combo"><kbd>Shift</kbd></span>).</
 Non viene elaborata, e il suo dispositivo o programma viene rilasciato. Finché è spenta, <strong>su di
 essa non si può cambiare nulla</strong>: manopole, tasti e pannello dei plugin ignorano i clic, e il suo
 menu offre solo <strong>Turn on</strong> e gli spacer. Fai di nuovo clic sul simbolo di accensione per riaccenderla.</p>
-<h3 id="strip-types">Tipi di strip</h3>
-<p>Ogni canale può usare la <strong>Light strip</strong> o la <strong>Dark strip</strong>: clic destro &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Gli ingressi dell'interfaccia, i dispositivi di registrazione
-(microfoni) e i bus partono scuri. Tutto il resto parte chiaro. La Dark strip aggiunge il <strong>drive</strong>
-del microfono e l'interruttore d'ingresso, e toglie l'attacco veloce del compressore e l'hold del
-gate. La tua scelta viene ricordata per ogni canale.</p>
 <h3 id="spacers">Spacer</h3>
 <p>Gli spacer sono strip vuote che ti danno spazio tra i gruppi. Clic destro su una strip &gt; <strong>Add
 spacer before</strong> / <strong>Add spacer after</strong>. Clic destro su uno spacer per <strong>Narrow</strong>, <strong>Add another</strong> e
@@ -8732,10 +8688,6 @@ spacer before</strong> / <strong>Add spacer after</strong>. Clic destro su uno s
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Solo canali</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> o <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -8809,7 +8761,7 @@ spacer before</strong> / <strong>Add spacer after</strong>. Clic destro su uno s
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Guadagno d'ingresso</td>
 </tr>
 <tr>
@@ -8817,16 +8769,16 @@ spacer before</strong> / <strong>Add spacer after</strong>. Clic destro su uno s
 <td>Inversione di polarità</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: aggiunge calore e livello (mostrato in percentuale). Il LED verde accanto si accende finché la sorgente ha segnale</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>Lo stadio d'ingresso inserito o escluso (escluso: trim, polarità e drive vengono bypassati)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Larghezza stereo: 0 % mono, 100 % così com'è, 200 % il doppio più larga. Attenuata su un canale mono</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: aggiunge calore e livello (mostrato in percentuale)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>Lo stadio d'ingresso inserito o escluso</td>
 </tr>
 </tbody>
 </table></div>
@@ -9641,8 +9593,8 @@ spento) chiedono da soli il permesso.</p>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Ascoltati: configura un microfono</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; l'ingresso della tua interfaccia (o un dispositivo di registrazione di Windows).
-   Compare con una Dark strip.</li>
-<li>Parla e regola <strong>in trim</strong> in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.</li>
+   Compare come una nuova strip di canale.</li>
+<li>Parla e regola <span class="key">IN TRIM</span> in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.</li>
 <li>Instradalo: fai clic sulla casella di instradamento per l'uscita delle tue cuffie (o usa la pagina Routing).</li>
 <li>Puliscilo: <strong>hp</strong> per togliere il rumble (attorno a 80–100 Hz), poi gate e compressore (<span class="key">IN</span>
    su DYNAMICS), poi EQ.</li>
@@ -9954,7 +9906,7 @@ altoparlanti come uscita predefinita, e il tuo microfono vero come ingresso pred
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Tipi di strip, spacer, scelte di SELECT e METER</td>
+<td>Spacer, scelte di SELECT e METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -10535,7 +10487,7 @@ para baixo:</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polaridade (e no Dark strip, o drive do mic e a chave de entrada)</td>
+<td>Trim, polaridade, drive do mic, a chave de entrada e largura estéreo</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -10620,12 +10572,6 @@ seguinte, <span class="key">M</span> corta o som dele, <span class="key">S</span
 processado, e o dispositivo ou programa dele é liberado. Enquanto estiver desligado, <strong>nada nele
 pode ser mudado</strong>: knobs, teclas e o painel de plugins ignoram cliques, e o menu dele só oferece
 <strong>Turn on</strong> e espaçadores. Clique no símbolo de energia de novo para trazê-lo de volta.</p>
-<h3 id="strip-types">Tipos de strip</h3>
-<p>Cada canal pode usar o <strong>Light strip</strong> ou o <strong>Dark strip</strong>: botão direito &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Entradas da interface, dispositivos de gravação (microfones) e
-buses começam escuros. Todo o resto começa claro. O Dark strip adiciona o <strong>drive</strong> do mic e a chave
-de entrada, e tira o ataque rápido do compressor e o hold do gate. Sua escolha é lembrada para cada
-canal.</p>
 <h3 id="spacers">Espaçadores</h3>
 <p>Espaçadores são strips em branco que dão espaço entre grupos. Botão direito em um strip &gt; <strong>Add
 spacer before</strong> / <strong>Add spacer after</strong>. Botão direito em um espaçador para <strong>Narrow</strong>, <strong>Add
@@ -10655,10 +10601,6 @@ move.</p>
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Só canais</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> ou <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -10732,7 +10674,7 @@ move.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Ganho de entrada</td>
 </tr>
 <tr>
@@ -10740,16 +10682,16 @@ move.</p>
 <td>Inversão de polaridade</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: adiciona calor e nível (mostrado em porcentagem). O LED verde ao lado acende enquanto a fonte tem sinal</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>O estágio de entrada ligado ou desligado (desligado: trim, polaridade e drive são ignorados)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Largura estéreo: 0% mono, 100% como está, 200% o dobro de largura. Esmaecido em um canal mono</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: adiciona calor e nível (mostrado em porcentagem)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>O estágio de entrada ligado ou desligado</td>
 </tr>
 </tbody>
 </table></div>
@@ -11569,8 +11511,8 @@ permissão por conta própria.</p>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Se ouvir: configurar um microfone</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; a entrada da sua interface (ou um dispositivo de gravação do Windows). Ele
-   aparece com um Dark strip.</li>
-<li>Fale e ajuste o <strong>in trim</strong> para que as barras de nível cheguem a uns -12 a -6 dB.</li>
+   aparece como um novo strip de canal.</li>
+<li>Fale e ajuste o <span class="key">IN TRIM</span> para que as barras de nível cheguem a uns -12 a -6 dB.</li>
 <li>Roteie: clique na caixa de roteamento da saída dos seus fones (ou use a página Routing).</li>
 <li>Limpe o som: <strong>hp</strong> para tirar o ruído grave (por volta de 80–100 Hz), depois o gate e o
    compressor (<span class="key">IN</span> em DYNAMICS), depois o EQ.</li>
@@ -11885,7 +11827,7 @@ quanto como dispositivos de comunicação padrão. Veja o <a href="#step-2-insta
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Tipos de strip, espaçadores, escolhas de SELECT e METER</td>
+<td>Espaçadores, escolhas de SELECT e METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -12454,7 +12396,7 @@ aangesloten afspeelapparaat het van hem over.</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polariteit (en op de Dark strip microfoon-drive en de ingangsschakelaar)</td>
+<td>Trim, polariteit, microfoon-drive, de ingangsschakelaar en stereobreedte</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -12537,11 +12479,6 @@ toont en waarop FIND, sneltoetsen en afstandsbedieningen werken.</p>
 bewerkt en zijn apparaat of programma wordt losgelaten. Zolang hij uit staat, <strong>kan er niets aan hem worden veranderd</strong>:
 knoppen, toetsen en het pluginpaneel negeren klikken, en zijn menu biedt alleen <strong>Turn on</strong> en spacers aan.
 Klik nogmaals op het aan/uit-symbool om hem terug te halen.</p>
-<h3 id="strip-types">Striptypen</h3>
-<p>Elk kanaal kan de <strong>Light strip</strong> of de <strong>Dark strip</strong> gebruiken: rechtsklik &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Interface-ingangen, opnameapparaten (microfoons) en bussen beginnen
-donker. Al het andere begint licht. De Dark strip voegt microfoon-<strong>drive</strong> en de ingangsschakelaar toe
-en laat de snelle attack van de compressor en de hold van de gate weg. Je keuze wordt per kanaal onthouden.</p>
 <h3 id="spacers">Spacers</h3>
 <p>Spacers zijn lege strips die je ruimte geven tussen groepen. Rechtsklik op een strip &gt; <strong>Add spacer
 before</strong> / <strong>Add spacer after</strong>. Rechtsklik op een spacer voor <strong>Narrow</strong>, <strong>Add another</strong> en <strong>Remove
@@ -12570,10 +12507,6 @@ spacer</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Alleen kanalen</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> of <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -12647,7 +12580,7 @@ spacer</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Ingangsversterking</td>
 </tr>
 <tr>
@@ -12655,16 +12588,16 @@ spacer</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 <td>Polariteit omkeren</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: voegt warmte en niveau toe (getoond als percentage). Het groene lampje ernaast brandt zolang de bron signaal heeft</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>De ingangstrap in of uit (uit: trim, polariteit en drive worden overgeslagen)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Stereobreedte: 0 % mono, 100 % zoals het is, 200 % twee keer zo breed. Vaag op een monokanaal</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: voegt warmte en niveau toe (getoond als percentage)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>De ingangstrap in of uit</td>
 </tr>
 </tbody>
 </table></div>
@@ -13476,9 +13409,9 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Handleidingen</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Jezelf horen: een microfoon instellen</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt met een Dark
-   strip.</li>
-<li>Spreek en stel <strong>in trim</strong> zo in dat de niveaubalken pieken rond -12 tot -6 dB.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt als een nieuwe
+   kanaalstrip.</li>
+<li>Spreek en stel <span class="key">IN TRIM</span> zo in dat de niveaubalken pieken rond -12 tot -6 dB.</li>
 <li>Routeer hem: klik op het routeringsvakje voor de uitgang van je koptelefoon (of gebruik de pagina Routing).</li>
 <li>Maak hem schoon: <strong>hp</strong> om gerommel weg te halen (rond 80–100 Hz), dan de gate en compressor (<span class="key">IN</span>
    op DYNAMICS), dan EQ.</li>
@@ -13787,7 +13720,7 @@ en als standaardcommunicatieapparaten. Zie <a href="#step-2-install-vb-cable-opt
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Striptypen, spacers, keuzes bij SELECT en METER</td>
+<td>Spacers, keuzes bij SELECT en METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -14359,7 +14292,7 @@ nazwy), potem <strong>wyjścia</strong> (bursztynowy pasek nazwy). Każdy pasek 
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polaryzacja (a na Dark strip także drive mikrofonu i przełącznik wejścia)</td>
+<td>Trim, polaryzacja, drive mikrofonu, przełącznik wejścia i szerokość stereo</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -14442,12 +14375,6 @@ pasek, <span class="key">M</span> go wycisza, <span class="key">S</span> daje mu
 przetwarzany, a jego urządzenie lub program zostaje zwolniony. Dopóki jest wyłączony, <strong>nic na nim
 nie da się zmienić</strong>: pokrętła, klawisze i panel wtyczek ignorują kliknięcia, a jego menu oferuje
 tylko <strong>Turn on</strong> i odstępy. Kliknij symbol zasilania ponownie, żeby go przywrócić.</p>
-<h3 id="strip-types">Rodzaje pasków</h3>
-<p>Każdy kanał może używać <strong>Light strip</strong> albo <strong>Dark strip</strong>: prawy przycisk &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Wejścia interfejsu, urządzenia nagrywające (mikrofony) i busy
-zaczynają jako ciemne. Wszystko inne zaczyna jako jasne. Dark strip dodaje <strong>drive</strong> mikrofonu i
-przełącznik wejścia, a zabiera szybki atak kompresora i hold bramki. Twój wybór jest zapamiętywany
-dla każdego kanału.</p>
 <h3 id="spacers">Odstępy</h3>
 <p>Odstępy to puste paski, które dają miejsce między grupami. Prawy przycisk na pasku &gt; <strong>Add spacer
 before</strong> / <strong>Add spacer after</strong>. Prawy przycisk na odstępie daje <strong>Narrow</strong>, <strong>Add another</strong> i
@@ -14476,10 +14403,6 @@ before</strong> / <strong>Add spacer after</strong>. Prawy przycisk na odstępie
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Tylko kanały</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> lub <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -14553,7 +14476,7 @@ before</strong> / <strong>Add spacer after</strong>. Prawy przycisk na odstępie
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Wzmocnienie wejścia</td>
 </tr>
 <tr>
@@ -14561,16 +14484,16 @@ before</strong> / <strong>Add spacer after</strong>. Prawy przycisk na odstępie
 <td>Odwrócenie polaryzacji</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: dodaje ciepła i poziomu (pokazany w procentach). Zielona dioda obok świeci, dopóki źródło ma sygnał</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>Stopień wejściowy włączony lub wyłączony (wyłączony: trim, polaryzacja i drive są pomijane)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Szerokość stereo: 0 % mono, 100 % bez zmian, 200 % dwa razy szerzej. Przyciemniona na kanale mono</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: dodaje ciepła i poziomu (pokazany w procentach)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>Stopień wejściowy włączony lub wyłączony</td>
 </tr>
 </tbody>
 </table></div>
@@ -15380,9 +15303,9 @@ proszą o zgodę.</p>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Poradniki krok po kroku</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Usłysz siebie: ustaw mikrofon</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się z
-   Dark strip.</li>
-<li>Mów i ustaw <strong>in trim</strong> tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się jako
+   nowy pasek kanału.</li>
+<li>Mów i ustaw <span class="key">IN TRIM</span> tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.</li>
 <li>Skieruj go: kliknij pole routingu dla wyjścia słuchawek (albo użyj strony Routing).</li>
 <li>Oczyść go: <strong>hp</strong>, żeby usunąć dudnienie (około 80–100 Hz), potem bramka i kompresor (<span class="key">IN</span>
    w DYNAMICS), potem EQ.</li>
@@ -15691,7 +15614,7 @@ jak i jako domyślne urządzenia komunikacji. Zobacz <a href="#step-2-install-vb
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Rodzaje pasków, odstępy, wybory SELECT i METER</td>
+<td>Odstępy, wybory SELECT i METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -16261,7 +16184,7 @@ ansluten uppspelningsenhet över från den.</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polaritet (och på Dark strip mikrofon-drive och ingångsomkopplaren)</td>
+<td>Trim, polaritet, mikrofon-drive, ingångsomkopplaren och stereobredd</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -16344,11 +16267,6 @@ visar och den som FIND, kortkommandon och fjärrkontroller verkar på.</p>
 och dess enhet eller program släpps. Medan den är avstängd <strong>kan ingenting på den ändras</strong>:
 rattar, tangenter och pluginpanelen ignorerar klick, och dess meny erbjuder bara <strong>Turn on</strong> och spacers.
 Klicka på strömsymbolen igen för att få tillbaka den.</p>
-<h3 id="strip-types">Striptyper</h3>
-<p>Varje kanal kan använda <strong>Light strip</strong> eller <strong>Dark strip</strong>: högerklicka &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Gränssnittets ingångar, inspelningsenheter (mikrofoner) och bussar börjar
-mörka. Allt annat börjar ljust. Dark strip lägger till mikrofon-<strong>drive</strong> och ingångsomkopplaren
-och tar bort kompressorns snabba attack och gatens hold. Ditt val kommer ihåg per kanal.</p>
 <h3 id="spacers">Spacers</h3>
 <p>Spacers är tomma strippar som ger dig utrymme mellan grupper. Högerklicka på en strip &gt; <strong>Add spacer
 before</strong> / <strong>Add spacer after</strong>. Högerklicka på en spacer för <strong>Narrow</strong>, <strong>Add another</strong> och <strong>Remove
@@ -16377,10 +16295,6 @@ spacer</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Bara kanaler</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> eller <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -16454,7 +16368,7 @@ spacer</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Ingångsförstärkning</td>
 </tr>
 <tr>
@@ -16462,16 +16376,16 @@ spacer</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 <td>Vänd polariteten</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: lägger till värme och nivå (visas som procent). Den gröna lampan bredvid lyser medan källan har signal</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>Ingångssteget in eller ut (ut: trim, polaritet och drive förbikopplas)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Stereobredd: 0 % mono, 100 % som den är, 200 % dubbelt så bred. Svag på en monokanal</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: lägger till värme och nivå (visas som procent)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>Ingångssteget in eller ut</td>
 </tr>
 </tbody>
 </table></div>
@@ -17280,9 +17194,9 @@ De få steg som kräver en administratör
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Guider</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Hör dig själv: ställ in en mikrofon</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp med en Dark
-   strip.</li>
-<li>Prata och ställ in <strong>in trim</strong> så att nivåstaplarna toppar kring -12 till -6 dB.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp som en ny
+   kanalstrip.</li>
+<li>Prata och ställ in <span class="key">IN TRIM</span> så att nivåstaplarna toppar kring -12 till -6 dB.</li>
 <li>Routa den: klicka på routingrutan för dina hörlurars utgång (eller använd sidan Routing).</li>
 <li>Rensa upp den: <strong>hp</strong> för att ta bort buller (runt 80–100 Hz), sedan gate och kompressor (<span class="key">IN</span>
    på DYNAMICS), sedan EQ.</li>
@@ -17591,7 +17505,7 @@ och som standardkommunikationsenheter. Se <a href="#step-2-install-vb-cable-opti
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Striptyper, spacers, val under SELECT och METER</td>
+<td>Spacers, val under SELECT och METER</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -18159,7 +18073,7 @@ takılan bir oynatma aygıtı saati ondan devralır.</p>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>Trim, polarite (ve Dark strip'te mikrofon drive'ı ile giriş anahtarı)</td>
+<td>Trim, polarite, mikrofon drive'ı, giriş anahtarı ve stereo genişlik</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -18242,11 +18156,6 @@ susturur, <span class="key">S</span> solo yapar ve <span class="combo"><kbd>Up</
 programı serbest bırakılır. Kapalıyken <strong>üzerinde hiçbir şey değiştirilemez</strong>: düğmeler, tuşlar ve
 eklenti paneli tıklamaları yok sayar ve menüsü yalnızca <strong>Turn on</strong> ile boşlukları sunar. Geri
 getirmek için güç simgesine yeniden tıkla.</p>
-<h3 id="strip-types">Şerit türleri</h3>
-<p>Her kanal <strong>Light strip</strong> ya da <strong>Dark strip</strong> kullanabilir: sağ tık &gt; <strong>Strip type</strong> &gt;
-<strong>Light strip</strong> / <strong>Dark strip</strong>. Arabirim girişleri, kayıt aygıtları (mikrofonlar) ve bus'lar koyu
-başlar. Geri kalan her şey açık başlar. Dark strip mikrofon <strong>drive</strong>'ını ve giriş anahtarını ekler,
-kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal başına hatırlanır.</p>
 <h3 id="spacers">Boşluklar</h3>
 <p>Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık &gt; <strong>Add spacer before</strong> /
 <strong>Add spacer after</strong>. Bir boşluğa sağ tıklayınca <strong>Narrow</strong>, <strong>Add another</strong> ve <strong>Remove spacer</strong>
@@ -18275,10 +18184,6 @@ kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal 
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>Yalnızca kanallar</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> veya <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -18352,7 +18257,7 @@ kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal 
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>Giriş kazancı</td>
 </tr>
 <tr>
@@ -18360,16 +18265,16 @@ kompresörün hızlı atağını ve gate'in hold'unu çıkarır. Seçimin kanal 
 <td>Polarite ters çevirme</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>Drive: sıcaklık ve seviye ekler (yüzde olarak gösterilir). Yanındaki yeşil LED, kaynakta sinyal varken yanar</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>Giriş katı devrede veya devre dışı (devre dışıyken trim, polarite ve drive atlanır)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>Stereo genişlik: %0 mono, %100 olduğu gibi, %200 iki kat geniş. Mono kanalda soluk</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>Drive: sıcaklık ve seviye ekler (yüzde olarak gösterilir)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>Giriş katı devrede veya devre dışı</td>
 </tr>
 </tbody>
 </table></div>
@@ -19180,8 +19085,8 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>Nasıl yapılır kılavuzları</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Kendini duy: bir mikrofon kur</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; arabirim girişin (veya bir Windows kayıt aygıtı). Dark strip ile görünür.</li>
-<li>Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde <strong>in trim</strong>'i ayarla.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; arabirim girişin (veya bir Windows kayıt aygıtı). Yeni bir kanal şeridi olarak görünür.</li>
+<li>Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde <span class="key">IN TRIM</span>'i ayarla.</li>
 <li>Yönlendir: kulaklığının çıkışı için yönlendirme kutusuna tıkla (ya da Routing sayfasını kullan).</li>
 <li>Temizle: uğultuyu gidermek için <strong>hp</strong> (80–100 Hz civarı), sonra gate ve kompresör (DYNAMICS'te
    <span class="key">IN</span>), sonra EQ.</li>
@@ -19490,7 +19395,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>Şerit türleri, boşluklar, SELECT ve METER seçimleri</td>
+<td>Boşluklar, SELECT ve METER seçimleri</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -19981,7 +19886,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>トリム、極性(Dark strip では、マイクドライブと入力スイッチも)</td>
+<td>トリム、極性、マイクドライブ、入力スイッチ、ステレオ幅</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -20058,8 +19963,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>卓にフォーカスがあるとき(先にクリックしておきます): <span class="combo"><kbd>Left</kbd></span> / <span class="combo"><kbd>Right</kbd></span> で前 / 次のストリップを選択し、<span class="key">M</span> でカット、<span class="key">S</span> でソロ、<span class="combo"><kbd>Up</kbd></span> / <span class="combo"><kbd>Down</kbd></span> でフェーダーを 0.5 dB(<span class="combo"><kbd>Shift</kbd></span> を押すと 3 dB)動かします。</p>
 <h3 id="switching-a-strip-off">ストリップをオフにする</h3>
 <p>名前バーの左にある電源マークをクリックします。ストリップは薄くなり、グレーになります。処理されなくなり、そのデバイスやプログラムは解放されます。オフの間は、<strong>ストリップ上では何も変更できません。</strong> ノブ、キー、プラグインパネルはクリックを無視し、メニューには <strong>Turn on</strong> とスペーサーだけが出ます。もう一度電源マークをクリックすると戻ります。</p>
-<h3 id="strip-types">ストリップの種類</h3>
-<p>チャンネルごとに、<strong>Light strip</strong> か <strong>Dark strip</strong> を使えます。右クリック &gt; <strong>Strip type</strong> &gt; <strong>Light strip</strong> / <strong>Dark strip</strong>。インターフェースの入力、録音デバイス(マイク)、バスは Dark で始まり、それ以外は Light で始まります。Dark strip では、マイクの <strong>drive</strong> と入力スイッチが加わり、コンプレッサーの fast アタックとゲートの hold がなくなります。選択はチャンネルごとに記憶されます。</p>
 <h3 id="spacers">スペーサー</h3>
 <p>スペーサーは、グループの間に余白を作る空のストリップです。ストリップを右クリック &gt; <strong>Add spacer before</strong> / <strong>Add spacer after</strong>。スペーサーを右クリックすると、<strong>Narrow</strong>、<strong>Add another</strong>、<strong>Remove spacer</strong> が使えます。スペーサーは、直前のストリップが移動するときに一緒に動きます。</p>
 <h3 id="the-strip-menu-right-click">ストリップのメニュー(右クリック)</h3>
@@ -20086,10 +19989,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>チャンネルのみ</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> か <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -20163,7 +20062,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>入力ゲイン</td>
 </tr>
 <tr>
@@ -20171,16 +20070,16 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>極性の反転</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>ドライブ: 温かみとレベルを加えます(パーセントで表示)。横の緑の LED は、ソースに信号があるあいだ点灯します</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>入力段のオン / オフ(オフのときは、トリム、極性、ドライブがバイパスされます)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>ステレオ幅: 0 % はモノラル、100 % はそのまま、200 % は 2 倍の幅。モノラルのチャンネルでは薄く表示されます</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>ドライブ: 温かみとレベルを加えます(パーセントで表示)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>入力段のオン / オフ</td>
 </tr>
 </tbody>
 </table></div>
@@ -20919,8 +20818,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>操作ガイド</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 自分の声を聞く: マイクを設定する</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; インターフェースの入力(または Windows の録音デバイス)。Dark strip で現れます。</li>
-<li>話して、レベルバーのピークが -12〜-6 dB あたりになるように <strong>in trim</strong> を設定します。</li>
+<li><span class="key">ADD CHANNEL</span> &gt; インターフェースの入力(または Windows の録音デバイス)。新しいチャンネルストリップとして現れます。</li>
+<li>話して、レベルバーのピークが -12〜-6 dB あたりになるように <span class="key">IN TRIM</span> を設定します。</li>
 <li>ルーティングします。ヘッドホンの出力のルーティングボックスをクリックします(または ROUTING ページを使います)。</li>
 <li>音を整えます。<strong>hp</strong> で低いノイズを除き(80〜100 Hz あたり)、次にゲートとコンプレッサー(DYNAMICS の <span class="key">IN</span>)、そして EQ。</li>
 </ol>
@@ -21193,7 +21092,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>ストリップの種類、スペーサー、SELECT と METER の選択</td>
+<td>スペーサー、SELECT と METER の選択</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -21683,7 +21582,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>트림, 극성(Dark strip에서는 마이크 드라이브와 입력 스위치도)</td>
+<td>트림, 극성, 마이크 드라이브, 입력 스위치, 스테레오 폭</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -21760,8 +21659,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>데스크에 포커스가 있을 때(먼저 클릭하세요): <span class="combo"><kbd>Left</kbd></span> / <span class="combo"><kbd>Right</kbd></span>는 이전 / 다음 스트립을 선택하고, <span class="key">M</span>은 컷, <span class="key">S</span>는 솔로, <span class="combo"><kbd>Up</kbd></span> / <span class="combo"><kbd>Down</kbd></span>은 페이더를 0.5 dB(<span class="combo"><kbd>Shift</kbd></span>와 함께 3 dB) 움직입니다.</p>
 <h3 id="switching-a-strip-off">스트립 끄기</h3>
 <p>이름 바 왼쪽의 전원 기호를 누릅니다. 스트립이 흐려지고 회색이 됩니다. 처리되지 않으며, 그 장치나 프로그램은 해제됩니다. 꺼져 있는 동안에는 <strong>그 스트립에서 아무것도 바꿀 수 없습니다.</strong> 노브, 키, 플러그인 패널은 클릭을 무시하고, 메뉴에는 <strong>Turn on</strong>과 스페이서만 나옵니다. 전원 기호를 다시 누르면 돌아옵니다.</p>
-<h3 id="strip-types">스트립 종류</h3>
-<p>채널마다 <strong>Light strip</strong> 또는 <strong>Dark strip</strong>을 쓸 수 있습니다. 마우스 오른쪽 단추 &gt; <strong>Strip type</strong> &gt; <strong>Light strip</strong> / <strong>Dark strip</strong>. 인터페이스 입력, 녹음 장치(마이크), 버스는 Dark로 시작하고, 나머지는 Light로 시작합니다. Dark strip에는 마이크 <strong>drive</strong>와 입력 스위치가 추가되고, 컴프레서의 fast 어택과 게이트의 hold는 빠집니다. 선택은 채널마다 기억됩니다.</p>
 <h3 id="spacers">스페이서</h3>
 <p>스페이서는 그룹 사이에 여백을 두는 빈 스트립입니다. 스트립을 마우스 오른쪽 단추로 클릭 &gt; <strong>Add spacer before</strong> / <strong>Add spacer after</strong>. 스페이서를 마우스 오른쪽 단추로 클릭하면 <strong>Narrow</strong>, <strong>Add another</strong>, <strong>Remove spacer</strong>를 쓸 수 있습니다. 스페이서는 바로 앞 스트립이 이동할 때 함께 움직입니다.</p>
 <h3 id="the-strip-menu-right-click">스트립 메뉴(마우스 오른쪽 단추)</h3>
@@ -21788,10 +21685,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>채널만 해당</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> 또는 <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -21865,7 +21758,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>입력 게인</td>
 </tr>
 <tr>
@@ -21873,16 +21766,16 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>극성 반전</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>드라이브: 따뜻함과 레벨을 더합니다(퍼센트로 표시). 옆의 녹색 LED는 소스에 신호가 있는 동안 켜집니다</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>입력 스테이지 켜기/끄기(끄면 트림, 극성, 드라이브가 바이패스됩니다)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>스테레오 폭: 0 %는 모노, 100 %는 그대로, 200 %는 두 배 넓게. 모노 채널에서는 흐리게 표시됩니다</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>드라이브: 따뜻함과 레벨을 더합니다(퍼센트로 표시)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>입력 스테이지 켜기/끄기</td>
 </tr>
 </tbody>
 </table></div>
@@ -22621,8 +22514,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>사용 가이드</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 내 소리 듣기: 마이크 설정하기</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; 인터페이스 입력(또는 Windows 녹음 장치). Dark strip으로 나타납니다.</li>
-<li>말을 하면서, 레벨 바의 피크가 -12~-6 dB 정도가 되도록 <strong>in trim</strong>을 설정합니다.</li>
+<li><span class="key">ADD CHANNEL</span> &gt; 인터페이스 입력(또는 Windows 녹음 장치). 새 채널 스트립으로 나타납니다.</li>
+<li>말을 하면서, 레벨 바의 피크가 -12~-6 dB 정도가 되도록 <span class="key">IN TRIM</span>을 설정합니다.</li>
 <li>라우팅합니다. 헤드폰 출력의 라우팅 상자를 누릅니다(또는 ROUTING 페이지를 사용).</li>
 <li>소리를 다듬습니다. <strong>hp</strong>로 낮은 잡음 제거(80~100 Hz 정도), 그다음 게이트와 컴프레서(DYNAMICS의 <span class="key">IN</span>), 그다음 EQ.</li>
 </ol>
@@ -22895,7 +22788,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>스트립 종류, 스페이서, SELECT와 METER 선택</td>
+<td>스페이서, SELECT와 METER 선택</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>
@@ -23385,7 +23278,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
-<td>输入微调、极性(在 Dark strip 上还有麦克风驱动和输入开关)</td>
+<td>输入微调、极性、麦克风驱动、输入开关和立体声宽度</td>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
@@ -23462,8 +23355,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <p>调音台获得焦点时(先点击它)：<span class="combo"><kbd>Left</kbd></span> / <span class="combo"><kbd>Right</kbd></span> 选择上一个 / 下一个通道条，<span class="key">M</span> 将其静音，<span class="key">S</span> 将其独奏，<span class="combo"><kbd>Up</kbd></span> / <span class="combo"><kbd>Down</kbd></span> 把它的推子移动 0.5 dB(按住 <span class="combo"><kbd>Shift</kbd></span> 为 3 dB)。</p>
 <h3 id="switching-a-strip-off">关闭通道条</h3>
 <p>点击名称栏左边的电源符号。通道条会淡出并变灰。它不再被处理，它的设备或程序也会被释放。关闭期间，<strong>它上面的任何东西都不能更改</strong>：旋钮、按键和插件面板都会忽略点击，它的菜单只提供 <strong>Turn on</strong> 和间隔条。再次点击电源符号即可恢复。</p>
-<h3 id="strip-types">通道条类型</h3>
-<p>每个通道可以使用 <strong>Light strip</strong> 或 <strong>Dark strip</strong>：右键点击 &gt; <strong>Strip type</strong> &gt; <strong>Light strip</strong> / <strong>Dark strip</strong>。接口输入、录制设备(麦克风)和总线起始为 Dark，其他的起始为 Light。Dark strip 增加了麦克风 <strong>drive</strong> 和输入开关，并去掉了压缩器的 fast 起音和门限的 hold。你的选择会按通道记住。</p>
 <h3 id="spacers">间隔条</h3>
 <p>间隔条是在分组之间留出空间的空白通道条。右键点击一个通道条 &gt; <strong>Add spacer before</strong> / <strong>Add spacer after</strong>。右键点击间隔条可使用 <strong>Narrow</strong>、<strong>Add another</strong> 和 <strong>Remove spacer</strong>。当它前面的通道条移动时，间隔条会跟随它。</p>
 <h3 id="the-strip-menu-right-click">通道条菜单(右键点击)</h3>
@@ -23490,10 +23381,6 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <tr>
 <td><strong>Make mono / Make stereo</strong></td>
 <td>仅限通道</td>
-</tr>
-<tr>
-<td><strong>Strip type</strong></td>
-<td><strong>Light strip</strong> 或 <strong>Dark strip</strong></td>
 </tr>
 <tr>
 <td><strong>Colour</strong></td>
@@ -23567,7 +23454,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </thead>
 <tbody>
 <tr>
-<td><strong>in trim</strong></td>
+<td><span class="key">IN TRIM</span></td>
 <td>输入增益</td>
 </tr>
 <tr>
@@ -23575,16 +23462,16 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <td>极性反转</td>
 </tr>
 <tr>
-<td><span class="key">WIDTH</span> (Light strip)</td>
+<td><span class="key">MIC</span></td>
+<td>驱动：增加温暖感和电平(以百分比显示)。信号源有信号时，它旁边的绿色 LED 会亮起</td>
+</tr>
+<tr>
+<td><span class="key">PRE</span></td>
+<td>接入或旁路输入级(旁路时，输入微调、极性和驱动都被绕过)</td>
+</tr>
+<tr>
+<td><span class="key">WIDTH</span></td>
 <td>立体声宽度：0 % 为单声道，100 % 保持原样，200 % 为两倍宽。在单声道通道上显示为淡色</td>
-</tr>
-<tr>
-<td><strong>mic</strong> (Dark strip)</td>
-<td>驱动：增加温暖感和电平(以百分比显示)</td>
-</tr>
-<tr>
-<td><strong>pre</strong> (Dark strip)</td>
-<td>接入或旁路输入级</td>
 </tr>
 </tbody>
 </table></div>
@@ -24322,8 +24209,8 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 <section class="chapter" id="17-how-to-guides"><header class="chapter-head"><span class="chapter-num">17</span><h2>操作指南</h2></header>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 听到自己：设置麦克风</h3>
 <ol>
-<li><span class="key">ADD CHANNEL</span> &gt; 你的接口输入(或 Windows 录制设备)。它以 Dark strip 出现。</li>
-<li>说话，并设置 <strong>in trim</strong>，使电平条的峰值在 -12 到 -6 dB 左右。</li>
+<li><span class="key">ADD CHANNEL</span> &gt; 你的接口输入(或 Windows 录制设备)。它会作为一个新的通道条出现。</li>
+<li>说话，并设置 <span class="key">IN TRIM</span>，使电平条的峰值在 -12 到 -6 dB 左右。</li>
 <li>设置路由：点击你耳机输出的路由框(或使用 ROUTING 页面)。</li>
 <li>清理声音：用 <strong>hp</strong> 去除低频噪声(80–100 Hz 左右)，然后是门限和压缩器(DYNAMICS 上的 <span class="key">IN</span>)，再是 EQ。</li>
 </ol>
@@ -24596,7 +24483,7 @@ iletişim aygıtları olarak. Bkz. <a href="#step-2-install-vb-cable-optional">A
 </tr>
 <tr>
 <td><code>console.xml</code></td>
-<td>通道条类型、间隔条、SELECT 和 METER 的选择</td>
+<td>间隔条、SELECT 和 METER 的选择</td>
 </tr>
 <tr>
 <td><code>plugins.xml</code></td>

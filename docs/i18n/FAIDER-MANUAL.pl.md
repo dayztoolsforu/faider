@@ -433,7 +433,7 @@ nazwy), potem **wyjścia** (bursztynowy pasek nazwy). Każdy pasek ma siedem sek
 | Sekcja | Zawiera |
 |---|---|
 | **HEADER** | Słupki poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska |
-| **INPUT** | Trim, polaryzacja (a na Dark strip także drive mikrofonu i przełącznik wejścia) |
+| **INPUT** | Trim, polaryzacja, drive mikrofonu, przełącznik wejścia i szerokość stereo |
 | **DYNAMICS** | Kompresor i bramka |
 | **FILTERS** | Filtr dolnoprzepustowy i górnoprzepustowy |
 | **EQ** | Cztery pasma |
@@ -478,16 +478,6 @@ przetwarzany, a jego urządzenie lub program zostaje zwolniony. Dopóki jest wy�
 nie da się zmienić**: pokrętła, klawisze i panel wtyczek ignorują kliknięcia, a jego menu oferuje
 tylko **Turn on** i odstępy. Kliknij symbol zasilania ponownie, żeby go przywrócić.
 
-<a id="strip-types"></a>
-
-### Rodzaje pasków
-
-Każdy kanał może używać **Light strip** albo **Dark strip**: prawy przycisk > **Strip type** >
-**Light strip** / **Dark strip**. Wejścia interfejsu, urządzenia nagrywające (mikrofony) i busy
-zaczynają jako ciemne. Wszystko inne zaczyna jako jasne. Dark strip dodaje **drive** mikrofonu i
-przełącznik wejścia, a zabiera szybki atak kompresora i hold bramki. Twój wybór jest zapamiętywany
-dla każdego kanału.
-
 <a id="spacers"></a>
 
 ### Odstępy
@@ -506,7 +496,6 @@ before** / **Add spacer after**. Prawy przycisk na odstępie daje **Narrow**, **
 | **Route to** | Każdy bus i urządzenie wyjściowe, z zaznaczeniem tam, gdzie jest wysyłany |
 | **Plugins** | Otwórz jedną, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Tylko kanały |
-| **Strip type** | **Light strip** lub **Dark strip** |
 | **Colour** | Kolor kanału, widoczny wzdłuż jego paska nazwy i na jego bloku w Routing |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -542,11 +531,11 @@ before** / **Add spacer after**. Prawy przycisk na odstępie daje **Narrow**, **
 
 | Element | |
 |---|---|
-| **in trim** | Wzmocnienie wejścia |
+| **IN TRIM** | Wzmocnienie wejścia |
 | **ø** | Odwrócenie polaryzacji |
-| **WIDTH** (Light strip) | Szerokość stereo: 0 % mono, 100 % bez zmian, 200 % dwa razy szerzej. Przyciemniona na kanale mono |
-| **mic** (Dark strip) | Drive: dodaje ciepła i poziomu (pokazany w procentach) |
-| **pre** (Dark strip) | Stopień wejściowy włączony lub wyłączony |
+| **MIC** | Drive: dodaje ciepła i poziomu (pokazany w procentach). Zielona dioda obok świeci, dopóki źródło ma sygnał |
+| **PRE** | Stopień wejściowy włączony lub wyłączony (wyłączony: trim, polaryzacja i drive są pomijane) |
+| **WIDTH** | Szerokość stereo: 0 % mono, 100 % bez zmian, 200 % dwa razy szerzej. Przyciemniona na kanale mono |
 
 <a id="dynamics"></a>
 
@@ -1102,9 +1091,9 @@ proszą o zgodę.
 
 ### 17.1 Usłysz siebie: ustaw mikrofon
 
-1. **ADD CHANNEL** > wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się z
-   Dark strip.
-2. Mów i ustaw **in trim** tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.
+1. **ADD CHANNEL** > wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się jako
+   nowy pasek kanału.
+2. Mów i ustaw **IN TRIM** tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.
 3. Skieruj go: kliknij pole routingu dla wyjścia słuchawek (albo użyj strony Routing).
 4. Oczyść go: **hp**, żeby usunąć dudnienie (około 80–100 Hz), potem bramka i kompresor (**IN**
    w DYNAMICS), potem EQ.
@@ -1374,7 +1363,7 @@ W `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Miksy odłożone na bok przy starcie |
 | `settings.xml` | Preferencje |
 | `looks\` | LOOK-i: po jednym pliku JSON (patrz [LOOKS](#looks)) |
-| `console.xml` | Rodzaje pasków, odstępy, wybory SELECT i METER |
+| `console.xml` | Odstępy, wybory SELECT i METER |
 | `plugins.xml` | Znalezione wtyczki i wynik testu każdej z nich |
 | `events.log` | Wszystko, co się wydarzyło (rotuje przy 5 MB) |
 | `status.txt` | Migawka silnika co kilka sekund: urządzenia, poziomy, bufory, dryf |

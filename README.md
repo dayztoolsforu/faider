@@ -55,7 +55,7 @@ one PC.
   <img src="docs/images/console/routing.jpg" alt="The Routing page: every strip a block under its place on the desk" width="100%">
 </p>
 
-The mixer is a large-format console. It has Light and Dark channel strips, raw strips for apps, pads
+The mixer is a large-format console. It has full channel strips, raw strips for apps, pads
 and tape, and output strips with a bus compressor. On the Routing page every strip is a block under
 its place on the desk. Click one block, then another, and the route between them goes on or off.
 

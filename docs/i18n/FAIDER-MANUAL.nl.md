@@ -430,7 +430,7 @@ De tafel toont alle strips van links naar rechts: **kanalen**, dan **bussen** (v
 | Sectie | Bevat |
 |---|---|
 | **HEADER** | Niveaubalken, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer |
-| **INPUT** | Trim, polariteit (en op de Dark strip microfoon-drive en de ingangsschakelaar) |
+| **INPUT** | Trim, polariteit, microfoon-drive, de ingangsschakelaar en stereobreedte |
 | **DYNAMICS** | Compressor en gate |
 | **FILTERS** | Low-pass en high-pass |
 | **EQ** | Vier banden |
@@ -475,15 +475,6 @@ bewerkt en zijn apparaat of programma wordt losgelaten. Zolang hij uit staat, **
 knoppen, toetsen en het pluginpaneel negeren klikken, en zijn menu biedt alleen **Turn on** en spacers aan.
 Klik nogmaals op het aan/uit-symbool om hem terug te halen.
 
-<a id="strip-types"></a>
-
-### Striptypen
-
-Elk kanaal kan de **Light strip** of de **Dark strip** gebruiken: rechtsklik > **Strip type** >
-**Light strip** / **Dark strip**. Interface-ingangen, opnameapparaten (microfoons) en bussen beginnen
-donker. Al het andere begint licht. De Dark strip voegt microfoon-**drive** en de ingangsschakelaar toe
-en laat de snelle attack van de compressor en de hold van de gate weg. Je keuze wordt per kanaal onthouden.
-
 <a id="spacers"></a>
 
 ### Spacers
@@ -502,7 +493,6 @@ spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 | **Route to** | Elke bus en elk uitvoerapparaat, aangevinkt waarheen verzonden wordt |
 | **Plugins** | Er een openen, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Alleen kanalen |
-| **Strip type** | **Light strip** of **Dark strip** |
 | **Colour** | De kleur van het kanaal, te zien langs zijn naambalk en op zijn Routing-blok |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -538,11 +528,11 @@ spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 | Bediening | |
 |---|---|
-| **in trim** | Ingangsversterking |
+| **IN TRIM** | Ingangsversterking |
 | **ø** | Polariteit omkeren |
-| **WIDTH** (Light strip) | Stereobreedte: 0 % mono, 100 % zoals het is, 200 % twee keer zo breed. Vaag op een monokanaal |
-| **mic** (Dark strip) | Drive: voegt warmte en niveau toe (getoond als percentage) |
-| **pre** (Dark strip) | De ingangstrap in of uit |
+| **MIC** | Drive: voegt warmte en niveau toe (getoond als percentage). Het groene lampje ernaast brandt zolang de bron signaal heeft |
+| **PRE** | De ingangstrap in of uit (uit: trim, polariteit en drive worden overgeslagen) |
+| **WIDTH** | Stereobreedte: 0 % mono, 100 % zoals het is, 200 % twee keer zo breed. Vaag op een monokanaal |
 
 <a id="dynamics"></a>
 
@@ -1100,9 +1090,9 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 
 ### 17.1 Jezelf horen: een microfoon instellen
 
-1. **ADD CHANNEL** > je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt met een Dark
-   strip.
-2. Spreek en stel **in trim** zo in dat de niveaubalken pieken rond -12 tot -6 dB.
+1. **ADD CHANNEL** > je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt als een nieuwe
+   kanaalstrip.
+2. Spreek en stel **IN TRIM** zo in dat de niveaubalken pieken rond -12 tot -6 dB.
 3. Routeer hem: klik op het routeringsvakje voor de uitgang van je koptelefoon (of gebruik de pagina Routing).
 4. Maak hem schoon: **hp** om gerommel weg te halen (rond 80–100 Hz), dan de gate en compressor (**IN**
    op DYNAMICS), dan EQ.
@@ -1372,7 +1362,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Bij het starten opzijgezette mixen |
 | `settings.xml` | Voorkeuren |
 | `looks\` | De LOOKS, elk één JSON-bestand (zie [LOOKS](#looks)) |
-| `console.xml` | Striptypen, spacers, keuzes bij SELECT en METER |
+| `console.xml` | Spacers, keuzes bij SELECT en METER |
 | `plugins.xml` | De gevonden plugins en hoe elk is getest |
 | `events.log` | Alles wat er is gebeurd (roteert bij 5 MB) |
 | `status.txt` | Een momentopname van de engine om de paar seconden: apparaten, niveaus, buffers, drift |

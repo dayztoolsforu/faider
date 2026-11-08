@@ -817,7 +817,7 @@ public:
         if (x0 > clip.getRight() || x0 + (layout.width + 2.0f) * zoom < clip.getX())
             return;   // (off the area being drawn: the meters redraw one strip at a time)
         float y0 = 40.0f;
-        light = ! isDark (ch);   // (the light strip, or the dark one)
+        light = ! darkPanel (ch);   // (the light strip, or an output's or combinator's dark one)
         for (auto& s : layoutFor (ch).sections)
         {
             const auto at = juce::AffineTransform::scale (zoom).translated (x0, y0);
@@ -1315,22 +1315,11 @@ private:
     // console.xml in the app's folder.
     struct Spacer { juce::String after; bool narrow = false; };
 
-    // STRIP TYPES: each strip the light strip or the dark one, chosen in its menu;
-    // one never chosen is dark when it's a microphone (an interface input or a recording device)
-    // or a bus.
-    std::map<juce::String, bool> darkChosen;
-    bool isDark (int ch) const
+    // ONE CHANNEL STRIP: every channel and bus has the light strip (its INPUT carries the mic drive
+    // and the input switch too). Outputs and combinators keep their dark panel.
+    bool darkPanel (int ch) const
     {
-        if (const auto it = darkChosen.find (stripKey (ch)); it != darkChosen.end())
-            return it->second;
-        if (! live())
-            return ch % 3 != 2;   // (the bench: both kinds)
-        if (bind.isMaster (ch) || bind.isBus (ch))
-            return true;   // (outputs and buses: the dark panel, wherever they stand)
-        if (auto* s = bind.strip (ch))
-            return s->source.kind == AudioEngine::Source::interfaceInputs
-                   || (s->source.kind == AudioEngine::Source::device && s->source.deviceName != AudioEngine::windowsDefault);
-        return false;
+        return live() && (bind.isMaster (ch) || isCombinator (ch));
     }
     const Layout& layoutFor (int ch) const
     {
@@ -1341,7 +1330,7 @@ private:
             if (s->source.kind == AudioEngine::Source::pads) return padsLayout;
             if (s->source.kind == AudioEngine::Source::tape) return tapeLayout;
         }
-        return isApp (ch) ? appLayout : isDark (ch) ? darkLayout : layout;
+        return isApp (ch) ? appLayout : layout;
     }
     // AN APP OR A TOOL (the pads, the tape): raw audio plumbed in, so a strip of its own (routing, a
     // tool's controls, plugins, fader) with no built-in effects.
@@ -1481,7 +1470,6 @@ private:
     void loadSpacers()
     {
         spacers.clear();
-        darkChosen.clear();
         if (auto xml = juce::XmlDocument::parse (spacerFile()))
         {
             autoSelect = xml->getBoolAttribute ("autoSelect", true);
@@ -1489,8 +1477,8 @@ private:
             bind.meterIn = xml->getBoolAttribute ("meterIn", false);
             for (auto* e : xml->getChildWithTagNameIterator ("Spacer"))
                 spacers.push_back ({ e->getStringAttribute ("after"), e->getBoolAttribute ("narrow") });
-            for (auto* e : xml->getChildWithTagNameIterator ("Strip"))
-                darkChosen[e->getStringAttribute ("key")] = e->getStringAttribute ("type") == "dark";
+            // (the <Strip> entries earlier versions kept, each strip's Light or Dark type, are ignored:
+            // there is one channel strip now, and the next save leaves them out)
         }
     }
     void saveSpacers() const
@@ -1504,12 +1492,6 @@ private:
             auto* e = xml.createNewChildElement ("Spacer");
             e->setAttribute ("after", sp.after);
             e->setAttribute ("narrow", sp.narrow);
-        }
-        for (auto& [key, dark] : darkChosen)
-        {
-            auto* e = xml.createNewChildElement ("Strip");
-            e->setAttribute ("key", key);
-            e->setAttribute ("type", dark ? "dark" : "light");
         }
         xml.writeTo (spacerFile());
     }
@@ -1664,7 +1646,7 @@ private:
             shownParts.assign ((size_t) channels, {});
             shownStrips.assign ((size_t) channels, -1);
         }
-        const juce::int64 whole = (bind.isOn (ch, "power", true) ? 1 : 0) | (ch == selected ? 2 : 0) | (isDark (ch) ? 4 : 0)
+        const juce::int64 whole = (bind.isOn (ch, "power", true) ? 1 : 0) | (ch == selected ? 2 : 0) | (darkPanel (ch) ? 4 : 0)
                                 | ((juce::int64) channelColour (ch).getARGB() << 3)
                                 | ((juce::int64) Theme::generation() << 35);   // (a new look: all of it again)
         const bool all = std::exchange (shownStrips[(size_t) ch], whole) != whole;
@@ -2200,19 +2182,13 @@ private:
     bool locked (int ch) const { return live() && ! bind.isOn (ch, "power", true); }
 
 public:
-    // A channel, bus or output renamed, from either view: its spacers stay beside it and a
-    // channel keeps its strip type.
+    // A channel, bus or output renamed, from either view: its spacers stay beside it.
     void followRename (const juce::String& kind, const juce::String& oldName, const juce::String& newName)
     {
         const auto from = kind + ":" + oldName, to = kind + ":" + newName;
         for (auto& sp : spacers)
             if (sp.after == from)
                 sp.after = to;
-        if (const auto it = darkChosen.find (from); it != darkChosen.end())
-        {
-            darkChosen[to] = it->second;
-            darkChosen.erase (from);
-        }
         saveSpacers();
         resizeToFit();
         repaint();
@@ -2369,12 +2345,6 @@ private:
                 en.refreshDevices();
             });
         menu.addSeparator();
-        {
-            juce::PopupMenu type;
-            type.addItem ("Light strip", true, ! isDark (ch), [this, ch] { darkChosen[stripKey (ch)] = false; saveSpacers(); repaint(); });
-            type.addItem ("Dark strip", true, isDark (ch), [this, ch] { darkChosen[stripKey (ch)] = true; saveSpacers(); repaint(); });
-            menu.addSubMenu ("Strip type", type);
-        }
         MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
         if (bus && s->combinator && mixer != nullptr)   // A COMBINATOR: its paths, each with its plugins
         {
@@ -2899,7 +2869,6 @@ private:
     void reload()
     {
         layout = load (file);
-        darkLayout = load (file.getSiblingFile ("mixer-dark.json"));
         masterLayout = load (file.getSiblingFile ("master.json"));
         appLayout = load (file.getSiblingFile ("app.json"));
         if (! appLayout.error.isEmpty() || appLayout.sections.size() != layout.sections.size())
@@ -2915,8 +2884,6 @@ private:
             tapeLayout = appLayout;
         if (! masterLayout.error.isEmpty() || masterLayout.sections.size() != layout.sections.size())
             masterLayout = layout;
-        if (! darkLayout.error.isEmpty() || darkLayout.sections.size() != layout.sections.size())
-            darkLayout = layout;   // (no dark layout: every strip light)
         shown = file.getLastModificationTime();
         resizeToFit();
         repaint();
@@ -2959,7 +2926,7 @@ private:
     }
 
     juce::File file;
-    Layout darkLayout, masterLayout, appLayout, padsLayout, tapeLayout, combinatorLayout;
+    Layout masterLayout, appLayout, padsLayout, tapeLayout, combinatorLayout;
     int padBank = 0;   // (the pads' bank shown: A to D)
     juce::Time shown;
     Layout layout;

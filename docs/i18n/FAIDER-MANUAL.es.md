@@ -446,7 +446,7 @@ secciones, de arriba abajo:
 | Sección | Contiene |
 |---|---|
 | **HEADER** | Las barras de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip |
-| **INPUT** | Trim, polaridad (y en el Dark strip, el drive del micro y el conmutador de entrada) |
+| **INPUT** | Trim, polaridad, drive del micro, el conmutador de entrada y anchura estéreo |
 | **DYNAMICS** | Compresor y gate |
 | **FILTERS** | Paso bajo y paso alto |
 | **EQ** | Cuatro bandas |
@@ -494,16 +494,6 @@ puede cambiar nada en él**: las perillas, las teclas y el panel de plugins igno
 menú solo ofrece **Turn on** y separadores. Haz clic otra vez en el símbolo de encendido para
 recuperarlo.
 
-<a id="strip-types"></a>
-
-### Tipos de strip
-
-Cada canal puede usar el **Light strip** o el **Dark strip**: clic derecho > **Strip type** >
-**Light strip** / **Dark strip**. Las entradas de la interfaz, los dispositivos de grabación
-(micrófonos) y los buses empiezan oscuros. Todo lo demás empieza claro. El Dark strip añade el
-**drive** del micro y el conmutador de entrada, y quita el ataque rápido del compresor y el hold
-del gate. Tu elección se recuerda para cada canal.
-
 <a id="spacers"></a>
 
 ### Separadores
@@ -523,7 +513,6 @@ mueve.
 | **Route to** | Cada bus y cada dispositivo de salida, marcado donde se envía |
 | **Plugins** | Abrir uno, **Add plugin...**, **Remove** |
 | **Make mono / Make stereo** | Solo canales |
-| **Strip type** | **Light strip** o **Dark strip** |
 | **Colour** | El color del canal, que se muestra a lo largo de su barra de nombre y en su bloque de Routing |
 | **Add spacer before / after** | |
 | **Rename...** | |
@@ -559,11 +548,11 @@ mueve.
 
 | Control | |
 |---|---|
-| **in trim** | Ganancia de entrada |
+| **IN TRIM** | Ganancia de entrada |
 | **ø** | Inversión de polaridad |
-| **WIDTH** (Light strip) | Anchura estéreo: 0 % mono, 100 % tal cual, 200 % el doble de ancho. Atenuado en un canal mono |
-| **mic** (Dark strip) | Drive: añade calidez y nivel (se muestra como porcentaje) |
-| **pre** (Dark strip) | La etapa de entrada dentro o fuera |
+| **MIC** | Drive: añade calidez y nivel (se muestra como porcentaje). El LED verde a su lado se enciende mientras la fuente tiene señal |
+| **PRE** | La etapa de entrada dentro o fuera (fuera: el trim, la polaridad y el drive quedan en bypass) |
+| **WIDTH** | Anchura estéreo: 0 % mono, 100 % tal cual, 200 % el doble de ancho. Atenuado en un canal mono |
 
 <a id="dynamics"></a>
 
@@ -1135,8 +1124,8 @@ apagado) piden permiso por sí mismos.
 ### 17.1 Oírte: configurar un micrófono
 
 1. **ADD CHANNEL** > la entrada de tu interfaz (o un dispositivo de grabación de Windows). Aparece
-   con un Dark strip.
-2. Habla, y ajusta **in trim** para que las barras de nivel lleguen a unos -12 a -6 dB.
+   como un nuevo strip de canal.
+2. Habla, y ajusta **IN TRIM** para que las barras de nivel lleguen a unos -12 a -6 dB.
 3. Enrútalo: haz clic en la casilla de enrutamiento de la salida de tus auriculares (o usa la página
    Routing).
 4. Límpialo: **hp** para quitar los retumbos (hacia 80–100 Hz), luego el gate y el compresor
@@ -1420,7 +1409,7 @@ En `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mezclas apartadas al iniciar |
 | `settings.xml` | Preferencias |
 | `looks\` | Los LOOKS: un archivo JSON cada uno (ver [LOOKS](#looks)) |
-| `console.xml` | Tipos de strip, separadores, opciones de SELECT y METER |
+| `console.xml` | Separadores, opciones de SELECT y METER |
 | `plugins.xml` | Los plugins encontrados y cómo salió la prueba de cada uno |
 | `events.log` | Todo lo que ha pasado (rota a los 5 MB) |
 | `status.txt` | Una instantánea del motor cada pocos segundos: dispositivos, niveles, búferes, deriva |

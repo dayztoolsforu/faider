@@ -65,6 +65,10 @@ public:
     // A newer Faider found (CHECK FOR UPDATES), for the tray menu: "Get Faider 0.1.6...".
     void addUpdateItems (juce::PopupMenu&);
 
+    // SAVE A PROBLEM REPORT (the tray menu, FIND): the logs, the last crash and the versions in a
+    // .zip saved where the user picks, then shown in Explorer. Nothing is sent anywhere.
+    void saveProblemReport();
+
 private:
     int getNumRows() override;
     void paintListBoxItem (int row, juce::Graphics&, int width, int height, bool selected) override;

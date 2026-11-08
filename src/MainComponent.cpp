@@ -698,6 +698,7 @@ void MainComponent::openCommandPalette()
     add ("ZOOM OUT", "Ctrl -", [this] { stepZoom (-1); });
     add ("ZOOM 100%", "Ctrl 0", [this] { setZoom (1.0f); });
     add (juce::String ("ABOUT ") + Product::nameUpper, "Version, credits", [] { AboutBox::show(); });
+    add ("SAVE A PROBLEM REPORT", "The logs and the last crash in a .zip you can send (nothing is sent by itself)", [this] { saveProblemReport(); });
     add ("CHECK FOR UPDATES NOW", "Ask GitHub for the newest version (one request: the app's name and version)", [this] { checkForUpdates (true); });
     if (newVersion.isNotEmpty())
         add ("GET " + juce::String (Product::nameUpper) + " " + newVersion, "Open its release page", [this] { openRelease(); });
@@ -1931,6 +1932,48 @@ void MainComponent::restoreSession (const juce::File& version, const juce::Strin
         relaunch.start ("\"" + exe + "\" --after " + juce::String (thisProcessId()), 0);
         juce::JUCEApplication::getInstance()->systemRequestedQuit();
     }));
+}
+
+// SAVE A PROBLEM REPORT: what's there of the event log, the status snapshot and the last crash,
+// with the versions, zipped where the user says (the desktop to start). Only saved, never sent.
+void MainComponent::saveProblemReport()
+{
+    const auto name = juce::String (Product::name) + " problem report " + juce::Time::getCurrentTime().formatted ("%Y-%m-%d") + ".zip";
+    chooser = std::make_unique<juce::FileChooser> ("Save a problem report", juce::File::getSpecialLocation (juce::File::userDesktopDirectory).getChildFile (name), "*.zip");
+    chooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting, [this] (const juce::FileChooser& fc)
+    {
+        if (fc.getResult() == juce::File())
+            return;
+        const auto file = fc.getResult().withFileExtension ("zip");
+
+        juce::ZipFile::Builder zip;
+        juce::StringArray included;
+        for (auto* n : { "events.log", "events.old.log", "status.txt", "crash.log", "crash.old.log", "crash.dmp" })
+            if (const auto f = dataDir.getChildFile (n); f.existsAsFile())
+            {
+                zip.addFile (f, 9, n);
+                included.add (n);
+            }
+        const auto about = juce::String (Product::name) + " " + JUCE_APPLICATION_VERSION_STRING + "\n"
+                         + juce::SystemStats::getOperatingSystemName() + (juce::SystemStats::isOperatingSystem64Bit() ? " (64-bit)" : "") + "\n"
+                         + "Made " + juce::Time::getCurrentTime().toString (true, true) + "\n";
+        zip.addEntry (new juce::MemoryInputStream (about.toRawUTF8(), about.getNumBytesAsUTF8(), true), 9, "versions.txt", juce::Time::getCurrentTime());
+
+        bool written = false;
+        {
+            file.deleteFile();
+            juce::FileOutputStream out (file);
+            written = out.openedOk() && zip.writeToStream (out, nullptr);
+        }
+        if (! written)
+        {
+            logEvent ("problem report: couldn't write " + file.getFullPathName());
+            toasts.show ("device", "Problem report", "Couldn't write " + file.getFileName());
+            return;
+        }
+        logEvent ("problem report: saved as " + file.getFullPathName() + " (" + (included.isEmpty() ? juce::String ("versions only") : included.joinIntoString (", ") + ", versions") + ")");
+        file.revealToUser();
+    });
 }
 
 // FFMPEG: ffmpeg.exe picked (it's used before the PATH's). With one picked, a menu also offers to

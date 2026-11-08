@@ -472,6 +472,8 @@ private:
                 menu.addSeparator();
             }
             menu.addItem ("Start with Windows", true, StartWithWindows::isOn(), [] { StartWithWindows::set (! StartWithWindows::isOn()); });
+            if (auto* content = dynamic_cast<MainComponent*> (window.getContentComponent()))
+                menu.addItem ("Save a problem report...", [content] { content->saveProblemReport(); });
             menu.addItem ("About " + juce::String (Product::name) + "...", [] { AboutBox::show(); });
             menu.addSeparator();
             menu.addItem ("Quit " + juce::String (Product::name), [] { JUCEApplication::getInstance()->systemRequestedQuit(); });

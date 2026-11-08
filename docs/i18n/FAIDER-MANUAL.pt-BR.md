@@ -2,7 +2,7 @@
 
 [English](../FAIDER-MANUAL.md)
 
-**Versão 0.1 · Windows 10 (2004) ou posterior**
+**Versão {version} · Windows 10 (2004) ou posterior**
 
 O Faider é um roteador de áudio e mixer ao vivo para Windows, construído em torno de um
 console de grande formato. Ele pega o som da sua interface de áudio, dos seus dispositivos do

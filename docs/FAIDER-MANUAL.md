@@ -1,6 +1,6 @@
 # Faider User Manual
 
-**Version 0.1 · Windows 10 (2004) or later**
+**Version {version} · Windows 10 (2004) or later**
 
 Faider is a live audio router and mixer for Windows, built around a large-format console.
 It takes sound from your audio interface, your Windows devices and individual programs, runs it

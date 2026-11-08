@@ -153,6 +153,8 @@ when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 The website is the `docs` folder, published by GitHub Pages. It is one page, `docs/index.html`, built
 from `tools/manual-page` (the home view), the manual and its translations, and CREDITS.md: after
 changing any of them, run `pip install markdown` once, then `python tools/manual-page/build.py`.
+The manuals say `{version}` where the page shows the version in `CMakeLists.txt`, so run it after
+changing the version too.
 
 ### First run
 

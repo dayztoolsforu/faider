@@ -2,7 +2,7 @@
 
 [English](../FAIDER-MANUAL.md)
 
-**Version 0.1 · Windows 10 (2004) ou version ultérieure**
+**Version {version} · Windows 10 (2004) ou version ultérieure**
 
 Faider est un routeur audio et une table de mixage en direct pour Windows, construits
 autour d'une grande console. Il prend le son de votre interface audio, de vos périphériques Windows

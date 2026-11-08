@@ -2,7 +2,7 @@
 
 [English](../FAIDER-MANUAL.md)
 
-**Versión 0.1 · Windows 10 (2004) o posterior**
+**Versión {version} · Windows 10 (2004) o posterior**
 
 Faider es un enrutador de audio y mezclador en directo para Windows, construido en torno a
 una consola de gran formato. Toma el sonido de tu interfaz de audio, de tus dispositivos de Windows

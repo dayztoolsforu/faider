@@ -2,7 +2,7 @@
 
 [English](../FAIDER-MANUAL.md)
 
-**Versie 0.1 · Windows 10 (2004) of later**
+**Versie {version} · Windows 10 (2004) of later**
 
 Faider is een live audiorouter en mixer voor Windows, opgebouwd rond een grote mengtafel.
 Het haalt geluid van je audio-interface, je Windows-apparaten en afzonderlijke programma's, stuurt het

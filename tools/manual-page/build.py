@@ -15,6 +15,8 @@ import markdown
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs"
 problems = []   # what's wrong, printed as found; any makes the build fail
+# The project's version (CMakeLists.txt: project(... VERSION x.y.z ...)), put where a manual says {version}
+VERSION = re.search(r"project\s*\(\s*\w+\s+VERSION\s+([\d.]+)", (ROOT / "CMakeLists.txt").read_text(encoding="utf-8")).group(1)
 
 
 def problem(text):
@@ -89,6 +91,7 @@ def flow(mermaid):
 
 
 def convert(text):
+    text = text.replace("{version}", VERSION)
     # (the translations' English anchors and their link back to English aren't needed here)
     text = re.sub(r'^<a id="[^"]*"></a>\s*$\n?', "", text, flags=re.M)
     text = re.sub(r"^\[English\]\([^)]*\)\s*$\n?", "", text, flags=re.M)

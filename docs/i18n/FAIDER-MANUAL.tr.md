@@ -2,7 +2,7 @@
 
 [English](../FAIDER-MANUAL.md)
 
-**Sürüm 0.1 · Windows 10 (2004) veya üstü**
+**Sürüm {version} · Windows 10 (2004) veya üstü**
 
 Faider, büyük bir konsol etrafında kurulmuş, Windows için canlı bir ses yönlendiricisi ve
 mikserdir. Sesi ses arabiriminden, Windows aygıtlarından ve tek tek programlardan alır, kanal

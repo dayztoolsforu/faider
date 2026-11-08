@@ -610,6 +610,13 @@ public:
         return side == 0 ? -12.0f : -15.0f;
     }
 
+    // DUCK UNDER: dipped now by more than a dB under the input it ducks under.
+    bool ducked (int ch) const
+    {
+        auto* s = master (ch) == nullptr ? strip (ch) : nullptr;
+        return s != nullptr && s->duckGain.load() < juce::Decibels::decibelsToGain (-1.0f);
+    }
+
     // The fader's scale, as printed beside it: 12, 6, 0, 5, 10, 20, 30, 40, 50 evenly down, then off.
     static float faderGain (float pos)
     {
@@ -2368,6 +2375,29 @@ private:
                 noise.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (depth - db) < 0.5f, [set, db] { set ("nrDepth", db); });
             menu.addSubMenu ("NOISE", noise);
         }
+        if (bus || s->source.kind != AudioEngine::Source::app)   // DUCK UNDER: dips while another input is heard (not an app: it plays as it comes)
+        {
+            auto duck = [this, again] (std::function<void (AudioEngine::Strip&)> change)
+            {
+                if (auto* st = again())
+                {
+                    change (*st);
+                    engine->refreshDucking();
+                }
+                repaint();
+            };
+            juce::PopupMenu under;
+            under.addItem ("NONE", true, s->duckBy.isEmpty(), [duck] { duck ([] (AudioEngine::Strip& st) { st.duckBy = {}; }); });
+            under.addSeparator();
+            for (auto& other : e.getStrips())
+                if (other.get() != s)
+                    under.addItem (other->name, true, other->name == s->duckBy, [duck, name = other->name] { duck ([name] (AudioEngine::Strip& st) { st.duckBy = name; }); });
+            under.addSectionHeader ("DEPTH");
+            for (float db : { -6.0f, -12.0f, -18.0f, -24.0f })
+                under.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (s->duckDepth.load() - db) < 0.5f,
+                               [duck, db] { duck ([db] (AudioEngine::Strip& st) { st.duckDepth = db; }); });
+            menu.addSubMenu ("DUCK UNDER", under, true, nullptr, s->duckBy.isNotEmpty());
+        }
         menu.addSeparator();
         MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
         if (bus && s->combinator && mixer != nullptr)   // A COMBINATOR: its paths, each with its plugins
@@ -2736,8 +2766,9 @@ private:
         }
         else if (item.kind == "lamp")
         {
-            // A small LED that lights while the channel's source has signal.
-            LargeFormat::led (g, r.getCentre(), bind.levelDb (ch, 0) > -40.0f, named (item.colour), r.getWidth() * 0.7f);
+            // A small LED that lights while the channel's source has signal (DUCK: while it's ducked).
+            const bool on = item.id == "duck" ? bind.ducked (ch) : bind.levelDb (ch, 0) > -40.0f;
+            LargeFormat::led (g, r.getCentre(), on, named (item.colour), r.getWidth() * 0.7f);
         }
         else if (item.kind == "screen")
         {

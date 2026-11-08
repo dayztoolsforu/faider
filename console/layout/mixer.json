@@ -1188,6 +1188,25 @@
      "align": "left"
     },
     {
+     "kind": "lamp",
+     "x": 29.8,
+     "y": 488.0,
+     "w": 16.8,
+     "h": 16.8,
+     "id": "duck",
+     "colour": "amber"
+    },
+    {
+     "kind": "label",
+     "x": 61.1,
+     "y": 483.4,
+     "w": 61.1,
+     "h": 26.0,
+     "text": "DUCK",
+     "size": 12,
+     "align": "left"
+    },
+    {
      "kind": "screen",
      "x": 22.9,
      "y": 525.1,

@@ -54,7 +54,7 @@ i mówi, co zrobić, gdy coś nie działa.
 | **Interfejs audio** | Opcjonalny. Z zainstalowanym sterownikiem ASIO Faider pracuje na zegarze interfejsu, co daje najmniejsze opóźnienie. Bez niego pracuje na twoim urządzeniu odtwarzającym Windows albo na wbudowanym zegarze (zobacz [Zegar](#clocking)) |
 | **Słuchawki** | Podłączone do interfejsu (lub do dowolnego urządzenia odtwarzającego Windows), żeby było słychać twój miks |
 | **VB-CABLE** | Opcjonalny i darmowy (vb-audio.com/Cable). Wirtualny mikrofon, dzięki któremu aplikacje takie jak Discord, gry i OBS słyszą twój miks |
-| **ffmpeg** | Opcjonalny. Gdy `ffmpeg.exe` jest w PATH, rejestrator zapisuje też MP3, AAC, Opus i ALAC |
+| **ffmpeg** | Opcjonalny. Gdy `ffmpeg.exe` jest w PATH albo wybrany w **SETTINGS > GENERAL > FFMPEG**, rejestrator zapisuje też MP3, AAC, Opus i ALAC |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -112,9 +112,14 @@ miksować tylko do własnych słuchawek.
 > **Windows przełącza twój dźwięk na kabel.** Instalacja wirtualnego kabla często robi z niego
 > urządzenie domyślne Windows: **CABLE Input** jako głośniki i **CABLE Output** jako mikrofon.
 > Wtedy nie słyszysz nic z Windows, a aplikacje używające domyślnego mikrofonu słyszą kabel.
-> Przełącz oba z powrotem zaraz po instalacji.
+> Przełącz oba z powrotem zaraz po instalacji. Faider może to zrobić za ciebie.
 
-**Przywróć swoje urządzenia:**
+**Przywróć swoje urządzenia przez Faider:** kliknij **SET MY DEFAULTS**: na stronie **APPS HEAR YOU**
+w SETUP (krok 4), w wierszu **WINDOWS DEFAULTS** w PRE-FLIGHT albo **WINDOWS DEFAULTS** w FIND. Wylicza
+twoje prawdziwe głośniki i mikrofony. Wybierz słuchawki lub głośniki, potem kliknij go ponownie i
+wybierz mikrofon. Każde staje się domyślnym urządzeniem Windows i jego domyślnym urządzeniem do rozmów.
+
+**Albo przywróć je w Windows:**
 
 1. Otwórz **Ustawienia > System > Dźwięk** (albo kliknij prawym przyciskiem ikonę głośnika na pasku
    zadań > **Ustawienia dźwięku**).
@@ -130,7 +135,7 @@ głośności i wybierz swoje urządzenie.
 
 Zostaw swoje prawdziwe urządzenia jako domyślne w Windows. Faider gra do kabla tylko tam,
 gdzie go skierujesz, a każda aplikacja sama wybiera **CABLE Output** jako mikrofon (krok 6). Jeśli
-domyślnym głośnikiem Windows jest kabel, PRE-FLIGHT zgłosi to w **HEARD ONCE**.
+którymkolwiek z domyślnych urządzeń Windows jest kabel, PRE-FLIGHT zgłosi to w **WINDOWS DEFAULTS**.
 
 <a id="step-3-start-faider"></a>
 
@@ -153,7 +158,8 @@ dalej, **BACK** wraca.
 2. **MICROPHONES**: wybierz mikrofony, do których mówisz. To wejścia twojego interfejsu
    (**IN 1**, **IN 2** …) i urządzenia nagrywające Windows.
 3. **APPS HEAR YOU**: wybierz wirtualny kabel, którego aplikacje używają jako mikrofonu
-   (**CABLE Input**, po kroku 2), albo **NOT NOW**.
+   (**CABLE Input**, po kroku 2), albo **NOT NOW**. Dopóki Windows nadal gra lub nagrywa przez kabel,
+   **SET MY DEFAULTS** na dole przywraca twoje prawdziwe głośniki i mikrofon (krok 2).
 4. **PROGRAMS**: wybierz programy, które teraz grają i które chcesz mieć na konsoli.
 5. Kliknij **BUILD THE MIX**. **DONE** wylicza, co powstało.
 6. Kliknij **OPEN THE MIXER**, żeby to zobaczyć.
@@ -215,8 +221,8 @@ Jeśli słyszysz program dwa razy, zobacz [18.7](#187-i-hear-something-twice-or-
 
 **+ CHANNEL** i **+ APP** dodają kanały. **+ OUTPUT** dodaje wyjście na urządzeniu, które go nie ma.
 Klawisz urządzenia pod nazwą wyjścia zmienia, gdzie ono gra. Kliknij nazwę prawym przyciskiem, żeby
-dostać **RENAME...**, kolor i **REMOVE**. Usunięcie kanału programu usuwa też jego regułę aplikacji,
-więc kanał nie wraca sam.
+dostać **RENAME...**, kolor, **HEADPHONE EQ** (wyjście), **IN THE MINI MIXER** i **REMOVE**. Usunięcie
+kanału programu usuwa też jego regułę aplikacji, więc kanał nie wraca sam.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -419,6 +425,12 @@ następny zegar przejmuje to sam, a komunikat mówi który. Urządzenie, które 
 (bo zajmuje je inny program), jest pomijane, dopóki twoje urządzenia się nie zmienią, a potem
 próbowane ponownie. Na zegarze wbudowanym podłączone urządzenie odtwarzające przejmuje od niego zegar.
 
+Żeby samemu wybrać zegar, użyj **CLOCK** u góry **DEVICES**: **THE INTERFACE (ASIO)** (kolejność
+powyżej, domyślnie), **A WINDOWS PLAYBACK DEVICE** według nazwy albo **THE BUILT-IN CLOCK**. Wybór
+działa od następnego uruchomienia Faidera, a **RESTART NOW** robi to od razu. Twój miks idzie razem
+z tobą i pozostaje zapisany dla twojego interfejsu. Gdy wybierzesz zegar wbudowany, żadne urządzenie
+go nie przejmuje.
+
 <a id="5-the-console"></a>
 
 ## 5. Konsola
@@ -435,10 +447,10 @@ nazwy), potem **wyjścia** (bursztynowy pasek nazwy). Każdy pasek ma siedem sek
 | **HEADER** | Słupki poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska |
 | **INPUT** | Trim, polaryzacja, drive mikrofonu, przełącznik wejścia i szerokość stereo |
 | **DYNAMICS** | Kompresor i bramka |
-| **FILTERS** | Filtr dolnoprzepustowy i górnoprzepustowy |
+| **FILTERS** | Filtr dolnoprzepustowy, górnoprzepustowy i przełącznik NOISE |
 | **EQ** | Cztery pasma |
 | **NAME** | Pasek nazwy i przełącznik zasilania |
-| **FADER** | Pan, SOLO, CUT, SEL, fader i jego odczyt |
+| **FADER** | Pan, SOLO, CUT, SEL, fader i jego odczyt, kontrolka DUCK |
 
 <a id="mouse-and-keyboard"></a>
 
@@ -496,7 +508,10 @@ BEFORE** / **ADD SPACER AFTER**. Prawy przycisk na odstępie daje **NARROW**, **
 | **ROUTE TO** | Każdy bus i urządzenie wyjściowe, z zaznaczeniem tam, gdzie jest wysyłany |
 | **PLUGINS** | Otwórz jedną, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Tylko kanały |
+| **NOISE** | Redukcja szumów: **ON** (jak przełącznik NOISE na pasku), **NEURAL** lub **SPECTRAL** oraz jej **DEPTH** (-6 do -30 dB) |
+| **DUCK UNDER** | Inny kanał, pod który ten kanał się przycisza, gdy tamten jest słyszalny, albo **NONE**, oraz o ile się przycisza (**DEPTH**, -6 do -24 dB). Nie na kanale aplikacji |
 | **COLOUR** | Kolor kanału, widoczny wzdłuż jego paska nazwy i na jego bloku w Routing |
+| **IN THE MINI MIXER** | Zaznaczone: pasek ma fader w mini mikserze (zobacz [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
 | **RENAME...** | |
 | **REMOVE** | Usuwa kanał lub bus |
@@ -576,6 +591,11 @@ przed włączeniem.
 **lp** (dolnoprzepustowy) i **hp** (górnoprzepustowy). Przekręcony do końca w dół, filtr
 górnoprzepustowy jest wyłączony. Przekręcony do końca w górę, wyłączony jest dolnoprzepustowy.
 
+**NOISE** włącza lub wyłącza redukcję szumów: syczenie, przydźwięk i szum pomieszczenia są ściszane,
+a głos zostaje. Prawy przycisk na pasku > **NOISE** daje **NEURAL** (domyślnie, przy 48 kHz; przy
+innych częstotliwościach działa jako SPECTRAL) lub **SPECTRAL** oraz to, jak głęboko działa.
+Wyłączona nic nie kosztuje.
+
 <a id="eq"></a>
 
 ### EQ
@@ -606,6 +626,7 @@ Przełącznik **EQ IN** włącza lub wyłącza cały EQ (tak samo jak klawisz EQ
 | **Fader** | Poziom, od +12 dB do wyłączenia. Odczyt poniżej pokazuje poziom w dB |
 | **safe** | Solo safe: ten kanał pozostaje słyszalny, gdy inne są w solo |
 | **listen** | Odsłuch sygnału klucza dynamiki |
+| **duck** | Świeci, gdy kanał jest przyciszony pod innym (prawy przycisk > **DUCK UNDER**) |
 
 ### Efekty głosowe
 
@@ -669,7 +690,10 @@ Każde wyjście ma własny ciemny pasek:
 | **MIX EQ** | Przełącznik In, gain i freq HF, gain i freq LF |
 | **CUT**, **SEL**, fader | Tak jak na kanale |
 
-Prawy przycisk na wyjściu daje **DEVICE...**, odstępy, **RENAME...** i **REMOVE**.
+Prawy przycisk na wyjściu daje **DEVICE...**, **HEADPHONE EQ** (korekcja słuchawek: **NONE** albo
+twój model, według marki), **ALERT IF SILENT** (10 sekund poniżej -60 dBFS) i **ALERT IF CLIPPING**
+(gdy LIMIT jest wyłączony), które migają ikoną w zasobniku i zapisują do dziennika zdarzeń,
+**IN THE MINI MIXER**, odstępy, **RENAME...** i **REMOVE**.
 
 Wyjścia tworzą się same, po jednym na urządzenie (zobacz [Wyjścia to urządzenia](#outputs-are-devices)).
 
@@ -695,7 +719,8 @@ automatyczną kompensacją opóźnienia.
   Kliknij wtyczkę ścieżki na pasku kombinatora, żeby ją otworzyć.
 
 Każda wtyczka jest **najpierw testowana w osobnej kopii programu**, więc wtyczka, która się
-wysypuje lub zawiesza podczas ładowania, nie położy twojego miksu. Wynik jest zapamiętywany, dopóki
+wysypuje lub zawiesza podczas ładowania, nie położy twojego miksu. Ma 30 sekund na załadowanie (**PLUGIN TEST TIME** w
+SETTINGS > GENERAL daje wolnym wtyczkom 60 lub 120). Wynik jest zapamiętywany, dopóki
 plik wtyczki się nie zmieni.
 
 <a id="the-plugin-panel"></a>
@@ -866,6 +891,7 @@ Transport na górnym pasku i pasek tape na konsoli sterują tym samym deckiem.
 
 Nagrania trafiają do `Music\Faider Recordings`, chyba że wybierzesz folder. Formaty ffmpeg
 najpierw nagrywają WAV i konwertują go po zatrzymaniu (WAV zostaje, jeśli konwersja się nie uda).
+Faider używa `ffmpeg.exe` wybranego w **SETTINGS > GENERAL > FFMPEG**, a w przeciwnym razie tego z PATH.
 Nagrywanie zatrzymuje się samo, gdy zostaje mniej niż 1 GB wolnego miejsca.
 
 <a id="instant-replay"></a>
@@ -882,7 +908,25 @@ Przy wybranym trybie wielościeżkowym replay używa pierwszego wyjścia.
 
 ## 13. Urządzenia
 
-**DEVICES** wylicza każde urządzenie audio Windows i każdy sterownik ASIO.
+**DEVICES** wylicza każde urządzenie audio Windows i każdy sterownik ASIO. **CLOCK** u góry pokazuje,
+co teraz ustawia zegar, a jego klawisz go wybiera (zobacz [Zegar](#clocking)).
+
+**WINDOWS AUDIO**, pod nim, pokazuje priorytet silnika audio Windows (audiodg.exe, który obsługuje
+każde urządzenie Windows i każdą przechwyconą aplikację): **NORMAL** to ustawienie domyślne Windows,
+**UNKNOWN**, jeśli nie da się go odczytać. Jego klawisz, **BOOST WINDOWS AUDIO** (**BOOSTED**, gdy
+jest na High), otwiera menu:
+
+- **BOOST (HIGH PRIORITY)** podnosi go do High, co na niektórych komputerach może usunąć trzaski na
+  urządzeniach Windows i przechwyconych aplikacjach. Wymaga uprawnień administratora, więc Windows
+  najpierw pyta; odmowa niczego nie zmienia. Nie przetrwa restartu audio Windows ani komputera: Faider
+  to obserwuje, raz powiadamia cię z zasobnika, gdy wróci do Normal, a **Boost Windows audio again...**
+  w menu zasobnika (albo BOOST tutaj, albo **BOOST WINDOWS AUDIO** w FIND) podnosi go ponownie.
+  Kliknięcie BOOST, gdy jest podniesiony, kończy obserwowanie; zostaje na High do restartu audio Windows.
+- **PIN TO ONE CORE** (wyłączone, chyba że to wybierzesz) dodatkowo przypina go do ostatniego rdzenia
+  procesora, od następnego BOOST. Tylko ogranicza, gdzie działa, nigdy nie dodaje rdzeni: używaj go
+  tylko przy trzaskach na zestawie słuchawkowym USB.
+
+Nie ma wpływu na interfejsy ASIO, które nie przechodzą przez audio Windows.
 
 | Kolumna | |
 |---|---|
@@ -994,6 +1038,9 @@ tracony, i startuje nowy miks. Zobacz [18.2](#182-my-mix-is-gone-a-fresh-mix-sta
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Jak odczytują mierniki (domyślnie szczyt próbki z szybkim opadaniem; IEC i inne) |
 | **CHANNEL METER POINT** | **IN** (surowe źródło), **PRE** (po efektach), **POST** (po faderze, domyślnie). Karty **METER** na pasku bocznym ustawiają to samo |
+| **RECORDING** | **FFMPEG**: gdzie jest `ffmpeg.exe`, albo **NOT FOUND**. Kliknij, żeby wybrać `ffmpeg.exe` (używany przed tym z PATH); gdy jakiś jest wybrany, oferuje też powrót do tego z PATH |
+| **PLUGIN TEST TIME** | **30 S** (domyślnie), **60 S** lub **120 S**: ile czasu nowa wtyczka ma na załadowanie w teście, zanim zostanie uznana za nieudaną |
+| **UPDATES** | **CHECK FOR UPDATES** (domyślnie włączone): pół minuty po starcie, najwyżej raz dziennie, Faider wysyła jedno zapytanie do GitHuba o swoje najnowsze wydanie. Zapytanie zawiera tylko nazwę i wersję aplikacji (na przykład `Faider/0.1.5`); nic nie jest pobierane ani instalowane. Jeśli jest nowsza wersja, zasobnik o tym mówi, a **Get Faider x.y.z...** w menu zasobnika, **GET FAIDER x.y.z** w FIND albo klawisz tutaj otwiera jej stronę. Wyłącz to, a Faider nigdy nie pyta. **CHECK NOW** (albo **CHECK FOR UPDATES NOW** w FIND) pyta od razu i mówi, gdy masz aktualną wersję |
 | **ABOUT** | Wersja i autorzy |
 
 <a id="macros"></a>
@@ -1058,7 +1105,7 @@ na konsoli ([5](#5-the-console)).
 | Karta | |
 |---|---|
 | **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, gdzie każde wejście MIDI włącza się lub wyłącza |
-| **OSC** | **OSC ON (PORT 9000)**, dla programów na tym komputerze |
+| **OSC** | **OSC ON (PORT 9000)**, dla programów na tym komputerze. **PORT...** ustawia port (1024–65535); jeśli OSC jest włączone, od razu się tam przenosi |
 
 ---
 
@@ -1069,10 +1116,10 @@ na konsoli ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, w SIMPLE i w PRO, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół) |
-| **OSC** | Programy na tym komputerze mogą wysyłać na port 9000 (nigdy nie nasłuchuje sieci): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 je zwalnia). Spacje w nazwach zapisuj jako `_` |
+| **OSC** | Programy na tym komputerze mogą wysyłać na port 9000 albo na port ustawiony przez **PORT...** w SETTINGS > CONTROL (nigdy nie nasłuchuje sieci): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 je zwalnia). Spacje w nazwach zapisuj jako `_` |
 | **Nakładka w grze** (Ctrl+Shift+O) | Kontrolka mówienia każdego kanału mikrofonu, LIVE / CUT i poziom, plus do czterech klawiszy scen. Nigdy nie odbiera fokusu grze. Przeciągnij ją gdziekolwiek |
-| **MINI** | Mini mikser: małe okno z faderem, miernikiem i **CUT** każdego wyjścia. **PIN** trzyma je nad wszystkim. **OPEN** wraca do głównego okna |
-| **Zasobnik** | Kliknij ikonę, żeby zobaczyć mini mikser, kliknij dwukrotnie, żeby otworzyć okno. Prawy przycisk: Show, przywołanie sceny, Session timeline, Start with Windows, About, Quit. Ikona miga na bursztynowo podczas alarmu |
+| **MINI** | Mini mikser: małe okno z faderem, miernikiem i **CUT** dla każdego paska z zaznaczonym **IN THE MINI MIXER** w menu prawego przycisku (dla każdego wyjścia, gdy nie ma żadnego). **PIN** trzyma je nad wszystkim. **OPEN** wraca do głównego okna |
+| **Zasobnik** | Kliknij ikonę, żeby zobaczyć mini mikser, kliknij dwukrotnie, żeby otworzyć okno. Prawy przycisk: Show, przywołanie sceny, Session timeline, Get Faider x.y.z... (gdy jest nowsza wersja), Start with Windows, Save a problem report..., About, Quit. Ikona miga na bursztynowo podczas alarmu |
 
 Faider zawsze działa z twoimi zwykłymi uprawnieniami użytkownika, nawet gdy uruchomiono go z okna
 administratora. Uruchamia się wtedy ponownie ze zwykłymi uprawnieniami, bo nakładka w grze nie sięga
@@ -1189,7 +1236,9 @@ pokazuje się tylko wtedy, gdy coś jest nie tak. Każdy wiersz ma kontrolkę, u
 | **MIC CABLE** | Brak VB-CABLE: aplikacje nie słyszą twojego miksu jako mikrofonu | **GET VB-CABLE** |
 | **MIC OUTPUT** | Żadne wyjście nie gra do kabla mikrofonu | **ROUTING** |
 | **MIC CHANNELS** | Coś na drodze do mikrofonu jest na CUT | **UNCUT** |
+| **WINDOWS DEFAULTS** | Domyślny głośnik lub mikrofon Windows (albo domyślne urządzenie do rozmów) to wirtualny kabel | **SET MY DEFAULTS** |
 | **HEARD ONCE** | Pętla sprzężenia zwrotnego albo coś słychać dwa razy | **SOUND SETTINGS** |
+| **WINDOWS AUDIO** | Urządzenia Windows lub przechwycone aplikacje są w miksie, a silnik audio Windows ma priorytet Normal: żółty, tylko sugestia; czerwony, jeśli restart cofnął twoje podniesienie. Zielony, gdy używane jest tylko ASIO | **BOOST** |
 
 **ZERO THE DESK** (na dole po lewej; także **ZERO DESK** w FIND) sprawdza, co mogła zostawić ustawione
 poprzednia sesja: sola, key listen, gain trimy odbiegające o więcej niż 12 dB i wyjścia na CUT. Każde ma **FIX**.
@@ -1232,11 +1281,13 @@ Idź wzdłuż drogi sygnału:
 - **INTERFACE DOWN** w zasobniku: interfejs sam się zresetował i nie chciał się ponownie otworzyć.
   Zmień rozmiar jego bufora w DEVICES albo uruchom Faider ponownie.
 - Zmiany częstotliwości lub bufora zrobione w panelu sterowania samego interfejsu są wychwytywane same.
-- Żeby przez jakiś czas pracować bez interfejsu, uruchom Faider poleceniem
-  `"C:\Program Files\Faider\Faider.exe" --clock windows` (twoje urządzenie
+- Żeby przez jakiś czas pracować bez interfejsu, wybierz urządzenie odtwarzające Windows albo zegar
+  wbudowany w **DEVICES > CLOCK** i kliknij **RESTART NOW**. Twój miks idzie razem z tobą i
+  pozostaje zapisany dla twojego interfejsu: ponowny wybór **THE INTERFACE (ASIO)** do niego wraca.
+- Albo uruchom Faider poleceniem `"C:\Program Files\Faider\Faider.exe" --clock windows` (twoje urządzenie
   odtwarzające Windows) albo `--clock builtin` (zegar wbudowany). `--clock` z fragmentem nazwy
-  sterownika ASIO (`--clock focusrite`) wybiera ten sterownik. Twój miks idzie razem z tobą i
-  pozostaje zapisany dla twojego interfejsu: następny normalny start do niego wraca.
+  sterownika ASIO (`--clock focusrite`) wybiera ten sterownik. Ma pierwszeństwo przed DEVICES > CLOCK
+  w tym uruchomieniu, a następny start bez niego wraca do twojego wyboru.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1248,6 +1299,11 @@ Idź wzdłuż drogi sygnału:
 3. **UNDER / OVER** rosną na jednym urządzeniu: to urządzenie sobie nie radzi. Spróbuj innego portu
    USB, zamknij inne programy, które go używają, albo wyklucz je, jeśli go nie używasz.
 4. Stały **DRIFT** jest normalny. To korekcja, która utrzymuje zegary w zgodzie.
+5. Trzaski tylko na urządzeniach Windows lub przechwyconych aplikacjach: spróbuj **BOOST WINDOWS AUDIO**
+   (DEVICES > WINDOWS AUDIO albo FIND). Podnosi silnik audio Windows z Normal, ustawienia domyślnego
+   Windows, do High. Windows prosi o zgodę administratora, a restart audio Windows lub komputera to
+   cofa (Faider ci o tym powie). Nie ma wpływu na interfejsy ASIO. Dla zestawu słuchawkowego USB, który
+   nadal trzeszczy, **PIN TO ONE CORE** jest opcjonalne i tylko ogranicza go do jednego rdzenia.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1265,7 +1321,8 @@ Idź wzdłuż drogi sygnału:
   skierowany na wyjście na tym samym urządzeniu, słyszysz go bezpośrednio i przez Faider. Wyłącz tę
   trasę (w SIMPLE klawisz tego wyjścia na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
   ostrzega o tym.
-- Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT > **HEARD ONCE** go wskazuje.
+- Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT > **WINDOWS DEFAULTS** go wskazuje,
+  a **SET MY DEFAULTS** przywraca twoje głośniki.
 
 <a id="188-a-route-wont-switch-on"></a>
 
@@ -1293,8 +1350,8 @@ trafić między kanały.
 ### 18.11 Wtyczka się nie ładuje
 
 Każda wtyczka jest najpierw testowana w osobnej kopii programu, a powód niepowodzenia jest
-zgłaszany: nie skończyła się ładować w 30 s, wysypała się podczas testu albo w pliku nie ma wtyczki
-VST3. Zaktualizuj lub zainstaluj ponownie wtyczkę. Gdy jej plik się zmieni, jest testowana ponownie.
+zgłaszany: nie skończyła się ładować na czas (30 s, chyba że **PLUGIN TEST TIME** w SETTINGS > GENERAL
+daje jej 60 lub 120), wysypała się podczas testu albo w pliku nie ma wtyczki VST3. Zaktualizuj lub zainstaluj ponownie wtyczkę. Gdy jej plik się zmieni, jest testowana ponownie.
 
 <a id="1812-the-program-crashed"></a>
 
@@ -1302,6 +1359,11 @@ VST3. Zaktualizuj lub zainstaluj ponownie wtyczkę. Gdy jej plik się zmieni, je
 
 Raport jest zapisywany w `%APPDATA%\Faider\crash.log`, razem z minidumpem `crash.dmp`. Twój
 miks zapisuje się w ciągu sekundy od każdej zmiany, więc tracisz co najwyżej zmiany z ostatniej chwili.
+
+Żeby zgłosić problem, kliknij prawym przyciskiem ikonę w zasobniku > **Save a problem report...** (albo
+**SAVE A PROBLEM REPORT** w FIND). Umieszcza raport awarii, dziennik zdarzeń i migawkę stanu (te, które
+istnieją), z wersjami Faidera i Windows, w jednym pliku .zip tam, gdzie wybierzesz (na początek pulpit),
+a potem pokazuje go w Eksploratorze. Nic nie jest nigdzie wysyłane: dołącz plik samodzielnie.
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1315,9 +1377,10 @@ inny **PATH**.
 
 ### 18.14 Brak dźwięku z Windows po instalacji VB-CABLE
 
-Windows ustawił kabel jako swoje urządzenie domyślne. Ustaw ponownie słuchawki lub głośniki jako
-domyślne wyjście, a swój prawdziwy mikrofon jako domyślne wejście, zarówno w **Ustawienia > System > Dźwięk**,
-jak i jako domyślne urządzenia komunikacji. Zobacz [Krok 2](#step-2-install-vb-cable-optional).
+Windows ustawił kabel jako swoje urządzenie domyślne. **SET MY DEFAULTS** (wiersz **WINDOWS
+DEFAULTS** w PRE-FLIGHT albo **WINDOWS DEFAULTS** w FIND) ustawia ponownie słuchawki lub głośniki jako
+domyślne wyjście, a twój prawdziwy mikrofon jako domyślne wejście, każde także do rozmów. Albo zrób to w
+**Ustawienia > System > Dźwięk**. Zobacz [Krok 2](#step-2-install-vb-cable-optional).
 
 ---
 
@@ -1350,6 +1413,8 @@ jak i jako domyślne urządzenia komunikacji. Zobacz [Krok 2](#step-2-install-vb
 |---|---|
 | `--minimised` | Uruchom w zasobniku |
 | `--quit` | Zamknij działającą kopię |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | W tym uruchomieniu zegarem jest twoje urządzenie odtwarzające Windows, zegar wbudowany albo sterownik ASIO, którego nazwa zawiera `<driver>`. Ma pierwszeństwo przed DEVICES > CLOCK (zobacz [Zegar](#clocking)) |
+| `--boost-audiodg [--pin-core N]` | To, co uruchamia **BOOST WINDOWS AUDIO**, jako administrator: silnik audio Windows na priorytet High (przypięty do rdzenia N tylko, jeśli go podano), potem kończy działanie. 0: gotowe; 2: złe argumenty; 3: nie znaleziono audiodg; 4: odmowa dostępu; 5: odmowa priorytetu; 6: High ustawiony, ale odmowa przypięcia |
 
 <a id="193-files"></a>
 

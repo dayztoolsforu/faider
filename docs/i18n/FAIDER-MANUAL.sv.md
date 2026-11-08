@@ -54,7 +54,7 @@ och berättar vad du ska göra när något går fel.
 | **Ett ljudgränssnitt** | Valfritt. Med dess ASIO-drivrutin installerad går Faider på gränssnittets klocka, för lägst fördröjning. Utan ett går det på din Windows-uppspelningsenhet eller på sin inbyggda klocka (se [Klockor](#clocking)) |
 | **Hörlurar** | Anslutna till ditt gränssnitt (eller till valfri Windows-uppspelningsenhet) så att du hör din mix |
 | **VB-CABLE** | Valfri och gratis (vb-audio.com/Cable). En virtuell mikrofon, så att appar som Discord, spel och OBS kan höra din mix |
-| **ffmpeg** | Valfritt. Med `ffmpeg.exe` i din PATH kan recordern också skriva MP3, AAC, Opus och ALAC |
+| **ffmpeg** | Valfritt. Med `ffmpeg.exe` i din PATH, eller valt i **SETTINGS > GENERAL > FFMPEG**, kan recordern också skriva MP3, AAC, Opus och ALAC |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -111,9 +111,14 @@ mixa för dina egna hörlurar.
 > **Windows byter ditt ljud till kabeln.** När du installerar en virtuell kabel gör
 > Windows ofta den till standard: **CABLE Input** som dina högtalare och **CABLE Output** som din
 > mikrofon. Då hör du ingenting från Windows, och appar som använder standardmikrofonen hör
-> kabeln. Byt tillbaka båda direkt efter installationen.
+> kabeln. Byt tillbaka båda direkt efter installationen. Faider kan göra det åt dig.
 
-**Sätt tillbaka dina enheter:**
+**Sätt tillbaka dina enheter med Faider:** klicka på **SET MY DEFAULTS**: på SETUPs sida **APPS HEAR YOU**
+(steg 4), på PRE-FLIGHTs rad **WINDOWS DEFAULTS** eller **WINDOWS DEFAULTS** i FIND. Den listar dina
+riktiga högtalare och mikrofoner. Välj dina hörlurar eller högtalare, klicka sedan på den igen och välj din
+mikrofon. Var och en blir Windows standard och dess standard för samtal.
+
+**Eller sätt tillbaka dem i Windows:**
 
 1. Öppna **Inställningar > System > Ljud** (eller högerklicka på högtalarikonen i aktivitetsfältet >
    **Ljudinställningar**).
@@ -128,8 +133,8 @@ Ett snabbare sätt att ställa in utdata: klicka på högtalarikonen i aktivitet
 volymreglaget och välj din enhet.
 
 Låt dina riktiga enheter vara Windows standard. Faider spelar bara in i kabeln dit du
-routar, och varje app väljer själv **CABLE Output** som sin mikrofon (steg 6). Om Windows
-standardhögtalare är kabeln rapporterar PRE-FLIGHT det under **HEARD ONCE**.
+routar, och varje app väljer själv **CABLE Output** som sin mikrofon (steg 6). Om någon av Windows
+standardenheter är kabeln rapporterar PRE-FLIGHT det under **WINDOWS DEFAULTS**.
 
 <a id="step-3-start-faider"></a>
 
@@ -152,7 +157,8 @@ går tillbaka.
 2. **MICROPHONES**: välj de mikrofoner du pratar i. Det är ditt gränssnitts ingångar
    (**IN 1**, **IN 2** …) och dina Windows-inspelningsenheter.
 3. **APPS HEAR YOU**: välj den virtuella kabel som appar använder som mikrofon (**CABLE Input**, efter steg 2),
-   eller **NOT NOW**.
+   eller **NOT NOW**. Medan Windows fortfarande spelar eller spelar in via kabeln sätter **SET MY DEFAULTS**
+   längst ned tillbaka dina riktiga högtalare och din mikrofon (steg 2).
 4. **PROGRAMS**: välj de program som spelar ljud nu och som du vill ha på bordet.
 5. Klicka på **BUILD THE MIX**. **DONE** listar vad som skapades.
 6. Klicka på **OPEN THE MIXER** för att se den.
@@ -213,8 +219,8 @@ Om du hör ett program dubbelt, se [18.7](#187-i-hear-something-twice-or-an-echo
 
 **+ CHANNEL** och **+ APP** lägger till kanaler. **+ OUTPUT** lägger till en utgång på en enhet som saknar en.
 Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för **RENAME...**,
-färgen och **REMOVE**. När du tar bort ett programs kanal försvinner också dess appregel, så kanalen
-kommer inte tillbaka av sig själv.
+färgen, **HEADPHONE EQ** (en utgång), **IN THE MINI MIXER** och **REMOVE**. När du tar bort ett programs
+kanal försvinner också dess appregel, så kanalen kommer inte tillbaka av sig själv.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -417,6 +423,11 @@ Om Windows-enheten som sätter klockan dras ut, stängs av eller slutar fungera 
 program håller den) hoppas över tills dina enheter ändras och försöks sedan igen. På den inbyggda klockan tar en
 ansluten uppspelningsenhet över från den.
 
+För att välja klockan själv använder du **CLOCK** högst upp i **DEVICES**: **THE INTERFACE (ASIO)** (ordningen
+ovan, standard), **A WINDOWS PLAYBACK DEVICE** efter namn, eller **THE BUILT-IN CLOCK**. Valet gäller när
+Faider startar igen, och **RESTART NOW** gör det direkt. Din mix följer med och förblir sparad för ditt
+gränssnitt. När du väljer den inbyggda klockan tar ingen enhet över från den.
+
 <a id="5-the-console"></a>
 
 ## 5. Konsolen
@@ -433,10 +444,10 @@ Bordet visar varje strip från vänster till höger: **kanaler**, sedan **bussar
 | **HEADER** | Nivåstaplar, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret |
 | **INPUT** | Trim, polaritet, mikrofon-drive, ingångsomkopplaren och stereobredd |
 | **DYNAMICS** | Kompressor och gate |
-| **FILTERS** | Lågpass och högpass |
+| **FILTERS** | Lågpass, högpass och NOISE-brytaren |
 | **EQ** | Fyra band |
 | **NAME** | Namnlisten och strömbrytaren |
-| **FADER** | Pan, SOLO, CUT, SEL, fadern och dess avläsning |
+| **FADER** | Pan, SOLO, CUT, SEL, fadern och dess avläsning, DUCK-lampan |
 
 <a id="mouse-and-keyboard"></a>
 
@@ -494,7 +505,10 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 | **ROUTE TO** | Varje buss och utgångsenhet, ikryssad där den skickas |
 | **PLUGINS** | Öppna ett, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Bara kanaler |
+| **NOISE** | Brusreducering: **ON** (som stripens NOISE-brytare), **NEURAL** eller **SPECTRAL**, och dess **DEPTH** (-6 till -30 dB) |
+| **DUCK UNDER** | En annan kanal som den här sänks under medan den kanalen hörs, eller **NONE**, och hur mycket den sänks (**DEPTH**, -6 till -24 dB). Inte på en appkanal |
 | **COLOUR** | Kanalens färg, visad längs dess namnlist och på dess Routing-block |
+| **IN THE MINI MIXER** | Ikryssad: stripen har en fader i minimixern (se [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
 | **RENAME...** | |
 | **REMOVE** | Tar bort kanalen eller bussen |
@@ -574,6 +588,10 @@ innan du kopplar in dem.
 **lp** (lågpass) och **hp** (högpass). Helt nedvriden är högpasset ur. Helt uppvriden
 är lågpasset ur.
 
+**NOISE** kopplar in eller ur brusreducering: brus, brum och rumsljud dras ned medan rösten
+stannar kvar. Högerklicka på stripen > **NOISE** för **NEURAL** (standard, vid 48 kHz; vid andra
+frekvenser körs den som SPECTRAL) eller **SPECTRAL**, och för hur djupt den går. Avstängd kostar den ingenting.
+
 <a id="eq"></a>
 
 ### EQ
@@ -604,6 +622,7 @@ Omkopplaren **EQ IN** slår hela EQ:n in eller ut (samma som headerns EQ-tangent
 | **Fader** | Nivå, +12 dB till av. Avläsningen under visar nivån i dB |
 | **safe** | Solo safe: den här kanalen förblir hörbar när andra soloas |
 | **listen** | Lyssna på dynamikens key-signal |
+| **duck** | Lyser medan kanalen är sänkt under en annan (högerklick > **DUCK UNDER**) |
 
 ### Rösteffekter
 
@@ -667,7 +686,10 @@ Varje utgång har sin egen mörka strip:
 | **MIX EQ** | Inkopplingsomkopplare, HF gain och freq, LF gain och freq |
 | **CUT**, **SEL**, fader | Som på en kanal |
 
-Högerklicka på en utgång för **DEVICE...**, spacers, **RENAME...** och **REMOVE**.
+Högerklicka på en utgång för **DEVICE...**, **HEADPHONE EQ** (hörlurskorrigering: **NONE**, eller din
+modell, listad efter märke), **ALERT IF SILENT** (10 sekunder under -60 dBFS) och **ALERT IF CLIPPING**
+(medan LIMIT är av), som får ikonen i aktivitetsfältet att blinka och skriver till händelseloggen,
+**IN THE MINI MIXER**, spacers, **RENAME...** och **REMOVE**.
 
 Utgångar skapas åt dig, en per enhet (se [Utgångar är enheter](#outputs-are-devices)).
 
@@ -693,7 +715,8 @@ latenskompensation.
   på combinatorstripen för att öppna det.
 
 Varje plugin **testas först i en separat kopia av programmet**, så att ett plugin som kraschar eller
-hänger sig vid inläsning inte kan dra ned din mix. Resultatet kommer ihåg tills pluginfilen
+hänger sig vid inläsning inte kan dra ned din mix. Det har 30 sekunder på sig att läsas in (**PLUGIN TEST TIME** i
+SETTINGS > GENERAL ger långsamma plugins 60 eller 120). Resultatet kommer ihåg tills pluginfilen
 ändras.
 
 <a id="the-plugin-panel"></a>
@@ -862,7 +885,8 @@ Den övre radens transport och tapestripen på bordet styr samma däck.
 | **PATH** / **REVEAL** | Välj mappen / öppna den i Utforskaren |
 
 Inspelningar hamnar i `Music\Faider Recordings` om du inte väljer en mapp. ffmpeg-format spelar först in
-en WAV och konverterar den när du stoppar (WAV-filen behålls om konverteringen misslyckas). Inspelningen stoppar
+en WAV och konverterar den när du stoppar (WAV-filen behålls om konverteringen misslyckas). Faider använder den
+`ffmpeg.exe` som är vald i **SETTINGS > GENERAL > FFMPEG**, annars den i din PATH. Inspelningen stoppar
 av sig själv när mindre än 1 GB är ledigt.
 
 <a id="instant-replay"></a>
@@ -879,7 +903,24 @@ använder replay den första utgången.
 
 ## 13. Enheter
 
-**DEVICES** listar varje Windows-ljudenhet och ASIO-drivrutin.
+**DEVICES** listar varje Windows-ljudenhet och ASIO-drivrutin. **CLOCK** högst upp visar vad som styr
+klockan nu, och dess tangent väljer den (se [Klockor](#clocking)).
+
+**WINDOWS AUDIO**, under den, visar prioriteten för Windows ljudmotor (audiodg.exe, som bär varje
+Windows-enhet och fångad app): **NORMAL** är Windows standard, **UNKNOWN** om den inte kan läsas. Dess
+tangent, **BOOST WINDOWS AUDIO** (**BOOSTED** medan den är på High), öppnar en meny:
+
+- **BOOST (HIGH PRIORITY)** höjer den till High, vilket på vissa datorer kan stoppa knaster på Windows-enheter och fångade
+  appar. Det kräver administratörsrättigheter, så Windows frågar först; säger du nej ändras ingenting.
+  Det överlever inte en omstart av Windows-ljudet eller datorn: Faider bevakar det, säger till en gång
+  från aktivitetsfältet när den är tillbaka på Normal, och **Boost Windows audio again...** i menyn i aktivitetsfältet (eller
+  BOOST här, eller **BOOST WINDOWS AUDIO** i FIND) höjer den igen. Klickar du på BOOST medan den är höjd
+  slutar bevakningen; den stannar på High tills Windows-ljudet startar om.
+- **PIN TO ONE CORE** (av om du inte väljer det) låser den också till din sista processorkärna, från nästa
+  BOOST. Det begränsar bara var den körs och lägger aldrig till kärnor: använd det bara mot knaster i ett
+  USB-headset.
+
+Det påverkar inte ASIO-gränssnitt, som inte går via Windows-ljudet.
 
 | Kolumn | |
 |---|---|
@@ -991,6 +1032,9 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Hur mätare läser (sample peak med snabbt fall som standard; IEC och andra) |
 | **CHANNEL METER POINT** | **IN** (rå källa), **PRE** (efter effekterna), **POST** (efter fadern, standard). Sidofältets **METER**-kort ställer in samma sak |
+| **RECORDING** | **FFMPEG**: var `ffmpeg.exe` finns, eller **NOT FOUND**. Klicka på den för att välja `ffmpeg.exe` (används före den i din PATH); när en är vald erbjuder den också att gå tillbaka till den i PATH |
+| **PLUGIN TEST TIME** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
+| **UPDATES** | **CHECK FOR UPDATES** (på som standard): en halv minut efter start, högst en gång om dagen, skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller tangenten här öppnar dess sida. Stäng av det så frågar Faider aldrig. **CHECK NOW** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
 | **ABOUT** | Version och tack |
 
 <a id="macros"></a>
@@ -1056,7 +1100,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 | Kort | |
 |---|---|
 | **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, där varje MIDI-ingång slås på eller av |
-| **OSC** | **OSC ON (PORT 9000)**, för program på den här datorn |
+| **OSC** | **OSC ON (PORT 9000)**, för program på den här datorn. **PORT...** ställer in porten (1024–65535); är OSC på flyttar den dit direkt |
 
 ---
 
@@ -1067,10 +1111,10 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
-| **OSC** | Program på den här datorn kan skicka till port 9000 (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_` |
+| **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in med **PORT...** i SETTINGS > CONTROL (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
-| **MINI** | Minimixern: ett litet fönster med varje utgångs fader, mätare och **CUT**. **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
-| **Tray** | Klicka på ikonen för minimixern, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Session timeline, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm |
+| **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
+| **Tray** | Klicka på ikonen för minimixern, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
 
 Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
 Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.
@@ -1187,7 +1231,9 @@ upp om något är fel. Varje rad har en lampa, resultatet och en åtgärd:
 | **MIC CABLE** | Ingen VB-CABLE: appar kan inte höra din mix som en mikrofon | **GET VB-CABLE** |
 | **MIC OUTPUT** | Ingen utgång spelar in i mikrofonkabeln | **ROUTING** |
 | **MIC CHANNELS** | Något på vägen till mikrofonen är på CUT | **UNCUT** |
+| **WINDOWS DEFAULTS** | Windows standardhögtalare eller -mikrofon (eller dess standard för samtal) är den virtuella kabeln | **SET MY DEFAULTS** |
 | **HEARD ONCE** | En återkopplingsslinga, eller något hörs två gånger | **SOUND SETTINGS** |
+| **WINDOWS AUDIO** | Windows-enheter eller fångade appar finns i mixen och Windows ljudmotor har Normal-prioritet: gul, bara ett förslag; röd om din höjning togs bort av en omstart. Grön när bara ASIO används | **BOOST** |
 
 **ZERO THE DESK** (nere till vänster; även **ZERO DESK** i FIND) kontrollerar vad en tidigare session kan lämna
 inställt: solo, key listen, gain trims som ligger mer än 12 dB från noll, och utgångar på CUT. Var och en har en **FIX**.
@@ -1230,11 +1276,13 @@ Följ signalvägen:
 - **INTERFACE DOWN** i aktivitetsfältet: gränssnittet återställde sig självt och ville inte öppnas igen. Ändra dess buffertstorlek
   under DEVICES eller starta om Faider.
 - Ändringar av samplingsfrekvens eller buffert i gränssnittets egen kontrollpanel plockas upp av sig själva.
-- För att köra utan gränssnittet en stund, starta Faider med
-  `"C:\Program Files\Faider\Faider.exe" --clock windows` (din Windows-uppspelningsenhet)
+- För att köra utan gränssnittet en stund, välj en Windows-uppspelningsenhet eller den inbyggda klockan
+  i **DEVICES > CLOCK** och klicka på **RESTART NOW**. Din mix följer med och förblir sparad för ditt
+  gränssnitt: väljer du **THE INTERFACE (ASIO)** igen går du tillbaka till det.
+- Eller starta Faider med `"C:\Program Files\Faider\Faider.exe" --clock windows` (din Windows-uppspelningsenhet)
   eller `--clock builtin` (den inbyggda klockan). `--clock` med en del av en ASIO-drivrutins namn
-  (`--clock focusrite`) väljer den drivrutinen. Din mix följer med och förblir sparad för ditt
-  gränssnitt: nästa vanliga start går tillbaka till det.
+  (`--clock focusrite`) väljer den drivrutinen. Det går före DEVICES > CLOCK för den körningen, och nästa
+  start utan det går tillbaka till ditt val.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1246,6 +1294,11 @@ Följ signalvägen:
 3. **UNDER / OVER** stiger på en enhet: den enheten har det svårt. Prova en annan USB-port, stäng
    andra program som använder den, eller uteslut den om du inte använder den.
 4. Jämn **DRIFT** är normalt. Det är korrigeringen som håller klockorna i takt.
+5. Knaster bara på Windows-enheter eller fångade appar: prova **BOOST WINDOWS AUDIO** (DEVICES >
+   WINDOWS AUDIO, eller FIND). Det höjer Windows ljudmotor från Normal, Windows standard, till High.
+   Windows ber om administratörsgodkännande, och en omstart av Windows-ljudet eller datorn tar bort det
+   (Faider säger till). Det påverkar inte ASIO-gränssnitt. För ett USB-headset som fortfarande knastrar är
+   **PIN TO ONE CORE** valfritt och begränsar den bara till en kärna.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1263,7 +1316,8 @@ Följ signalvägen:
   till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (i SIMPLE,
   utgångens tangent på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
   varnar för detta.
-- Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT > **HEARD ONCE** pekar ut den.
+- Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT > **WINDOWS DEFAULTS** pekar ut den,
+  och **SET MY DEFAULTS** sätter tillbaka dina högtalare.
 
 <a id="188-a-route-wont-switch-on"></a>
 
@@ -1291,8 +1345,8 @@ kanalerna.
 ### 18.11 Ett plugin går inte att läsa in
 
 Varje plugin testas först i en separat kopia av programmet, och orsaken till ett fel
-rapporteras: det blev inte färdigt med inläsningen inom 30 s, det kraschade under testet, eller så finns det inget VST3-
-plugin i filen. Uppdatera eller installera om pluginet. När dess fil ändras testas det igen.
+rapporteras: det blev inte färdigt med inläsningen i tid (30 s, om inte **PLUGIN TEST TIME** i SETTINGS > GENERAL
+ger det 60 eller 120), det kraschade under testet, eller så finns det inget VST3-plugin i filen. Uppdatera eller installera om pluginet. När dess fil ändras testas det igen.
 
 <a id="1812-the-program-crashed"></a>
 
@@ -1300,6 +1354,11 @@ plugin i filen. Uppdatera eller installera om pluginet. När dess fil ändras te
 
 En rapport skrivs till `%APPDATA%\Faider\crash.log`, med en minidump `crash.dmp`. Din mix
 sparas inom en sekund efter varje ändring, så du förlorar högst det sista ögonblickets ändringar.
+
+För att rapportera ett problem, högerklicka på ikonen i aktivitetsfältet > **Save a problem report...** (eller **SAVE A PROBLEM
+REPORT** i FIND). Den lägger kraschrapporten, händelseloggen och statusögonblicksbilden (de som finns),
+med Faiders och Windows versioner, i en .zip där du väljer (skrivbordet till att börja med), och visar den
+sedan i Utforskaren. Ingenting skickas någonstans: bifoga filen själv.
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1312,9 +1371,10 @@ Aktivitetsfältet visar **RECORDING STOPPED, NO ROOM**. Frigör utrymme eller v�
 
 ### 18.14 Inget ljud från Windows efter installation av VB-CABLE
 
-Windows har gjort kabeln till sin standardenhet. Ställ in dina hörlurar eller högtalare som standard-
-utdata igen, och din riktiga mikrofon som standardindata, båda i **Inställningar > System > Ljud**
-och som standardkommunikationsenheter. Se [Steg 2](#step-2-install-vb-cable-optional).
+Windows har gjort kabeln till sin standardenhet. **SET MY DEFAULTS** (PRE-FLIGHTs rad **WINDOWS
+DEFAULTS**, eller **WINDOWS DEFAULTS** i FIND) ställer in dina hörlurar eller högtalare som standard-
+utdata igen, och din riktiga mikrofon som standardindata, var och en även för samtal. Eller gör det i
+**Inställningar > System > Ljud**. Se [Steg 2](#step-2-install-vb-cable-optional).
 
 ---
 
@@ -1347,6 +1407,8 @@ och som standardkommunikationsenheter. Se [Steg 2](#step-2-install-vb-cable-opti
 |---|---|
 | `--minimised` | Starta i aktivitetsfältets notisyta |
 | `--quit` | Avsluta den körande kopian |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | För den här körningen är klockan din Windows-uppspelningsenhet, den inbyggda klockan, eller den ASIO-drivrutin vars namn innehåller `<driver>`. Det går före DEVICES > CLOCK (se [Klockor](#clocking)) |
+| `--boost-audiodg [--pin-core N]` | Det som **BOOST WINDOWS AUDIO** startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades |
 
 <a id="193-files"></a>
 

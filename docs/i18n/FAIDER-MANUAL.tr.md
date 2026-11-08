@@ -54,7 +54,7 @@ ters gittiğinde ne yapacağını söyler.
 | **Bir ses arabirimi** | İsteğe bağlı. ASIO sürücüsü kuruluysa Faider en düşük gecikme için arabirimin saatiyle çalışır. Arabirim yoksa Windows oynatma aygıtınla ya da yerleşik saatiyle çalışır ([Saat](#clocking) bölümüne bak) |
 | **Kulaklık** | Karışımını duyabilmek için arabirimine (veya herhangi bir Windows oynatma aygıtına) takılı |
 | **VB-CABLE** | İsteğe bağlı ve ücretsiz (vb-audio.com/Cable). Discord, oyunlar ve OBS gibi uygulamaların karışımını duyabilmesi için sanal bir mikrofon |
-| **ffmpeg** | İsteğe bağlı. `ffmpeg.exe` PATH'inde olursa kaydedici MP3, AAC, Opus ve ALAC de yazabilir |
+| **ffmpeg** | İsteğe bağlı. `ffmpeg.exe` PATH'inde olursa ya da **SETTINGS > GENERAL > FFMPEG**'de seçilirse kaydedici MP3, AAC, Opus ve ALAC de yazabilir |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -111,9 +111,14 @@ için karışım yapacaksan bu adımı atla.
 > **Windows sesini kabloya alır.** Sanal bir kablo kurmak çoğu zaman onu Windows'un varsayılanı yapar:
 > hoparlör olarak **CABLE Input**, mikrofon olarak **CABLE Output**. O zaman Windows'tan hiçbir şey
 > duymazsın ve varsayılan mikrofonu kullanan uygulamalar kabloyu duyar. Kurulumdan hemen sonra ikisini
-> de geri değiştir.
+> de geri değiştir. Faider bunu senin için yapabilir.
 
-**Aygıtlarını yerine koy:**
+**Aygıtlarını Faider ile yerine koy:** **SET MY DEFAULTS**'a tıkla: SETUP'ın **APPS HEAR YOU**
+sayfasında (adım 4), PRE-FLIGHT'ın **WINDOWS DEFAULTS** satırında ya da FIND'da **WINDOWS DEFAULTS**.
+Gerçek hoparlörlerini ve mikrofonlarını listeler. Kulaklığını veya hoparlörlerini seç, sonra yeniden
+tıkla ve mikrofonunu seç. Her biri Windows'un varsayılanı ve görüşmeler için varsayılanı olur.
+
+**Ya da Windows'ta yerine koy:**
 
 1. **Ayarlar > Sistem > Ses**'i aç (ya da görev çubuğundaki hoparlör simgesine sağ tıkla >
    **Ses ayarları**).
@@ -129,7 +134,7 @@ yanındaki **>**'e tıkla ve aygıtını seç.
 
 Gerçek aygıtlarını Windows'un varsayılanı olarak bırak. Faider kabloya yalnızca senin
 yönlendirdiğin yerde çalar ve her uygulama mikrofon olarak **CABLE Output**'u kendisi seçer (adım 6).
-Windows'un varsayılan hoparlörü kablo ise PRE-FLIGHT bunu **HEARD ONCE** altında bildirir.
+Windows'un varsayılanlarından biri kablo ise PRE-FLIGHT bunu **WINDOWS DEFAULTS** altında bildirir.
 
 <a id="step-3-start-faider"></a>
 
@@ -152,7 +157,8 @@ ilerler, **BACK** geri döner.
 2. **MICROPHONES**: konuştuğun mikrofonları seç. Bunlar arabiriminin girişleri (**IN 1**, **IN 2** …)
    ve Windows kayıt aygıtlarındır.
 3. **APPS HEAR YOU**: uygulamaların mikrofon olarak kullandığı sanal kabloyu seç (2. adımdan sonra
-   **CABLE Input**) ya da **NOT NOW**.
+   **CABLE Input**) ya da **NOT NOW**. Windows hâlâ kabloda çalıyor veya kaydediyorsa, alttaki
+   **SET MY DEFAULTS** gerçek hoparlörlerini ve mikrofonunu yerine koyar (adım 2).
 4. **PROGRAMS**: şu anda ses çalan ve konsolda olmasını istediğin programları seç.
 5. **BUILD THE MIX**'e tıkla. **DONE**, yapılanları listeler.
 6. Görmek için **OPEN THE MIXER**'a tıkla.
@@ -211,8 +217,8 @@ Mixer **SIMPLE**'da açılır. Her kanal adını, neyi dinlediğini, her çıkı
 Bir programı iki kez duyuyorsan bkz. [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** ve **+ APP** kanal ekler. **+ OUTPUT**, çıkışı olmayan bir aygıta çıkış ekler. Bir
-çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **RENAME...**, renk ve **REMOVE** için
-bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
+çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **RENAME...**, renk, **HEADPHONE EQ**
+(bir çıkışta), **IN THE MINI MIXER** ve **REMOVE** için bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.
 
 <a id="step-7-pro-for-the-whole-console"></a>
@@ -415,6 +421,11 @@ kendiliğinden devralır ve bir bildirim hangisi olduğunu söyler. Başlamayan 
 program onu tuttuğu için) aygıt listen değişene kadar atlanır, sonra yeniden denenir. Yerleşik saatteyken
 takılan bir oynatma aygıtı saati ondan devralır.
 
+Saati kendin seçmek için **DEVICES**'ın üstündeki **CLOCK**'u kullan: **THE INTERFACE (ASIO)** (yukarıdaki
+sıra, varsayılan), adıyla **A WINDOWS PLAYBACK DEVICE** ya da **THE BUILT-IN CLOCK**. Seçim Faider
+yeniden başladığında geçerli olur; **RESTART NOW** bunu hemen yapar. Karışımın seninle gelir ve
+arabirimin için kayıtlı kalır. Yerleşik saati seçtiğinde hiçbir aygıt saati ondan devralmaz.
+
 <a id="5-the-console"></a>
 
 ## 5. Konsol
@@ -431,10 +442,10 @@ Konsol tüm şeritleri soldan sağa gösterir: **kanallar**, sonra **bus'lar** (
 | **HEADER** | Seviye çubukları, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası |
 | **INPUT** | Trim, polarite, mikrofon drive'ı, giriş anahtarı ve stereo genişlik |
 | **DYNAMICS** | Kompresör ve gate |
-| **FILTERS** | Alçak geçiren ve yüksek geçiren |
+| **FILTERS** | Alçak geçiren, yüksek geçiren ve NOISE anahtarı |
 | **EQ** | Dört bant |
 | **NAME** | Ad çubuğu ve güç anahtarı |
-| **FADER** | Pan, SOLO, CUT, SEL, fader ve değer göstergesi |
+| **FADER** | Pan, SOLO, CUT, SEL, fader ve değer göstergesi, DUCK lambası |
 
 <a id="mouse-and-keyboard"></a>
 
@@ -492,7 +503,10 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 | **ROUTE TO** | Her bus ve çıkış aygıtı, gönderildiği yerlerde işaretli |
 | **PLUGINS** | Birini aç, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Yalnızca kanallar |
+| **NOISE** | Gürültü azaltma: **ON** (şeridin NOISE anahtarı gibi), **NEURAL** ya da **SPECTRAL** ve **DEPTH**'i (-6 ile -30 dB arası) |
+| **DUCK UNDER** | Bu kanalın, duyulduğu sürece altına indiği başka bir kanal ya da **NONE**, ve ne kadar indiği (**DEPTH**, -6 ile -24 dB arası). Uygulama kanalında yok |
 | **COLOUR** | Kanalın rengi, ad çubuğu boyunca ve Routing'deki bloğunda gösterilir |
+| **IN THE MINI MIXER** | İşaretliyse şeridin mini mikserde bir fader'ı olur (bkz. [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
 | **RENAME...** | |
 | **REMOVE** | Kanalı veya bus'ı siler |
@@ -572,6 +586,10 @@ almadan önce ayarlayabilirsin.
 **lp** (alçak geçiren) ve **hp** (yüksek geçiren). Sonuna kadar aşağı çevrilince yüksek geçiren
 devre dışıdır. Sonuna kadar yukarı çevrilince alçak geçiren devre dışıdır.
 
+**NOISE** gürültü azaltmayı devreye alır ya da çıkarır: ses korunurken hışırtı, uğultu ve oda
+gürültüsü bastırılır. **NEURAL** (varsayılan, 48 kHz'de; diğer hızlarda SPECTRAL olarak çalışır) ya da
+**SPECTRAL** ve ne kadar derine indiği için şeride sağ tıkla > **NOISE**. Kapalıyken hiçbir yük getirmez.
+
 <a id="eq"></a>
 
 ### EQ
@@ -602,6 +620,7 @@ devre dışıdır. Sonuna kadar yukarı çevrilince alçak geçiren devre dış�
 | **Fader** | Seviye, +12 dB'den kapalıya. Alttaki gösterge seviyeyi dB olarak gösterir |
 | **safe** | Solo safe: başkaları solodayken bu kanal duyulur kalır |
 | **listen** | Dinamiklerin key sinyalini dinle |
+| **duck** | Kanal başka bir kanalın altına indirildiği sürece yanar (sağ tık > **DUCK UNDER**) |
 
 ### Ses efektleri
 
@@ -665,7 +684,10 @@ Her çıkışın kendi koyu şeridi vardır:
 | **MIX EQ** | In anahtarı, HF gain ve freq, LF gain ve freq |
 | **CUT**, **SEL**, fader | Bir kanaldaki gibi |
 
-Bir çıkışa sağ tıklayınca **DEVICE...**, boşluklar, **RENAME...** ve **REMOVE** çıkar.
+Bir çıkışa sağ tıklayınca **DEVICE...**, **HEADPHONE EQ** (kulaklık düzeltmesi: **NONE** ya da markaya
+göre listelenmiş modelin), **ALERT IF SILENT** (10 saniye -60 dBFS'nin altında) ve **ALERT IF CLIPPING**
+(LIMIT kapalıyken), ki bunlar tepsi simgesini yanıp söndürür ve olay günlüğüne yazar, **IN THE MINI
+MIXER**, boşluklar, **RENAME...** ve **REMOVE** çıkar.
 
 Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. [Çıkışlar aygıttır](#outputs-are-devices)).
 
@@ -691,7 +713,8 @@ gecikmeyi otomatik telafi eder.
   kombinatör şeridindeki yolun eklentisine tıkla.
 
 Her eklenti **önce programın ayrı bir kopyasında sınanır**, böylece yüklenirken çöken ya da donan bir
-eklenti karışımını düşüremez. Sonuç, eklenti dosyası değişene kadar hatırlanır.
+eklenti karışımını düşüremez. Yüklenmek için 30 saniyesi vardır (SETTINGS > GENERAL'daki **PLUGIN TEST
+TIME** yavaş eklentilere 60 ya da 120 verir). Sonuç, eklenti dosyası değişene kadar hatırlanır.
 
 <a id="the-plugin-panel"></a>
 
@@ -861,7 +884,8 @@ TAPE CHANNEL**'a tıkla.
 | **PATH** / **REVEAL** | Klasörü seç / Gezgin'de aç |
 
 Kayıtlar, bir klasör seçmezsen `Music\Faider Recordings` içine gider. ffmpeg biçimleri önce
-bir WAV kaydeder ve durdurduğunda dönüştürür (dönüştürme başarısız olursa WAV saklanır). Kayıt,
+bir WAV kaydeder ve durdurduğunda dönüştürür (dönüştürme başarısız olursa WAV saklanır). Faider
+**SETTINGS > GENERAL > FFMPEG**'de seçilen `ffmpeg.exe`'yi, yoksa PATH'teki olanı kullanır. Kayıt,
 1 GB'tan az yer kaldığında kendiliğinden durur.
 
 <a id="instant-replay"></a>
@@ -878,7 +902,25 @@ kullanır.
 
 ## 13. Aygıtlar
 
-**DEVICES** her Windows ses aygıtını ve ASIO sürücüsünü listeler.
+**DEVICES** her Windows ses aygıtını ve ASIO sürücüsünü listeler. Üstteki **CLOCK** saati şu anda neyin
+belirlediğini gösterir ve tuşu onu seçer (bkz. [Saat](#clocking)).
+
+Onun altındaki **WINDOWS AUDIO**, Windows'un ses motorunun (her Windows aygıtını ve yakalanan her
+uygulamayı taşıyan audiodg.exe) önceliğini gösterir: **NORMAL** Windows'un varsayılanıdır, okunamazsa
+**UNKNOWN**. Tuşu, **BOOST WINDOWS AUDIO** (High iken **BOOSTED**), bir menü açar:
+
+- **BOOST (HIGH PRIORITY)** onu High'a çıkarır; bu, bazı bilgisayarlarda Windows aygıtlarındaki ve
+  yakalanan uygulamalardaki çıtırtıyı durdurabilir. Yönetici hakları gerektirir, bu yüzden Windows önce
+  sorar; hayır demek hiçbir şeyi değiştirmez. Windows sesinin ya da bilgisayarın yeniden başlatılmasından
+  sonra kalmaz: Faider onu izler, Normal'e döndüğünde tepsiden bir kez söyler ve tepsi menüsündeki
+  **Boost Windows audio again...** (ya da buradaki BOOST veya FIND'daki **BOOST WINDOWS AUDIO**) onu
+  yeniden yükseltir. Yükseltilmişken BOOST'a tıklamak izlemeyi durdurur; Windows sesi yeniden başlayana
+  kadar High kalır.
+- **PIN TO ONE CORE** (sen seçmedikçe kapalı) bir sonraki BOOST'tan itibaren onu son işlemci çekirdeğine
+  de bağlar. Yalnızca nerede çalıştığını kısıtlar, asla çekirdek eklemez: yalnızca bir USB kulaklıktaki
+  çıtırtı için kullan.
+
+Windows sesinden geçmeyen ASIO arabirimlerini etkilemez.
 
 | Sütun | |
 |---|---|
@@ -990,6 +1032,9 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Ölçerlerin nasıl okuduğu (varsayılan olarak hızlı düşüşlü örnek tepesi; IEC ve diğerleri) |
 | **CHANNEL METER POINT** | **IN** (ham kaynak), **PRE** (efektlerden sonra), **POST** (fader'dan sonra, varsayılan). Kenar çubuğundaki **METER** kartları aynı ayarı yapar |
+| **RECORDING** | **FFMPEG**: `ffmpeg.exe`'nin yeri ya da **NOT FOUND**. `ffmpeg.exe`'yi seçmek için tıkla (PATH'teki olandan önce kullanılır); biri seçildikten sonra PATH'tekine dönmeyi de önerir |
+| **PLUGIN TEST TIME** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
+| **UPDATES** | **CHECK FOR UPDATES** (varsayılan olarak açık): başlangıçtan yarım dakika sonra, günde en fazla bir kez, Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki tuş sayfasını açar. Kapatırsan Faider asla sormaz. **CHECK NOW** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
 | **ABOUT** | Sürüm ve emeği geçenler |
 
 <a id="macros"></a>
@@ -1056,7 +1101,7 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 | Kart | |
 |---|---|
 | **MIDI** | **MIDI MAP** (Ctrl+L); her MIDI girişinin açılıp kapatıldığı **INPUTS AND BINDINGS** |
-| **OSC** | Bu bilgisayardaki programlar için **OSC ON (PORT 9000)** |
+| **OSC** | Bu bilgisayardaki programlar için **OSC ON (PORT 9000)**. **PORT...** portu ayarlar (1024–65535); OSC açıksa hemen oraya taşınır |
 
 ---
 
@@ -1067,10 +1112,10 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
-| **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz |
+| **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da SETTINGS > CONTROL'deki **PORT...** ile ayarlanan porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
-| **MINI** | Mini mikser: her çıkışın fader'ı, ölçeri ve **CUT**'ı olan küçük bir pencere. **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
-| **Tepsi** | Mini mikser için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
+| **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
+| **Tepsi** | Mini mikser için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
 
 Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
 Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla
@@ -1185,7 +1230,9 @@ bir şey ters olduğunda görünür. Her satırın bir ışığı, bulgusu ve bi
 | **MIC CABLE** | VB-CABLE yok: uygulamalar karışımını mikrofon olarak duyamaz | **GET VB-CABLE** |
 | **MIC OUTPUT** | Mikrofon kablosuna çalan çıkış yok | **ROUTING** |
 | **MIC CHANNELS** | Mikrofona giden yolda bir şey CUT durumunda | **UNCUT** |
+| **WINDOWS DEFAULTS** | Windows'un varsayılan hoparlörü veya mikrofonu (ya da görüşmeler için varsayılanı) sanal kablo | **SET MY DEFAULTS** |
 | **HEARD ONCE** | Bir geri besleme döngüsü ya da iki kez duyulan bir şey | **SOUND SETTINGS** |
+| **WINDOWS AUDIO** | Karışımda Windows aygıtları veya yakalanan uygulamalar var ve Windows'un ses motoru Normal öncelikte: sarı, yalnızca bir öneri; yükseltmen bir yeniden başlatmayla geri alındıysa kırmızı. Yalnızca ASIO kullanılırken yeşil | **BOOST** |
 
 **ZERO THE DESK** (sol altta; FIND'da **ZERO DESK** olarak da) bir önceki oturumun açık
 bırakabileceklerini kontrol eder: solo'lar, key listen, 12 dB'den fazla kaymış gain trim'leri ve CUT
@@ -1229,11 +1276,13 @@ Sinyal yolu boyunca ilerle:
 - Tepsideki **INTERFACE DOWN**: arabirim kendini sıfırladı ve yeniden açılmadı. DEVICES'ta tampon
   boyutunu değiştir ya da Faider'i yeniden başlat.
 - Arabirimin kendi denetim masasında yapılan hız veya tampon değişiklikleri kendiliğinden algılanır.
-- Bir süre arabirimsiz çalışmak için Faider'i
-  `"C:\Program Files\Faider\Faider.exe" --clock windows` (Windows oynatma
+- Bir süre arabirimsiz çalışmak için **DEVICES > CLOCK**'ta bir Windows oynatma aygıtı ya da yerleşik
+  saati seç ve **RESTART NOW**'a tıkla. Karışımın seninle gelir ve arabirimin için kayıtlı kalır:
+  **THE INTERFACE (ASIO)**'yu yeniden seçmek ona döner.
+- Ya da Faider'i `"C:\Program Files\Faider\Faider.exe" --clock windows` (Windows oynatma
   aygıtın) ya da `--clock builtin` (yerleşik saat) ile başlat. Bir ASIO sürücüsünün adının bir
-  kısmıyla `--clock` (`--clock focusrite`) o sürücüyü seçer. Karışımın seninle gelir ve arabirimin
-  için kayıtlı kalır: bir sonraki normal başlangıç ona döner.
+  kısmıyla `--clock` (`--clock focusrite`) o sürücüyü seçer. O çalışma için DEVICES > CLOCK'un önüne
+  geçer ve onsuz bir sonraki başlangıç senin seçimine döner.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1245,6 +1294,11 @@ Sinyal yolu boyunca ilerle:
 3. Bir aygıtta **UNDER / OVER** artıyor: o aygıt zorlanıyor. Başka bir USB girişi dene, onu kullanan
    diğer programları kapat ya da kullanmıyorsan dışla.
 4. Sabit **DRIFT** normaldir. Saatleri adım adım tutan düzeltmedir.
+5. Çıtırtı yalnızca Windows aygıtlarında veya yakalanan uygulamalarda: **BOOST WINDOWS AUDIO**'yu dene
+   (DEVICES > WINDOWS AUDIO ya da FIND). Windows'un ses motorunu Windows'un varsayılanı olan Normal'den
+   High'a çıkarır. Windows yönetici onayı ister ve Windows sesinin ya da bilgisayarın yeniden
+   başlatılması bunu geri alır (Faider sana söyler). ASIO arabirimlerini etkilemez. Hâlâ çıtırtı yapan
+   bir USB kulaklık için **PIN TO ONE CORE** isteğe bağlıdır ve onu yalnızca tek bir çekirdekle kısıtlar.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1262,7 +1316,8 @@ Sinyal yolu boyunca ilerle:
   çıkışa yönlendirilmişse onu hem doğrudan hem Faider üzerinden duyarsın. O yönlendirmeyi kapat
   (SIMPLE'da kanaldaki o çıkışın tuşu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
   uyarır.
-- Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT > **HEARD ONCE** bunu adıyla söyler.
+- Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT > **WINDOWS DEFAULTS** bunu adıyla
+  söyler ve **SET MY DEFAULTS** hoparlörlerini yerine koyar.
 
 <a id="188-a-route-wont-switch-on"></a>
 
@@ -1289,9 +1344,10 @@ giremez.
 
 ### 18.11 Bir eklenti yüklenmiyor
 
-Her eklenti önce programın ayrı bir kopyasında sınanır ve hatanın nedeni bildirilir: 30 s içinde
-yüklemeyi bitirmedi, sınanırken çöktü ya da dosyada VST3 eklentisi yok. Eklentiyi güncelle veya yeniden
-kur. Dosyası değiştiğinde yeniden sınanır.
+Her eklenti önce programın ayrı bir kopyasında sınanır ve hatanın nedeni bildirilir: zamanında
+yüklemeyi bitirmedi (30 s; SETTINGS > GENERAL'daki **PLUGIN TEST TIME** ona 60 ya da 120 vermedikçe),
+sınanırken çöktü ya da dosyada VST3 eklentisi yok. Eklentiyi güncelle veya yeniden kur. Dosyası
+değiştiğinde yeniden sınanır.
 
 <a id="1812-the-program-crashed"></a>
 
@@ -1300,6 +1356,11 @@ kur. Dosyası değiştiğinde yeniden sınanır.
 `%APPDATA%\Faider\crash.log` içine bir rapor yazılır, yanında `crash.dmp` mini dökümü
 bulunur. Karışımın her değişiklikten sonra bir saniye içinde kaydedildiği için en çok son anın
 değişikliklerini kaybedersin.
+
+Bir sorunu bildirmek için tepsi simgesine sağ tıkla > **Save a problem report...** (ya da FIND'da **SAVE A
+PROBLEM REPORT**). Çökme raporunu, olay günlüğünü ve durum anlık görüntüsünü (var olanları), Faider'in ve
+Windows'un sürümleriyle birlikte, seçtiğin yere (başta masaüstü) tek bir .zip olarak koyar, sonra onu
+Gezgin'de gösterir. Hiçbir yere hiçbir şey gönderilmez: dosyayı kendin ekle.
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1312,9 +1373,10 @@ Kayıt, 1 GB'tan az disk alanı kaldığında (ya da biçimin boyut sınırı ya
 
 ### 18.14 VB-CABLE kurulduktan sonra Windows'tan ses gelmiyor
 
-Windows kabloyu varsayılan aygıtı yapmış. Kulaklığını veya hoparlörlerini yeniden varsayılan çıkış,
-gerçek mikrofonunu varsayılan giriş olarak ayarla; hem **Ayarlar > Sistem > Ses**'te hem de varsayılan
-iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
+Windows kabloyu varsayılan aygıtı yapmış. **SET MY DEFAULTS** (PRE-FLIGHT'ın **WINDOWS
+DEFAULTS** satırı ya da FIND'da **WINDOWS DEFAULTS**) kulaklığını veya hoparlörlerini yeniden varsayılan
+çıkış, gerçek mikrofonunu varsayılan giriş olarak ayarlar, her birini görüşmeler için de. Ya da bunu
+**Ayarlar > Sistem > Ses**'te yap. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 
 ---
 
@@ -1347,6 +1409,8 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 |---|---|
 | `--minimised` | Tepside başlat |
 | `--quit` | Çalışan kopyayı kapat |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | Bu çalışma için saat, Windows oynatma aygıtın, yerleşik saat ya da adında `<driver>` geçen ASIO sürücüsüdür. DEVICES > CLOCK'un önüne geçer (bkz. [Saat](#clocking)) |
+| `--boost-audiodg [--pin-core N]` | **BOOST WINDOWS AUDIO**'nun yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar), sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi |
 
 <a id="193-files"></a>
 

@@ -55,7 +55,7 @@ vous dit quoi faire quand quelque chose ne va pas.
 | **Une interface audio** | Facultatif. Avec son pilote ASIO installé, Faider fonctionne sur l'horloge de l'interface pour avoir le moins de retard possible. Sans interface, il fonctionne sur votre périphérique de lecture Windows, ou sur son horloge intégrée (voir [Synchronisation](#clocking)) |
 | **Un casque** | Branché sur votre interface (ou sur n'importe quel périphérique de lecture Windows) pour entendre votre mix |
 | **VB-CABLE** | Facultatif et gratuit (vb-audio.com/Cable). Un microphone virtuel, pour que des applications comme Discord, les jeux et OBS entendent votre mix |
-| **ffmpeg** | Facultatif. Avec `ffmpeg.exe` dans votre PATH, l'enregistreur peut aussi écrire du MP3, de l'AAC, de l'Opus et de l'ALAC |
+| **ffmpeg** | Facultatif. Avec `ffmpeg.exe` dans votre PATH, ou choisi dans **SETTINGS > GENERAL > FFMPEG**, l'enregistreur peut aussi écrire du MP3, de l'AAC, de l'Opus et de l'ALAC |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -115,9 +115,16 @@ VB-CABLE vous donne un microphone virtuel que d'autres applications peuvent choi
 > **Windows bascule votre son sur le câble.** L'installation d'un câble virtuel en fait souvent le
 > choix par défaut de Windows : **CABLE Input** comme haut-parleurs et **CABLE Output** comme
 > microphone. Vous n'entendez alors plus rien de Windows, et les applications qui utilisent le micro
-> par défaut entendent le câble. Remettez les deux comme avant juste après l'installation.
+> par défaut entendent le câble. Remettez les deux comme avant juste après l'installation. Faider
+> peut le faire pour vous.
 
-**Remettez vos périphériques :**
+**Remettez vos périphériques avec Faider :** cliquez sur **SET MY DEFAULTS** : sur la page **APPS
+HEAR YOU** de SETUP (étape 4), sur la ligne **WINDOWS DEFAULTS** de PRE-FLIGHT, ou **WINDOWS
+DEFAULTS** dans FIND. Il liste vos vrais haut-parleurs et microphones. Choisissez votre casque ou vos
+enceintes, puis cliquez de nouveau et choisissez votre microphone. Chacun devient le périphérique par
+défaut de Windows et son périphérique par défaut pour les appels.
+
+**Ou remettez-les dans Windows :**
 
 1. Ouvrez **Paramètres > Système > Son** (ou faites un clic droit sur l'icône du haut-parleur dans
    la barre des tâches > **Paramètres du son**).
@@ -134,8 +141,8 @@ tâches, cliquez sur le **>** à côté du curseur de volume et choisissez votre
 
 Gardez vos vrais périphériques comme périphériques par défaut de Windows. Faider ne joue
 dans le câble que là où vous le routez, et chaque application choisit elle-même **CABLE Output**
-comme microphone (étape 6). Si le haut-parleur par défaut de Windows est le câble, PRE-FLIGHT le
-signale sous **HEARD ONCE**.
+comme microphone (étape 6). Si l'un des périphériques par défaut de Windows est le câble,
+PRE-FLIGHT le signale sous **WINDOWS DEFAULTS**.
 
 <a id="step-3-start-faider"></a>
 
@@ -159,7 +166,9 @@ les cartes pour choisir. Sur toutes les pages sauf la troisième, vous pouvez en
 2. **MICROPHONES** : choisissez les microphones dans lesquels vous parlez. Ce sont les entrées de
    votre interface (**IN 1**, **IN 2** …) et vos périphériques d'enregistrement Windows.
 3. **APPS HEAR YOU** : choisissez le câble virtuel que les applications utilisent comme micro
-   (**CABLE Input**, après l'étape 2), ou **NOT NOW**.
+   (**CABLE Input**, après l'étape 2), ou **NOT NOW**. Tant que Windows joue ou enregistre encore
+   sur le câble, **SET MY DEFAULTS** en bas remet vos vrais haut-parleurs et votre vrai microphone
+   (étape 2).
 4. **PROGRAMS** : choisissez les programmes qui jouent du son en ce moment et que vous voulez sur
    la console.
 5. Cliquez sur **BUILD THE MIX**. **DONE** liste ce qui a été créé.
@@ -223,8 +232,8 @@ Si vous entendez un programme deux fois, voir [18.7](#187-i-hear-something-twice
 
 **+ CHANNEL** et **+ APP** ajoutent des canaux. **+ OUTPUT** ajoute une sortie sur un périphérique
 qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
-Faites un clic droit sur un nom pour **RENAME...**, la couleur et **REMOVE**. Retirer le canal d'un
-programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.
+Faites un clic droit sur un nom pour **RENAME...**, la couleur, **HEADPHONE EQ** (une sortie),
+**IN THE MINI MIXER** et **REMOVE**. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -438,6 +447,12 @@ démarre pas (parce qu'un autre programme l'occupe) est ignoré jusqu'à ce que 
 changent, puis réessayé. Sur l'horloge intégrée, un périphérique de lecture qu'on branche en prend
 le relais.
 
+Pour choisir l'horloge vous-même, utilisez **CLOCK** en haut de **DEVICES** : **THE INTERFACE
+(ASIO)** (l'ordre ci-dessus, par défaut), **A WINDOWS PLAYBACK DEVICE** par son nom, ou **THE
+BUILT-IN CLOCK**. Le choix prend effet au prochain démarrage de Faider, et **RESTART NOW** le fait
+tout de suite. Votre mix vous suit et reste enregistré pour votre interface. Si vous choisissez
+l'horloge intégrée, aucun périphérique n'en prend le relais.
+
 <a id="5-the-console"></a>
 
 ## 5. La console
@@ -455,10 +470,10 @@ en bas :
 | **HEADER** | Les barres de niveau, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche |
 | **INPUT** | Trim, polarité, drive du micro, le commutateur d'entrée et largeur stéréo |
 | **DYNAMICS** | Compresseur et gate |
-| **FILTERS** | Passe-bas et passe-haut |
+| **FILTERS** | Passe-bas, passe-haut et l'interrupteur NOISE |
 | **EQ** | Quatre bandes |
 | **NAME** | La barre de nom et le commutateur d'alimentation |
-| **FADER** | Pan, SOLO, CUT, SEL, le fader et son affichage |
+| **FADER** | Pan, SOLO, CUT, SEL, le fader et son affichage, le voyant DUCK |
 
 <a id="mouse-and-keyboard"></a>
 
@@ -520,7 +535,10 @@ quand cette tranche bouge.
 | **ROUTE TO** | Chaque bus et chaque périphérique de sortie, coché là où le signal est envoyé |
 | **PLUGINS** | En ouvrir un, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Canaux seulement |
+| **NOISE** | Réduction de bruit : **ON** (comme l'interrupteur NOISE de la tranche), **NEURAL** ou **SPECTRAL**, et sa **DEPTH** (-6 à -30 dB) |
+| **DUCK UNDER** | Un autre canal sous lequel celui-ci s'abaisse tant que cet autre canal est entendu, ou **NONE**, et de combien il s'abaisse (**DEPTH**, -6 à -24 dB). Pas sur un canal d'application |
 | **COLOUR** | La couleur du canal, affichée le long de sa barre de nom et sur son bloc de la page Routing |
+| **IN THE MINI MIXER** | Coché : la tranche a un fader dans le mini-mixeur (voir [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
 | **RENAME...** | |
 | **REMOVE** | Supprime le canal ou le bus |
@@ -601,6 +619,11 @@ que vous puissiez les régler avant de les activer.
 **lp** (passe-bas) et **hp** (passe-haut). Tourné à fond vers le bas, le passe-haut est désactivé.
 Tourné à fond vers le haut, le passe-bas est désactivé.
 
+**NOISE** active ou désactive la réduction de bruit : le souffle, le ronflement et le bruit de la
+pièce sont atténués tandis que la voix reste. Clic droit sur la tranche > **NOISE** pour **NEURAL**
+(par défaut, à 48 kHz ; aux autres fréquences, il fonctionne en SPECTRAL) ou **SPECTRAL**, et pour
+sa profondeur. Désactivé, il ne coûte rien.
+
 <a id="eq"></a>
 
 ### EQ
@@ -631,6 +654,7 @@ Le commutateur **EQ IN** active ou désactive tout l'égaliseur (comme la touche
 | **Fader** | Niveau, de +12 dB à off. L'affichage dessous montre le niveau en dB |
 | **safe** | Solo safe : ce canal reste audible quand d'autres sont en solo |
 | **listen** | Écouter le signal de clé de la dynamique |
+| **duck** | S'allume tant que le canal est abaissé sous un autre (clic droit > **DUCK UNDER**) |
 
 ### Effets vocaux
 
@@ -694,7 +718,11 @@ Chaque sortie a sa propre tranche sombre :
 | **MIX EQ** | Commutateur d'activation, gain et fréquence HF, gain et fréquence LF |
 | **CUT**, **SEL**, fader | Comme sur un canal |
 
-Clic droit sur une sortie pour **DEVICE...**, les espaceurs, **RENAME...** et **REMOVE**.
+Clic droit sur une sortie pour **DEVICE...**, **HEADPHONE EQ** (correction de casque : **NONE**, ou
+votre modèle, classé par marque), **ALERT IF SILENT** (10 secondes sous -60 dBFS) et **ALERT IF
+CLIPPING** (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
+écrivent dans le journal des événements, **IN THE MINI MIXER**, les espaceurs, **RENAME...** et
+**REMOVE**.
 
 Les sorties sont créées pour vous, une par périphérique (voir
 [Les sorties sont des périphériques](#outputs-are-devices)).
@@ -721,8 +749,9 @@ combinateurs, avec compensation automatique de la latence.
   Cliquez sur le plugin d'un chemin sur la tranche du combinateur pour l'ouvrir.
 
 Chaque plugin est **d'abord testé dans une copie séparée du programme**, donc un plugin qui plante
-ou se bloque au chargement ne peut pas faire tomber votre mix. Le résultat est mémorisé jusqu'à ce
-que le fichier du plugin change.
+ou se bloque au chargement ne peut pas faire tomber votre mix. Il a 30 secondes pour se charger
+(**PLUGIN TEST TIME** dans SETTINGS > GENERAL donne 60 ou 120 aux plugins lents). Le résultat est
+mémorisé jusqu'à ce que le fichier du plugin change.
 
 <a id="the-plugin-panel"></a>
 
@@ -903,7 +932,8 @@ Le transport de la barre du haut et la tranche tape du pupitre commandent le mê
 
 Les enregistrements vont dans `Music\Faider Recordings` sauf si vous choisissez un
 dossier. Les formats ffmpeg enregistrent d'abord un WAV et le convertissent à l'arrêt (le WAV est
-conservé si la conversion échoue). L'enregistrement s'arrête tout seul quand il reste moins de 1 Go
+conservé si la conversion échoue). Faider utilise le `ffmpeg.exe` choisi dans **SETTINGS > GENERAL >
+FFMPEG**, sinon celui de votre PATH. L'enregistrement s'arrête tout seul quand il reste moins de 1 Go
 libre.
 
 <a id="instant-replay"></a>
@@ -920,7 +950,28 @@ clavier global). Avec le multipiste choisi, replay utilise la première sortie.
 
 ## 13. Périphériques
 
-**DEVICES** liste chaque périphérique audio Windows et chaque pilote ASIO.
+**DEVICES** liste chaque périphérique audio Windows et chaque pilote ASIO. **CLOCK**, en haut,
+montre ce qui donne l'horloge en ce moment, et sa touche la choisit (voir
+[Synchronisation](#clocking)).
+
+**WINDOWS AUDIO**, en dessous, montre la priorité du moteur audio de Windows (audiodg.exe, qui porte
+chaque périphérique Windows et chaque application capturée) : **NORMAL** est la valeur par défaut de
+Windows, **UNKNOWN** si elle ne peut pas être lue. Sa touche, **BOOST WINDOWS AUDIO** (**BOOSTED**
+tant qu'elle est en High), ouvre un menu :
+
+- **BOOST (HIGH PRIORITY)** la passe en High, ce qui peut faire cesser les craquements sur les
+  périphériques Windows et les applications capturées sur certains PC. Il faut des droits
+  d'administrateur, donc Windows demande d'abord ; si vous refusez, rien ne change. Cela ne survit
+  pas à un redémarrage de l'audio de Windows ou du PC : Faider le surveille, vous prévient une fois
+  depuis la zone de notification quand elle est revenue à Normal, et **Boost Windows audio again...**
+  dans le menu de la zone de notification (ou BOOST ici, ou **BOOST WINDOWS AUDIO** dans FIND) la
+  relève. Cliquer sur BOOST pendant qu'elle est relevée arrête la surveillance ; elle reste en High
+  jusqu'au redémarrage de l'audio de Windows.
+- **PIN TO ONE CORE** (désactivé sauf si vous le choisissez) la fixe aussi sur le dernier cœur de
+  votre processeur, à partir du BOOST suivant. Cela restreint seulement l'endroit où elle s'exécute,
+  sans jamais ajouter de cœurs : ne l'utilisez que pour des craquements sur un casque USB.
+
+Cela n'affecte pas les interfaces ASIO, qui ne passent pas par l'audio de Windows.
 
 | Colonne | |
 |---|---|
@@ -1039,6 +1090,9 @@ en crème quand ils sont activés.
 | **ZOOM** | 100 %, 125 %, 150 %, **CUSTOM...** (75–200 %) |
 | **METER STANDARD** | Comment les vumètres lisent le niveau (crête d'échantillon avec une chute rapide par défaut ; IEC et autres) |
 | **CHANNEL METER POINT** | **IN** (source brute), **PRE** (après les effets), **POST** (après le fader, par défaut). Les cartes **METER** de la barre latérale règlent la même chose |
+| **RECORDING** | **FFMPEG** : l'emplacement de `ffmpeg.exe`, ou **NOT FOUND**. Cliquez dessus pour choisir `ffmpeg.exe` (utilisé avant celui du PATH) ; une fois un fichier choisi, il propose aussi de revenir à celui du PATH |
+| **PLUGIN TEST TIME** | **30 S** (par défaut), **60 S** ou **120 S** : le temps qu'a un nouveau plugin pour se charger pendant son test avant d'échouer |
+| **UPDATES** | **CHECK FOR UPDATES** (activé par défaut) : une demi-minute après le démarrage, au plus une fois par jour, Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple `Faider/0.1.5`) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et **Get Faider x.y.z...** dans le menu de la zone de notification, **GET FAIDER x.y.z** dans FIND ou la touche ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien. **CHECK NOW** (ou **CHECK FOR UPDATES NOW** dans FIND) demande tout de suite et vous dit quand vous êtes à jour |
 | **ABOUT** | Version et crédits |
 
 <a id="macros"></a>
@@ -1108,7 +1162,7 @@ console ([5](#5-the-console)).
 | Carte | |
 |---|---|
 | **MIDI** | **MIDI MAP** (Ctrl+L) ; **INPUTS AND BINDINGS**, où chaque entrée MIDI est activée ou désactivée |
-| **OSC** | **OSC ON (PORT 9000)**, pour les programmes de ce PC |
+| **OSC** | **OSC ON (PORT 9000)**, pour les programmes de ce PC. **PORT...** règle le port (1024–65535) ; si OSC est activé, il y passe aussitôt |
 
 ---
 
@@ -1119,10 +1173,10 @@ console ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas) |
-| **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000 (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_` |
+| **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000, ou le port réglé avec **PORT...** dans SETTINGS > CONTROL (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_` |
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / CUT et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
-| **MINI** | Le mini-mixeur : une petite fenêtre avec le fader, le vumètre et le **CUT** de chaque sortie. **PIN** la garde au premier plan de tout. **OPEN** revient à la fenêtre principale |
-| **Zone de notification** | Cliquez sur l'icône pour le mini-mixeur, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Session timeline, Start with Windows, About, Quit. L'icône clignote en orange pendant une alerte |
+| **MINI** | Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et **CUT** pour chaque tranche cochée **IN THE MINI MIXER** dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). **PIN** la garde au premier plan de tout. **OPEN** revient à la fenêtre principale |
+| **Zone de notification** | Cliquez sur l'icône pour le mini-mixeur, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte |
 
 Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis une
 fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que l'overlay en jeu ne
@@ -1245,7 +1299,9 @@ et n'apparaît que si quelque chose ne va pas. Chaque ligne a un voyant, le cons
 | **MIC CABLE** | Pas de VB-CABLE : les applications ne peuvent pas entendre votre mix comme un micro | **GET VB-CABLE** |
 | **MIC OUTPUT** | Aucune sortie ne joue dans le câble micro | **ROUTING** |
 | **MIC CHANNELS** | Quelque chose est coupé sur le chemin vers le micro | **UNCUT** |
+| **WINDOWS DEFAULTS** | Le haut-parleur ou le micro par défaut de Windows (ou son périphérique par défaut pour les appels) est le câble virtuel | **SET MY DEFAULTS** |
 | **HEARD ONCE** | Une boucle de rétroaction, ou quelque chose entendu deux fois | **SOUND SETTINGS** |
+| **WINDOWS AUDIO** | Des périphériques Windows ou des applications capturées sont dans le mix et le moteur audio de Windows est en priorité Normal : jaune, une simple suggestion ; rouge si votre boost a été annulé par un redémarrage. Vert quand seul ASIO est utilisé | **BOOST** |
 
 **ZERO THE DESK** (en bas à gauche ; aussi **ZERO DESK** dans FIND) vérifie ce qu'une session
 précédente peut laisser en place : solos, écoute de la clé, trims de gain écartés de plus de 12 dB
@@ -1291,11 +1347,13 @@ Suivez le chemin du signal :
   ne se rouvre pas. Changez sa taille de tampon dans DEVICES ou redémarrez Faider.
 - Les changements de fréquence ou de tampon faits dans le panneau de contrôle de l'interface sont pris
   en compte tout seuls.
-- Pour fonctionner un moment sans l'interface, lancez Faider avec
-  `"C:\Program Files\Faider\Faider.exe" --clock windows` (votre périphérique de
+- Pour fonctionner un moment sans l'interface, choisissez un périphérique de lecture Windows ou
+  l'horloge intégrée dans **DEVICES > CLOCK** et cliquez sur **RESTART NOW**. Votre mix vous suit et
+  reste enregistré pour votre interface : choisir de nouveau **THE INTERFACE (ASIO)** la retrouve.
+- Ou lancez Faider avec `"C:\Program Files\Faider\Faider.exe" --clock windows` (votre périphérique de
   lecture Windows) ou `--clock builtin` (l'horloge intégrée). `--clock` avec une partie du nom d'un
-  pilote ASIO (`--clock focusrite`) choisit ce pilote. Votre mix vous suit et reste enregistré pour
-  votre interface : le prochain démarrage normal la retrouve.
+  pilote ASIO (`--clock focusrite`) choisit ce pilote. Il l'emporte sur DEVICES > CLOCK pour cette
+  exécution, et le prochain démarrage sans lui revient à votre choix.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1307,6 +1365,12 @@ Suivez le chemin du signal :
 3. **UNDER / OVER** qui montent sur un périphérique : ce périphérique peine. Essayez un autre port
    USB, fermez les autres programmes qui l'utilisent, ou excluez-le si vous ne vous en servez pas.
 4. Une **DRIFT** stable est normale. C'est la correction qui garde les horloges en phase.
+5. Des craquements seulement sur les périphériques Windows ou les applications capturées : essayez
+   **BOOST WINDOWS AUDIO** (DEVICES > WINDOWS AUDIO, ou FIND). Il passe le moteur audio de Windows de
+   Normal, la valeur par défaut de Windows, à High. Windows demande une autorisation
+   d'administrateur, et un redémarrage de l'audio de Windows ou du PC l'annule (Faider vous le dit).
+   Cela n'affecte pas les interfaces ASIO. Pour un casque USB qui craque encore, **PIN TO ONE CORE**
+   est facultatif et ne fait que le restreindre à un seul cœur.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1325,8 +1389,8 @@ Suivez le chemin du signal :
   son canal est routé vers une sortie de ce même périphérique, vous l'entendez directement et par
   Faider. Désactivez cette liaison (en SIMPLE, la touche de la sortie sur le canal), ou déplacez le
   programme vers un autre périphérique. PRE-FLIGHT vous en avertit.
-- Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT > **HEARD ONCE**
-  le nomme.
+- Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT > **WINDOWS
+  DEFAULTS** le nomme, et **SET MY DEFAULTS** remet vos haut-parleurs.
 
 <a id="188-a-route-wont-switch-on"></a>
 
@@ -1356,8 +1420,9 @@ un bus ne peut pas aller parmi les canaux.
 ### 18.11 Un plugin ne se charge pas
 
 Chaque plugin est d'abord testé dans une copie séparée du programme, et la raison d'un échec est
-indiquée : il n'a pas fini de se charger en 30 s, il a planté pendant le test, ou il n'y a aucun
-plugin VST3 dans le fichier. Mettez à jour ou réinstallez le plugin. Dès que son fichier change, il
+indiquée : il n'a pas fini de se charger à temps (30 s, sauf si **PLUGIN TEST TIME** dans SETTINGS >
+GENERAL lui donne 60 ou 120), il a planté pendant le test, ou il n'y a aucun plugin VST3 dans le
+fichier. Mettez à jour ou réinstallez le plugin. Dès que son fichier change, il
 est testé de nouveau.
 
 <a id="1812-the-program-crashed"></a>
@@ -1367,6 +1432,12 @@ est testé de nouveau.
 Un rapport est écrit dans `%APPDATA%\Faider\crash.log`, avec un minidump `crash.dmp`. Votre
 mix est enregistré dans la seconde qui suit chaque modification, donc vous perdez au plus les
 changements du dernier instant.
+
+Pour signaler un problème, faites un clic droit sur l'icône de la zone de notification > **Save a
+problem report...** (ou **SAVE A PROBLEM REPORT** dans FIND). Il réunit le rapport de plantage, le
+journal des événements et l'instantané d'état (ceux qui existent), avec les versions de Faider et de
+Windows, dans un .zip à l'endroit de votre choix (le bureau pour commencer), puis l'affiche dans
+l'Explorateur. Rien n'est envoyé nulle part : joignez le fichier vous-même.
 
 <a id="1813-recording-stopped-by-itself"></a>
 
@@ -1380,9 +1451,10 @@ place ou choisissez un autre **PATH**.
 
 ### 18.14 Plus de son de Windows après l'installation de VB-CABLE
 
-Windows a fait du câble son périphérique par défaut. Remettez votre casque ou vos enceintes comme
-sortie par défaut, et votre vrai microphone comme entrée par défaut, à la fois dans **Paramètres >
-Système > Son** et comme périphériques de communication par défaut. Voir
+Windows a fait du câble son périphérique par défaut. **SET MY DEFAULTS** (la ligne **WINDOWS
+DEFAULTS** de PRE-FLIGHT, ou **WINDOWS DEFAULTS** dans FIND) remet votre casque ou vos enceintes
+comme sortie par défaut, et votre vrai microphone comme entrée par défaut, chacun aussi pour les
+appels. Ou faites-le dans **Paramètres > Système > Son**. Voir
 l'[étape 2](#step-2-install-vb-cable-optional).
 
 ---
@@ -1416,6 +1488,8 @@ l'[étape 2](#step-2-install-vb-cable-optional).
 |---|---|
 | `--minimised` | Démarrer dans la zone de notification |
 | `--quit` | Quitter la copie en cours d'exécution |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | Pour cette exécution, l'horloge est votre périphérique de lecture Windows, l'horloge intégrée, ou le pilote ASIO dont le nom contient `<driver>`. Il l'emporte sur DEVICES > CLOCK (voir [Synchronisation](#clocking)) |
+| `--boost-audiodg [--pin-core N]` | Ce que **BOOST WINDOWS AUDIO** lance, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée |
 
 <a id="193-files"></a>
 

@@ -114,7 +114,8 @@ end;
 // The uninstaller runs elevated and ExecAsOriginalUser isn't supported at uninstall time (it fails,
 // the copy in the tray keeps its files open and the uninstall stalls), so plain Exec is used here.
 // "--quit" skips Faider's un-elevate restart, and an elevated sender can message the unelevated copy.
-// A copy still running after that (hung closing a device or a plugin) is ended, so its files can go.
+// A copy of THIS install still running after that (hung closing a device or a plugin) is ended, so
+// its files can go; a Faider run from anywhere else (another user's, a build folder) is left alone.
 function InitializeUninstall: Boolean;
 var
   Code: Integer;
@@ -125,7 +126,9 @@ begin
   begin
     Exec (Exe, '--quit', '', SW_HIDE, ewWaitUntilTerminated, Code);
     Sleep (3000);   // (time to close its devices)
-    Exec (ExpandConstant ('{sys}\taskkill.exe'), '/F /IM {#AppExe}', '', SW_HIDE, ewWaitUntilTerminated, Code);
+    Exec (ExpandConstant ('{sys}\WindowsPowerShell\v1.0\powershell.exe'),
+          '-NoProfile -NonInteractive -Command "Get-Process -Name Faider -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq ''' + Exe + ''' } | Stop-Process -Force"',
+          '', SW_HIDE, ewWaitUntilTerminated, Code);
   end;
   Result := True;
 end;

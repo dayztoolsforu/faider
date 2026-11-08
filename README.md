@@ -79,7 +79,7 @@ a big key for every output. The switch in the top bar flips the whole console be
 **Routing, buses and outputs**
 - Route any channel to as many buses and outputs as you have (up to 8 of each). Routes that would feed back are refused
 - Buses as sub-mixes, or combinators that split a signal into parallel plugin paths
-- Outputs made on demand for each device. The output strips carry a bus compressor, mix EQ, width, SAFE limiter and LUFS metering
+- Outputs made on demand for each device. The output strips carry a bus compressor, mix EQ, width, a limiter (LIMIT) and LUFS metering
 - Mix-minus feeds and stems built from FIND (MIX-MINUS AND STEMS)
 
 **Tools**
@@ -93,12 +93,12 @@ a big key for every output. The switch in the top bar flips the whole console be
 - Macros fired by hotkeys, pads, the API or triggers (an app starts, a device connects, an output falls silent, a time of day)
 - MIDI mapping, and OSC from programs on the same PC
 - APP RULES (SETTINGS > GENERAL, or FIND) give a program its own channel the moment it starts playing
-- An in-game overlay, a mini mixer and a tray mixer
+- An in-game overlay, and a mini mixer that the tray icon opens; the tray menu's Session timeline goes back to an earlier mix
 
 **Reliability**
 - One clock: every secondary device and captured program is resampled to the master clock (an ASIO interface, a Windows playback device or the built-in clock), with drift correction
 - Devices remembered by name, with live stream statistics and a full event log
-- PRE-FLIGHT checks the setup on start: the interface, the mic cable and its route, muted mics, feedback and doubling
+- PRE-FLIGHT checks the setup on start: the interface, the mic cable and its route, cut mics, feedback and doubling
 - Runs with ordinary user rights, so the in-game overlay can reach it. Started as administrator, it restarts itself normally
 
 ## Screenshots
@@ -110,7 +110,7 @@ a big key for every output. The switch in the top bar flips the whole console be
   </tr>
   <tr>
     <td width="50%"><img src="docs/images/console/simple.jpg" alt="The SIMPLE desk"><br><sub>SIMPLE: a key for every output on each channel, the processing hidden</sub></td>
-    <td width="50%"><img src="docs/images/console/outputs.jpg" alt="Output strips"><br><sub>Outputs: bus compressor, mix EQ, width, SAFE limiter and LUFS metering</sub></td>
+    <td width="50%"><img src="docs/images/console/outputs.jpg" alt="Output strips"><br><sub>Outputs: bus compressor, mix EQ, width, limiter (LIMIT) and LUFS metering</sub></td>
   </tr>
 </table>
 

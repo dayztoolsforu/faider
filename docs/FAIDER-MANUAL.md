@@ -188,8 +188,8 @@ fader and meter.
 If you hear a program twice, see [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** and **+ APP** add channels. **+ OUTPUT** adds an output on a device that has none.
-The device key under an output's name changes where it plays. Right-click a name for **Rename...**,
-the colour and **Remove**. Removing a program's channel also removes its app rule, so the channel
+The device key under an output's name changes where it plays. Right-click a name for **RENAME...**,
+the colour and **REMOVE**. Removing a program's channel also removes its app rule, so the channel
 doesn't come back by itself.
 
 ### Step 7: PRO, for the whole console
@@ -296,8 +296,8 @@ flowchart LR
    routed.
 3. **A bus** sums everything routed to it, runs its own strip and plugins, and is routed on to
    outputs (or into other buses) the same way.
-4. **An output** sums everything routed to it, runs its bus compressor, mix EQ and **SAFE**
-   limiter, and plays on its device.
+4. **An output** sums everything routed to it, runs its bus compressor, mix EQ and limiter
+   (**LIMIT**), and plays on its device.
 
 ### Outputs are devices
 
@@ -318,7 +318,7 @@ All three change the same routes. Use whichever is closest.
 | Where | How |
 |---|---|
 | **Routing boxes** (each strip's header) | One box per bus and output device. Lit: routed there. Click to switch |
-| **Route to** (right-click a strip) | The same list as a menu, ticked where it's routed |
+| **ROUTE TO** (right-click a strip) | The same list as a menu, ticked where it's routed |
 | **The Routing page** | Every strip as a block, every route as a line. Click one block, then another (see [10](#10-the-routing-page)) |
 
 ### Buses
@@ -409,27 +409,27 @@ With the desk focused (click it first): **Left / Right** select the previous / n
 
 Click the power symbol at the left of the name bar. The strip fades and greys out. It isn't
 processed, and its device or program is let go. While it's off, **nothing on it can be changed**:
-knobs, keys and the plugin panel ignore clicks, and its menu only offers **Turn on** and spacers.
+knobs, keys and the plugin panel ignore clicks, and its menu only offers **TURN ON** and spacers.
 Click the power symbol again to bring it back.
 
 ### Spacers
 
-Spacers are blank strips that give you room between groups. Right-click a strip > **Add spacer
-before** / **Add spacer after**. Right-click a spacer for **Narrow**, **Add another** and **Remove
-spacer**. A spacer stays with the strip it follows when that strip moves.
+Spacers are blank strips that give you room between groups. Right-click a strip > **ADD SPACER
+BEFORE** / **ADD SPACER AFTER**. Right-click a spacer for **NARROW**, **ADD ANOTHER** and **REMOVE
+SPACER**. A spacer stays with the strip it follows when that strip moves.
 
 ### The strip menu (right-click)
 
 | Item | |
 |---|---|
-| **Input** | Change the source: **Interface** inputs, **Windows devices** (or Windows default), **What an output plays** (loopback), **Test tone**, **Nothing** |
-| **Route to** | Every bus and output device, ticked where it's sent |
-| **Plugins** | Open one, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | Channels only |
-| **Colour** | The channel's colour, shown along its name bar and on its Routing block |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | Deletes the channel or bus |
+| **INPUT** | Change the source: **INTERFACE** inputs, **WINDOWS DEVICES** (or WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS** (loopback), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | Every bus and output device, ticked where it's sent |
+| **PLUGINS** | Open one, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | Channels only |
+| **COLOUR** | The channel's colour, shown along its name bar and on its Routing block |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | Deletes the channel or bus |
 
 ---
 
@@ -517,7 +517,7 @@ The **EQ IN** switch puts the whole EQ in or out (the same as the header's EQ ke
 |---|---|
 | **PAN** | Left/right. Double-click to centre |
 | **SOLO** | Solo in place |
-| **CUT** | Mute |
+| **CUT** | Silences the channel (the **M** key on the desk) |
 | **SEL** | Select this strip |
 | **Fader** | Level, +12 dB to off. The readout below shows the level in dB |
 | **safe** | Solo safe: this channel stays audible when others are soloed |
@@ -554,12 +554,12 @@ the event log). Its plugins are kept.
 | Strip | Its middle sections hold |
 |---|---|
 | **App** | The plugin list (click one to open it) and **ADD PLUGIN** |
-| **Pads** | Bank keys **A–D**, the 4×4 pads (press to play; a GATE pad plays while held) and **STOP ALL** |
+| **Pads** | Bank keys **A–D**, the 4×4 pads (press to play; a HOLD pad plays while held) and **STOP ALL** |
 | **Tape** | The deck's screen and seek bar, the transport (previous, rewind, stop, play, pause, forward, next), **SHUFFLE**, **ADD...**, and the playlist (click a track to play it) |
 | **Combinator** | For each path: **FROM**, the channels and buses feeding it (click one to go to its strip), and **PLUGINS** on that path (click one to open it). **EDIT IN ROUTING** opens the Routing page |
 
 A combinator has no effects of its own. Its sound comes from what feeds it and from each path's
-plugins. Right-click it > **Paths** to add a path, and, for each path, to open, add or remove its
+plugins. Right-click it > **PATHS** to add a path, and, for each path, to open, add or remove its
 plugins, rename it or remove it.
 
 ---
@@ -568,12 +568,12 @@ plugins, rename it or remove it.
 
 ![Two output strips: HEADPHONES and STREAM, with the bus compressor and mix EQ](images/console/outputs.jpg)
 
-Each output (master) has its own dark strip:
+Each output has its own dark strip:
 
 | Control | |
 |---|---|
 | **DEVICE** | The device it plays on. Click to choose another |
-| **SAFE** | A limiter after the fader: nothing leaves above -1 dBFS |
+| **LIMIT** | A limiter after the fader: nothing leaves above -1 dBFS |
 | **MON** | Monitor this output |
 | **LUFS** | Short-term loudness of what leaves ("-- LUFS" when silent) |
 | **WIDTH** | Stereo width |
@@ -581,7 +581,7 @@ Each output (master) has its own dark strip:
 | **MIX EQ** | In switch, HF gain and freq, LF gain and freq |
 | **CUT**, **SEL**, fader | As on a channel |
 
-Right-click an output for **Device...**, spacers, **Rename...** and **Remove**.
+Right-click an output for **DEVICE...**, spacers, **RENAME...** and **REMOVE**.
 
 Outputs are made for you, one per device (see [Outputs are devices](#outputs-are-devices)).
 
@@ -597,9 +597,9 @@ latency compensation.
 
 ### Adding a plugin
 
-- On a channel: right-click > **Plugins > Add plugin...**, or **ADD PLUGIN** on a raw strip, or
+- On a channel: right-click > **PLUGINS > ADD PLUGIN...**, or **ADD PLUGIN** on a raw strip, or
   **ADD** in the plugin panel.
-- On a combinator path: right-click the combinator > **Paths > PATH n > Add plugin...**. Click a
+- On a combinator path: right-click the combinator > **PATHS > PATH n > ADD PLUGIN...**. Click a
   path's plugin on the combinator strip to open it.
 
 Every plugin is **tested first in a separate copy of the program**, so a plugin that crashes or
@@ -710,7 +710,7 @@ Formats: WAV, FLAC, AIFF, OGG, MP3. A pad whose file has moved shows **MISSING: 
 | Name | Double-click to rename |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | The instant-replay buffer becomes this pad's sound (saved as a WAV in the recordings folder). Arm replay in TOOLS > TAPE first |
-| **MODE** | **ONE-SHOT** plays to the end (pressing again restarts). **GATE** plays while held. **LOOP** starts on one press and stops on the next |
+| **MODE** | **ONE-SHOT** plays to the end (pressing again restarts). **HOLD** plays while held. **LOOP** starts on one press and stops on the next |
 | **CHOKE** | OFF or group 1–8. Pads in one group stop each other |
 | **LEVEL** | -INF to +12 dB |
 | **HOTKEY** | Click (**LEARN...**), then press the keys (see [HOTKEYS](#hotkeys)) |
@@ -808,7 +808,7 @@ settings).
 
 - **Store:** click **+** in the top bar and give it a name.
 - **Recall:** click its key. Faders and pans glide over half a second. The rest switches at once.
-- **Right-click a scene** for: recall mutes only / levels only, store to it, include plugin
+- **Right-click a scene** for: recall cuts only / levels only, store to it, include plugin
   settings, rename, a global hotkey, **Recall on device** (when a device appears; back when it
   goes), **Auto-scene** (when an app starts playing, a device connects, or at a time of day), MIDI
   learn, move, delete.
@@ -826,7 +826,7 @@ Your mix saves itself within a second of any change, and on exit.
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND, or **Session timeline...** on the tray menu: every kept version by date. **Restore everything** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, mute and rack) without restarting |
+| **SESSION TIMELINE** | FIND, or **Session timeline...** on the tray menu: every kept version by date. **RESTORE EVERYTHING** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, CUT and rack) without restarting |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: keep the mix under a name |
 | **OPEN, EXPORT OR IMPORT...** | Open a named mix (restarts), save the mix to a file, or load one from a file |
 
@@ -849,14 +849,14 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 |---|---|
 | **LOOK** | **LOOK...**: the console's colours and typeface, from a look file (see [Looks](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: opens in the tray when you sign in |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (a notice when a muted mic is above -30 dBFS) |
+| **DESK** | **WARN IF I TALK WHILE CUT** (a notice when a cut mic is above -30 dBFS) |
 | **APPS** | **APP RULES...**: which bus or output a program goes to when it starts playing (also in **FIND**). Removing a program's channel removes its rule |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
-| **CHANNEL METER POINT** | **PRE HPF** (raw source), **PRE FADER** (after effects), **POST ON** (after the fader, default). The sidebar's **METER** cards (IN / PRE / POST) set the same |
+| **CHANNEL METER POINT** | **IN** (raw source), **PRE** (after effects), **POST** (after the fader, default). The sidebar's **METER** cards set the same |
 | **ABOUT** | Version and credits |
 
 ### LOOKS
@@ -895,12 +895,12 @@ A `palette` group names the colours a layout file can put on a part: `red`, `gre
 A macro is a list of **actions** run from a hotkey, a pad, a trigger or remote control.
 
 1. Click **+ NEW**, then name it (double-click the name).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, fade time), ASSIGN ON/OFF/TOGGLE (a route),
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, fade time), ASSIGN ON/OFF/TOGGLE (a route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
    RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (a voice effect, see
    [Voice effects](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
-3. Optionally, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
-   SILENT (for n seconds), MASTER HAS SOUND, TIME (24-hour).
+3. Optionally, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, OUTPUT
+   SILENT (for n seconds), OUTPUT HAS SOUND, TIME (24-hour).
 4. Optionally, a **HOTKEY**, and **MOMENTARY** (the actions are undone when the key is released,
    for push-to-talk).
 5. **FIRE** runs it now.
@@ -928,8 +928,8 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
 | **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
-| **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / MUTED and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
-| **MINI** | A small mixer window with the channels ticked **Tray mixer** (or the outputs). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
+| **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
+| **MINI** | The mini mixer: a small window with each output's fader, meter and **CUT**. **PIN** keeps it on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Start with Windows, About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
@@ -957,7 +957,7 @@ themselves.
    Windows' defaults ([Step 2](#step-2-install-vb-cable-optional)).
 2. Route your mic channel to the **CABLE Input** device. An output is created on it.
 3. In the app, choose **CABLE Output** as its microphone.
-4. Run **PRE-FLIGHT NOW...** to check that nothing on the way is muted and nothing loops.
+4. Run **PRE-FLIGHT NOW...** to check that nothing on the way is cut and nothing loops.
 
 ### 17.3 Bring a program into the mix
 
@@ -975,23 +975,23 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 
 ### 17.5 Group channels into a bus
 
-1. **ADD BUS**, then rename it (right-click > Rename...).
+1. **ADD BUS**, then rename it (right-click > **RENAME...**).
 2. On the Routing page, click the bus, then click each channel to route it in.
 3. Click the bus, then its output, to route the bus on.
 4. If you only want those channels through the bus, take their direct routes to the output off.
 
 ### 17.6 Parallel processing with a combinator
 
-1. **ADD BUS > COMBINATOR**. It starts with two paths. Right-click it > **Paths > Add path** for
+1. **ADD BUS > COMBINATOR**. It starts with two paths. Right-click it > **PATHS > ADD PATH** for
    more.
 2. On the Routing page, route sources into the path cells (**P1**, **P2**…).
-3. Right-click > **Paths > PATH n > Add plugin...** for each path.
+3. Right-click > **PATHS > PATH n > ADD PLUGIN...** for each path.
 
 ### 17.7 Make a stream mix and a headphone mix
 
 1. Send your channels to two outputs, for example your headphones and the device your streaming
    software captures.
-2. Each output has its own fader, bus compressor, EQ and **SAFE** limiter. Turn **SAFE** on for the
+2. Each output has its own fader, bus compressor, EQ and limiter (**LIMIT**). Turn **LIMIT** on for the
    stream output.
 3. To keep something out of the stream, take that channel's route to the stream output off (with
    its routing box or on the Routing page).
@@ -1005,9 +1005,9 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 ### 17.9 Make a push-to-talk key
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > your mic channel.
+2. **+ ACTION** > **UNCUT** > your mic channel.
 3. Turn **MOMENTARY** on and set a **HOTKEY**. While you hold it the mic is live, and on release it
-   mutes again. Start with the mic muted.
+   is cut again. Start with the mic cut.
 
 ---
 
@@ -1022,12 +1022,12 @@ up if something is wrong. Each row has a light, the finding and a fix:
 |---|---|---|
 | **AUDIO** | It didn't start (another app may have it) | **DEVICES** |
 | **MIC CABLE** | No VB-CABLE: apps can't hear your mix as a mic | **GET VB-CABLE** |
-| **MIC MASTER** | No output plays into the mic cable | **ROUTING** |
-| **MIC CHANNELS** | Something on the way to the mic is muted | **UNMUTE** |
+| **MIC OUTPUT** | No output plays into the mic cable | **ROUTING** |
+| **MIC CHANNELS** | Something on the way to the mic is cut | **UNCUT** |
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
 
 **ZERO THE DESK** (bottom left; also **ZERO DESK** in FIND) checks what a last session can leave
-set: solos, key listen, gain trims more than 12 dB off, and cut masters. Each has a **FIX**.
+set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each has a **FIX**.
 
 ### 18.2 My mix is gone, a fresh mix started
 
@@ -1036,9 +1036,9 @@ Your mix isn't lost. When it can't be used at start, it's **set aside** as
 
 | Reason | What to do |
 |---|---|
-| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (FIND or the tray) > the "kept:" version > **Restore everything** |
+| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (FIND or the tray) > the "kept:" version > **RESTORE EVERYTHING** |
 | The saved interface couldn't be opened (another program has it) | Close the other program and restart Faider. Nothing is saved over your mix meanwhile |
-| session.xml couldn't be read | **SESSION TIMELINE** > a recent version > **Restore everything** |
+| session.xml couldn't be read | **SESSION TIMELINE** > a recent version > **RESTORE EVERYTHING** |
 
 ### 18.3 No sound
 

@@ -2144,7 +2144,7 @@ private:
     }
 
     // A strip's menu: what it takes in (a channel), where it goes, mono or stereo, its name, removing it.
-    // AN OUTPUT's menu: the device it plays on, its headphone correction, renaming it, removing it.
+    // AN OUTPUT's menu: the device it plays on, its headphone correction, its alerts, renaming it, removing it.
     void showDeviceMenu (int ch)
     {
         auto* m = bind.master (ch);
@@ -2214,6 +2214,18 @@ private:
         menu.addSectionHeader ("OUTPUT: " + m->name);
         menu.addItem ("DEVICE...", [this, ch] { showDeviceMenu (ch); });
         MixerComponent::addHeadphoneMenu (menu, *engine, index);   // (correction for the headphones it plays on)
+        menu.addSeparator();
+        // ALERTS: the tray icon and the event log say when it goes silent or clips (MainComponent::checkAlerts).
+        auto alert = [this, index] (std::function<void (AudioEngine::Master&)> change)
+        {
+            auto& masters = engine->getMasters();
+            if (juce::isPositiveAndBelow (index, (int) masters.size()))
+                change (*masters[(size_t) index]);
+        };
+        const int silentFor = m->silenceAlert > 0 ? m->silenceAlert : 10;   // (10 s of quiet, unless the session says otherwise)
+        menu.addItem ("ALERT IF SILENT (" + juce::String (silentFor) + " S)", true, m->silenceAlert > 0,
+                      [alert, on = m->silenceAlert > 0, silentFor] { alert ([on, silentFor] (AudioEngine::Master& mm) { mm.silenceAlert = on ? 0 : silentFor; }); });
+        menu.addItem ("ALERT IF CLIPPING", true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
         menu.addSeparator();
         menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
         menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });

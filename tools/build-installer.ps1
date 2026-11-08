@@ -2,18 +2,13 @@
 # Needs Inno Setup 6 (winget install JRSoftware.InnoSetup) and the ASIO SDK in third_party (as for
 # any build that's handed out: without it the app can't open ASIO interfaces).
 #
-#   powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1          (signed if FAIDER_SIGN_CERT is set)
-#   powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1 -Sign    (a release: stops unless it signs)
+#   powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1
 #
-# Signing: set FAIDER_SIGN_CERT (see tools\signing.ps1; with Certum's cloud certificate it's `certum`,
-# after logging in to SimplySign Desktop). Faider.exe is signed before it's packed, Setup.exe and the
-# uninstaller inside it by Inno Setup, and each signature is checked. tools\check-signing.ps1 tries it
-# first without building anything.
-
-param([switch]$Sign)
+# To sign, set FAIDER_SIGN_CERT to a .pfx file (and FAIDER_SIGN_PASSWORD to its password) or to a
+# certificate's thumbprint (one in your certificate store): Faider.exe is signed before it's packed,
+# and Setup.exe and the uninstaller inside it by Inno Setup, with signtool from the Windows SDK.
 
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'signing.ps1')
 $root = Split-Path -Parent $PSScriptRoot
 $build = Join-Path $root 'build'
 $source = Join-Path $build 'console\Faider_artefacts\Release'
@@ -25,10 +20,21 @@ $iscc = @("$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFile
     Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $iscc) { throw 'Inno Setup 6 not found (winget install JRSoftware.InnoSetup)' }
 
-# Signing: worked out before the build, so a missing certificate stops it before anything is made
-$signing = Get-FaiderSigning
-if ($Sign -and -not $signing) { throw '-Sign: set FAIDER_SIGN_CERT first (for Certum: certum, logged in to SimplySign Desktop)' }
-if ($signing) { Write-Host "Signing with $($signing.Description), timestamp $($signing.Timestamp)" }
+# Signing (optional): signtool's arguments for the certificate, the same for every file signed
+$signtool = $null
+if ($env:FAIDER_SIGN_CERT) {
+    $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" -ErrorAction SilentlyContinue |
+        Sort-Object { $v = $null; [void][version]::TryParse($_.Directory.Parent.Name, [ref]$v); $v } -Descending |
+        Select-Object -First 1 -ExpandProperty FullName
+    if (-not $signtool) { throw 'FAIDER_SIGN_CERT is set, but signtool.exe was not found (install the Windows SDK)' }
+    $signArgs = @('sign', '/fd', 'sha256', '/td', 'sha256', '/tr', 'http://timestamp.digicert.com')
+    if (Test-Path $env:FAIDER_SIGN_CERT -PathType Leaf) {
+        $signArgs += '/f', $env:FAIDER_SIGN_CERT
+        if ($env:FAIDER_SIGN_PASSWORD) { $signArgs += '/p', $env:FAIDER_SIGN_PASSWORD }
+    } else {
+        $signArgs += '/sha1', ($env:FAIDER_SIGN_CERT -replace '\s', '')   # (a thumbprint)
+    }
+}
 
 if (-not (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^ASIO_SDK_DIR:.*=.+' -Quiet)) {
     throw 'build\CMakeCache.txt has no ASIO_SDK_DIR: the app would be built without ASIO'
@@ -83,21 +89,22 @@ $vc = (Get-Item (Join-Path $crt.FullName 'vcruntime140.dll')).VersionInfo.FileVe
 # Inno Setup signs Setup.exe and the uninstaller with the same command (SignTool in Faider.iss):
 # each argument quoted ($q), a $ in one doubled, and $f for the file.
 $innoArgs = @()
-if ($signing) {
+if ($signtool) {
     Write-Host 'Signing Faider.exe...'
-    Invoke-FaiderSign $signing (Join-Path $source 'Faider.exe')
-    $command = ((@($signing.Signtool) + $signing.Args) | ForEach-Object { '$q' + ($_ -replace '\$', '$$$$') + '$q' }) -join ' '
+    & $signtool @signArgs (Join-Path $source 'Faider.exe')
+    if ($LASTEXITCODE -ne 0) { throw 'Signing Faider.exe failed.' }
+    $command = ((@($signtool) + $signArgs) | ForEach-Object { '$q' + ($_ -replace '\$', '$$$$') + '$q' }) -join ' '
     $innoArgs = @('/DSign', "/Sfaidersign=$command `$f")
 } else {
-    Write-Host 'not signed (set FAIDER_SIGN_CERT to sign; tools\check-signing.ps1 checks it)'
+    Write-Host 'not signed (set FAIDER_SIGN_CERT to sign)'
 }
 
 Write-Host "Packing $version (C++ runtime $vc)..."
 & $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DCRT=$($crt.FullName)" @innoArgs (Join-Path $root 'installer\Faider.iss')
 if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed.' }
 $setup = Join-Path $build "installer\Faider-$version-Setup.exe"
-if ($signing) {
-    Assert-FaiderSigned $signing $setup   # (the uninstaller inside it is signed by the same command)
-    Write-Host "Signed and timestamped: Faider.exe, Setup.exe and its uninstaller"
+if ($signtool) {
+    & $signtool verify /pa $setup
+    if ($LASTEXITCODE -ne 0) { throw 'Setup.exe is not signed.' }
 }
 Get-Item $setup | ForEach-Object { "{0}  {1:N1} MB" -f $_.FullName, ($_.Length / 1MB) }

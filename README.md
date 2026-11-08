@@ -153,25 +153,11 @@ To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php)
 with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
 when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
-**Signing a release.** Releases are signed with a Certum open-source code-signing certificate held in
-Certum's cloud (SimplySign):
-
-1. Open **SimplySign Desktop** and log in with the code from the SimplySign app on your phone. While
-   you're logged in, Windows sees the certificate as if it were on a smart card.
-2. `$env:FAIDER_SIGN_CERT = 'certum'` (or set it once for good:
-   `[Environment]::SetEnvironmentVariable('FAIDER_SIGN_CERT', 'certum', 'User')`).
-3. `powershell -ExecutionPolicy Bypass -File tools\check-signing.ps1` signs a throwaway test file and
-   says whether everything is ready.
-4. `powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1 -Sign` builds and signs
-   `Faider.exe`, then Inno Setup signs the Setup.exe and its uninstaller. Each signature is checked
-   (signed by that certificate, timestamped, trusted by Windows). `-Sign` stops the build rather than
-   make an unsigned installer.
-
-`certum` picks the newest valid Certum certificate, so nothing changes when it's renewed each year.
-`FAIDER_SIGN_CERT` can also be a certificate's thumbprint, or a `.pfx` file (with
-`FAIDER_SIGN_PASSWORD`). Signatures are SHA-256 and timestamped by Certum (DigiCert for other
-certificates; `FAIDER_SIGN_TIMESTAMP` overrides it). Without `FAIDER_SIGN_CERT` and `-Sign`, the script
-says `not signed` and builds as before. The logic is in `tools\signing.ps1`.
+To sign them, set `FAIDER_SIGN_CERT` to a `.pfx` file (with `FAIDER_SIGN_PASSWORD` its password) or
+to the thumbprint of a certificate in your certificate store before running `tools\build-installer.ps1`.
+It signs `Faider.exe` before packing it, and Inno Setup signs the Setup.exe and its uninstaller, with
+`signtool` from the Windows SDK (SHA-256, timestamped by DigiCert). Without it the script says
+`not signed` and builds as before.
 
 The website is the `docs` folder, published by GitHub Pages. It is one page, `docs/index.html`, built
 from `tools/manual-page` (the home view), the manual and its translations, and CREDITS.md: after

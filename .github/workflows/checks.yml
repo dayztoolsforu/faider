@@ -48,11 +48,39 @@ jobs:
       - name: Check the committed website is up to date
         run: git diff --exit-code docs/index.html docs/manual.html docs/CREDITS.html
 
+      # JUCE's source is kept between runs, keyed on the tag CMakeLists.txt asks for, so it isn't
+      # cloned every time. On a miss the configure clones it as usual and it is kept for the next run.
+      - name: Read the JUCE version
+        id: juce
+        run: |
+          $tag = (Select-String -Path CMakeLists.txt -Pattern '^\s*GIT_TAG\s+(\S+)').Matches[0].Groups[1].Value
+          if (-not $tag) { throw 'No GIT_TAG in CMakeLists.txt' }
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "dir=$('${{ runner.temp }}/juce' -replace '\\', '/')" >> $env:GITHUB_OUTPUT
+
+      - name: JUCE from the last run
+        id: juce-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.juce.outputs.dir }}
+          key: juce-${{ runner.os }}-${{ steps.juce.outputs.tag }}
+
       # The program is built here, without the ASIO SDK (it is licensed separately and
       # is not redistributed): the build then runs on Windows devices only, which is
       # enough to catch a broken build. A warning in Faider or a check fails the build here.
       - name: Configure
-        run: cmake -S . -B build -A x64 -DFAIDER_WARNINGS_AS_ERRORS=ON
+        run: |
+          $juce = @()
+          if ('${{ steps.juce-cache.outputs.cache-hit }}' -eq 'true') { $juce = @('-DFETCHCONTENT_SOURCE_DIR_JUCE=${{ steps.juce.outputs.dir }}') }
+          cmake -S . -B build -A x64 -DFAIDER_WARNINGS_AS_ERRORS=ON @juce
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      # (without its .git folder: the cache only needs the files)
+      - name: Keep JUCE for the next run
+        if: steps.juce-cache.outputs.cache-hit != 'true'
+        run: |
+          Copy-Item build/_deps/juce-src '${{ steps.juce.outputs.dir }}' -Recurse -Force
+          Remove-Item '${{ steps.juce.outputs.dir }}/.git' -Recurse -Force -ErrorAction SilentlyContinue
 
       - name: Build the program
         run: cmake --build build --config Release --target Faider

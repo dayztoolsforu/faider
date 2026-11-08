@@ -234,6 +234,22 @@ MainComponent::MainComponent()
             return juce::String ("--clock on the command line sets it for this run");
         return settings.getValue ("clock") != clockChosenAtStart ? juce::String ("The new choice takes effect when ") + Product::name + " starts again" : juce::String();
     };
+    // WINDOWS AUDIO: audiodg's priority, read now and every 5 s (timerCallback), and BOOST.
+    windowsAudio = AudioBoost::read();
+    auto& windowsAudioBar = devicesPanel.getWindowsAudio();
+    windowsAudioBar.state = [this] { return windowsAudio; };
+    windowsAudioBar.wanted = [this] { return settings.getBoolValue ("boostAudiodg"); };
+    windowsAudioBar.pinned = [this] { return settings.getBoolValue ("boostPinCore"); };
+    windowsAudioBar.boost = [this] { boostWindowsAudio(); };
+    windowsAudioBar.stopBoosting = [this] { stopBoostingWindowsAudio(); };
+    windowsAudioBar.setPinned = [this] (bool pin)
+    {
+        settings.setValue ("boostPinCore", pin);
+        settings.saveIfNeeded();
+        boostNote = pin ? "It's pinned to the last core from the next BOOST"
+                        : "From the next BOOST it isn't pinned (a pin already made stays until Windows audio restarts)";
+    };
+    windowsAudioBar.note = [this] { return boostNote; };
 
     // Devices list order: a column (DevicesTab::columns), "-" in front for descending; remembered.
     if (const auto sort = settings.getValue ("deviceSort"); sort.isNotEmpty())
@@ -1546,6 +1562,9 @@ void MainComponent::timerCallback()
     if (tick % 5 == 1)
         saveSession();   // also on exit
 
+    if (tick % 5 == 2)
+        watchWindowsAudio();   // BOOST WINDOWS AUDIO: still on?
+
     // App preferences chosen elsewhere (meter standard in the Mixer, buffer in Devices): remember them.
     if (AudioEngine::meterPoint.load() != settings.getIntValue ("meterPoint", 2))
     {
@@ -1640,6 +1659,102 @@ void MainComponent::addUpdateItems (juce::PopupMenu& menu)
 {
     if (newVersion.isNotEmpty())
         menu.addItem ("Get " + juce::String (Product::name) + " " + newVersion + "...", [this] { openRelease(); });
+}
+
+void MainComponent::addBoostItems (juce::PopupMenu& menu)
+{
+    if (settings.getBoolValue ("boostAudiodg") && windowsAudio.pid != 0 && ! AudioBoost::isBoosted (windowsAudio.priority))
+        menu.addItem ("Boost Windows audio again...", ! boostingWindowsAudio, false, [this] { boostWindowsAudio(); });
+}
+
+// BOOST WINDOWS AUDIO's watch, every 5 s: audiodg read again (a process list and a look at its
+// priority: cheap), and, while the boost is wanted, a notice when it's gone. Once per restart of
+// Windows audio; boosting again needs the user to press BOOST (Windows asks again), never by itself.
+void MainComponent::watchWindowsAudio()
+{
+    if (boostingWindowsAudio)
+        return;   // (its answer reads it)
+    windowsAudio = AudioBoost::read();
+    const auto news = windowsAudioWatch.update (settings.getBoolValue ("boostAudiodg"), windowsAudio);
+    if (news == AudioBoost::Watch::News::none)
+        return;
+    const juce::String title (news == AudioBoost::Watch::News::restarted ? "Windows audio restarted: the boost is off"
+                                                                          : "Windows audio is back at Normal: the boost is off");
+    logEvent ("windows audio: " + title + " (audiodg at " + AudioBoost::priorityName (windowsAudio.priority) + ")");
+    boostNote = "The boost is off: BOOST WINDOWS AUDIO again";
+    if (onNotify)
+        onNotify (title, "To boost it again: right-click the tray icon > Boost Windows audio again... (Windows asks first)");
+    toasts.show ("device", title, "FIND: BOOST WINDOWS AUDIO, or DEVICES > WINDOWS AUDIO");
+}
+
+// BOOST: the helper started elevated (Windows asks first), its answer said in plain words. Done
+// (High set), the boost is kept as wanted and watched.
+void MainComponent::boostWindowsAudio()
+{
+    if (boostingWindowsAudio)
+        return;
+    boostingWindowsAudio = true;
+    boostNote = "Waiting for Windows' approval...";
+    logEvent ("windows audio: boost asked for" + juce::String (settings.getBoolValue ("boostPinCore") ? " (pinned to one core)" : ""));
+    auto* peer = getPeer();
+    AudioBoost::boost (settings.getBoolValue ("boostPinCore"), peer != nullptr && isShowing() ? peer->getNativeHandle() : nullptr,
+                       [safe = juce::Component::SafePointer<MainComponent> (this)] (int code)
+    {
+        if (safe == nullptr)
+            return;
+        auto& self = *safe;
+        self.boostingWindowsAudio = false;
+        const auto text = AudioBoost::describe (code);
+        const bool boosted = code == AudioBoost::ok || code == AudioBoost::notPinned;
+        self.logEvent ("windows audio: " + text + " (" + juce::String (code) + ")");
+        if (boosted)
+        {
+            self.settings.setValue ("boostAudiodg", true);
+            self.settings.saveIfNeeded();
+        }
+        self.windowsAudio = AudioBoost::read();
+        self.windowsAudioWatch.update (self.settings.getBoolValue ("boostAudiodg"), self.windowsAudio);
+        self.boostNote = text.upToLastOccurrenceOf (".", false, false);
+        const juce::String title (boosted ? "Windows audio boosted" : "Windows audio");
+        if (self.isShowing())
+            self.toasts.show ("device", title, text);
+        else if (self.onNotify)
+            self.onNotify (title, text);
+    });
+}
+
+// No longer wanted: not watched any more. audiodg itself stays as it is until Windows audio
+// restarts (lowering it would need the administrator again).
+void MainComponent::stopBoostingWindowsAudio()
+{
+    settings.setValue ("boostAudiodg", false);
+    settings.saveIfNeeded();
+    windowsAudioWatch.update (false, windowsAudio);
+    boostNote = "Not watched any more. It stays at " + AudioBoost::priorityName (windowsAudio.priority) + " until Windows audio or the PC restarts";
+    logEvent ("windows audio: boost no longer wanted");
+}
+
+// Whether Windows audio carries any of the mix: a Windows device or an app captured, an output
+// on a Windows device, or a Windows device setting the clock. Only an ASIO interface: it doesn't.
+bool MainComponent::windowsAudioUsed() const
+{
+    if (engine.getClock() == AudioEngine::Clock::windows)
+        return true;
+    for (auto& s : engine.getStrips())
+        if (s->enabled && (s->source.kind == AudioEngine::Source::device || s->source.kind == AudioEngine::Source::loopback
+                           || s->source.kind == AudioEngine::Source::app))
+            return true;
+    for (auto& m : engine.getMasters())
+    {
+        if (! m->enabled.load())
+            continue;
+        if (m->target.isNotEmpty() && m->target != AudioEngine::interfaceOutput)
+            return true;
+        for (auto& d : m->alsoOn)
+            if (! d.toInterface && d.target.isNotEmpty() && d.target != AudioEngine::interfaceOutput)
+                return true;
+    }
+    return false;
 }
 
 // CHECK FOR UPDATES: the request on its own thread (UpdateCheck.h); the time is kept, so the

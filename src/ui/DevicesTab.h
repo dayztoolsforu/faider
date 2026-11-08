@@ -3,9 +3,10 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "../ProductName.h"
 #include "../engine/AudioEngine.h"
+#include "../AudioBoost.h"
 #include "Console.h"
 
-// The Devices tab: what sets the clock, VB-CABLE's settings (while it's installed) and the device tools at the top,
+// The Devices tab: what sets the clock, Windows audio's priority (BOOST WINDOWS AUDIO), VB-CABLE's settings (while it's installed) and the device tools at the top,
 // every audio device in fixed columns, then the stream diagnostics (latency, dropouts) and the
 // event log at the bottom.
 namespace DevicesTab
@@ -336,6 +337,102 @@ namespace DevicesTab
         const juce::Array<EndpointInfo>& endpoints;
         juce::Label title, status;
         juce::TextButton pick;
+    };
+
+    // WINDOWS AUDIO: Windows' audio engine (audiodg.exe) and its priority now, and BOOST WINDOWS
+    // AUDIO (AudioBoost.h), which the app runs (`boost`: Windows asks first) and keeps (`wanted`,
+    // `pinned`). ASIO interfaces go around it.
+    class WindowsAudioBar : public juce::Component,
+                            private juce::Timer
+    {
+    public:
+        WindowsAudioBar()
+        {
+            title.setText ("WINDOWS AUDIO", juce::dontSendNotification);
+            title.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
+            addAndMakeVisible (title);
+            key.setTooltip ("Windows' audio engine (audiodg.exe) at High priority instead of Normal, Windows' default: it can stop crackle "
+                            "on Windows devices and captured apps. ASIO interfaces don't go through it. Windows asks for an administrator's "
+                            "approval each time, and a restart of Windows audio (or the PC) undoes it: you're told when. "
+                            "PIN TO ONE CORE (off unless you pick it) holds it to the last core: only for crackle on a USB headset.");
+            key.onClick = [this] { showMenu(); };
+            addAndMakeVisible (key);
+            status.setFont (juce::FontOptions (Console::Type::body));
+            status.setColour (juce::Label::textColourId, Console::Colours::legendDim());
+            addAndMakeVisible (status);
+            startTimerHz (2);
+        }
+
+        std::function<AudioBoost::State()> state;   // as the app last read it
+        std::function<bool()> wanted, pinned;       // BOOST asked for; PIN TO ONE CORE with it
+        std::function<void()> boost;                // BOOST now (Windows asks first)
+        std::function<void()> stopBoosting;         // no longer wanted (audiodg stays as it is until it restarts)
+        std::function<void (bool)> setPinned;
+        std::function<juce::String()> note;         // what came of the last BOOST, or one under way
+
+        void lookAndFeelChanged() override { status.setColour (juce::Label::textColourId, Console::Colours::legendDim()); }
+
+        void resized() override
+        {
+            Console::KeyRow row (getLocalBounds().reduced (Console::Space::pad, 0));
+            row.leftWidth (title, labelWidth).left (key, 4);
+            const auto rest = row.rest().withTrimmedLeft (Console::Space::pad);
+            status.setBounds (rest.withSizeKeepingCentre (rest.getWidth(), Console::Space::key));
+        }
+
+        void paint (juce::Graphics& g) override
+        {
+            g.fillAll (Console::Colours::panel());
+            g.setColour (juce::Colours::black.withAlpha (0.5f));
+            g.fillRect (0, getHeight() - 1, getWidth(), 1);
+        }
+
+    private:
+        AudioBoost::State now() const { return state ? state() : AudioBoost::State(); }
+
+        void timerCallback() override
+        {
+            const auto s = now();
+            const juce::String keyText (AudioBoost::isBoosted (s.priority) ? "BOOSTED" : "BOOST WINDOWS AUDIO");
+            if (keyText != key.getButtonText())
+                key.setButtonText (keyText);
+
+            juce::String text;
+            if (s.pid == 0)
+                text = "Now: not running (it starts with the first sound)";
+            else if (s.priority == AudioBoost::Priority::unknown)
+                text = "Now: UNKNOWN (its priority couldn't be read)";
+            else
+                text = "Now: " + AudioBoost::priorityName (s.priority) + " priority"
+                     + (s.priority == AudioBoost::Priority::normal ? juce::String (", Windows' default") : juce::String())
+                     + (s.pinnedCore >= 0 ? ", on core " + juce::String (s.pinnedCore) + " only" : juce::String());
+            const auto more = note ? note() : juce::String();
+            text << ". " << (more.isNotEmpty() ? more : juce::String ("ASIO interfaces aren't affected"));
+            if (text != status.getText())
+                status.setText (text, juce::dontSendNotification);
+        }
+
+        void showMenu()
+        {
+            const auto s = now();
+            const bool want = wanted && wanted(), pin = pinned && pinned();
+            juce::PopupMenu menu;
+            menu.addSectionHeader ("WINDOWS AUDIO (AUDIODG.EXE): " + AudioBoost::priorityName (s.priority));
+            menu.addItem ("BOOST (HIGH PRIORITY)", true, want, [this, want, boosted = AudioBoost::isBoosted (s.priority)]
+            {
+                if (want && boosted) { if (stopBoosting) stopBoosting(); }
+                else if (boost) boost();
+            });
+            menu.addItem ("PIN TO ONE CORE (ONLY FOR USB-HEADSET CRACKLE)", true, pin, [this, pin] { if (setPinned) setPinned (! pin); });
+            menu.addSeparator();
+            menu.addItem ("WINDOWS ASKS FOR AN ADMINISTRATOR EACH TIME", false, false, nullptr);
+            menu.addItem ("IT DOESN'T AFFECT ASIO INTERFACES", false, false, nullptr);
+            menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (key));
+            timerCallback();
+        }
+
+        juce::Label title, status;
+        juce::TextButton key { "BOOST WINDOWS AUDIO" };
     };
 
     // Diagnostics: every open stream with the latency it adds and every dropout so far, plus
@@ -704,6 +801,7 @@ namespace DevicesTab
             : list (deviceList), clock (engine, endpoints), tools (deviceList, endpoints, engine), streams (engine)
         {
             addAndMakeVisible (clock);
+            addAndMakeVisible (windowsAudio);
             addAndMakeVisible (cable);
             addAndMakeVisible (tools);
             addAndMakeVisible (header);
@@ -715,6 +813,7 @@ namespace DevicesTab
 
         DeviceTools& getTools() { return tools; }
         ClockBar& getClock() { return clock; }
+        WindowsAudioBar& getWindowsAudio() { return windowsAudio; }
         Header& getHeader() { return header; }
 
         // The app's event log, along the bottom of this tab.
@@ -731,6 +830,7 @@ namespace DevicesTab
             if (eventLog != nullptr)
                 eventLog->setBounds (r.removeFromBottom (juce::jmin (160, r.getHeight() / 3)));
             clock.setBounds (r.removeFromTop (barHeight));
+            windowsAudio.setBounds (r.removeFromTop (barHeight));
             if (cable.isInstalled())
                 cable.setBounds (r.removeFromTop (barHeight));
             tools.setBounds (r.removeFromTop (barHeight));
@@ -742,6 +842,7 @@ namespace DevicesTab
     private:
         juce::ListBox& list;
         ClockBar clock;
+        WindowsAudioBar windowsAudio;
         CableSettings cable;
         DeviceTools tools;
         Header header;

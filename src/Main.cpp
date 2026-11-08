@@ -485,6 +485,7 @@ private:
                 content->addSceneItems (menu);
                 content->addSessionItems (menu);
                 content->addUpdateItems (menu);
+                content->addBoostItems (menu);
                 menu.addSeparator();
             }
             menu.addItem ("Start with Windows", true, StartWithWindows::isOn(), [] { StartWithWindows::set (! StartWithWindows::isOn()); });

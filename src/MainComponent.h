@@ -24,6 +24,7 @@
 #include "ui/Preflight.h"
 #include "ui/CommandPalette.h"
 #include "UpdateCheck.h"
+#include "AudioBoost.h"
 
 class MainComponent : public juce::Component,
                       private juce::ListBoxModel,
@@ -69,7 +70,21 @@ public:
     // .zip saved where the user picks, then shown in Explorer. Nothing is sent anywhere.
     void saveProblemReport();
 
+    // BOOST WINDOWS AUDIO, for the tray menu while the boost asked for is off ("Boost Windows audio again...").
+    void addBoostItems (juce::PopupMenu&);
+
 private:
+    // BOOST WINDOWS AUDIO (AudioBoost.h): Windows' audio engine read every 5 s and watched while the
+    // boost is wanted (settings: boostAudiodg, boostPinCore); BOOST asks Windows, then says what came of it.
+    AudioBoost::State windowsAudio;
+    AudioBoost::Watch windowsAudioWatch;
+    bool boostingWindowsAudio = false;
+    juce::String boostNote;                        // DEVICES > WINDOWS AUDIO: what came of the last BOOST
+    void watchWindowsAudio();
+    void boostWindowsAudio();
+    void stopBoostingWindowsAudio();
+    bool windowsAudioUsed() const;                 // Windows devices or app capture in the mix (not just ASIO)
+
     int getNumRows() override;
     void paintListBoxItem (int row, juce::Graphics&, int width, int height, bool selected) override;
     void selectedRowsChanged (int lastRowSelected) override;

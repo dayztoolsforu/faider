@@ -233,7 +233,7 @@ MainComponent::MainComponent()
     findButton.onClick = [this] { openCommandPalette(); };
     health.onClick = [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Devices")); };
     addAndMakeVisible (health);
-    miniButton.setTooltip ("Mini mixer: the tray mixer's channels in a small window on top of everything");
+    miniButton.setTooltip ("Mini mixer: the tray mixer's channels in a small window (the tray icon opens it too)");
     miniButton.onClick = [this] { toggleMini(); };
     addAndMakeVisible (miniButton);
     historyButton.setTooltip ("Undo history (Ctrl+H)");
@@ -622,7 +622,7 @@ void MainComponent::openCommandPalette()
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
     add ("ZERO DESK", "Things left set: solos, DIM, the oscillator, key listen, gains far off", [this] { showZero(); });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
-    add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The tray mixer's channels, on top of everything", [this] { toggleMini(); });
+    add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The tray mixer's channels in a small window, PIN keeps it on top", [this] { toggleMini(); });
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
     add ("MIDI MAP", "Ctrl+L - link controls to MIDI", [this] { toggleMidiMap(); });
     for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters"), std::pair ("Macros", "Macros and their triggers"),
@@ -1156,15 +1156,9 @@ void MainComponent::resized()
     sceneBar->setVisible (bar.getWidth() >= Console::Space::key);
 }
 
-void MainComponent::showTrayMixer (juce::Rectangle<int> near, std::function<void()> open)
-{
-    auto mixerBox = std::make_unique<TrayMixer> (engine, std::move (open));
-    juce::CallOutBox::launchAsynchronously (std::move (mixerBox), near, nullptr);
-}
-
-// MINI: the tray mixer's channels (those ticked "Tray mixer", or the outputs) in a small window
-// that stays on top of everything (a game), where it was left; MINI again (or its close button)
-// puts it away. OPEN on it brings the full window back.
+// MINI: the tray mixer's channels (those ticked "Tray mixer", or the outputs) in a small window,
+// where it was left; MINI again (or its close button) puts it away. PIN on it keeps it on top of
+// everything (a game); OPEN brings the full window back.
 void MainComponent::toggleMini()
 {
     if (mini != nullptr && mini->isVisible())
@@ -1174,24 +1168,47 @@ void MainComponent::toggleMini()
         settings.saveIfNeeded();
         return;
     }
+    showMini();
+}
+
+// The tray icon's click: the mini mixer up, or to the front. Never placed yet: by the tray (`near`).
+void MainComponent::showMini (std::optional<juce::Point<int>> near)
+{
+    if (mini != nullptr && mini->isVisible())
+    {
+        mini->toFront (true);
+        return;
+    }
     struct MiniWindow : juce::DocumentWindow
     {
-        MiniWindow (MainComponent& o) : juce::DocumentWindow (juce::String (Product::name) + " mini", Console::Colours::panel(), juce::DocumentWindow::closeButton), owner (o)
+        MiniWindow (MainComponent& o, std::optional<juce::Point<int>> near)
+            : juce::DocumentWindow (juce::String (Product::name) + " mini", Console::Colours::panel(), juce::DocumentWindow::closeButton), owner (o)
         {
             setUsingNativeTitleBar (true);
+            const bool pinned = o.settings.getBoolValue ("miniPinned", true);
             setContentOwned (new TrayMixer (o.engine, [this]
             {
                 if (auto* top = owner.getTopLevelComponent())
                 {
                     top->setVisible (true);
+                    if (auto* window = dynamic_cast<juce::DocumentWindow*> (top))
+                        window->setMinimised (false);
                     top->toFront (true);
                 }
+            }, pinned, [this] (bool on)
+            {
+                setAlwaysOnTop (on);
+                owner.settings.setValue ("miniPinned", on);
+                owner.settings.saveIfNeeded();
             }), true);
-            setAlwaysOnTop (true);
+            setAlwaysOnTop (pinned);
             setResizable (false, false);
+            auto& displays = juce::Desktop::getInstance().getDisplays();
             const auto saved = juce::StringArray::fromTokens (o.settings.getValue ("miniPlace"), " ", {});
-            if (saved.size() == 2 && juce::Desktop::getInstance().getDisplays().getTotalBounds (true).contains (juce::Point<int> (saved[0].getIntValue(), saved[1].getIntValue())))
+            if (saved.size() == 2 && displays.getTotalBounds (true).contains (juce::Point<int> (saved[0].getIntValue(), saved[1].getIntValue())))
                 setTopLeftPosition (saved[0].getIntValue(), saved[1].getIntValue());
+            else if (const auto* display = near.has_value() ? displays.getDisplayForPoint (*near) : nullptr)   // (above the tray, on its screen)
+                setBounds (getBounds().withPosition (near->x - getWidth() / 2, near->y - getHeight() - Console::Space::gap).constrainedWithin (display->userArea));
             else
                 centreWithSize (getWidth(), getHeight());
             setVisible (true);
@@ -1204,7 +1221,7 @@ void MainComponent::toggleMini()
         }
         MainComponent& owner;
     };
-    mini = std::make_unique<MiniWindow> (*this);
+    mini = std::make_unique<MiniWindow> (*this, near);
     settings.setValue ("miniShown", true);
     settings.saveIfNeeded();
 }

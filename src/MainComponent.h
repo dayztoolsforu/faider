@@ -1,6 +1,7 @@
 #pragma once
 
 #include <juce_gui_basics/juce_gui_basics.h>
+#include <optional>
 #include "devices/EndpointWatcher.h"
 #include "engine/AudioEngine.h"
 #include "ui/MixerComponent.h"
@@ -42,8 +43,9 @@ public:
     // Earlier sessions (session safety), for the tray menu: pick one to restore it (Faider restarts).
     void addSessionItems (juce::PopupMenu&);
 
-    // The tray mixer, popping up from the tray icon at `near` (screen area); `open` shows the window.
-    void showTrayMixer (juce::Rectangle<int> near, std::function<void()> open);
+    // The mini mixer up (or to the front), from the tray icon at `near` (a screen point): where it
+    // was left, or by the tray the first time.
+    void showMini (std::optional<juce::Point<int>> near = {});
 
 
     // The height that shows the desk whole: the window starts this tall (Main.cpp).
@@ -102,7 +104,7 @@ private:
     void toggleMidiMap();             // MIDI MAP mode on / off
     void undoRedo (bool redo);        // a step back or forward, logged and noticed
     void showHistory (juce::PopupMenu::Options where);   // every undo step, to go back to any
-    void toggleMini();                                   // MINI: the tray mixer's channels, always on top
+    void toggleMini();                                   // MINI: the mini mixer up, or away
     std::vector<PreflightPanel::Check> preflightChecks();
     void showTip (const juce::String& page);             // a page's first-run tip (once)
     void showPreflight (bool onlyIfWrong);

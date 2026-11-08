@@ -421,7 +421,7 @@ private:
         ExactScaleConstrainer exactScale { *this };
     };
 
-    // Tray icon: click to show the window; right-click for scenes, Start with Windows and Quit.
+    // Tray icon: click for the mini mixer, double-click to show the window; right-click for scenes, Start with Windows and Quit.
     class TrayIcon : public juce::SystemTrayIconComponent,
                      private juce::Timer
     {
@@ -449,7 +449,7 @@ private:
             setIconTooltip (alert.isNotEmpty() ? juce::String (Product::name) + " - ALERT: " + alert : juce::String (Product::name));
         }
 
-        // Click: the tray mixer pops up. Double-click: the window.
+        // Click: the mini mixer comes up. Double-click: the window.
         void mouseDoubleClick (const juce::MouseEvent&) override { window.bringBack(); }
 
         void mouseDown (const juce::MouseEvent& e) override
@@ -457,10 +457,7 @@ private:
             if (! e.mods.isPopupMenu())
             {
                 if (auto* content = dynamic_cast<MainComponent*> (window.getContentComponent()))
-                {
-                    const auto at = juce::Desktop::getMousePosition();
-                    content->showTrayMixer (juce::Rectangle<int> (at.x - 4, at.y - 4, 8, 8), [this] { window.bringBack(); });
-                }
+                    content->showMini (juce::Desktop::getMousePosition());
                 return;
             }
 

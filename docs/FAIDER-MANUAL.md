@@ -256,7 +256,7 @@ From the right:
 | **+ 100% -** | Zoom. Steps between 100, 125 and 150%. Click the percentage for 100%. Ctrl + / Ctrl - / Ctrl 0 do the same |
 | **FIND** (Ctrl+K) | Search every page, channel, scene, macro, pad and command by name |
 | **HISTORY** (Ctrl+H) | Every change you've made. Pick one to go back to it |
-| **MINI** | A small always-on-top mixer window |
+| **MINI** | The mini mixer: a small mixer window (the tray icon opens it too). **PIN** on it keeps it on top |
 | **Health light** | Green: audio is fine. Amber: the audio load is high or a device ran short recently. Red: an audible glitch in the last 10 seconds, or no audio running. The number is the audio load. Click it for DEVICES |
 | **SCENES** | Your stored mixes. **+** stores a new one (see [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | The same mix, simple or as the whole console (see [Step 7](#step-7-pro-for-the-whole-console)) |
@@ -930,8 +930,8 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
 | **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / MUTED and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
-| **MINI** | A small mixer on top of everything. **OPEN** returns to the main window |
-| **Tray** | Click the icon for the tray mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert |
+| **MINI** | A small mixer window with the channels ticked **Tray mixer** (or the outputs). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
+| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
 administrator window. It restarts itself with ordinary rights, because the in-game overlay can't

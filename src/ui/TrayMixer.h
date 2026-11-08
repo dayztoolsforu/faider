@@ -5,21 +5,29 @@
 #include "../engine/AudioEngine.h"
 #include "Console.h"
 
-// The tray mixer: a small console that pops up from the tray icon, with a fader, meter and mute
-// for each strip ticked "Tray mixer" on its right-click menu (the outputs if none are). OPEN
-// brings up the full window. Strips are looked up by name every frame, so it's safe while the
-// mix changes under it.
+// The mini mixer (in its own window: MainComponent::toggleMini, from the tray icon, MINI or FIND):
+// a small console with a fader, meter and mute for each strip ticked "Tray mixer" on its
+// right-click menu (the outputs if none are). OPEN brings up the full window; PIN keeps it on top
+// of everything (a game). Strips are looked up by name every frame, so it's safe while the mix
+// changes under it.
 class TrayMixer : public juce::Component,
                   private juce::Timer
 {
 public:
-    TrayMixer (AudioEngine& e, std::function<void()> openWindow) : engine (e), open (std::move (openWindow))
+    TrayMixer (AudioEngine& e, std::function<void()> openWindow, bool pinned, std::function<void (bool)> pinChanged)
+        : engine (e), open (std::move (openWindow)), pin (std::move (pinChanged))
     {
         title.setFont (Console::legendFont (Console::Type::body));
         addAndMakeVisible (title);
         openKey.setTooltip (juce::String ("Open ") + Product::name);
         openKey.onClick = [this] { if (open) open(); };
         addAndMakeVisible (openKey);
+        pinKey.setTooltip ("On: the mini mixer stays on top of everything");
+        pinKey.setClickingTogglesState (true);
+        pinKey.setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
+        pinKey.setToggleState (pinned, juce::dontSendNotification);
+        pinKey.onClick = [this] { if (pin) pin (pinKey.getToggleState()); };
+        addAndMakeVisible (pinKey);
 
         auto keys = engine.trayStrips;
         if (keys.isEmpty())
@@ -54,7 +62,7 @@ public:
         }
 
         using namespace Console;
-        setSize (juce::jmax (180, columns.size() * (columnWidth + Space::gap) - Space::gap + 2 * Space::pad), 300);
+        setSize (juce::jmax (Space::columns (2) + 64 + Space::unit + 2 * Space::pad, columns.size() * (columnWidth + Space::gap) - Space::gap + 2 * Space::pad), 300);
         timerCallback();
         startTimerHz (30);
     }
@@ -91,7 +99,7 @@ public:
         using namespace Console;
         auto r = getLocalBounds().reduced (Space::pad);
         KeyRow top (r.removeFromTop (Space::key));
-        top.right (openKey);
+        top.right (openKey).right (pinKey);
         title.setBounds (top.rest());
         r.removeFromTop (Space::gap);
         for (auto* c : columns)   // a gap apart
@@ -162,7 +170,8 @@ private:
 
     AudioEngine& engine;
     std::function<void()> open;
+    std::function<void (bool)> pin;
     juce::Label title { {}, Product::nameUpper };
-    juce::TextButton openKey { "OPEN" };
+    juce::TextButton openKey { "OPEN" }, pinKey { "PIN" };
     juce::OwnedArray<Column> columns;
 };

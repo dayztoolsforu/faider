@@ -211,7 +211,7 @@ Mixer **SIMPLE**'da açılır. Her kanal adını, neyi dinlediğini, her çıkı
 Bir programı iki kez duyuyorsan bkz. [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** ve **+ APP** kanal ekler. **+ OUTPUT**, çıkışı olmayan bir aygıta çıkış ekler. Bir
-çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **Rename...**, renk ve **Remove** için
+çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **RENAME...**, renk ve **REMOVE** için
 bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.
 
@@ -273,7 +273,7 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 | | **PLUGINS** | Eklenti panelini şeritlerin altından yukarı kaydırır (bkz. [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Bir şeritteki herhangi bir kontrole dokunmak o şeridi seçer |
 | | **FOLLOW** | Konsol seçili şeride kayar, şerit başka yerden seçildiğinde de (FIND, bir kısayol) |
-| **METER** | **IN** / **OUT** | Kanal ölçerleri gelen (işlemeden önce) ya da giden sinyali gösterir |
+| **METER** | **IN** / **PRE** / **POST** | Kanal ölçerlerinin nereyi okuduğu: gelen kaynak (işlemeden önce), efektlerden sonra (fader'dan önce) ya da fader'dan sonra. **SETTINGS > GENERAL > CHANNEL METER POINT** ile aynı ayardır |
 | **SECTIONS** | HEADER … FADER | Şeridin bölümleri. Yanık olanlar ekrandadır. Birine kaymak için tıkla |
 
 SELECT ve METER seçimleri hatırlanır.
@@ -291,7 +291,7 @@ Sağdan başlayarak:
 | **+ 100% -** | Yakınlaştırma. 100, 125 ve 150% arasında geçer. %100 için yüzdeye tıkla. Ctrl + / Ctrl - / Ctrl 0 aynısını yapar |
 | **FIND** (Ctrl+K) | Her sayfayı, kanalı, sahneyi, makroyu, pad'i ve komutu ada göre arar |
 | **HISTORY** (Ctrl+H) | Yaptığın her değişiklik. Birini seçip ona geri dön |
-| **MINI** | Her zaman üstte duran küçük bir mikser penceresi |
+| **MINI** | Mini mikser: küçük bir mikser penceresi (tepsi simgesi de onu açar). Üzerindeki **PIN** onu üstte tutar |
 | **Durum ışığı** | Yeşil: ses iyi. Kehribar: ses yükü yüksek ya da bir aygıtın verisi yakın zamanda yetmedi. Kırmızı: son 10 saniyede duyulur bir aksama ya da çalışan ses yok. Sayı ses yüküdür. DEVICES için tıkla |
 | **SCENES** | Kayıtlı karışımların. **+** yeni birini kaydeder (bkz. [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | Aynı karışım, sade ya da konsolun tamamı olarak (bkz. [Adım 7](#step-7-pro-for-the-whole-console)) |
@@ -306,7 +306,7 @@ Dar bir pencerede önce durum ışığı gider, sonra MINI, sonra HISTORY. FIND 
 adını ve tuşlarını görürsün: **rewind 10 s**, **stop**, **play/pause**, **forward 10 s**,
 **record**, **loop**.
 
-- **Record** ilk çıkışı bir dosyaya kaydeder (Recorder'ın biçiminde ve klasöründe). Durdurmak için tekrar bas.
+- **Record**, Recorder'ın **REC**'idir: TOOLS > TAPE'te seçilen kaynağı onun biçiminde ve klasöründe kaydeder ve o kayıt sürdükçe yanık kalır. Durdurmak için tekrar bas.
 - **Loop**, **repeat all** → **repeat one** (**1** ile işaretli) → **off** arasında geçer.
 
 ---
@@ -338,7 +338,7 @@ flowchart LR
 3. **Bir bus**, kendisine yönlendirilen her şeyi toplar, kendi şeridinden ve eklentilerinden geçirir ve
    aynı şekilde çıkışlara (veya başka bus'lara) yönlendirilir.
 4. **Bir çıkış**, kendisine yönlendirilen her şeyi toplar, bus kompresöründen, karışım EQ'sundan ve
-   **SAFE** limiter'ından geçirir ve kendi aygıtında çalar.
+   limiter'ından (**LIMIT**) geçirir ve kendi aygıtında çalar.
 
 <a id="outputs-are-devices"></a>
 
@@ -362,7 +362,7 @@ yüzden yönlendirme kutuları bus'ların yanı sıra aygıtları da listeler.
 | Nerede | Nasıl |
 |---|---|
 | **Yönlendirme kutuları** (her şeridin başlığı) | Her bus ve çıkış aygıtı için bir kutu. Yanık: oraya yönlendirilmiş. Değiştirmek için tıkla |
-| **Route to** (bir şeride sağ tıkla) | Aynı liste bir menü olarak, yönlendirildiği yerlerde işaretli |
+| **ROUTE TO** (bir şeride sağ tıkla) | Aynı liste bir menü olarak, yönlendirildiği yerlerde işaretli |
 | **Routing sayfası** | Her şerit bir blok, her yönlendirme bir çizgi. Bir bloğa, sonra başka bir bloğa tıkla (bkz. [10](#10-the-routing-page)) |
 
 <a id="buses"></a>
@@ -471,15 +471,15 @@ susturur, **S** solo yapar ve **Up / Down** fader'ını 0,5 dB oynatır (**Shift
 
 Ad çubuğunun solundaki güç simgesine tıkla. Şerit solar ve griye döner. İşlenmez ve aygıtı ya da
 programı serbest bırakılır. Kapalıyken **üzerinde hiçbir şey değiştirilemez**: düğmeler, tuşlar ve
-eklenti paneli tıklamaları yok sayar ve menüsü yalnızca **Turn on** ile boşlukları sunar. Geri
+eklenti paneli tıklamaları yok sayar ve menüsü yalnızca **TURN ON** ile boşlukları sunar. Geri
 getirmek için güç simgesine yeniden tıkla.
 
 <a id="spacers"></a>
 
 ### Boşluklar
 
-Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık > **Add spacer before** /
-**Add spacer after**. Bir boşluğa sağ tıklayınca **Narrow**, **Add another** ve **Remove spacer**
+Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık > **ADD SPACER BEFORE** /
+**ADD SPACER AFTER**. Bir boşluğa sağ tıklayınca **NARROW**, **ADD ANOTHER** ve **REMOVE SPACER**
 çıkar. Bir boşluk, şerit taşındığında takip ettiği şeritle birlikte kalır.
 
 <a id="the-strip-menu-right-click"></a>
@@ -488,14 +488,14 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 | Öğe | |
 |---|---|
-| **Input** | Kaynağı değiştirir: **Interface** girişleri, **Windows devices** (veya Windows varsayılanı), **What an output plays** (loopback), **Test tone**, **Nothing** |
-| **Route to** | Her bus ve çıkış aygıtı, gönderildiği yerlerde işaretli |
-| **Plugins** | Birini aç, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | Yalnızca kanallar |
-| **Colour** | Kanalın rengi, ad çubuğu boyunca ve Routing'deki bloğunda gösterilir |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | Kanalı veya bus'ı siler |
+| **INPUT** | Kaynağı değiştirir: **INTERFACE** girişleri, **WINDOWS DEVICES** (veya WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS** (loopback), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | Her bus ve çıkış aygıtı, gönderildiği yerlerde işaretli |
+| **PLUGINS** | Birini aç, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | Yalnızca kanallar |
+| **COLOUR** | Kanalın rengi, ad çubuğu boyunca ve Routing'deki bloğunda gösterilir |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | Kanalı veya bus'ı siler |
 
 ---
 
@@ -511,7 +511,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 | Kontrol | Ne yapar |
 |---|---|
-| **Seviye çubukları** | Kanalın sol ve sağ seviyesi (METER altında seçildiği gibi IN veya OUT) |
+| **Seviye çubukları** | Kanalın sol ve sağ seviyesi (METER altında seçildiği gibi IN, PRE veya POST) |
 | **FILT** | Filtreleri gate/kompresörün dedektörüne gönderir (key filtering) |
 | **EQ** | EQ devrede veya devre dışı |
 | **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain) |
@@ -597,7 +597,7 @@ devre dışıdır. Sonuna kadar yukarı çevrilince alçak geçiren devre dış�
 |---|---|
 | **PAN** | Sol/sağ. Ortalamak için çift tıkla |
 | **SOLO** | Yerinde solo |
-| **CUT** | Sessize alma |
+| **CUT** | Kanalı susturur (konsoldaki **M** tuşu) |
 | **SEL** | Bu şeridi seç |
 | **Fader** | Seviye, +12 dB'den kapalıya. Alttaki gösterge seviyeyi dB olarak gösterir |
 | **safe** | Solo safe: başkaları solodayken bu kanal duyulur kalır |
@@ -636,13 +636,13 @@ korunur.
 | Şerit | Orta bölümlerinde ne var |
 |---|---|
 | **App** | Eklenti listesi (açmak için birine tıkla) ve **ADD PLUGIN** |
-| **Pads** | **A–D** banka tuşları, 4×4 pad'ler (çalmak için bas; GATE pad basılı tutulduğu sürece çalar) ve **STOP ALL** |
+| **Pads** | **A–D** banka tuşları, 4×4 pad'ler (çalmak için bas; HOLD pad basılı tutulduğu sürece çalar) ve **STOP ALL** |
 | **Tape** | Deck'in ekranı ve arama çubuğu, transport (önceki, rewind, stop, play, pause, forward, sonraki), **SHUFFLE**, **ADD...** ve çalma listesi (çalmak için bir parçaya tıkla) |
 | **Combinator** | Her yol için: **FROM**, onu besleyen kanallar ve bus'lar (şeridine gitmek için birine tıkla) ve o yoldaki **PLUGINS** (açmak için birine tıkla). **EDIT IN ROUTING** Routing sayfasını açar |
 
 Bir kombinatörün kendi efekti yoktur. Sesi, onu besleyenden ve her yolun eklentilerinden gelir. Yol
 eklemek ve her yol için eklentilerini açmak, eklemek ya da kaldırmak, yeniden adlandırmak veya
-kaldırmak için ona sağ tık > **Paths**.
+kaldırmak için ona sağ tık > **PATHS**.
 
 ---
 
@@ -652,12 +652,12 @@ kaldırmak için ona sağ tık > **Paths**.
 
 ![İki çıkış şeridi: HEADPHONES ve STREAM, bus kompresörü ve karışım EQ'suyla](../images/console/outputs.jpg)
 
-Her çıkışın (master) kendi koyu şeridi vardır:
+Her çıkışın kendi koyu şeridi vardır:
 
 | Kontrol | |
 |---|---|
 | **DEVICE** | Çaldığı aygıt. Başka birini seçmek için tıkla |
-| **SAFE** | Fader'dan sonra bir limiter: hiçbir şey -1 dBFS'in üzerinde çıkmaz |
+| **LIMIT** | Fader'dan sonra bir limiter: hiçbir şey -1 dBFS'in üzerinde çıkmaz |
 | **MON** | Bu çıkışı izle |
 | **LUFS** | Çıkan sesin kısa süreli gürlüğü (sessizken "-- LUFS") |
 | **WIDTH** | Stereo genişlik |
@@ -665,7 +665,7 @@ Her çıkışın (master) kendi koyu şeridi vardır:
 | **MIX EQ** | In anahtarı, HF gain ve freq, LF gain ve freq |
 | **CUT**, **SEL**, fader | Bir kanaldaki gibi |
 
-Bir çıkışa sağ tıklayınca **Device...**, boşluklar, **Rename...** ve **Remove** çıkar.
+Bir çıkışa sağ tıklayınca **DEVICE...**, boşluklar, **RENAME...** ve **REMOVE** çıkar.
 
 Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. [Çıkışlar aygıttır](#outputs-are-devices)).
 
@@ -685,9 +685,9 @@ gecikmeyi otomatik telafi eder.
 
 ### Eklenti eklemek
 
-- Bir kanalda: sağ tık > **Plugins > Add plugin...**, ya da bir raw şeritte **ADD PLUGIN**, ya da
+- Bir kanalda: sağ tık > **PLUGINS > ADD PLUGIN...**, ya da bir raw şeritte **ADD PLUGIN**, ya da
   eklenti panelinde **ADD**.
-- Bir kombinatör yolunda: kombinatöre sağ tık > **Paths > PATH n > Add plugin...**. Açmak için
+- Bir kombinatör yolunda: kombinatöre sağ tık > **PATHS > PATH n > ADD PLUGIN...**. Açmak için
   kombinatör şeridindeki yolun eklentisine tıkla.
 
 Her eklenti **önce programın ayrı bir kopyasında sınanır**, böylece yüklenirken çöken ya da donan bir
@@ -815,7 +815,7 @@ Biçimler: WAV, FLAC, AIFF, OGG, MP3. Dosyası taşınmış bir pad **MISSING: F
 | Ad | Yeniden adlandırmak için çift tıkla |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | Anlık tekrar tamponu bu pad'in sesi olur (kayıt klasöründe WAV olarak kaydedilir). Önce TOOLS > TAPE'te replay'i kur |
-| **MODE** | **ONE-SHOT** sonuna kadar çalar (yeniden basmak baştan başlatır). **GATE** basılı tutulduğu sürece çalar. **LOOP** bir basışta başlar, sonrakinde durur |
+| **MODE** | **ONE-SHOT** sonuna kadar çalar (yeniden basmak baştan başlatır). **HOLD** basılı tutulduğu sürece çalar. **LOOP** bir basışta başlar, sonrakinde durur |
 | **CHOKE** | OFF veya grup 1–8. Aynı gruptaki pad'ler birbirini durdurur |
 | **LEVEL** | -INF ile +12 dB arası |
 | **HOTKEY** | Tıkla (**LEARN...**), sonra tuşlara bas (bkz. [HOTKEYS](#hotkeys)) |
@@ -857,7 +857,7 @@ TAPE CHANNEL**'a tıkla.
 |---|---|
 | **Source** | Herhangi bir çıkış, bus veya giriş ya da **ALL CHANNELS, ONE FILE EACH** (çok izli: her giriş ya da yalnızca DIRECT yanık olanlar, artı her çıkış, örnek hizalı) |
 | **Format** | WAV 24 bit (varsayılan), 16 bit, 32 bit, 32 bit float; FLAC 24/16 bit; AIFF 24/16 bit; OGG Vorbis 128–320k. ffmpeg ile: MP3, AAC (M4A), Opus, ALAC. Her biri diske ne kadar süre sığacağını gösterir |
-| **REC** | Başlatır ve durdurur. Ekran süreyi, boyutu, kalan süreyi ve düşen blokları gösterir |
+| **REC** | Başlatır ve durdurur (üst çubuktaki kayıt tuşu da aynısını yapar). Ekran süreyi, boyutu, kalan süreyi ve düşen blokları gösterir |
 | **PATH** / **REVEAL** | Klasörü seç / Gezgin'de aç |
 
 Kayıtlar, bir klasör seçmezsen `Music\Faider Recordings` içine gider. ffmpeg biçimleri önce
@@ -933,7 +933,7 @@ ayarlarını).
 
 - **Saklamak:** üst çubukta **+**'ya tıkla ve ona bir ad ver.
 - **Geri çağırmak:** tuşuna tıkla. Fader'lar ve pan'lar yarım saniyede kayar. Gerisi hemen değişir.
-- **Bir sahneye sağ tık**: yalnızca sessizleri / yalnızca seviyeleri geri çağırma, ona kaydetme,
+- **Bir sahneye sağ tık**: yalnızca CUT'ları / yalnızca seviyeleri geri çağırma, ona kaydetme,
   eklenti ayarlarını dahil etme, yeniden adlandırma, genel kısayol, **Recall on device** (bir aygıt
   belirdiğinde; gittiğinde geri), **Auto-scene** (bir uygulama çalmaya başladığında, bir aygıt
   bağlandığında ya da günün belirli bir saatinde), MIDI learn, taşıma, silme.
@@ -955,8 +955,7 @@ Karışımın her değişiklikten sonra bir saniye içinde ve çıkışta kendil
 
 | | |
 |---|---|
-| **Restore session** | Tepsi menüsü: karışımının tarihe göre önceki sürümleri (Faider onunla yeniden başlar) |
-| **SESSION TIMELINE** | FIND: saklanan her sürüm. **Restore everything**, ya da yeniden başlatmadan **PUT ONE CHANNEL BACK** (seviyesi, pan'ı, mute'u ve rack'i) |
+| **SESSION TIMELINE** | FIND ya da tepsi menüsündeki **Session timeline...**: tarihe göre saklanan her sürüm. **RESTORE EVERYTHING** (Faider onunla yeniden başlar), ya da yeniden başlatmadan **PUT ONE CHANNEL BACK** (seviyesi, pan'ı, CUT'ı ve rack'i) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: karışımı bir adla sakla |
 | **OPEN, EXPORT OR IMPORT...** | Adlı bir karışımı aç (yeniden başlatır), karışımı bir dosyaya kaydet ya da bir dosyadan yükle |
 
@@ -983,14 +982,14 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 |---|---|
 | **LOOK** | **LOOK...**: konsolun renkleri ve yazı tipi, bir LOOK dosyasından (bkz. [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: oturum açtığında tepside açılır |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (susturulmuş bir mikrofon -30 dBFS'in üzerindeyken bir bildirim) |
+| **DESK** | **WARN IF I TALK WHILE CUT** (CUT durumundaki bir mikrofon -30 dBFS'in üzerindeyken bir bildirim) |
 | **APPS** | **APP RULES...**: bir program çalmaya başladığında hangi bus'a veya çıkışa gideceği (**FIND**'da da). Bir programın kanalını kaldırmak kuralını kaldırır |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Bağlanan veya giden aygıtlar, clip yapan bir kanal (kaynağı veya çıkışı tam ölçekte), geri çağrılan sahneler, çalışan makrolar, geri alma ve yineleme |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Ölçerlerin nasıl okuduğu (varsayılan olarak hızlı düşüşlü örnek tepesi; IEC ve diğerleri) |
-| **CHANNEL METER POINT** | **PRE HPF** (ham kaynak), **PRE FADER** (efektlerden sonra), **POST ON** (fader'dan sonra, varsayılan) |
+| **CHANNEL METER POINT** | **IN** (ham kaynak), **PRE** (efektlerden sonra), **POST** (fader'dan sonra, varsayılan). Kenar çubuğundaki **METER** kartları aynı ayarı yapar |
 | **ABOUT** | Sürüm ve emeği geçenler |
 
 <a id="macros"></a>
@@ -1030,12 +1029,12 @@ Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrol
 **eylemler** listesidir.
 
 1. **+ NEW**'e tıkla, sonra ona ad ver (adına çift tıkla).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, geçiş süresi), ASSIGN ON/OFF/TOGGLE (bir
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, geçiş süresi), ASSIGN ON/OFF/TOGGLE (bir
    yönlendirme), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE,
    TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (bir ses efekti, bkz. [Ses efektleri](#voice-effects)), WINDOWS DEFAULT
    OUTPUT/INPUT, PLUGIN SETTING.
 3. İsteğe bağlı olarak **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED,
-   MASTER SILENT (n saniye), MASTER HAS SOUND, TIME (24 saat).
+   OUTPUT SILENT (n saniye), OUTPUT HAS SOUND, TIME (24 saat).
 4. İsteğe bağlı olarak bir **HOTKEY** ve **MOMENTARY** (tuş bırakıldığında eylemler geri alınır,
    push-to-talk için).
 5. **FIRE** onu şimdi çalıştırır.
@@ -1069,9 +1068,9 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. S
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
 | **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz |
-| **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / MUTED ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
-| **MINI** | Her şeyin üstünde küçük bir mikser. **OPEN** ana pencereye döner |
-| **Tepsi** | Tepsi mikseri için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Restore session, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
+| **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
+| **MINI** | Mini mikser: her çıkışın fader'ı, ölçeri ve **CUT**'ı olan küçük bir pencere. **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
+| **Tepsi** | Mini mikser için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Start with Windows, About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
 
 Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
 Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla
@@ -1102,7 +1101,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
    Windows'un varsayılanı olarak geri koy ([Adım 2](#step-2-install-vb-cable-optional)).
 2. Mikrofon kanalını **CABLE Input** aygıtına yönlendir. Üzerinde bir çıkış oluşturulur.
 3. Uygulamada mikrofon olarak **CABLE Output**'u seç.
-4. Yol üzerinde hiçbir şeyin susturulmadığını ve hiçbir şeyin döngü yapmadığını kontrol etmek için
+4. Yol üzerinde hiçbir şeyin CUT durumunda olmadığını ve hiçbir şeyin döngü yapmadığını kontrol etmek için
    **PRE-FLIGHT NOW...**'u çalıştır.
 
 <a id="173-bring-a-program-into-the-mix"></a>
@@ -1127,7 +1126,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışl
 
 ### 17.5 Kanalları bir bus'ta grupla
 
-1. **ADD BUS**, sonra yeniden adlandır (sağ tık > Rename...).
+1. **ADD BUS**, sonra yeniden adlandır (sağ tık > **RENAME...**).
 2. Routing sayfasında bus'a tıkla, sonra içine yönlendirmek için her kanala tıkla.
 3. Bus'ı ileri yönlendirmek için bus'a, sonra çıkışına tıkla.
 4. O kanalları yalnızca bus üzerinden istiyorsan çıkışa giden doğrudan yönlendirmelerini kapat.
@@ -1136,17 +1135,17 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışl
 
 ### 17.6 Kombinatörle paralel işleme
 
-1. **ADD BUS > COMBINATOR**. İki yolla başlar. Daha fazlası için sağ tık > **Paths > Add path**.
+1. **ADD BUS > COMBINATOR**. İki yolla başlar. Daha fazlası için sağ tık > **PATHS > ADD PATH**.
 2. Routing sayfasında kaynakları yol hücrelerine (**P1**, **P2**…) yönlendir.
-3. Her yol için sağ tık > **Paths > PATH n > Add plugin...**.
+3. Her yol için sağ tık > **PATHS > PATH n > ADD PLUGIN...**.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
 ### 17.7 Bir yayın karışımı ve bir kulaklık karışımı yap
 
 1. Kanallarını iki çıkışa gönder, örneğin kulaklığına ve yayın yazılımının yakaladığı aygıta.
-2. Her çıkışın kendi fader'ı, bus kompresörü, EQ'su ve **SAFE** limiter'ı vardır. Yayın çıkışı için
-   **SAFE**'i aç.
+2. Her çıkışın kendi fader'ı, bus kompresörü, EQ'su ve limiter'ı (**LIMIT**) vardır. Yayın çıkışı için
+   **LIMIT**'i aç.
 3. Bir şeyi yayının dışında tutmak için o kanalın yayın çıkışına giden yönlendirmesini kapat
    (yönlendirme kutusuyla ya da Routing sayfasında).
 
@@ -1163,9 +1162,9 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışl
 ### 17.9 Bir bas-konuş tuşu yap
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > mikrofon kanalın.
+2. **+ ACTION** > **UNCUT** > mikrofon kanalın.
 3. **MOMENTARY**'yi aç ve bir **HOTKEY** ata. Basılı tuttuğun sürece mikrofon açıktır, bırakınca
-   yeniden susar. Mikrofon susturulmuş halde başla.
+   yeniden CUT olur. Mikrofon CUT durumundayken başla.
 
 ---
 
@@ -1184,9 +1183,13 @@ bir şey ters olduğunda görünür. Her satırın bir ışığı, bulgusu ve bi
 |---|---|---|
 | **AUDIO** | Başlamadı (başka bir uygulama tutuyor olabilir) | **DEVICES** |
 | **MIC CABLE** | VB-CABLE yok: uygulamalar karışımını mikrofon olarak duyamaz | **GET VB-CABLE** |
-| **MIC MASTER** | Mikrofon kablosuna çalan çıkış yok | **ROUTING** |
-| **MIC CHANNELS** | Mikrofona giden yolda bir şey susturulmuş | **UNMUTE** |
+| **MIC OUTPUT** | Mikrofon kablosuna çalan çıkış yok | **ROUTING** |
+| **MIC CHANNELS** | Mikrofona giden yolda bir şey CUT durumunda | **UNCUT** |
 | **HEARD ONCE** | Bir geri besleme döngüsü ya da iki kez duyulan bir şey | **SOUND SETTINGS** |
+
+**ZERO THE DESK** (sol altta; FIND'da **ZERO DESK** olarak da) bir önceki oturumun açık
+bırakabileceklerini kontrol eder: solo'lar, key listen, 12 dB'den fazla kaymış gain trim'leri ve CUT
+durumundaki çıkışlar. Her birinin bir **FIX**'i vardır.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1197,9 +1200,9 @@ kenara ayrılır**. Olay günlüğü nedenini söyler:
 
 | Neden | Ne yapmalı |
 |---|---|
-| Kayıtlı arabirim bağlı değil | Bağla, sonra **Restore session** (tepsi) > "kept:" sürümü |
+| Kayıtlı arabirim bağlı değil | Bağla, sonra **SESSION TIMELINE** (FIND ya da tepsi) > "kept:" sürümü > **RESTORE EVERYTHING** |
 | Kayıtlı arabirim açılamadı (başka bir program tutuyor) | Diğer programı kapat ve Faider'i yeniden başlat. Bu sırada karışımının üzerine hiçbir şey kaydedilmez |
-| session.xml okunamadı | **Restore session** > yakın tarihli bir sürüm |
+| session.xml okunamadı | **SESSION TIMELINE** > yakın tarihli bir sürüm > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1359,7 +1362,7 @@ iletişim aygıtları olarak. Bkz. [Adım 2](#step-2-install-vb-cable-optional).
 | `session-unloaded-*.xml` | Başlangıçta kenara ayrılan karışımlar |
 | `settings.xml` | Tercihler |
 | `looks\` | LOOK'lar: her biri bir JSON dosyası (bkz. [LOOKS](#looks)) |
-| `console.xml` | Boşluklar, SELECT ve METER seçimleri |
+| `console.xml` | Boşluklar ve SELECT seçimleri |
 | `plugins.xml` | Bulunan eklentiler ve her birinin sınav sonucu |
 | `events.log` | Olan her şey (5 MB'ta döner) |
 | `status.txt` | Motorun birkaç saniyede bir anlık görüntüsü: aygıtlar, seviyeler, tamponlar, drift |

@@ -212,8 +212,8 @@ zijn fader en meter.
 Hoor je een programma dubbel, zie dan [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** en **+ APP** voegen kanalen toe. **+ OUTPUT** voegt een uitgang toe op een apparaat dat er geen heeft.
-De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor **Rename...**,
-de kleur en **Remove**. Als je het kanaal van een programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal
+De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor **RENAME...**,
+de kleur en **REMOVE**. Als je het kanaal van een programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal
 niet vanzelf terugkomt.
 
 <a id="step-7-pro-for-the-whole-console"></a>
@@ -274,7 +274,7 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 | | **PLUGINS** | Schuift het pluginpaneel omhoog onder de strips (zie [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Een willekeurige knop op een strip aanraken selecteert die strip |
 | | **FOLLOW** | De tafel glijdt naar de geselecteerde strip, ook als die elders is gekozen (FIND, een sneltoets) |
-| **METER** | **IN** / **OUT** | De kanaalmeters tonen het binnenkomende signaal (vóór bewerking) of het uitgaande |
+| **METER** | **IN** / **PRE** / **POST** | Waar de kanaalmeters meten: de bron zoals die binnenkomt (vóór bewerking), na de effecten (vóór de fader), of na de fader. Dezelfde instelling als **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | De secties van de strip. Oplichtende staan in beeld. Klik op een sectie om erheen te glijden |
 
 De keuzes bij SELECT en METER worden onthouden.
@@ -292,7 +292,7 @@ Van rechts:
 | **+ 100% -** | Zoom. Springt tussen 100, 125 en 150%. Klik op het percentage voor 100%. Ctrl + / Ctrl - / Ctrl 0 doen hetzelfde |
 | **FIND** (Ctrl+K) | Zoekt op naam door elke pagina, elk kanaal, elke scène, macro, pad en opdracht |
 | **HISTORY** (Ctrl+H) | Elke wijziging die je hebt gemaakt. Kies er een om ernaar terug te gaan |
-| **MINI** | Een klein mixervenster dat altijd bovenop blijft |
+| **MINI** | De mini-mixer: een klein mixervenster (het pictogram in het systeemvak opent hem ook). Met **PIN** erop blijft hij bovenop |
 | **Gezondheidslicht** | Groen: de audio is in orde. Oranje: de audiobelasting is hoog of een apparaat kwam onlangs tekort. Rood: een hoorbare storing in de laatste 10 seconden, of er draait geen audio. Het getal is de audiobelasting. Klik erop voor DEVICES |
 | **SCENES** | Je opgeslagen mixen. Met **+** sla je een nieuwe op (zie [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | Dezelfde mix, eenvoudig of als de hele console (zie [Stap 7](#step-7-pro-for-the-whole-console)) |
@@ -307,7 +307,7 @@ Onder de bovenbalk krijg je in elke Mixer-weergave de tijd van het Tape-deck (ve
 de nummernaam en de toetsen: **10 s terug**, **stop**, **afspelen/pauze**, **10 s vooruit**,
 **opnemen**, **herhalen**.
 
-- **Opnemen** neemt de eerste uitgang op naar een bestand (in het formaat en de map van de Recorder). Druk nogmaals om te stoppen.
+- **Opnemen** is de **REC** van de Recorder: hij neemt de bron op die bij TOOLS > TAPE is gekozen, in het formaat en de map daarvan, en blijft branden zolang die opname loopt. Druk nogmaals om te stoppen.
 - **Herhalen** schakelt door **alles herhalen** → **één herhalen** (gemarkeerd met **1**) → **uit**.
 
 ---
@@ -339,7 +339,7 @@ flowchart LR
 3. **Een bus** telt alles op wat erheen is gerouteerd, doorloopt zijn eigen strip en plugins en wordt op dezelfde manier
    doorgerouteerd naar uitgangen (of naar andere bussen).
 4. **Een uitgang** telt alles op wat erheen is gerouteerd, doorloopt zijn buscompressor, mix-EQ en
-   **SAFE**-limiter en speelt af op zijn apparaat.
+   limiter (**LIMIT**) en speelt af op zijn apparaat.
 
 <a id="outputs-are-devices"></a>
 
@@ -364,7 +364,7 @@ Alle drie wijzigen dezelfde routes. Gebruik wat het dichtstbij is.
 | Waar | Hoe |
 |---|---|
 | **Routeringsvakjes** (header van elke strip) | Eén vakje per bus en uitvoerapparaat. Verlicht: daarheen gerouteerd. Klik om te schakelen |
-| **Route to** (rechtsklik op een strip) | Dezelfde lijst als menu, aangevinkt waar gerouteerd is |
+| **ROUTE TO** (rechtsklik op een strip) | Dezelfde lijst als menu, aangevinkt waar gerouteerd is |
 | **De pagina Routing** | Elke strip als blok, elke route als lijn. Klik op het ene blok en dan op een ander (zie [10](#10-the-routing-page)) |
 
 <a id="buses"></a>
@@ -472,16 +472,16 @@ Met de tafel in focus (klik er eerst op): **Left / Right** selecteren de vorige 
 
 Klik op het aan/uit-symbool links van de naambalk. De strip vervaagt en wordt grijs. Hij wordt niet
 bewerkt en zijn apparaat of programma wordt losgelaten. Zolang hij uit staat, **kan er niets aan hem worden veranderd**:
-knoppen, toetsen en het pluginpaneel negeren klikken, en zijn menu biedt alleen **Turn on** en spacers aan.
+knoppen, toetsen en het pluginpaneel negeren klikken, en zijn menu biedt alleen **TURN ON** en spacers aan.
 Klik nogmaals op het aan/uit-symbool om hem terug te halen.
 
 <a id="spacers"></a>
 
 ### Spacers
 
-Spacers zijn lege strips die je ruimte geven tussen groepen. Rechtsklik op een strip > **Add spacer
-before** / **Add spacer after**. Rechtsklik op een spacer voor **Narrow**, **Add another** en **Remove
-spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuist.
+Spacers zijn lege strips die je ruimte geven tussen groepen. Rechtsklik op een strip > **ADD SPACER
+BEFORE** / **ADD SPACER AFTER**. Rechtsklik op een spacer voor **NARROW**, **ADD ANOTHER** en **REMOVE
+SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuist.
 
 <a id="the-strip-menu-right-click"></a>
 
@@ -489,14 +489,14 @@ spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 | Item | |
 |---|---|
-| **Input** | De bron wijzigen: **Interface**-ingangen, **Windows devices** (of de standaard van Windows), **What an output plays** (loopback), **Test tone**, **Nothing** |
-| **Route to** | Elke bus en elk uitvoerapparaat, aangevinkt waarheen verzonden wordt |
-| **Plugins** | Er een openen, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | Alleen kanalen |
-| **Colour** | De kleur van het kanaal, te zien langs zijn naambalk en op zijn Routing-blok |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | Verwijdert het kanaal of de bus |
+| **INPUT** | De bron wijzigen: **INTERFACE**-ingangen, **WINDOWS DEVICES** (of WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS** (loopback), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | Elke bus en elk uitvoerapparaat, aangevinkt waarheen verzonden wordt |
+| **PLUGINS** | Er een openen, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | Alleen kanalen |
+| **COLOUR** | De kleur van het kanaal, te zien langs zijn naambalk en op zijn Routing-blok |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | Verwijdert het kanaal of de bus |
 
 ---
 
@@ -512,7 +512,7 @@ spacer**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 | Bediening | Wat het doet |
 |---|---|
-| **Level bars** | Het niveau van het kanaal, links en rechts (IN of OUT, zoals gekozen bij METER) |
+| **Level bars** | Het niveau van het kanaal, links en rechts (IN, PRE of POST, zoals gekozen bij METER) |
 | **FILT** | Stuurt de filters naar de detector van de gate/compressor (key-filtering) |
 | **EQ** | De EQ in of uit |
 | **EXT** | De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf |
@@ -598,7 +598,7 @@ De schakelaar **EQ IN** zet de hele EQ in of uit (hetzelfde als de EQ-toets in d
 |---|---|
 | **PAN** | Links/rechts. Dubbelklik om te centreren |
 | **SOLO** | Solo in place |
-| **CUT** | Dempen |
+| **CUT** | Maakt het kanaal stil (de toets **M** op de tafel) |
 | **SEL** | Deze strip selecteren |
 | **Fader** | Niveau, +12 dB tot uit. De uitlezing eronder toont het niveau in dB |
 | **safe** | Solo safe: dit kanaal blijft hoorbaar als andere op solo staan |
@@ -637,12 +637,12 @@ het gebeurtenissenlogboek). Zijn plugins blijven behouden.
 | Strip | Zijn middelste secties bevatten |
 |---|---|
 | **App** | De pluginlijst (klik op een plugin om hem te openen) en **ADD PLUGIN** |
-| **Pads** | Banktoetsen **A–D**, de 4×4-pads (indrukken om af te spelen; een GATE-pad speelt zolang het wordt ingedrukt) en **STOP ALL** |
+| **Pads** | Banktoetsen **A–D**, de 4×4-pads (indrukken om af te spelen; een HOLD-pad speelt zolang het wordt ingedrukt) en **STOP ALL** |
 | **Tape** | Het scherm en de zoekbalk van het deck, het transport (vorige, terugspoelen, stop, afspelen, pauze, vooruitspoelen, volgende), **SHUFFLE**, **ADD...** en de afspeellijst (klik op een nummer om het af te spelen) |
 | **Combinator** | Per pad: **FROM**, de kanalen en bussen die het voeden (klik op een om naar zijn strip te gaan), en **PLUGINS** op dat pad (klik op een plugin om hem te openen). **EDIT IN ROUTING** opent de pagina Routing |
 
 Een combinator heeft geen eigen effecten. Zijn geluid komt van wat hem voedt en van de plugins van elk pad.
-Rechtsklik erop > **Paths** om een pad toe te voegen en om per pad de plugins te openen, toe te voegen of te verwijderen,
+Rechtsklik erop > **PATHS** om een pad toe te voegen en om per pad de plugins te openen, toe te voegen of te verwijderen,
 het pad te hernoemen of te verwijderen.
 
 ---
@@ -653,12 +653,12 @@ het pad te hernoemen of te verwijderen.
 
 ![Twee uitgangsstrips: HEADPHONES en STREAM, met de buscompressor en mix-EQ](../images/console/outputs.jpg)
 
-Elke uitgang (master) heeft zijn eigen donkere strip:
+Elke uitgang heeft zijn eigen donkere strip:
 
 | Bediening | |
 |---|---|
 | **DEVICE** | Het apparaat waarop hij speelt. Klik om een ander te kiezen |
-| **SAFE** | Een limiter na de fader: niets verlaat hem boven -1 dBFS |
+| **LIMIT** | Een limiter na de fader: niets verlaat hem boven -1 dBFS |
 | **MON** | Deze uitgang monitoren |
 | **LUFS** | Kortetermijn-luidheid van wat eruit gaat ("-- LUFS" bij stilte) |
 | **WIDTH** | Stereobreedte |
@@ -666,7 +666,7 @@ Elke uitgang (master) heeft zijn eigen donkere strip:
 | **MIX EQ** | Aan-schakelaar, HF-gain en -freq, LF-gain en -freq |
 | **CUT**, **SEL**, fader | Zoals op een kanaal |
 
-Rechtsklik op een uitgang voor **Device...**, spacers, **Rename...** en **Remove**.
+Rechtsklik op een uitgang voor **DEVICE...**, spacers, **RENAME...** en **REMOVE**.
 
 Uitgangen worden voor je gemaakt, één per apparaat (zie [Uitgangen zijn apparaten](#outputs-are-devices)).
 
@@ -686,9 +686,9 @@ latentiecompensatie.
 
 ### Een plugin toevoegen
 
-- Op een kanaal: rechtsklik > **Plugins > Add plugin...**, of **ADD PLUGIN** op een raw-strip, of
+- Op een kanaal: rechtsklik > **PLUGINS > ADD PLUGIN...**, of **ADD PLUGIN** op een raw-strip, of
   **ADD** in het pluginpaneel.
-- Op een combinatorpad: rechtsklik op de combinator > **Paths > PATH n > Add plugin...**. Klik op de plugin
+- Op een combinatorpad: rechtsklik op de combinator > **PATHS > PATH n > ADD PLUGIN...**. Klik op de plugin
   van een pad op de combinatorstrip om hem te openen.
 
 Elke plugin wordt **eerst getest in een aparte kopie van het programma**, zodat een plugin die tijdens het laden crasht of
@@ -817,7 +817,7 @@ Formaten: WAV, FLAC, AIFF, OGG, MP3. Een pad waarvan het bestand is verplaatst, 
 | Naam | Dubbelklik om te hernoemen |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | De instant-replaybuffer wordt het geluid van dit pad (opgeslagen als WAV in de opnamemap). Schakel replay eerst in via TOOLS > TAPE |
-| **MODE** | **ONE-SHOT** speelt tot het einde (nogmaals indrukken start opnieuw). **GATE** speelt zolang het wordt ingedrukt. **LOOP** start met één druk en stopt bij de volgende |
+| **MODE** | **ONE-SHOT** speelt tot het einde (nogmaals indrukken start opnieuw). **HOLD** speelt zolang het wordt ingedrukt. **LOOP** start met één druk en stopt bij de volgende |
 | **CHOKE** | OFF of groep 1–8. Pads in één groep stoppen elkaar |
 | **LEVEL** | -INF tot +12 dB |
 | **HOTKEY** | Klik (**LEARN...**) en druk dan op de toetsen (zie [HOTKEYS](#hotkeys)) |
@@ -857,7 +857,7 @@ Het transport van de bovenbalk en de tapestrip op de tafel bedienen hetzelfde de
 |---|---|
 | **Source** | Elke uitgang, bus of ingang, of **ALL CHANNELS, ONE FILE EACH** (multitrack: elke ingang, of alleen die met DIRECT aan, plus elke uitgang, sample-uitgelijnd) |
 | **Format** | WAV 24-bit (standaard), 16-bit, 32-bit, 32-bit float; FLAC 24/16-bit; AIFF 24/16-bit; OGG Vorbis 128–320k. Met ffmpeg: MP3, AAC (M4A), Opus, ALAC. Elk toont hoeveel tijd er op de schijf past |
-| **REC** | Start en stopt. Het scherm toont tijd, grootte, resterende tijd en eventuele gemiste blokken |
+| **REC** | Start en stopt (de opnametoets in de bovenbalk doet hetzelfde). Het scherm toont tijd, grootte, resterende tijd en eventuele gemiste blokken |
 | **PATH** / **REVEAL** | Kies de map / open hem in Verkenner |
 
 Opnamen gaan naar `Music\Faider Recordings` tenzij je een map kiest. ffmpeg-formaten nemen eerst
@@ -933,7 +933,7 @@ pluginsinstellingen).
 
 - **Opslaan:** klik op **+** in de bovenbalk en geef haar een naam.
 - **Oproepen:** klik op haar toets. Faders en pans glijden in een halve seconde. De rest schakelt meteen.
-- **Rechtsklik op een scène** voor: alleen dempingen / alleen niveaus oproepen, erin opslaan, pluginsinstellingen
+- **Rechtsklik op een scène** voor: alleen CUTs / alleen niveaus oproepen, erin opslaan, pluginsinstellingen
   opnemen, hernoemen, een globale sneltoets, **Recall on device** (als een apparaat verschijnt; terug als het
   verdwijnt), **Auto-scene** (als een app begint te spelen, een apparaat verbindt, of op een tijdstip), MIDI
   learn, verplaatsen, verwijderen.
@@ -955,8 +955,7 @@ Je mix slaat zichzelf op binnen een seconde na elke wijziging, en bij het afslui
 
 | | |
 |---|---|
-| **Restore session** | Menu in het systeemvak: eerdere versies van je mix op datum (Faider start ermee opnieuw) |
-| **SESSION TIMELINE** | FIND: elke bewaarde versie. **Restore everything**, of **PUT ONE CHANNEL BACK** (niveau, pan, demping en rack) zonder opnieuw te starten |
+| **SESSION TIMELINE** | FIND, of **Session timeline...** in het menu van het systeemvak: elke bewaarde versie op datum. **RESTORE EVERYTHING** (Faider start ermee opnieuw), of **PUT ONE CHANNEL BACK** (niveau, pan, CUT en rack) zonder opnieuw te starten |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: bewaar de mix onder een naam |
 | **OPEN, EXPORT OR IMPORT...** | Een benoemde mix openen (start opnieuw), de mix in een bestand opslaan of er een uit een bestand laden |
 
@@ -983,14 +982,14 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 |---|---|
 | **LOOK** | **LOOK...**: de kleuren en het lettertype van de tafel, uit een LOOK-bestand (zie [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: opent in het systeemvak wanneer je je aanmeldt |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (een melding als een gedempte microfoon boven -30 dBFS komt) |
+| **DESK** | **WARN IF I TALK WHILE CUT** (een melding als een microfoon op CUT boven -30 dBFS komt) |
 | **APPS** | **APP RULES...**: naar welke bus of uitgang een programma gaat als het begint te spelen (ook in **FIND**). Het kanaal van een programma verwijderen verwijdert zijn regel |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Apparaten verbonden of weg, een kanaal dat clipt (zijn bron of zijn uitgang op volle schaal), scènes opgeroepen, macro's uitgevoerd, ongedaan maken en opnieuw |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Hoe meters aflezen (standaard sample peak met snelle terugval; IEC en andere) |
-| **CHANNEL METER POINT** | **PRE HPF** (ruwe bron), **PRE FADER** (na de effecten), **POST ON** (na de fader, standaard) |
+| **CHANNEL METER POINT** | **IN** (ruwe bron), **PRE** (na de effecten), **POST** (na de fader, standaard). De **METER**-kaarten in de zijbalk stellen hetzelfde in |
 | **ABOUT** | Versie en dankbetuigingen |
 
 <a id="macros"></a>
@@ -1032,12 +1031,12 @@ Een groep `palette` noemt de kleuren die een lay-outbestand op een deel kan legg
 Een macro is een lijst **acties** die wordt uitgevoerd via een sneltoets, een pad, een trigger of afstandsbediening.
 
 1. Klik op **+ NEW** en geef hem een naam (dubbelklik op de naam).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, fadetijd), ASSIGN ON/OFF/TOGGLE (een route),
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, fadetijd), ASSIGN ON/OFF/TOGGLE (een route),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
    RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (een stem effect, zie [Stem effecten](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
-3. Optioneel **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
-   SILENT (gedurende n seconden), MASTER HAS SOUND, TIME (24 uur).
+3. Optioneel **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, OUTPUT
+   SILENT (gedurende n seconden), OUTPUT HAS SOUND, TIME (24 uur).
 4. Optioneel een **HOTKEY**, en **MOMENTARY** (de acties worden ongedaan gemaakt als de toets wordt losgelaten,
    voor push-to-talk).
 5. **FIRE** voert hem nu uit.
@@ -1071,9 +1070,9 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
 | **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen (hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_` |
-| **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / MUTED en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
-| **MINI** | Een kleine mixer bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
-| **Tray** | Klik op het pictogram voor de mixer in het systeemvak, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Restore session, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing |
+| **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / CUT en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
+| **MINI** | De mini-mixer: een klein venster met de fader, meter en **CUT** van elke uitgang. **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
+| **Tray** | Klik op het pictogram voor de mini-mixer, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Session timeline, Start with Windows, About, Quit. Het pictogram knippert oranje bij een waarschuwing |
 
 Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
 Het start zichzelf opnieuw met gewone rechten, omdat de in-game overlay een programma dat als beheerder draait
@@ -1105,7 +1104,7 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
    standaard van Windows ([Stap 2](#step-2-install-vb-cable-optional)).
 2. Routeer je microfoonkanaal naar het apparaat **CABLE Input**. Er wordt een uitgang op gemaakt.
 3. Kies in de app **CABLE Output** als microfoon.
-4. Voer **PRE-FLIGHT NOW...** uit om te controleren dat er onderweg niets gedempt is en niets een lus vormt.
+4. Voer **PRE-FLIGHT NOW...** uit om te controleren dat er onderweg niets op CUT staat en niets een lus vormt.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1129,7 +1128,7 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 
 ### 17.5 Kanalen groeperen in een bus
 
-1. **ADD BUS**, en hernoem hem dan (rechtsklik > Rename...).
+1. **ADD BUS**, en hernoem hem dan (rechtsklik > **RENAME...**).
 2. Klik op de pagina Routing op de bus en klik dan op elk kanaal om het erin te routeren.
 3. Klik op de bus en dan op zijn uitgang om de bus verder te routeren.
 4. Wil je die kanalen alleen via de bus laten lopen, zet dan hun directe routes naar de uitgang uit.
@@ -1138,10 +1137,10 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 
 ### 17.6 Parallelle bewerking met een combinator
 
-1. **ADD BUS > COMBINATOR**. Hij begint met twee paden. Rechtsklik erop > **Paths > Add path** voor
+1. **ADD BUS > COMBINATOR**. Hij begint met twee paden. Rechtsklik erop > **PATHS > ADD PATH** voor
    meer.
 2. Routeer op de pagina Routing bronnen naar de padcellen (**P1**, **P2**…).
-3. Rechtsklik > **Paths > PATH n > Add plugin...** voor elk pad.
+3. Rechtsklik > **PATHS > PATH n > ADD PLUGIN...** voor elk pad.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1149,7 +1148,7 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 
 1. Stuur je kanalen naar twee uitgangen, bijvoorbeeld je koptelefoon en het apparaat dat je streamingsoftware
    opvangt.
-2. Elke uitgang heeft zijn eigen fader, buscompressor, EQ en **SAFE**-limiter. Zet **SAFE** aan voor de
+2. Elke uitgang heeft zijn eigen fader, buscompressor, EQ en limiter (**LIMIT**). Zet **LIMIT** aan voor de
    streamuitgang.
 3. Om iets uit de stream te houden, zet je de route van dat kanaal naar de streamuitgang uit (met
    zijn routeringsvakje of op de pagina Routing).
@@ -1167,9 +1166,9 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 ### 17.9 Een push-to-talk-toets maken
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > je microfoonkanaal.
+2. **+ ACTION** > **UNCUT** > je microfoonkanaal.
 3. Zet **MOMENTARY** aan en stel een **HOTKEY** in. Zolang je hem ingedrukt houdt, is de microfoon live, en bij het loslaten
-   wordt hij weer gedempt. Begin met de microfoon gedempt.
+   staat hij weer op CUT. Begin met de microfoon op CUT.
 
 ---
 
@@ -1188,9 +1187,12 @@ als er iets mis is. Elke rij heeft een lampje, de bevinding en een oplossing:
 |---|---|---|
 | **AUDIO** | Het is niet gestart (misschien heeft een andere app het) | **DEVICES** |
 | **MIC CABLE** | Geen VB-CABLE: apps kunnen je mix niet als microfoon horen | **GET VB-CABLE** |
-| **MIC MASTER** | Geen uitgang speelt in de microfoonkabel | **ROUTING** |
-| **MIC CHANNELS** | Iets op de weg naar de microfoon is gedempt | **UNMUTE** |
+| **MIC OUTPUT** | Geen uitgang speelt in de microfoonkabel | **ROUTING** |
+| **MIC CHANNELS** | Iets op de weg naar de microfoon staat op CUT | **UNCUT** |
 | **HEARD ONCE** | Een feedbacklus, of iets wordt dubbel gehoord | **SOUND SETTINGS** |
+
+**ZERO THE DESK** (linksonder; ook **ZERO DESK** in FIND) controleert wat een vorige sessie ingesteld kan laten:
+solo's, key listen, gain trims van meer dan 12 dB afwijking, en uitgangen op CUT. Elk heeft een **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1201,9 +1203,9 @@ Je mix is niet verloren. Als hij bij het starten niet gebruikt kan worden, wordt
 
 | Reden | Wat te doen |
 |---|---|
-| De opgeslagen interface is niet aangesloten | Sluit hem aan, dan **Restore session** (systeemvak) > de versie met "kept:" |
+| De opgeslagen interface is niet aangesloten | Sluit hem aan, dan **SESSION TIMELINE** (FIND of het systeemvak) > de versie met "kept:" > **RESTORE EVERYTHING** |
 | De opgeslagen interface kon niet worden geopend (een ander programma heeft hem) | Sluit het andere programma en start Faider opnieuw. Ondertussen wordt er niets over je mix heen opgeslagen |
-| session.xml kon niet worden gelezen | **Restore session** > een recente versie |
+| session.xml kon niet worden gelezen | **SESSION TIMELINE** > een recente versie > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1362,7 +1364,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Bij het starten opzijgezette mixen |
 | `settings.xml` | Voorkeuren |
 | `looks\` | De LOOKS, elk één JSON-bestand (zie [LOOKS](#looks)) |
-| `console.xml` | Spacers, keuzes bij SELECT en METER |
+| `console.xml` | Spacers en keuzes bij SELECT |
 | `plugins.xml` | De gevonden plugins en hoe elk is getest |
 | `events.log` | Alles wat er is gebeurd (roteert bij 5 MB) |
 | `status.txt` | Een momentopname van de engine om de paar seconden: apparaten, niveaus, buffers, drift |

@@ -217,7 +217,7 @@ Se você ouvir um programa duas vezes, veja [18.7](#187-i-hear-something-twice-o
 
 **+ CHANNEL** e **+ APP** adicionam canais. **+ OUTPUT** adiciona uma saída em um dispositivo que não
 tem nenhuma. A tecla de dispositivo sob o nome de uma saída muda onde ela toca. Clique com o botão
-direito em um nome para **Rename...**, a cor e **Remove**. Remover o canal de um programa também
+direito em um nome para **RENAME...**, a cor e **REMOVE**. Remover o canal de um programa também
 remove a regra de app dele, para o canal não voltar sozinho.
 
 <a id="step-7-pro-for-the-whole-console"></a>
@@ -280,7 +280,7 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHA
 | | **PLUGINS** | Sobe o painel de plugins sob os strips (veja [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Tocar em qualquer controle de um strip seleciona esse strip |
 | | **FOLLOW** | A mesa desliza até o strip selecionado, também quando ele é escolhido em outro lugar (FIND, uma tecla de atalho) |
-| **METER** | **IN** / **OUT** | Os medidores dos canais mostram o sinal que entra (antes do processamento) ou o que sai |
+| **METER** | **IN** / **PRE** / **POST** | Onde os medidores dos canais leem: a fonte como ela entra (antes do processamento), depois dos efeitos (antes do fader) ou depois do fader. É a mesma configuração que **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | As seções do strip. As acesas estão na tela. Clique em uma para deslizar até ela |
 
 As escolhas de SELECT e METER são lembradas.
@@ -298,7 +298,7 @@ Da direita para a esquerda:
 | **+ 100% -** | Zoom. Passa por 100, 125 e 150%. Clique na porcentagem para voltar a 100%. Ctrl + / Ctrl - / Ctrl 0 fazem o mesmo |
 | **FIND** (Ctrl+K) | Procura por nome em todas as páginas, canais, cenas, macros, pads e comandos |
 | **HISTORY** (Ctrl+H) | Todas as mudanças que você fez. Escolha uma para voltar a ela |
-| **MINI** | Uma pequena janela de mixer sempre por cima |
+| **MINI** | O mini mixer: uma pequena janela de mixer (o ícone da bandeja também a abre). O **PIN** nela a mantém por cima |
 | **Luz de status** | Verde: o áudio está bem. Âmbar: a carga de áudio está alta ou um dispositivo ficou sem dados há pouco. Vermelha: uma falha audível nos últimos 10 segundos, ou nenhum áudio rodando. O número é a carga de áudio. Clique nela para ir a DEVICES |
 | **SCENES** | Suas mixagens guardadas. **+** guarda uma nova (veja [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | A mesma mixagem, simples ou como o console inteiro (veja o [passo 7](#step-7-pro-for-the-whole-console)) |
@@ -314,8 +314,8 @@ Sob a barra superior, em toda visão do Mixer, você tem o tempo da fita (decorr
 faixa), o nome da faixa e as teclas dela: **voltar 10 s**, **parar**, **tocar/pausar**, **avançar
 10 s**, **gravar**, **repetir**.
 
-- **Gravar** grava a primeira saída em um arquivo (no formato e na pasta do gravador). Aperte de
-  novo para parar.
+- **Gravar** é o **REC** do gravador: grava a fonte escolhida em TOOLS > TAPE, no formato e na
+  pasta dele, e fica aceso enquanto essa gravação estiver rodando. Aperte de novo para parar.
 - **Repetir** passa por **repetir tudo** → **repetir uma** (marcado com **1**) → **desligado**.
 
 ---
@@ -347,7 +347,7 @@ flowchart LR
 3. **Um bus** soma tudo o que é roteado para ele, passa pelo seu próprio strip e pelos seus plugins,
    e é roteado para saídas (ou para outros buses) do mesmo jeito.
 4. **Uma saída** soma tudo o que é roteado para ela, passa pelo seu compressor de bus, pelo EQ da
-   mixagem e pelo limitador **SAFE**, e toca no seu dispositivo.
+   mixagem e pelo limitador (**LIMIT**), e toca no seu dispositivo.
 
 <a id="outputs-are-devices"></a>
 
@@ -372,7 +372,7 @@ Os três mudam as mesmas rotas. Use o que estiver mais perto.
 | Onde | Como |
 |---|---|
 | **Caixas de roteamento** (cabeçalho de cada strip) | Uma caixa por bus e por dispositivo de saída. Acesa: roteado para lá. Clique para alternar |
-| **Route to** (botão direito em um strip) | A mesma lista como menu, marcada onde está roteado |
+| **ROUTE TO** (botão direito em um strip) | A mesma lista como menu, marcada onde está roteado |
 | **A página Routing** | Cada strip é um bloco, cada rota é uma linha. Clique em um bloco e depois em outro (veja [10](#10-the-routing-page)) |
 
 <a id="buses"></a>
@@ -487,15 +487,15 @@ seguinte, **M** corta o som dele, **S** põe em solo, e **Cima / Baixo** movem o
 Clique no símbolo de energia à esquerda da barra de nome. O strip esmaece e fica cinza. Ele não é
 processado, e o dispositivo ou programa dele é liberado. Enquanto estiver desligado, **nada nele
 pode ser mudado**: knobs, teclas e o painel de plugins ignoram cliques, e o menu dele só oferece
-**Turn on** e espaçadores. Clique no símbolo de energia de novo para trazê-lo de volta.
+**TURN ON** e espaçadores. Clique no símbolo de energia de novo para trazê-lo de volta.
 
 <a id="spacers"></a>
 
 ### Espaçadores
 
-Espaçadores são strips em branco que dão espaço entre grupos. Botão direito em um strip > **Add
-spacer before** / **Add spacer after**. Botão direito em um espaçador para **Narrow**, **Add
-another** e **Remove spacer**. Um espaçador fica com o strip que ele segue quando esse strip se
+Espaçadores são strips em branco que dão espaço entre grupos. Botão direito em um strip > **ADD
+SPACER BEFORE** / **ADD SPACER AFTER**. Botão direito em um espaçador para **NARROW**, **ADD
+ANOTHER** e **REMOVE SPACER**. Um espaçador fica com o strip que ele segue quando esse strip se
 move.
 
 <a id="the-strip-menu-right-click"></a>
@@ -504,14 +504,14 @@ move.
 
 | Item | |
 |---|---|
-| **Input** | Muda a fonte: entradas da **Interface**, **Windows devices** (ou Windows default), **What an output plays** (loopback), **Test tone**, **Nothing** |
-| **Route to** | Cada bus e cada dispositivo de saída, marcado onde o sinal é enviado |
-| **Plugins** | Abrir um, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | Só canais |
-| **Colour** | A cor do canal, mostrada ao longo da barra de nome e no bloco dele em Routing |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | Exclui o canal ou o bus |
+| **INPUT** | Muda a fonte: entradas da **INTERFACE**, **WINDOWS DEVICES** (ou WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS** (loopback), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | Cada bus e cada dispositivo de saída, marcado onde o sinal é enviado |
+| **PLUGINS** | Abrir um, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | Só canais |
+| **COLOUR** | A cor do canal, mostrada ao longo da barra de nome e no bloco dele em Routing |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | Exclui o canal ou o bus |
 
 ---
 
@@ -527,7 +527,7 @@ move.
 
 | Controle | O que faz |
 |---|---|
-| **Barras de nível** | O nível do canal, esquerdo e direito (IN ou OUT, conforme a escolha em METER) |
+| **Barras de nível** | O nível do canal, esquerdo e direito (IN, PRE ou POST, conforme a escolha em METER) |
 | **FILT** | Envia os filtros ao detector do gate/compressor (filtragem da chave) |
 | **EQ** | O EQ ligado ou desligado |
 | **EXT** | A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal |
@@ -613,7 +613,7 @@ A chave **EQ IN** liga ou desliga o EQ inteiro (o mesmo que a tecla EQ do cabeç
 |---|---|
 | **PAN** | Esquerda/direita. Clique duplo para centralizar |
 | **SOLO** | Solo no lugar |
-| **CUT** | Mudo |
+| **CUT** | Silencia o canal (a tecla **M** na mesa) |
 | **SEL** | Selecionar este strip |
 | **Fader** | Nível, de +12 dB até off. A leitura abaixo mostra o nível em dB |
 | **safe** | Solo safe: este canal continua audível quando outros estão em solo |
@@ -652,12 +652,12 @@ anotados no registro de eventos). Os plugins dele são mantidos.
 | Strip | Suas seções do meio contêm |
 |---|---|
 | **App** | A lista de plugins (clique em um para abrir) e **ADD PLUGIN** |
-| **Pads** | Teclas de banco **A–D**, os pads 4×4 (aperte para tocar; um pad GATE toca enquanto é segurado) e **STOP ALL** |
+| **Pads** | Teclas de banco **A–D**, os pads 4×4 (aperte para tocar; um pad HOLD toca enquanto é segurado) e **STOP ALL** |
 | **Tape** | A tela do deck e a barra de busca, o transporte (anterior, voltar, parar, tocar, pausar, avançar, próxima), **SHUFFLE**, **ADD...**, e a playlist (clique em uma faixa para tocá-la) |
 | **Combinator** | Para cada caminho: **FROM**, os canais e buses que o alimentam (clique em um para ir ao strip dele), e **PLUGINS** desse caminho (clique em um para abrir). **EDIT IN ROUTING** abre a página Routing |
 
 Um combinador não tem efeitos próprios. O som dele vem do que o alimenta e dos plugins de cada
-caminho. Botão direito nele > **Paths** para adicionar um caminho e, para cada caminho, abrir,
+caminho. Botão direito nele > **PATHS** para adicionar um caminho e, para cada caminho, abrir,
 adicionar ou remover seus plugins, renomeá-lo ou removê-lo.
 
 ---
@@ -668,12 +668,12 @@ adicionar ou remover seus plugins, renomeá-lo ou removê-lo.
 
 ![Dois strips de saída: HEADPHONES e STREAM, com o compressor de bus e o EQ da mixagem](../images/console/outputs.jpg)
 
-Cada saída (master) tem o seu próprio strip escuro:
+Cada saída tem o seu próprio strip escuro:
 
 | Controle | |
 |---|---|
 | **DEVICE** | O dispositivo em que ela toca. Clique para escolher outro |
-| **SAFE** | Um limitador depois do fader: nada sai acima de -1 dBFS |
+| **LIMIT** | Um limitador depois do fader: nada sai acima de -1 dBFS |
 | **MON** | Monitorar esta saída |
 | **LUFS** | Sonoridade de curto prazo do que sai («-- LUFS» quando em silêncio) |
 | **WIDTH** | Largura estéreo |
@@ -681,7 +681,7 @@ Cada saída (master) tem o seu próprio strip escuro:
 | **MIX EQ** | Chave de ativação, ganho e frequência HF, ganho e frequência LF |
 | **CUT**, **SEL**, fader | Como em um canal |
 
-Botão direito em uma saída para **Device...**, espaçadores, **Rename...** e **Remove**.
+Botão direito em uma saída para **DEVICE...**, espaçadores, **RENAME...** e **REMOVE**.
 
 As saídas são criadas para você, uma por dispositivo (veja [Saídas são dispositivos](#outputs-are-devices)).
 
@@ -701,9 +701,9 @@ compensação automática de latência.
 
 ### Adicionar um plugin
 
-- Em um canal: botão direito > **Plugins > Add plugin...**, ou **ADD PLUGIN** em um strip bruto, ou
+- Em um canal: botão direito > **PLUGINS > ADD PLUGIN...**, ou **ADD PLUGIN** em um strip bruto, ou
   **ADD** no painel de plugins.
-- Em um caminho de combinador: botão direito no combinador > **Paths > PATH n > Add plugin...**.
+- Em um caminho de combinador: botão direito no combinador > **PATHS > PATH n > ADD PLUGIN...**.
   Clique no plugin de um caminho no strip do combinador para abri-lo.
 
 Todo plugin é **testado primeiro em uma cópia separada do programa**, então um plugin que trava ou
@@ -834,7 +834,7 @@ Formatos: WAV, FLAC, AIFF, OGG, MP3. Um pad cujo arquivo foi movido mostra **MIS
 | Nome | Clique duplo para renomear |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | O buffer de replay instantâneo passa a ser o som deste pad (salvo como WAV na pasta de gravações). Arme o replay antes em TOOLS > TAPE |
-| **MODE** | **ONE-SHOT** toca até o fim (apertar de novo reinicia). **GATE** toca enquanto é segurado. **LOOP** começa com um toque e para no próximo |
+| **MODE** | **ONE-SHOT** toca até o fim (apertar de novo reinicia). **HOLD** toca enquanto é segurado. **LOOP** começa com um toque e para no próximo |
 | **CHOKE** | OFF ou grupo 1–8. Pads de um mesmo grupo se param entre si |
 | **LEVEL** | De -INF a +12 dB |
 | **HOTKEY** | Clique (**LEARN...**), depois aperte as teclas (veja [HOTKEYS](#hotkeys)) |
@@ -876,7 +876,7 @@ O transporte da barra superior e o strip da fita na mesa controlam o mesmo deck.
 |---|---|
 | **Source** | Qualquer saída, bus ou entrada, ou **ALL CHANNELS, ONE FILE EACH** (multipista: cada entrada, ou só as com DIRECT aceso, mais cada saída, alinhadas por amostra) |
 | **Format** | WAV 24 bits (padrão), 16 bits, 32 bits, 32 bits float; FLAC 24/16 bits; AIFF 24/16 bits; OGG Vorbis 128–320k. Com ffmpeg: MP3, AAC (M4A), Opus, ALAC. Cada um mostra quanto tempo cabe no disco |
-| **REC** | Inicia e para. A tela mostra o tempo, o tamanho, o tempo restante e quaisquer blocos perdidos |
+| **REC** | Inicia e para (a tecla de gravar da barra superior faz o mesmo). A tela mostra o tempo, o tamanho, o tempo restante e quaisquer blocos perdidos |
 | **PATH** / **REVEAL** | Escolher a pasta / abri-la no Explorador |
 
 As gravações vão para `Music\Faider Recordings`, a menos que você escolha uma pasta. Os
@@ -954,7 +954,7 @@ escolher, as configurações dos plugins).
 - **Guardar:** clique em **+** na barra superior e dê um nome.
 - **Recuperar:** clique na tecla dela. Faders e pans deslizam por meio segundo. O resto muda de uma
   vez.
-- **Botão direito em uma cena** para: recuperar só os mudos / só os níveis, guardar nela, incluir as
+- **Botão direito em uma cena** para: recuperar só os CUTs / só os níveis, guardar nela, incluir as
   configurações dos plugins, renomear, uma tecla de atalho global, **Recall on device** (quando um
   dispositivo aparece; volta quando ele some), **Auto-scene** (quando um app começa a tocar, um
   dispositivo se conecta, ou em um horário do dia), aprendizado MIDI, mover, excluir.
@@ -976,8 +976,7 @@ Sua mixagem se salva sozinha em até um segundo depois de qualquer mudança, e a
 
 | | |
 |---|---|
-| **Restore session** | Menu da bandeja: versões anteriores da sua mixagem por data (o Faider reinicia com ela) |
-| **SESSION TIMELINE** | FIND: cada versão guardada. **Restore everything**, ou **PUT ONE CHANNEL BACK** (nível, pan, mudo e rack dele) sem reiniciar |
+| **SESSION TIMELINE** | FIND, ou **Session timeline...** no menu da bandeja: cada versão guardada, por data. **RESTORE EVERYTHING** (o Faider reinicia com ela), ou **PUT ONE CHANNEL BACK** (nível, pan, CUT e rack dele) sem reiniciar |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: guardar a mixagem com um nome |
 | **OPEN, EXPORT OR IMPORT...** | Abrir uma mixagem nomeada (reinicia), salvar a mixagem em um arquivo, ou carregar uma de um arquivo |
 
@@ -1005,14 +1004,14 @@ creme quando ligadas.
 |---|---|
 | **LOOK** | **LOOK...**: as cores e o tipo de letra da mesa, de um arquivo LOOK (ver [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: abre na bandeja quando você entra no Windows |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (um aviso quando um mic mudo passa de -30 dBFS) |
+| **DESK** | **WARN IF I TALK WHILE CUT** (um aviso quando um mic em CUT passa de -30 dBFS) |
 | **APPS** | **APP RULES...**: para qual bus ou saída um programa vai quando começa a tocar (também em **FIND**). Remover o canal de um programa remove a regra dele |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Dispositivos conectados ou sumidos, um canal saturando (a fonte ou a saída dele em escala máxima), cenas recuperadas, macros executadas, desfazer e refazer |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Como os medidores leem (pico de amostra com queda rápida por padrão; IEC e outros) |
-| **CHANNEL METER POINT** | **PRE HPF** (fonte bruta), **PRE FADER** (depois dos efeitos), **POST ON** (depois do fader, padrão) |
+| **CHANNEL METER POINT** | **IN** (fonte bruta), **PRE** (depois dos efeitos), **POST** (depois do fader, padrão). Os cartões **METER** da barra lateral definem o mesmo |
 | **ABOUT** | Versão e créditos |
 
 <a id="macros"></a>
@@ -1053,12 +1052,12 @@ Uma macro é uma lista de **ações** executadas por uma tecla de atalho, um pad
 controle remoto.
 
 1. Clique em **+ NEW** e dê um nome (clique duplo no nome).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, tempo de fade), ASSIGN ON/OFF/TOGGLE (uma rota),
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, tempo de fade), ASSIGN ON/OFF/TOGGLE (uma rota),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
    RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (um efeito de voz, veja [Efeitos de voz](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
 3. Opcionalmente, **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED,
-   MASTER SILENT (por n segundos), MASTER HAS SOUND, TIME (24 horas).
+   OUTPUT SILENT (por n segundos), OUTPUT HAS SOUND, TIME (24 horas).
 4. Opcionalmente, uma **HOTKEY**, e **MOMENTARY** (as ações são desfeitas quando a tecla é solta,
    para push-to-talk).
 5. **FIRE** a executa agora.
@@ -1092,9 +1091,9 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, no SIMPLE e no PRO, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo) |
 | **OSC** | Programas neste PC podem enviar para a porta 9000 (ele nunca escuta a rede): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 a solta). Escreva os espaços nos nomes como `_` |
-| **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / MUTED e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
-| **MINI** | Um pequeno mixer por cima de tudo. **OPEN** volta para a janela principal |
-| **Bandeja** | Clique no ícone para o mixer da bandeja, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Restore session, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta |
+| **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / CUT e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
+| **MINI** | O mini mixer: uma pequena janela com o fader, o medidor e o **CUT** de cada saída. **PIN** a mantém por cima de tudo. **OPEN** volta para a janela principal |
+| **Bandeja** | Clique no ícone para o mini mixer, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Session timeline, Start with Windows, About, Quit. O ícone pisca em âmbar durante um alerta |
 
 O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma janela
 de administrador. Ele se reinicia com direitos comuns, porque o overlay no jogo não consegue
@@ -1127,7 +1126,7 @@ permissão por conta própria.
    a ser o padrão do Windows ([Passo 2](#step-2-install-vb-cable-optional)).
 2. Roteie o canal do seu mic para o dispositivo **CABLE Input**. Uma saída é criada nele.
 3. No app, escolha **CABLE Output** como microfone.
-4. Execute **PRE-FLIGHT NOW...** para conferir que nada no caminho está mudo e que nada forma loop.
+4. Execute **PRE-FLIGHT NOW...** para conferir que nada no caminho está em CUT e que nada forma loop.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1152,7 +1151,7 @@ ordem.
 
 ### 17.5 Agrupar canais em um bus
 
-1. **ADD BUS** e depois renomeie (botão direito > Rename...).
+1. **ADD BUS** e depois renomeie (botão direito > **RENAME...**).
 2. Na página Routing, clique no bus e depois em cada canal para rotear para ele.
 3. Clique no bus e depois na saída dele, para rotear o bus adiante.
 4. Se você quer esses canais só pelo bus, tire as rotas diretas deles para a saída.
@@ -1161,10 +1160,10 @@ ordem.
 
 ### 17.6 Processamento paralelo com um combinador
 
-1. **ADD BUS > COMBINATOR**. Ele começa com dois caminhos. Botão direito nele > **Paths > Add path**
+1. **ADD BUS > COMBINATOR**. Ele começa com dois caminhos. Botão direito nele > **PATHS > ADD PATH**
    para ter mais.
 2. Na página Routing, roteie fontes para as células de caminho (**P1**, **P2**…).
-3. Botão direito > **Paths > PATH n > Add plugin...** para cada caminho.
+3. Botão direito > **PATHS > PATH n > ADD PLUGIN...** para cada caminho.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1172,7 +1171,7 @@ ordem.
 
 1. Envie seus canais para duas saídas, por exemplo seus fones e o dispositivo que o seu software de
    transmissão captura.
-2. Cada saída tem o seu próprio fader, compressor de bus, EQ e limitador **SAFE**. Ligue o **SAFE**
+2. Cada saída tem o seu próprio fader, compressor de bus, EQ e limitador (**LIMIT**). Ligue o **LIMIT**
    na saída da transmissão.
 3. Para deixar algo fora da transmissão, tire a rota desse canal para a saída da transmissão (com a
    caixa de roteamento dele ou na página Routing).
@@ -1190,9 +1189,9 @@ ordem.
 ### 17.9 Criar uma tecla push-to-talk
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > o canal do seu mic.
+2. **+ ACTION** > **UNCUT** > o canal do seu mic.
 3. Ligue **MOMENTARY** e defina uma **HOTKEY**. Enquanto você a segura o mic fica aberto, e ao soltar
-   ele volta ao mudo. Comece com o mic no mudo.
+   ele volta ao CUT. Comece com o mic em CUT.
 
 ---
 
@@ -1211,9 +1210,13 @@ aparece se algo estiver errado. Cada linha tem uma luz, o achado e uma correçã
 |---|---|---|
 | **AUDIO** | Não iniciou (outro app pode estar com ele) | **DEVICES** |
 | **MIC CABLE** | Sem VB-CABLE: os apps não conseguem ouvir sua mixagem como mic | **GET VB-CABLE** |
-| **MIC MASTER** | Nenhuma saída toca no cabo do mic | **ROUTING** |
-| **MIC CHANNELS** | Algo no caminho até o mic está mudo | **UNMUTE** |
+| **MIC OUTPUT** | Nenhuma saída toca no cabo do mic | **ROUTING** |
+| **MIC CHANNELS** | Algo no caminho até o mic está em CUT | **UNCUT** |
 | **HEARD ONCE** | Um loop de realimentação, ou algo ouvido duas vezes | **SOUND SETTINGS** |
+
+**ZERO THE DESK** (embaixo à esquerda; também **ZERO DESK** no FIND) confere o que uma sessão
+anterior pode deixar ligado: solos, key listen, ganhos (trim) a mais de 12 dB do zero e saídas em
+CUT. Cada um tem um **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1224,9 +1227,9 @@ Sua mixagem não foi perdida. Quando ela não pode ser usada ao iniciar, é **se
 
 | Motivo | O que fazer |
 |---|---|
-| A interface salva não está conectada | Conecte-a e depois **Restore session** (bandeja) > a versão «kept:» |
+| A interface salva não está conectada | Conecte-a e depois **SESSION TIMELINE** (FIND ou a bandeja) > a versão «kept:» > **RESTORE EVERYTHING** |
 | A interface salva não pôde ser aberta (outro programa está com ela) | Feche o outro programa e reinicie o Faider. Nada é salvo por cima da sua mixagem nesse meio-tempo |
-| O session.xml não pôde ser lido | **Restore session** > uma versão recente |
+| O session.xml não pôde ser lido | **SESSION TIMELINE** > uma versão recente > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1390,7 +1393,7 @@ Em `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mixagens separadas ao iniciar |
 | `settings.xml` | Preferências |
 | `looks\` | Os LOOKS: um arquivo JSON cada (ver [LOOKS](#looks)) |
-| `console.xml` | Espaçadores, escolhas de SELECT e METER |
+| `console.xml` | Espaçadores e escolhas de SELECT |
 | `plugins.xml` | Os plugins encontrados e como cada um foi no teste |
 | `events.log` | Tudo o que aconteceu (rotaciona em 5 MB) |
 | `status.txt` | Um instantâneo do motor a cada poucos segundos: dispositivos, níveis, buffers, deriva |

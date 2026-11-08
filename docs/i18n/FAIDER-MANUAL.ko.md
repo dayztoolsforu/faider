@@ -175,7 +175,7 @@ SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마�
 
 프로그램 소리가 두 번 들리면 [18.7](#187-i-hear-something-twice-or-an-echo)을 참조하세요.
 
-**+ CHANNEL**과 **+ APP**은 채널을 추가합니다. **+ OUTPUT**은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 **Rename...**, 색, **Remove**를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.
+**+ CHANNEL**과 **+ APP**은 채널을 추가합니다. **+ OUTPUT**은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 **RENAME...**, 색, **REMOVE**를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -223,7 +223,7 @@ SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마�
 | | **PLUGINS** | 스트립 아래로 플러그인 패널을 밀어 올립니다([9](#9-plugins) 참조) |
 | **SELECT** | **AUTO** | 스트립의 아무 컨트롤이나 만지면 그 스트립이 선택됩니다 |
 | | **FOLLOW** | 선택한 스트립으로 데스크가 부드럽게 이동합니다. FIND나 단축키 등 다른 곳에서 선택해도 마찬가지입니다 |
-| **METER** | **IN** / **OUT** | 채널 미터가 들어오는 신호(처리 전) 또는 나가는 신호를 보여 줍니다 |
+| **METER** | **IN** / **PRE** / **POST** | 채널 미터가 읽는 위치: 들어오는 소스(처리 전), 이펙트 뒤(페이더 앞), 또는 페이더 뒤. **SETTINGS > GENERAL > CHANNEL METER POINT**와 같은 설정입니다 |
 | **SECTIONS** | HEADER … FADER | 스트립의 섹션. 켜져 있는 것이 화면에 보이는 것입니다. 누르면 그곳으로 부드럽게 이동합니다 |
 
 SELECT와 METER 선택은 기억됩니다.
@@ -241,7 +241,7 @@ SELECT와 METER 선택은 기억됩니다.
 | **+ 100% -** | 확대/축소. 100, 125, 150%로 바뀝니다. 퍼센트를 누르면 100%로 돌아갑니다. Ctrl + / Ctrl - / Ctrl 0도 같습니다 |
 | **FIND** (Ctrl+K) | 모든 페이지, 채널, 씬, 매크로, 패드, 명령을 이름으로 검색합니다 |
 | **HISTORY** (Ctrl+H) | 지금까지 한 모든 변경. 하나를 고르면 그 시점으로 돌아갑니다 |
-| **MINI** | 항상 맨 위에 있는 작은 믹서 창 |
+| **MINI** | 미니 믹서: 작은 믹서 창(트레이 아이콘으로도 열립니다). 그 위의 **PIN**을 켜면 맨 위에 고정됩니다 |
 | **상태 표시등** | 녹색: 오디오 정상. 주황색: 오디오 부하가 높거나 최근에 장치에서 부족이 있었음. 빨간색: 최근 10초 안에 들리는 글리치가 있었거나 오디오가 실행 중이 아님. 숫자는 오디오 부하입니다. 누르면 DEVICES가 열립니다 |
 | **SCENES** | 저장한 믹스. **+**로 새로 저장합니다([14.1](#141-scenes) 참조) |
 | **SIMPLE / PRO** | 같은 믹스를 간단하게, 또는 콘솔 전체로 보여 줍니다([7단계](#step-7-pro-for-the-whole-console) 참조) |
@@ -254,7 +254,7 @@ SELECT와 METER 선택은 기억됩니다.
 
 상단 바 아래, 모든 Mixer 보기에는 테이프 덱의 시간(경과 시간과 트랙 길이), 트랙 이름, 그리고 키가 있습니다. **10초 되감기**, **정지**, **재생/일시 정지**, **10초 앞으로**, **녹음**, **반복**.
 
-- **녹음**은 첫 번째 출력을 파일로 녹음합니다(레코더의 형식과 폴더로). 다시 누르면 멈춥니다.
+- **녹음**은 레코더의 **REC**입니다. TOOLS > TAPE에서 고른 소스를 그 형식과 폴더로 녹음하며, 녹음이 진행되는 동안 켜져 있습니다. 다시 누르면 멈춥니다.
 - **반복**은 **전체 반복** → **한 곡 반복**(**1** 표시) → **끄기** 순으로 바뀝니다.
 
 ---
@@ -280,7 +280,7 @@ flowchart LR
 1. **채널**은 소스 하나를 받아 스트립(입력, 필터, 다이내믹스, EQ. 순서는 헤더에 표시됩니다)에 통과시키고, 그다음 플러그인, 그리고 페이더, 팬, 컷을 거칩니다.
 2. **루트**는 채널을 버스와 출력 여러 곳으로 동시에 보냅니다(각각 최대 8개). 모든 루트는 페이더를 거친 뒤의 채널을 전달하므로, 페이더와 **CUT**은 라우팅된 모든 곳에 영향을 줍니다.
 3. **버스**는 라우팅된 모든 것을 합산하고, 자기 스트립과 플러그인을 거친 뒤, 같은 방식으로 출력(또는 다른 버스)으로 라우팅됩니다.
-4. **출력**은 라우팅된 모든 것을 합산하고, 버스 컴프레서, 믹스 EQ, **SAFE** 리미터를 거쳐 자기 장치로 재생합니다.
+4. **출력**은 라우팅된 모든 것을 합산하고, 버스 컴프레서, 믹스 EQ, 리미터(**LIMIT**)를 거쳐 자기 장치로 재생합니다.
 
 <a id="outputs-are-devices"></a>
 
@@ -301,7 +301,7 @@ flowchart LR
 | 위치 | 방법 |
 |---|---|
 | **라우팅 상자**(각 스트립의 헤더) | 버스와 출력 장치마다 상자 하나. 켜짐: 그곳으로 라우팅됨. 누르면 전환 |
-| **Route to**(스트립을 마우스 오른쪽 단추로 클릭) | 같은 목록을 메뉴로 보여 줍니다. 라우팅된 곳에 체크 표시 |
+| **ROUTE TO**(스트립을 마우스 오른쪽 단추로 클릭) | 같은 목록을 메뉴로 보여 줍니다. 라우팅된 곳에 체크 표시 |
 | **ROUTING 페이지** | 스트립마다 블록, 루트마다 선. 블록 하나를 누르고 다른 블록을 누릅니다([10](#10-the-routing-page) 참조) |
 
 <a id="buses"></a>
@@ -388,13 +388,13 @@ flowchart LR
 
 ### 스트립 끄기
 
-이름 바 왼쪽의 전원 기호를 누릅니다. 스트립이 흐려지고 회색이 됩니다. 처리되지 않으며, 그 장치나 프로그램은 해제됩니다. 꺼져 있는 동안에는 **그 스트립에서 아무것도 바꿀 수 없습니다.** 노브, 키, 플러그인 패널은 클릭을 무시하고, 메뉴에는 **Turn on**과 스페이서만 나옵니다. 전원 기호를 다시 누르면 돌아옵니다.
+이름 바 왼쪽의 전원 기호를 누릅니다. 스트립이 흐려지고 회색이 됩니다. 처리되지 않으며, 그 장치나 프로그램은 해제됩니다. 꺼져 있는 동안에는 **그 스트립에서 아무것도 바꿀 수 없습니다.** 노브, 키, 플러그인 패널은 클릭을 무시하고, 메뉴에는 **TURN ON**과 스페이서만 나옵니다. 전원 기호를 다시 누르면 돌아옵니다.
 
 <a id="spacers"></a>
 
 ### 스페이서
 
-스페이서는 그룹 사이에 여백을 두는 빈 스트립입니다. 스트립을 마우스 오른쪽 단추로 클릭 > **Add spacer before** / **Add spacer after**. 스페이서를 마우스 오른쪽 단추로 클릭하면 **Narrow**, **Add another**, **Remove spacer**를 쓸 수 있습니다. 스페이서는 바로 앞 스트립이 이동할 때 함께 움직입니다.
+스페이서는 그룹 사이에 여백을 두는 빈 스트립입니다. 스트립을 마우스 오른쪽 단추로 클릭 > **ADD SPACER BEFORE** / **ADD SPACER AFTER**. 스페이서를 마우스 오른쪽 단추로 클릭하면 **NARROW**, **ADD ANOTHER**, **REMOVE SPACER**를 쓸 수 있습니다. 스페이서는 바로 앞 스트립이 이동할 때 함께 움직입니다.
 
 <a id="the-strip-menu-right-click"></a>
 
@@ -402,14 +402,14 @@ flowchart LR
 
 | 항목 | |
 |---|---|
-| **Input** | 소스 변경: **Interface** 입력, **Windows devices**(또는 Windows 기본값), **What an output plays**(루프백), **Test tone**, **Nothing** |
-| **Route to** | 모든 버스와 출력 장치. 보내는 곳에 체크 표시 |
-| **Plugins** | 하나 열기, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | 채널만 해당 |
-| **Colour** | 채널의 색. 이름 바를 따라, 그리고 ROUTING 블록에 표시됩니다 |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | 채널이나 버스를 삭제합니다 |
+| **INPUT** | 소스 변경: **INTERFACE** 입력, **WINDOWS DEVICES**(또는 WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS**(루프백), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | 모든 버스와 출력 장치. 보내는 곳에 체크 표시 |
+| **PLUGINS** | 하나 열기, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | 채널만 해당 |
+| **COLOUR** | 채널의 색. 이름 바를 따라, 그리고 ROUTING 블록에 표시됩니다 |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | 채널이나 버스를 삭제합니다 |
 
 ---
 
@@ -425,7 +425,7 @@ flowchart LR
 
 | 컨트롤 | 기능 |
 |---|---|
-| **레벨 바** | 채널의 레벨, 왼쪽과 오른쪽(METER에서 고른 대로 IN 또는 OUT) |
+| **레벨 바** | 채널의 레벨, 왼쪽과 오른쪽(METER에서 고른 대로 IN, PRE 또는 POST) |
 | **FILT** | 필터를 게이트/컴프레서의 디텍터로 보냅니다(키 필터링) |
 | **EQ** | EQ 켜기/끄기 |
 | **EXT** | 다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다 |
@@ -509,7 +509,7 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 |---|---|
 | **PAN** | 좌/우. 더블클릭하면 가운데 |
 | **SOLO** | 제자리 솔로 |
-| **CUT** | 음소거 |
+| **CUT** | 채널을 무음으로 만듭니다(데스크의 **M** 키) |
 | **SEL** | 이 스트립 선택 |
 | **페이더** | 레벨, +12 dB에서 꺼짐까지. 아래 수치에 dB로 레벨이 표시됩니다 |
 | **safe** | 솔로 세이프: 다른 채널이 솔로일 때도 이 채널은 들립니다 |
@@ -545,11 +545,11 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 | 스트립 | 가운데 섹션의 내용 |
 |---|---|
 | **App** | 플러그인 목록(누르면 열림)과 **ADD PLUGIN** |
-| **Pads** | 뱅크 키 **A–D**, 4×4 패드(누르면 재생. GATE 패드는 누르는 동안 재생), **STOP ALL** |
+| **Pads** | 뱅크 키 **A–D**, 4×4 패드(누르면 재생. HOLD 패드는 누르는 동안 재생), **STOP ALL** |
 | **Tape** | 덱 화면과 탐색 바, 트랜스포트(이전, 되감기, 정지, 재생, 일시 정지, 앞으로 감기, 다음), **SHUFFLE**, **ADD...**, 재생 목록(트랙을 누르면 재생) |
 | **Combinator** | 경로마다: **FROM**(입력되는 채널과 버스. 누르면 그 스트립으로 이동), 그 경로의 **PLUGINS**(누르면 열림). **EDIT IN ROUTING**은 ROUTING 페이지를 엽니다 |
 
-컴바이너 자체에는 이펙트가 없습니다. 소리는 입력되는 것과 각 경로의 플러그인에서 나옵니다. 마우스 오른쪽 단추 > **Paths**로 경로를 추가하고, 경로마다 플러그인을 열거나 추가하거나 제거하고, 이름을 바꾸거나 경로를 제거할 수 있습니다.
+컴바이너 자체에는 이펙트가 없습니다. 소리는 입력되는 것과 각 경로의 플러그인에서 나옵니다. 마우스 오른쪽 단추 > **PATHS**로 경로를 추가하고, 경로마다 플러그인을 열거나 추가하거나 제거하고, 이름을 바꾸거나 경로를 제거할 수 있습니다.
 
 ---
 
@@ -559,12 +559,12 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 
 ![출력 스트립 두 개: HEADPHONES와 STREAM, 버스 컴프레서와 믹스 EQ 포함](../images/console/outputs.jpg)
 
-각 출력(마스터)에는 자체 Dark strip이 있습니다.
+각 출력에는 자체 Dark strip이 있습니다.
 
 | 컨트롤 | |
 |---|---|
 | **DEVICE** | 재생 중인 장치. 누르면 다른 장치를 고릅니다 |
-| **SAFE** | 페이더 뒤의 리미터: -1 dBFS를 넘는 소리는 나가지 않습니다 |
+| **LIMIT** | 페이더 뒤의 리미터: -1 dBFS를 넘는 소리는 나가지 않습니다 |
 | **MON** | 이 출력을 모니터합니다 |
 | **LUFS** | 나가는 소리의 단기 라우드니스(무음이면 "-- LUFS") |
 | **WIDTH** | 스테레오 폭 |
@@ -572,7 +572,7 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 | **MIX EQ** | In 스위치, HF 게인과 주파수, LF 게인과 주파수 |
 | **CUT**, **SEL**, 페이더 | 채널과 같음 |
 
-출력을 마우스 오른쪽 단추로 클릭하면 **Device...**, 스페이서, **Rename...**, **Remove**를 쓸 수 있습니다.
+출력을 마우스 오른쪽 단추로 클릭하면 **DEVICE...**, 스페이서, **RENAME...**, **REMOVE**를 쓸 수 있습니다.
 
 출력은 장치마다 하나씩 자동으로 만들어집니다([출력은 장치입니다](#outputs-are-devices) 참조).
 
@@ -590,8 +590,8 @@ Faider은 채널, 버스, 컴바이너 경로에서 **VST3** 플러그인을 호
 
 ### 플러그인 추가하기
 
-- 채널에서: 마우스 오른쪽 단추 > **Plugins > Add plugin...**, 또는 RAW 스트립의 **ADD PLUGIN**, 또는 플러그인 패널의 **ADD**.
-- 컴바이너 경로에서: 컴바이너를 마우스 오른쪽 단추로 클릭 > **Paths > PATH n > Add plugin...**. 컴바이너 스트립에서 경로의 플러그인을 누르면 열립니다.
+- 채널에서: 마우스 오른쪽 단추 > **PLUGINS > ADD PLUGIN...**, 또는 RAW 스트립의 **ADD PLUGIN**, 또는 플러그인 패널의 **ADD**.
+- 컴바이너 경로에서: 컴바이너를 마우스 오른쪽 단추로 클릭 > **PATHS > PATH n > ADD PLUGIN...**. 컴바이너 스트립에서 경로의 플러그인을 누르면 열립니다.
 
 모든 플러그인은 **먼저 프로그램의 별도 복사본에서 테스트**되므로, 불러오는 중에 충돌하거나 멈추는 플러그인이 믹스를 망가뜨릴 수 없습니다. 결과는 플러그인 파일이 바뀔 때까지 기억됩니다.
 
@@ -699,7 +699,7 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 | 이름 | 더블클릭하여 이름 변경 |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | 인스턴트 리플레이 버퍼가 이 패드의 소리가 됩니다(녹음 폴더에 WAV로 저장). 먼저 TOOLS > TAPE에서 리플레이를 ARM 하세요 |
-| **MODE** | **ONE-SHOT**은 끝까지 재생합니다(다시 누르면 처음부터). **GATE**는 누르는 동안 재생합니다. **LOOP**는 한 번 누르면 시작하고 다음에 누르면 멈춥니다 |
+| **MODE** | **ONE-SHOT**은 끝까지 재생합니다(다시 누르면 처음부터). **HOLD**는 누르는 동안 재생합니다. **LOOP**는 한 번 누르면 시작하고 다음에 누르면 멈춥니다 |
 | **CHOKE** | OFF 또는 그룹 1–8. 같은 그룹의 패드는 서로를 멈춥니다 |
 | **LEVEL** | -INF에서 +12 dB |
 | **HOTKEY** | 클릭(**LEARN...**)한 뒤 키를 누릅니다([HOTKEYS](#hotkeys) 참조) |
@@ -736,7 +736,7 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 |---|---|
 | **Source** | 아무 출력, 버스, 입력, 또는 **ALL CHANNELS, ONE FILE EACH**(멀티트랙: 모든 입력 또는 DIRECT가 켜진 것만, 그리고 모든 출력. 샘플 단위로 정렬) |
 | **Format** | WAV 24-bit(기본값), 16-bit, 32-bit, 32-bit float. FLAC 24/16-bit. AIFF 24/16-bit. OGG Vorbis 128–320k. ffmpeg가 있으면 MP3, AAC (M4A), Opus, ALAC. 각각 디스크에 들어가는 시간이 표시됩니다 |
-| **REC** | 시작과 정지. 화면에 시간, 크기, 남은 시간, 누락된 블록이 있으면 표시됩니다 |
+| **REC** | 시작과 정지(상단 바의 녹음 키도 같은 일을 합니다). 화면에 시간, 크기, 남은 시간, 누락된 블록이 있으면 표시됩니다 |
 | **PATH** / **REVEAL** | 폴더 선택 / 탐색기에서 열기 |
 
 녹음은 폴더를 고르지 않으면 `Music\Faider Recordings`에 저장됩니다. ffmpeg 형식은 먼저 WAV로 녹음하고 정지할 때 변환합니다(변환에 실패해도 WAV는 남습니다). 여유 공간이 1 GB 미만이 되면 녹음은 저절로 멈춥니다.
@@ -804,7 +804,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 - **저장:** 상단 바의 **+**를 누르고 이름을 붙입니다.
 - **불러오기:** 해당 키를 누릅니다. 페이더와 팬은 0.5초에 걸쳐 부드럽게 움직입니다. 나머지는 즉시 바뀝니다.
-- **씬을 마우스 오른쪽 단추로 클릭**하면: 음소거만 / 레벨만 불러오기, 덮어쓰기 저장, 플러그인 설정 포함, 이름 변경, 전역 단축키, **Recall on device**(장치가 나타나면 불러오고, 사라지면 되돌림), **Auto-scene**(앱이 재생을 시작할 때, 장치가 연결될 때, 또는 정해진 시각), MIDI 러닝, 이동, 삭제.
+- **씬을 마우스 오른쪽 단추로 클릭**하면: CUT만 / 레벨만 불러오기, 덮어쓰기 저장, 플러그인 설정 포함, 이름 변경, 전역 단축키, **Recall on device**(장치가 나타나면 불러오고, 사라지면 되돌림), **Auto-scene**(앱이 재생을 시작할 때, 장치가 연결될 때, 또는 정해진 시각), MIDI 러닝, 이동, 삭제.
 
 장치와 채널 자체는 씬에 포함되지 않습니다.
 
@@ -822,8 +822,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | | |
 |---|---|
-| **Restore session** | 트레이 메뉴: 날짜별 이전 믹스(Faider이 그 믹스로 다시 시작됩니다) |
-| **SESSION TIMELINE** | FIND: 보관된 모든 버전. **Restore everything**, 또는 다시 시작하지 않고 **PUT ONE CHANNEL BACK**(그 채널의 레벨, 팬, 음소거, 랙) |
+| **SESSION TIMELINE** | FIND, 또는 트레이 메뉴의 **Session timeline...**: 보관된 모든 버전을 날짜별로. **RESTORE EVERYTHING**(Faider이 그 믹스로 다시 시작됩니다), 또는 다시 시작하지 않고 **PUT ONE CHANNEL BACK**(그 채널의 레벨, 팬, CUT, 랙) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: 믹스를 이름을 붙여 보관 |
 | **OPEN, EXPORT OR IMPORT...** | 이름 붙인 믹스 열기(다시 시작됨), 믹스를 파일로 저장, 파일에서 불러오기 |
 
@@ -847,14 +846,14 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 |---|---|
 | **LOOK** | **LOOK...**: 데스크의 색과 글꼴을 LOOK 파일에서 가져옵니다 (아래 [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: 로그인할 때 트레이에서 열림 |
-| **DESK** | **WARN IF I TALK WHILE MUTED**(음소거된 마이크가 -30 dBFS를 넘으면 알림) |
+| **DESK** | **WARN IF I TALK WHILE CUT**(CUT된 마이크가 -30 dBFS를 넘으면 알림) |
 | **APPS** | **APP RULES...**: 프로그램이 재생을 시작할 때 어느 버스나 출력으로 갈지(**FIND**에서도 열 수 있음). 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다 |
 | **SESSIONS** | **SAVE SESSION AS...**, **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**, **PRE-FLIGHT NOW...**, **TIPS**, **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | 장치 연결/제거, 채널 클리핑(소스나 출력이 풀 스케일), 씬 불러오기, 매크로 실행, 실행 취소와 다시 실행 |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...**(75–200%) |
 | **METER STANDARD** | 미터의 표시 방식(기본값은 빠르게 떨어지는 샘플 피크. IEC 등) |
-| **CHANNEL METER POINT** | **PRE HPF**(원래 소스), **PRE FADER**(이펙트 뒤), **POST ON**(페이더 뒤, 기본값) |
+| **CHANNEL METER POINT** | **IN**(원래 소스), **PRE**(이펙트 뒤), **POST**(페이더 뒤, 기본값). 사이드바의 **METER** 카드도 같은 설정을 바꿉니다 |
 | **ABOUT** | 버전과 크레딧 |
 
 <a id="macros"></a>
@@ -884,8 +883,8 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 매크로는 단축키, 패드, 트리거, 원격 제어로 실행되는 **액션**의 목록입니다.
 
 1. **+ NEW**를 누르고 이름을 붙입니다(이름을 더블클릭).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, 페이드 시간), ASSIGN ON/OFF/TOGGLE (루트), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (음성 효과, [음성 효과](#voice-effects) 참조), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
-3. 필요하면 **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER SILENT (n초 동안), MASTER HAS SOUND, TIME (24시간제).
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, 페이드 시간), ASSIGN ON/OFF/TOGGLE (루트), CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT, RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (음성 효과, [음성 효과](#voice-effects) 참조), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN SETTING.
+3. 필요하면 **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, OUTPUT SILENT (n초 동안), OUTPUT HAS SOUND, TIME (24시간제).
 4. 필요하면 **HOTKEY**와 **MOMENTARY**(키를 놓으면 액션이 취소됩니다. 푸시 투 토크용).
 5. **FIRE**는 지금 실행합니다.
 
@@ -914,9 +913,9 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 SIMPLE과 PRO에서 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래) |
 | **OSC** | 이 PC의 프로그램은 포트 9000으로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다 |
-| **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / MUTED와 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
-| **MINI** | 모든 것 위에 뜨는 작은 믹서. **OPEN**은 메인 창으로 돌아갑니다 |
-| **Tray** | 아이콘을 누르면 트레이 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Restore session, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
+| **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / CUT과 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
+| **MINI** | 미니 믹서: 각 출력의 페이더, 미터, **CUT**이 있는 작은 창. **PIN**을 켜면 모든 것 위에 고정됩니다. **OPEN**은 메인 창으로 돌아갑니다 |
+| **Tray** | 아이콘을 누르면 미니 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Start with Windows, About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
 
 Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
 
@@ -942,7 +941,7 @@ Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 
 1. **VB-CABLE**을 설치하고(PRE-FLIGHT가 링크를 안내합니다), 실제 스피커와 마이크를 Windows 기본값으로 되돌립니다([2단계](#step-2-install-vb-cable-optional)).
 2. 마이크 채널을 **CABLE Input** 장치로 라우팅합니다. 그 장치에 출력이 만들어집니다.
 3. 앱에서 마이크로 **CABLE Output**을 선택합니다.
-4. **PRE-FLIGHT NOW...**를 실행하여 도중에 음소거된 것이 없고 루프도 없는지 확인합니다.
+4. **PRE-FLIGHT NOW...**를 실행하여 도중에 CUT된 것이 없고 루프도 없는지 확인합니다.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -962,7 +961,7 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 
 ### 17.5 채널을 버스로 묶기
 
-1. **ADD BUS**를 누르고 이름을 바꿉니다(마우스 오른쪽 단추 > Rename...).
+1. **ADD BUS**를 누르고 이름을 바꿉니다(마우스 오른쪽 단추 > **RENAME...**).
 2. ROUTING 페이지에서 버스를 누른 다음 각 채널을 눌러 버스로 라우팅합니다.
 3. 버스를 누르고 그 출력을 눌러 버스를 다음으로 라우팅합니다.
 4. 그 채널들을 버스를 통해서만 보내고 싶다면 출력으로 가는 직접 루트를 끕니다.
@@ -971,16 +970,16 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 
 ### 17.6 컴바이너로 병렬 처리하기
 
-1. **ADD BUS > COMBINATOR**. 경로 두 개로 시작합니다. 더 추가하려면 마우스 오른쪽 단추 > **Paths > Add path**.
+1. **ADD BUS > COMBINATOR**. 경로 두 개로 시작합니다. 더 추가하려면 마우스 오른쪽 단추 > **PATHS > ADD PATH**.
 2. ROUTING 페이지에서 소스를 경로 셀(**P1**, **P2**…)로 라우팅합니다.
-3. 경로마다 마우스 오른쪽 단추 > **Paths > PATH n > Add plugin...**.
+3. 경로마다 마우스 오른쪽 단추 > **PATHS > PATH n > ADD PLUGIN...**.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
 ### 17.7 방송용 믹스와 헤드폰용 믹스 만들기
 
 1. 채널을 출력 두 곳으로 보냅니다. 예를 들어 헤드폰과 방송 소프트웨어가 캡처하는 장치입니다.
-2. 출력마다 자체 페이더, 버스 컴프레서, EQ, **SAFE** 리미터가 있습니다. 방송 출력에는 **SAFE**를 켜세요.
+2. 출력마다 자체 페이더, 버스 컴프레서, EQ, 리미터(**LIMIT**)가 있습니다. 방송 출력에는 **LIMIT**을 켜세요.
 3. 방송에 넣고 싶지 않은 것이 있으면 그 채널에서 방송 출력으로 가는 루트를 끕니다(라우팅 상자 또는 ROUTING 페이지에서).
 
 <a id="178-record"></a>
@@ -996,8 +995,8 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 ### 17.9 푸시 투 토크 키 만들기
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > 마이크 채널.
-3. **MOMENTARY**를 켜고 **HOTKEY**를 설정합니다. 누르고 있는 동안 마이크가 켜지고, 놓으면 다시 음소거됩니다. 마이크를 음소거한 상태로 시작하세요.
+2. **+ ACTION** > **UNCUT** > 마이크 채널.
+3. **MOMENTARY**를 켜고 **HOTKEY**를 설정합니다. 누르고 있는 동안 마이크가 켜지고, 놓으면 다시 CUT됩니다. 마이크를 CUT한 상태로 시작하세요.
 
 ---
 
@@ -1015,9 +1014,11 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 |---|---|---|
 | **AUDIO** | 시작되지 않았습니다(다른 앱이 사용 중일 수 있음) | **DEVICES** |
 | **MIC CABLE** | VB-CABLE 없음: 앱이 믹스를 마이크로 들을 수 없습니다 | **GET VB-CABLE** |
-| **MIC MASTER** | 마이크 케이블로 재생하는 출력이 없습니다 | **ROUTING** |
-| **MIC CHANNELS** | 마이크로 가는 도중에 음소거된 것이 있습니다 | **UNMUTE** |
+| **MIC OUTPUT** | 마이크 케이블로 재생하는 출력이 없습니다 | **ROUTING** |
+| **MIC CHANNELS** | 마이크로 가는 도중에 CUT된 것이 있습니다 | **UNCUT** |
 | **HEARD ONCE** | 피드백 루프이거나 소리가 두 번 들립니다 | **SOUND SETTINGS** |
+
+**ZERO THE DESK**(왼쪽 아래. FIND에서는 **ZERO DESK**로도 나옵니다)는 지난 세션이 남겨 둘 수 있는 설정을 확인합니다. 솔로, 키 리슨, 12 dB 넘게 벗어난 게인 트림, CUT된 출력입니다. 각각에 **FIX**가 있습니다.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1027,9 +1028,9 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 
 | 이유 | 할 일 |
 |---|---|
-| 저장된 인터페이스가 연결되어 있지 않음 | 연결한 뒤 **Restore session**(트레이) > "kept:" 버전 |
+| 저장된 인터페이스가 연결되어 있지 않음 | 연결한 뒤 **SESSION TIMELINE**(FIND 또는 트레이) > "kept:" 버전 > **RESTORE EVERYTHING** |
 | 저장된 인터페이스를 열 수 없음(다른 프로그램이 사용 중) | 다른 프로그램을 닫고 Faider을 다시 시작합니다. 그동안 믹스 위에 아무것도 덮어쓰지 않습니다 |
-| session.xml을 읽을 수 없음 | **Restore session** > 최근 버전 |
+| session.xml을 읽을 수 없음 | **SESSION TIMELINE** > 최근 버전 > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1165,7 +1166,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. 헤드폰이나 스
 | `session-unloaded-*.xml` | 시작할 때 따로 보관된 믹스 |
 | `settings.xml` | 환경 설정 |
 | `looks\` | LOOK들 (각각 JSON 파일 하나, 아래 [LOOKS](#looks)) |
-| `console.xml` | 스페이서, SELECT와 METER 선택 |
+| `console.xml` | 스페이서와 SELECT 선택 |
 | `plugins.xml` | 찾은 플러그인과 각각의 테스트 결과 |
 | `events.log` | 일어난 모든 일(5 MB에서 교체) |
 | `status.txt` | 몇 초마다 찍는 엔진 스냅샷: 장치, 레벨, 버퍼, 드리프트 |

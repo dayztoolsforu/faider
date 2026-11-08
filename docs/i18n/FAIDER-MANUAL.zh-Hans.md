@@ -175,7 +175,7 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 
 如果你听到某个程序两遍，见 [18.7](#187-i-hear-something-twice-or-an-echo)。
 
-**+ CHANNEL** 和 **+ APP** 添加通道。**+ OUTPUT** 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 **Rename...**、颜色和 **Remove**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
+**+ CHANNEL** 和 **+ APP** 添加通道。**+ OUTPUT** 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 **RENAME...**、颜色和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -223,7 +223,7 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 | | **PLUGINS** | 把插件面板从通道条下方滑出(见 [9](#9-plugins)) |
 | **SELECT** | **AUTO** | 触碰通道条上的任何控件都会选中该通道条 |
 | | **FOLLOW** | 调音台平滑滚动到所选通道条，在别处选中时(FIND、快捷键)也一样 |
-| **METER** | **IN** / **OUT** | 通道电平表显示进入的信号(处理前)或输出的信号 |
+| **METER** | **IN** / **PRE** / **POST** | 通道电平表的测量位置：进入的声源(处理前)、效果之后(推子之前)，或推子之后。与 **SETTINGS > GENERAL > CHANNEL METER POINT** 是同一个设置 |
 | **SECTIONS** | HEADER … FADER | 通道条的各个部分。亮着的就是屏幕上显示的。点击其一可滑动过去 |
 
 SELECT 和 METER 的选择会被记住。
@@ -241,7 +241,7 @@ SELECT 和 METER 的选择会被记住。
 | **+ 100% -** | 缩放。在 100%、125% 和 150% 之间切换。点击百分比回到 100%。Ctrl + / Ctrl - / Ctrl 0 效果相同 |
 | **FIND** (Ctrl+K) | 按名称搜索每个页面、通道、场景、宏、打击垫和命令 |
 | **HISTORY** (Ctrl+H) | 你做过的每一次更改。选一个就能回到那一刻 |
-| **MINI** | 一个始终置顶的小调音台窗口 |
+| **MINI** | 迷你调音台：一个小调音台窗口(点击托盘图标也能打开)。它上面的 **PIN** 让它保持置顶 |
 | **状态灯** | 绿色：音频正常。琥珀色：音频负载很高，或最近有设备数据不足。红色：最近 10 秒内有可听见的故障，或没有音频在运行。数字是音频负载。点击它进入 DEVICES |
 | **SCENES** | 你保存的混音。**+** 保存一个新的(见 [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | 同一个混音，以简单方式或整个调音台显示(见[步骤 7](#step-7-pro-for-the-whole-console)) |
@@ -254,7 +254,7 @@ SELECT 和 METER 的选择会被记住。
 
 在顶部栏下方，每个 Mixer 视图都会显示磁带机的时间(已播放时间和曲目长度)、曲目名称及其按键：**倒带 10 秒**、**停止**、**播放/暂停**、**快进 10 秒**、**录音**、**循环**。
 
-- **录音**会把第一个输出录成文件(采用录音机的格式和文件夹)。再按一次停止。
+- **录音**就是录音机的 **REC**：它按录音机的格式和文件夹，录制在 TOOLS > TAPE 上选择的声源，录音进行期间保持点亮。再按一次停止。
 - **循环**依次切换：**全部重复** → **单曲重复**(标有 **1**) → **关闭**。
 
 ---
@@ -280,7 +280,7 @@ flowchart LR
 1. **通道**接收一个声源，让它通过自己的通道条(输入、滤波器、动态和 EQ，顺序由其 HEADER 显示)，然后经过插件，再经过推子、声像和静音。
 2. **路由**把通道同时送往任意数量的总线和输出(各最多 8 个)。每条路由携带的都是通过推子之后的通道，所以推子和 **CUT** 会影响它被路由到的所有地方。
 3. **总线**把送入它的所有声音求和，经过自己的通道条和插件，并以同样的方式继续路由到输出(或其他总线)。
-4. **输出**把送入它的所有声音求和，经过它的总线压缩器、混音 EQ 和 **SAFE** 限幅器，然后在它的设备上播放。
+4. **输出**把送入它的所有声音求和，经过它的总线压缩器、混音 EQ 和限幅器(**LIMIT**)，然后在它的设备上播放。
 
 <a id="outputs-are-devices"></a>
 
@@ -301,7 +301,7 @@ flowchart LR
 | 位置 | 方式 |
 |---|---|
 | **路由框**(每个通道条的 HEADER) | 每条总线和每个输出设备一个框。亮起：已路由到那里。点击切换 |
-| **Route to**(右键点击通道条) | 同一份列表，做成菜单，已路由的地方打勾 |
+| **ROUTE TO**(右键点击通道条) | 同一份列表，做成菜单，已路由的地方打勾 |
 | **ROUTING 页面** | 每个通道条是一个方块，每条路由是一条线。先点一个方块，再点另一个(见 [10](#10-the-routing-page)) |
 
 <a id="buses"></a>
@@ -388,13 +388,13 @@ flowchart LR
 
 ### 关闭通道条
 
-点击名称栏左边的电源符号。通道条会淡出并变灰。它不再被处理，它的设备或程序也会被释放。关闭期间，**它上面的任何东西都不能更改**：旋钮、按键和插件面板都会忽略点击，它的菜单只提供 **Turn on** 和间隔条。再次点击电源符号即可恢复。
+点击名称栏左边的电源符号。通道条会淡出并变灰。它不再被处理，它的设备或程序也会被释放。关闭期间，**它上面的任何东西都不能更改**：旋钮、按键和插件面板都会忽略点击，它的菜单只提供 **TURN ON** 和间隔条。再次点击电源符号即可恢复。
 
 <a id="spacers"></a>
 
 ### 间隔条
 
-间隔条是在分组之间留出空间的空白通道条。右键点击一个通道条 > **Add spacer before** / **Add spacer after**。右键点击间隔条可使用 **Narrow**、**Add another** 和 **Remove spacer**。当它前面的通道条移动时，间隔条会跟随它。
+间隔条是在分组之间留出空间的空白通道条。右键点击一个通道条 > **ADD SPACER BEFORE** / **ADD SPACER AFTER**。右键点击间隔条可使用 **NARROW**、**ADD ANOTHER** 和 **REMOVE SPACER**。当它前面的通道条移动时，间隔条会跟随它。
 
 <a id="the-strip-menu-right-click"></a>
 
@@ -402,14 +402,14 @@ flowchart LR
 
 | 项目 | |
 |---|---|
-| **Input** | 更换声源：**Interface** 输入、**Windows devices**(或 Windows 默认设备)、**What an output plays**(环回)、**Test tone**、**Nothing** |
-| **Route to** | 每条总线和每个输出设备，已发送的地方打勾 |
-| **Plugins** | 打开一个、**Add plugin...**、**Remove** |
-| **Make mono / Make stereo** | 仅限通道 |
-| **Colour** | 通道的颜色，显示在它的名称栏上和它的 ROUTING 方块上 |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | 删除通道或总线 |
+| **INPUT** | 更换声源：**INTERFACE** 输入、**WINDOWS DEVICES**(或 WINDOWS DEFAULT)、**WHAT AN OUTPUT PLAYS**(环回)、**TEST TONE**、**NOTHING** |
+| **ROUTE TO** | 每条总线和每个输出设备，已发送的地方打勾 |
+| **PLUGINS** | 打开一个、**ADD PLUGIN...**、**REMOVE** |
+| **MAKE MONO / MAKE STEREO** | 仅限通道 |
+| **COLOUR** | 通道的颜色，显示在它的名称栏上和它的 ROUTING 方块上 |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | 删除通道或总线 |
 
 ---
 
@@ -425,7 +425,7 @@ flowchart LR
 
 | 控件 | 作用 |
 |---|---|
-| **电平条** | 通道的电平，左和右(IN 或 OUT，按 METER 的选择) |
+| **电平条** | 通道的电平，左和右(IN、PRE 或 POST，按 METER 的选择) |
 | **FILT** | 把滤波器送入门限/压缩器的检测器(键控滤波) |
 | **EQ** | 接入或旁路 EQ |
 | **EXT** | 动态处理收听外部键控信号(侧链)，而不是通道本身 |
@@ -509,7 +509,7 @@ flowchart LR
 |---|---|
 | **PAN** | 左/右。双击回到中间 |
 | **SOLO** | 原位独奏 |
-| **CUT** | 静音 |
+| **CUT** | 让通道静音(调音台上的 **M** 键) |
 | **SEL** | 选中此通道条 |
 | **推子** | 电平，从 +12 dB 到关闭。下方的读数以 dB 显示电平 |
 | **safe** | 独奏安全：其他通道被独奏时，该通道仍可听见 |
@@ -544,11 +544,11 @@ flowchart LR
 | 通道条 | 其中间部分的内容 |
 |---|---|
 | **App** | 插件列表(点击一个即可打开)和 **ADD PLUGIN** |
-| **Pads** | 分组键 **A–D**、4×4 打击垫(按下播放；GATE 打击垫按住期间播放)和 **STOP ALL** |
+| **Pads** | 分组键 **A–D**、4×4 打击垫(按下播放；HOLD 打击垫按住期间播放)和 **STOP ALL** |
 | **Tape** | 磁带机的屏幕和寻位条、走带控制(上一首、倒带、停止、播放、暂停、快进、下一首)、**SHUFFLE**、**ADD...** 和播放列表(点击曲目即可播放) |
 | **Combinator** | 每条路径：**FROM**，即输入它的通道和总线(点击一个跳转到它的通道条)，以及该路径上的 **PLUGINS**(点击一个即可打开)。**EDIT IN ROUTING** 打开 ROUTING 页面 |
 
-组合器本身没有效果。它的声音来自输入它的内容和每条路径的插件。右键点击它 > **Paths** 可以添加路径，并且针对每条路径，打开、添加或移除其插件，重命名它或移除它。
+组合器本身没有效果。它的声音来自输入它的内容和每条路径的插件。右键点击它 > **PATHS** 可以添加路径，并且针对每条路径，打开、添加或移除其插件，重命名它或移除它。
 
 ---
 
@@ -558,12 +558,12 @@ flowchart LR
 
 ![两个输出通道条：HEADPHONES 和 STREAM，带总线压缩器和混音 EQ](../images/console/outputs.jpg)
 
-每个输出(主输出)都有自己的 Dark strip：
+每个输出都有自己的 Dark strip：
 
 | 控件 | |
 |---|---|
 | **DEVICE** | 它播放所在的设备。点击可选择另一个 |
-| **SAFE** | 推子之后的限幅器：任何声音都不会超过 -1 dBFS 输出 |
+| **LIMIT** | 推子之后的限幅器：任何声音都不会超过 -1 dBFS 输出 |
 | **MON** | 监听此输出 |
 | **LUFS** | 输出声音的短期响度(静音时为 "-- LUFS") |
 | **WIDTH** | 立体声宽度 |
@@ -571,7 +571,7 @@ flowchart LR
 | **MIX EQ** | In 开关、HF 增益和频率、LF 增益和频率 |
 | **CUT**、**SEL**、推子 | 与通道上相同 |
 
-右键点击输出可使用 **Device...**、间隔条、**Rename...** 和 **Remove**。
+右键点击输出可使用 **DEVICE...**、间隔条、**RENAME...** 和 **REMOVE**。
 
 输出会自动创建，每个设备一个(见[输出就是设备](#outputs-are-devices))。
 
@@ -589,8 +589,8 @@ Faider 在通道、总线和组合器路径上承载 **VST3** 插件，并自动
 
 ### 添加插件
 
-- 在通道上：右键点击 > **Plugins > Add plugin...**，或 RAW 通道条上的 **ADD PLUGIN**，或插件面板中的 **ADD**。
-- 在组合器路径上：右键点击组合器 > **Paths > PATH n > Add plugin...**。在组合器通道条上点击某条路径的插件即可打开它。
+- 在通道上：右键点击 > **PLUGINS > ADD PLUGIN...**，或 RAW 通道条上的 **ADD PLUGIN**，或插件面板中的 **ADD**。
+- 在组合器路径上：右键点击组合器 > **PATHS > PATH n > ADD PLUGIN...**。在组合器通道条上点击某条路径的插件即可打开它。
 
 每个插件**都会先在程序的一个独立副本中测试**，所以加载时崩溃或卡死的插件不会拖垮你的混音。结果会被记住，直到插件文件发生变化。
 
@@ -698,7 +698,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | 名称 | 双击重命名 |
 | **LOAD**、**CLEAR**、**COLOUR** | |
 | **REPLAY** | 即时回放缓冲区变成该打击垫的声音(以 WAV 保存在录音文件夹中)。请先在 TOOLS > TAPE 中启用回放 |
-| **MODE** | **ONE-SHOT** 播放到结束(再次按下会重新开始)。**GATE** 按住期间播放。**LOOP** 按一次开始，再按一次停止 |
+| **MODE** | **ONE-SHOT** 播放到结束(再次按下会重新开始)。**HOLD** 按住期间播放。**LOOP** 按一次开始，再按一次停止 |
 | **CHOKE** | OFF 或组 1–8。同一组的打击垫会互相停止 |
 | **LEVEL** | -INF 到 +12 dB |
 | **HOTKEY** | 点击(**LEARN...**)，然后按下按键(见 [HOTKEYS](#hotkeys)) |
@@ -735,7 +735,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 |---|---|
 | **Source** | 任何输出、总线或输入，或 **ALL CHANNELS, ONE FILE EACH**(多轨：每个输入，或仅 DIRECT 亮起的输入，加上每个输出，采样对齐) |
 | **Format** | WAV 24-bit(默认)、16-bit、32-bit、32-bit float；FLAC 24/16-bit；AIFF 24/16-bit；OGG Vorbis 128–320k。有 ffmpeg 时：MP3、AAC (M4A)、Opus、ALAC。每种格式都会显示磁盘能容纳多长时间 |
-| **REC** | 开始和停止。屏幕显示时间、大小、剩余时间，以及任何丢弃的数据块 |
+| **REC** | 开始和停止(顶部栏的录音键作用相同)。屏幕显示时间、大小、剩余时间，以及任何丢弃的数据块 |
 | **PATH** / **REVEAL** | 选择文件夹 / 在资源管理器中打开 |
 
 除非你选择了文件夹，录音都保存到 `Music\Faider Recordings`。ffmpeg 格式会先录成 WAV，停止时再转换(转换失败时会保留 WAV)。剩余空间不足 1 GB 时，录音会自动停止。
@@ -803,7 +803,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 - **保存：** 点击顶部栏的 **+** 并给它起个名字。
 - **调用：** 点击它的键。推子和声像在半秒内平滑过渡，其余的立即切换。
-- **右键点击场景**可以：仅调用静音 / 仅调用电平、存入它、包含插件设置、重命名、全局快捷键、**Recall on device**(设备出现时调用；离开时切回)、**Auto-scene**(应用开始播放时、设备连接时，或在一天中的某个时间)、MIDI 学习、移动、删除。
+- **右键点击场景**可以：仅调用 CUT / 仅调用电平、存入它、包含插件设置、重命名、全局快捷键、**Recall on device**(设备出现时调用；离开时切回)、**Auto-scene**(应用开始播放时、设备连接时，或在一天中的某个时间)、MIDI 学习、移动、删除。
 
 设备和通道本身不属于场景。
 
@@ -821,8 +821,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **Restore session** | 托盘菜单：按日期列出你混音的早期版本(Faider 会以它重新启动) |
-| **SESSION TIMELINE** | FIND：保留的每个版本。**Restore everything**，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、静音和机架) |
+| **SESSION TIMELINE** | FIND，或托盘菜单上的 **Session timeline...**：按日期列出保留的每个版本。**RESTORE EVERYTHING**(Faider 会以它重新启动)，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、CUT 和机架) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS：以名称保留混音 |
 | **OPEN, EXPORT OR IMPORT...** | 打开命名的混音(会重启)、把混音保存为文件，或从文件载入 |
 
@@ -846,14 +845,14 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 |---|---|
 | **LOOK** | **LOOK...**：调音台的颜色与字体，取自 LOOK 文件（见 [LOOKS](#looks)） |
 | **WINDOWS** | **START WITH WINDOWS**：你登录时在托盘中打开 |
-| **DESK** | **WARN IF I TALK WHILE MUTED**(静音的麦克风超过 -30 dBFS 时给出通知) |
+| **DESK** | **WARN IF I TALK WHILE CUT**(被 CUT 的麦克风超过 -30 dBFS 时给出通知) |
 | **APPS** | **APP RULES...**：程序开始播放时它去往哪条总线或输出(也可在 **FIND** 中找到)。删除程序的通道会同时删除它的规则 |
 | **SESSIONS** | **SAVE SESSION AS...**；**OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**；**PRE-FLIGHT NOW...**；**TIPS**；**SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | 设备连接或消失、通道削波(其声源或输出达到满刻度)、场景被调用、宏被运行、撤销和重做 |
 | **ZOOM** | 100%、125%、150%、**CUSTOM...**(75–200%) |
 | **METER STANDARD** | 电平表的读数方式(默认是快速回落的采样峰值；IEC 及其他) |
-| **CHANNEL METER POINT** | **PRE HPF**(原始声源)、**PRE FADER**(效果之后)、**POST ON**(推子之后，默认) |
+| **CHANNEL METER POINT** | **IN**(原始声源)、**PRE**(效果之后)、**POST**(推子之后，默认)。侧边栏的 **METER** 卡片设置的是同一项 |
 | **ABOUT** | 版本和致谢 |
 
 <a id="macros"></a>
@@ -883,8 +882,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 宏是由快捷键、打击垫、触发器或远程控制运行的**动作**列表。
 
 1. 点击 **+ NEW**，然后命名(双击名称)。
-2. **+ ACTION**：MUTE ON/OFF/TOGGLE、SET FADER (dB、渐变时间)、ASSIGN ON/OFF/TOGGLE (一条路由)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE (一个语音特效，见 [语音特效](#voice-effects))、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
-3. 可选，**+ TRIGGER**：APP STARTS、APP STOPS、DEVICE CONNECTED、DEVICE DISCONNECTED、MASTER SILENT (持续 n 秒)、MASTER HAS SOUND、TIME (24 小时制)。
+2. **+ ACTION**：CUT、UNCUT、CUT TOGGLE、SET FADER (dB、渐变时间)、ASSIGN ON/OFF/TOGGLE (一条路由)、CHANNEL ON/OFF、TRIGGER PAD、STOP PAD、ALL NOTES OFF、TRANSPORT PLAY/PAUSE、TRANSPORT NEXT、RECORD START/STOP、WAIT、SCENE RECALL、FX ON/OFF/TOGGLE (一个语音特效，见 [语音特效](#voice-effects))、WINDOWS DEFAULT OUTPUT/INPUT、PLUGIN SETTING。
+3. 可选，**+ TRIGGER**：APP STARTS、APP STOPS、DEVICE CONNECTED、DEVICE DISCONNECTED、OUTPUT SILENT (持续 n 秒)、OUTPUT HAS SOUND、TIME (24 小时制)。
 4. 可选，一个 **HOTKEY** 和 **MOMENTARY**(松开按键时撤销这些动作，用于按键通话)。
 5. **FIRE** 立即运行。
 
@@ -913,9 +912,9 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
 | **OSC** | 这台电脑上的程序可以发送到端口 9000(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_` |
-| **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / MUTED 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
-| **MINI** | 位于所有窗口之上的小调音台。**OPEN** 返回主窗口 |
-| **Tray** | 点击图标显示托盘调音台，双击打开窗口。右键点击：Show、场景调用、Restore session、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色 |
+| **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
+| **MINI** | 迷你调音台：一个小窗口，带每个输出的推子、电平表和 **CUT**。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
+| **Tray** | 点击图标显示迷你调音台，双击打开窗口。右键点击：Show、场景调用、Session timeline、Start with Windows、About、Quit。出现警报时图标闪烁琥珀色 |
 
 Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
 
@@ -941,7 +940,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 1. 安装 **VB-CABLE**(PRE-FLIGHT 会提供链接)，然后把你真正的扬声器和麦克风设回 Windows 的默认设备([步骤 2](#step-2-install-vb-cable-optional))。
 2. 把你的麦克风通道路由到 **CABLE Input** 设备。它上面会创建一个输出。
 3. 在应用中，选择 **CABLE Output** 作为它的麦克风。
-4. 运行 **PRE-FLIGHT NOW...**，检查途中没有被静音的环节，也没有回路。
+4. 运行 **PRE-FLIGHT NOW...**，检查途中没有被 CUT 的环节，也没有回路。
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -961,7 +960,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.5 把通道编成一条总线
 
-1. **ADD BUS**，然后重命名(右键点击 > Rename...)。
+1. **ADD BUS**，然后重命名(右键点击 > **RENAME...**)。
 2. 在 ROUTING 页面上，点击总线，再点击每个通道，把它路由进来。
 3. 点击总线，再点击它的输出，把总线继续路由出去。
 4. 如果你只想让这些通道经过总线，请关闭它们到该输出的直接路由。
@@ -970,16 +969,16 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.6 用组合器进行并行处理
 
-1. **ADD BUS > COMBINATOR**。它起始有两条路径。右键点击它 > **Paths > Add path** 可添加更多。
+1. **ADD BUS > COMBINATOR**。它起始有两条路径。右键点击它 > **PATHS > ADD PATH** 可添加更多。
 2. 在 ROUTING 页面上，把声源路由到路径单元格(**P1**、**P2**…)。
-3. 对每条路径，右键点击 > **Paths > PATH n > Add plugin...**。
+3. 对每条路径，右键点击 > **PATHS > PATH n > ADD PLUGIN...**。
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
 ### 17.7 制作直播混音和耳机混音
 
 1. 把你的通道送到两个输出，例如你的耳机和直播软件捕获的设备。
-2. 每个输出有自己的推子、总线压缩器、EQ 和 **SAFE** 限幅器。给直播输出打开 **SAFE**。
+2. 每个输出有自己的推子、总线压缩器、EQ 和限幅器(**LIMIT**)。给直播输出打开 **LIMIT**。
 3. 若要让某样东西不进入直播，请关闭该通道到直播输出的路由(用它的路由框或在 ROUTING 页面上)。
 
 <a id="178-record"></a>
@@ -995,8 +994,8 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 ### 17.9 制作按键通话键
 
 1. SETTINGS > MACROS > **+ NEW**。
-2. **+ ACTION** > **MUTE OFF** > 你的麦克风通道。
-3. 打开 **MOMENTARY** 并设置一个 **HOTKEY**。按住它时麦克风是开着的，松开后又会静音。请从麦克风静音的状态开始。
+2. **+ ACTION** > **UNCUT** > 你的麦克风通道。
+3. 打开 **MOMENTARY** 并设置一个 **HOTKEY**。按住它时麦克风是开着的，松开后又会被 CUT。请从麦克风被 CUT 的状态开始。
 
 ---
 
@@ -1014,9 +1013,11 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 |---|---|---|
 | **AUDIO** | 没有启动(可能被其他应用占用) | **DEVICES** |
 | **MIC CABLE** | 没有 VB-CABLE：应用无法把你的混音当作麦克风听到 | **GET VB-CABLE** |
-| **MIC MASTER** | 没有输出播放到麦克风线缆 | **ROUTING** |
-| **MIC CHANNELS** | 通往麦克风的途中有东西被静音 | **UNMUTE** |
+| **MIC OUTPUT** | 没有输出播放到麦克风线缆 | **ROUTING** |
+| **MIC CHANNELS** | 通往麦克风的途中有东西被 CUT | **UNCUT** |
 | **HEARD ONCE** | 反馈回路，或有东西被听到两遍 | **SOUND SETTINGS** |
+
+**ZERO THE DESK**(左下角；在 FIND 中也叫 **ZERO DESK**)检查上一次会话可能遗留的设置：独奏、key listen、偏离超过 12 dB 的增益微调，以及被 CUT 的输出。每一项都有一个 **FIX**。
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1026,9 +1027,9 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 | 原因 | 该怎么做 |
 |---|---|
-| 保存的接口没有连接 | 连接它，然后 **Restore session**(托盘) > 带 "kept:" 的版本 |
+| 保存的接口没有连接 | 连接它，然后 **SESSION TIMELINE**(FIND 或托盘) > 带 "kept:" 的版本 > **RESTORE EVERYTHING** |
 | 保存的接口无法打开(被其他程序占用) | 关闭其他程序，然后重新启动 Faider。在此期间不会有任何东西覆盖你的混音 |
-| 无法读取 session.xml | **Restore session** > 一个较新的版本 |
+| 无法读取 session.xml | **SESSION TIMELINE** > 一个较新的版本 > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1164,7 +1165,7 @@ Windows 把线缆设成了它的默认设备。请重新把耳机或音箱设为
 | `session-unloaded-*.xml` | 启动时搁置的混音 |
 | `settings.xml` | 偏好设置 |
 | `looks\` | LOOK 文件，每个一个 JSON（见 [LOOKS](#looks)） |
-| `console.xml` | 间隔条、SELECT 和 METER 的选择 |
+| `console.xml` | 间隔条和 SELECT 的选择 |
 | `plugins.xml` | 找到的插件，以及每个插件的测试结果 |
 | `events.log` | 发生过的一切(达到 5 MB 时轮换) |
 | `status.txt` | 每隔几秒的引擎快照：设备、电平、缓冲区、漂移 |

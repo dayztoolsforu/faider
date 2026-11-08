@@ -212,8 +212,8 @@ sin fader och mätare.
 Om du hör ett program dubbelt, se [18.7](#187-i-hear-something-twice-or-an-echo).
 
 **+ CHANNEL** och **+ APP** lägger till kanaler. **+ OUTPUT** lägger till en utgång på en enhet som saknar en.
-Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för **Rename...**,
-färgen och **Remove**. När du tar bort ett programs kanal försvinner också dess appregel, så kanalen
+Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för **RENAME...**,
+färgen och **REMOVE**. När du tar bort ett programs kanal försvinner också dess appregel, så kanalen
 kommer inte tillbaka av sig själv.
 
 <a id="step-7-pro-for-the-whole-console"></a>
@@ -274,7 +274,7 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 | | **PLUGINS** | Skjuter upp pluginpanelen under strippar (se [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Att röra vid vilken kontroll som helst på en strip väljer den stripen |
 | | **FOLLOW** | Bordet glider till den valda stripen, även när den väljs någon annanstans (FIND, ett kortkommando) |
-| **METER** | **IN** / **OUT** | Kanalmätarna visar signalen som kommer in (före bearbetning) eller går ut |
+| **METER** | **IN** / **PRE** / **POST** | Var kanalmätarna mäter: källan som den kommer in (före bearbetning), efter effekterna (före fadern) eller efter fadern. Samma inställning som **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | Stripens avsnitt. Tända är i bild. Klicka på ett för att glida dit |
 
 Valen under SELECT och METER kommer ihåg.
@@ -292,7 +292,7 @@ Från höger:
 | **+ 100% -** | Zoom. Stegar mellan 100, 125 och 150 %. Klicka på procenttalet för 100 %. Ctrl + / Ctrl - / Ctrl 0 gör detsamma |
 | **FIND** (Ctrl+K) | Söker i varje sida, kanal, scen, makro, pad och kommando efter namn |
 | **HISTORY** (Ctrl+H) | Varje ändring du har gjort. Välj en för att gå tillbaka till den |
-| **MINI** | Ett litet mixerfönster som alltid ligger överst |
+| **MINI** | Minimixern: ett litet mixerfönster (ikonen i aktivitetsfältet öppnar det också). **PIN** på det håller det överst |
 | **Hälsolampa** | Grön: ljudet är bra. Gul: ljudbelastningen är hög eller en enhet fick nyligen för lite. Röd: ett hörbart glapp under de senaste 10 sekunderna, eller inget ljud går. Talet är ljudbelastningen. Klicka på den för DEVICES |
 | **SCENES** | Dina sparade mixar. **+** sparar en ny (se [14.1](#141-scenes)) |
 | **SIMPLE / PRO** | Samma mix, enkel eller som hela konsolen (se [Steg 7](#step-7-pro-for-the-whole-console)) |
@@ -307,7 +307,7 @@ Under den övre raden får du, i varje Mixer-vy, Tape-däckets tid (förfluten o
 spårets namn och dess tangenter: **10 s bakåt**, **stopp**, **spela/paus**, **10 s framåt**,
 **spela in**, **loop**.
 
-- **Spela in** spelar in den första utgången till en fil (i Recorderns format och mapp). Tryck igen för att stoppa.
+- **Spela in** är Recorderns **REC**: den spelar in källan som valts under TOOLS > TAPE, i dess format och mapp, och lyser så länge den inspelningen pågår. Tryck igen för att stoppa.
 - **Loop** stegar genom **upprepa alla** → **upprepa en** (markerad med **1**) → **av**.
 
 ---
@@ -339,7 +339,7 @@ flowchart LR
 3. **En buss** summerar allt som routas till den, kör sin egen strip och sina plugins och routas vidare till
    utgångar (eller in i andra bussar) på samma sätt.
 4. **En utgång** summerar allt som routas till den, kör sin busskompressor, mix-EQ och
-   **SAFE**-limiter och spelar på sin enhet.
+   limiter (**LIMIT**) och spelar på sin enhet.
 
 <a id="outputs-are-devices"></a>
 
@@ -364,7 +364,7 @@ Alla tre ändrar samma rutter. Använd det som är närmast.
 | Var | Hur |
 |---|---|
 | **Routingrutor** (varje strips header) | En ruta per buss och utgångsenhet. Tänd: routad dit. Klicka för att växla |
-| **Route to** (högerklicka på en strip) | Samma lista som meny, ikryssad där den är routad |
+| **ROUTE TO** (högerklicka på en strip) | Samma lista som meny, ikryssad där den är routad |
 | **Sidan Routing** | Varje strip som ett block, varje rutt som en linje. Klicka på ett block, sedan på ett annat (se [10](#10-the-routing-page)) |
 
 <a id="buses"></a>
@@ -473,16 +473,16 @@ Med bordet i fokus (klicka på det först): **Left / Right** väljer föregåend
 
 Klicka på strömsymbolen till vänster om namnlisten. Stripen tonas ned och blir grå. Den bearbetas inte,
 och dess enhet eller program släpps. Medan den är avstängd **kan ingenting på den ändras**:
-rattar, tangenter och pluginpanelen ignorerar klick, och dess meny erbjuder bara **Turn on** och spacers.
+rattar, tangenter och pluginpanelen ignorerar klick, och dess meny erbjuder bara **TURN ON** och spacers.
 Klicka på strömsymbolen igen för att få tillbaka den.
 
 <a id="spacers"></a>
 
 ### Spacers
 
-Spacers är tomma strippar som ger dig utrymme mellan grupper. Högerklicka på en strip > **Add spacer
-before** / **Add spacer after**. Högerklicka på en spacer för **Narrow**, **Add another** och **Remove
-spacer**. En spacer stannar kvar vid stripen den följer när den stripen flyttas.
+Spacers är tomma strippar som ger dig utrymme mellan grupper. Högerklicka på en strip > **ADD SPACER
+BEFORE** / **ADD SPACER AFTER**. Högerklicka på en spacer för **NARROW**, **ADD ANOTHER** och **REMOVE
+SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flyttas.
 
 <a id="the-strip-menu-right-click"></a>
 
@@ -490,14 +490,14 @@ spacer**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 | Post | |
 |---|---|
-| **Input** | Byt källa: **Interface**-ingångar, **Windows devices** (eller Windows standard), **What an output plays** (loopback), **Test tone**, **Nothing** |
-| **Route to** | Varje buss och utgångsenhet, ikryssad där den skickas |
-| **Plugins** | Öppna ett, **Add plugin...**, **Remove** |
-| **Make mono / Make stereo** | Bara kanaler |
-| **Colour** | Kanalens färg, visad längs dess namnlist och på dess Routing-block |
-| **Add spacer before / after** | |
-| **Rename...** | |
-| **Remove** | Tar bort kanalen eller bussen |
+| **INPUT** | Byt källa: **INTERFACE**-ingångar, **WINDOWS DEVICES** (eller WINDOWS DEFAULT), **WHAT AN OUTPUT PLAYS** (loopback), **TEST TONE**, **NOTHING** |
+| **ROUTE TO** | Varje buss och utgångsenhet, ikryssad där den skickas |
+| **PLUGINS** | Öppna ett, **ADD PLUGIN...**, **REMOVE** |
+| **MAKE MONO / MAKE STEREO** | Bara kanaler |
+| **COLOUR** | Kanalens färg, visad längs dess namnlist och på dess Routing-block |
+| **ADD SPACER BEFORE / AFTER** | |
+| **RENAME...** | |
+| **REMOVE** | Tar bort kanalen eller bussen |
 
 ---
 
@@ -513,7 +513,7 @@ spacer**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 | Kontroll | Vad den gör |
 |---|---|
-| **Level bars** | Kanalens nivå, vänster och höger (IN eller OUT, enligt valet under METER) |
+| **Level bars** | Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet under METER) |
 | **FILT** | Skickar filtren till gatens/kompressorns detektor (key-filtrering) |
 | **EQ** | EQ:n in eller ut |
 | **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv |
@@ -599,7 +599,7 @@ Omkopplaren **EQ IN** slår hela EQ:n in eller ut (samma som headerns EQ-tangent
 |---|---|
 | **PAN** | Vänster/höger. Dubbelklicka för att centrera |
 | **SOLO** | Solo in place |
-| **CUT** | Ljudlös |
+| **CUT** | Tystar kanalen (tangenten **M** på bordet) |
 | **SEL** | Välj den här stripen |
 | **Fader** | Nivå, +12 dB till av. Avläsningen under visar nivån i dB |
 | **safe** | Solo safe: den här kanalen förblir hörbar när andra soloas |
@@ -638,12 +638,12 @@ händelseloggen). Dess plugins behålls.
 | Strip | Dess mellersta avsnitt innehåller |
 |---|---|
 | **App** | Pluginlistan (klicka på ett för att öppna det) och **ADD PLUGIN** |
-| **Pads** | Banktangenter **A–D**, 4×4-padsen (tryck för att spela; en GATE-pad spelar medan den hålls nere) och **STOP ALL** |
+| **Pads** | Banktangenter **A–D**, 4×4-padsen (tryck för att spela; en HOLD-pad spelar medan den hålls nere) och **STOP ALL** |
 | **Tape** | Däckets skärm och sökfält, transporten (föregående, spola tillbaka, stopp, spela, paus, spola fram, nästa), **SHUFFLE**, **ADD...** och spellistan (klicka på ett spår för att spela det) |
 | **Combinator** | För varje väg: **FROM**, kanalerna och bussarna som matar den (klicka på en för att gå till dess strip) och **PLUGINS** på den vägen (klicka på ett för att öppna det). **EDIT IN ROUTING** öppnar sidan Routing |
 
 En combinator har inga egna effekter. Dess ljud kommer från det som matar den och från varje vägs plugins.
-Högerklicka på den > **Paths** för att lägga till en väg och, för varje väg, öppna, lägga till eller ta bort dess
+Högerklicka på den > **PATHS** för att lägga till en väg och, för varje väg, öppna, lägga till eller ta bort dess
 plugins, byta namn på den eller ta bort den.
 
 ---
@@ -654,12 +654,12 @@ plugins, byta namn på den eller ta bort den.
 
 ![Två utgångsstrippar: HEADPHONES och STREAM, med busskompressor och mix-EQ](../images/console/outputs.jpg)
 
-Varje utgång (master) har sin egen mörka strip:
+Varje utgång har sin egen mörka strip:
 
 | Kontroll | |
 |---|---|
 | **DEVICE** | Enheten den spelar på. Klicka för att välja en annan |
-| **SAFE** | En limiter efter fadern: ingenting lämnar den över -1 dBFS |
+| **LIMIT** | En limiter efter fadern: ingenting lämnar den över -1 dBFS |
 | **MON** | Monitorera den här utgången |
 | **LUFS** | Kortsiktig ljudstyrka för det som lämnar ("-- LUFS" vid tystnad) |
 | **WIDTH** | Stereobredd |
@@ -667,7 +667,7 @@ Varje utgång (master) har sin egen mörka strip:
 | **MIX EQ** | Inkopplingsomkopplare, HF gain och freq, LF gain och freq |
 | **CUT**, **SEL**, fader | Som på en kanal |
 
-Högerklicka på en utgång för **Device...**, spacers, **Rename...** och **Remove**.
+Högerklicka på en utgång för **DEVICE...**, spacers, **RENAME...** och **REMOVE**.
 
 Utgångar skapas åt dig, en per enhet (se [Utgångar är enheter](#outputs-are-devices)).
 
@@ -687,9 +687,9 @@ latenskompensation.
 
 ### Lägga till ett plugin
 
-- På en kanal: högerklicka > **Plugins > Add plugin...**, eller **ADD PLUGIN** på en raw-strip, eller
+- På en kanal: högerklicka > **PLUGINS > ADD PLUGIN...**, eller **ADD PLUGIN** på en raw-strip, eller
   **ADD** i pluginpanelen.
-- På en combinator-väg: högerklicka på combinatorn > **Paths > PATH n > Add plugin...**. Klicka på en vägs plugin
+- På en combinator-väg: högerklicka på combinatorn > **PATHS > PATH n > ADD PLUGIN...**. Klicka på en vägs plugin
   på combinatorstripen för att öppna det.
 
 Varje plugin **testas först i en separat kopia av programmet**, så att ett plugin som kraschar eller
@@ -818,7 +818,7 @@ Format: WAV, FLAC, AIFF, OGG, MP3. En pad vars fil har flyttats visar **MISSING:
 | Namn | Dubbelklicka för att byta namn |
 | **LOAD**, **CLEAR**, **COLOUR** | |
 | **REPLAY** | Instant replay-bufferten blir den här padens ljud (sparas som en WAV i inspelningsmappen). Aktivera replay först i TOOLS > TAPE |
-| **MODE** | **ONE-SHOT** spelar till slutet (att trycka igen startar om). **GATE** spelar medan den hålls nere. **LOOP** startar vid ett tryck och stoppar vid nästa |
+| **MODE** | **ONE-SHOT** spelar till slutet (att trycka igen startar om). **HOLD** spelar medan den hålls nere. **LOOP** startar vid ett tryck och stoppar vid nästa |
 | **CHOKE** | OFF eller grupp 1–8. Pads i en grupp stoppar varandra |
 | **LEVEL** | -INF till +12 dB |
 | **HOTKEY** | Klicka (**LEARN...**) och tryck sedan på tangenterna (se [HOTKEYS](#hotkeys)) |
@@ -858,7 +858,7 @@ Den övre radens transport och tapestripen på bordet styr samma däck.
 |---|---|
 | **Source** | Valfri utgång, buss eller ingång, eller **ALL CHANNELS, ONE FILE EACH** (flerspår: varje ingång, eller bara de med DIRECT tänd, plus varje utgång, samplingsexakt synkade) |
 | **Format** | WAV 24-bitars (standard), 16-bitars, 32-bitars, 32-bitars float; FLAC 24/16-bitars; AIFF 24/16-bitars; OGG Vorbis 128–320k. Med ffmpeg: MP3, AAC (M4A), Opus, ALAC. Varje visar hur mycket tid som ryms på disken |
-| **REC** | Startar och stoppar. Skärmen visar tid, storlek, återstående tid och eventuella tappade block |
+| **REC** | Startar och stoppar (inspelningstangenten i den övre raden gör samma sak). Skärmen visar tid, storlek, återstående tid och eventuella tappade block |
 | **PATH** / **REVEAL** | Välj mappen / öppna den i Utforskaren |
 
 Inspelningar hamnar i `Music\Faider Recordings` om du inte väljer en mapp. ffmpeg-format spelar först in
@@ -934,7 +934,7 @@ plugininställningar).
 
 - **Spara:** klicka på **+** i den övre raden och ge den ett namn.
 - **Återkalla:** klicka på dess tangent. Faders och pans glider över en halv sekund. Resten växlar direkt.
-- **Högerklicka på en scen** för: återkalla bara ljudlösa / bara nivåer, spara till den, ta med plugininställningar,
+- **Högerklicka på en scen** för: återkalla bara CUT / bara nivåer, spara till den, ta med plugininställningar,
   byt namn, ett globalt kortkommando, **Recall on device** (när en enhet dyker upp; tillbaka när den
   försvinner), **Auto-scene** (när en app börjar spela, en enhet ansluts eller vid en tid på dagen), MIDI
   learn, flytta, ta bort.
@@ -956,8 +956,7 @@ Din mix sparas av sig själv inom en sekund efter varje ändring, och vid avslut
 
 | | |
 |---|---|
-| **Restore session** | Meny i aktivitetsfältet: tidigare versioner av din mix efter datum (Faider startar om med den) |
-| **SESSION TIMELINE** | FIND: varje sparad version. **Restore everything**, eller **PUT ONE CHANNEL BACK** (dess nivå, pan, ljudlös och rack) utan omstart |
+| **SESSION TIMELINE** | FIND, eller **Session timeline...** i menyn i aktivitetsfältet: varje sparad version efter datum. **RESTORE EVERYTHING** (Faider startar om med den), eller **PUT ONE CHANNEL BACK** (dess nivå, pan, CUT och rack) utan omstart |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: behåll mixen under ett namn |
 | **OPEN, EXPORT OR IMPORT...** | Öppna en namngiven mix (startar om), spara mixen till en fil eller läs in en från en fil |
 
@@ -984,14 +983,14 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 |---|---|
 | **LOOK** | **LOOK...**: bordets färger och typsnitt, från en LOOK-fil (se [LOOKS](#looks)) |
 | **WINDOWS** | **START WITH WINDOWS**: öppnas i aktivitetsfältets notisyta när du loggar in |
-| **DESK** | **WARN IF I TALK WHILE MUTED** (en notis när en ljudlös mikrofon ligger över -30 dBFS) |
+| **DESK** | **WARN IF I TALK WHILE CUT** (en notis när en mikrofon på CUT ligger över -30 dBFS) |
 | **APPS** | **APP RULES...**: vilken buss eller utgång ett program går till när det börjar spela (finns också i **FIND**). Att ta bort ett programs kanal tar bort dess regel |
 | **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Enheter anslutna eller borta, en kanal som klipper (dess källa eller dess utgång på full skala), scener återkallade, makron körda, ångra och gör om |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | Hur mätare läser (sample peak med snabbt fall som standard; IEC och andra) |
-| **CHANNEL METER POINT** | **PRE HPF** (rå källa), **PRE FADER** (efter effekterna), **POST ON** (efter fadern, standard) |
+| **CHANNEL METER POINT** | **IN** (rå källa), **PRE** (efter effekterna), **POST** (efter fadern, standard). Sidofältets **METER**-kort ställer in samma sak |
 | **ABOUT** | Version och tack |
 
 <a id="macros"></a>
@@ -1030,12 +1029,12 @@ En grupp `palette` namnger de färger en layoutfil kan lägga på en del: `red`,
 Ett makro är en lista med **åtgärder** som körs från ett kortkommando, en pad, en trigger eller fjärrstyrning.
 
 1. Klicka på **+ NEW** och ge det ett namn (dubbelklicka på namnet).
-2. **+ ACTION**: MUTE ON/OFF/TOGGLE, SET FADER (dB, tonningstid), ASSIGN ON/OFF/TOGGLE (en rutt),
+2. **+ ACTION**: CUT, UNCUT, CUT TOGGLE, SET FADER (dB, tonningstid), ASSIGN ON/OFF/TOGGLE (en rutt),
    CHANNEL ON/OFF, TRIGGER PAD, STOP PAD, ALL NOTES OFF, TRANSPORT PLAY/PAUSE, TRANSPORT NEXT,
    RECORD START/STOP, WAIT, SCENE RECALL, FX ON/OFF/TOGGLE (en rösteffekt, se [Rösteffekter](#voice-effects)), WINDOWS DEFAULT OUTPUT/INPUT, PLUGIN
    SETTING.
-3. Valfritt **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, MASTER
-   SILENT (i n sekunder), MASTER HAS SOUND, TIME (24 timmar).
+3. Valfritt **+ TRIGGER**: APP STARTS, APP STOPS, DEVICE CONNECTED, DEVICE DISCONNECTED, OUTPUT
+   SILENT (i n sekunder), OUTPUT HAS SOUND, TIME (24 timmar).
 4. Valfritt ett **HOTKEY**, och **MOMENTARY** (åtgärderna ångras när tangenten släpps,
    för push-to-talk).
 5. **FIRE** kör det nu.
@@ -1069,9 +1068,9 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. De fasta
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
 | **OSC** | Program på den här datorn kan skicka till port 9000 (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_` |
-| **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / MUTED och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
-| **MINI** | En liten mixer ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
-| **Tray** | Klicka på ikonen för aktivitetsfältets mixer, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Restore session, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm |
+| **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
+| **MINI** | Minimixern: ett litet fönster med varje utgångs fader, mätare och **CUT**. **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
+| **Tray** | Klicka på ikonen för minimixern, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Session timeline, Start with Windows, About, Quit. Ikonen blinkar gult vid ett larm |
 
 Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
 Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.
@@ -1103,7 +1102,7 @@ De få steg som kräver en administratör
    Windows standard ([Steg 2](#step-2-install-vb-cable-optional)).
 2. Routa din mikrofonkanal till enheten **CABLE Input**. En utgång skapas på den.
 3. Välj **CABLE Output** som mikrofon i appen.
-4. Kör **PRE-FLIGHT NOW...** för att kontrollera att inget på vägen är ljudlöst och att inget bildar en slinga.
+4. Kör **PRE-FLIGHT NOW...** för att kontrollera att inget på vägen är på CUT och att inget bildar en slinga.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1127,7 +1126,7 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
 
 ### 17.5 Gruppera kanaler i en buss
 
-1. **ADD BUS**, och byt sedan namn på den (högerklicka > Rename...).
+1. **ADD BUS**, och byt sedan namn på den (högerklicka > **RENAME...**).
 2. Klicka på bussen på sidan Routing och klicka sedan på varje kanal för att routa in den.
 3. Klicka på bussen och sedan på dess utgång för att routa bussen vidare.
 4. Om du bara vill ha de kanalerna genom bussen, ta bort deras direkta rutter till utgången.
@@ -1136,10 +1135,10 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
 
 ### 17.6 Parallell bearbetning med en combinator
 
-1. **ADD BUS > COMBINATOR**. Den börjar med två vägar. Högerklicka på den > **Paths > Add path** för
+1. **ADD BUS > COMBINATOR**. Den börjar med två vägar. Högerklicka på den > **PATHS > ADD PATH** för
    fler.
 2. Routa källor till vägcellerna (**P1**, **P2**…) på sidan Routing.
-3. Högerklicka > **Paths > PATH n > Add plugin...** för varje väg.
+3. Högerklicka > **PATHS > PATH n > ADD PLUGIN...** för varje väg.
 
 <a id="177-make-a-stream-mix-and-a-headphone-mix"></a>
 
@@ -1147,7 +1146,7 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
 
 1. Skicka dina kanaler till två utgångar, till exempel dina hörlurar och enheten som din streamingprogramvara
    fångar.
-2. Varje utgång har sin egen fader, busskompressor, EQ och **SAFE**-limiter. Slå på **SAFE** för
+2. Varje utgång har sin egen fader, busskompressor, EQ och limiter (**LIMIT**). Slå på **LIMIT** för
    streamutgången.
 3. För att hålla något utanför streamen, ta bort den kanalens rutt till streamutgången (med
    dess routingruta eller på sidan Routing).
@@ -1165,9 +1164,9 @@ sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
 ### 17.9 Gör en push-to-talk-tangent
 
 1. SETTINGS > MACROS > **+ NEW**.
-2. **+ ACTION** > **MUTE OFF** > din mikrofonkanal.
+2. **+ ACTION** > **UNCUT** > din mikrofonkanal.
 3. Slå på **MOMENTARY** och ställ in ett **HOTKEY**. Medan du håller den är mikrofonen live, och när du släpper
-   blir den ljudlös igen. Börja med mikrofonen ljudlös.
+   hamnar den på CUT igen. Börja med mikrofonen på CUT.
 
 ---
 
@@ -1186,9 +1185,12 @@ upp om något är fel. Varje rad har en lampa, resultatet och en åtgärd:
 |---|---|---|
 | **AUDIO** | Det startade inte (en annan app kan ha det) | **DEVICES** |
 | **MIC CABLE** | Ingen VB-CABLE: appar kan inte höra din mix som en mikrofon | **GET VB-CABLE** |
-| **MIC MASTER** | Ingen utgång spelar in i mikrofonkabeln | **ROUTING** |
-| **MIC CHANNELS** | Något på vägen till mikrofonen är ljudlöst | **UNMUTE** |
+| **MIC OUTPUT** | Ingen utgång spelar in i mikrofonkabeln | **ROUTING** |
+| **MIC CHANNELS** | Något på vägen till mikrofonen är på CUT | **UNCUT** |
 | **HEARD ONCE** | En återkopplingsslinga, eller något hörs två gånger | **SOUND SETTINGS** |
+
+**ZERO THE DESK** (nere till vänster; även **ZERO DESK** i FIND) kontrollerar vad en tidigare session kan lämna
+inställt: solo, key listen, gain trims som ligger mer än 12 dB från noll, och utgångar på CUT. Var och en har en **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1199,9 +1201,9 @@ Din mix är inte förlorad. När den inte kan användas vid start **läggs den �
 
 | Orsak | Vad du ska göra |
 |---|---|
-| Det sparade gränssnittet är inte anslutet | Anslut det, sedan **Restore session** (aktivitetsfältet) > versionen med "kept:" |
+| Det sparade gränssnittet är inte anslutet | Anslut det, sedan **SESSION TIMELINE** (FIND eller aktivitetsfältet) > versionen med "kept:" > **RESTORE EVERYTHING** |
 | Det sparade gränssnittet kunde inte öppnas (ett annat program har det) | Stäng det andra programmet och starta om Faider. Ingenting sparas över din mix under tiden |
-| session.xml kunde inte läsas | **Restore session** > en ny version |
+| session.xml kunde inte läsas | **SESSION TIMELINE** > en ny version > **RESTORE EVERYTHING** |
 
 <a id="183-no-sound"></a>
 
@@ -1360,7 +1362,7 @@ I `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mixar som lagts åt sidan vid start |
 | `settings.xml` | Inställningar |
 | `looks\` | LOOK:arna, en JSON-fil vardera (se [LOOKS](#looks)) |
-| `console.xml` | Spacers, val under SELECT och METER |
+| `console.xml` | Spacers och val under SELECT |
 | `plugins.xml` | Pluginen som hittats och hur vart och ett testades |
 | `events.log` | Allt som hände (roterar vid 5 MB) |
 | `status.txt` | En ögonblicksbild av motorn med några sekunders mellanrum: enheter, nivåer, buffertar, drift |

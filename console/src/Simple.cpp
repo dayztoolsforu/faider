@@ -632,7 +632,7 @@ namespace
             menu.showMenuAsync (near (h));
         }
 
-        // A name bar's right-click: rename, colour, headphone correction (an output), remove.
+        // A name bar's right-click: rename, colour, headphone correction (an output), the mini mixer, remove.
         void showMenu (const Hit& h)
         {
             const bool output = h.kind == Hit::outName;
@@ -648,6 +648,10 @@ namespace
             });
             if (output)
                 MixerComponent::addHeadphoneMenu (menu, engine, h.index);
+            if (auto* m = output ? masterAt (h.index) : nullptr)
+                MixerComponent::addMiniMixerItem (menu, engine, "output:" + m->name);
+            else if (auto* s = output ? nullptr : stripAt (h.index))
+                MixerComponent::addMiniMixerItem (menu, engine, "input:" + s->name);
             menu.addSeparator();
             menu.addItem ("REMOVE", [this, output, index = h.index]
             {

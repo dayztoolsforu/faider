@@ -2226,6 +2226,7 @@ private:
         menu.addItem ("ALERT IF SILENT (" + juce::String (silentFor) + " S)", true, m->silenceAlert > 0,
                       [alert, on = m->silenceAlert > 0, silentFor] { alert ([on, silentFor] (AudioEngine::Master& mm) { mm.silenceAlert = on ? 0 : silentFor; }); });
         menu.addItem ("ALERT IF CLIPPING", true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
+        MixerComponent::addMiniMixerItem (menu, *engine, stripKey (ch));
         menu.addSeparator();
         menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
         menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
@@ -2413,6 +2414,7 @@ private:
         }
         menu.addSeparator();
         MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
+        MixerComponent::addMiniMixerItem (menu, e, stripKey (ch));
         if (bus && s->combinator && mixer != nullptr)   // A COMBINATOR: its paths, each with its plugins
         {
             juce::PopupMenu paths;

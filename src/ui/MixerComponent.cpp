@@ -546,6 +546,22 @@ void MixerComponent::addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine& engin
     menu.addSubMenu ("HEADPHONE EQ", eq, true, nullptr, current.isNotEmpty());
 }
 
+// The first tick starts the list from what the mini mixer shows (the outputs), so they stay in it.
+void MixerComponent::addMiniMixerItem (juce::PopupMenu& menu, AudioEngine& engine, const juce::String& key)
+{
+    auto& list = engine.trayStrips;
+    const bool shown = list.isEmpty() ? key.startsWith ("output:") : list.contains (key);
+    menu.addItem ("IN THE MINI MIXER", true, shown, [&engine, key, shown]
+    {
+        auto& keys = engine.trayStrips;
+        if (keys.isEmpty())
+            for (auto& m : engine.getMasters())
+                keys.add ("output:" + m->name);
+        if (shown) keys.removeString (key);
+        else       keys.addIfNotAlreadyThere (key);
+    });
+}
+
 namespace
 {
     // Where "to the mic" sends an app's channel: a bus whose sound ends up only on outputs that

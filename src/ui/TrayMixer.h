@@ -7,7 +7,7 @@
 
 // The mini mixer (in its own window: MainComponent::toggleMini, from the tray icon, MINI or FIND):
 // a small console with a fader, meter and CUT for each strip in the session's Tray list (the
-// outputs if there's none: nothing on the desk sets that list now). OPEN brings up the full window; PIN keeps it on top
+// outputs if there's none), which IN THE MINI MIXER on a strip's menu ticks. OPEN brings up the full window; PIN keeps it on top
 // of everything (a game). Strips are looked up by name every frame, so it's safe while the mix
 // changes under it.
 class TrayMixer : public juce::Component,
@@ -28,13 +28,17 @@ public:
         pinKey.setToggleState (pinned, juce::dontSendNotification);
         pinKey.onClick = [this] { if (pin) pin (pinKey.getToggleState()); };
         addAndMakeVisible (pinKey);
+        build();
+        startTimerHz (30);
+    }
 
-        auto keys = engine.trayStrips;
-        if (keys.isEmpty())
-            for (auto& b : engine.getMasters())
-                keys.add ("output:" + b->name);
-
-        for (auto& key : keys)
+    // Its strips made again (and the window fitted to them) when the list changes: a strip ticked or
+    // unticked IN THE MINI MIXER, renamed or removed.
+    void build()
+    {
+        shown = wanted();
+        columns.clear();
+        for (auto& key : shown)
         {
             auto* c = columns.add (new Column (key));
             c->name.setText (key.fromFirstOccurrenceOf (":", false, false), juce::dontSendNotification);
@@ -63,8 +67,8 @@ public:
 
         using namespace Console;
         setSize (juce::jmax (Space::columns (2) + 64 + Space::unit + 2 * Space::pad, columns.size() * (columnWidth + Space::gap) - Space::gap + 2 * Space::pad), 300);
+        resized();
         timerCallback();
-        startTimerHz (30);
     }
 
     void paint (juce::Graphics& g) override
@@ -154,9 +158,25 @@ private:
         return 0.0f;
     }
 
+    // The session's Tray list (the outputs if there's none), the strips still there.
+    juce::StringArray wanted()
+    {
+        auto keys = engine.trayStrips;
+        if (keys.isEmpty())
+            for (auto& b : engine.getMasters())
+                keys.add ("output:" + b->name);
+        juce::StringArray there;
+        for (auto& key : keys)
+            if (gainOf (key) != nullptr)
+                there.add (key);
+        return there;
+    }
+
     // Follow the mix (changes made elsewhere) and redraw the meters.
     void timerCallback() override
     {
+        if (wanted() != shown)
+            return build();
         for (auto* c : columns)
         {
             if (auto* gain = gainOf (c->key); gain != nullptr && ! c->fader.isMouseButtonDown())
@@ -174,4 +194,5 @@ private:
     juce::Label title { {}, Product::nameUpper };
     juce::TextButton openKey { "OPEN" }, pinKey { "PIN" };
     juce::OwnedArray<Column> columns;
+    juce::StringArray shown;   // the keys `columns` were made for
 };

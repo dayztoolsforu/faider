@@ -44,6 +44,10 @@ public:
     // added to `menu` as a submenu (ticked while one is on).
     static void addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine&, int output);
 
+    // IN THE MINI MIXER: a tick for a strip ("input:NAME", "bus:NAME" or "output:NAME") in the
+    // session's Tray list (AudioEngine::trayStrips; with none, the mini mixer shows the outputs).
+    static void addMiniMixerItem (juce::PopupMenu& menu, AudioEngine&, const juce::String& key);
+
     // A moment after setting up an app channel, a routing change with app channels, or Windows'
     // defaults changing: says if anything would be heard twice or feed back
     // (AudioEngine::findDoubling, findFeedbackLoop).

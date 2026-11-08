@@ -464,8 +464,10 @@ int main()
         checkStripUndo (b, "input", 0, "input MIC");
         checkStripUndo (b, "bus", (int) b.getBuses().size() - 1, "bus FX COMBO (with what sent to it)");
         checkStripUndo (b, "output", (int) b.getMasters().size() - 1, "output STREAM (with what sent to it)");
-        if (auto* mic = findStrip (b.getStrips(), "MIC"))   // (saveStrip keeps an output's senders' sends, levels and RAW, not PRE)
-            note (juce::String ("undo of output STREAM: MIC's PRE send to it ") + (mic->preSends[2].load() ? "came back" : "did not come back"));
+        {
+            auto* mic = findStrip (b.getStrips(), "MIC");   // (its PRE to STREAM is set with the send off: both come back so)
+            check (mic != nullptr && mic->preSends[2].load() && ! mic->sends[2].load(), "undo of output STREAM: MIC's PRE send to it comes back (and stays off)");
+        }
         check (Session::saveStrip (b, "input", 99) == nullptr && Session::saveStrip (b, "nonsense", 0) == nullptr,
                "saveStrip: nothing for a strip that isn't there");
     }

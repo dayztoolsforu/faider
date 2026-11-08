@@ -868,8 +868,9 @@ std::unique_ptr<juce::XmlElement> Session::saveStrip (const AudioEngine& engine,
     const auto& masters = engine.getMasters();
     std::unique_ptr<juce::XmlElement> e;
 
-    // Who sends to it, by name, with each send's level (and RAW, or the combinator paths it
-    // feeds): the sends are the senders' own.
+    // Who sends to it, by name, with each send's level (and RAW and PRE, or the combinator paths
+    // it feeds): the sends are the senders' own. (An output's: also a send that's off but keeps
+    // RAW or PRE set, with on="0".)
     auto sentFrom = [&] (auto sends, auto details)
     {
         for (auto& s : strips) if (sends (*s)) { auto* f = e->createNewChildElement ("SentFrom"); f->setAttribute ("input", s->name); details (*f, *s); }
@@ -880,11 +881,14 @@ std::unique_ptr<juce::XmlElement> Session::saveStrip (const AudioEngine& engine,
     {
         e = std::make_unique<juce::XmlElement> ("Bus");
         saveMaster (*e, engine, *masters[(size_t) index]);
-        sentFrom ([index] (const AudioEngine::Strip& s) { return s.sends[(size_t) index].load(); },
+        sentFrom ([index] (const AudioEngine::Strip& s) { return s.sends[(size_t) index].load() || s.rawSends[(size_t) index].load() || s.preSends[(size_t) index].load(); },
                   [index] (juce::XmlElement& f, const AudioEngine::Strip& s)
                   {
+                      if (! s.sends[(size_t) index].load())
+                          f.setAttribute ("on", false);
                       f.setAttribute ("level", (double) s.sendDb[(size_t) index].load());
                       f.setAttribute ("raw", s.rawSends[(size_t) index].load());
+                      f.setAttribute ("pre", s.preSends[(size_t) index].load());
                   });
     }
     else if (kind == "input" && juce::isPositiveAndBelow (index, (int) strips.size()))
@@ -949,7 +953,8 @@ int Session::restoreStrip (AudioEngine& engine, const juce::XmlElement& xml, con
             {
                 sender.sendDb[(size_t) index] = level;
                 sender.rawSends[(size_t) index] = from->getBoolAttribute ("raw");
-                sender.sends[(size_t) index] = true;
+                sender.preSends[(size_t) index] = from->getBoolAttribute ("pre");
+                sender.sends[(size_t) index] = from->getBoolAttribute ("on", true);
             }
             else
             {

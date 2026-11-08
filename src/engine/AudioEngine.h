@@ -273,7 +273,7 @@ public:
         juce::String duckBy;                        // message thread; empty: off
 
         // SIDECHAIN KEY: the input whose sound this one's gate and compressor hear (its VoiceChain's
-        // KEY switch on), by name (message thread; empty: none), found again by refreshDucking
+        // EXT switch on; KEY FROM on the console's strip menu), by name (message thread; empty: none), found again by refreshDucking
         // (keySource: its index). keyTap: this strip's sound after its processing, before its fader,
         // as other strips' key (audio thread).
         juce::String keyFrom;

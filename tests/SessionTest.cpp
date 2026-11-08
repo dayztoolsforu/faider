@@ -362,7 +362,7 @@ int main()
             check (near (param (mic->channel.get(), "drive"), 4.5) && near (param (mic->channel.get(), "trim"), 6.0)
                        && near (param (mic->channel.get(), "inputOn"), 1.0),
                    "MIC: channel processing (input stage on, trim +6 dB, drive 4.5 dB)");
-            check (mic->keyFrom == "MUSIC", "MIC: KEY from MUSIC");     // (kept: EXT's key, until it gets a control or goes)
+            check (mic->keyFrom == "MUSIC", "MIC: KEY from MUSIC");     // (EXT's key: KEY FROM on the strip menu)
         }
         else
             check (false, "MIC is there");

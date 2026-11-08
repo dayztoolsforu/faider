@@ -1012,6 +1012,13 @@ public:
             held = {};
             return;
         }
+        if (held.item != nullptr && held.item->id == "extKey" && ! bind.isOn (held.ch, "extKey", false)
+            && bind.strip (held.ch) != nullptr && bind.strip (held.ch)->keyFrom.isEmpty())   // EXT with no key yet: pick one (it then switches on)
+        {
+            keyFromMenu (held.ch, true).showMenuAsync (juce::PopupMenu::Options().withTargetScreenArea (localAreaToGlobal (itemArea (*held.item, held.ch).toNearestInt())));
+            held = {};
+            return;
+        }
         if (held.item != nullptr && held.item->id == "addPlugin" && mixer != nullptr && bind.strip (held.ch) != nullptr)
         {
             mixer->showAddInsertMenu ({ MixerComponent::InsertTarget::strip, bind.indexOf (held.ch) }, juce::PopupMenu::Options().withMousePosition());
@@ -2269,6 +2276,34 @@ private:
         menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
     }
 
+    // KEY FROM: the input EXT's dynamics hear, or NONE. `andOn`: picking one also switches EXT on.
+    juce::PopupMenu keyFromMenu (int ch, bool andOn)
+    {
+        juce::PopupMenu menu;
+        auto* s = bind.strip (ch);
+        if (s == nullptr)
+            return menu;
+        auto pick = [this, bus = bind.isBus (ch), index = bind.indexOf (ch), andOn] (const juce::String& name)
+        {
+            auto& list = bus ? engine->getBuses() : engine->getStrips();
+            if (! juce::isPositiveAndBelow (index, (int) list.size()))
+                return;
+            auto& st = *list[(size_t) index];
+            st.keyFrom = name;
+            engine->refreshDucking();
+            if (andOn && name.isNotEmpty() && st.channel != nullptr)
+                if (auto* p = st.channel->params.getParameter ("keyExternal"))
+                    p->setValueNotifyingHost (1.0f);
+            repaint();
+        };
+        menu.addItem ("NONE", true, s->keyFrom.isEmpty(), [pick] { pick ({}); });
+        menu.addSeparator();
+        for (auto& other : engine->getStrips())
+            if (other.get() != s)
+                menu.addItem (other->name, true, other->name == s->keyFrom, [pick, name = other->name] { pick (name); });
+        return menu;
+    }
+
     void showMenu (int ch)
     {
         if (locked (ch))
@@ -2389,6 +2424,8 @@ private:
                 noise.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (depth - db) < 0.5f, [set, db] { set ("nrDepth", db); });
             menu.addSubMenu ("NOISE", noise);
         }
+        if (s->channel != nullptr && ! isApp (ch) && ! isCombinator (ch))   // KEY FROM: what EXT's dynamics hear
+            menu.addSubMenu ("KEY FROM", keyFromMenu (ch, false), true, nullptr, s->keyFrom.isNotEmpty());
         if (bus || s->source.kind != AudioEngine::Source::app)   // DUCK UNDER: dips while another input is heard (not an app: it plays as it comes)
         {
             auto duck = [this, again] (std::function<void (AudioEngine::Strip&)> change)

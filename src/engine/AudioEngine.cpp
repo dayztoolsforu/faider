@@ -639,10 +639,11 @@ void AudioEngine::compileRack (Strip& s)
 
 // Audio thread: what a channel's dynamics hear this block besides itself. KEY: the keying
 // channel's sound (after its processing), this block's, or its last if that channel runs after
-// this one.
+// this one. A keying channel switched off keys nothing (its tap would be stale).
 void AudioEngine::keyChain (Strip& s, VoiceChain& chain, int numSamples)
 {
     if (const int k = s.keySource.load(); juce::isPositiveAndBelow (k, (int) strips.size()) && strips[(size_t) k].get() != &s
+                                               && strips[(size_t) k]->enabled.load()
                                                && strips[(size_t) k]->keyTap.getNumSamples() >= numSamples)
         chain.setKey (strips[(size_t) k]->keyTap.getReadPointer (0), strips[(size_t) k]->keyTap.getReadPointer (1), numSamples);
     else

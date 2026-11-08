@@ -411,7 +411,7 @@ public:
         for (auto* b : { &load, &replay, &clear, &colour })
             addAndMakeVisible (b);
 
-        mode.setTooltip ("One-shot: plays out. Gate: while held. Loop: toggles");
+        mode.setTooltip ("One-shot: plays out. Hold: while held. Loop: toggles");
         mode.onChange = [this] (int m) { pad().mode = (Pads::Mode) m; owner.edited(); };
         addAndMakeVisible (mode);
 
@@ -597,7 +597,7 @@ private:
                 hotkeyLabel { {}, "HOTKEY" }, hotkeyNote, macroLabel { {}, "MACRO" },
                 trimLabel { {}, "TRIM" }, fadeInLabel { {}, "FADE IN" }, fadeOutLabel { {}, "FADE OUT" };
     juce::TextButton load { "LOAD" }, replay { "REPLAY" }, clear { "CLEAR" }, colour { "COLOUR" }, hotkey { "NONE" };
-    ConsoleControls::KeyRow mode { { "ONE-SHOT", "GATE", "LOOP" } };
+    ConsoleControls::KeyRow mode { { "ONE-SHOT", "HOLD", "LOOP" } };
     ConsoleControls::Stepper choke { { "OFF", "1", "2", "3", "4", "5", "6", "7", "8" } };
     ConsoleControls::ValueKnob level, fadeIn, fadeOut;
     PadWave wave;

@@ -8,7 +8,7 @@
 // menus and sliders.
 namespace ConsoleControls
 {
-    // A row of lit keys, one of them on: a mode switch (ONE-SHOT | GATE | LOOP).
+    // A row of lit keys, one of them on: a mode switch (ONE-SHOT | HOLD | LOOP).
     class KeyRow : public juce::Component
     {
     public:

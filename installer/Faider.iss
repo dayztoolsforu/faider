@@ -62,6 +62,8 @@ Type: files; Name: "{autodesktop}\{#EarlierName}.lnk"
 Type: files; Name: "{app}\openvr_api.dll"
 ; (the Stream Deck and Loupedeck plugins earlier versions shipped)
 Type: filesandordirs; Name: "{app}\plugins"
+; (the Dark strip's layout: there is one channel strip now)
+Type: files; Name: "{app}\mixer-dark.json"
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"
@@ -109,9 +111,22 @@ begin
   Result := '';
 end;
 
+// The uninstaller runs elevated and ExecAsOriginalUser isn't supported at uninstall time (it fails,
+// the copy in the tray keeps its files open and the uninstall stalls), so plain Exec is used here.
+// "--quit" skips Faider's un-elevate restart, and an elevated sender can message the unelevated copy.
+// A copy still running after that (hung closing a device or a plugin) is ended, so its files can go.
 function InitializeUninstall: Boolean;
+var
+  Code: Integer;
+  Exe: String;
 begin
-  QuitRunningCopy (ExpandConstant ('{app}\{#AppExe}'));
+  Exe := ExpandConstant ('{app}\{#AppExe}');
+  if FileExists (Exe) then
+  begin
+    Exec (Exe, '--quit', '', SW_HIDE, ewWaitUntilTerminated, Code);
+    Sleep (3000);   // (time to close its devices)
+    Exec (ExpandConstant ('{sys}\taskkill.exe'), '/F /IM {#AppExe}', '', SW_HIDE, ewWaitUntilTerminated, Code);
+  end;
   Result := True;
 end;
 

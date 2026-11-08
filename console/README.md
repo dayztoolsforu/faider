@@ -26,7 +26,7 @@ The sidebar down the left shows the pages as cards: **MIXER**, **ROUTING**, **TO
 | **SECTIONS** | The strip's sections, lit while in view. Click one to go to it |
 
 The top bar has the time display and the Tape deck's transport: rewind, stop, play / pause, wind
-on, record (the first output) and loop (all, one, off).
+on, record (the Tape page's REC: the source chosen there) and loop (all, one, off).
 
 ## The console
 

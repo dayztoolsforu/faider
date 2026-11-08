@@ -637,7 +637,7 @@ namespace
         {
             const bool output = h.kind == Hit::outName;
             juce::PopupMenu menu;
-            menu.addItem ("Rename...", [this, output, index = h.index] { rename (output, index); });
+            menu.addItem ("RENAME...", [this, output, index = h.index] { rename (output, index); });
             const auto colour = output ? (masterAt (h.index) != nullptr ? masterAt (h.index)->colour : juce::Colour())
                                        : (stripAt (h.index) != nullptr ? stripAt (h.index)->colour : juce::Colour());
             MixerComponent::addColourMenu (menu, colour, [this, output, index = h.index] (juce::Colour c)
@@ -647,7 +647,7 @@ namespace
                 repaint();
             });
             menu.addSeparator();
-            menu.addItem ("Remove", [this, output, index = h.index]
+            menu.addItem ("REMOVE", [this, output, index = h.index]
             {
                 if (output)
                     engine.removeMaster (index);
@@ -666,10 +666,10 @@ namespace
         void rename (bool output, int index)
         {
             const auto now = output ? (masterAt (index) != nullptr ? masterAt (index)->name : juce::String()) : (stripAt (index) != nullptr ? stripAt (index)->name : juce::String());
-            auto* w = new juce::AlertWindow ("Rename", {}, juce::MessageBoxIconType::NoIcon);
+            auto* w = new juce::AlertWindow ("RENAME", {}, juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", now);
-            w->addButton ("Rename", 1, juce::KeyPress (juce::KeyPress::returnKey));
-            w->addButton ("Cancel", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+            w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
+            w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
             w->enterModalState (true, juce::ModalCallbackFunction::create ([this, w, output, index] (int result)
             {
                 const auto wanted = w->getTextEditorContents ("name").trim();

@@ -1577,7 +1577,7 @@ void MainComponent::showTimeline (juce::PopupMenu::Options where)
                          + when.formatted ("%H:%M  %a %d %b") + "   (" + (ago.inMinutes() < 60 ? juce::String ((int) ago.inMinutes()) + " min ago"
                                                                                                    : juce::String (ago.inHours(), 1) + " h ago") + ")";
         juce::PopupMenu version;
-        version.addItem ("Restore everything (restarts)", [this, f] { restoreSession (f); });
+        version.addItem ("RESTORE EVERYTHING (RESTARTS)", [this, f] { restoreSession (f); });
         version.addSeparator();
         version.addSectionHeader ("PUT ONE CHANNEL BACK");
         if (const auto xml = juce::XmlDocument::parse (f))
@@ -1598,7 +1598,7 @@ void MainComponent::showTimeline (juce::PopupMenu::Options where)
         menu.addSubMenu (label, version);
     }
     if (menu.getNumItems() <= 1)
-        menu.addItem ("Nothing kept yet", false, false, [] {});
+        menu.addItem ("NOTHING KEPT YET", false, false, [] {});
     menu.showMenuAsync (where);
 }
 
@@ -1668,10 +1668,10 @@ void MainComponent::showLooks (juce::PopupMenu::Options where)
 
 void MainComponent::saveLookAs()
 {
-    auto* w = new juce::AlertWindow ("Save this look as", {}, juce::MessageBoxIconType::NoIcon);
+    auto* w = new juce::AlertWindow ("SAVE THIS LOOK AS", {}, juce::MessageBoxIconType::NoIcon);
     w->addTextEditor ("name", "");
-    w->addButton ("OK", 1, juce::KeyPress (juce::KeyPress::returnKey));
-    w->addButton ("Cancel", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+    w->addButton ("SAVE", 1, juce::KeyPress (juce::KeyPress::returnKey));
+    w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
     w->enterModalState (true, juce::ModalCallbackFunction::create ([w] (int result)
     {
         const auto wanted = w->getTextEditorContents ("name").trim();
@@ -1748,7 +1748,7 @@ void MainComponent::showSessions (juce::PopupMenu::Options where)
     for (auto& f : files)
         menu.addItem (f.getFileNameWithoutExtension(), [this, f] { restoreSession (f, f.getFileNameWithoutExtension()); });
     if (files.isEmpty())
-        menu.addItem ("No saved sessions yet", false, false, [] {});
+        menu.addItem ("NO SAVED SESSIONS YET", false, false, [] {});
     menu.addSeparator();
     menu.addItem ("EXPORT TO A FILE...", [this] { exportSession(); });
     menu.addItem ("IMPORT FROM A FILE...", [this] { importSession(); });

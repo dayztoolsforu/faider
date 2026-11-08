@@ -1460,9 +1460,9 @@ private:
             return;
         juce::PopupMenu menu;
         menu.addSectionHeader ("SPACER");
-        menu.addItem ("Narrow", true, spacers[(size_t) index].narrow, [this, index] { spacers[(size_t) index].narrow = ! spacers[(size_t) index].narrow; saveSpacers(); resizeToFit(); repaint(); });
-        menu.addItem ("Add another", [this, index] { spacers.insert (spacers.begin() + index + 1, spacers[(size_t) index]); saveSpacers(); resizeToFit(); repaint(); });
-        menu.addItem ("Remove spacer", [this, index] { spacers.erase (spacers.begin() + index); saveSpacers(); resizeToFit(); repaint(); });
+        menu.addItem ("NARROW", true, spacers[(size_t) index].narrow, [this, index] { spacers[(size_t) index].narrow = ! spacers[(size_t) index].narrow; saveSpacers(); resizeToFit(); repaint(); });
+        menu.addItem ("ADD ANOTHER", [this, index] { spacers.insert (spacers.begin() + index + 1, spacers[(size_t) index]); saveSpacers(); resizeToFit(); repaint(); });
+        menu.addItem ("REMOVE SPACER", [this, index] { spacers.erase (spacers.begin() + index); saveSpacers(); resizeToFit(); repaint(); });
         menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
     }
 
@@ -2079,7 +2079,7 @@ public:
     // A combinator path renamed.
     void renamePath (int busIndex, int p)
     {
-        auto* w = new juce::AlertWindow ("Rename path", {}, juce::MessageBoxIconType::NoIcon);
+        auto* w = new juce::AlertWindow ("RENAME PATH", {}, juce::MessageBoxIconType::NoIcon);
         auto& buses = engine->getBuses();
         if (! juce::isPositiveAndBelow (busIndex, (int) buses.size()) || ! juce::isPositiveAndBelow (p, (int) buses[(size_t) busIndex]->paths.size()))
             return delete w;
@@ -2158,7 +2158,7 @@ private:
             });
         }
         devices.addSeparator();
-        devices.addItem ("No device", true, places.empty() || places[0].candidate.isEmpty(), [this, index]
+        devices.addItem ("NO DEVICE", true, places.empty() || places[0].candidate.isEmpty(), [this, index]
         {
             auto& masters = engine->getMasters();
             if (juce::isPositiveAndBelow (index, (int) masters.size()))
@@ -2173,10 +2173,10 @@ private:
     {
         juce::PopupMenu menu;
         menu.addSectionHeader (bind.text (ch, "name", {}).toUpperCase() + " (OFF)");
-        menu.addItem ("Turn on", [this, ch] { bind.toggle (ch, "power", true); repaint(); });
+        menu.addItem ("TURN ON", [this, ch] { bind.toggle (ch, "power", true); repaint(); });
         menu.addSeparator();
-        menu.addItem ("Add spacer before", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("Add spacer after", [this, ch] { addSpacer (ch, false); });
+        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
+        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
         menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
     }
 
@@ -2205,20 +2205,20 @@ private:
         const int index = bind.indexOf (ch);
         juce::PopupMenu menu;
         menu.addSectionHeader ("OUTPUT: " + m->name);
-        menu.addItem ("Device...", [this, ch] { showDeviceMenu (ch); });
+        menu.addItem ("DEVICE...", [this, ch] { showDeviceMenu (ch); });
         menu.addSeparator();
-        menu.addItem ("Add spacer before", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("Add spacer after", [this, ch] { addSpacer (ch, false); });
+        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
+        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
         menu.addSeparator();
-        menu.addItem ("Rename...", [this, index]
+        menu.addItem ("RENAME...", [this, index]
         {
             auto& masters = engine->getMasters();
             if (! juce::isPositiveAndBelow (index, (int) masters.size()))
                 return;
-            auto* w = new juce::AlertWindow ("Rename", {}, juce::MessageBoxIconType::NoIcon);
+            auto* w = new juce::AlertWindow ("RENAME", {}, juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", masters[(size_t) index]->name);
-            w->addButton ("OK", 1, juce::KeyPress (juce::KeyPress::returnKey));
-            w->addButton ("Cancel", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+            w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
+            w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
             w->enterModalState (true, juce::ModalCallbackFunction::create ([this, index, w] (int result)
             {
                 auto& list = engine->getMasters();
@@ -2233,7 +2233,7 @@ private:
                 repaint();
             }), true);
         });
-        menu.addItem ("Remove", [this, index, ch]
+        menu.addItem ("REMOVE", [this, index, ch]
         {
             for (auto& sp : spacers)
                 if (sp.after == stripKey (ch))
@@ -2290,29 +2290,29 @@ private:
                 interfaceMenu.addItem ("IN " + juce::String (i + 1) + (now.stereo && i + 1 < ins.size() ? "-" + juce::String (i + 2) : juce::String()) + "  " + ins[i],
                                        true, on, [source, i, stereo = now.stereo] { source ({ AudioEngine::Source::interfaceInputs, stereo ? i - i % 2 : i, {}, stereo }); });
             }
-            input.addSubMenu ("Interface", interfaceMenu, ins.size() > 0);
+            input.addSubMenu ("INTERFACE", interfaceMenu, ins.size() > 0);
             juce::PopupMenu windowsMenu;
-            windowsMenu.addItem ("Windows default", true, now.kind == AudioEngine::Source::device && now.deviceName == AudioEngine::windowsDefault,
+            windowsMenu.addItem ("WINDOWS DEFAULT", true, now.kind == AudioEngine::Source::device && now.deviceName == AudioEngine::windowsDefault,
                                  [source, stereo = now.stereo] { source ({ AudioEngine::Source::device, 0, AudioEngine::windowsDefault, stereo }); });
             for (auto& ep : e.getEndpoints())
                 if (ep.api == "WASAPI" && ! ep.isOutput && ep.isActive() && ! e.isDeviceDisabled (ep.name))
                     windowsMenu.addItem (ep.name, true, now.kind == AudioEngine::Source::device && now.deviceName == ep.name,
                                          [source, name = ep.name, stereo = now.stereo] { source ({ AudioEngine::Source::device, 0, name, stereo }); });
-            input.addSubMenu ("Windows devices", windowsMenu);
+            input.addSubMenu ("WINDOWS DEVICES", windowsMenu);
             juce::PopupMenu hearMenu;   // (what an output plays, back in: loopback)
             for (int b = 0; b < (int) e.getMasters().size(); ++b)
                 hearMenu.addItem (e.getMasters()[(size_t) b]->name, true, now.kind == AudioEngine::Source::loopback && now.masterIndex == b,
                                   [source, b] { AudioEngine::Source next { AudioEngine::Source::loopback, 0, {}, true }; next.masterIndex = b; source (next); });
-            input.addSubMenu ("What an output plays", hearMenu, ! e.getMasters().empty());
-            input.addItem ("Test tone", true, now.kind == AudioEngine::Source::tone, [source] { source ({ AudioEngine::Source::tone, 0, {}, true }); });
-            input.addItem ("Nothing", true, now.kind == AudioEngine::Source::none, [source] { source ({ AudioEngine::Source::none, 0, {}, true }); });
-            menu.addSubMenu ("Input", input);
+            input.addSubMenu ("WHAT AN OUTPUT PLAYS", hearMenu, ! e.getMasters().empty());
+            input.addItem ("TEST TONE", true, now.kind == AudioEngine::Source::tone, [source] { source ({ AudioEngine::Source::tone, 0, {}, true }); });
+            input.addItem ("NOTHING", true, now.kind == AudioEngine::Source::none, [source] { source ({ AudioEngine::Source::none, 0, {}, true }); });
+            menu.addSubMenu ("INPUT", input);
         }
 
         // Where it goes (as the header's boxes).
         for (auto& r : bind.routes (ch))
             route.addItem (r.label, true, r.on, [this, toggle = r.toggle] { toggle(); repaint(); });
-        menu.addSubMenu ("Route to", route);
+        menu.addSubMenu ("ROUTE TO", route);
 
         // Its plugins: each opens; ADD puts one on; REMOVE takes one off.
         if (mixer != nullptr)
@@ -2328,13 +2328,13 @@ private:
             if (! s->inserts.empty())
             {
                 plugins.addSeparator();
-                plugins.addSubMenu ("Remove", removes);
+                plugins.addSubMenu ("REMOVE", removes);
             }
-            plugins.addItem ("Add plugin...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
-            menu.addSubMenu ("Plugins", plugins);
+            plugins.addItem ("ADD PLUGIN...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
+            menu.addSubMenu ("PLUGINS", plugins);
         }
         if (! bus)
-            menu.addItem (s->source.stereo ? "Make mono" : "Make stereo", [this, index]
+            menu.addItem (s->source.stereo ? "MAKE MONO" : "MAKE STEREO", [this, index]
             {
                 auto& en = (*engine);
                 if (index >= (int) en.getStrips().size())
@@ -2364,27 +2364,27 @@ private:
                 }
                 if (! path.inserts.empty())
                 {
-                    one.addSubMenu ("Remove plugin", removes);
+                    one.addSubMenu ("REMOVE PLUGIN", removes);
                     one.addSeparator();
                 }
-                one.addItem ("Add plugin...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
-                one.addItem ("Rename...", [this, index, p] { renamePath (index, p); });
-                one.addItem ("Remove path", (int) s->paths.size() > 1, false, [this, index, p] { engine->removePath (index, p); repaint(); });
+                one.addItem ("ADD PLUGIN...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
+                one.addItem ("RENAME...", [this, index, p] { renamePath (index, p); });
+                one.addItem ("REMOVE PATH", (int) s->paths.size() > 1, false, [this, index, p] { engine->removePath (index, p); repaint(); });
                 paths.addSubMenu ("PATH " + juce::String (p + 1) + (path.name.isNotEmpty() ? ": " + path.name.toUpperCase() : juce::String()), one);
             }
             paths.addSeparator();
-            paths.addItem ("Add path", [this, index, n = (int) s->paths.size()] { engine->addPath (index, "PATH " + juce::String (n + 1)); repaint(); });
-            menu.addSubMenu ("Paths", paths);
+            paths.addItem ("ADD PATH", [this, index, n = (int) s->paths.size()] { engine->addPath (index, "PATH " + juce::String (n + 1)); repaint(); });
+            menu.addSubMenu ("PATHS", paths);
         }
-        menu.addItem ("Add spacer before", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("Add spacer after", [this, ch] { addSpacer (ch, false); });
+        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
+        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
         menu.addSeparator();
-        menu.addItem ("Rename...", [this, again, bus]
+        menu.addItem ("RENAME...", [this, again, bus]
         {
-            auto* w = new juce::AlertWindow ("Rename", {}, juce::MessageBoxIconType::NoIcon);
+            auto* w = new juce::AlertWindow ("RENAME", {}, juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", again() != nullptr ? again()->name : juce::String());
-            w->addButton ("OK", 1, juce::KeyPress (juce::KeyPress::returnKey));
-            w->addButton ("Cancel", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+            w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
+            w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
             w->enterModalState (true, juce::ModalCallbackFunction::create ([this, again, bus, w] (int result)
             {
                 auto* st = again();
@@ -2398,7 +2398,7 @@ private:
                 repaint();
             }), true);
         });
-        menu.addItem ("Remove", [this, bus, index, ch]
+        menu.addItem ("REMOVE", [this, bus, index, ch]
         {
             auto& en = (*engine);
             if (mixer != nullptr)

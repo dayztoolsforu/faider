@@ -482,7 +482,7 @@ void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current,
     };
 
     juce::PopupMenu colours;
-    colours.addItem ("Default", true, current.isTransparent(), [onPick] { onPick ({}); });
+    colours.addItem ("DEFAULT", true, current.isTransparent(), [onPick] { onPick ({}); });
     colours.addSeparator();
 
     for (auto& [name, argb] : palette)
@@ -498,14 +498,14 @@ void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current,
         swatch->setStrokeFill (juce::Colours::black.withAlpha (0.35f));
         swatch->setStrokeThickness (1.0f);
 
-        juce::PopupMenu::Item item (name);
+        juce::PopupMenu::Item item (juce::String (name).toUpperCase());
         item.setImage (std::move (swatch));
         item.setTicked (c == current);
         item.setAction ([onPick, c] { onPick (c); });
         colours.addItem (std::move (item));
     }
 
-    menu.addSubMenu ("Colour", colours);
+    menu.addSubMenu ("COLOUR", colours);
 }
 
 namespace
@@ -684,7 +684,7 @@ bool MixerComponent::resolveSource (AudioEngine::Source& s, juce::String& stripN
             break;
         }
 
-    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "Couldn't isolate the tab", error);
+    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "COULDN'T ISOLATE THE TAB", error);
     return false;
 }
 
@@ -825,7 +825,7 @@ void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path
                                                          : engine.addInsert (target.index, path);
 
     if (error.isNotEmpty())
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "Couldn't load plugin", error);
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "PLUGIN NOT LOADED", error);
 
 }
 

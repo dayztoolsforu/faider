@@ -133,14 +133,37 @@ begin
   Result := True;
 end;
 
+// The mix and settings (%APPDATA%\Faider) are kept unless the person uninstalling says otherwise:
+// asked once the uninstall is confirmed, default No; a silent uninstall never removes them.
+// {userappdata} is the AppData of the user the uninstaller runs as, and it runs elevated: when an
+// administrator's password was typed for a standard user, that's the administrator's AppData, not
+// the desktop user's (Inno has no constant for the original user's, and ExecAsOriginalUser doesn't
+// work at uninstall time). So the question names that user and the full path, and is only asked
+// when that folder exists.
+var
+  RemoveSettings: Boolean;
+
+function SettingsFolder: String;
+begin
+  Result := ExpandConstant ('{userappdata}\{#AppName}');
+end;
+
 // "Start with Windows" (set from the app) is removed with the exe it points at (one elsewhere is left
-// alone). Settings in %APPDATA%\Faider are kept.
+// alone).
 procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
 var
   Command: String;
 begin
+  if (CurUninstallStep = usUninstall) and not UninstallSilent and DirExists (SettingsFolder) then
+    RemoveSettings := MsgBox ('Also remove your mix and settings (' + SettingsFolder + ')? Your recordings are kept.' + #13#10#13#10
+                              + '(This is the folder of ' + GetUserNameString + ', the user this uninstall runs as.)',
+                              mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES;
+
   if (CurUninstallStep = usPostUninstall)
      and RegQueryStringValue (HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', '{#AppName}', Command)
      and (Pos (Lowercase (ExpandConstant ('{app}\{#AppExe}')), Lowercase (Command)) > 0) then
     RegDeleteValue (HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', '{#AppName}');
+
+  if (CurUninstallStep = usPostUninstall) and RemoveSettings then
+    DelTree (SettingsFolder, True, True, True);
 end;

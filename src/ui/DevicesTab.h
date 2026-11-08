@@ -353,7 +353,7 @@ namespace DevicesTab
             addAndMakeVisible (title);
             key.setTooltip ("Windows' audio engine (audiodg.exe) at High priority instead of Normal, Windows' default: it can stop crackle "
                             "on Windows devices and captured apps. ASIO interfaces don't go through it. Windows asks for an administrator's "
-                            "approval each time, and a restart of Windows audio (or the PC) undoes it: you're told when. "
+                            "approval each time, and a restart of Windows audio (or the PC) undoes it: you're told when. BACK TO NORMAL undoes it now. "
                             "PIN TO ONE CORE (off unless you pick it) holds it to the last core: only for crackle on a USB headset.");
             key.onClick = [this] { showMenu(); };
             addAndMakeVisible (key);
@@ -367,6 +367,7 @@ namespace DevicesTab
         std::function<bool()> wanted, pinned;       // BOOST asked for; PIN TO ONE CORE with it
         std::function<void()> boost;                // BOOST now (Windows asks first)
         std::function<void()> stopBoosting;         // no longer wanted (audiodg stays as it is until it restarts)
+        std::function<void()> backToNormal;         // BACK TO NORMAL now: Normal, every core (Windows asks first)
         std::function<void (bool)> setPinned;
         std::function<juce::String()> note;         // what came of the last BOOST, or one under way
 
@@ -424,6 +425,8 @@ namespace DevicesTab
                 else if (boost) boost();
             });
             menu.addItem ("PIN TO ONE CORE (ONLY FOR USB-HEADSET CRACKLE)", true, pin, [this, pin] { if (setPinned) setPinned (! pin); });
+            menu.addItem ("BACK TO NORMAL", s.pid != 0 && (s.priority != AudioBoost::Priority::normal || s.pinnedCore >= 0), false,
+                          [this] { if (backToNormal) backToNormal(); });
             menu.addSeparator();
             menu.addItem ("WINDOWS ASKS FOR AN ADMINISTRATOR EACH TIME", false, false, nullptr);
             menu.addItem ("IT DOESN'T AFFECT ASIO INTERFACES", false, false, nullptr);

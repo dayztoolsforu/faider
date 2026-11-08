@@ -242,6 +242,7 @@ MainComponent::MainComponent()
     windowsAudioBar.pinned = [this] { return settings.getBoolValue ("boostPinCore"); };
     windowsAudioBar.boost = [this] { boostWindowsAudio(); };
     windowsAudioBar.stopBoosting = [this] { stopBoostingWindowsAudio(); };
+    windowsAudioBar.backToNormal = [this] { unboostWindowsAudio(); };
     windowsAudioBar.setPinned = [this] (bool pin)
     {
         settings.setValue ("boostPinCore", pin);
@@ -1726,14 +1727,49 @@ void MainComponent::boostWindowsAudio()
 }
 
 // No longer wanted: not watched any more. audiodg itself stays as it is until Windows audio
-// restarts (lowering it would need the administrator again).
+// restarts, or BACK TO NORMAL (the administrator again).
 void MainComponent::stopBoostingWindowsAudio()
 {
     settings.setValue ("boostAudiodg", false);
     settings.saveIfNeeded();
     windowsAudioWatch.update (false, windowsAudio);
-    boostNote = "Not watched any more. It stays at " + AudioBoost::priorityName (windowsAudio.priority) + " until Windows audio or the PC restarts";
+    boostNote = "Not watched any more. It stays at " + AudioBoost::priorityName (windowsAudio.priority) + " until Windows audio or the PC restarts, or BACK TO NORMAL";
     logEvent ("windows audio: boost no longer wanted");
+}
+
+// BACK TO NORMAL: the helper started elevated with --unboost-audiodg (Windows asks first).
+// Once it's at Normal (or not running), the boost is no longer wanted, so the watch says nothing.
+void MainComponent::unboostWindowsAudio()
+{
+    if (boostingWindowsAudio)
+        return;
+    boostingWindowsAudio = true;
+    boostNote = "Waiting for Windows' approval...";
+    logEvent ("windows audio: back to normal asked for");
+    auto* peer = getPeer();
+    AudioBoost::unboost (peer != nullptr && isShowing() ? peer->getNativeHandle() : nullptr,
+                         [safe = juce::Component::SafePointer<MainComponent> (this)] (int code)
+    {
+        if (safe == nullptr)
+            return;
+        auto& self = *safe;
+        self.boostingWindowsAudio = false;
+        const auto text = AudioBoost::describe (code, true);
+        self.logEvent ("windows audio: " + text + " (" + juce::String (code) + ")");
+        if (code == AudioBoost::ok || code == AudioBoost::notUnpinned || code == AudioBoost::notFound)
+        {
+            self.settings.setValue ("boostAudiodg", false);
+            self.settings.saveIfNeeded();
+        }
+        self.windowsAudio = AudioBoost::read();
+        self.windowsAudioWatch.update (self.settings.getBoolValue ("boostAudiodg"), self.windowsAudio);
+        self.boostNote = text.upToLastOccurrenceOf (".", false, false);
+        const juce::String title ("Windows audio");
+        if (self.isShowing())
+            self.toasts.show ("device", title, text);
+        else if (self.onNotify)
+            self.onNotify (title, text);
+    });
 }
 
 // Whether Windows audio carries any of the mix: a Windows device or an app captured, an output

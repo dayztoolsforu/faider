@@ -11,7 +11,8 @@
 // [--pin-core N]`: Windows asks first; that copy sets the priority (and, only if asked, pins
 // audiodg to one core), says how it went in its exit code and goes, with no window and no audio.
 // It doesn't last: Windows starting its audio again (or the PC) puts it back to Normal, and Faider
-// says so. Never realtime: that can starve the rest of Windows.
+// says so. Never realtime: that can starve the rest of Windows. BACK TO NORMAL runs the same way
+// with `--unboost-audiodg`: Normal priority, and every core again.
 //
 // What's here is the part without Windows in it (tested by tests/AudioBoostTest.cpp); the Windows
 // part (reading audiodg, the helper, starting it elevated) is in AudioBoost.cpp.
@@ -19,16 +20,21 @@ namespace AudioBoost
 {
     inline constexpr const char* flag = "--boost-audiodg";
     inline constexpr const char* pinFlag = "--pin-core";
+    inline constexpr const char* backFlag = "--unboost-audiodg";
+
+    // Whether a command line is the helper's (either way).
+    inline bool isHelper (const juce::StringArray& args) { return args.contains (flag) || args.contains (backFlag); }
 
     // The helper's exit codes.
     enum Code : int
     {
-        ok           = 0,   // High priority set (and pinned, if asked)
-        badArgs      = 2,   // the command line wasn't --boost-audiodg [--pin-core N] with N a core this PC has
+        ok           = 0,   // High priority set (and pinned, if asked); back: Normal on every core
+        badArgs      = 2,   // the command line wasn't --boost-audiodg [--pin-core N] (N a core this PC has) or --unboost-audiodg
         notFound     = 3,   // audiodg.exe isn't running (Windows audio stopped?)
         accessDenied = 4,   // audiodg couldn't be opened to change it (not elevated?)
         notSet       = 5,   // opened, but Windows refused the priority
         notPinned    = 6,   // High priority set, but the core pin was refused
+        notUnpinned  = 7,   // back: Normal set, but every core again was refused
         // Not the helper's: what the app makes of starting it.
         declined     = -1,  // the user said no to Windows' prompt (a normal outcome)
         notStarted   = -2,  // it couldn't be started
@@ -67,19 +73,21 @@ namespace AudioBoost
     struct Args
     {
         bool valid = false;
+        bool back = false;  // --unboost-audiodg: Normal, every core
         int pinCore = -1;   // -1: leave which cores it runs on alone
     };
 
     inline Args parseArgs (const juce::StringArray& args, int cores)
     {
         Args a;
-        if (! args.contains (flag))
-            return a;
+        if (args.contains (flag) == args.contains (backFlag))
+            return a;   // (one or the other)
+        a.back = args.contains (backFlag);
         for (int i = 0; i < args.size(); ++i)
         {
-            if (args[i] == flag)
+            if (args[i] == flag || args[i] == backFlag)
                 continue;
-            if (args[i] == pinFlag && a.pinCore < 0)
+            if (args[i] == pinFlag && a.pinCore < 0 && ! a.back)
             {
                 const auto n = args[i + 1].trim();
                 if (n.isEmpty() || ! n.containsOnly ("0123456789") || n.length() > 3)
@@ -100,10 +108,22 @@ namespace AudioBoost
     {
         return juce::String (flag) + (pinCore >= 0 ? juce::String (" ") + pinFlag + " " + juce::String (pinCore) : juce::String());
     }
+    inline juce::String backCommandLine() { return backFlag; }
 
-    // What came of BOOST, in plain words.
-    inline juce::String describe (int code)
+    // What came of BOOST (or, `back`, of BACK TO NORMAL), in plain words.
+    inline juce::String describe (int code, bool back = false)
     {
+        if (back)
+            switch (code)
+            {
+                case ok:          return "Windows audio is back at Normal priority, on every core.";
+                case badArgs:     return "Nothing changed: the helper didn't understand the request.";
+                case notSet:      return "Nothing changed: Windows refused Normal priority.";
+                case notUnpinned: return "Windows audio is back at Normal priority, but Windows wouldn't let it use every core again.";
+                case notStarted:  return "Nothing changed: the change back couldn't be started.";
+                case timedOut:    return "The change back didn't answer in time. Look again in a moment.";
+                default:          break;   // (the rest as for BOOST)
+            }
         switch (code)
         {
             case ok:           return "Windows audio is at High priority.";
@@ -111,8 +131,7 @@ namespace AudioBoost
             case notFound:     return "Nothing changed: Windows audio (audiodg.exe) isn't running. Play a sound and try again.";
             case accessDenied: return "Nothing changed: Windows wouldn't let it be changed.";
             case notSet:       return "Nothing changed: Windows refused the new priority.";
-            case notPinned:    return "Windows audio is at High priority, but Windows wouldn't pin it to one core.";
-            case declined:     return "Nothing changed: Windows' prompt was declined.";
+            case notPinned:    return "Windows audio is at High priority, but Windows wouldn't pin it to one core.";            case declined:     return "Nothing changed: Windows' prompt was declined.";
             case notStarted:   return "Nothing changed: the boost couldn't be started.";
             case timedOut:     return "The boost didn't answer in time. Look again in a moment.";
             default:           break;
@@ -185,11 +204,15 @@ namespace AudioBoost
     // How many cores this PC has (the last one is what PIN TO ONE CORE uses).
     int coreCount();
 
-    // The helper's work (Main.cpp, an elevated copy started with --boost-audiodg): returns its exit code.
+    // The helper's work (Main.cpp, an elevated copy started with --boost-audiodg or
+    // --unboost-audiodg): returns its exit code.
     int runHelper (const juce::StringArray& args);
 
     // Starts the helper elevated (Windows asks first) and waits for it on a thread of its own, up
     // to 15 s; `done` gets its exit code, or declined, notStarted or timedOut, on the message thread.
     // `owner`: the window Windows' prompt belongs to (may be null).
     void boost (bool pinToLastCore, void* owner, std::function<void (int code)> done);
+
+    // BACK TO NORMAL: the same, with --unboost-audiodg.
+    void unboost (void* owner, std::function<void (int code)> done);
 }

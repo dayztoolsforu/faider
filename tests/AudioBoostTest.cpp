@@ -34,10 +34,22 @@ int main()
     check (! parseArgs (args ("--scan x"), 32).valid, "without --boost-audiodg it isn't the helper");
     check (commandLine (-1) == "--boost-audiodg" && commandLine (7) == "--boost-audiodg --pin-core 7", "the line the app starts it with");
     check (parseArgs (args (commandLine (7).toRawUTF8()), 8).pinCore == 7, "and the helper reads it back");
+    check (! parseArgs (args ("--boost-audiodg"), 32).back, "--boost-audiodg isn't the way back");
+
+    // BACK TO NORMAL's command line.
+    check (parseArgs (args ("--unboost-audiodg"), 32).valid && parseArgs (args ("--unboost-audiodg"), 32).back, "--unboost-audiodg: back to Normal");
+    check (parseArgs (args (backCommandLine().toRawUTF8()), 32).back && backCommandLine() == "--unboost-audiodg", "the line the app starts it with, read back");
+    check (! parseArgs (args ("--unboost-audiodg --pin-core 1"), 32).valid, "no pin on the way back");
+    check (! parseArgs (args ("--boost-audiodg --unboost-audiodg"), 32).valid, "not both at once");
+    check (! parseArgs (args ("--unboost-audiodg --realtime"), 32).valid, "anything else with it is refused");
+    check (isHelper (args ("--boost-audiodg")) && isHelper (args ("--unboost-audiodg --x")) && ! isHelper (args ("--scan x")), "either flag is the helper's");
 
     // Every exit code says something plain, and UAC declined isn't called an error.
     for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notPinned, (int) declined, (int) notStarted, (int) timedOut })
         check (describe (code).isNotEmpty() && ! describe (code).containsIgnoreCase ("unexpected"), "code " + juce::String (code) + ": " + describe (code));
+    for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notUnpinned, (int) declined, (int) notStarted, (int) timedOut })
+        check (describe (code, true).isNotEmpty() && ! describe (code, true).containsIgnoreCase ("unexpected"), "back, code " + juce::String (code) + ": " + describe (code, true));
+    check (describe (ok, true).containsIgnoreCase ("normal") && ! describe (ok, true).containsIgnoreCase ("high"), "back: done says Normal");
     check (describe (declined).containsIgnoreCase ("declined") && ! describe (declined).containsIgnoreCase ("error"), "declined is said plainly");
     check (describe (1).containsIgnoreCase ("unexpected"), "an unknown code is said as such");
 

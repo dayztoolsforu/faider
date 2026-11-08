@@ -220,7 +220,7 @@ public:
         // (a copy that is itself such a restart, still elevated, never starts again: no loop)
         // (BOOST WINDOWS AUDIO's helper is meant to be elevated: it stays as it is)
         if (Unelevated::isElevated() && ! args.contains ("--scan") && ! args.contains ("--quit") && ! args.contains ("--allow-admin")
-            && ! args.contains (AudioBoost::flag)
+            && ! AudioBoost::isHelper (args)
             && ! args.contains ("--after") && ! Unelevated::shellIsElevated() && Unelevated::restartUnelevated (args))
             ExitProcess (0);   // (the copy with ordinary rights takes over)
         if (const int i = args.indexOf ("--after"); i >= 0)
@@ -235,15 +235,14 @@ public:
     const juce::String getApplicationVersion() override { return JUCE_APPLICATION_VERSION_STRING; }
     bool moreThanOneInstanceAllowed() override   // a plugin test, or BOOST WINDOWS AUDIO's helper, runs beside the desk
     {
-        const auto commandLine = getCommandLineParameters();
-        return commandLine.contains ("--scan") || commandLine.contains (AudioBoost::flag);
+        return getCommandLineParameters().contains ("--scan") || AudioBoost::isHelper (getCommandLineParameterArray());
     }
 
     void initialise (const juce::String& commandLine) override
     {
         // BOOST WINDOWS AUDIO's helper (AudioBoost.h), started elevated by the desk: audiodg to
-        // High priority, then out with how it went. No window, no audio, no files.
-        if (commandLine.contains (AudioBoost::flag))
+        // High priority (or back to Normal), then out with how it went. No window, no audio, no files.
+        if (AudioBoost::isHelper (getCommandLineParameterArray()))
         {
             setApplicationReturnValue (AudioBoost::runHelper (getCommandLineParameterArray()));
             quit();

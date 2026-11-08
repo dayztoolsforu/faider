@@ -83,6 +83,7 @@ private:
     void watchWindowsAudio();
     void boostWindowsAudio();
     void stopBoostingWindowsAudio();
+    void unboostWindowsAudio();                    // BACK TO NORMAL (Windows asks first)
     bool windowsAudioUsed() const;                 // Windows devices or app capture in the mix (not just ASIO)
 
     int getNumRows() override;

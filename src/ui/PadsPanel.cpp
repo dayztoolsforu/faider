@@ -965,10 +965,10 @@ private:
             {
                 // Each plugin on the chosen input or bus, its controls under its name.
                 const auto chosenTarget = editorStep().target;
-                const auto kind = chosenTarget.upToFirstOccurrenceOf (":", false, false), name = chosenTarget.fromFirstOccurrenceOf (":", false, false);
+                const auto kind = chosenTarget.upToFirstOccurrenceOf (":", false, false), targetName = chosenTarget.fromFirstOccurrenceOf (":", false, false);
                 const std::vector<std::unique_ptr<juce::AudioPluginInstance>>* chain = nullptr;
                 for (auto& s : kind == "input" ? eng.getStrips() : eng.getBuses())
-                    if (kind != "output" && s->name == name)
+                    if (kind != "output" && s->name == targetName)
                         chain = &s->inserts;
                 for (size_t i = 0; chain != nullptr && i < chain->size(); ++i)
                 {
@@ -981,8 +981,8 @@ private:
             }
             else if (&box == &target && (a == Macros::Action::defaultOutput || a == Macros::Action::defaultInput))
             {
-                for (auto& name : WindowsDefault::devices (a == Macros::Action::defaultInput))   // connected now (a missing one stays listed)
-                    item ("device:" + name, name.toUpperCase());
+                for (auto& deviceName : WindowsDefault::devices (a == Macros::Action::defaultInput))   // connected now (a missing one stays listed)
+                    item ("device:" + deviceName, deviceName.toUpperCase());
             }
             else if (pads)
             {
@@ -1096,21 +1096,21 @@ private:
         void fill()
         {
             using W = Macros::Trigger::When;
-            auto& engine = editor.engine;
+            auto& audioEngine = editor.engine;
             juce::StringArray choices;
             switch (trigger().when)
             {
                 case W::appStarts: case W::appStops:
                     for (auto& a : listAudioApps()) choices.addIfNotAlreadyThere (a.exe, true);
-                    for (auto& s : engine.getStrips())
+                    for (auto& s : audioEngine.getStrips())
                         if (s->source.kind == AudioEngine::Source::app) choices.addIfNotAlreadyThere (s->source.deviceName, true);
                     break;
                 case W::deviceOn: case W::deviceOff:
-                    for (auto& ep : engine.getEndpoints())
+                    for (auto& ep : audioEngine.getEndpoints())
                         if (ep.api == "WASAPI") choices.addIfNotAlreadyThere (ep.name, true);
                     break;
                 case W::outputSilent: case W::outputSound:
-                    for (auto& b : engine.getMasters()) choices.add (b->name);
+                    for (auto& b : audioEngine.getMasters()) choices.add (b->name);
                     break;
                 case W::time:
                     for (int h = 0; h < 24; ++h) choices.add (juce::String (h).paddedLeft ('0', 2) + ":00");

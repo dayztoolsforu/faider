@@ -2481,10 +2481,10 @@ private:
             if (lit > 0.5f && item.lamp == "orange")   // (the power symbol on the IN switch)
             {
                 const auto c = cap.reduced (cap.getWidth() * 0.28f);
-                juce::Path power;
-                power.addCentredArc (c.getCentreX(), c.getCentreY(), c.getWidth() * 0.5f, c.getHeight() * 0.5f, 0.0f, 0.6f, juce::MathConstants<float>::twoPi - 0.6f, true);
+                juce::Path powerSymbol;
+                powerSymbol.addCentredArc (c.getCentreX(), c.getCentreY(), c.getWidth() * 0.5f, c.getHeight() * 0.5f, 0.0f, 0.6f, juce::MathConstants<float>::twoPi - 0.6f, true);
                 g.setColour (juce::Colour (0xff3a1e08));
-                g.strokePath (power, juce::PathStrokeType (1.6f * zoom));
+                g.strokePath (powerSymbol, juce::PathStrokeType (1.6f * zoom));
                 g.drawLine (c.getCentreX(), c.getY() - 1.0f * zoom, c.getCentreX(), c.getCentreY(), 1.6f * zoom);
             }
         }
@@ -2606,10 +2606,10 @@ private:
             for (auto& k : transportKeys())   // (as a deck's: the symbols every transport uses)
             {
                 const bool lit = (k == "PLAY" && tape.isPlaying()) || (k == "PAUSE" && ! tape.isPlaying() && tape.isLoaded() && tape.position() > 0.0);
-                const auto key = tapeArea (r, k);
-                const auto touched = touch (ch, "tape" + k, key);
-                LargeFormat::key (g, key, {}, lit ? 1.0f : 0.0f, k == "PAUSE" ? Console::Colours::palette ("orange") : Console::Colours::runLamp(), true, touched.press * 1.5f, touched.hover);
-                drawTransport (g, k, key.translated (0.0f, touched.press * 1.5f).reduced (key.getWidth() * 0.26f, key.getHeight() * 0.28f), lit ? Console::Colours::litInk() : juce::Colour (0xff26282b));
+                const auto keyArea = tapeArea (r, k);
+                const auto touched = touch (ch, "tape" + k, keyArea);
+                LargeFormat::key (g, keyArea, {}, lit ? 1.0f : 0.0f, k == "PAUSE" ? Console::Colours::palette ("orange") : Console::Colours::runLamp(), true, touched.press * 1.5f, touched.hover);
+                drawTransport (g, k, keyArea.translated (0.0f, touched.press * 1.5f).reduced (keyArea.getWidth() * 0.26f, keyArea.getHeight() * 0.28f), lit ? Console::Colours::litInk() : juce::Colour (0xff26282b));
             }
             for (auto [k, text, lit, lamp] : { std::tuple (juce::String ("SHUFFLE"), juce::String ("SHUFFLE"), tape.getShuffle(), Console::Colours::palette ("orange")),
                                                std::tuple (juce::String ("ADD"), juce::String ("ADD..."), false, Console::Colours::powerLamp()) })
@@ -2692,21 +2692,21 @@ private:
             g.fillRoundedRectangle (face, 3.0f * zoom);
             const juce::Point<float> pivot (face.getCentreX(), face.getBottom() + face.getHeight() * 0.35f);
             const float radius = face.getHeight() * 1.05f, a0 = juce::degreesToRadians (40.0f), a1 = juce::degreesToRadians (-40.0f);
-            auto at = [&pivot] (float a, float rr) { return juce::Point<float> (pivot.x + rr * std::sin (a), pivot.y - rr * std::cos (a)); };
+            auto onDial = [&pivot] (float a, float rr) { return juce::Point<float> (pivot.x + rr * std::sin (a), pivot.y - rr * std::cos (a)); };
             g.setColour (Console::Colours::vuInk());
             g.setFont (LargeFormat::print (9.0f * juce::jmax (0.8f, zoom)));
             for (int db : { 0, 3, 6, 10, 14, 20 })
             {
                 const float a = a0 + (a1 - a0) * (float) db / 20.0f;
-                const auto p1 = at (a, radius * 0.86f), p2 = at (a, radius * 0.95f);
+                const auto p1 = onDial (a, radius * 0.86f), p2 = onDial (a, radius * 0.95f);
                 g.drawLine (p1.x, p1.y, p2.x, p2.y, 1.2f);
-                g.drawText (juce::String (db), juce::Rectangle<float> (24.0f * zoom, 12.0f * zoom).withCentre (at (a, radius * 0.77f)), juce::Justification::centred, false);
+                g.drawText (juce::String (db), juce::Rectangle<float> (24.0f * zoom, 12.0f * zoom).withCentre (onDial (a, radius * 0.77f)), juce::Justification::centred, false);
             }
             g.drawText ("GR", face.withTrimmedTop (face.getHeight() * 0.55f), juce::Justification::centred, false);
             juce::Graphics::ScopedSaveState clip (g);
             g.reduceClipRegion (face.toNearestInt());
             const float a = a0 + (a1 - a0) * gr / 20.0f;
-            const auto tip = at (a, radius * 0.97f);
+            const auto tip = onDial (a, radius * 0.97f);
             g.setColour (juce::Colour (0xff141414));
             g.drawLine (pivot.x, pivot.y, tip.x, tip.y, 1.6f * zoom);
         }
@@ -2729,8 +2729,8 @@ private:
         else if (item.kind == "name")
         {
             const auto icon = r.withWidth (r.getHeight()).reduced (r.getHeight() * 0.28f);
-            juce::Path power;
-            power.addCentredArc (icon.getCentreX(), icon.getCentreY(), icon.getWidth() * 0.5f, icon.getHeight() * 0.5f, 0.0f, 0.6f, juce::MathConstants<float>::twoPi - 0.6f, true);
+            juce::Path powerSymbol;
+            powerSymbol.addCentredArc (icon.getCentreX(), icon.getCentreY(), icon.getWidth() * 0.5f, icon.getHeight() * 0.5f, 0.0f, 0.6f, juce::MathConstants<float>::twoPi - 0.6f, true);
             const bool on = bind.isOn (ch, "power", true);
             const auto touched = touch (ch, "power", r.withWidth (r.getHeight()), true);
             if (touched.hover > 0.01f)
@@ -2739,7 +2739,7 @@ private:
                 g.fillEllipse (icon.expanded (icon.getWidth() * 0.45f));
             }
             g.setColour ((on ? Console::Colours::palette ("orange") : juce::Colour (0xff9a9da2)).brighter (0.4f * touched.hover));
-            g.strokePath (power, juce::PathStrokeType (1.6f * zoom));
+            g.strokePath (powerSymbol, juce::PathStrokeType (1.6f * zoom));
             g.drawLine (icon.getCentreX(), icon.getY() - 1.0f * zoom, icon.getCentreX(), icon.getCentreY(), 1.6f * zoom);
             g.setColour (on ? Console::Colours::inkBright() : Console::Colours::inkFaint());
             g.setFont (LargeFormat::print (r.getHeight() * 0.42f));

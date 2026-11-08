@@ -12,7 +12,7 @@ public:
     {
         rate = sampleRate;
         // K-weighting: a high shelf (+4 dB from about 1.7 kHz, the head's effect) then a gentle high-pass.
-        const auto shelf = juce::IIRCoefficients::makeHighShelf (rate, 1681.97, 0.7072, juce::Decibels::decibelsToGain (4.0));
+        const auto shelf = juce::IIRCoefficients::makeHighShelf (rate, 1681.97, 0.7072, juce::Decibels::decibelsToGain (4.0f));
         const auto hp = juce::IIRCoefficients::makeHighPass (rate, 38.13, 0.5003);
         for (int c = 0; c < 2; ++c)
         {

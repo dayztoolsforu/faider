@@ -243,10 +243,10 @@ juce::String Scenes::devicesChanged (const juce::StringArray& activeNow)
         }
         else if (! activeNow.contains (device) && before.contains (device) && active == i)
         {
-            if (const int back = find (sceneBeforeDevice); back >= 0)
+            if (const int previous = find (sceneBeforeDevice); previous >= 0)
             {
-                recall (back);
-                happened = "scene: " + list[(size_t) back].name + " (" + device + " gone)";
+                recall (previous);
+                happened = "scene: " + list[(size_t) previous].name + " (" + device + " gone)";
             }
             sceneBeforeDevice.clear();
         }

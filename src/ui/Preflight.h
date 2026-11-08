@@ -39,8 +39,8 @@ public:
             auto r = rowArea ((int) i);
             drawLED (g, { (float) r.getX() + 7.0f, (float) r.getY() + 11.0f }, 5.0f, c.ok ? Colours::ledGreen() : Colours::danger(), 1.0f);
             r.removeFromLeft (22);
-            if (fixes[i] != nullptr)
-                r.removeFromRight (fixes[i]->getWidth() + Space::pad);
+            if (fixes[(int) i] != nullptr)
+                r.removeFromRight (fixes[(int) i]->getWidth() + Space::pad);
             g.setColour (Colours::legend());
             g.setFont (legendFont (Type::name));
             g.drawText (c.title.toUpperCase(), r.removeFromTop (20), juce::Justification::centredLeft, true);
@@ -54,10 +54,10 @@ public:
     {
         using namespace Console;
         for (size_t i = 0; i < checks.size(); ++i)
-            if (fixes[i] != nullptr)
+            if (fixes[(int) i] != nullptr)
             {
                 const auto r = rowArea ((int) i);
-                fixes[i]->setBounds (r.getRight() - 130, r.getY() + 4, 130, Space::key);
+                fixes[(int) i]->setBounds (r.getRight() - 130, r.getY() + 4, 130, Space::key);
             }
         again.setBounds (getLocalBounds().reduced (Space::pad).removeFromBottom (Space::key).removeFromRight (160));
     }

@@ -2480,7 +2480,7 @@ AudioEngine::Secondary* AudioEngine::openSecondary (const juce::String& deviceNa
         for (auto& e : lastEndpoints)
             if (e.name == deviceName)
                 adapter = e.adapter;
-        for (auto& [key, open] : secondaries)
+        for (auto& [secondaryKey, open] : secondaries)
             for (auto& e : lastEndpoints)
                 if (adapter.isNotEmpty() && e.name == open->name && e.adapter == adapter && open->isOutput == isOutput && open->name != deviceName)
                     sibling = open->name;

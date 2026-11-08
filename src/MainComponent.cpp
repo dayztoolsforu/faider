@@ -1890,9 +1890,9 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
                                        : "It didn't start: see DEVICES (another app may have the interface)",
                         audio, "DEVICES", [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Devices")); } });
 
-    const auto& endpoints = engine.getEndpoints();
-    const bool cable = std::any_of (endpoints.begin(), endpoints.end(), [&endpoints] (const EndpointInfo& e)
-                                    { return e.api == "WASAPI" && e.isOutput && virtualMicPartner (e, endpoints).isNotEmpty(); });
+    const auto& allEndpoints = engine.getEndpoints();
+    const bool cable = std::any_of (allEndpoints.begin(), allEndpoints.end(), [&allEndpoints] (const EndpointInfo& e)
+                                    { return e.api == "WASAPI" && e.isOutput && virtualMicPartner (e, allEndpoints).isNotEmpty(); });
     checks.push_back ({ "Mic cable", cable ? "A virtual mic cable is installed (apps hear it as a mic)"
                                            : "No virtual mic cable (VB-CABLE) found: apps can't hear your mix as a mic",
                         cable, "GET VB-CABLE", [] { juce::URL ("https://vb-audio.com/Cable/").launchInDefaultBrowser(); } });

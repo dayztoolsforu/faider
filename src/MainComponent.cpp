@@ -394,7 +394,7 @@ MainComponent::MainComponent()
                 return;
             if (safe->isShowing())
                 safe->showPreflight (true);
-            else if (const auto checks = safe->preflightChecks(); std::any_of (checks.begin(), checks.end(), [] (auto& c) { return ! c.ok; }))
+            else if (const auto checks = safe->preflightChecks(); std::any_of (checks.begin(), checks.end(), [] (auto& c) { return ! c.ok && ! c.advisory; }))
                 safe->toasts.show ("device", "Pre-flight", "Something in the setup needs a look (FIND: PRE-FLIGHT)");
         });
     // First-run tips: the first time each page is shown, a tip about it in the corner (once each;
@@ -710,6 +710,8 @@ void MainComponent::openCommandPalette()
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
     add ("WINDOWS DEFAULTS", "Your real speakers and mic as Windows' defaults, for calls too (not the cable)",
          [this] { showWindowsDefaults (juce::PopupMenu::Options().withTargetComponent (findButton)); });
+    add (AudioBoost::isBoosted (windowsAudio.priority) ? "BOOST WINDOWS AUDIO (BOOSTED)" : "BOOST WINDOWS AUDIO",
+         "Windows' audio engine at High priority, for crackle on Windows devices (not ASIO). Windows asks first", [this] { boostWindowsAudio(); });
     add ("ZERO DESK", "Things left set: solos, key listen, gains far off, outputs cut", [this] { showZero(); });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
     add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The outputs' faders in a small window, PIN keeps it on top", [this] { toggleMini(); });
@@ -2292,6 +2294,13 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
         problems.insert (0, "Feedback loop: " + loop);
     checks.push_back ({ "Heard once", problems.isEmpty() ? "Nothing plays twice, nothing loops back" : problems.joinIntoString (" "),
                         problems.isEmpty(), "SOUND SETTINGS", [] { juce::URL ("ms-settings:sound").launchInDefaultBrowser(); } });
+
+    // Windows' audio engine at Normal while Windows devices or captured apps are in the mix: yellow
+    // (a suggestion), red if the boost was on and a restart undid it. Only ASIO: it isn't in the way.
+    if (! boostingWindowsAudio)
+        windowsAudio = AudioBoost::read();
+    const auto boost = AudioBoost::preflight (windowsAudioUsed(), settings.getBoolValue ("boostAudiodg"), windowsAudio.priority);
+    checks.push_back ({ "Windows audio", boost.detail, boost.ok, "BOOST", [this] { boostWindowsAudio(); }, boost.advisory });
     return checks;
 }
 

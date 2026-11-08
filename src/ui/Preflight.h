@@ -4,7 +4,7 @@
 #include "Console.h"
 
 // PRE-FLIGHT: before going live, the setup at a glance. A row per check, a light (green: fine,
-// red: not), what it found, and a FIX key where one click can put it right. Shown a few seconds
+// red: not, yellow: only a suggestion), what it found, and a FIX key where one click can put it right. Shown a few seconds
 // after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
 // ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, or FIND).
 class PreflightPanel : public juce::Component
@@ -16,6 +16,7 @@ public:
         bool ok = true;
         juce::String fixLabel;          // empty: nothing to press
         std::function<void()> fix;
+        bool advisory = false;          // not ok, but only a suggestion: yellow, and not "something's wrong"
     };
 
     // `recheck` gives the checks as they are now (after a fix, the list follows).
@@ -38,7 +39,7 @@ public:
         {
             const auto& c = checks[i];
             auto r = rowArea ((int) i);
-            drawLED (g, { (float) r.getX() + 7.0f, (float) r.getY() + 11.0f }, 5.0f, c.ok ? Colours::ledGreen() : Colours::danger(), 1.0f);
+            drawLED (g, { (float) r.getX() + 7.0f, (float) r.getY() + 11.0f }, 5.0f, c.ok ? Colours::ledGreen() : c.advisory ? Colours::ledYellow() : Colours::danger(), 1.0f);
             r.removeFromLeft (22);
             if (fixes[(int) i] != nullptr)
                 r.removeFromRight (fixes[(int) i]->getWidth() + Space::pad);
@@ -65,7 +66,7 @@ public:
         other.setBounds (bottom.removeFromLeft (160));
     }
 
-    bool allClear() const { return std::all_of (checks.begin(), checks.end(), [] (const Check& c) { return c.ok; }); }
+    bool allClear() const { return std::all_of (checks.begin(), checks.end(), [] (const Check& c) { return c.ok || c.advisory; }); }
 
     // A key at the bottom left, for the other list (PRE-FLIGHT's ZERO THE DESK).
     void setOtherKey (const juce::String& text, const juce::String& tip, std::function<void()> onClick)

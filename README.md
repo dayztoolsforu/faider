@@ -124,7 +124,7 @@ a big key for every output. The switch in the top bar flips the whole console be
 | Audio interface | Optional. With an ASIO driver it sets the clock, for the lowest delay. Without one the clock is a Windows playback device, or the built-in clock when there's none |
 | Toolchain | Visual Studio Build Tools (C++ workload), CMake 3.22 or later, Git |
 | ASIO SDK | Optional, for ASIO interfaces: the Steinberg ASIO SDK (free from Steinberg) extracted to `third_party/asiosdk_2.3.3_2019-06-14`. Without it the build runs on Windows devices only |
-| Optional | [VB-CABLE](https://vb-audio.com/Cable/) for a microphone apps can hear; `ffmpeg.exe` on the PATH for compressed recording formats |
+| Optional | [VB-CABLE](https://vb-audio.com/Cable/) for a microphone apps can hear; `ffmpeg.exe` (on the PATH, or picked in SETTINGS) for compressed recording formats |
 
 ### Install
 

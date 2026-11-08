@@ -46,7 +46,7 @@ tells you what to do when something goes wrong.
 | **An audio interface** | Optional. With its ASIO driver installed, Faider runs on the interface's clock for the lowest delay. Without one it runs on your Windows playback device, or on its built-in clock (see [Clocking](#clocking)) |
 | **Headphones** | Plugged into your interface (or any Windows playback device) so you can hear your mix |
 | **VB-CABLE** | Optional and free (vb-audio.com/Cable). A virtual microphone, so apps such as Discord, games and OBS can hear your mix |
-| **ffmpeg** | Optional. With `ffmpeg.exe` on your PATH the recorder can also write MP3, AAC, Opus and ALAC |
+| **ffmpeg** | Optional. With `ffmpeg.exe` on your PATH, or picked in **SETTINGS > GENERAL > FFMPEG**, the recorder can also write MP3, AAC, Opus and ALAC |
 
 ### Words used in this manual
 
@@ -95,9 +95,14 @@ to mix for your own headphones.
 > **Windows switches your sound to the cable.** Installing a virtual cable often makes it
 > Windows' default: **CABLE Input** as your speakers and **CABLE Output** as your microphone. You
 > then hear nothing from Windows, and apps that use the default mic hear the cable. Switch both
-> back straight after installing.
+> back straight after installing. Faider can do it for you.
 
-**Put your devices back:**
+**Put your devices back with Faider:** click **SET MY DEFAULTS**: on SETUP's **APPS HEAR YOU** page
+(step 4), on PRE-FLIGHT's **WINDOWS DEFAULTS** row, or **WINDOWS DEFAULTS** in FIND. It lists your
+real speakers and microphones. Pick your headphones or speakers, then click it again and pick your
+microphone. Each becomes Windows' default and its default for calls.
+
+**Or put them back in Windows:**
 
 1. Open **Settings > System > Sound** (or right-click the speaker icon in the taskbar >
    **Sound settings**).
@@ -112,8 +117,8 @@ A quicker way to set the output: click the speaker icon in the taskbar, click th
 volume slider, and pick your device.
 
 Keep your real devices as Windows' defaults. Faider plays into the cable only where you
-route it, and each app picks **CABLE Output** as its microphone itself (step 6). If Windows' default
-speaker is the cable, PRE-FLIGHT reports it under **HEARD ONCE**.
+route it, and each app picks **CABLE Output** as its microphone itself (step 6). If any of Windows'
+defaults is the cable, PRE-FLIGHT reports it under **WINDOWS DEFAULTS**.
 
 ### Step 3: Start Faider
 
@@ -132,7 +137,8 @@ goes back.
 2. **MICROPHONES**: pick the microphones you speak into. These are your interface's inputs
    (**IN 1**, **IN 2** …) and your Windows recording devices.
 3. **APPS HEAR YOU**: pick the virtual cable apps use as their mic (**CABLE Input**, after step 2),
-   or **NOT NOW**.
+   or **NOT NOW**. While Windows still plays or records on the cable, **SET MY DEFAULTS** at the
+   bottom puts your real speakers and microphone back (step 2).
 4. **PROGRAMS**: pick the programs playing sound now that you want on the desk.
 5. Click **BUILD THE MIX**. **DONE** lists what was made.
 6. Click **OPEN THE MIXER** to see it.
@@ -362,6 +368,12 @@ If the Windows device setting the clock is unplugged, switched off or stops work
 takes over by itself and a notice tells you which. A device that won't start (because another
 program holds it) is skipped until your devices change, then tried again. On the built-in clock, a
 playback device that's plugged in takes over from it.
+
+To choose the clock yourself, use **CLOCK** at the top of **DEVICES**: **THE INTERFACE (ASIO)** (the
+order above, the default), **A WINDOWS PLAYBACK DEVICE** by name, or **THE BUILT-IN CLOCK**. The
+choice takes effect when Faider starts again, and **RESTART NOW** does that straight away. Your mix
+comes with it and stays saved for your interface. When you choose the built-in clock, no device takes
+over from it.
 
 ## 5. The console
 
@@ -614,7 +626,8 @@ latency compensation.
   path's plugin on the combinator strip to open it.
 
 Every plugin is **tested first in a separate copy of the program**, so a plugin that crashes or
-hangs while loading can't take your mix down. The result is remembered until the plugin file
+hangs while loading can't take your mix down. It has 30 seconds to load (**PLUGIN TEST TIME** in
+SETTINGS > GENERAL gives slow plugins 60 or 120). The result is remembered until the plugin file
 changes.
 
 ### The plugin panel
@@ -759,7 +772,8 @@ The top bar's transport and the tape strip on the desk control the same deck.
 | **PATH** / **REVEAL** | Choose the folder / open it in Explorer |
 
 Recordings go to `Music\Faider Recordings` unless you pick a folder. ffmpeg formats record
-a WAV first and convert it when you stop (the WAV is kept if conversion fails). Recording stops by
+a WAV first and convert it when you stop (the WAV is kept if conversion fails). Faider uses the
+`ffmpeg.exe` picked in **SETTINGS > GENERAL > FFMPEG**, else the one on your PATH. Recording stops by
 itself when less than 1 GB is free.
 
 ### Instant replay
@@ -772,7 +786,8 @@ replay uses the first output.
 
 ## 13. Devices
 
-**DEVICES** lists every Windows audio device and ASIO driver.
+**DEVICES** lists every Windows audio device and ASIO driver. **CLOCK** at the top shows what sets the
+clock now, and its key chooses it (see [Clocking](#clocking)).
 
 | Column | |
 |---|---|
@@ -868,6 +883,9 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
 | **CHANNEL METER POINT** | **IN** (raw source), **PRE** (after effects), **POST** (after the fader, default). The sidebar's **METER** cards set the same |
+| **RECORDING** | **FFMPEG**: where `ffmpeg.exe` is, or **NOT FOUND**. Click it to pick `ffmpeg.exe` (used before the one on your PATH); once one is picked, it also offers to go back to the PATH's |
+| **PLUGIN TEST TIME** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
+| **UPDATES** | **CHECK FOR UPDATES** (on by default): half a minute after start, at most once a day, Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or the key here opens its page. Switch it off and Faider never asks. **CHECK NOW** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
 | **ABOUT** | Version and credits |
 
 ### LOOKS
@@ -929,7 +947,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | Card | |
 |---|---|
 | **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, where each MIDI input is switched on or off |
-| **OSC** | **OSC ON (PORT 9000)**, for programs on this PC |
+| **OSC** | **OSC ON (PORT 9000)**, for programs on this PC. **PORT...** sets the port (1024–65535); if OSC is on, it moves there at once |
 
 ---
 
@@ -938,10 +956,10 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
-| **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
+| **OSC** | Programs on this PC can send to port 9000, or the port set with **PORT...** in SETTINGS > CONTROL (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
-| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Start with Windows, About, Quit. The icon flashes amber during an alert |
+| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
 administrator window. It restarts itself with ordinary rights, because the in-game overlay can't
@@ -1035,6 +1053,7 @@ up if something is wrong. Each row has a light, the finding and a fix:
 | **MIC CABLE** | No VB-CABLE: apps can't hear your mix as a mic | **GET VB-CABLE** |
 | **MIC OUTPUT** | No output plays into the mic cable | **ROUTING** |
 | **MIC CHANNELS** | Something on the way to the mic is cut | **UNCUT** |
+| **WINDOWS DEFAULTS** | Windows' default speaker or mic (or its default for calls) is the virtual cable | **SET MY DEFAULTS** |
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
 
 **ZERO THE DESK** (bottom left; also **ZERO DESK** in FIND) checks what a last session can leave
@@ -1072,11 +1091,13 @@ Work along the signal path:
 - **INTERFACE DOWN** on the tray: the interface reset itself and wouldn't reopen. Change its buffer
   size on DEVICES or restart Faider.
 - Rate or buffer changes made in the interface's own control panel are picked up by themselves.
-- To run without the interface for a while, start Faider with
-  `"C:\Program Files\Faider\Faider.exe" --clock windows` (your Windows playback
+- To run without the interface for a while, choose a Windows playback device or the built-in clock
+  in **DEVICES > CLOCK** and click **RESTART NOW**. Your mix comes with it and stays saved for your
+  interface: choosing **THE INTERFACE (ASIO)** again goes back to it.
+- Or start Faider with `"C:\Program Files\Faider\Faider.exe" --clock windows` (your Windows playback
   device) or `--clock builtin` (the built-in clock). `--clock` with part of an ASIO driver's name
-  (`--clock focusrite`) picks that driver. Your mix comes with it and stays saved for your
-  interface: the next normal start goes back to it.
+  (`--clock focusrite`) picks that driver. It wins over DEVICES > CLOCK for that run, and the next
+  start without it goes back to your choice.
 
 ### 18.5 Clicks, crackles or dropouts
 
@@ -1099,7 +1120,8 @@ Work along the signal path:
   to an output on that same device, you hear it directly and through Faider. Switch that route off
   (in SIMPLE, the output's key on the channel), or move the program to another device. PRE-FLIGHT
   warns about this.
-- Windows' default speaker is set to the virtual cable. PRE-FLIGHT > **HEARD ONCE** names it.
+- Windows' default speaker is set to the virtual cable. PRE-FLIGHT > **WINDOWS DEFAULTS** names it,
+  and **SET MY DEFAULTS** puts your speakers back.
 
 ### 18.8 A route won't switch on
 
@@ -1119,13 +1141,19 @@ channels.
 ### 18.11 A plugin won't load
 
 Each plugin is tested in a separate copy of the program first, and the reason for a failure is
-reported: it didn't finish loading in 30 s, it crashed while being tested, or there's no VST3
-plugin in the file. Update or reinstall the plugin. Once its file changes, it's tested again.
+reported: it didn't finish loading in time (30 s, unless **PLUGIN TEST TIME** in SETTINGS > GENERAL
+gives it 60 or 120), it crashed while being tested, or there's no VST3 plugin in the file. Update or
+reinstall the plugin. Once its file changes, it's tested again.
 
 ### 18.12 The program crashed
 
 A report is written to `%APPDATA%\Faider\crash.log`, with a minidump `crash.dmp`. Your mix
 is saved within a second of any change, so you lose at most the last moment's changes.
+
+To report a problem, right-click the tray icon > **Save a problem report...** (or **SAVE A PROBLEM
+REPORT** in FIND). It puts the crash report, the event log and the status snapshot (those that
+exist), with Faider's and Windows' versions, in one .zip where you choose (the desktop to start),
+then shows it in Explorer. Nothing is sent anywhere: attach the file yourself.
 
 ### 18.13 Recording stopped by itself
 
@@ -1134,9 +1162,10 @@ The tray shows **RECORDING STOPPED, NO ROOM**. Free some space or choose another
 
 ### 18.14 No sound from Windows after installing VB-CABLE
 
-Windows has made the cable its default device. Set your headphones or speakers as the default
-output again, and your real microphone as the default input, both in **Settings > System > Sound**
-and as the default communication devices. See [Step 2](#step-2-install-vb-cable-optional).
+Windows has made the cable its default device. **SET MY DEFAULTS** (PRE-FLIGHT's **WINDOWS
+DEFAULTS** row, or **WINDOWS DEFAULTS** in FIND) sets your headphones or speakers as the default
+output again, and your real microphone as the default input, each for calls too. Or do it in
+**Settings > System > Sound**. See [Step 2](#step-2-install-vb-cable-optional).
 
 ---
 
@@ -1163,6 +1192,7 @@ and as the default communication devices. See [Step 2](#step-2-install-vb-cable-
 |---|---|
 | `--minimised` | Start in the tray |
 | `--quit` | Quit the running copy |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over DEVICES > CLOCK (see [Clocking](#clocking)) |
 
 ### 19.3 Files
 

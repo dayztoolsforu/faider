@@ -600,14 +600,13 @@ public:
         return m != nullptr && m->masterChain != nullptr ? m->masterChain->busReduction.load() : -4.0f;
     }
 
-    bool meterIn = false;   // METER IN: the strips' meters read what comes in, before the processing
+    // (a strip's meter reads where the engine's meter point says: AudioEngine::meterPoint)
     float levelDb (int ch, int side) const
     {
         if (auto* m = master (ch))
             return juce::Decibels::gainToDecibels (side == 0 ? m->peakL.load() : m->peakR.load(), -100.0f);
         if (auto* s = strip (ch))
-            return juce::Decibels::gainToDecibels (meterIn ? (side == 0 ? s->sourcePeakL.load() : s->sourcePeakR.load())
-                                                           : (side == 0 ? s->peakL.load() : s->peakR.load()), -100.0f);
+            return juce::Decibels::gainToDecibels (side == 0 ? s->peakL.load() : s->peakR.load(), -100.0f);
         return side == 0 ? -12.0f : -15.0f;
     }
 
@@ -1478,7 +1477,8 @@ private:
         {
             autoSelect = xml->getBoolAttribute ("autoSelect", true);
             followSelect = xml->getBoolAttribute ("followSelect", true);
-            bind.meterIn = xml->getBoolAttribute ("meterIn", false);
+            // (the meterIn earlier versions kept is ignored: METER is the engine's meter point now,
+            // saved with the settings, and the next save leaves it out)
             for (auto* e : xml->getChildWithTagNameIterator ("Spacer"))
                 spacers.push_back ({ e->getStringAttribute ("after"), e->getBoolAttribute ("narrow") });
             // (the <Strip> entries earlier versions kept, each strip's Light or Dark type, are ignored:
@@ -1490,7 +1490,6 @@ private:
         juce::XmlElement xml ("Console");
         xml.setAttribute ("autoSelect", autoSelect);
         xml.setAttribute ("followSelect", followSelect);
-        xml.setAttribute ("meterIn", bind.meterIn);
         for (auto& sp : spacers)
         {
             auto* e = xml.createNewChildElement ("Spacer");
@@ -1993,12 +1992,11 @@ public:
     float deskRight() const { return deskWidth; }
     Binding& binding() { return bind; }
 
-    // THE SIDEBAR's SELECT and METER cards (kept in console.xml), and its SECTIONS.
+    // THE SIDEBAR's SELECT cards (kept in console.xml), and its SECTIONS. (Its METER cards are the
+    // engine's meter point, SETTINGS' CHANNEL METER POINT: AudioEngine::meterPoint.)
     bool autoSelect = true, followSelect = true;
     void setAutoSelect (bool on) { autoSelect = on; saveSpacers(); }
     void setFollowSelect (bool on) { followSelect = on; saveSpacers(); followFaider(); }
-    bool meterIn() const { return bind.meterIn; }
-    void setMeterIn (bool on) { bind.meterIn = on; saveSpacers(); repaint(); }
     int sectionCount() const { return (int) layout.sections.size(); }
     juce::String sectionName (int i) const { return layout.sections[(size_t) i].name.toUpperCase(); }
     juce::Range<float> sectionSpan (int i) const
@@ -3935,9 +3933,9 @@ namespace ConsoleDesk
             heading (g, "SELECT", selectTitle());
             pill (g, pairArea (selectTitle(), 0), "AUTO", b.autoSelect, hovered == 110, pushed == 110);
             pill (g, pairArea (selectTitle(), 1), "FOLLOW", b.followSelect, hovered == 111, pushed == 111);
-            heading (g, "METER", meterTitle());
-            pill (g, pairArea (meterTitle(), 0), "IN", b.meterIn(), hovered == 120, pushed == 120);
-            pill (g, pairArea (meterTitle(), 1), "OUT", ! b.meterIn(), hovered == 121, pushed == 121);
+            heading (g, "METER", meterTitle());   // (SETTINGS' CHANNEL METER POINT: the source, before the fader, after it)
+            for (int i = 0; i < 3; ++i)
+                pill (g, tripleArea (meterTitle(), i), i == 0 ? "IN" : i == 1 ? "PRE" : "POST", AudioEngine::meterPoint.load() == i, hovered == 120 + i, pushed == 120 + i);
             heading (g, "SECTIONS", sectionsTitle());
             for (int i = 0; i < b.sectionCount(); ++i)
                 sectionRow (g, sectionArea (i), b.sectionName (i), (visibleSections() >> i) & 1, hovered == 200 + i);
@@ -3973,8 +3971,8 @@ namespace ConsoleDesk
                 view->bench->setAutoSelect (! view->bench->autoSelect);
             else if (i == 111 && view != nullptr)
                 view->bench->setFollowSelect (! view->bench->followSelect);
-            else if ((i == 120 || i == 121) && view != nullptr)
-                view->bench->setMeterIn (i == 120);
+            else if (i >= 120 && i <= 122)
+                AudioEngine::meterPoint = i - 120;   // (MainComponent saves it with the settings)
             else if (i >= 200 && view != nullptr)   // a section: the view glides to it
                 view->bench->glideTo (-1.0f, view->bench->sectionSpan (i - 200).getStart() - 40.0f);
             repaint();
@@ -3996,10 +3994,9 @@ namespace ConsoleDesk
             if (onMixer() && view != nullptr && ! simpleNow())
             {
                 for (int i = 0; i < 2; ++i)
-                {
                     if (pairArea (selectTitle(), i).contains (p)) return 110 + i;
-                    if (pairArea (meterTitle(), i).contains (p))  return 120 + i;
-                }
+                for (int i = 0; i < 3; ++i)
+                    if (tripleArea (meterTitle(), i).contains (p)) return 120 + i;
                 for (int i = 0; i < view->bench->sectionCount(); ++i)
                     if (sectionArea (i).contains (p))
                         return 200 + i;
@@ -4013,6 +4010,11 @@ namespace ConsoleDesk
         juce::Rectangle<int> pairArea (juce::Rectangle<int> title, int i) const
         {
             const int w = (getWidth() - 20) / 2;
+            return { 8 + i * (w + 4), title.getBottom() + 6, w, 30 };
+        }
+        juce::Rectangle<int> tripleArea (juce::Rectangle<int> title, int i) const   // (as pairArea, three across)
+        {
+            const int w = (getWidth() - 24) / 3;
             return { 8 + i * (w + 4), title.getBottom() + 6, w, 30 };
         }
         juce::Rectangle<int> meterTitle() const { return titleBelow (pairArea (selectTitle(), 0)); }
@@ -4179,12 +4181,17 @@ namespace ConsoleDesk
                 shownSimple = simpleNow();
                 repaint();
             }
+            if (const int now = AudioEngine::meterPoint.load(); now != shownMeter)   // (changed in SETTINGS too)
+            {
+                shownMeter = now;
+                repaint();
+            }
         }
 
         juce::TabbedComponent& tabs;
         View* view;
         bool shownSimple = false;
-        int hovered = -1, pushed = -1, shown = -1, shownSections = -1;
+        int hovered = -1, pushed = -1, shown = -1, shownSections = -1, shownMeter = -1;
     };
 
     std::unique_ptr<juce::Component> makeSidebar (juce::TabbedComponent& tabs, juce::Component& console)

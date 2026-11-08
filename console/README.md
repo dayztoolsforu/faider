@@ -22,7 +22,7 @@ The sidebar down the left shows the pages as cards: **MIXER**, **ROUTING**, **TO
 | **ADD BUS** | A new bus |
 | **PLUGINS** | The selected strip's plugins, in a panel under the strips |
 | **SELECT** | **AUTO**: touching a strip selects it. **FOLLOW**: the view follows the selection, also when it's made elsewhere |
-| **METER** | **IN** or **OUT**: the strips' meters before or after the processing |
+| **METER** | **IN**, **PRE** or **POST**: where the strips' meters read (the engine's meter point, as SETTINGS' CHANNEL METER POINT) |
 | **SECTIONS** | The strip's sections, lit while in view. Click one to go to it |
 
 The top bar has the time display and the Tape deck's transport: rewind, stop, play / pause, wind

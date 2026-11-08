@@ -240,7 +240,7 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 | | **PLUGINS** | Slides the plugin panel up under the strips (see [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Touching any control on a strip selects that strip |
 | | **FOLLOW** | The desk glides to the selected strip, also when it's chosen elsewhere (FIND, a hotkey) |
-| **METER** | **IN** / **OUT** | The channel meters show the signal coming in (before processing) or going out |
+| **METER** | **IN** / **PRE** / **POST** | Where the channel meters read: the source as it comes in (before processing), after the effects (before the fader), or after the fader. The same setting as **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | The sections of the strip. Lit ones are on screen. Click one to glide to it |
 
 The SELECT and METER choices are remembered.
@@ -441,7 +441,7 @@ spacer**. A spacer stays with the strip it follows when that strip moves.
 
 | Control | What it does |
 |---|---|
-| **Level bars** | The channel's level, left and right (IN or OUT, as chosen under METER) |
+| **Level bars** | The channel's level, left and right (IN, PRE or POST, as chosen under METER) |
 | **FILT** | Sends the filters into the gate/compressor's detector (key filtering) |
 | **EQ** | The EQ in or out |
 | **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself |
@@ -857,7 +857,7 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **NOTICES (IN THE CORNER)** | Devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
-| **CHANNEL METER POINT** | **PRE HPF** (raw source), **PRE FADER** (after effects), **POST ON** (after the fader, default) |
+| **CHANNEL METER POINT** | **PRE HPF** (raw source), **PRE FADER** (after effects), **POST ON** (after the fader, default). The sidebar's **METER** cards (IN / PRE / POST) set the same |
 | **ABOUT** | Version and credits |
 
 ### LOOKS
@@ -1163,7 +1163,7 @@ In `%APPDATA%\Faider`:
 | `session-unloaded-*.xml` | Mixes set aside at start |
 | `settings.xml` | Preferences |
 | `looks\` | The looks: one JSON file each (see [Looks](#looks)) |
-| `console.xml` | Spacers, SELECT and METER choices |
+| `console.xml` | Spacers and SELECT choices |
 | `plugins.xml` | The plugins found and how each one tested |
 | `events.log` | Everything that happened (rotates at 5 MB) |
 | `status.txt` | A snapshot of the engine every few seconds: devices, levels, buffers, drift |

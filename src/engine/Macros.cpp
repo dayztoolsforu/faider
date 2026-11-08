@@ -423,9 +423,9 @@ juce::String Macros::actionName (Action a)
 {
     switch (a)
     {
-        case Action::muteOn:        return "MUTE ON";
-        case Action::muteOff:       return "MUTE OFF";
-        case Action::muteToggle:    return "MUTE TOGGLE";
+        case Action::muteOn:        return "CUT";
+        case Action::muteOff:       return "UNCUT";
+        case Action::muteToggle:    return "CUT TOGGLE";
         case Action::level:         return "SET FADER";
         case Action::sendOn:        return "ASSIGN ON";
         case Action::sendOff:       return "ASSIGN OFF";

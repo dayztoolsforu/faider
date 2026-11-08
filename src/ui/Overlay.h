@@ -5,7 +5,7 @@
 #include "Console.h"
 
 // The in-game overlay: a small panel that stays on top of everything (a game in a borderless
-// window, a browser), showing each mic channel's state (LIVE or MUTED, a light while you talk,
+// window, a browser), showing each mic channel's state (LIVE or CUT, a light while you talk,
 // its level) and the scenes as keys. It never takes the keyboard from the game: clicking it
 // doesn't activate it (Windows' "no activate" style). Drag it anywhere; Ctrl+Shift+O (or the
 // command palette) shows and hides it.
@@ -62,7 +62,7 @@ public:
             const float level = juce::jmax (s->sourcePeakL.load(), s->sourcePeakR.load());
             const bool talking = level > juce::Decibels::decibelsToGain (-40.0f);
 
-            // Talking light, the name, LIVE / MUTED, and the level.
+            // Talking light, the name, LIVE / CUT, and the level.
             Console::drawLED (g, { (float) row.getX() + 6.0f, (float) row.getCentreY() }, 5.0f,
                               live ? Console::Colours::selected() : Console::Colours::danger(), talking ? 1.0f : 0.15f);
             row.removeFromLeft (16);
@@ -71,7 +71,7 @@ public:
             g.fillRoundedRectangle (state.toFloat(), 3.0f);
             g.setColour (juce::Colours::black);
             g.setFont (Console::legendFont (Console::Type::legend));
-            g.drawText (live ? "LIVE" : "MUTED", state, juce::Justification::centred);
+            g.drawText (live ? "LIVE" : "CUT", state, juce::Justification::centred);
             row.removeFromRight (Console::Space::gap);
             auto meter = row.removeFromBottom (4);
             g.setColour (Console::Colours::legend());

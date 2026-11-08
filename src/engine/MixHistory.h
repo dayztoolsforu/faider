@@ -76,7 +76,7 @@ private:
             juce::StringArray here;
             if (std::abs (juce::Decibels::gainToDecibels (x.gain, -100.0f) - juce::Decibels::gainToDecibels (y->gain, -100.0f)) > 0.05f) here.add ("fader");
             if (std::abs (x.pan - y->pan) > 0.005f) here.add ("pan");
-            if (x.mute != y->mute) here.add (y->mute ? "mute" : "unmute");
+            if (x.mute != y->mute) here.add (y->mute ? "cut" : "uncut");
             if (x.solo != y->solo) here.add ("solo");
             if (x.on != y->on) here.add (y->on ? "on" : "off");
             if (x.insertsOn != y->insertsOn) here.add ("inserts");

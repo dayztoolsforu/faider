@@ -146,7 +146,7 @@ private:
         juce::PopupMenu menu;
         menu.addSectionHeader (scene.name);
         // Recall parts (the console's): only the mutes, or only the levels.
-        menu.addItem ("Recall mutes only", [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::mutes); refreshLit(); });
+        menu.addItem ("Recall cuts only", [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::mutes); refreshLit(); });
         menu.addItem ("Recall levels only", [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::levels); refreshLit(); });
         menu.addSeparator();
         menu.addItem ("Store to " + scene.name, [this, i]

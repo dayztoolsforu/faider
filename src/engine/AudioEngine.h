@@ -47,8 +47,8 @@ public:
     // playback/recording device. Follows changes (including SteamVR switching it to the headset).
     static inline const juce::String windowsDefault { "<default>" };
 
-    // Where the inputs' meters read, as a desk's metering point: 0 PRE HPF (the source as read),
-    // 1 PRE FADER (after the processing), 2 POST ON (after the fader, pan and ON).
+    // Where the inputs' meters read, as a desk's metering point: 0 IN (the source as read),
+    // 1 PRE (after the processing), 2 POST (after the fader, pan and CUT).
     static inline std::atomic<int> meterPoint { 2 };
 
     struct Secondary;

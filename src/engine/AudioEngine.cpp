@@ -2923,7 +2923,7 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
     updatePeak (s.sourcePeakR, buf.getMagnitude (1, 0, numSamples), meterRelease);
     s.sourceLevels.process (buf, numSamples, s.source.stereo, interfaceRate);
     const int point = meterPoint.load();
-    if (point == 0)   // PRE HPF: the channel's meter reads the source as it comes in
+    if (point == 0)   // IN: the channel's meter reads the source as it comes in
     {
         updatePeak (s.peakL, buf.getMagnitude (0, 0, numSamples), meterRelease);
         updatePeak (s.peakR, buf.getMagnitude (1, 0, numSamples), meterRelease);
@@ -3090,7 +3090,7 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
         }
     }
 
-    if (point == 2)   // POST ON
+    if (point == 2)   // POST
     {
         updatePeak (s.peakL, buf.getMagnitude (0, 0, numSamples), meterRelease);
         updatePeak (s.peakR, buf.getMagnitude (1, 0, numSamples), meterRelease);

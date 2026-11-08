@@ -1726,7 +1726,7 @@ private:
         for (int p = 0; p < (int) bus->paths.size(); ++p)
         {
             auto& path = *bus->paths[(size_t) p];
-            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, "PATH " + juce::String (p + 1) + (path.name.isNotEmpty() ? ": " + path.name.toUpperCase() : juce::String()) + (path.mute.load() ? "  (MUTED)" : ""), 0 });
+            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, "PATH " + juce::String (p + 1) + (path.name.isNotEmpty() ? ": " + path.name.toUpperCase() : juce::String()) + (path.mute.load() ? "  (CUT)" : ""), 0 });
             y += rowH + gap;
             std::vector<std::pair<juce::String, std::pair<int, juce::AudioPluginInstance*>>> from, plugins;
             auto feeds = [busIndex, p] (const AudioEngine::Strip& s)

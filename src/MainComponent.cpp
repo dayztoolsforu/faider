@@ -415,7 +415,7 @@ void MainComponent::makeSettings()
     general.toggle ("START WITH WINDOWS", juce::String ("Open ") + Product::name + " (in the tray) when you sign in",
                     [] { return StartWithWindows::isOn(); }, [] (bool on) { StartWithWindows::set (on); });
     general.heading ("DESK");
-    general.toggle ("WARN IF I TALK WHILE MUTED", "A notice when you speak into a muted mic",
+    general.toggle ("WARN IF I TALK WHILE CUT", "A notice when you speak into a cut mic",
                     [this] { return warnMutedTalk; }, [this, remember] (bool on) { warnMutedTalk = on; remember ("warnMutedTalk", on); });
     general.heading ("APPS");
     general.action ("APP RULES...", "Which bus or output an app goes to when it starts playing", [this]
@@ -429,7 +429,7 @@ void MainComponent::makeSettings()
         showSessions (juce::PopupMenu::Options().withMousePosition());
     });
     general.heading ("ON START");
-    general.toggle ("PRE-FLIGHT: CHECK THE SETUP", juce::String ("A few seconds after ") + Product::name + " starts: the audio, the mic cable and route, muted mics (shown only if something's wrong)",
+    general.toggle ("PRE-FLIGHT: CHECK THE SETUP", juce::String ("A few seconds after ") + Product::name + " starts: the audio, the mic cable and route, cut mics (shown only if something's wrong)",
                     [this] { return settings.getBoolValue ("preflightOnStart", true); },
                     [remember] (bool on) { remember ("preflightOnStart", on); });
     general.action ("PRE-FLIGHT NOW...", "Check the setup now", [this] { showPreflight (false); });
@@ -477,7 +477,7 @@ void MainComponent::makeSettings()
         general.choice (names, [] { return Metering::currentStandard.load(); }, [] (int i) { Metering::currentStandard = i; });
     }
     general.heading ("CHANNEL METER POINT");
-    general.choice ({ "PRE HPF  (RAW SOURCE)", "PRE FADER  (AFTER EFFECTS)", "POST ON  (AFTER THE FADER)" },
+    general.choice ({ "IN  (RAW SOURCE)", "PRE  (AFTER EFFECTS)", "POST  (AFTER THE FADER)" },
                     [] { return AudioEngine::meterPoint.load(); }, [] (int i) { AudioEngine::meterPoint = i; });
     general.heading ("ABOUT");
     general.action (juce::String ("ABOUT ") + Product::nameUpper + "...", "Version and credits", [] { AboutBox::show(); });
@@ -521,7 +521,7 @@ void MainComponent::makeSettings()
         list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "UNDO HISTORY", "ctrl + H", nullptr });
         list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "SELECT THE CHANNEL LEFT / RIGHT", "left / right", nullptr });
-        list.push_back ({ "ON THE MIXER (FIXED)", "MUTE / SOLO THE SELECTED CHANNEL", "M  /  S", nullptr });
+        list.push_back ({ "ON THE MIXER (FIXED)", "CUT / SOLO THE SELECTED CHANNEL", "M  /  S", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "ITS FADER UP / DOWN 0.5 DB (SHIFT: 3 DB)", "up / down", nullptr });
         return list;
     });
@@ -575,7 +575,7 @@ void MainComponent::openCommandPalette()
                     return x.get();
             return nullptr;
         };
-        add ((s.mute.load() ? "UNMUTE " : "MUTE ") + name, detail, [this, strip] { if (auto* x = strip()) { x->mute = ! x->mute.load(); } });
+        add ((s.mute.load() ? "UNCUT " : "CUT ") + name, detail, [this, strip] { if (auto* x = strip()) { x->mute = ! x->mute.load(); } });
         add ("SELECT " + name, detail, [this, key] { tabs.setCurrentTabIndex (0); ConsoleDesk::select (*consoleDesk, key, false); });
         add ("PLUGINS: " + name, detail + " plugins", [this, key] { tabs.setCurrentTabIndex (0); ConsoleDesk::select (*consoleDesk, key, true); });
     };
@@ -584,11 +584,11 @@ void MainComponent::openCommandPalette()
     for (int i = 0; i < (int) engine.getMasters().size(); ++i)
     {
         auto& b = *engine.getMasters()[(size_t) i];
-        add ((b.mute.load() ? "UNMUTE " : "MUTE ") + b.name, "Output", [this, name = b.name]
+        add ((b.mute.load() ? "UNCUT " : "CUT ") + b.name, "Output", [this, name = b.name]
         {
             for (auto& x : engine.getMasters()) if (x->name == name) x->mute = ! x->mute.load();
         });
-        add ((b.monitor.load() ? "STOP MONITORING " : "MONITOR ") + b.name, "Master - hear it in headphones", [this, name = b.name]
+        add ((b.monitor.load() ? "STOP MONITORING " : "MONITOR ") + b.name, "Output - hear it in headphones", [this, name = b.name]
         {
             for (auto& x : engine.getMasters()) if (x->name == name) x->monitor = ! x->monitor.load();
         });
@@ -618,7 +618,7 @@ void MainComponent::openCommandPalette()
     add ("SAVE SESSION AS...", "Keep this mix under a name", [this] { saveSessionAs(); });
     add ("APP RULES", "Where each app goes when it starts playing", [this] { showAppRules (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("SESSIONS", "Open a saved mix, export or import one", [this] { showSessions (juce::PopupMenu::Options().withTargetComponent (findButton)); });
-    add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, muted mics, things heard twice", [this] { showPreflight (false); });
+    add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, cut mics, things heard twice", [this] { showPreflight (false); });
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
     add ("ZERO DESK", "Things left set: solos, DIM, the oscillator, key listen, gains far off", [this] { showZero(); });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
@@ -633,7 +633,7 @@ void MainComponent::openCommandPalette()
         tabs.setCurrentTabIndex (0);
         mixer->showAddInputMenu (juce::PopupMenu::Options().withTargetComponent (&findButton));
     });
-    add (warnMutedTalk ? "STOP WARNING WHEN I TALK MUTED" : "WARN WHEN I TALK MUTED", "Setting", [this]
+    add (warnMutedTalk ? "STOP WARNING WHEN I TALK WHILE CUT" : "WARN WHEN I TALK WHILE CUT", "Setting", [this]
     {
         warnMutedTalk = ! warnMutedTalk;
         settings.setValue ("warnMutedTalk", warnMutedTalk);
@@ -700,9 +700,9 @@ void MainComponent::watchMutedTalk()
         {
             lastMutedWarning = now;
             heard = 0;
-            logEvent ("mic: " + s->name + " is muted, but you're talking");
+            logEvent ("mic: " + s->name + " is cut, but you're talking");
             if (onNotify)
-                onNotify ("You're muted", s->name + " is muted. Press ON to be heard.");
+                onNotify ("Your mic is cut", s->name + " is CUT. Press its CUT again to be heard.");
         }
     }
 }
@@ -1908,8 +1908,8 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
                 muted.add (s->name);
                 mutedStrips.push_back (s.get());
             }
-    checks.push_back ({ "Mic channels", muted.isEmpty() ? "Nothing on the way to the mic is muted" : muted.joinIntoString (", ") + " muted: no one hears you",
-                        muted.isEmpty(), "UNMUTE", [this, names = muted]
+    checks.push_back ({ "Mic channels", muted.isEmpty() ? "Nothing on the way to the mic is cut" : muted.joinIntoString (", ") + " cut: no one hears you",
+                        muted.isEmpty(), "UNCUT", [this, names = muted]
                         {
                             for (auto& s : engine.getStrips())
                                 if (names.contains (s->name))

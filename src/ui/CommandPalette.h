@@ -17,7 +17,7 @@ class CommandPalette : public juce::Component,
 public:
     struct Command
     {
-        juce::String name;      // what it does: "MUTE MICROPHONE"
+        juce::String name;      // what it does: "CUT MICROPHONE"
         juce::String detail;    // what it is, dimmer: "Input"
         std::function<void()> run;
     };

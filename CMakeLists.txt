@@ -4,6 +4,10 @@ project(Faider VERSION 0.1.5 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Warnings as errors for Faider and its checks (CI turns it on; off by default, so a newer compiler's
+# new warning doesn't stop a local build).
+option(FAIDER_WARNINGS_AS_ERRORS "Treat compiler warnings as errors in Faider and its checks" OFF)
+
 include(FetchContent)
 
 FetchContent_Declare(juce
@@ -289,3 +293,11 @@ target_link_libraries(LookRenderTest
 
 # The application: Faider (console/README.md).
 add_subdirectory(console)
+
+if(MSVC AND FAIDER_WARNINGS_AS_ERRORS)
+    foreach(_target Faider FaiderTestDelay MeterTest PadsTest TapeTest NoiseReducerTest VoiceChainTest
+                    DefaultDeviceTest TriggerTest UpdateCheckTest AudioBoostTest WasapiProbe JuceWasapiProbe
+                    PluginScanTest RecorderTest SessionTest AppCaptureTest BuffersTest ThemeTest LookRenderTest)
+        target_compile_options(${_target} PRIVATE /WX)
+    endforeach()
+endif()

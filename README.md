@@ -139,7 +139,8 @@ cmake -S . -B build
 cmake --build build --config Release
 ```
 
-The first configure fetches JUCE. To build, install and start it in one step, run
+The first configure fetches JUCE. Add `-DFAIDER_WARNINGS_AS_ERRORS=ON` to the configure to make any
+compiler warning in Faider or its checks stop the build, as the checks on GitHub do. To build, install and start it in one step, run
 **`Restart Faider.cmd`**. It quits the running copy, builds, installs to
 `C:\Faider` and starts it. On the first install it also makes a desktop shortcut.
 

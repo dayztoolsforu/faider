@@ -50,9 +50,9 @@ jobs:
 
       # The program is built here, without the ASIO SDK (it is licensed separately and
       # is not redistributed): the build then runs on Windows devices only, which is
-      # enough to catch a broken build.
+      # enough to catch a broken build. A warning in Faider or a check fails the build here.
       - name: Configure
-        run: cmake -S . -B build -A x64
+        run: cmake -S . -B build -A x64 -DFAIDER_WARNINGS_AS_ERRORS=ON
 
       - name: Build the program
         run: cmake --build build --config Release --target Faider

@@ -789,6 +789,22 @@ replay uses the first output.
 **DEVICES** lists every Windows audio device and ASIO driver. **CLOCK** at the top shows what sets the
 clock now, and its key chooses it (see [Clocking](#clocking)).
 
+**WINDOWS AUDIO**, under it, shows the priority of Windows' audio engine (audiodg.exe, which carries
+every Windows device and captured app): **NORMAL** is Windows' default, **UNKNOWN** if it can't be
+read. Its key, **BOOST WINDOWS AUDIO** (**BOOSTED** while it's High), opens a menu:
+
+- **BOOST (HIGH PRIORITY)** raises it to High, which can stop crackling on Windows devices and captured
+  apps on some PCs. It needs administrator rights, so Windows asks first; saying no changes nothing.
+  It doesn't survive a restart of Windows audio or of the PC: Faider watches it, tells you once
+  from the tray when it's back at Normal, and **Boost Windows audio again...** on the tray menu (or
+  BOOST here, or **BOOST WINDOWS AUDIO** in FIND) boosts it again. Clicking BOOST while it's boosted
+  stops the watching; it stays High until Windows audio restarts.
+- **PIN TO ONE CORE** (off unless you choose it) also holds it to your last processor core, from the
+  next BOOST. It only restricts where it runs, never adds cores: use it only for crackle on a USB
+  headset.
+
+It doesn't affect ASIO interfaces, which don't go through Windows audio.
+
 | Column | |
 |---|---|
 | **I/O** | ASIO, OUT or IN |
@@ -1055,6 +1071,7 @@ up if something is wrong. Each row has a light, the finding and a fix:
 | **MIC CHANNELS** | Something on the way to the mic is cut | **UNCUT** |
 | **WINDOWS DEFAULTS** | Windows' default speaker or mic (or its default for calls) is the virtual cable | **SET MY DEFAULTS** |
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
+| **WINDOWS AUDIO** | Windows devices or captured apps are in the mix and Windows' audio engine is at Normal priority: yellow, a suggestion only; red if your boost was undone by a restart. Green when only ASIO is used | **BOOST** |
 
 **ZERO THE DESK** (bottom left; also **ZERO DESK** in FIND) checks what a last session can leave
 set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each has a **FIX**.
@@ -1107,6 +1124,11 @@ Work along the signal path:
 3. **UNDER / OVER** climbing on one device: that device is struggling. Try another USB port, close
    other programs using it, or exclude it if you don't use it.
 4. Steady **DRIFT** is normal. It's the correction that keeps clocks in step.
+5. Crackling only on Windows devices or captured apps: try **BOOST WINDOWS AUDIO** (DEVICES >
+   WINDOWS AUDIO, or FIND). It raises Windows' audio engine from Normal, Windows' default, to High.
+   Windows asks for administrator approval, and a restart of Windows audio or of the PC undoes it
+   (Faider tells you). It doesn't affect ASIO interfaces. For a USB headset that still crackles,
+   **PIN TO ONE CORE** is optional and only restricts it to one core.
 
 ### 18.6 An app doesn't appear in ADD APP
 
@@ -1193,6 +1215,7 @@ output again, and your real microphone as the default input, each for calls too.
 | `--minimised` | Start in the tray |
 | `--quit` | Quit the running copy |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over DEVICES > CLOCK (see [Clocking](#clocking)) |
+| `--boost-audiodg [--pin-core N]` | What **BOOST WINDOWS AUDIO** starts, as administrator: Windows' audio engine to High priority (pinned to core N only if given), then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused |
 
 ### 19.3 Files
 

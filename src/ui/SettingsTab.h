@@ -53,6 +53,15 @@ public:
         b.onClick = std::move (run);
     }
 
+    // An action whose key reads what `text` says now (read again with the rest).
+    void actionShowing (std::function<juce::String()> text, const juce::String& tip, std::function<void()> run)
+    {
+        auto& b = key (text(), tip);
+        b.setClickingTogglesState (false);
+        b.onClick = std::move (run);
+        refreshers.push_back ([&b, text] { if (const auto now = text(); now != b.getButtonText()) b.setButtonText (now); });
+    }
+
     // Done adding rows: sized to them.
     void finish()
     {

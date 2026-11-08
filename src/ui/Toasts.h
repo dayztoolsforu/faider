@@ -13,7 +13,7 @@ class Toasts : public juce::Component, private juce::Timer
 public:
     Toasts() { setInterceptsMouseClicks (false, true); }
 
-    // Kinds: "device", "clip", "scene", "macro", "undo", "tip" (a tip stays up longer, on two lines).
+    // Kinds: "device", "clip", "scene", "macro", "undo", "update", "tip" (a tip stays up longer, on two lines).
     std::function<bool (const juce::String& kind)> enabled;
 
     void show (const juce::String& kind, const juce::String& title, const juce::String& text = {})

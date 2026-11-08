@@ -397,6 +397,17 @@ MainComponent::MainComponent()
     muteWatch.tick = [this] { watchMutedTalk(); watchClipping(); };
     muteWatch.startTimerHz (10);
 
+    // CHECK FOR UPDATES: half a minute after start, at most once a day.
+    juce::Timer::callAfterDelay (30000, [safe = juce::Component::SafePointer<MainComponent> (this)]
+    {
+        if (safe == nullptr || ! safe->settings.getBoolValue ("checkForUpdates", true))
+            return;
+        const auto last = safe->settings.getValue ("lastUpdateCheck").getLargeIntValue();
+        const auto now = juce::Time::currentTimeMillis();
+        if (now - last >= 24LL * 60 * 60 * 1000 || now < last)
+            safe->checkForUpdates (false);
+    });
+
     makeSettings();
 }
 
@@ -480,6 +491,13 @@ void MainComponent::makeSettings()
     general.heading ("CHANNEL METER POINT");
     general.choice ({ "IN  (RAW SOURCE)", "PRE  (AFTER EFFECTS)", "POST  (AFTER THE FADER)" },
                     [] { return AudioEngine::meterPoint.load(); }, [] (int i) { AudioEngine::meterPoint = i; });
+    general.heading ("UPDATES");
+    general.toggle ("CHECK FOR UPDATES", "Once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else",
+                    [this] { return settings.getBoolValue ("checkForUpdates", true); },
+                    [remember] (bool on) { remember ("checkForUpdates", on); });
+    general.actionShowing ([this] { return newVersion.isNotEmpty() ? "GET " + juce::String (Product::nameUpper) + " " + newVersion + "..." : juce::String ("CHECK NOW"); },
+                           "Ask GitHub for the newest version now, or open the newer one's page",
+                           [this] { if (newVersion.isNotEmpty()) openRelease(); else checkForUpdates (true); });
     general.heading ("ABOUT");
     general.action (juce::String ("ABOUT ") + Product::nameUpper + "...", "Version and credits", [] { AboutBox::show(); });
     general.finish();
@@ -646,6 +664,9 @@ void MainComponent::openCommandPalette()
     add ("ZOOM OUT", "Ctrl -", [this] { stepZoom (-1); });
     add ("ZOOM 100%", "Ctrl 0", [this] { setZoom (1.0f); });
     add (juce::String ("ABOUT ") + Product::nameUpper, "Version, credits", [] { AboutBox::show(); });
+    add ("CHECK FOR UPDATES NOW", "Ask GitHub for the newest version (one request: the app's name and version)", [this] { checkForUpdates (true); });
+    if (newVersion.isNotEmpty())
+        add ("GET " + juce::String (Product::nameUpper) + " " + newVersion, "Open its release page", [this] { openRelease(); });
 
     palette = std::make_unique<CommandPalette> (std::move (commands), [this]
     {
@@ -1066,6 +1087,7 @@ MainComponent::~MainComponent()
     // First what's declared before `look` and the engine (so destroyed after them): nothing of
     // theirs may run once those are gone.
     muteWatch.stopTimer();
+    updates = nullptr;   // (a check still waiting is cancelled)
     palette = nullptr;
     engine.getScenes().onStructureChanged = nullptr;   // (it calls into the mixer)
 
@@ -1558,6 +1580,69 @@ juce::Array<juce::File> MainComponent::setAsideFiles() const
 void MainComponent::addSessionItems (juce::PopupMenu& menu)
 {
     menu.addItem ("Session timeline...", [this] { showTimeline (juce::PopupMenu::Options().withMousePosition()); });
+}
+
+void MainComponent::addUpdateItems (juce::PopupMenu& menu)
+{
+    if (newVersion.isNotEmpty())
+        menu.addItem ("Get " + juce::String (Product::name) + " " + newVersion + "...", [this] { openRelease(); });
+}
+
+// CHECK FOR UPDATES: the request on its own thread (UpdateCheck.h); the time is kept, so the
+// check on start comes at most once a day.
+void MainComponent::checkForUpdates (bool asked)
+{
+    if (updates == nullptr)
+        updates = std::make_unique<UpdateCheck::Checker>();
+    if (updates->isChecking())
+        return;
+    settings.setValue ("lastUpdateCheck", juce::String (juce::Time::currentTimeMillis()));
+    settings.saveIfNeeded();
+    updates->start (Product::name, JUCE_APPLICATION_VERSION_STRING, [safe = juce::Component::SafePointer<MainComponent> (this), asked] (UpdateCheck::Result r)
+    {
+        if (safe != nullptr)
+            safe->updateChecked (r, asked);
+    });
+}
+
+// What the check found: a failure is only logged (said too when it was asked for); a newer
+// version is noticed from the tray and offered on the tray menu, in FIND and in SETTINGS.
+void MainComponent::updateChecked (const UpdateCheck::Result& r, bool asked)
+{
+    const juce::String current (JUCE_APPLICATION_VERSION_STRING);
+    if (! r.ok)
+    {
+        logEvent ("update check: " + r.error);
+        if (asked)
+            toasts.show ("update", "Couldn't check for updates", r.error);
+        return;
+    }
+    if (! UpdateCheck::isNewer (r.version, current))
+    {
+        logEvent ("update check: " + current + " is the newest");
+        if (asked)
+            toasts.show ("update", "Up to date", juce::String (Product::name) + " " + current + " is the newest version");
+        return;
+    }
+    newVersion = r.version;
+    newVersionUrl = r.url;
+    const auto title = juce::String (Product::name) + " " + newVersion + " is out";
+    logEvent ("update check: " + title + " (" + newVersionUrl + ")");
+    if (onNotify)
+        onNotify (title, "You have " + current + ". Right-click the tray icon > Get " + Product::name + " " + newVersion + "...");
+    if (asked)
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, title.toUpperCase(), "You have " + current + ". Open its release page?",
+                                            "OPEN THE PAGE", "LATER", nullptr,
+                                            juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
+                                            { if (result == 1 && safe != nullptr) safe->openRelease(); }));
+    else
+        toasts.show ("update", title, "FIND: GET " + juce::String (Product::nameUpper) + " " + newVersion);
+}
+
+void MainComponent::openRelease()
+{
+    if (newVersionUrl.startsWith ("https://github.com/"))
+        juce::URL (newVersionUrl).launchInDefaultBrowser();
 }
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix

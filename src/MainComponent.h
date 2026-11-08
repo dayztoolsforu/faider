@@ -23,6 +23,7 @@
 #include "ui/HealthLight.h"
 #include "ui/Preflight.h"
 #include "ui/CommandPalette.h"
+#include "UpdateCheck.h"
 
 class MainComponent : public juce::Component,
                       private juce::ListBoxModel,
@@ -60,6 +61,9 @@ public:
 
     // A notice for when the window may be hidden (a game in front): the app shows it from the tray.
     std::function<void (const juce::String& title, const juce::String& text)> onNotify;
+
+    // A newer Faider found (CHECK FOR UPDATES), for the tray menu: "Get Faider 0.1.6...".
+    void addUpdateItems (juce::PopupMenu&);
 
 private:
     int getNumRows() override;
@@ -122,6 +126,13 @@ private:
     void checkAlerts();               // outputs' ALERTS, once a second
     void watchMutedTalk();            // a muted mic channel heard: say so (ten times a second)
     void openCommandPalette();        // Ctrl+K / FIND: everything Faider can do, by name
+    // CHECK FOR UPDATES (UpdateCheck.h): once a day a moment after start, or now (asked: says
+    // what it found, up to date too). A newer version is kept to offer its release page.
+    void checkForUpdates (bool asked);
+    void updateChecked (const UpdateCheck::Result&, bool asked);
+    void openRelease();
+    std::unique_ptr<UpdateCheck::Checker> updates;
+    juce::String newVersion, newVersionUrl;
     std::unique_ptr<CommandPalette> palette;
     struct Ticker : juce::Timer { std::function<void()> tick; void timerCallback() override { tick(); } };
     Ticker muteWatch;

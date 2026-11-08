@@ -147,6 +147,16 @@ target_link_libraries(TriggerTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# Update check: GitHub's answer read, without the network (see tests/UpdateCheckTest.cpp).
+juce_add_console_app(UpdateCheckTest PRODUCT_NAME "UpdateCheckTest")
+target_sources(UpdateCheckTest PRIVATE tests/UpdateCheckTest.cpp)
+target_compile_definitions(UpdateCheckTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_link_libraries(UpdateCheckTest
+    PRIVATE
+        juce::juce_events
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # Diagnostic: how Windows answers opening a playback device (see tests/WasapiProbe.cpp).
 add_executable(WasapiProbe tests/WasapiProbe.cpp)
 target_link_libraries(WasapiProbe PRIVATE ole32)

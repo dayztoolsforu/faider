@@ -501,7 +501,7 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
     const bool hpfOn = in (stageFilters) && filtersIn && flag ("hpfOn"), lpfOn = in (stageFilters) && filtersIn && flag ("lpfOn"), hpfSteep = flag ("hpfSteep") || flag ("eqClassic");   // (classic: its 1st-order section)
     const bool gateOn = in (stageGate) && flag ("gateOn"), compOn = in (stageComp) && flag ("compOn"), eqOn = in (stageEq) && flag ("eqOn");
     const bool previewing = previewDetectors.load();
-    const bool compPreview = previewing && in (stageComp) && ! flag ("compOn");
+    const bool compPreviewNow = previewing && in (stageComp) && ! flag ("compOn");
     const bool gatePreview = previewing && in (stageGate) && ! flag ("gateOn");
     const bool deessOn = in (stageDeess) && flag ("deessOn"), limitOn = in (stageLimit) && flag ("limitOn");
     const bool robotOn = flag ("robotOn"), echoOn = flag ("echoOn"), radioOn = flag ("radioOn"), pitchOn = flag ("pitchOn");
@@ -645,7 +645,7 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
         }
 
         mark (markGate, afterGate);
-        if (compPreview)   // (out: its detector still runs, so its LEDs show what it would do: set it before it goes in)
+        if (compPreviewNow)   // (out: its detector still runs, so its LEDs show what it would do: set it before it goes in)
         {
             const float level = compLevel (useKey ? keyed (keyHpComp, keyLpComp, false) : peak());
             compEnv += (level - compEnv) * (level > compEnv ? compAttack : compRelease);

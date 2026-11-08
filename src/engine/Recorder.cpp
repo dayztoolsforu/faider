@@ -66,11 +66,11 @@ juce::File Recorder::firstFile() const
     return multitracking.load() ? (tracks.empty() ? juce::File() : tracks.front()->file) : file;
 }
 
-double Recorder::secondsThatFit (const juce::String& formatId, double sampleRate, int tracks) const
+double Recorder::secondsThatFit (const juce::String& formatId, double sampleRate, int trackCount) const
 {
     const auto f = formatFor (formatId);
     const double perSecond = diskBytesPerSecond (f, sampleRate);
-    double seconds = (double) juce::jmax<juce::int64> (0, freeSpace() - diskReserve) / (perSecond * juce::jmax (1, tracks));
+    double seconds = (double) juce::jmax<juce::int64> (0, freeSpace() - diskReserve) / (perSecond * juce::jmax (1, trackCount));
     if (f.maxBytes > 0.0)
     {
         const double used = isRecording() ? (double) firstFile().getSize() : 0.0;
@@ -171,9 +171,9 @@ juce::File Recorder::start (Kind k, int index, const juce::String& sourceName, c
     }
 
     // FFmpeg formats: recorded as WAV, converted when it stops.
-    const auto chosen = formatFor (format);
-    const bool viaFFmpeg = chosen.codec.isNotEmpty();
-    auto target = into.getNonexistentChildFile (fileNameFor (sourceName), viaFFmpeg ? ".wav" : chosen.extension, false);
+    const auto picked = formatFor (format);
+    const bool viaFFmpeg = picked.codec.isNotEmpty();
+    auto target = into.getNonexistentChildFile (fileNameFor (sourceName), viaFFmpeg ? ".wav" : picked.extension, false);
     auto out = std::make_unique<juce::FileOutputStream> (target);
     if (! out->openedOk())
     {
@@ -182,15 +182,15 @@ juce::File Recorder::start (Kind k, int index, const juce::String& sourceName, c
     }
 
     std::unique_ptr<juce::OutputStream> stream (std::move (out));   // the writer takes it
-    auto w = createWriter (chosen.id, stream, sampleRate, error);
+    auto w = createWriter (picked.id, stream, sampleRate, error);
     if (w == nullptr)
     {
         stream = nullptr;
         target.deleteFile();
         return {};
     }
-    convertTo = viaFFmpeg ? target.withFileExtension (chosen.extension) : juce::File();
-    convertCodec = chosen.codec;
+    convertTo = viaFFmpeg ? target.withFileExtension (picked.extension) : juce::File();
+    convertCodec = picked.codec;
 
     // Two seconds of room between the audio thread and the disk.
     owned = std::make_unique<juce::AudioFormatWriter::ThreadedWriter> (w.release(), thread, (int) (sampleRate * 2.0));
@@ -211,48 +211,48 @@ juce::File Recorder::startMultitrack (const std::vector<TrackSource>& sources, c
 {
     stop (lock);
 
-    const auto folder = into.getNonexistentChildFile (fileNameFor ("MULTITRACK"), {}, false);
+    const auto takeFolder = into.getNonexistentChildFile (fileNameFor ("MULTITRACK"), {}, false);
     if (freeSpace() < diskReserve)
     {
         error = "Less than 1 GB is free on the drive of " + into.getFullPathName();
         return {};
     }
-    if (sources.empty() || ! folder.createDirectory())
+    if (sources.empty() || ! takeFolder.createDirectory())
     {
-        error = sources.empty() ? juce::String ("Nothing to record.") : "Can't make the folder " + folder.getFullPathName();
+        error = sources.empty() ? juce::String ("Nothing to record.") : "Can't make the takeFolder " + takeFolder.getFullPathName();
         return {};
     }
 
-    const auto chosen = formatFor (format);
-    const bool viaFFmpeg = chosen.codec.isNotEmpty();
-    convertCodec = chosen.codec;
+    const auto picked = formatFor (format);
+    const bool viaFFmpeg = picked.codec.isNotEmpty();
+    convertCodec = picked.codec;
     std::vector<std::unique_ptr<Track>> fresh;
     for (auto& s : sources)
     {
         const auto prefix = s.kind == Kind::input ? "IN " : s.kind == Kind::bus ? "BUS " : "OUT ";
-        auto target = folder.getNonexistentChildFile (juce::File::createLegalFileName (prefix + s.name).trim(), viaFFmpeg ? ".wav" : chosen.extension, false);
+        auto target = takeFolder.getNonexistentChildFile (juce::File::createLegalFileName (prefix + s.name).trim(), viaFFmpeg ? ".wav" : picked.extension, false);
         std::unique_ptr<juce::OutputStream> stream (target.createOutputStream().release());
-        auto w = stream != nullptr ? createWriter (chosen.id, stream, sampleRate, error) : nullptr;
+        auto w = stream != nullptr ? createWriter (picked.id, stream, sampleRate, error) : nullptr;
         if (w == nullptr)
         {
             if (error.isEmpty())
                 error = "Can't write " + target.getFullPathName();
             stream = nullptr;
             fresh.clear();   // closes the ones already made
-            folder.deleteRecursively();
+            takeFolder.deleteRecursively();
             return {};
         }
         auto t = std::make_unique<Track>();
         t->kind = s.kind;
         t->index = s.index;
         t->file = target;
-        t->convertTo = viaFFmpeg ? target.withFileExtension (chosen.extension) : juce::File();
+        t->convertTo = viaFFmpeg ? target.withFileExtension (picked.extension) : juce::File();
         t->writer = std::make_unique<juce::AudioFormatWriter::ThreadedWriter> (w.release(), thread, (int) (sampleRate * 2.0));
         fresh.push_back (std::move (t));
     }
 
     rate = sampleRate;
-    file = folder;
+    file = takeFolder;
     written = 0;
     dropped = 0;
     {
@@ -260,7 +260,7 @@ juce::File Recorder::startMultitrack (const std::vector<TrackSource>& sources, c
         std::swap (tracks, fresh);
         multitracking = true;
     }
-    return folder;
+    return takeFolder;
 }
 
 void Recorder::stopMultitrack (juce::SpinLock& lock)
@@ -396,14 +396,14 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
         error = "Can't make the folder " + folder.getFullPathName();
         return {};
     }
-    const auto chosen = formatFor (format);
-    const bool viaFFmpeg = chosen.codec.isNotEmpty();
+    const auto picked = formatFor (format);
+    const bool viaFFmpeg = picked.codec.isNotEmpty();
     // A name free as both the WAV and what FFmpeg makes of it (FFmpeg overwrites), taken now, so
     // a second replay saved in the same second gets a name of its own.
     const auto base = fileNameFor ("REPLAY " + sourceName);
-    const juce::String extension = viaFFmpeg ? ".wav" : chosen.extension;
+    const juce::String extension = viaFFmpeg ? ".wav" : picked.extension;
     auto target = folder.getChildFile (base + extension);
-    for (int n = 2; target.exists() || target.withFileExtension (chosen.extension).exists(); ++n)
+    for (int n = 2; target.exists() || target.withFileExtension (picked.extension).exists(); ++n)
         target = folder.getChildFile (base + " (" + juce::String (n) + ")" + extension);
     if (! target.create())
     {
@@ -413,14 +413,14 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
 
     // Written in the background, so a failure there can't be reported back to the press; the
     // empty or partial file is at least not left behind looking like a replay.
-    juce::Thread::launch ([audio, target, sampleRate = replayRate, chosen, viaFFmpeg]
+    juce::Thread::launch ([audio, target, sampleRate = replayRate, picked, viaFFmpeg]
     {
         bool wrote = false;
         {
             std::unique_ptr<juce::OutputStream> stream (target.createOutputStream().release());
             juce::String error;
             if (stream != nullptr)
-                if (auto w = createWriter (chosen.id, stream, sampleRate, error))
+                if (auto w = createWriter (picked.id, stream, sampleRate, error))
                     wrote = w->writeFromAudioSampleBuffer (*audio, 0, audio->getNumSamples());
         }   // closed here
         if (! wrote)
@@ -429,9 +429,9 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
             return;
         }
         if (viaFFmpeg)
-            convertWithFFmpeg (target, target.withFileExtension (chosen.extension), chosen.codec);
+            convertWithFFmpeg (target, target.withFileExtension (picked.extension), picked.codec);
     });
-    return viaFFmpeg ? target.withFileExtension (chosen.extension) : target;
+    return viaFFmpeg ? target.withFileExtension (picked.extension) : target;
 }
 
 void Recorder::beginBlock() noexcept

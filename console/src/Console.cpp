@@ -2,8 +2,8 @@
 // every part's place, in a 214-wide strip's pixels), redrawn whenever a file changes. Everything
 // is drawn in code (LargeFormat.h).
 //
-// Layout keys: Ctrl+Shift+O outlines every part (to check the layout), Ctrl+Shift+R
-// reloads; with no engine, 1-8 channels across. Knobs and faders drag, keys click.
+// Layout keys (Debug builds only: Ctrl+Shift+O is the overlay's key in Faider): Ctrl+Shift+O
+// outlines every part (to check the layout), Ctrl+Shift+R reloads; with no engine, 1-8 channels across. Knobs and faders drag, keys click.
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "../../src/ui/Theme.h"
@@ -1250,11 +1250,15 @@ public:
         }
         // The layout's own keys, for working on the strips' layout files: Ctrl+Shift+O outlines every
         // part, Ctrl+Shift+R reads the files again (they also reload by themselves when saved).
+        // Debug builds only: in a release, Ctrl+Shift+O belongs to the overlay.
         const auto c = k.getKeyCode();
+       #if JUCE_DEBUG
         const bool layoutKey = k.getModifiers().isCtrlDown() && k.getModifiers().isShiftDown();
         if (layoutKey && (c == 'O' || c == 'o')) outlines = ! outlines;
         else if (layoutKey && (c == 'R' || c == 'r')) reload();
-        else if (c >= '1' && c <= '8' && (engine == nullptr)) channels = c - '0';
+        else
+       #endif
+        if (c >= '1' && c <= '8' && (engine == nullptr)) channels = c - '0';
         else return false;
         resizeToFit();
         repaint();

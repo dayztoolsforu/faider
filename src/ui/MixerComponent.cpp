@@ -142,9 +142,10 @@ namespace
         for (auto& w : windows)
             if (w.isBrowser())
             {
-                heading (w.product + " tabs (whole browser)");
-                for (auto& t : w.tabs)
-                    item ((t.playing ? "[playing]  " : "") + shortTitle (t.title), w.product, { app, 0, w.exeName(), otherStereo });
+                // (the whole browser once: listing its tabs here read as a choice of tab, and every one
+                // captured all of them)
+                heading (w.product);
+                item (w.product + ": whole browser", w.product, { app, 0, w.exeName(), otherStereo });
 
                 heading ("Isolate a " + w.product + " tab");
                 for (auto& t : w.tabs)
@@ -165,10 +166,10 @@ namespace
 
         // Outputs aren't offered: a loopback is a MASTER strip (an output's LOOPBACK key), which
         // goes to devices only, never back into the mix.
+        // (the pads' and the tape deck's channels are made on their own pages, TOOLS > PADS / TAPE,
+        // which also say when one is there)
         heading ("Other");
         item ("Test tone", "Test tone", { AudioEngine::Source::tone, 0, {}, otherStereo });
-        item ("Pads", "PADS", { AudioEngine::Source::pads, 0, {}, true });
-        item ("Tape deck", "TAPE", { AudioEngine::Source::tape, 0, {}, true });
     }
 }
 //==============================================================================

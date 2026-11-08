@@ -234,7 +234,7 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 
 | Group | Card | What it does |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Opens the input menu: interface inputs, Windows devices, apps, program windows and browser tabs, pads, tape |
+| **DESK** | **ADD CHANNEL** | Opens the input menu: interface inputs, Windows devices, apps, program windows, a browser (whole, or one tab isolated), the test tone. Pads and tape get their channel from their own pages (**TOOLS**) |
 | | **ADD APP** | Lists the programs playing sound now. Pick one to give it a channel |
 | | **ADD BUS** | A bus, or a combinator (two paths to start) |
 | | **PLUGINS** | Slides the plugin panel up under the strips (see [9](#9-plugins)) |
@@ -918,7 +918,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 
 | Card | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); inputs and bindings; a switch per MIDI input |
+| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, where each MIDI input is switched on or off |
 | **OSC** | **OSC ON (PORT 9000)**, for programs on this PC |
 
 ---

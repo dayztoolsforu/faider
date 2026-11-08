@@ -2,7 +2,6 @@
 #include "ProductName.h"
 #include "Session.h"
 #include "ui/MixMinusBuilder.h"
-#include "ui/CompareView.h"
 #include "engine/AppCapture.h"
 #include "ui/WindowBackground.h"
 #include "ui/WindowSnap.h"
@@ -15,10 +14,9 @@
 
 namespace
 {
-    // The program's folder in %APPDATA% (moved from its earlier name's, the first time).
+    // The program's folder in %APPDATA% (Main.cpp has already moved it from its earlier name's).
     juce::File prepareDataDir()
     {
-        Product::moveEarlierFolder();
         const auto dir = Product::dataFolder();
         dir.createDirectory();
         return dir;
@@ -525,7 +523,6 @@ void MainComponent::makeSettings()
         list.push_back ({ "ON THE MIXER (FIXED)", "SELECT THE CHANNEL LEFT / RIGHT", "left / right", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "MUTE / SOLO THE SELECTED CHANNEL", "M  /  S", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "ITS FADER UP / DOWN 0.5 DB (SHIFT: 3 DB)", "up / down", nullptr });
-        list.push_back ({ "ON THE MIXER (FIXED)", "OPEN ITS RACK", "enter", nullptr });
         return list;
     });
 
@@ -624,17 +621,6 @@ void MainComponent::openCommandPalette()
     add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, muted mics, things heard twice", [this] { showPreflight (false); });
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
     add ("ZERO DESK", "Things left set: solos, DIM, the oscillator, key listen, gains far off", [this] { showZero(); });
-    add ("COMPARE MIXES", "Flip between saved mix versions (A / B / C) and see what each changes", [this]
-    {
-        juce::DialogWindow::LaunchOptions o;
-        o.content.setOwned (new CompareView (engine));
-        o.dialogTitle = "Compare mixes";
-        o.dialogBackgroundColour = Console::Colours::panel();
-        o.useNativeTitleBar = true;
-        o.resizable = false;
-        o.componentToCentreAround = this;
-        o.launchAsync();
-    });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
     add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The tray mixer's channels, on top of everything", [this] { toggleMini(); });
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
@@ -1120,15 +1106,12 @@ void MainComponent::createDefaultMix()
     else
         engine.addMaster ("Main", { defaultOut->name });
 
-    engine.addMaster ("VR Headset", { "Index HMD" });   // silent while the headset is off: no fallback
-
     if (! engine.getInterfaceInputNames().isEmpty())   // (a Windows device or the built-in clock has none)
         engine.addStrip ("Input 1", { AudioEngine::Source::interfaceInputs, 0, {}, false });   // no sends: avoids mic feedback
     engine.addStrip ("Windows input", { AudioEngine::Source::device, 0, AudioEngine::windowsDefault, true });
 
     auto& tone = engine.addStrip ("Test tone", { AudioEngine::Source::tone, 0, {} });
     tone.mute = true;
-    tone.sends[1] = true;   // VR Headset
 }
 
 void MainComponent::resized()

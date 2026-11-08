@@ -152,6 +152,12 @@ To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php)
 with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
 when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
+To sign them, set `FAIDER_SIGN_CERT` to a `.pfx` file (with `FAIDER_SIGN_PASSWORD` its password) or
+to the thumbprint of a certificate in your certificate store before running `tools\build-installer.ps1`.
+It signs `Faider.exe` before packing it, and Inno Setup signs the Setup.exe and its uninstaller, with
+`signtool` from the Windows SDK (SHA-256, timestamped by DigiCert). Without it the script says
+`not signed` and builds as before.
+
 The website is the `docs` folder, published by GitHub Pages. It is one page, `docs/index.html`, built
 from `tools/manual-page` (the home view), the manual and its translations, and CREDITS.md: after
 changing any of them, run `pip install markdown` once, then `python tools/manual-page/build.py`.

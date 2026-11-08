@@ -3,6 +3,10 @@
 # any build that's handed out: without it the app can't open ASIO interfaces).
 #
 #   powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1
+#
+# To sign, set FAIDER_SIGN_CERT to a .pfx file (and FAIDER_SIGN_PASSWORD to its password) or to a
+# certificate's thumbprint (one in your certificate store): Faider.exe is signed before it's packed,
+# and Setup.exe and the uninstaller inside it by Inno Setup, with signtool from the Windows SDK.
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
@@ -15,6 +19,22 @@ if (-not $cmake) { $cmake = 'C:\Program Files\CMake\bin\cmake.exe' }
 $iscc = @("$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") |
     Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $iscc) { throw 'Inno Setup 6 not found (winget install JRSoftware.InnoSetup)' }
+
+# Signing (optional): signtool's arguments for the certificate, the same for every file signed
+$signtool = $null
+if ($env:FAIDER_SIGN_CERT) {
+    $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" -ErrorAction SilentlyContinue |
+        Sort-Object { $v = $null; [void][version]::TryParse($_.Directory.Parent.Name, [ref]$v); $v } -Descending |
+        Select-Object -First 1 -ExpandProperty FullName
+    if (-not $signtool) { throw 'FAIDER_SIGN_CERT is set, but signtool.exe was not found (install the Windows SDK)' }
+    $signArgs = @('sign', '/fd', 'sha256', '/td', 'sha256', '/tr', 'http://timestamp.digicert.com')
+    if (Test-Path $env:FAIDER_SIGN_CERT -PathType Leaf) {
+        $signArgs += '/f', $env:FAIDER_SIGN_CERT
+        if ($env:FAIDER_SIGN_PASSWORD) { $signArgs += '/p', $env:FAIDER_SIGN_PASSWORD }
+    } else {
+        $signArgs += '/sha1', ($env:FAIDER_SIGN_CERT -replace '\s', '')   # (a thumbprint)
+    }
+}
 
 if (-not (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^ASIO_SDK_DIR:.*=.+' -Quiet)) {
     throw 'build\CMakeCache.txt has no ASIO_SDK_DIR: the app would be built without ASIO'
@@ -66,7 +86,25 @@ foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
 }
 $vc = (Get-Item (Join-Path $crt.FullName 'vcruntime140.dll')).VersionInfo.FileVersion
 
+# Inno Setup signs Setup.exe and the uninstaller with the same command (SignTool in Faider.iss):
+# each argument quoted ($q), a $ in one doubled, and $f for the file.
+$innoArgs = @()
+if ($signtool) {
+    Write-Host 'Signing Faider.exe...'
+    & $signtool @signArgs (Join-Path $source 'Faider.exe')
+    if ($LASTEXITCODE -ne 0) { throw 'Signing Faider.exe failed.' }
+    $command = ((@($signtool) + $signArgs) | ForEach-Object { '$q' + ($_ -replace '\$', '$$$$') + '$q' }) -join ' '
+    $innoArgs = @('/DSign', "/Sfaidersign=$command `$f")
+} else {
+    Write-Host 'not signed (set FAIDER_SIGN_CERT to sign)'
+}
+
 Write-Host "Packing $version (C++ runtime $vc)..."
-& $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DCRT=$($crt.FullName)" (Join-Path $root 'installer\Faider.iss')
+& $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DCRT=$($crt.FullName)" @innoArgs (Join-Path $root 'installer\Faider.iss')
 if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed.' }
-Get-Item (Join-Path $build "installer\Faider-$version-Setup.exe") | ForEach-Object { "{0}  {1:N1} MB" -f $_.FullName, ($_.Length / 1MB) }
+$setup = Join-Path $build "installer\Faider-$version-Setup.exe"
+if ($signtool) {
+    & $signtool verify /pa $setup
+    if ($LASTEXITCODE -ne 0) { throw 'Setup.exe is not signed.' }
+}
+Get-Item $setup | ForEach-Object { "{0}  {1:N1} MB" -f $_.FullName, ($_.Length / 1MB) }

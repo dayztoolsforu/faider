@@ -37,6 +37,11 @@ CloseApplications=yes
 LicenseFile=..\LICENSE
 ; (a log of every step in %TEMP%, "Setup Log <date>.txt": what it was doing if it stops)
 SetupLogging=yes
+#ifdef Sign
+; (Setup.exe and the uninstaller are signed: build-installer.ps1 passes the command, /Sfaidersign=...,
+; when FAIDER_SIGN_CERT is set)
+SignTool=faidersign
+#endif
 
 [Tasks]
 Name: desktopicon; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked

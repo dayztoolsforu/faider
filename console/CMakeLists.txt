@@ -70,5 +70,20 @@ if(MSVC)
     target_compile_options(Faider PRIVATE $<$<CONFIG:Release>:/Zi>)
     target_link_options(Faider PRIVATE $<$<CONFIG:Release>:/DEBUG:FULL /OPT:REF /OPT:ICF /PDBALTPATH:%_PDB%>)
 endif()
-add_custom_command(TARGET Faider POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/layout/mixer.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/master.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/app.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/pads.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/tape.json" "${CMAKE_CURRENT_SOURCE_DIR}/layout/combinator.json" "$<TARGET_FILE_DIR:Faider>")
+# The layout files (layout/*.json) go next to the exe. Each is copied again when it changes, without
+# Faider relinking; a file added to layout/ is picked up at the next build.
+get_target_property(_out Faider RUNTIME_OUTPUT_DIRECTORY)   # (Faider_artefacts/<config>)
+file(GLOB _layouts CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.json")
+set(_copied "")
+foreach(_layout IN LISTS _layouts)
+    get_filename_component(_name "${_layout}" NAME)
+    add_custom_command(OUTPUT "${_out}/${_name}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${_out}"
+        COMMAND ${CMAKE_COMMAND} -E copy "${_layout}" "${_out}/${_name}"
+        DEPENDS "${_layout}"
+        COMMENT "Copying layout/${_name}"
+        VERBATIM)
+    list(APPEND _copied "${_out}/${_name}")
+endforeach()
+add_custom_target(FaiderLayouts DEPENDS ${_copied})
+add_dependencies(Faider FaiderLayouts)

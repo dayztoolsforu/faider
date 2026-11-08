@@ -2,9 +2,15 @@
 // strip's name bar, body and rule the way the console does (console/src/Console.cpp), once under the
 // built-in look and once under a look file that changes a single colour. The pixels that must move
 // move, and the ones that must not, do not. Prints PASS/FAIL per check; exits non-zero on any failure.
+// The look files go in this target's own data folder (FAIDER_DATA_FOLDER="FaiderLookTest", in
+// %APPDATA%), never Faider's, and that folder is deleted at the end.
 #include <juce_gui_basics/juce_gui_basics.h>
+#include "../src/ProductName.h"
 #include "../src/ui/Theme.h"
 #include <iostream>
+#include <string_view>
+
+static_assert (std::string_view (FAIDER_DATA_FOLDER) != "Faider", "LookRenderTest must not write in Faider's own folder");
 
 namespace
 {
@@ -117,8 +123,8 @@ int main()
     }
 
     Theme::useLook ("Default");
-    for (auto* name : { "LookTest-Kind", "LookTest-Accent", "LookTest-Strip" })
-        Theme::looksFolder().getChildFile (juce::String (name) + ".json").deleteFile();
+    Product::dataFolder().deleteRecursively();   // (the test's own folder: nothing else is in it)
+    check (! Product::dataFolder().exists(), "the test's own folder is gone afterwards");
 
     std::cout << (failures == 0 ? "All passed.\n" : juce::String (failures) + " failed.\n");
     return failures;

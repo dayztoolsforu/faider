@@ -62,4 +62,4 @@ jobs:
       - name: Run the checks
         run: >-
           powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
-          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,SessionTest
+          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest

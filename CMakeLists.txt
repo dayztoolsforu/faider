@@ -189,7 +189,7 @@ target_link_libraries(JuceWasapiProbe
 # Plugin testing in a separate copy (see tests/PluginScanTest.cpp).
 juce_add_console_app(PluginScanTest PRODUCT_NAME "PluginScanTest")
 target_sources(PluginScanTest PRIVATE tests/PluginScanTest.cpp src/engine/PluginScan.cpp)
-target_compile_definitions(PluginScanTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1)
+target_compile_definitions(PluginScanTest PRIVATE FAIDER_DATA_FOLDER="FaiderPluginScanTest" JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_PLUGINHOST_VST3=1)
 target_link_libraries(PluginScanTest
     PRIVATE
         juce::juce_audio_processors
@@ -252,7 +252,7 @@ target_link_libraries(SessionTest
 # App capture as its program closes (see tests/AppCaptureTest.cpp).
 juce_add_console_app(AppCaptureTest PRODUCT_NAME "AppCaptureTest")
 target_sources(AppCaptureTest PRIVATE tests/AppCaptureTest.cpp src/engine/AppCapture.cpp src/engine/WindowDiscovery.cpp src/engine/DriftFifo.cpp)
-target_compile_definitions(AppCaptureTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_compile_definitions(AppCaptureTest PRIVATE FAIDER_DATA_FOLDER="FaiderAppCaptureTest" JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 target_link_libraries(AppCaptureTest
     PRIVATE
         juce::juce_audio_formats
@@ -274,7 +274,7 @@ target_link_libraries(BuffersTest
 # The look a theme file describes check (see tests/ThemeTest.cpp).
 juce_add_console_app(ThemeTest PRODUCT_NAME "ThemeTest")
 target_sources(ThemeTest PRIVATE tests/ThemeTest.cpp src/ui/Theme.cpp)
-target_compile_definitions(ThemeTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_compile_definitions(ThemeTest PRIVATE FAIDER_DATA_FOLDER="FaiderThemeTest" JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 target_link_libraries(ThemeTest
     PRIVATE
         juce::juce_graphics
@@ -284,7 +284,8 @@ target_link_libraries(ThemeTest
 # The desk paints from the look, not from colours written in by hand (see tests/LookRenderTest.cpp).
 juce_add_console_app(LookRenderTest PRODUCT_NAME "LookRenderTest")
 target_sources(LookRenderTest PRIVATE tests/LookRenderTest.cpp src/ui/Theme.cpp)
-target_compile_definitions(LookRenderTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+# Its own data folder (FaiderLookTest): the looks it writes never go in %APPDATA%\Faider\looks.
+target_compile_definitions(LookRenderTest PRIVATE FAIDER_DATA_FOLDER="FaiderLookTest" JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 target_link_libraries(LookRenderTest
     PRIVATE
         juce::juce_gui_basics

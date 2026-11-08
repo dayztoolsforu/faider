@@ -4,7 +4,8 @@
 //  2. a folder with no plugin in it fails, and is remembered as failed;
 //  3. a test that takes too long is stopped and fails;
 //  4. forget() clears a result.
-// The results go in the real %APPDATA%\Faider\plugins.xml; each is forgotten again after.
+// The results go in %APPDATA%\FaiderPluginScanTest\plugins.xml (this target's own data folder, never
+// Faider's); each is forgotten again after.
 // Prints PASS/FAIL per check; exits non-zero on failure.
 #include "../src/engine/PluginScan.h"
 

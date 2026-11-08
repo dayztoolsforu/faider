@@ -33,9 +33,10 @@ namespace MidiMap
         if (t[0] == "plug" && t.size() >= 5)  return t[2] + "  " + t[3].toUpperCase() + " #" + juce::String (t[4].getIntValue() + 1);
         if (t.size() >= 3 && (t[1] == "input" || t[1] == "bus" || t[1] == "output"))
         {
-            // The key as the desk prints it (the target keeps its saved name: "mute" is CUT).
+            // The key as the desk prints it (the target keeps its saved name: "mute" is CUT, an
+            // output's "safe" is LIMIT).
             const auto key = t[0] == "on" ? juce::String ("POWER") : t[0] == "inserts" ? juce::String ("INSERTS")
-                           : t[0] == "mute" ? juce::String ("CUT") : t[0].toUpperCase();
+                           : t[0] == "mute" ? juce::String ("CUT") : t[0] == "safe" ? juce::String ("LIMIT") : t[0].toUpperCase();
             return t[2] + "  " + key;
         }
         return target.replaceCharacter (':', ' ').toUpperCase();

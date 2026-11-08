@@ -3421,11 +3421,11 @@ void AudioEngine::audioDeviceIOCallbackWithContext (const float* const* inputs, 
         }
         out.applyGain (0, numSamples, bus->mute ? 0.0f : bus->gain.load());   // its fader
 
-        // Headphone correction (before SAFE, which catches what its boosts push over).
+        // Headphone correction (before LIMIT, which catches what its boosts push over).
         if (auto* eq = bus->headphoneEq.get())
             eq->process (out, numSamples);
 
-        // SAFE: instant attack, 80 ms release, -1 dBFS ceiling.
+        // LIMIT: instant attack, 80 ms release, -1 dBFS ceiling.
         if (bus->safeOn.load())
         {
             constexpr float ceiling = 0.891f;

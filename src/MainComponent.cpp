@@ -1367,7 +1367,7 @@ void MainComponent::endpointsChanged (const juce::Array<EndpointInfo>& now, cons
 }
 
 // Once a second: outputs with ALERTS set that have gone silent (under -60 dBFS for their set
-// time) or clipped (SAFE off) are logged once and held in `alert` for the tray icon; a silent
+// time) or clipped (LIMIT off) are logged once and held in `alert` for the tray icon; a silent
 // one clears when its sound comes back, a clip after 10 s.
 void MainComponent::checkAlerts()
 {

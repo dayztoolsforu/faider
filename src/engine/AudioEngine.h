@@ -28,7 +28,7 @@
 // Signal flow, all in the master callback:
 //   strip source -> VST3 inserts -> latency compensation -> gain/mute -> sends -> buses / masters
 //   pair (sum of what's sent to it) -> inserts -> gain/mute -> sends -> other buses / masters
-//   bus (an output) -> gain/mute -> SAFE -> output device (silent if that device isn't connected)
+//   bus (an output) -> gain/mute -> LIMIT -> output device (silent if that device isn't connected)
 //
 // Pairs (groups) sit between inputs and outputs. They run in dependency order, so a pair feeding
 // another pair adds no delay; wiring that would make a loop is refused.
@@ -379,12 +379,12 @@ public:
         std::atomic<int> minusMain { -1 }, minusSource { -1 };
 
         // Alerts: the tray icon and the event log say when this output has been silent for
-        // silenceAlert seconds (0: off) or clips (with SAFE off). Message thread.
+        // silenceAlert seconds (0: off) or clips (with LIMIT off). Message thread.
         int silenceAlert = 0;
         bool clipAlert = false;
         std::atomic<bool> clipped { false };   // a sample at full scale left since the message thread last looked
 
-        // SAFE: a brickwall limiter after the fader, so nothing leaves this output above -1 dBFS.
+        // LIMIT (saved as "safe"): a brickwall limiter after the fader, so nothing leaves this output above -1 dBFS.
         std::atomic<bool> safeOn { false };
         std::atomic<float> safeReduction { 0.0f };   // dB, this block (for the screen)
         float safeGain = 1.0f;                       // audio thread
@@ -392,7 +392,7 @@ public:
 
         // MIX BUS (PRO's centre section): its own shelving EQ and BUS COMP (a VoiceChain running
         // only those stages, every stage out to start), and WIDTH (stereo: 0 mono, 1 as it is, 2
-        // twice as wide). After the fader, before headphone correction and SAFE. Saved with it.
+        // twice as wide). After the fader, before headphone correction and LIMIT. Saved with it.
         std::shared_ptr<VoiceChain> masterChain;
         std::atomic<float> width { 1.0f };
 

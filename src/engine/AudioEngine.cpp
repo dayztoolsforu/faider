@@ -637,16 +637,12 @@ void AudioEngine::compileRack (Strip& s)
     // (the old plan goes here, off the audio thread)
 }
 
-// Audio thread: what a channel's dynamics hear this block besides itself. LINK: the linked
-// channel's sound after its input stage (the louder of the two drives both, as the console's
-// linked dynamics); else KEY: the keying channel's sound (after its processing). Either is this
-// block's, or its last if that channel runs after this one.
+// Audio thread: what a channel's dynamics hear this block besides itself. KEY: the keying
+// channel's sound (after its processing), this block's, or its last if that channel runs after
+// this one.
 void AudioEngine::keyChain (Strip& s, VoiceChain& chain, int numSamples)
 {
-    if (const int l = s.dynLink.load(); juce::isPositiveAndBelow (l, (int) strips.size()) && strips[(size_t) l].get() != &s
-                                        && strips[(size_t) l]->rawBuffer.getNumSamples() >= numSamples)
-        chain.setKey (strips[(size_t) l]->rawBuffer.getReadPointer (0), strips[(size_t) l]->rawBuffer.getReadPointer (1), numSamples, true);
-    else if (const int k = s.keySource.load(); juce::isPositiveAndBelow (k, (int) strips.size()) && strips[(size_t) k].get() != &s
+    if (const int k = s.keySource.load(); juce::isPositiveAndBelow (k, (int) strips.size()) && strips[(size_t) k].get() != &s
                                                && strips[(size_t) k]->keyTap.getNumSamples() >= numSamples)
         chain.setKey (strips[(size_t) k]->keyTap.getReadPointer (0), strips[(size_t) k]->keyTap.getReadPointer (1), numSamples);
     else
@@ -815,7 +811,6 @@ AudioEngine::AudioEngine (std::function<void (const juce::String&)> logFn)
 {
     padsMix.setSize (2, maxBlock);
     tapeMix.setSize (2, maxBlock);
-    pflMix.setSize (2, maxBlock);
     monitorMix.setSize (2, maxBlock);
     auditionMix.setSize (2, maxBlock);
     auditionMix.clear();
@@ -1521,19 +1516,9 @@ void AudioEngine::renamed (const juce::String& kind, const juce::String& oldName
                     s->duckBy = newName;
                 if (s->keyFrom == oldName)
                     s->keyFrom = newName;
-                if (s->linkWith == oldName)
-                    s->linkWith = newName;
             }
     for (auto& rule : appRules)
         follow (rule.to);
-    if (kind == "output" && cueOutput == oldName)
-        cueOutput = newName;
-    if (kind == "output")   // (the small faders' and the auxes' masters too: the audio side finds them by name)
-    {
-        for (int a = 0; a < 4; ++a)
-            if (auxOutputs[a] == oldName)
-                auxOutputs.set (a, newName);
-    }
     for (auto& bus : masters)
     {
         if (kind == "output" && bus->minusOf == oldName)   bus->minusOf = newName;
@@ -1645,25 +1630,7 @@ void AudioEngine::refreshDucking()
                     if (strips[(size_t) i]->name == s->keyFrom && strips[(size_t) i].get() != s.get())
                         key = i;
             s->keySource = key;
-            int link = -1;
-            if (s->linkWith.isNotEmpty())
-                for (int i = 0; i < (int) strips.size(); ++i)
-                    if (strips[(size_t) i]->name == s->linkWith && strips[(size_t) i].get() != s.get())
-                        link = i;
-            s->dynLink = link;
         }
-
-    int cue = -1;
-    std::array<int, 4> aux { -1, -1, -1, -1 };
-    for (int i = 0; i < (int) masters.size(); ++i)
-    {
-        if (masters[(size_t) i]->name == cueOutput) cue = i;
-        for (int a = 0; a < 4; ++a)
-            if (auxOutputs[a].isNotEmpty() && masters[(size_t) i]->name == auxOutputs[a]) aux[(size_t) a] = i;
-    }
-    cueIndex = cue;
-    for (int a = 0; a < 4; ++a)
-        auxIndex[(size_t) a] = aux[(size_t) a];
 
     for (auto& bus : masters)
     {
@@ -3031,14 +2998,6 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
         auditionThisBlock = true;
     }
 
-    // PFL: a soloed channel, before its fader, to the cue output.
-    if (pflThisBlock && s.solo.load())
-    {
-        for (int ch = 0; ch < 2; ++ch)
-            pflMix.addFrom (ch, 0, buf, ch, 0, numSamples);
-        pflActive = true;
-    }
-
     if (point == 1)   // PRE FADER: after the processing, before the fader, pan and ON
     {
         updatePeak (s.peakL, buf.getMagnitude (0, 0, numSamples), meterRelease);
@@ -3047,8 +3006,7 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
     }
 
     // PRE sends' tap: after the processing, before the fader and pan (CUT mutes it too).
-    if (std::any_of (s.preSends.begin(), s.preSends.begin() + (std::ptrdiff_t) masters.size(), [] (auto& x) { return x.load(); })
-        || std::any_of (masters.begin(), masters.end(), [] (auto& m) { return m->independent.load(); }))   // (an INDEPENDENT master takes it pre-fader)
+    if (std::any_of (s.preSends.begin(), s.preSends.begin() + (std::ptrdiff_t) masters.size(), [] (auto& x) { return x.load(); }))
     {
         for (int ch = 0; ch < 2; ++ch)
             s.preBuffer.copyFrom (ch, 0, buf, ch, 0, numSamples);
@@ -3300,16 +3258,10 @@ void AudioEngine::sendFrom (Strip& s, int selfBus, int numSamples)
                                && reachesOutput (s, main, 0);
         const bool sent = s.sends[b] && ! (selfBus >= 0 && main >= 0);
         auto lvl = level (s.sendDb[b], s.sendDbNow[b]);
-        const bool pre = sent && selfBus < 0 && (s.preSends[b].load() || bus.independent.load());   // (INDEPENDENT masters: before the faders)
+        const bool pre = sent && selfBus < 0 && s.preSends[b].load();
         const juce::AudioBuffer<float>* source = &tap (sent && s.rawSends[b].load(), pre);
-        const bool cueAux = (int) b == cueIndex.load() || std::any_of (auxIndex.begin(), auxIndex.end(), [b] (auto& a) { return a.load() == (int) b; });
-        const bool cuesOut = cueAux && ! s.cuesOn.load();   // (CUES out: its cue and aux sends silent)
-        // The stereo cue's pan.
-        const float cp = (int) b == cueIndex.load() ? juce::jlimit (-1.0f, 1.0f, s.cuePan.load()) : 0.0f;
-        const bool sending = sent && ! cuesOut;   // (CUES out on a mix-minus master: just its mix-minus feed)
-        add (bus.buffer, s.sendFade[b], (sending || minusFeed) && bus.enabled && ! (s.source.kind == Source::loopback && s.source.masterIndex == (int) b),
-             sending ? *source : s.buffer, sending ? lvl : std::pair<float, float> { 1.0f, 1.0f },
-             sending ? juce::jmin (1.0f, 1.0f - cp) : 1.0f, sending ? juce::jmin (1.0f, 1.0f + cp) : 1.0f);
+        add (bus.buffer, s.sendFade[b], (sent || minusFeed) && bus.enabled && ! (s.source.kind == Source::loopback && s.source.masterIndex == (int) b),
+             sent ? *source : s.buffer, sent ? lvl : std::pair<float, float> { 1.0f, 1.0f }, 1.0f, 1.0f);
     }
 
     for (size_t p = 0; p < buses.size(); ++p)
@@ -3395,16 +3347,12 @@ void AudioEngine::audioDeviceIOCallbackWithContext (const float* const* inputs, 
     }
 
     // Solo in place: while any input is soloed, the others are silenced. Pairs and outputs
-    // carry whatever soloed inputs reach them. (PFL instead: see processStrip and the outputs.)
-    pflThisBlock = pflMode.load() && pflMix.getNumSamples() >= numSamples;   // (PFL: to the control room, as the console's)
-    pflActive = false;
-    if (pflThisBlock)
-        pflMix.clear (0, numSamples);
+    // carry whatever soloed inputs reach them.
     auditionThisBlock = false;
     if (auditionMix.getNumSamples() >= numSamples)
         auditionMix.clear (0, numSamples);
 
-    const bool anySolo = ! pflMode.load() && std::any_of (strips.begin(), strips.end(), [] (auto& s) { return s->solo.load(); });
+    const bool anySolo = std::any_of (strips.begin(), strips.end(), [] (auto& s) { return s->solo.load(); });
     padsRendered = tapeRendered = false;
     recorder.beginBlock();
     padsElsewhere = std::any_of (strips.begin(), strips.end(), [] (auto& s) { return s->padsInto.load(); });
@@ -3576,24 +3524,12 @@ void AudioEngine::audioDeviceIOCallbackWithContext (const float* const* inputs, 
         monitoring = true;
     }
 
-    // PFL: the soloed channels, pre-fade, folded to mono (L+R), in place of the control room's
-    // feed (as the console's); every master carries on as it was.
-    if (pflActive)
-    {
-        monitorMix.copyFrom (0, 0, pflMix, 0, 0, numSamples);
-        monitorMix.addFrom (0, 0, pflMix, 1, 0, numSamples);
-        monitorMix.applyGain (0, 0, numSamples, 0.5f);
-        monitorMix.copyFrom (1, 0, monitorMix, 0, 0, numSamples);
-        monitoring = true;
-    }
-
-    // The control room: the MONITOR feed at its level, onto the master interface's first pair.
+    // The control room: the MONITOR feed onto the master interface's first pair.
     if (monitoring)
     {
-        const float level = monitorLevel.load();
         for (int ch = 0; ch < juce::jmin (2, numOutputs); ++ch)
             if (outputs[ch] != nullptr)
-                juce::FloatVectorOperations::addWithMultiply (outputs[ch], monitorMix.getReadPointer (ch), level, numSamples);
+                juce::FloatVectorOperations::add (outputs[ch], monitorMix.getReadPointer (ch), numSamples);
     }
 
     // A preview clip (HEAR WHAT THEY HEAR) on the master interface's first pair, once.

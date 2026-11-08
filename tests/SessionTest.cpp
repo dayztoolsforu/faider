@@ -362,9 +362,7 @@ int main()
             check (near (param (mic->channel.get(), "drive"), 4.5) && near (param (mic->channel.get(), "trim"), 6.0)
                        && near (param (mic->channel.get(), "inputOn"), 1.0),
                    "MIC: channel processing (input stage on, trim +6 dB, drive 4.5 dB)");
-            check (mic->direct.load(), "MIC: DIRECT");               // (deleted-feature check: remove with the feature)
-            check (mic->linkWith == "GUEST", "MIC: LINK with GUEST");   // (deleted-feature check: remove with the feature)
-            check (mic->keyFrom == "MUSIC", "MIC: KEY from MUSIC");     // (deleted-feature check: remove with the feature)
+            check (mic->keyFrom == "MUSIC", "MIC: KEY from MUSIC");     // (kept: EXT's key, until it gets a control or goes)
         }
         else
             check (false, "MIC is there");
@@ -418,7 +416,6 @@ int main()
             check (near (main->gain.load(), 0.5) && main->safeOn.load() && near (main->width.load(), 1.5), "MAIN: gain, SAFE, width");
             check (main->colour == juce::Colour (0xff3d8fd1) && main->locked, "MAIN: colour and lock");
             check (near (param (main->masterChain.get(), "drive"), 2.0), "MAIN: MIX BUS settings");
-            check (main->independent.load(), "MAIN: INDEPENDENT");   // (deleted-feature check: remove with the feature)
         }
         else
             check (false, "MAIN is there");
@@ -461,11 +458,6 @@ int main()
         check (b.getRemote().saveState().contains ("fader:input:MIC") && b.getRemote().saveState().contains ("9123"),
                "MIDI mappings and the OSC port");
 
-        check (b.pflMode.load(), "PFL mode");                                       // (deleted-feature check: remove with the feature)
-        check (b.cueOutput == "PHONES", "the cue output");                          // (deleted-feature check: remove with the feature)
-        check (near (b.monitorLevel.load(), 0.5), "the MONITOR level");             // (deleted-feature check: remove with the feature)
-        check (b.auxOutputs == juce::StringArray ({ "PHONES", "STREAM", "", "MAIN" }),
-               "AUX 1-4 outputs");                                                  // (deleted-feature check: remove with the feature)
 
         //======================================================================
         // One strip on its own (undo): an input, a bus with what sends to it, an output.

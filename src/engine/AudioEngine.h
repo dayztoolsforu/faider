@@ -244,16 +244,11 @@ public:
         std::optional<Source> altSource;
         bool onLineB = false;   // which line `source` is now (A, or B after a flip)
         std::atomic<bool> soloIsolate { false };   // SOLO ISOLATE: never cut by another channel's solo (an effects return)
-        std::atomic<float> cuePan { 0.0f };                           // the stereo cue send's pan (-1 left, 1 right)
-        std::atomic<bool> cuesOn { true };                            // CUES IN: off, its cue and aux sends send nothing
-        std::atomic<bool> direct { false };                           // DIRECT: on the multitrack (none lit: every channel is)
         std::atomic<bool> binaural { false };                         // BINAURAL pan (mono channels): the far ear later and shadowed, for headphones/VR
         std::array<float, 128> binauralRing {};                       // (audio thread: its delay line and head-shadow filter)
         int binauralPos = 0;
         float binauralShadow = 0.0f, binauralItd = 0.0f;
         bool binauralWas = false;
-        juce::String linkWith;                                        // LINK: the channel its dynamics are linked with (by name)
-        std::atomic<int> dynLink { -1 };                              // (its index, refreshDucking)
 
         // The source as read, before any processing (the MASTER section's record meters).
         std::atomic<float> sourcePeakL { 0.0f }, sourcePeakR { 0.0f };
@@ -401,8 +396,6 @@ public:
         std::shared_ptr<VoiceChain> masterChain;
         std::atomic<float> width { 1.0f };
 
-        std::atomic<bool> independent { false };   // INDEPENDENT: fed before the channels' faders (rides don't touch it); else it follows them
-
         // Its device changing (patching it to hardware): what leaves fades to silence before the
         // switch and back up after it, as a strip's source does.
         float deviceFade = 1.0f;
@@ -494,11 +487,8 @@ public:
     juce::File startMultitrack (const juce::File& folder, juce::String& error)
     {
         std::vector<Recorder::TrackSource> sources;
-        // (DIRECT: the channels lit; none lit, every one)
-        const bool chosen = std::any_of (strips.begin(), strips.end(), [] (auto& s) { return s->direct.load(); });
-        for (int i = 0; i < (int) strips.size(); ++i)
-            if (! chosen || strips[(size_t) i]->direct.load())
-                sources.push_back ({ Recorder::Kind::input, i, strips[(size_t) i]->name });
+        for (int i = 0; i < (int) strips.size(); ++i)   // (every channel)
+            sources.push_back ({ Recorder::Kind::input, i, strips[(size_t) i]->name });
         for (int i = 0; i < (int) masters.size(); ++i)
             sources.push_back ({ Recorder::Kind::output, i, masters[(size_t) i]->name });
         return recorder.startMultitrack (sources, folder, interfaceRate, graphLock, error);
@@ -526,24 +516,12 @@ public:
     // (empty `of`: off). Logs it.
     void setMixMinus (Master&, const juce::String& of, const juce::String& without);
 
-    // Points every strip's auto-duck at its key input by name, and the cue output at its bus:
-    // after strips are added, removed, moved or renamed, or a duck is set (also called every second).
+    // Points every strip's auto-duck and key at their inputs by name: after strips are added,
+    // removed, moved or renamed, or a duck is set (also called every second).
     void refreshDucking();
 
-    // Solo mode. In place (the default): soloing an input silences the others. PFL: S sends the
-    // channel, before its fader, to the cue output (headphones) instead; while anything is
-    // soloed the cue output plays only that, and the main mix is untouched. Message thread
-    // sets them; the cue output is by name.
-    std::atomic<bool> pflMode { false };
-    juce::String cueOutput;
-
-    // MONITOR, the control room: what the outputs with MONITOR on (or PFL, or an audition) add to
-    // the master interface's first pair, at monitorLevel. Message thread sets; the audio thread
-    // reads. Saved with the session.
-    std::atomic<float> monitorLevel { 1.0f };
-
-    // AUX 1-4 (PRO): the output each aux send goes to, by name (empty: none). Saved with the session.
-    juce::StringArray auxOutputs { {}, {}, {}, {} };
+    // Solo is in place: soloing an input silences the others. MONITOR, the control room: what the
+    // outputs with MONITOR on (or an audition) add to the master interface's first pair.
 
     // The output PRO's centre section treats as the MIX bus (its EQ, WIDTH and BUS COMP there), by
     // name; empty or gone: the first output. Message thread; saved with the session.
@@ -780,14 +758,10 @@ private:
     Recorder recorder;
     Macros macros { *this };
 
-    std::atomic<int> cueIndex { -1 };   // the cue output's index in `masters` (refreshDucking)
-    std::array<std::atomic<int>, 4> auxIndex { { -1, -1, -1, -1 } };   // AUX 1-4's masters (refreshDucking)
-    juce::AudioBuffer<float> pflMix;    // audio thread: this block's soloed channels, pre-fader
     juce::AudioBuffer<float> monitorMix;   // audio thread: this block's MONITOR feed (outputs with MONITOR on)
     juce::AudioBuffer<float> auditionMix;   // audio thread: this block's auditioned channels, for the control room
     bool auditionThisBlock = false;
 
-    bool pflThisBlock = false, pflActive = false;
     Scenes scenes { *this };
     RemoteControl remote { *this };   // after what it drives, so it goes first
 

@@ -234,8 +234,6 @@ namespace
             bus.masterChain->getStateInformation (state);
             b.setAttribute ("mixBus", state.toBase64Encoding());
         }
-        if (bus.independent.load())
-            b.setAttribute ("independent", true);
         if (std::abs (bus.width.load() - 1.0f) > 0.001f)
             b.setAttribute ("width", (double) bus.width.load());
         if (bus.headphoneProfile.isNotEmpty())
@@ -332,11 +330,7 @@ namespace
             s.setAttribute ("onLineB", strip.onLineB);
         }
         s.setAttribute ("soloIsolate", strip.soloIsolate.load());
-            s.setAttribute ("cuesOn", strip.cuesOn.load());
-        s.setAttribute ("direct", strip.direct.load());
         s.setAttribute ("binaural", strip.binaural.load());
-            s.setAttribute ("cuePan", (double) strip.cuePan.load());
-        s.setAttribute ("linkWith", strip.linkWith);
         s.setAttribute ("pairSends", flagsToString (strip.busSends, engine.getBuses().size()));
         savePathSends (s, engine, strip);
         saveLevels (s, "sendLevels", strip.sendDb, engine.getMasters().size());
@@ -403,7 +397,6 @@ namespace
         bus->enabled = b.getBoolAttribute ("enabled", true);
         bus->safeOn = b.getBoolAttribute ("safe");
         bus->width = (float) b.getDoubleAttribute ("width", 1.0);
-        bus->independent = b.getBoolAttribute ("independent");
         if (juce::MemoryBlock state; bus->masterChain != nullptr && b.hasAttribute ("mixBus") && state.fromBase64Encoding (b.getStringAttribute ("mixBus")))
             bus->masterChain->setStateInformation (state.getData(), (int) state.getSize());
         bus->minusOf = b.getStringAttribute ("minusOf");
@@ -460,11 +453,9 @@ namespace
             strip.onLineB = s.getBoolAttribute ("onLineB");
         }
         strip.soloIsolate = s.getBoolAttribute ("soloIsolate");
-        strip.cuesOn = s.getBoolAttribute ("cuesOn", true);
-        strip.direct = s.getBoolAttribute ("direct");
         strip.binaural = s.getBoolAttribute ("binaural");
-            strip.cuePan = (float) juce::jlimit (-1.0, 1.0, s.getDoubleAttribute ("cuePan"));
-        strip.linkWith = s.getStringAttribute ("linkWith");
+        // (cuesOn, cuePan, direct and linkWith in an earlier mix: the cue, aux, DIRECT and LINK
+        // features they set are gone, so they're read past)
         stringToFlags (s.getStringAttribute ("pairSends"), strip.busSends);
         restorePathSends (s, strip);
         restoreLevels (s, "sendLevels", strip.sendDb);
@@ -587,11 +578,7 @@ std::unique_ptr<juce::XmlElement> Session::save (const AudioEngine& engine, cons
     }
 
     root->setAttribute ("remote", engine.getRemote().saveState());
-    root->setAttribute ("pfl", engine.pflMode.load());
-    root->setAttribute ("cueOutput", engine.cueOutput);
-    root->setAttribute ("monitorLevel", (double) engine.monitorLevel.load());
     root->setAttribute ("mixBusOutput", engine.mainMixMaster);
-    root->setAttribute ("auxOutputs", engine.auxOutputs.joinIntoString ("\n"));
     for (auto& key : engine.trayStrips)
         root->createNewChildElement ("Tray")->setAttribute ("strip", key);
 
@@ -769,16 +756,9 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
     }
 
     engine.getRemote().restoreState (xml.getStringAttribute ("remote"));
-    engine.pflMode = xml.getBoolAttribute ("pfl");
-    engine.cueOutput = xml.getStringAttribute ("cueOutput");
-    engine.monitorLevel = (float) xml.getDoubleAttribute ("monitorLevel", 1.0);
+    // (pfl, cueOutput, monitorLevel and auxOutputs in an earlier mix: PFL, the cue and aux outputs
+    // and the monitor level are gone, so they're read past)
     engine.mainMixMaster = xml.getStringAttribute ("mixBusOutput");
-    {
-        juce::StringArray aux;
-        aux.addLines (xml.getStringAttribute ("auxOutputs"));
-        for (int i = 0; i < 4; ++i)
-            engine.auxOutputs.set (i, aux[i]);
-    }
     engine.trayStrips.clear();
     for (auto* t : xml.getChildWithTagNameIterator ("Tray"))
         engine.trayStrips.add (t->getStringAttribute ("strip"));

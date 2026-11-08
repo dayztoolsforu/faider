@@ -68,6 +68,7 @@ a big key for every output. The switch in the top bar flips the whole console be
 | Mix and settings | `%APPDATA%\Faider` |
 | Manual | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) (13 languages) |
 | Website | [dayztoolsforu.github.io/faider](https://dayztoolsforu.github.io/faider/) |
+| Privacy | [PRIVACY.md](PRIVACY.md): no accounts, analytics or telemetry; one daily update check you can switch off |
 
 ## Features
 

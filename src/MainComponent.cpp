@@ -64,7 +64,7 @@ MainComponent::MainComponent()
                            : savedOnWindows && e.api == "WASAPI" && e.isOutput && e.isActive() && e.name == savedDevice;
     });
     // A saved mix that isn't loaded is set aside before anything can save over it: kept next to
-    // session.xml for good, and in the history so RESTORE SESSION / the timeline bring it back.
+    // session.xml for good, and in the history so the SESSION TIMELINE brings it back.
     auto setAside = [this] (const juce::String& why)
     {
         if (! sessionFile.existsAsFile())
@@ -76,7 +76,7 @@ MainComponent::MainComponent()
         history.createDirectory();
         sessionFile.copyFileTo (history.getChildFile ("session-" + stamp + ".xml"));
         logEvent ("session: " + why + " - your saved mix is kept as " + kept.getFileName()
-                  + " (RESTORE SESSION brings it back)");
+                  + " (the SESSION TIMELINE brings it back)");
     };
 
     // --clock builtin | windows | <ASIO driver>: starts on that clock, with the saved mix.
@@ -159,7 +159,7 @@ MainComponent::MainComponent()
         // it's set aside, and saveSession() writes nothing for the rest of this run.
         setAside ("the saved interface " + interfaceName.quoted() + " couldn't be opened (in use by another app, or its settings refused)");
         logEvent ("session: " + juce::String (Product::name) + " is running without its interface; your mix is kept and nothing is saved over it"
-                  " (free the interface and restart " + juce::String (Product::name) + ", or RESTORE SESSION)");
+                  " (free the interface and restart " + juce::String (Product::name) + ", or the SESSION TIMELINE)");
     }
 
     // SIMPLE or PRO, as it was left. The first time: SIMPLE, unless the mix has buses or
@@ -612,7 +612,7 @@ void MainComponent::openCommandPalette()
         add ("HEAR WHAT THEY HEAR", "Hear your mic as apps hear it", [this] { hearWhatTheyHear(); });
 
     add (overlay != nullptr && overlay->isShowing() ? "HIDE OVERLAY" : "SHOW OVERLAY", "Ctrl+Shift+O - mic state on top of games", [this] { toggleOverlay(); });
-    add ("SESSION TIMELINE", "Go back to an earlier mix, or one channel", [this] { showTimeline(); });
+    add ("SESSION TIMELINE", "Go back to an earlier mix, or one channel", [this] { showTimeline (juce::PopupMenu::Options().withTargetComponent (&findButton)); });
     add ("UNDO", "Ctrl+Z", [this] { undoRedo (false); });
     add ("REDO", "Ctrl+Y", [this] { undoRedo (true); });
     add ("SAVE SESSION AS...", "Keep this mix under a name", [this] { saveSessionAs(); });
@@ -1554,21 +1554,13 @@ juce::Array<juce::File> MainComponent::setAsideFiles() const
 
 void MainComponent::addSessionItems (juce::PopupMenu& menu)
 {
-    juce::PopupMenu versions;
-    for (auto& f : historyFiles())
-        versions.addItem (f.getLastModificationTime().formatted ("%a %d %b  %H:%M"), [this, f] { restoreSession (f); });
-    if (const auto kept = setAsideFiles(); ! kept.isEmpty())
-    {
-        versions.addSeparator();
-        for (auto& f : kept)
-            versions.addItem ("kept: " + f.getLastModificationTime().formatted ("%a %d %b  %H:%M"), [this, f] { restoreSession (f); });
-    }
-    menu.addSubMenu ("Restore session", versions, versions.getNumItems() > 0);
+    menu.addItem ("Session timeline...", [this] { showTimeline (juce::PopupMenu::Options().withMousePosition()); });
 }
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix
-// (Faider restarts), or one channel just as it was then (its level, pan, mute and rack).
-void MainComponent::showTimeline()
+// (Faider restarts), or one channel just as it was then (its level, pan, mute and rack). From
+// FIND, or the tray menu (where the window may be hidden: at the mouse).
+void MainComponent::showTimeline (juce::PopupMenu::Options where)
 {
     juce::PopupMenu menu;
     menu.addSectionHeader ("SESSION TIMELINE");
@@ -1607,7 +1599,7 @@ void MainComponent::showTimeline()
     }
     if (menu.getNumItems() <= 1)
         menu.addItem ("Nothing kept yet", false, false, [] {});
-    menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&findButton));
+    menu.showMenuAsync (where);
 }
 
 //==============================================================================

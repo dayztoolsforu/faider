@@ -826,8 +826,7 @@ Your mix saves itself within a second of any change, and on exit.
 
 | | |
 |---|---|
-| **Restore session** | Tray menu: earlier versions of your mix by date (Faider restarts with it) |
-| **SESSION TIMELINE** | FIND: every kept version. **Restore everything**, or **PUT ONE CHANNEL BACK** (its level, pan, mute and rack) without restarting |
+| **SESSION TIMELINE** | FIND, or **Session timeline...** on the tray menu: every kept version by date. **Restore everything** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, mute and rack) without restarting |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: keep the mix under a name |
 | **OPEN, EXPORT OR IMPORT...** | Open a named mix (restarts), save the mix to a file, or load one from a file |
 
@@ -931,7 +930,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 | **OSC** | Programs on this PC can send to port 9000 (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / MUTED and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | A small mixer window with the channels ticked **Tray mixer** (or the outputs). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
-| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Restore session, Start with Windows, About, Quit. The icon flashes amber during an alert |
+| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Start with Windows, About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
 administrator window. It restarts itself with ordinary rights, because the in-game overlay can't
@@ -1037,9 +1036,9 @@ Your mix isn't lost. When it can't be used at start, it's **set aside** as
 
 | Reason | What to do |
 |---|---|
-| The saved interface isn't connected | Connect it, then **Restore session** (tray) > the "kept:" version |
+| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (FIND or the tray) > the "kept:" version > **Restore everything** |
 | The saved interface couldn't be opened (another program has it) | Close the other program and restart Faider. Nothing is saved over your mix meanwhile |
-| session.xml couldn't be read | **Restore session** > a recent version |
+| session.xml couldn't be read | **SESSION TIMELINE** > a recent version > **Restore everything** |
 
 ### 18.3 No sound
 

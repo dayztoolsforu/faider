@@ -40,7 +40,7 @@ public:
     // The scenes, for the tray menu: pick one to recall it.
     void addSceneItems (juce::PopupMenu&);
 
-    // Earlier sessions (session safety), for the tray menu: pick one to restore it (Faider restarts).
+    // Earlier sessions (session safety), for the tray menu: "Session timeline...", the SESSION TIMELINE.
     void addSessionItems (juce::PopupMenu&);
 
     // The mini mixer up (or to the front), from the tray icon at `near` (a screen point): where it
@@ -82,7 +82,7 @@ private:
     juce::StringArray clockRefused;   // clocks that wouldn't start, until the devices change (pickClock skips them)
     void saveSession();
     void keepHistory (const juce::String& xml);   // a dated copy, at most one per 5 minutes, newest 60 kept
-    void showTimeline();
+    void showTimeline (juce::PopupMenu::Options where);
     juce::Array<juce::File> historyFiles() const;  // newest first
     juce::Array<juce::File> setAsideFiles() const; // session-unloaded-*.xml beside session.xml, newest first
     void restoreSession (const juce::File&, const juce::String& named = {});   // named: a saved session's name

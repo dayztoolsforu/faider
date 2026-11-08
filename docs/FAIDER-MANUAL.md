@@ -439,7 +439,8 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 | **PLUGINS** | Open one, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Channels only |
 | **NOISE** | Noise reduction: **ON** (as the strip's NOISE switch), **NEURAL** or **SPECTRAL**, and its **DEPTH** (-6 to -30 dB) |
-| **DUCK UNDER** | Another channel this one dips under while that channel is heard, or **NONE**, and how far it dips (**DEPTH**, -6 to -24 dB). Not on an app channel |
+| **KEY FROM** | The channel the strip's **EXT** key listens to (its sidechain), or **NONE**. Not on an app, pads, tape or combinator strip |
+| **DUCK UNDER** | Another channel this one dips under while that channel is heard, or **NONE**, and how far it dips (**DEPTH**, -6 to -24 dB). Works on an app channel too, so music dips while you talk |
 | **COLOUR** | The channel's colour, shown along its name bar and on its Routing block |
 | **IN THE MINI MIXER** | Ticked: the strip has a fader in the mini mixer (see [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -459,7 +460,7 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 | **Level bars** | The channel's level, left and right (IN, PRE or POST, as chosen under METER) |
 | **FILT** | Sends the filters into the gate/compressor's detector (key filtering) |
 | **EQ** | The EQ in or out |
-| **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself |
+| **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself: the channel picked under right-click > **KEY FROM**. Pressed before one is picked, it opens that list |
 | **Processing order** | Three blocks (FILT, EQ, DYN), top to bottom in the order the channel runs them. **Click a block** to move it up one. The top one goes to the end. Lit blocks are in use |
 | **Routing boxes** | One box per bus and output device. Lit: the channel is sent there. Click to switch (see [Outputs are devices](#outputs-are-devices)) |
 | **Number** | The strip's place on the desk |
@@ -602,7 +603,7 @@ Each output has its own dark strip:
 | **CUT**, **SEL**, fader | As on a channel |
 
 Right-click an output for **DEVICE...**, **HEADPHONE EQ** (headphone correction: **NONE**, or your
-model, listed by brand), **ALERT IF SILENT** (10 seconds under -60 dBFS) and **ALERT IF CLIPPING**
+model, listed by brand), **ALERT IF SILENT** (under -60 dBFS for **10 S**, **30 S**, **1 MIN** or **5 MIN**, or **OFF**) and **ALERT IF CLIPPING**
 (while LIMIT is off), which flash the tray icon and write to the event log, **IN THE MINI MIXER**,
 spacers, **RENAME...** and **REMOVE**.
 
@@ -798,10 +799,12 @@ read. Its key, **BOOST WINDOWS AUDIO** (**BOOSTED** while it's High), opens a me
   It doesn't survive a restart of Windows audio or of the PC: Faider watches it, tells you once
   from the tray when it's back at Normal, and **Boost Windows audio again...** on the tray menu (or
   BOOST here, or **BOOST WINDOWS AUDIO** in FIND) boosts it again. Clicking BOOST while it's boosted
-  stops the watching; it stays High until Windows audio restarts.
+  stops the watching; it stays High until Windows audio restarts or you choose BACK TO NORMAL.
 - **PIN TO ONE CORE** (off unless you choose it) also holds it to your last processor core, from the
   next BOOST. It only restricts where it runs, never adds cores: use it only for crackle on a USB
   headset.
+- **BACK TO NORMAL** (when it isn't at Normal, or is pinned) puts it back at Normal priority on every
+  core now, without waiting for a restart. Windows asks first, as for BOOST, and Faider stops watching.
 
 It doesn't affect ASIO interfaces, which don't go through Windows audio.
 
@@ -1215,7 +1218,7 @@ output again, and your real microphone as the default input, each for calls too.
 | `--minimised` | Start in the tray |
 | `--quit` | Quit the running copy |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over DEVICES > CLOCK (see [Clocking](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | What **BOOST WINDOWS AUDIO** starts, as administrator: Windows' audio engine to High priority (pinned to core N only if given), then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | What **BOOST WINDOWS AUDIO** and **BACK TO NORMAL** start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused |
 
 ### 19.3 Files
 

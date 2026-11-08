@@ -11,9 +11,28 @@
 #include <shellapi.h>
 #include <objbase.h>
 #pragma comment (lib, "shell32.lib")
+#pragma comment (lib, "advapi32.lib")
 
 namespace
 {
+    // Switches the debug privilege on or off in this process's own token. An administrator holds it
+    // but starts with it off, and audiodg (LOCAL SERVICE) only lets an administrator change it with it
+    // on. Only the elevated helper uses it, only to open audiodg, and turns it off straight after.
+    bool setDebugPrivilege (bool on)
+    {
+        HANDLE token = nullptr;
+        if (! OpenProcessToken (GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &token))
+            return false;
+        TOKEN_PRIVILEGES tp {};
+        tp.PrivilegeCount = 1;
+        tp.Privileges[0].Attributes = on ? SE_PRIVILEGE_ENABLED : 0;
+        const bool ok = LookupPrivilegeValueW (nullptr, L"SeDebugPrivilege", &tp.Privileges[0].Luid)
+                        && AdjustTokenPrivileges (token, FALSE, &tp, sizeof (tp), nullptr, nullptr)
+                        && GetLastError() == ERROR_SUCCESS;   // (ERROR_NOT_ALL_ASSIGNED: not held)
+        CloseHandle (token);
+        return ok;
+    }
+
     // audiodg.exe's process id, or 0.
     DWORD findAudiodg()
     {
@@ -130,8 +149,17 @@ int AudioBoost::runHelper (const juce::StringArray& args)
     const DWORD pid = findAudiodg();
     if (pid == 0)
         return notFound;
-    // (no extra privileges asked for: refused, it says so)
-    HANDLE process = OpenProcess (PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
+    // audiodg's permissions let an administrator change it only with the debug privilege on, and an
+    // elevated process starts with it off: refused, it's switched on for this one open and off again.
+    constexpr DWORD rights = PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION;
+    HANDLE process = OpenProcess (rights, FALSE, pid);
+    if (process == nullptr && GetLastError() == ERROR_ACCESS_DENIED && setDebugPrivilege (true))
+    {
+        process = OpenProcess (rights, FALSE, pid);
+        const DWORD error = GetLastError();
+        setDebugPrivilege (false);
+        SetLastError (error);
+    }
     if (process == nullptr)
         return GetLastError() == ERROR_INVALID_PARAMETER ? notFound : accessDenied;   // (gone meanwhile: invalid)
 

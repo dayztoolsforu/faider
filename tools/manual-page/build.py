@@ -5,12 +5,23 @@ the English ids, so links work in every language. manual.html and CREDITS.html f
 
     pip install markdown
     python tools/manual-page/build.py
+
+A translation whose headings differ from the English, a missing image or a link to nowhere is printed
+and makes it exit non-zero (the page is still written, so the difference can be seen).
 """
-import re, html, json, pathlib
+import re, sys, html, json, pathlib
 import markdown
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs"
+problems = []   # what's wrong, printed as found; any makes the build fail
+
+
+def problem(text):
+    print(text)
+    problems.append(text)
+
+
 LANGS = [("en", "English", "FAIDER-MANUAL.md"), ("es", "Español", "i18n/FAIDER-MANUAL.es.md"),
          ("fr", "Français", "i18n/FAIDER-MANUAL.fr.md"), ("de", "Deutsch", "i18n/FAIDER-MANUAL.de.md"),
          ("it", "Italiano", "i18n/FAIDER-MANUAL.it.md"), ("pt-BR", "Português (Brasil)", "i18n/FAIDER-MANUAL.pt-BR.md"),
@@ -63,7 +74,7 @@ def shots(m):
     for alt, srcpath in re.findall(r'<img alt="([^"]*)" src="([^"]+)"\s*/?>', m.group(0)):
         path = re.sub(r"^(\.\./)+", "", srcpath)
         if not (DOCS / path).exists():
-            print("missing image:", path)
+            problem(f"missing image: {path}")
         shots_store[path] = path
         figs += (f'<figure class="shot"><button type="button" class="shot-open" aria-label="{html.escape(alt)}">'
                  f'<img data-shot="{html.escape(path)}" alt="{html.escape(alt)}" loading="lazy"></button><figcaption>{html.escape(alt)}</figcaption></figure>')
@@ -130,7 +141,7 @@ en_ids = headings(en_out)
 en_set = {i for _, i in en_ids}
 bad = sorted(set(re.findall(r'href="#([^"]+)"', en_out)) - en_set)
 if bad:
-    print("en: links to nowhere:", bad[:8])
+    problem(f"en: links to nowhere: {bad[:8]}")
 templates, names, built = [], {}, []
 for code, native, rel in LANGS:
     path = DOCS / rel
@@ -142,13 +153,13 @@ for code, native, rel in LANGS:
         out, hero = convert(path.read_text(encoding="utf-8"))
         ids = headings(out)
         if [l for l, _ in ids] != [l for l, _ in en_ids]:
-            print(f"SKIP {code}: headings differ ({len(ids)} vs {len(en_ids)})")
+            problem(f"SKIP {code}: headings differ ({len(ids)} vs {len(en_ids)})")
             continue
         it = iter(en_ids)   # every heading takes the English one's id, so links land
         out = re.sub(r'<h([23]) id="[^"]+">', lambda m: f'<h{m.group(1)} id="{next(it)[1]}">', out)
         bad = sorted(set(re.findall(r'href="#([^"]+)"', out)) - en_set)
         if bad:
-            print(f"{code}: links to nowhere: {bad[:5]}")
+            problem(f"{code}: links to nowhere: {bad[:5]}")
     sections, toc = chapters(out)
     hero_json = html.escape(json.dumps({**{k: v for k, v in hero.items() if k != "intro"}, "chrome": CHROME.get(code, CHROME["en"])}, ensure_ascii=False), quote=True)
     templates.append(f'<template id="lang-{code}" data-hero="{hero_json}"><div data-part="intro">{hero["intro"]}</div><nav data-part="toc">{toc}</nav><div data-part="main">{sections}</div></template>')
@@ -160,7 +171,7 @@ strip_parts = [("HEADER", 314.9, "header"), ("INPUT", 231.6, "input"), ("DYNAMIC
                ("EQ", 947.7, "eq"), ("NAME", 48.1, "5-the-console"), ("FADER", 628.2, "fader")]
 for _, _, a in strip_parts:
     if a not in en_set:
-        print("strip map: no heading", a)
+        problem(f"strip map: no heading {a}")
 strip = "".join(f'<a class="strip-sec s-{n.lower()}" href="#{a}" style="flex:{h}"><span>{n}</span></a>' for n, h, a in strip_parts)
 options = "".join(f'<option value="{c}">{html.escape(names[c])}</option>' for c in built)
 # The credits view: CREDITS.md, its links into the repository pointed at GitHub
@@ -186,3 +197,6 @@ def forward(name, view):
 forward("manual.html", "manual")
 forward("CREDITS.html", "credits")
 print(len(page) // 1024, "KB;", "languages:", ", ".join(built))
+if problems:
+    print(f"{len(problems)} problem(s): fix them and build again")
+    sys.exit(1)

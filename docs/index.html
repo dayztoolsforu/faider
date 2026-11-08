@@ -1009,8 +1009,12 @@ SPACER</strong>. A spacer stays with the strip it follows when that strip moves.
 <td>Noise reduction: <span class="key">ON</span> (as the strip's NOISE switch), <span class="key">NEURAL</span> or <span class="key">SPECTRAL</span>, and its <span class="key">DEPTH</span> (-6 to -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>The channel the strip's <span class="key">EXT</span> key listens to (its sidechain), or <span class="key">NONE</span>. Not on an app, pads, tape or combinator strip</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Another channel this one dips under while that channel is heard, or <span class="key">NONE</span>, and how far it dips (<span class="key">DEPTH</span>, -6 to -24 dB). Not on an app channel</td>
+<td>Another channel this one dips under while that channel is heard, or <span class="key">NONE</span>, and how far it dips (<span class="key">DEPTH</span>, -6 to -24 dB). Works on an app channel too, so music dips while you talk</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -1061,7 +1065,7 @@ SPACER</strong>. A spacer stays with the strip it follows when that strip moves.
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>The dynamics listen to an external key (sidechain) instead of the channel itself</td>
+<td>The dynamics listen to an external key (sidechain) instead of the channel itself: the channel picked under right-click &gt; <span class="key">KEY FROM</span>. Pressed before one is picked, it opens that list</td>
 </tr>
 <tr>
 <td><strong>Processing order</strong></td>
@@ -1369,7 +1373,7 @@ plugins, rename it or remove it.</p>
 </tbody>
 </table></div>
 <p>Right-click an output for <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (headphone correction: <span class="key">NONE</span>, or your
-model, listed by brand), <span class="key">ALERT IF SILENT</span> (10 seconds under -60 dBFS) and <span class="key">ALERT IF CLIPPING</span>
+model, listed by brand), <span class="key">ALERT IF SILENT</span> (under -60 dBFS for <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> or <span class="key">5 MIN</span>, or <span class="key">OFF</span>) and <span class="key">ALERT IF CLIPPING</span>
 (while LIMIT is off), which flash the tray icon and write to the event log, <span class="key">IN THE MINI MIXER</span>,
 spacers, <span class="key">RENAME...</span> and <span class="key">REMOVE</span>.</p>
 <p>Outputs are made for you, one per device (see <a href="#outputs-are-devices">Outputs are devices</a>).</p>
@@ -1633,10 +1637,12 @@ read. Its key, <span class="key">BOOST WINDOWS AUDIO</span> (<span class="key">B
   It doesn't survive a restart of Windows audio or of the PC: Faider watches it, tells you once
   from the tray when it's back at Normal, and <strong>Boost Windows audio again...</strong> on the tray menu (or
   BOOST here, or <span class="key">BOOST WINDOWS AUDIO</span> in FIND) boosts it again. Clicking BOOST while it's boosted
-  stops the watching; it stays High until Windows audio restarts.</li>
+  stops the watching; it stays High until Windows audio restarts or you choose BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (off unless you choose it) also holds it to your last processor core, from the
   next BOOST. It only restricts where it runs, never adds cores: use it only for crackle on a USB
   headset.</li>
+<li><span class="key">BACK TO NORMAL</span> (when it isn't at Normal, or is pinned) puts it back at Normal priority on every
+  core now, without waiting for a restart. Windows asks first, as for BOOST, and Faider stops watching.</li>
 </ul>
 <p>It doesn't affect ASIO interfaces, which don't go through Windows audio.</p>
 <div class="table-wrap"><table>
@@ -2257,8 +2263,8 @@ output again, and your real microphone as the default input, each for calls too.
 <td>For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains <code>&lt;driver&gt;</code>. It wins over DEVICES &gt; CLOCK (see <a href="#clocking">Clocking</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>What <span class="key">BOOST WINDOWS AUDIO</span> starts, as administrator: Windows' audio engine to High priority (pinned to core N only if given), then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>What <span class="key">BOOST WINDOWS AUDIO</span> and <span class="key">BACK TO NORMAL</span> start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused</td>
 </tr>
 </tbody>
 </table></div>

@@ -128,8 +128,18 @@ std::optional<Entry> find (const juce::String& path)
     return it->second.second;
 }
 
+namespace
+{
+    std::atomic<int> testSeconds { 30 };
+}
+
+void setTestTime (int seconds) { testSeconds = juce::jlimit (1, 600, seconds); }
+int testTime() { return testSeconds.load(); }
+
 juce::String test (const juce::String& path, int timeoutMs)
 {
+    if (timeoutMs <= 0)
+        timeoutMs = testTime() * 1000;
     const auto stamp = stampOf (path);
     const auto out = juce::File::createTempFile (".scan");
     const juce::StringArray args { juce::File::getSpecialLocation (juce::File::currentExecutableFile).getFullPathName(),

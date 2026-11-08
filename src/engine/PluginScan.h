@@ -25,8 +25,13 @@ namespace PluginScan
     std::optional<Entry> find (const juce::String& path);
 
     // Tests the plugin in a child copy and records the result: empty if it passed, else why not.
-    // Blocks until the child finishes (at most `timeoutMs`): call it off the message thread.
-    juce::String test (const juce::String& path, int timeoutMs = 30000);
+    // Blocks until the child finishes (at most `timeoutMs`; 0: the time set, testTime()): call it
+    // off the message thread.
+    juce::String test (const juce::String& path, int timeoutMs = 0);
+
+    // How long a plugin has to load before its test fails (SETTINGS > GENERAL: 30, 60 or 120 s).
+    void setTestTime (int seconds);
+    int testTime();
 
     // Forgets a result, so the plugin is tested again next time.
     void forget (const juce::String& path);

@@ -8,6 +8,7 @@
 #include "ui/AboutBox.h"
 #include "ui/Theme.h"
 #include "ui/WindowsDefaults.h"
+#include "engine/PluginScan.h"
 #include "StartWithWindows.h"
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
 #include "../console/src/Simple.h"     // (SIMPLE and SETUP)
@@ -38,6 +39,7 @@ MainComponent::MainComponent()
     Metering::setStandard (settings.getValue ("meterStandard", "peak"));
     if (const auto exe = settings.getValue ("ffmpegPath"); exe.isNotEmpty())   // (SETTINGS > GENERAL > FFMPEG)
         Recorder::setFfmpeg (juce::File (exe));
+    PluginScan::setTestTime (settings.getIntValue ("pluginTestSeconds", 30));   // (SETTINGS > GENERAL > PLUGIN TEST TIME)
     AudioEngine::meterPoint = juce::jlimit (0, 2, settings.getIntValue ("meterPoint", 2));
 
     eventLog.setMultiLine (true);
@@ -525,6 +527,23 @@ void MainComponent::makeSettings()
     general.actionShowing ([] { const auto f = Recorder::ffmpeg(); return "FFMPEG: " + (f.existsAsFile() ? f.getFullPathName() : juce::String ("NOT FOUND")); },
                            "MP3, AAC, Opus and ALAC recording need ffmpeg.exe: pick it here, or have it on the PATH",
                            [this] { pickFfmpeg(); });
+    general.heading ("PLUGIN TEST TIME");
+    {
+        // How long a new plugin has to load in its test copy before it fails (PluginScan.h).
+        static constexpr int seconds[] = { 30, 60, 120 };
+        general.choice ({ "30 S", "60 S", "120 S" }, []
+                        {
+                            for (int i = 0; i < (int) std::size (seconds); ++i)
+                                if (seconds[i] == PluginScan::testTime())
+                                    return i;
+                            return 0;
+                        },
+                        [remember] (int i)
+                        {
+                            PluginScan::setTestTime (seconds[i]);
+                            remember ("pluginTestSeconds", seconds[i]);
+                        }, true);
+    }
     general.heading ("UPDATES");
     general.toggle ("CHECK FOR UPDATES", "Once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else",
                     [this] { return settings.getBoolValue ("checkForUpdates", true); },

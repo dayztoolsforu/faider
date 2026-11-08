@@ -5,8 +5,8 @@
 #include "Console.h"
 
 // ABOUT FAIDER: the version, and what went into it: the libraries built in (with their
-// authors and licences), the tools it works with, and how it was made. Opened from the THEME
-// menu and the tray menu.
+// authors and licences), the tools it works with, and how it was made. Opened from SETTINGS
+// (ABOUT), FIND and the tray menu.
 class AboutBox : public juce::Component
 {
 public:

@@ -6,8 +6,8 @@
 #include "Console.h"
 
 // The mini mixer (in its own window: MainComponent::toggleMini, from the tray icon, MINI or FIND):
-// a small console with a fader, meter and CUT for each strip ticked "Tray mixer" on its
-// right-click menu (the outputs if none are). OPEN brings up the full window; PIN keeps it on top
+// a small console with a fader, meter and CUT for each strip in the session's Tray list (the
+// outputs if there's none: nothing on the desk sets that list now). OPEN brings up the full window; PIN keeps it on top
 // of everything (a game). Strips are looked up by name every frame, so it's safe while the mix
 // changes under it.
 class TrayMixer : public juce::Component,

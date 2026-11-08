@@ -8,10 +8,11 @@ class AudioEngine;
 
 // Hardware and network control.
 //
-// MIDI: any USB controller. MIDI learn binds a knob, fader or key to a target: right-click a
-// strip (fader, pan, mute, solo) or a scene, choose MIDI LEARN, then move the control. Faders and
-// knobs follow continuously; keys and notes toggle mute/solo, recall a scene, or press and
-// release a macro.
+// MIDI: any USB controller. MIDI learn binds a knob, fader or key to a target: open MIDI MAP
+// (Ctrl+L, or SETTINGS > CONTROL), click a control on the desk (a fader, pan, CUT, SOLO...), or
+// choose MIDI learn on a scene's right-click menu, then move the control. Faders and knobs
+// follow continuously; keys and notes toggle CUT/SOLO, recall a scene, or press and release a
+// macro.
 //
 // OSC from programs on this PC (never the network), on a UDP port, addresses by name (spaces may be
 // written as _):  /faider/input/MIC_FOCUS/fader -12.0   (dB)

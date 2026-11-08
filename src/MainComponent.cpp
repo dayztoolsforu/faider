@@ -233,7 +233,7 @@ MainComponent::MainComponent()
     findButton.onClick = [this] { openCommandPalette(); };
     health.onClick = [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Devices")); };
     addAndMakeVisible (health);
-    miniButton.setTooltip ("Mini mixer: the tray mixer's channels in a small window (the tray icon opens it too)");
+    miniButton.setTooltip ("Mini mixer: the outputs' faders in a small window (the tray icon opens it too)");
     miniButton.onClick = [this] { toggleMini(); };
     addAndMakeVisible (miniButton);
     historyButton.setTooltip ("Undo history (Ctrl+H)");
@@ -620,9 +620,9 @@ void MainComponent::openCommandPalette()
     add ("SESSIONS", "Open a saved mix, export or import one", [this] { showSessions (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add ("PRE-FLIGHT CHECK", "Audio, the mic cable and route, cut mics, things heard twice", [this] { showPreflight (false); });
     add ("SETUP: BUILD A MIX", "Where you listen, your microphones, how apps hear you, your programs", [this] { showSetup(); });
-    add ("ZERO DESK", "Things left set: solos, DIM, the oscillator, key listen, gains far off", [this] { showZero(); });
+    add ("ZERO DESK", "Things left set: solos, key listen, gains far off, outputs cut", [this] { showZero(); });
     add ("MIX-MINUS AND STEMS", "A feed per guest without themselves; voice, music and game stems", [this] { MixMinusBuilder::showBuilder (engine, [] {}, this); });
-    add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The tray mixer's channels in a small window, PIN keeps it on top", [this] { toggleMini(); });
+    add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The outputs' faders in a small window, PIN keeps it on top", [this] { toggleMini(); });
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
     add ("MIDI MAP", "Ctrl+L - link controls to MIDI", [this] { toggleMidiMap(); });
     for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters"), std::pair ("Macros", "Macros and their triggers"),
@@ -1156,7 +1156,7 @@ void MainComponent::resized()
     sceneBar->setVisible (bar.getWidth() >= Console::Space::key);
 }
 
-// MINI: the tray mixer's channels (those ticked "Tray mixer", or the outputs) in a small window,
+// MINI: the mini mixer's channels (a session's Tray list, else the outputs) in a small window,
 // where it was left; MINI again (or its close button) puts it away. PIN on it keeps it on top of
 // everything (a game); OPEN brings the full window back.
 void MainComponent::toggleMini()

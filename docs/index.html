@@ -3023,8 +3023,12 @@ mueve.</p>
 <td>Reducción de ruido: <span class="key">ON</span> (como el interruptor NOISE del strip), <span class="key">NEURAL</span> o <span class="key">SPECTRAL</span>, y su <span class="key">DEPTH</span> (-6 a -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>El canal que escucha la señal de control <span class="key">EXT</span> del strip (su sidechain), o <span class="key">NONE</span>. No en un strip de aplicación, pads, cinta o combinador</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Otro canal bajo el que este se atenúa mientras ese canal se oye, o <span class="key">NONE</span>, y cuánto se atenúa (<span class="key">DEPTH</span>, -6 a -24 dB). No en un canal de aplicación</td>
+<td>Otro canal bajo el que este se atenúa mientras ese canal se oye, o <span class="key">NONE</span>, y cuánto se atenúa (<span class="key">DEPTH</span>, -6 a -24 dB). También funciona en un canal de aplicación, para que la música baje mientras hablas</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -3075,7 +3079,7 @@ mueve.</p>
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>La dinámica escucha una señal de control externa (sidechain) en lugar del propio canal</td>
+<td>La dinámica escucha una señal de control externa (sidechain) en lugar del propio canal: el canal elegido en clic derecho &gt; <span class="key">KEY FROM</span>. Si lo pulsas antes de elegir uno, abre esa lista</td>
 </tr>
 <tr>
 <td><strong>Orden de procesamiento</strong></td>
@@ -3384,7 +3388,7 @@ o quitar sus plugins, renombrarlo o eliminarlo.</p>
 </tbody>
 </table></div>
 <p>Clic derecho en una salida para <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (corrección de auriculares: <span class="key">NONE</span>,
-o tu modelo, ordenados por marca), <span class="key">ALERT IF SILENT</span> (10 segundos por debajo de -60 dBFS) y <strong>ALERT
+o tu modelo, ordenados por marca), <span class="key">ALERT IF SILENT</span> (por debajo de -60 dBFS durante <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> o <span class="key">5 MIN</span>, u <span class="key">OFF</span>) y <strong>ALERT
 IF CLIPPING</strong> (mientras LIMIT está desactivado), que hacen parpadear el icono de la bandeja y escriben
 en el registro de eventos, <span class="key">IN THE MINI MIXER</span>, separadores, <span class="key">RENAME...</span> y <span class="key">REMOVE</span>.</p>
 <p>Las salidas se crean por ti, una por dispositivo (consulta
@@ -3659,10 +3663,13 @@ High), abre un menú:</p>
   audio de Windows ni del PC: Faider lo vigila, te avisa una vez desde la bandeja cuando vuelve a
   Normal, y <strong>Boost Windows audio again...</strong> en el menú de la bandeja (o BOOST aquí, o <strong>BOOST
   WINDOWS AUDIO</strong> en FIND) la sube de nuevo. Hacer clic en BOOST mientras está subida detiene la
-  vigilancia; sigue en High hasta que el audio de Windows se reinicie.</li>
+  vigilancia; sigue en High hasta que el audio de Windows se reinicie o elijas BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (desactivado salvo que lo elijas) además la fija a tu último núcleo de
   procesador, a partir del siguiente BOOST. Solo restringe dónde se ejecuta, nunca añade núcleos:
   úsalo solo para crepitaciones en un auricular USB.</li>
+<li><span class="key">BACK TO NORMAL</span> (cuando no está en Normal, o está fijada) la devuelve ya a prioridad Normal en
+  todos los núcleos, sin esperar a un reinicio. Windows pregunta primero, como con BOOST, y Faider
+  deja de vigilarla.</li>
 </ul>
 <p>No afecta a las interfaces ASIO, que no pasan por el audio de Windows.</p>
 <div class="table-wrap"><table>
@@ -4300,8 +4307,8 @@ las llamadas. O hazlo en <strong>Configuración &gt; Sistema &gt; Sonido</strong
 <td>Durante esta ejecución, el reloj es tu dispositivo de reproducción de Windows, el reloj integrado o el controlador ASIO cuyo nombre contiene <code>&lt;driver&gt;</code>. Se impone a DEVICES &gt; CLOCK (consulta <a href="#clocking">Sincronización</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Lo que <span class="key">BOOST WINDOWS AUDIO</span> inicia, como administrador: el motor de audio de Windows a prioridad High (fijado al núcleo N solo si se indica), y luego termina. 0: hecho; 2: argumentos incorrectos; 3: audiodg no encontrado; 4: acceso denegado; 5: prioridad rechazada; 6: High fijada pero la fijación de núcleo rechazada</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Lo que <span class="key">BOOST WINDOWS AUDIO</span> y <span class="key">BACK TO NORMAL</span> inician, como administrador: el motor de audio de Windows a prioridad High (fijado al núcleo N solo si se indica), o de vuelta a Normal en todos los núcleos, y luego termina. 0: hecho; 2: argumentos incorrectos; 3: audiodg no encontrado; 4: acceso denegado; 5: prioridad rechazada; 6: High fijada pero la fijación de núcleo rechazada; 7: Normal fijada pero la vuelta a todos los núcleos rechazada</td>
 </tr>
 </tbody>
 </table></div>
@@ -5067,8 +5074,12 @@ quand cette tranche bouge.</p>
 <td>Réduction de bruit : <span class="key">ON</span> (comme l'interrupteur NOISE de la tranche), <span class="key">NEURAL</span> ou <span class="key">SPECTRAL</span>, et sa <span class="key">DEPTH</span> (-6 à -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Le canal qu'écoute la clé <span class="key">EXT</span> de la tranche (son sidechain), ou <span class="key">NONE</span>. Pas sur une tranche d'application, de pads, de bande ou de combinateur</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Un autre canal sous lequel celui-ci s'abaisse tant que cet autre canal est entendu, ou <span class="key">NONE</span>, et de combien il s'abaisse (<span class="key">DEPTH</span>, -6 à -24 dB). Pas sur un canal d'application</td>
+<td>Un autre canal sous lequel celui-ci s'abaisse tant que cet autre canal est entendu, ou <span class="key">NONE</span>, et de combien il s'abaisse (<span class="key">DEPTH</span>, -6 à -24 dB). Fonctionne aussi sur un canal d'application, pour que la musique s'abaisse quand vous parlez</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -5119,7 +5130,7 @@ quand cette tranche bouge.</p>
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même</td>
+<td>La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même : le canal choisi sous clic droit &gt; <span class="key">KEY FROM</span>. Pressé avant qu'un canal soit choisi, il ouvre cette liste</td>
 </tr>
 <tr>
 <td><strong>Ordre de traitement</strong></td>
@@ -5429,7 +5440,7 @@ ou retirer ses plugins, le renommer ou le supprimer.</p>
 </tbody>
 </table></div>
 <p>Clic droit sur une sortie pour <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (correction de casque : <span class="key">NONE</span>, ou
-votre modèle, classé par marque), <span class="key">ALERT IF SILENT</span> (10 secondes sous -60 dBFS) et <strong>ALERT IF
+votre modèle, classé par marque), <span class="key">ALERT IF SILENT</span> (sous -60 dBFS pendant <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ou <span class="key">5 MIN</span>, ou <span class="key">OFF</span>) et <strong>ALERT IF
 CLIPPING</strong> (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
 écrivent dans le journal des événements, <span class="key">IN THE MINI MIXER</span>, les espaceurs, <span class="key">RENAME...</span> et
 <span class="key">REMOVE</span>.</p>
@@ -5712,10 +5723,13 @@ tant qu'elle est en High), ouvre un menu :</p>
   depuis la zone de notification quand elle est revenue à Normal, et <strong>Boost Windows audio again...</strong>
   dans le menu de la zone de notification (ou BOOST ici, ou <span class="key">BOOST WINDOWS AUDIO</span> dans FIND) la
   relève. Cliquer sur BOOST pendant qu'elle est relevée arrête la surveillance ; elle reste en High
-  jusqu'au redémarrage de l'audio de Windows.</li>
+  jusqu'au redémarrage de l'audio de Windows ou jusqu'à ce que vous choisissiez BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (désactivé sauf si vous le choisissez) la fixe aussi sur le dernier cœur de
   votre processeur, à partir du BOOST suivant. Cela restreint seulement l'endroit où elle s'exécute,
   sans jamais ajouter de cœurs : ne l'utilisez que pour des craquements sur un casque USB.</li>
+<li><span class="key">BACK TO NORMAL</span> (quand elle n'est pas en Normal, ou qu'elle est fixée) la remet tout de suite en
+  priorité Normal sur tous les cœurs, sans attendre un redémarrage. Windows demande d'abord, comme pour
+  BOOST, et Faider arrête la surveillance.</li>
 </ul>
 <p>Cela n'affecte pas les interfaces ASIO, qui ne passent pas par l'audio de Windows.</p>
 <div class="table-wrap"><table>
@@ -6362,8 +6376,8 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 <td>Pour cette exécution, l'horloge est votre périphérique de lecture Windows, l'horloge intégrée, ou le pilote ASIO dont le nom contient <code>&lt;driver&gt;</code>. Il l'emporte sur DEVICES &gt; CLOCK (voir <a href="#clocking">Synchronisation</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Ce que <span class="key">BOOST WINDOWS AUDIO</span> lance, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Ce que <span class="key">BOOST WINDOWS AUDIO</span> et <span class="key">BACK TO NORMAL</span> lancent, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), ou de retour en Normal sur tous les cœurs, puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée ; 7 : Normal réglé mais le retour sur tous les cœurs refusé</td>
 </tr>
 </tbody>
 </table></div>
@@ -7098,8 +7112,12 @@ SPACER</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 <td>Rauschunterdrückung: <span class="key">ON</span> (wie der NOISE-Schalter des Strips), <span class="key">NEURAL</span> oder <span class="key">SPECTRAL</span> und ihre <span class="key">DEPTH</span> (-6 bis -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Der Kanal, auf den der <span class="key">EXT</span>-Key des Strips hört (seine Sidechain), oder <span class="key">NONE</span>. Nicht bei einem App-, Pads-, Tape- oder Combinator-Strip</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Ein anderer Kanal, unter den dieser abgesenkt wird, solange jener zu hören ist, oder <span class="key">NONE</span>, und wie weit er absinkt (<span class="key">DEPTH</span>, -6 bis -24 dB). Nicht bei einem App-Kanal</td>
+<td>Ein anderer Kanal, unter den dieser abgesenkt wird, solange jener zu hören ist, oder <span class="key">NONE</span>, und wie weit er absinkt (<span class="key">DEPTH</span>, -6 bis -24 dB). Geht auch bei einem App-Kanal, damit die Musik absinkt, während du sprichst</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -7150,7 +7168,7 @@ SPACER</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst</td>
+<td>Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst: den Kanal, der unter Rechtsklick &gt; <span class="key">KEY FROM</span> gewählt ist. Gedrückt, bevor einer gewählt ist, öffnet es diese Liste</td>
 </tr>
 <tr>
 <td><strong>Processing order</strong></td>
@@ -7458,7 +7476,7 @@ entfernen, ihn umzubenennen oder zu entfernen.</p>
 </tbody>
 </table></div>
 <p>Rechtsklick auf einen Ausgang für <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (Kopfhörerkorrektur: <span class="key">NONE</span> oder dein
-Modell, nach Marke aufgelistet), <span class="key">ALERT IF SILENT</span> (10 Sekunden unter -60 dBFS) und <span class="key">ALERT IF CLIPPING</span>
+Modell, nach Marke aufgelistet), <span class="key">ALERT IF SILENT</span> (unter -60 dBFS für <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> oder <span class="key">5 MIN</span>, oder <span class="key">OFF</span>) und <span class="key">ALERT IF CLIPPING</span>
 (solange LIMIT aus ist), die das Tray-Symbol blinken lassen und ins Ereignisprotokoll schreiben, <span class="key">IN THE MINI MIXER</span>,
 Spacer, <span class="key">RENAME...</span> und <span class="key">REMOVE</span>.</p>
 <p>Ausgänge werden für dich erstellt, einer pro Gerät (siehe <a href="#outputs-are-devices">Ausgänge sind Geräte</a>).</p>
@@ -7722,10 +7740,12 @@ lässt. Ihre Taste, <span class="key">BOOST WINDOWS AUDIO</span> (<span class="k
   Es überdauert keinen Neustart des Windows-Audios oder des PCs: Faider behält es im Blick, sagt dir einmal
   über das Tray, wenn es wieder auf Normal steht, und <strong>Boost Windows audio again...</strong> im Tray-Menü (oder
   BOOST hier, oder <span class="key">BOOST WINDOWS AUDIO</span> in FIND) hebt es erneut an. Ein Klick auf BOOST, während es angehoben ist,
-  beendet das Beobachten; es bleibt auf High, bis das Windows-Audio neu startet.</li>
+  beendet das Beobachten; es bleibt auf High, bis das Windows-Audio neu startet oder du BACK TO NORMAL wählst.</li>
 <li><span class="key">PIN TO ONE CORE</span> (aus, solange du es nicht wählst) bindet es zusätzlich an deinen letzten Prozessorkern, ab dem
   nächsten BOOST. Es schränkt nur ein, wo es läuft, und fügt nie Kerne hinzu: Nutze es nur bei Knistern an einem
   USB-Headset.</li>
+<li><span class="key">BACK TO NORMAL</span> (wenn es nicht auf Normal steht oder gebunden ist) setzt es sofort wieder auf Priorität Normal auf
+  allen Kernen, ohne auf einen Neustart zu warten. Windows fragt zuerst, wie bei BOOST, und Faider hört auf zu beobachten.</li>
 </ul>
 <p>Auf ASIO-Interfaces wirkt es sich nicht aus, denn sie laufen nicht über das Windows-Audio.</p>
 <div class="table-wrap"><table>
@@ -8346,8 +8366,8 @@ Ausgabe ein und dein echtes Mikrofon als Standard-Eingabe, jeweils auch für Anr
 <td>Für diesen Lauf ist der Takt dein Windows-Wiedergabegerät, der eingebaute Takt oder der ASIO-Treiber, dessen Name <code>&lt;driver&gt;</code> enthält. Hat Vorrang vor DEVICES &gt; CLOCK (siehe <a href="#clocking">Takt</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Was <span class="key">BOOST WINDOWS AUDIO</span> als Administrator startet: die Audio-Engine von Windows auf Priorität High (nur an Kern N gebunden, wenn angegeben), dann beendet es sich. 0: erledigt; 2: falsche Argumente; 3: audiodg nicht gefunden; 4: Zugriff verweigert; 5: Priorität abgelehnt; 6: High gesetzt, aber die Kernbindung abgelehnt</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Was <span class="key">BOOST WINDOWS AUDIO</span> und <span class="key">BACK TO NORMAL</span> als Administrator starten: die Audio-Engine von Windows auf Priorität High (nur an Kern N gebunden, wenn angegeben) oder zurück auf Normal auf allen Kernen, dann beendet es sich. 0: erledigt; 2: falsche Argumente; 3: audiodg nicht gefunden; 4: Zugriff verweigert; 5: Priorität abgelehnt; 6: High gesetzt, aber die Kernbindung abgelehnt; 7: Normal gesetzt, aber die Freigabe aller Kerne abgelehnt</td>
 </tr>
 </tbody>
 </table></div>
@@ -9093,8 +9113,12 @@ SPACER BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Clic destro 
 <td>Riduzione del rumore: <span class="key">ON</span> (come l'interruttore NOISE della strip), <span class="key">NEURAL</span> o <span class="key">SPECTRAL</span>, e la sua <span class="key">DEPTH</span> (da -6 a -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Il canale che ascolta la key <span class="key">EXT</span> della strip (la sua sidechain), oppure <span class="key">NONE</span>. Non su una strip app, pad, tape o combinatore</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Un altro canale sotto cui questo si abbassa mentre quel canale si sente, oppure <span class="key">NONE</span>, e di quanto si abbassa (<span class="key">DEPTH</span>, da -6 a -24 dB). Non su un canale app</td>
+<td>Un altro canale sotto cui questo si abbassa mentre quel canale si sente, oppure <span class="key">NONE</span>, e di quanto si abbassa (<span class="key">DEPTH</span>, da -6 a -24 dB). Funziona anche su un canale app, così la musica si abbassa mentre parli</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -9145,7 +9169,7 @@ SPACER BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Clic destro 
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>La dinamica ascolta una key esterna (sidechain) invece del canale stesso</td>
+<td>La dinamica ascolta una key esterna (sidechain) invece del canale stesso: il canale scelto in clic destro &gt; <span class="key">KEY FROM</span>. Premuto prima di averne scelto uno, apre quell'elenco</td>
 </tr>
 <tr>
 <td><strong>Ordine di elaborazione</strong></td>
@@ -9454,7 +9478,7 @@ o rimuoverne i plugin, rinominarlo o rimuoverlo.</p>
 </tbody>
 </table></div>
 <p>Clic destro su un'uscita per <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (correzione per cuffie: <span class="key">NONE</span>, o il
-tuo modello, elencato per marca), <span class="key">ALERT IF SILENT</span> (10 secondi sotto -60 dBFS) e <strong>ALERT IF
+tuo modello, elencato per marca), <span class="key">ALERT IF SILENT</span> (sotto -60 dBFS per <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> o <span class="key">5 MIN</span>, oppure <span class="key">OFF</span>) e <strong>ALERT IF
 CLIPPING</strong> (mentre LIMIT è spento), che fanno lampeggiare l'icona nell'area di notifica e scrivono
 nel log degli eventi, <span class="key">IN THE MINI MIXER</span>, spacer, <span class="key">RENAME...</span> e <span class="key">REMOVE</span>.</p>
 <p>Le uscite si creano da sole, una per dispositivo (vedi <a href="#outputs-are-devices">Le uscite sono dispositivi</a>).</p>
@@ -9722,10 +9746,13 @@ menu:</p>
   del PC: Faider la tiene d'occhio, ti avvisa una volta dall'area di notifica quando è tornata a
   Normal, e <strong>Boost Windows audio again...</strong> nel menu dell'area di notifica (o BOOST qui, o <strong>BOOST
   WINDOWS AUDIO</strong> in FIND) la rialza. Fare clic su BOOST mentre è alzata ferma la sorveglianza; resta
-  su High finché l'audio di Windows non si riavvia.</li>
+  su High finché l'audio di Windows non si riavvia o non scegli BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (spento a meno che tu non lo scelga) la lega anche all'ultimo core del tuo
   processore, dal BOOST successivo. Limita soltanto dove gira, non aggiunge mai core: usalo solo per
   i crepitii su un headset USB.</li>
+<li><span class="key">BACK TO NORMAL</span> (quando non è su Normal, o è legata a un core) la riporta subito a priorità
+  Normal su tutti i core, senza aspettare un riavvio. Windows chiede prima, come per BOOST, e Faider
+  smette di tenerla d'occhio.</li>
 </ul>
 <p>Non influisce sulle interfacce ASIO, che non passano dall'audio di Windows.</p>
 <div class="table-wrap"><table>
@@ -10351,8 +10378,8 @@ per le chiamate. Oppure fallo in <strong>Impostazioni &gt; Sistema &gt; Audio</s
 <td>Per questa esecuzione, il clock è il tuo dispositivo di riproduzione di Windows, il clock integrato, o il driver ASIO il cui nome contiene <code>&lt;driver&gt;</code>. Prevale su DEVICES &gt; CLOCK (vedi <a href="#clocking">Clock</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Ciò che <span class="key">BOOST WINDOWS AUDIO</span> avvia, come amministratore: il motore audio di Windows a priorità High (legato al core N solo se indicato), poi esce. 0: fatto; 2: argomenti errati; 3: audiodg non trovato; 4: accesso negato; 5: priorità rifiutata; 6: High impostata ma il legame al core rifiutato</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Ciò che <span class="key">BOOST WINDOWS AUDIO</span> e <span class="key">BACK TO NORMAL</span> avviano, come amministratore: il motore audio di Windows a priorità High (legato al core N solo se indicato), o di nuovo a Normal su tutti i core, poi esce. 0: fatto; 2: argomenti errati; 3: audiodg non trovato; 4: accesso negato; 5: priorità rifiutata; 6: High impostata ma il legame al core rifiutato; 7: Normal impostata ma il ritorno a tutti i core rifiutato</td>
 </tr>
 </tbody>
 </table></div>
@@ -11105,8 +11132,12 @@ move.</p>
 <td>Redução de ruído: <span class="key">ON</span> (como a chave NOISE do strip), <span class="key">NEURAL</span> ou <span class="key">SPECTRAL</span>, e a <span class="key">DEPTH</span> dela (-6 a -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>O canal que a chave <span class="key">EXT</span> do strip escuta (o sidechain dele), ou <span class="key">NONE</span>. Não existe em strip de app, pads, fita ou combinador</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Outro canal sob o qual este abaixa enquanto aquele canal é ouvido, ou <span class="key">NONE</span>, e quanto ele abaixa (<span class="key">DEPTH</span>, -6 a -24 dB). Não existe em canal de app</td>
+<td>Outro canal sob o qual este abaixa enquanto aquele canal é ouvido, ou <span class="key">NONE</span>, e quanto ele abaixa (<span class="key">DEPTH</span>, -6 a -24 dB). Funciona também em canal de app, para a música abaixar enquanto você fala</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -11157,7 +11188,7 @@ move.</p>
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal</td>
+<td>A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal: o canal escolhido em botão direito &gt; <span class="key">KEY FROM</span>. Se for pressionado antes de escolher um, abre essa lista</td>
 </tr>
 <tr>
 <td><strong>Ordem de processamento</strong></td>
@@ -11465,7 +11496,7 @@ adicionar ou remover seus plugins, renomeá-lo ou removê-lo.</p>
 </tbody>
 </table></div>
 <p>Botão direito em uma saída para <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (correção de fones: <span class="key">NONE</span>, ou o
-seu modelo, listado por marca), <span class="key">ALERT IF SILENT</span> (10 segundos abaixo de -60 dBFS) e
+seu modelo, listado por marca), <span class="key">ALERT IF SILENT</span> (abaixo de -60 dBFS por <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ou <span class="key">5 MIN</span>, ou <span class="key">OFF</span>) e
 <span class="key">ALERT IF CLIPPING</span> (enquanto o LIMIT está desligado), que fazem o ícone da bandeja piscar e
 escrevem no log de eventos, <span class="key">IN THE MINI MIXER</span>, espaçadores, <span class="key">RENAME...</span> e <span class="key">REMOVE</span>.</p>
 <p>As saídas são criadas para você, uma por dispositivo (veja <a href="#outputs-are-devices">Saídas são dispositivos</a>).</p>
@@ -11734,10 +11765,14 @@ um menu:</p>
   dizer não não muda nada. Não sobrevive a um reinício do áudio do Windows nem do PC: o Faider fica de
   olho, avisa você uma vez pela bandeja quando volta a Normal, e <strong>Boost Windows audio again...</strong> no
   menu da bandeja (ou BOOST aqui, ou <span class="key">BOOST WINDOWS AUDIO</span> no FIND) sobe de novo. Clicar em BOOST
-  enquanto está em boost para de vigiar; fica em High até o áudio do Windows reiniciar.</li>
+  enquanto está em boost para de vigiar; fica em High até o áudio do Windows reiniciar ou você escolher
+  BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (desligado, a menos que você escolha) também prende o processo ao último núcleo
   do processador, a partir do próximo BOOST. Só restringe onde ele roda, nunca adiciona núcleos: use
   apenas para estalos em um headset USB.</li>
+<li><span class="key">BACK TO NORMAL</span> (quando não está em Normal, ou está preso a um núcleo) volta agora para a prioridade
+  Normal em todos os núcleos, sem esperar um reinício. O Windows pergunta antes, como no BOOST, e o
+  Faider para de vigiar.</li>
 </ul>
 <p>Não afeta interfaces ASIO, que não passam pelo áudio do Windows.</p>
 <div class="table-wrap"><table>
@@ -12367,8 +12402,8 @@ em <strong>Configurações &gt; Sistema &gt; Som</strong>. Veja o <a href="#step
 <td>Nesta execução, o clock é o seu dispositivo de reprodução do Windows, o clock interno, ou o driver ASIO cujo nome contém <code>&lt;driver&gt;</code>. Vence DEVICES &gt; CLOCK (veja <a href="#clocking">Sincronização</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>O que <span class="key">BOOST WINDOWS AUDIO</span> inicia, como administrador: o mecanismo de áudio do Windows em prioridade High (preso ao núcleo N só se for informado), e então sai. 0: feito; 2: argumentos inválidos; 3: audiodg não encontrado; 4: acesso negado; 5: prioridade recusada; 6: High definido, mas a fixação foi recusada</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>O que <span class="key">BOOST WINDOWS AUDIO</span> e <span class="key">BACK TO NORMAL</span> iniciam, como administrador: o mecanismo de áudio do Windows em prioridade High (preso ao núcleo N só se for informado), ou de volta a Normal em todos os núcleos, e então sai. 0: feito; 2: argumentos inválidos; 3: audiodg não encontrado; 4: acesso negado; 5: prioridade recusada; 6: High definido, mas a fixação foi recusada; 7: Normal definido, mas a volta a todos os núcleos foi recusada</td>
 </tr>
 </tbody>
 </table></div>
@@ -13103,8 +13138,12 @@ SPACER</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 <td>Ruisonderdrukking: <span class="key">ON</span> (zoals de NOISE-schakelaar van de strip), <span class="key">NEURAL</span> of <span class="key">SPECTRAL</span>, en de <span class="key">DEPTH</span> (-6 tot -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Het kanaal waarnaar de <span class="key">EXT</span>-key van de strip luistert (de sidechain), of <span class="key">NONE</span>. Niet op een app-, pads-, tape- of combinator-strip</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Een ander kanaal waaronder dit kanaal wegzakt zolang dat kanaal te horen is, of <span class="key">NONE</span>, en hoe ver het wegzakt (<span class="key">DEPTH</span>, -6 tot -24 dB). Niet op een app-kanaal</td>
+<td>Een ander kanaal waaronder dit kanaal wegzakt zolang dat kanaal te horen is, of <span class="key">NONE</span>, en hoe ver het wegzakt (<span class="key">DEPTH</span>, -6 tot -24 dB). Werkt ook op een app-kanaal, zodat muziek wegzakt terwijl je praat</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -13155,7 +13194,7 @@ SPACER</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf</td>
+<td>De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf: het kanaal dat onder rechtsklik &gt; <span class="key">KEY FROM</span> is gekozen. Druk je erop voordat er een is gekozen, dan opent het die lijst</td>
 </tr>
 <tr>
 <td><strong>Processing order</strong></td>
@@ -13463,7 +13502,7 @@ het pad te hernoemen of te verwijderen.</p>
 </tbody>
 </table></div>
 <p>Rechtsklik op een uitgang voor <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (koptelefooncorrectie: <span class="key">NONE</span>, of je
-model, op merk gesorteerd), <span class="key">ALERT IF SILENT</span> (10 seconden onder -60 dBFS) en <span class="key">ALERT IF CLIPPING</span>
+model, op merk gesorteerd), <span class="key">ALERT IF SILENT</span> (onder -60 dBFS gedurende <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> of <span class="key">5 MIN</span>, of <span class="key">OFF</span>) en <span class="key">ALERT IF CLIPPING</span>
 (zolang LIMIT uit staat), die het pictogram in het systeemvak laten knipperen en in het
 gebeurtenissenlogboek schrijven, <span class="key">IN THE MINI MIXER</span>, spacers, <span class="key">RENAME...</span> en <span class="key">REMOVE</span>.</p>
 <p>Uitgangen worden voor je gemaakt, één per apparaat (zie <a href="#outputs-are-devices">Uitgangen zijn apparaten</a>).</p>
@@ -13727,10 +13766,12 @@ gelezen kan worden. Zijn toets, <span class="key">BOOST WINDOWS AUDIO</span> (<s
   Het overleeft geen herstart van Windows-audio of van de pc: Faider houdt het in de gaten, meldt je één keer
   via het systeemvak wanneer hij weer op Normal staat, en <strong>Boost Windows audio again...</strong> in het menu van het systeemvak (of
   BOOST hier, of <span class="key">BOOST WINDOWS AUDIO</span> in FIND) boost hem opnieuw. Klik je op BOOST terwijl hij geboost is, dan
-  stopt het in de gaten houden; hij blijft op High tot Windows-audio opnieuw start.</li>
+  stopt het in de gaten houden; hij blijft op High tot Windows-audio opnieuw start of je BACK TO NORMAL kiest.</li>
 <li><span class="key">PIN TO ONE CORE</span> (uit tenzij je het kiest) houdt hem ook vast aan je laatste processorkern, vanaf de
   volgende BOOST. Het beperkt alleen waar hij draait en voegt nooit kernen toe: gebruik het alleen bij gekraak op een
   USB-headset.</li>
+<li><span class="key">BACK TO NORMAL</span> (als hij niet op Normal staat, of vastgezet is) zet hem nu terug op Normal-prioriteit op alle
+  kernen, zonder op een herstart te wachten. Windows vraagt het eerst, net als bij BOOST, en Faider stopt met in de gaten houden.</li>
 </ul>
 <p>Het heeft geen invloed op ASIO-interfaces, die niet via Windows-audio gaan.</p>
 <div class="table-wrap"><table>
@@ -14350,8 +14391,8 @@ uitvoer en je echte microfoon als standaard invoer, elk ook voor gesprekken. Of 
 <td>Voor deze keer is de klok je Windows-afspeelapparaat, de ingebouwde klok, of het ASIO-stuurprogramma waarvan de naam <code>&lt;driver&gt;</code> bevat. Het wint van DEVICES &gt; CLOCK (zie <a href="#clocking">Klokken</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Wat <span class="key">BOOST WINDOWS AUDIO</span> start, als beheerder: de audio-engine van Windows op High-prioriteit (alleen vastgezet op kern N als die is opgegeven), daarna sluit het af. 0: klaar; 2: ongeldige argumenten; 3: audiodg niet gevonden; 4: toegang geweigerd; 5: prioriteit geweigerd; 6: High ingesteld maar vastzetten geweigerd</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Wat <span class="key">BOOST WINDOWS AUDIO</span> en <span class="key">BACK TO NORMAL</span> starten, als beheerder: de audio-engine van Windows op High-prioriteit (alleen vastgezet op kern N als die is opgegeven), of terug op Normal op alle kernen, daarna sluit het af. 0: klaar; 2: ongeldige argumenten; 3: audiodg niet gevonden; 4: toegang geweigerd; 5: prioriteit geweigerd; 6: High ingesteld maar vastzetten geweigerd; 7: Normal ingesteld maar alle kernen vrijgeven geweigerd</td>
 </tr>
 </tbody>
 </table></div>
@@ -15090,8 +15131,12 @@ BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Prawy przycisk na o
 <td>Redukcja szumów: <span class="key">ON</span> (jak przełącznik NOISE na pasku), <span class="key">NEURAL</span> lub <span class="key">SPECTRAL</span> oraz jej <span class="key">DEPTH</span> (-6 do -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Kanał, którego słucha klucz <span class="key">EXT</span> paska (jego sidechain), albo <span class="key">NONE</span>. Nie na pasku aplikacji, padów, tape ani kombinatora</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Inny kanał, pod który ten kanał się przycisza, gdy tamten jest słyszalny, albo <span class="key">NONE</span>, oraz o ile się przycisza (<span class="key">DEPTH</span>, -6 do -24 dB). Nie na kanale aplikacji</td>
+<td>Inny kanał, pod który ten kanał się przycisza, gdy tamten jest słyszalny, albo <span class="key">NONE</span>, oraz o ile się przycisza (<span class="key">DEPTH</span>, -6 do -24 dB). Działa też na kanale aplikacji, więc muzyka cichnie, gdy mówisz</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -15142,7 +15187,7 @@ BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Prawy przycisk na o
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału</td>
+<td>Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału: kanału wybranego w prawy przycisk &gt; <span class="key">KEY FROM</span>. Naciśnięty, zanim jakiś wybierzesz, otwiera tę listę</td>
 </tr>
 <tr>
 <td><strong>Kolejność przetwarzania</strong></td>
@@ -15451,7 +15496,7 @@ usunąć jej wtyczki, zmienić jej nazwę albo ją usunąć.</p>
 </tbody>
 </table></div>
 <p>Prawy przycisk na wyjściu daje <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (korekcja słuchawek: <span class="key">NONE</span> albo
-twój model, według marki), <span class="key">ALERT IF SILENT</span> (10 sekund poniżej -60 dBFS) i <span class="key">ALERT IF CLIPPING</span>
+twój model, według marki), <span class="key">ALERT IF SILENT</span> (poniżej -60 dBFS przez <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> lub <span class="key">5 MIN</span>, albo <span class="key">OFF</span>) i <span class="key">ALERT IF CLIPPING</span>
 (gdy LIMIT jest wyłączony), które migają ikoną w zasobniku i zapisują do dziennika zdarzeń,
 <span class="key">IN THE MINI MIXER</span>, odstępy, <span class="key">RENAME...</span> i <span class="key">REMOVE</span>.</p>
 <p>Wyjścia tworzą się same, po jednym na urządzenie (zobacz <a href="#outputs-are-devices">Wyjścia to urządzenia</a>).</p>
@@ -15717,10 +15762,14 @@ jest na High), otwiera menu:</p>
   najpierw pyta; odmowa niczego nie zmienia. Nie przetrwa restartu audio Windows ani komputera: Faider
   to obserwuje, raz powiadamia cię z zasobnika, gdy wróci do Normal, a <strong>Boost Windows audio again...</strong>
   w menu zasobnika (albo BOOST tutaj, albo <span class="key">BOOST WINDOWS AUDIO</span> w FIND) podnosi go ponownie.
-  Kliknięcie BOOST, gdy jest podniesiony, kończy obserwowanie; zostaje na High do restartu audio Windows.</li>
+  Kliknięcie BOOST, gdy jest podniesiony, kończy obserwowanie; zostaje na High do restartu audio Windows
+  albo do wybrania BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (wyłączone, chyba że to wybierzesz) dodatkowo przypina go do ostatniego rdzenia
   procesora, od następnego BOOST. Tylko ogranicza, gdzie działa, nigdy nie dodaje rdzeni: używaj go
   tylko przy trzaskach na zestawie słuchawkowym USB.</li>
+<li><span class="key">BACK TO NORMAL</span> (gdy nie jest na Normal albo jest przypięty) od razu przywraca mu priorytet Normal
+  na wszystkich rdzeniach, bez czekania na restart. Windows najpierw pyta, jak przy BOOST, a Faider
+  kończy obserwowanie.</li>
 </ul>
 <p>Nie ma wpływu na interfejsy ASIO, które nie przechodzą przez audio Windows.</p>
 <div class="table-wrap"><table>
@@ -16337,8 +16386,8 @@ domyślne wyjście, a twój prawdziwy mikrofon jako domyślne wejście, każde t
 <td>W tym uruchomieniu zegarem jest twoje urządzenie odtwarzające Windows, zegar wbudowany albo sterownik ASIO, którego nazwa zawiera <code>&lt;driver&gt;</code>. Ma pierwszeństwo przed DEVICES &gt; CLOCK (zobacz <a href="#clocking">Zegar</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>To, co uruchamia <span class="key">BOOST WINDOWS AUDIO</span>, jako administrator: silnik audio Windows na priorytet High (przypięty do rdzenia N tylko, jeśli go podano), potem kończy działanie. 0: gotowe; 2: złe argumenty; 3: nie znaleziono audiodg; 4: odmowa dostępu; 5: odmowa priorytetu; 6: High ustawiony, ale odmowa przypięcia</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>To, co uruchamiają <span class="key">BOOST WINDOWS AUDIO</span> i <span class="key">BACK TO NORMAL</span>, jako administrator: silnik audio Windows na priorytet High (przypięty do rdzenia N tylko, jeśli go podano) albo z powrotem na Normal na wszystkich rdzeniach, potem kończy działanie. 0: gotowe; 2: złe argumenty; 3: nie znaleziono audiodg; 4: odmowa dostępu; 5: odmowa priorytetu; 6: High ustawiony, ale odmowa przypięcia; 7: Normal ustawiony, ale odmowa powrotu na wszystkie rdzenie</td>
 </tr>
 </tbody>
 </table></div>
@@ -17074,8 +17123,12 @@ SPACER</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 <td>Brusreducering: <span class="key">ON</span> (som stripens NOISE-brytare), <span class="key">NEURAL</span> eller <span class="key">SPECTRAL</span>, och dess <span class="key">DEPTH</span> (-6 till -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Kanalen som stripens <span class="key">EXT</span>-key lyssnar på (dess sidechain), eller <span class="key">NONE</span>. Inte på en app-, pads-, tape- eller combinator-strip</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>En annan kanal som den här sänks under medan den kanalen hörs, eller <span class="key">NONE</span>, och hur mycket den sänks (<span class="key">DEPTH</span>, -6 till -24 dB). Inte på en appkanal</td>
+<td>En annan kanal som den här sänks under medan den kanalen hörs, eller <span class="key">NONE</span>, och hur mycket den sänks (<span class="key">DEPTH</span>, -6 till -24 dB). Fungerar även på en appkanal, så att musiken sänks medan du pratar</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -17126,7 +17179,7 @@ SPACER</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv</td>
+<td>Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv: kanalen som valts under högerklick &gt; <span class="key">KEY FROM</span>. Trycker du på den innan någon är vald öppnas den listan</td>
 </tr>
 <tr>
 <td><strong>Processing order</strong></td>
@@ -17434,7 +17487,7 @@ plugins, byta namn på den eller ta bort den.</p>
 </tbody>
 </table></div>
 <p>Högerklicka på en utgång för <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (hörlurskorrigering: <span class="key">NONE</span>, eller din
-modell, listad efter märke), <span class="key">ALERT IF SILENT</span> (10 sekunder under -60 dBFS) och <span class="key">ALERT IF CLIPPING</span>
+modell, listad efter märke), <span class="key">ALERT IF SILENT</span> (under -60 dBFS i <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> eller <span class="key">5 MIN</span>, eller <span class="key">OFF</span>) och <span class="key">ALERT IF CLIPPING</span>
 (medan LIMIT är av), som får ikonen i aktivitetsfältet att blinka och skriver till händelseloggen,
 <span class="key">IN THE MINI MIXER</span>, spacers, <span class="key">RENAME...</span> och <span class="key">REMOVE</span>.</p>
 <p>Utgångar skapas åt dig, en per enhet (se <a href="#outputs-are-devices">Utgångar är enheter</a>).</p>
@@ -17698,10 +17751,12 @@ tangent, <span class="key">BOOST WINDOWS AUDIO</span> (<span class="key">BOOSTED
   Det överlever inte en omstart av Windows-ljudet eller datorn: Faider bevakar det, säger till en gång
   från aktivitetsfältet när den är tillbaka på Normal, och <strong>Boost Windows audio again...</strong> i menyn i aktivitetsfältet (eller
   BOOST här, eller <span class="key">BOOST WINDOWS AUDIO</span> i FIND) höjer den igen. Klickar du på BOOST medan den är höjd
-  slutar bevakningen; den stannar på High tills Windows-ljudet startar om.</li>
+  slutar bevakningen; den stannar på High tills Windows-ljudet startar om eller du väljer BACK TO NORMAL.</li>
 <li><span class="key">PIN TO ONE CORE</span> (av om du inte väljer det) låser den också till din sista processorkärna, från nästa
   BOOST. Det begränsar bara var den körs och lägger aldrig till kärnor: använd det bara mot knaster i ett
   USB-headset.</li>
+<li><span class="key">BACK TO NORMAL</span> (när den inte är på Normal, eller är låst) sätter genast tillbaka den på Normal-prioritet på
+  alla kärnor, utan att vänta på en omstart. Windows frågar först, som för BOOST, och Faider slutar bevaka den.</li>
 </ul>
 <p>Det påverkar inte ASIO-gränssnitt, som inte går via Windows-ljudet.</p>
 <div class="table-wrap"><table>
@@ -18318,8 +18373,8 @@ utdata igen, och din riktiga mikrofon som standardindata, var och en även för 
 <td>För den här körningen är klockan din Windows-uppspelningsenhet, den inbyggda klockan, eller den ASIO-drivrutin vars namn innehåller <code>&lt;driver&gt;</code>. Det går före DEVICES &gt; CLOCK (se <a href="#clocking">Klockor</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td>Det som <span class="key">BOOST WINDOWS AUDIO</span> startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td>Det som <span class="key">BOOST WINDOWS AUDIO</span> och <span class="key">BACK TO NORMAL</span> startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), eller tillbaka till Normal på alla kärnor, sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades; 7: Normal satt men återgången till alla kärnor nekades</td>
 </tr>
 </tbody>
 </table></div>
@@ -19053,8 +19108,12 @@ getirmek için güç simgesine yeniden tıkla.</p>
 <td>Gürültü azaltma: <span class="key">ON</span> (şeridin NOISE anahtarı gibi), <span class="key">NEURAL</span> ya da <span class="key">SPECTRAL</span> ve <span class="key">DEPTH</span>'i (-6 ile -30 dB arası)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>Şeridin <span class="key">EXT</span> key'inin dinlediği kanal (sidechain'i) ya da <span class="key">NONE</span>. Uygulama, pad, tape ya da kombinatör şeridinde yok</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>Bu kanalın, duyulduğu sürece altına indiği başka bir kanal ya da <span class="key">NONE</span>, ve ne kadar indiği (<span class="key">DEPTH</span>, -6 ile -24 dB arası). Uygulama kanalında yok</td>
+<td>Bu kanalın, duyulduğu sürece altına indiği başka bir kanal ya da <span class="key">NONE</span>, ve ne kadar indiği (<span class="key">DEPTH</span>, -6 ile -24 dB arası). Uygulama kanalında da çalışır, böylece sen konuşurken müzik iner</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -19105,7 +19164,7 @@ getirmek için güç simgesine yeniden tıkla.</p>
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain)</td>
+<td>Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain): sağ tık &gt; <span class="key">KEY FROM</span> altında seçilen kanalı. Henüz biri seçilmeden basılırsa o listeyi açar</td>
 </tr>
 <tr>
 <td><strong>İşleme sırası</strong></td>
@@ -19413,7 +19472,7 @@ kaldırmak için ona sağ tık &gt; <span class="key">PATHS</span>.</p>
 </tbody>
 </table></div>
 <p>Bir çıkışa sağ tıklayınca <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (kulaklık düzeltmesi: <span class="key">NONE</span> ya da markaya
-göre listelenmiş modelin), <span class="key">ALERT IF SILENT</span> (10 saniye -60 dBFS'nin altında) ve <span class="key">ALERT IF CLIPPING</span>
+göre listelenmiş modelin), <span class="key">ALERT IF SILENT</span> (<span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ya da <span class="key">5 MIN</span> boyunca -60 dBFS'nin altında, ya da <span class="key">OFF</span>) ve <span class="key">ALERT IF CLIPPING</span>
 (LIMIT kapalıyken), ki bunlar tepsi simgesini yanıp söndürür ve olay günlüğüne yazar, <strong>IN THE MINI
 MIXER</strong>, boşluklar, <span class="key">RENAME...</span> ve <span class="key">REMOVE</span> çıkar.</p>
 <p>Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. <a href="#outputs-are-devices">Çıkışlar aygıttır</a>).</p>
@@ -19679,10 +19738,13 @@ uygulamayı taşıyan audiodg.exe) önceliğini gösterir: <span class="key">NOR
   sonra kalmaz: Faider onu izler, Normal'e döndüğünde tepsiden bir kez söyler ve tepsi menüsündeki
   <strong>Boost Windows audio again...</strong> (ya da buradaki BOOST veya FIND'daki <span class="key">BOOST WINDOWS AUDIO</span>) onu
   yeniden yükseltir. Yükseltilmişken BOOST'a tıklamak izlemeyi durdurur; Windows sesi yeniden başlayana
-  kadar High kalır.</li>
+  ya da sen BACK TO NORMAL'ı seçene kadar High kalır.</li>
 <li><span class="key">PIN TO ONE CORE</span> (sen seçmedikçe kapalı) bir sonraki BOOST'tan itibaren onu son işlemci çekirdeğine
   de bağlar. Yalnızca nerede çalıştığını kısıtlar, asla çekirdek eklemez: yalnızca bir USB kulaklıktaki
   çıtırtı için kullan.</li>
+<li><span class="key">BACK TO NORMAL</span> (Normal'de değilken ya da bağlıyken) onu yeniden başlatmayı beklemeden hemen tüm
+  çekirdeklerde Normal önceliğe geri alır. Windows, BOOST'ta olduğu gibi önce sorar ve Faider izlemeyi
+  bırakır.</li>
 </ul>
 <p>Windows sesinden geçmeyen ASIO arabirimlerini etkilemez.</p>
 <div class="table-wrap"><table>
@@ -20301,8 +20363,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>Bu çalışma için saat, Windows oynatma aygıtın, yerleşik saat ya da adında <code>&lt;driver&gt;</code> geçen ASIO sürücüsüdür. DEVICES &gt; CLOCK'un önüne geçer (bkz. <a href="#clocking">Saat</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td><span class="key">BOOST WINDOWS AUDIO</span>'nun yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar), sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td><span class="key">BOOST WINDOWS AUDIO</span> ve <span class="key">BACK TO NORMAL</span>'ın yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar) ya da tüm çekirdeklerde Normal'e geri alır, sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi; 7: Normal ayarlandı ama tüm çekirdeklere dönüş reddedildi</td>
 </tr>
 </tbody>
 </table></div>
@@ -20944,8 +21006,12 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>ノイズリダクション: <span class="key">ON</span>(ストリップの NOISE スイッチと同じ)、<span class="key">NEURAL</span> または <span class="key">SPECTRAL</span>、そのかかり具合 <span class="key">DEPTH</span>(-6〜-30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>ストリップの <span class="key">EXT</span> キーが聞くチャンネル(サイドチェイン)、または <span class="key">NONE</span>。アプリ、パッド、テープ、コンバイネーターのストリップにはありません</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>別のチャンネルが聞こえている間、このチャンネルをその下に下げます。そのチャンネル、または <span class="key">NONE</span> を選び、下げる量(<span class="key">DEPTH</span>、-6〜-24 dB)も選びます。アプリのチャンネルにはありません</td>
+<td>別のチャンネルが聞こえている間、このチャンネルをその下に下げます。そのチャンネル、または <span class="key">NONE</span> を選び、下げる量(<span class="key">DEPTH</span>、-6〜-24 dB)も選びます。アプリのチャンネルでも使えるので、話している間は音楽を下げられます</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -20996,7 +21062,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>ダイナミクスが、チャンネル自身ではなく外部のキー(サイドチェイン)を聞きます</td>
+<td>ダイナミクスが、チャンネル自身ではなく外部のキー(サイドチェイン)を聞きます。そのキーは、右クリック &gt; <span class="key">KEY FROM</span> で選んだチャンネルです。まだ選んでいないときに押すと、その一覧が開きます</td>
 </tr>
 <tr>
 <td><strong>処理順</strong></td>
@@ -21294,7 +21360,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>出力を右クリックすると、<span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(ヘッドホン補正: <span class="key">NONE</span>、またはブランド別に並んだあなたのモデル)、<span class="key">ALERT IF SILENT</span>(-60 dBFS 未満が 10 秒続いたとき)と <span class="key">ALERT IF CLIPPING</span>(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、<span class="key">IN THE MINI MIXER</span>、スペーサー、<span class="key">RENAME...</span>、<span class="key">REMOVE</span> が使えます。</p>
+<p>出力を右クリックすると、<span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(ヘッドホン補正: <span class="key">NONE</span>、またはブランド別に並んだあなたのモデル)、<span class="key">ALERT IF SILENT</span>(-60 dBFS 未満が <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span>、<span class="key">5 MIN</span> 続いたとき。または <span class="key">OFF</span>)と <span class="key">ALERT IF CLIPPING</span>(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、<span class="key">IN THE MINI MIXER</span>、スペーサー、<span class="key">RENAME...</span>、<span class="key">REMOVE</span> が使えます。</p>
 <p>出力は、デバイスごとに 1 つ、自動で作られます(<a href="#outputs-are-devices">出力はデバイス</a> を参照)。</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> は、ゲストごとのフィード(本人の声以外のすべて)と、声、音楽、ゲームのステムを作ります。</p>
 
@@ -21515,8 +21581,9 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p><span class="key">DEVICES</span> は、すべての Windows オーディオデバイスと ASIO ドライバーを一覧します。上部の <span class="key">CLOCK</span> には今クロックを決めているものが表示され、そのキーで選べます(<a href="#clocking">クロック</a>を参照)。</p>
 <p>その下の <span class="key">WINDOWS AUDIO</span> には、Windows のオーディオエンジン(audiodg.exe。すべての Windows デバイスとキャプチャしたアプリを運びます)の優先度が表示されます。<span class="key">NORMAL</span> が Windows の既定で、読み取れないときは <span class="key">UNKNOWN</span> です。そのキー <span class="key">BOOST WINDOWS AUDIO</span>(High の間は <span class="key">BOOSTED</span>)でメニューが開きます。</p>
 <ul>
-<li><span class="key">BOOST (HIGH PRIORITY)</span> は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの <strong>Boost Windows audio again...</strong>(またはここの BOOST、FIND の <span class="key">BOOST WINDOWS AUDIO</span>)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するまで High のままです。</li>
+<li><span class="key">BOOST (HIGH PRIORITY)</span> は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの <strong>Boost Windows audio again...</strong>(またはここの BOOST、FIND の <span class="key">BOOST WINDOWS AUDIO</span>)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するか BACK TO NORMAL を選ぶまで High のままです。</li>
 <li><span class="key">PIN TO ONE CORE</span>(選ばない限りオフ)は、次の BOOST から、さらにプロセッサーの最後のコアに固定します。動く場所を制限するだけで、コアを増やすことはありません。USB ヘッドセットのノイズのときだけ使ってください。</li>
+<li><span class="key">BACK TO NORMAL</span>(Normal でないとき、または固定されているとき)は、再起動を待たずに、今すぐすべてのコアで Normal 優先度に戻します。BOOST と同じく Windows が先に確認し、Faider は見張りをやめます。</li>
 </ul>
 <p>Windows オーディオを通らない ASIO インターフェースには影響しません。</p>
 <div class="table-wrap"><table>
@@ -22053,8 +22120,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>その回の起動でのクロック: Windows の再生デバイス、内蔵クロック、または名前に <code>&lt;driver&gt;</code> を含む ASIO ドライバー。DEVICES &gt; CLOCK より優先されます(<a href="#clocking">クロック</a>を参照)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td><span class="key">BOOST WINDOWS AUDIO</span> が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否</td>
+<td><code>--boost-audiodg [--pin-core N]</code>、<code>--unboost-audiodg</code></td>
+<td><span class="key">BOOST WINDOWS AUDIO</span> と <span class="key">BACK TO NORMAL</span> が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、またはすべてのコアで Normal に戻し、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否、7: Normal にしたがすべてのコアへの戻しを拒否</td>
 </tr>
 </tbody>
 </table></div>
@@ -22695,8 +22762,12 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>노이즈 감소: <span class="key">ON</span>(스트립의 NOISE 스위치와 같음), <span class="key">NEURAL</span> 또는 <span class="key">SPECTRAL</span>, 그리고 그 깊이 <span class="key">DEPTH</span>(-6~-30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>스트립의 <span class="key">EXT</span> 키가 듣는 채널(사이드체인) 또는 <span class="key">NONE</span>. 앱, 패드, 테이프, 컴바이너 스트립에는 없습니다</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>다른 채널이 들리는 동안 이 채널을 그 아래로 낮춥니다. 그 채널 또는 <span class="key">NONE</span>을 고르고, 낮추는 정도(<span class="key">DEPTH</span>, -6~-24 dB)도 고릅니다. 앱 채널에는 없습니다</td>
+<td>다른 채널이 들리는 동안 이 채널을 그 아래로 낮춥니다. 그 채널 또는 <span class="key">NONE</span>을 고르고, 낮추는 정도(<span class="key">DEPTH</span>, -6~-24 dB)도 고릅니다. 앱 채널에서도 작동하므로, 말하는 동안 음악을 낮출 수 있습니다</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -22747,7 +22818,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다</td>
+<td>다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다. 그 키는 마우스 오른쪽 단추 &gt; <span class="key">KEY FROM</span>에서 고른 채널입니다. 아직 고르지 않았을 때 누르면 그 목록이 열립니다</td>
 </tr>
 <tr>
 <td><strong>처리 순서</strong></td>
@@ -23045,7 +23116,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>출력을 마우스 오른쪽 단추로 클릭하면 <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span>(헤드폰 보정: <span class="key">NONE</span> 또는 브랜드별로 나열된 내 모델), <span class="key">ALERT IF SILENT</span>(10초 동안 -60 dBFS 미만)와 <span class="key">ALERT IF CLIPPING</span>(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), <span class="key">IN THE MINI MIXER</span>, 스페이서, <span class="key">RENAME...</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다.</p>
+<p>출력을 마우스 오른쪽 단추로 클릭하면 <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span>(헤드폰 보정: <span class="key">NONE</span> 또는 브랜드별로 나열된 내 모델), <span class="key">ALERT IF SILENT</span>(<span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> 또는 <span class="key">5 MIN</span> 동안 -60 dBFS 미만, 또는 <span class="key">OFF</span>)와 <span class="key">ALERT IF CLIPPING</span>(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), <span class="key">IN THE MINI MIXER</span>, 스페이서, <span class="key">RENAME...</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다.</p>
 <p>출력은 장치마다 하나씩 자동으로 만들어집니다(<a href="#outputs-are-devices">출력은 장치입니다</a> 참조).</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong>는 게스트마다 피드(본인 목소리를 뺀 모든 것)와 음성, 음악, 게임 스템을 만듭니다.</p>
 
@@ -23266,8 +23337,9 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p><span class="key">DEVICES</span>는 모든 Windows 오디오 장치와 ASIO 드라이버를 나열합니다. 맨 위의 <span class="key">CLOCK</span>은 지금 클럭을 정하는 것을 보여 주며, 그 키로 고릅니다(<a href="#clocking">클럭</a> 참조).</p>
 <p>그 아래의 <span class="key">WINDOWS AUDIO</span>는 Windows 오디오 엔진(audiodg.exe. 모든 Windows 장치와 캡처된 앱을 처리합니다)의 우선순위를 보여 줍니다. <span class="key">NORMAL</span>이 Windows의 기본값이며, 읽을 수 없으면 <span class="key">UNKNOWN</span>입니다. 그 키 <span class="key">BOOST WINDOWS AUDIO</span>(High인 동안은 <span class="key">BOOSTED</span>)를 누르면 메뉴가 열립니다.</p>
 <ul>
-<li><span class="key">BOOST (HIGH PRIORITY)</span>는 우선순위를 High로 올립니다. 일부 PC에서는 Windows 장치와 캡처된 앱의 지직거림이 멈출 수 있습니다. 관리자 권한이 필요하므로 Windows가 먼저 묻습니다. 거부하면 아무것도 바뀌지 않습니다. Windows 오디오나 PC를 다시 시작하면 유지되지 않습니다. Faider이 이를 지켜보다가 Normal로 돌아가면 트레이에서 한 번 알려 주며, 트레이 메뉴의 <strong>Boost Windows audio again...</strong>(또는 여기의 BOOST, FIND의 <span class="key">BOOST WINDOWS AUDIO</span>)으로 다시 올립니다. 올라가 있는 동안 BOOST를 누르면 지켜보기를 멈추며, Windows 오디오가 다시 시작할 때까지 High로 남습니다.</li>
+<li><span class="key">BOOST (HIGH PRIORITY)</span>는 우선순위를 High로 올립니다. 일부 PC에서는 Windows 장치와 캡처된 앱의 지직거림이 멈출 수 있습니다. 관리자 권한이 필요하므로 Windows가 먼저 묻습니다. 거부하면 아무것도 바뀌지 않습니다. Windows 오디오나 PC를 다시 시작하면 유지되지 않습니다. Faider이 이를 지켜보다가 Normal로 돌아가면 트레이에서 한 번 알려 주며, 트레이 메뉴의 <strong>Boost Windows audio again...</strong>(또는 여기의 BOOST, FIND의 <span class="key">BOOST WINDOWS AUDIO</span>)으로 다시 올립니다. 올라가 있는 동안 BOOST를 누르면 지켜보기를 멈추며, Windows 오디오가 다시 시작하거나 BACK TO NORMAL을 고를 때까지 High로 남습니다.</li>
 <li><span class="key">PIN TO ONE CORE</span>(직접 고르지 않으면 꺼짐)는 다음 BOOST부터 프로세서의 마지막 코어에도 고정합니다. 실행 위치를 제한할 뿐 코어를 늘리지는 않습니다. USB 헤드셋의 지직거림에만 쓰세요.</li>
+<li><span class="key">BACK TO NORMAL</span>(Normal이 아니거나 고정되어 있을 때)은 다시 시작을 기다리지 않고 지금 바로 모든 코어에서 Normal 우선순위로 되돌립니다. BOOST처럼 Windows가 먼저 묻고, Faider은 지켜보기를 멈춥니다.</li>
 </ul>
 <p>Windows 오디오를 거치지 않는 ASIO 인터페이스에는 영향을 주지 않습니다.</p>
 <div class="table-wrap"><table>
@@ -23804,8 +23876,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>이번 실행의 클럭: Windows 재생 장치, 내장 클럭, 또는 이름에 <code>&lt;driver&gt;</code>가 들어간 ASIO 드라이버. DEVICES &gt; CLOCK보다 우선합니다(<a href="#clocking">클럭</a> 참조)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td><span class="key">BOOST WINDOWS AUDIO</span>가 관리자로 실행하는 것: Windows 오디오 엔진을 High 우선순위로 올리고(N을 지정한 경우에만 코어 N에 고정) 종료합니다. 0: 완료, 2: 잘못된 인수, 3: audiodg를 찾지 못함, 4: 액세스 거부, 5: 우선순위 변경 거부, 6: High로 설정했지만 고정 거부</td>
+<td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
+<td><span class="key">BOOST WINDOWS AUDIO</span>와 <span class="key">BACK TO NORMAL</span>이 관리자로 실행하는 것: Windows 오디오 엔진을 High 우선순위로 올리거나(N을 지정한 경우에만 코어 N에 고정) 모든 코어에서 Normal로 되돌리고 종료합니다. 0: 완료, 2: 잘못된 인수, 3: audiodg를 찾지 못함, 4: 액세스 거부, 5: 우선순위 변경 거부, 6: High로 설정했지만 고정 거부, 7: Normal로 설정했지만 모든 코어로 되돌리기 거부</td>
 </tr>
 </tbody>
 </table></div>
@@ -24446,8 +24518,12 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>降噪：<span class="key">ON</span>(同通道条上的 NOISE 开关)、<span class="key">NEURAL</span> 或 <span class="key">SPECTRAL</span>，以及它的 <span class="key">DEPTH</span>(-6 到 -30 dB)</td>
 </tr>
 <tr>
+<td><span class="key">KEY FROM</span></td>
+<td>通道条的 <span class="key">EXT</span> 键控收听的通道(它的侧链)，或 <span class="key">NONE</span>。应用、打击垫、磁带或组合器通道条上没有此项</td>
+</tr>
+<tr>
 <td><span class="key">DUCK UNDER</span></td>
-<td>另一个通道被听到时，这个通道压低到它下面；选择那个通道或 <span class="key">NONE</span>，以及压低多少(<span class="key">DEPTH</span>，-6 到 -24 dB)。应用通道上没有此项</td>
+<td>另一个通道被听到时，这个通道压低到它下面；选择那个通道或 <span class="key">NONE</span>，以及压低多少(<span class="key">DEPTH</span>，-6 到 -24 dB)。应用通道上也可用，这样你说话时音乐会压低</td>
 </tr>
 <tr>
 <td><span class="key">COLOUR</span></td>
@@ -24498,7 +24574,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">EXT</span></td>
-<td>动态处理收听外部键控信号(侧链)，而不是通道本身</td>
+<td>动态处理收听外部键控信号(侧链)，而不是通道本身：即在右键 &gt; <span class="key">KEY FROM</span> 中选择的通道。尚未选择时按下它，会打开那个列表</td>
 </tr>
 <tr>
 <td><strong>处理顺序</strong></td>
@@ -24795,7 +24871,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>右键点击输出可使用 <span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(耳机校正：<span class="key">NONE</span>，或你的型号，按品牌列出)、<span class="key">ALERT IF SILENT</span>(10 秒低于 -60 dBFS)和 <span class="key">ALERT IF CLIPPING</span>(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、<span class="key">IN THE MINI MIXER</span>、间隔条、<span class="key">RENAME...</span> 和 <span class="key">REMOVE</span>。</p>
+<p>右键点击输出可使用 <span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(耳机校正：<span class="key">NONE</span>，或你的型号，按品牌列出)、<span class="key">ALERT IF SILENT</span>(低于 -60 dBFS 持续 <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span> 或 <span class="key">5 MIN</span>，或 <span class="key">OFF</span>)和 <span class="key">ALERT IF CLIPPING</span>(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、<span class="key">IN THE MINI MIXER</span>、间隔条、<span class="key">RENAME...</span> 和 <span class="key">REMOVE</span>。</p>
 <p>输出会自动创建，每个设备一个(见<a href="#outputs-are-devices">输出就是设备</a>)。</p>
 <p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> 会为每位嘉宾建立一路馈送(除他们自己的声音外的所有声音)，并建立人声、音乐和游戏分轨。</p>
 
@@ -25016,8 +25092,9 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p><span class="key">DEVICES</span> 列出每个 Windows 音频设备和 ASIO 驱动。顶部的 <span class="key">CLOCK</span> 显示现在由什么决定时钟，它的键用于选择时钟(见<a href="#clocking">时钟</a>)。</p>
 <p>它下面的 <span class="key">WINDOWS AUDIO</span> 显示 Windows 音频引擎(audiodg.exe，承载每个 Windows 设备和被捕获的应用)的优先级：<span class="key">NORMAL</span> 是 Windows 的默认值，无法读取时为 <span class="key">UNKNOWN</span>。它的键 <span class="key">BOOST WINDOWS AUDIO</span>(处于 High 时为 <span class="key">BOOSTED</span>)会打开一个菜单：</p>
 <ul>
-<li><span class="key">BOOST (HIGH PRIORITY)</span> 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 <strong>Boost Windows audio again...</strong>(或这里的 BOOST，或 FIND 中的 <span class="key">BOOST WINDOWS AUDIO</span>)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启。</li>
+<li><span class="key">BOOST (HIGH PRIORITY)</span> 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 <strong>Boost Windows audio again...</strong>(或这里的 BOOST，或 FIND 中的 <span class="key">BOOST WINDOWS AUDIO</span>)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启或你选择 BACK TO NORMAL。</li>
 <li><span class="key">PIN TO ONE CORE</span>(除非你选择，否则关闭)从下一次 BOOST 起，还会把它固定在你的最后一个处理器核心上。它只限制运行位置，从不增加核心：仅在 USB 耳机有爆音时使用。</li>
+<li><span class="key">BACK TO NORMAL</span>(当它不是 Normal，或已被固定时)立即把它恢复为所有核心上的 Normal 优先级，无需等待重启。和 BOOST 一样，Windows 会先询问，Faider 也会停止监视。</li>
 </ul>
 <p>它不影响 ASIO 接口，因为它们不经过 Windows 音频。</p>
 <div class="table-wrap"><table>
@@ -25554,8 +25631,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <td>在这次运行中，时钟是你的 Windows 播放设备、内置时钟，或名称中包含 <code>&lt;driver&gt;</code> 的 ASIO 驱动。它优先于 DEVICES &gt; CLOCK(见<a href="#clocking">时钟</a>)</td>
 </tr>
 <tr>
-<td><code>--boost-audiodg [--pin-core N]</code></td>
-<td><span class="key">BOOST WINDOWS AUDIO</span> 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝</td>
+<td><code>--boost-audiodg [--pin-core N]</code>、<code>--unboost-audiodg</code></td>
+<td><span class="key">BOOST WINDOWS AUDIO</span> 和 <span class="key">BACK TO NORMAL</span> 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，或恢复为所有核心上的 Normal，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝；7：已设为 Normal 但恢复所有核心被拒绝</td>
 </tr>
 </tbody>
 </table></div>

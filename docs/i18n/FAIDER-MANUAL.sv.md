@@ -506,7 +506,8 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 | **PLUGINS** | Öppna ett, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Bara kanaler |
 | **NOISE** | Brusreducering: **ON** (som stripens NOISE-brytare), **NEURAL** eller **SPECTRAL**, och dess **DEPTH** (-6 till -30 dB) |
-| **DUCK UNDER** | En annan kanal som den här sänks under medan den kanalen hörs, eller **NONE**, och hur mycket den sänks (**DEPTH**, -6 till -24 dB). Inte på en appkanal |
+| **KEY FROM** | Kanalen som stripens **EXT**-key lyssnar på (dess sidechain), eller **NONE**. Inte på en app-, pads-, tape- eller combinator-strip |
+| **DUCK UNDER** | En annan kanal som den här sänks under medan den kanalen hörs, eller **NONE**, och hur mycket den sänks (**DEPTH**, -6 till -24 dB). Fungerar även på en appkanal, så att musiken sänks medan du pratar |
 | **COLOUR** | Kanalens färg, visad längs dess namnlist och på dess Routing-block |
 | **IN THE MINI MIXER** | Ikryssad: stripen har en fader i minimixern (se [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -530,7 +531,7 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 | **Level bars** | Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet under METER) |
 | **FILT** | Skickar filtren till gatens/kompressorns detektor (key-filtrering) |
 | **EQ** | EQ:n in eller ut |
-| **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv |
+| **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv: kanalen som valts under högerklick > **KEY FROM**. Trycker du på den innan någon är vald öppnas den listan |
 | **Processing order** | Tre block (FILT, EQ, DYN), uppifrån och ned i den ordning kanalen kör dem. **Klicka på ett block** för att flytta det upp ett steg. Översta går till slutet. Tända block används |
 | **Routing boxes** | En ruta per buss och utgångsenhet. Tänd: kanalen skickas dit. Klicka för att växla (se [Utgångar är enheter](#outputs-are-devices)) |
 | **Number** | Stripens plats på bordet |
@@ -687,7 +688,7 @@ Varje utgång har sin egen mörka strip:
 | **CUT**, **SEL**, fader | Som på en kanal |
 
 Högerklicka på en utgång för **DEVICE...**, **HEADPHONE EQ** (hörlurskorrigering: **NONE**, eller din
-modell, listad efter märke), **ALERT IF SILENT** (10 sekunder under -60 dBFS) och **ALERT IF CLIPPING**
+modell, listad efter märke), **ALERT IF SILENT** (under -60 dBFS i **10 S**, **30 S**, **1 MIN** eller **5 MIN**, eller **OFF**) och **ALERT IF CLIPPING**
 (medan LIMIT är av), som får ikonen i aktivitetsfältet att blinka och skriver till händelseloggen,
 **IN THE MINI MIXER**, spacers, **RENAME...** och **REMOVE**.
 
@@ -915,10 +916,12 @@ tangent, **BOOST WINDOWS AUDIO** (**BOOSTED** medan den är på High), öppnar e
   Det överlever inte en omstart av Windows-ljudet eller datorn: Faider bevakar det, säger till en gång
   från aktivitetsfältet när den är tillbaka på Normal, och **Boost Windows audio again...** i menyn i aktivitetsfältet (eller
   BOOST här, eller **BOOST WINDOWS AUDIO** i FIND) höjer den igen. Klickar du på BOOST medan den är höjd
-  slutar bevakningen; den stannar på High tills Windows-ljudet startar om.
+  slutar bevakningen; den stannar på High tills Windows-ljudet startar om eller du väljer BACK TO NORMAL.
 - **PIN TO ONE CORE** (av om du inte väljer det) låser den också till din sista processorkärna, från nästa
   BOOST. Det begränsar bara var den körs och lägger aldrig till kärnor: använd det bara mot knaster i ett
   USB-headset.
+- **BACK TO NORMAL** (när den inte är på Normal, eller är låst) sätter genast tillbaka den på Normal-prioritet på
+  alla kärnor, utan att vänta på en omstart. Windows frågar först, som för BOOST, och Faider slutar bevaka den.
 
 Det påverkar inte ASIO-gränssnitt, som inte går via Windows-ljudet.
 
@@ -1408,7 +1411,7 @@ utdata igen, och din riktiga mikrofon som standardindata, var och en även för 
 | `--minimised` | Starta i aktivitetsfältets notisyta |
 | `--quit` | Avsluta den körande kopian |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | För den här körningen är klockan din Windows-uppspelningsenhet, den inbyggda klockan, eller den ASIO-drivrutin vars namn innehåller `<driver>`. Det går före DEVICES > CLOCK (se [Klockor](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | Det som **BOOST WINDOWS AUDIO** startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Det som **BOOST WINDOWS AUDIO** och **BACK TO NORMAL** startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), eller tillbaka till Normal på alla kärnor, sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades; 7: Normal satt men återgången till alla kärnor nekades |
 
 <a id="193-files"></a>
 

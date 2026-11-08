@@ -536,7 +536,8 @@ quand cette tranche bouge.
 | **PLUGINS** | En ouvrir un, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Canaux seulement |
 | **NOISE** | Réduction de bruit : **ON** (comme l'interrupteur NOISE de la tranche), **NEURAL** ou **SPECTRAL**, et sa **DEPTH** (-6 à -30 dB) |
-| **DUCK UNDER** | Un autre canal sous lequel celui-ci s'abaisse tant que cet autre canal est entendu, ou **NONE**, et de combien il s'abaisse (**DEPTH**, -6 à -24 dB). Pas sur un canal d'application |
+| **KEY FROM** | Le canal qu'écoute la clé **EXT** de la tranche (son sidechain), ou **NONE**. Pas sur une tranche d'application, de pads, de bande ou de combinateur |
+| **DUCK UNDER** | Un autre canal sous lequel celui-ci s'abaisse tant que cet autre canal est entendu, ou **NONE**, et de combien il s'abaisse (**DEPTH**, -6 à -24 dB). Fonctionne aussi sur un canal d'application, pour que la musique s'abaisse quand vous parlez |
 | **COLOUR** | La couleur du canal, affichée le long de sa barre de nom et sur son bloc de la page Routing |
 | **IN THE MINI MIXER** | Coché : la tranche a un fader dans le mini-mixeur (voir [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -560,7 +561,7 @@ quand cette tranche bouge.
 | **Barres de niveau** | Le niveau du canal, gauche et droite (IN, PRE ou POST, selon le choix sous METER) |
 | **FILT** | Envoie les filtres dans le détecteur du gate/compresseur (filtrage de la clé) |
 | **EQ** | L'égaliseur activé ou désactivé |
-| **EXT** | La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même |
+| **EXT** | La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même : le canal choisi sous clic droit > **KEY FROM**. Pressé avant qu'un canal soit choisi, il ouvre cette liste |
 | **Ordre de traitement** | Trois blocs (FILT, EQ, DYN), de haut en bas dans l'ordre où le canal les exécute. **Cliquez sur un bloc** pour le monter d'un cran. Celui du haut passe à la fin. Les blocs allumés sont utilisés |
 | **Cases de routage** | Une case par bus et par périphérique de sortie. Allumée : le canal y est envoyé. Cliquez pour basculer (voir [Les sorties sont des périphériques](#outputs-are-devices)) |
 | **Numéro** | La place de la tranche sur le pupitre |
@@ -719,7 +720,7 @@ Chaque sortie a sa propre tranche sombre :
 | **CUT**, **SEL**, fader | Comme sur un canal |
 
 Clic droit sur une sortie pour **DEVICE...**, **HEADPHONE EQ** (correction de casque : **NONE**, ou
-votre modèle, classé par marque), **ALERT IF SILENT** (10 secondes sous -60 dBFS) et **ALERT IF
+votre modèle, classé par marque), **ALERT IF SILENT** (sous -60 dBFS pendant **10 S**, **30 S**, **1 MIN** ou **5 MIN**, ou **OFF**) et **ALERT IF
 CLIPPING** (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
 écrivent dans le journal des événements, **IN THE MINI MIXER**, les espaceurs, **RENAME...** et
 **REMOVE**.
@@ -966,10 +967,13 @@ tant qu'elle est en High), ouvre un menu :
   depuis la zone de notification quand elle est revenue à Normal, et **Boost Windows audio again...**
   dans le menu de la zone de notification (ou BOOST ici, ou **BOOST WINDOWS AUDIO** dans FIND) la
   relève. Cliquer sur BOOST pendant qu'elle est relevée arrête la surveillance ; elle reste en High
-  jusqu'au redémarrage de l'audio de Windows.
+  jusqu'au redémarrage de l'audio de Windows ou jusqu'à ce que vous choisissiez BACK TO NORMAL.
 - **PIN TO ONE CORE** (désactivé sauf si vous le choisissez) la fixe aussi sur le dernier cœur de
   votre processeur, à partir du BOOST suivant. Cela restreint seulement l'endroit où elle s'exécute,
   sans jamais ajouter de cœurs : ne l'utilisez que pour des craquements sur un casque USB.
+- **BACK TO NORMAL** (quand elle n'est pas en Normal, ou qu'elle est fixée) la remet tout de suite en
+  priorité Normal sur tous les cœurs, sans attendre un redémarrage. Windows demande d'abord, comme pour
+  BOOST, et Faider arrête la surveillance.
 
 Cela n'affecte pas les interfaces ASIO, qui ne passent pas par l'audio de Windows.
 
@@ -1489,7 +1493,7 @@ l'[étape 2](#step-2-install-vb-cable-optional).
 | `--minimised` | Démarrer dans la zone de notification |
 | `--quit` | Quitter la copie en cours d'exécution |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Pour cette exécution, l'horloge est votre périphérique de lecture Windows, l'horloge intégrée, ou le pilote ASIO dont le nom contient `<driver>`. Il l'emporte sur DEVICES > CLOCK (voir [Synchronisation](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | Ce que **BOOST WINDOWS AUDIO** lance, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Ce que **BOOST WINDOWS AUDIO** et **BACK TO NORMAL** lancent, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), ou de retour en Normal sur tous les cœurs, puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée ; 7 : Normal réglé mais le retour sur tous les cœurs refusé |
 
 <a id="193-files"></a>
 

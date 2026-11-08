@@ -509,7 +509,8 @@ BEFORE** / **ADD SPACER AFTER**. Prawy przycisk na odstępie daje **NARROW**, **
 | **PLUGINS** | Otwórz jedną, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Tylko kanały |
 | **NOISE** | Redukcja szumów: **ON** (jak przełącznik NOISE na pasku), **NEURAL** lub **SPECTRAL** oraz jej **DEPTH** (-6 do -30 dB) |
-| **DUCK UNDER** | Inny kanał, pod który ten kanał się przycisza, gdy tamten jest słyszalny, albo **NONE**, oraz o ile się przycisza (**DEPTH**, -6 do -24 dB). Nie na kanale aplikacji |
+| **KEY FROM** | Kanał, którego słucha klucz **EXT** paska (jego sidechain), albo **NONE**. Nie na pasku aplikacji, padów, tape ani kombinatora |
+| **DUCK UNDER** | Inny kanał, pod który ten kanał się przycisza, gdy tamten jest słyszalny, albo **NONE**, oraz o ile się przycisza (**DEPTH**, -6 do -24 dB). Działa też na kanale aplikacji, więc muzyka cichnie, gdy mówisz |
 | **COLOUR** | Kolor kanału, widoczny wzdłuż jego paska nazwy i na jego bloku w Routing |
 | **IN THE MINI MIXER** | Zaznaczone: pasek ma fader w mini mikserze (zobacz [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -533,7 +534,7 @@ BEFORE** / **ADD SPACER AFTER**. Prawy przycisk na odstępie daje **NARROW**, **
 | **Słupki poziomu** | Poziom kanału, lewy i prawy (IN, PRE lub POST, zgodnie z wyborem w METER) |
 | **FILT** | Wysyła filtry do detektora bramki/kompresora (key filtering) |
 | **EQ** | EQ włączony lub wyłączony |
-| **EXT** | Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału |
+| **EXT** | Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału: kanału wybranego w prawy przycisk > **KEY FROM**. Naciśnięty, zanim jakiś wybierzesz, otwiera tę listę |
 | **Kolejność przetwarzania** | Trzy bloki (FILT, EQ, DYN), od góry do dołu w kolejności, w jakiej kanał je wykonuje. **Kliknij blok**, żeby przesunąć go o jedno miejsce w górę. Ten na górze trafia na koniec. Zapalone bloki są w użyciu |
 | **Pola routingu** | Jedno pole na każdy bus i urządzenie wyjściowe. Zapalone: kanał jest tam wysyłany. Kliknij, żeby przełączyć (zobacz [Wyjścia to urządzenia](#outputs-are-devices)) |
 | **Numer** | Miejsce paska na konsoli |
@@ -691,7 +692,7 @@ Każde wyjście ma własny ciemny pasek:
 | **CUT**, **SEL**, fader | Tak jak na kanale |
 
 Prawy przycisk na wyjściu daje **DEVICE...**, **HEADPHONE EQ** (korekcja słuchawek: **NONE** albo
-twój model, według marki), **ALERT IF SILENT** (10 sekund poniżej -60 dBFS) i **ALERT IF CLIPPING**
+twój model, według marki), **ALERT IF SILENT** (poniżej -60 dBFS przez **10 S**, **30 S**, **1 MIN** lub **5 MIN**, albo **OFF**) i **ALERT IF CLIPPING**
 (gdy LIMIT jest wyłączony), które migają ikoną w zasobniku i zapisują do dziennika zdarzeń,
 **IN THE MINI MIXER**, odstępy, **RENAME...** i **REMOVE**.
 
@@ -921,10 +922,14 @@ jest na High), otwiera menu:
   najpierw pyta; odmowa niczego nie zmienia. Nie przetrwa restartu audio Windows ani komputera: Faider
   to obserwuje, raz powiadamia cię z zasobnika, gdy wróci do Normal, a **Boost Windows audio again...**
   w menu zasobnika (albo BOOST tutaj, albo **BOOST WINDOWS AUDIO** w FIND) podnosi go ponownie.
-  Kliknięcie BOOST, gdy jest podniesiony, kończy obserwowanie; zostaje na High do restartu audio Windows.
+  Kliknięcie BOOST, gdy jest podniesiony, kończy obserwowanie; zostaje na High do restartu audio Windows
+  albo do wybrania BACK TO NORMAL.
 - **PIN TO ONE CORE** (wyłączone, chyba że to wybierzesz) dodatkowo przypina go do ostatniego rdzenia
   procesora, od następnego BOOST. Tylko ogranicza, gdzie działa, nigdy nie dodaje rdzeni: używaj go
   tylko przy trzaskach na zestawie słuchawkowym USB.
+- **BACK TO NORMAL** (gdy nie jest na Normal albo jest przypięty) od razu przywraca mu priorytet Normal
+  na wszystkich rdzeniach, bez czekania na restart. Windows najpierw pyta, jak przy BOOST, a Faider
+  kończy obserwowanie.
 
 Nie ma wpływu na interfejsy ASIO, które nie przechodzą przez audio Windows.
 
@@ -1414,7 +1419,7 @@ domyślne wyjście, a twój prawdziwy mikrofon jako domyślne wejście, każde t
 | `--minimised` | Uruchom w zasobniku |
 | `--quit` | Zamknij działającą kopię |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | W tym uruchomieniu zegarem jest twoje urządzenie odtwarzające Windows, zegar wbudowany albo sterownik ASIO, którego nazwa zawiera `<driver>`. Ma pierwszeństwo przed DEVICES > CLOCK (zobacz [Zegar](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | To, co uruchamia **BOOST WINDOWS AUDIO**, jako administrator: silnik audio Windows na priorytet High (przypięty do rdzenia N tylko, jeśli go podano), potem kończy działanie. 0: gotowe; 2: złe argumenty; 3: nie znaleziono audiodg; 4: odmowa dostępu; 5: odmowa priorytetu; 6: High ustawiony, ale odmowa przypięcia |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | To, co uruchamiają **BOOST WINDOWS AUDIO** i **BACK TO NORMAL**, jako administrator: silnik audio Windows na priorytet High (przypięty do rdzenia N tylko, jeśli go podano) albo z powrotem na Normal na wszystkich rdzeniach, potem kończy działanie. 0: gotowe; 2: złe argumenty; 3: nie znaleziono audiodg; 4: odmowa dostępu; 5: odmowa priorytetu; 6: High ustawiony, ale odmowa przypięcia; 7: Normal ustawiony, ale odmowa powrotu na wszystkie rdzenie |
 
 <a id="193-files"></a>
 

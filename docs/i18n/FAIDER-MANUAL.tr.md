@@ -504,7 +504,8 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 | **PLUGINS** | Birini aç, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Yalnızca kanallar |
 | **NOISE** | Gürültü azaltma: **ON** (şeridin NOISE anahtarı gibi), **NEURAL** ya da **SPECTRAL** ve **DEPTH**'i (-6 ile -30 dB arası) |
-| **DUCK UNDER** | Bu kanalın, duyulduğu sürece altına indiği başka bir kanal ya da **NONE**, ve ne kadar indiği (**DEPTH**, -6 ile -24 dB arası). Uygulama kanalında yok |
+| **KEY FROM** | Şeridin **EXT** key'inin dinlediği kanal (sidechain'i) ya da **NONE**. Uygulama, pad, tape ya da kombinatör şeridinde yok |
+| **DUCK UNDER** | Bu kanalın, duyulduğu sürece altına indiği başka bir kanal ya da **NONE**, ve ne kadar indiği (**DEPTH**, -6 ile -24 dB arası). Uygulama kanalında da çalışır, böylece sen konuşurken müzik iner |
 | **COLOUR** | Kanalın rengi, ad çubuğu boyunca ve Routing'deki bloğunda gösterilir |
 | **IN THE MINI MIXER** | İşaretliyse şeridin mini mikserde bir fader'ı olur (bkz. [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -528,7 +529,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 | **Seviye çubukları** | Kanalın sol ve sağ seviyesi (METER altında seçildiği gibi IN, PRE veya POST) |
 | **FILT** | Filtreleri gate/kompresörün dedektörüne gönderir (key filtering) |
 | **EQ** | EQ devrede veya devre dışı |
-| **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain) |
+| **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain): sağ tık > **KEY FROM** altında seçilen kanalı. Henüz biri seçilmeden basılırsa o listeyi açar |
 | **İşleme sırası** | Üç blok (FILT, EQ, DYN), kanalın onları çalıştırdığı sırayla yukarıdan aşağıya. Bir bloğu bir basamak yukarı taşımak için **üzerine tıkla**. En üstteki sona gider. Yanık bloklar kullanımdadır |
 | **Yönlendirme kutuları** | Her bus ve çıkış aygıtı için bir kutu. Yanık: kanal oraya gönderiliyor. Değiştirmek için tıkla (bkz. [Çıkışlar aygıttır](#outputs-are-devices)) |
 | **Numara** | Şeridin konsoldaki yeri |
@@ -685,7 +686,7 @@ Her çıkışın kendi koyu şeridi vardır:
 | **CUT**, **SEL**, fader | Bir kanaldaki gibi |
 
 Bir çıkışa sağ tıklayınca **DEVICE...**, **HEADPHONE EQ** (kulaklık düzeltmesi: **NONE** ya da markaya
-göre listelenmiş modelin), **ALERT IF SILENT** (10 saniye -60 dBFS'nin altında) ve **ALERT IF CLIPPING**
+göre listelenmiş modelin), **ALERT IF SILENT** (**10 S**, **30 S**, **1 MIN** ya da **5 MIN** boyunca -60 dBFS'nin altında, ya da **OFF**) ve **ALERT IF CLIPPING**
 (LIMIT kapalıyken), ki bunlar tepsi simgesini yanıp söndürür ve olay günlüğüne yazar, **IN THE MINI
 MIXER**, boşluklar, **RENAME...** ve **REMOVE** çıkar.
 
@@ -915,10 +916,13 @@ uygulamayı taşıyan audiodg.exe) önceliğini gösterir: **NORMAL** Windows'un
   sonra kalmaz: Faider onu izler, Normal'e döndüğünde tepsiden bir kez söyler ve tepsi menüsündeki
   **Boost Windows audio again...** (ya da buradaki BOOST veya FIND'daki **BOOST WINDOWS AUDIO**) onu
   yeniden yükseltir. Yükseltilmişken BOOST'a tıklamak izlemeyi durdurur; Windows sesi yeniden başlayana
-  kadar High kalır.
+  ya da sen BACK TO NORMAL'ı seçene kadar High kalır.
 - **PIN TO ONE CORE** (sen seçmedikçe kapalı) bir sonraki BOOST'tan itibaren onu son işlemci çekirdeğine
   de bağlar. Yalnızca nerede çalıştığını kısıtlar, asla çekirdek eklemez: yalnızca bir USB kulaklıktaki
   çıtırtı için kullan.
+- **BACK TO NORMAL** (Normal'de değilken ya da bağlıyken) onu yeniden başlatmayı beklemeden hemen tüm
+  çekirdeklerde Normal önceliğe geri alır. Windows, BOOST'ta olduğu gibi önce sorar ve Faider izlemeyi
+  bırakır.
 
 Windows sesinden geçmeyen ASIO arabirimlerini etkilemez.
 
@@ -1410,7 +1414,7 @@ DEFAULTS** satırı ya da FIND'da **WINDOWS DEFAULTS**) kulaklığını veya hop
 | `--minimised` | Tepside başlat |
 | `--quit` | Çalışan kopyayı kapat |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Bu çalışma için saat, Windows oynatma aygıtın, yerleşik saat ya da adında `<driver>` geçen ASIO sürücüsüdür. DEVICES > CLOCK'un önüne geçer (bkz. [Saat](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | **BOOST WINDOWS AUDIO**'nun yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar), sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | **BOOST WINDOWS AUDIO** ve **BACK TO NORMAL**'ın yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar) ya da tüm çekirdeklerde Normal'e geri alır, sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi; 7: Normal ayarlandı ama tüm çekirdeklere dönüş reddedildi |
 
 <a id="193-files"></a>
 

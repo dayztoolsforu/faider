@@ -411,7 +411,8 @@ flowchart LR
 | **PLUGINS** | 打开一个、**ADD PLUGIN...**、**REMOVE** |
 | **MAKE MONO / MAKE STEREO** | 仅限通道 |
 | **NOISE** | 降噪：**ON**(同通道条上的 NOISE 开关)、**NEURAL** 或 **SPECTRAL**，以及它的 **DEPTH**(-6 到 -30 dB) |
-| **DUCK UNDER** | 另一个通道被听到时，这个通道压低到它下面；选择那个通道或 **NONE**，以及压低多少(**DEPTH**，-6 到 -24 dB)。应用通道上没有此项 |
+| **KEY FROM** | 通道条的 **EXT** 键控收听的通道(它的侧链)，或 **NONE**。应用、打击垫、磁带或组合器通道条上没有此项 |
+| **DUCK UNDER** | 另一个通道被听到时，这个通道压低到它下面；选择那个通道或 **NONE**，以及压低多少(**DEPTH**，-6 到 -24 dB)。应用通道上也可用，这样你说话时音乐会压低 |
 | **COLOUR** | 通道的颜色，显示在它的名称栏上和它的 ROUTING 方块上 |
 | **IN THE MINI MIXER** | 勾选后，该通道条在迷你调音台中有一个推子(见 [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -435,7 +436,7 @@ flowchart LR
 | **电平条** | 通道的电平，左和右(IN、PRE 或 POST，按 METER 的选择) |
 | **FILT** | 把滤波器送入门限/压缩器的检测器(键控滤波) |
 | **EQ** | 接入或旁路 EQ |
-| **EXT** | 动态处理收听外部键控信号(侧链)，而不是通道本身 |
+| **EXT** | 动态处理收听外部键控信号(侧链)，而不是通道本身：即在右键 > **KEY FROM** 中选择的通道。尚未选择时按下它，会打开那个列表 |
 | **处理顺序** | 三个块(FILT、EQ、DYN)，自上而下是通道运行它们的顺序。**点击一个块**让它上移一位。最上面的会移到末尾。亮着的块在使用中 |
 | **路由框** | 每条总线和每个输出设备一个框。亮起：通道被送到那里。点击切换(见[输出就是设备](#outputs-are-devices)) |
 | **编号** | 该通道条在调音台上的位置 |
@@ -581,7 +582,7 @@ flowchart LR
 | **MIX EQ** | In 开关、HF 增益和频率、LF 增益和频率 |
 | **CUT**、**SEL**、推子 | 与通道上相同 |
 
-右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(10 秒低于 -60 dBFS)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、间隔条、**RENAME...** 和 **REMOVE**。
+右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(低于 -60 dBFS 持续 **10 S**、**30 S**、**1 MIN** 或 **5 MIN**，或 **OFF**)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、间隔条、**RENAME...** 和 **REMOVE**。
 
 输出会自动创建，每个设备一个(见[输出就是设备](#outputs-are-devices))。
 
@@ -766,8 +767,9 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 它下面的 **WINDOWS AUDIO** 显示 Windows 音频引擎(audiodg.exe，承载每个 Windows 设备和被捕获的应用)的优先级：**NORMAL** 是 Windows 的默认值，无法读取时为 **UNKNOWN**。它的键 **BOOST WINDOWS AUDIO**(处于 High 时为 **BOOSTED**)会打开一个菜单：
 
-- **BOOST (HIGH PRIORITY)** 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 **Boost Windows audio again...**(或这里的 BOOST，或 FIND 中的 **BOOST WINDOWS AUDIO**)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启。
+- **BOOST (HIGH PRIORITY)** 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 **Boost Windows audio again...**(或这里的 BOOST，或 FIND 中的 **BOOST WINDOWS AUDIO**)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启或你选择 BACK TO NORMAL。
 - **PIN TO ONE CORE**(除非你选择，否则关闭)从下一次 BOOST 起，还会把它固定在你的最后一个处理器核心上。它只限制运行位置，从不增加核心：仅在 USB 耳机有爆音时使用。
+- **BACK TO NORMAL**(当它不是 Normal，或已被固定时)立即把它恢复为所有核心上的 Normal 优先级，无需等待重启。和 BOOST 一样，Windows 会先询问，Faider 也会停止监视。
 
 它不影响 ASIO 接口，因为它们不经过 Windows 音频。
 
@@ -1177,7 +1179,7 @@ Windows 把线缆设成了它的默认设备。**SET MY DEFAULTS**(PRE-FLIGHT �
 | `--minimised` | 在托盘中启动 |
 | `--quit` | 退出正在运行的副本 |
 | `--clock windows`、`--clock builtin`、`--clock <driver>` | 在这次运行中，时钟是你的 Windows 播放设备、内置时钟，或名称中包含 `<driver>` 的 ASIO 驱动。它优先于 DEVICES > CLOCK(见[时钟](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | **BOOST WINDOWS AUDIO** 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝 |
+| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** 和 **BACK TO NORMAL** 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，或恢复为所有核心上的 Normal，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝；7：已设为 Normal 但恢复所有核心被拒绝 |
 
 <a id="193-files"></a>
 

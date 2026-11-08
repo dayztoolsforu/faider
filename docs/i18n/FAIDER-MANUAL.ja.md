@@ -411,7 +411,8 @@ flowchart LR
 | **PLUGINS** | 1 つを開く、**ADD PLUGIN...**、**REMOVE** |
 | **MAKE MONO / MAKE STEREO** | チャンネルのみ |
 | **NOISE** | ノイズリダクション: **ON**(ストリップの NOISE スイッチと同じ)、**NEURAL** または **SPECTRAL**、そのかかり具合 **DEPTH**(-6〜-30 dB) |
-| **DUCK UNDER** | 別のチャンネルが聞こえている間、このチャンネルをその下に下げます。そのチャンネル、または **NONE** を選び、下げる量(**DEPTH**、-6〜-24 dB)も選びます。アプリのチャンネルにはありません |
+| **KEY FROM** | ストリップの **EXT** キーが聞くチャンネル(サイドチェイン)、または **NONE**。アプリ、パッド、テープ、コンバイネーターのストリップにはありません |
+| **DUCK UNDER** | 別のチャンネルが聞こえている間、このチャンネルをその下に下げます。そのチャンネル、または **NONE** を選び、下げる量(**DEPTH**、-6〜-24 dB)も選びます。アプリのチャンネルでも使えるので、話している間は音楽を下げられます |
 | **COLOUR** | チャンネルの色。名前バーに沿って、また ROUTING のブロックに表示されます |
 | **IN THE MINI MIXER** | チェックすると、そのストリップのフェーダーがミニミキサーに表示されます([16](#16-remote-control-overlay-and-tray) を参照) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -435,7 +436,7 @@ flowchart LR
 | **レベルバー** | チャンネルのレベル。左右別(METER の選択に応じて IN、PRE または POST) |
 | **FILT** | フィルターを、ゲート / コンプレッサーの検出器に通します(キーフィルタリング) |
 | **EQ** | EQ のオン / オフ |
-| **EXT** | ダイナミクスが、チャンネル自身ではなく外部のキー(サイドチェイン)を聞きます |
+| **EXT** | ダイナミクスが、チャンネル自身ではなく外部のキー(サイドチェイン)を聞きます。そのキーは、右クリック > **KEY FROM** で選んだチャンネルです。まだ選んでいないときに押すと、その一覧が開きます |
 | **処理順** | 3 つのブロック(FILT、EQ、DYN)が、チャンネルが処理する順に上から並びます。**ブロックをクリック**すると 1 つ上に移動します。一番上のものは最後に回ります。点灯しているブロックが使用中です |
 | **ルーティングボックス** | バスと出力デバイスごとに 1 つのボックス。点灯: チャンネルはそこへ送られています。クリックで切り替え([出力はデバイス](#outputs-are-devices) を参照) |
 | **番号** | 卓上でのストリップの位置 |
@@ -582,7 +583,7 @@ LED は、コンプレッサーとゲートがオフの間も、オンなら*ど
 | **MIX EQ** | In スイッチ、HF のゲインと周波数、LF のゲインと周波数 |
 | **CUT**、**SEL**、フェーダー | チャンネルと同じ |
 
-出力を右クリックすると、**DEVICE...**、**HEADPHONE EQ**(ヘッドホン補正: **NONE**、またはブランド別に並んだあなたのモデル)、**ALERT IF SILENT**(-60 dBFS 未満が 10 秒続いたとき)と **ALERT IF CLIPPING**(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、**IN THE MINI MIXER**、スペーサー、**RENAME...**、**REMOVE** が使えます。
+出力を右クリックすると、**DEVICE...**、**HEADPHONE EQ**(ヘッドホン補正: **NONE**、またはブランド別に並んだあなたのモデル)、**ALERT IF SILENT**(-60 dBFS 未満が **10 S**、**30 S**、**1 MIN**、**5 MIN** 続いたとき。または **OFF**)と **ALERT IF CLIPPING**(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、**IN THE MINI MIXER**、スペーサー、**RENAME...**、**REMOVE** が使えます。
 
 出力は、デバイスごとに 1 つ、自動で作られます([出力はデバイス](#outputs-are-devices) を参照)。
 
@@ -767,8 +768,9 @@ ROUTING ページは、ミックス全体を地図として表示します。各
 
 その下の **WINDOWS AUDIO** には、Windows のオーディオエンジン(audiodg.exe。すべての Windows デバイスとキャプチャしたアプリを運びます)の優先度が表示されます。**NORMAL** が Windows の既定で、読み取れないときは **UNKNOWN** です。そのキー **BOOST WINDOWS AUDIO**(High の間は **BOOSTED**)でメニューが開きます。
 
-- **BOOST (HIGH PRIORITY)** は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの **Boost Windows audio again...**(またはここの BOOST、FIND の **BOOST WINDOWS AUDIO**)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するまで High のままです。
+- **BOOST (HIGH PRIORITY)** は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの **Boost Windows audio again...**(またはここの BOOST、FIND の **BOOST WINDOWS AUDIO**)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するか BACK TO NORMAL を選ぶまで High のままです。
 - **PIN TO ONE CORE**(選ばない限りオフ)は、次の BOOST から、さらにプロセッサーの最後のコアに固定します。動く場所を制限するだけで、コアを増やすことはありません。USB ヘッドセットのノイズのときだけ使ってください。
+- **BACK TO NORMAL**(Normal でないとき、または固定されているとき)は、再起動を待たずに、今すぐすべてのコアで Normal 優先度に戻します。BOOST と同じく Windows が先に確認し、Faider は見張りをやめます。
 
 Windows オーディオを通らない ASIO インターフェースには影響しません。
 
@@ -1178,7 +1180,7 @@ Windows がケーブルを既定のデバイスにしています。**SET MY DEF
 | `--minimised` | トレイで起動 |
 | `--quit` | 実行中のコピーを終了 |
 | `--clock windows`、`--clock builtin`、`--clock <driver>` | その回の起動でのクロック: Windows の再生デバイス、内蔵クロック、または名前に `<driver>` を含む ASIO ドライバー。DEVICES > CLOCK より優先されます([クロック](#clocking)を参照) |
-| `--boost-audiodg [--pin-core N]` | **BOOST WINDOWS AUDIO** が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否 |
+| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** と **BACK TO NORMAL** が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、またはすべてのコアで Normal に戻し、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否、7: Normal にしたがすべてのコアへの戻しを拒否 |
 
 <a id="193-files"></a>
 

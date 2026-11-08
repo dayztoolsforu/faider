@@ -411,7 +411,8 @@ flowchart LR
 | **PLUGINS** | 하나 열기, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | 채널만 해당 |
 | **NOISE** | 노이즈 감소: **ON**(스트립의 NOISE 스위치와 같음), **NEURAL** 또는 **SPECTRAL**, 그리고 그 깊이 **DEPTH**(-6~-30 dB) |
-| **DUCK UNDER** | 다른 채널이 들리는 동안 이 채널을 그 아래로 낮춥니다. 그 채널 또는 **NONE**을 고르고, 낮추는 정도(**DEPTH**, -6~-24 dB)도 고릅니다. 앱 채널에는 없습니다 |
+| **KEY FROM** | 스트립의 **EXT** 키가 듣는 채널(사이드체인) 또는 **NONE**. 앱, 패드, 테이프, 컴바이너 스트립에는 없습니다 |
+| **DUCK UNDER** | 다른 채널이 들리는 동안 이 채널을 그 아래로 낮춥니다. 그 채널 또는 **NONE**을 고르고, 낮추는 정도(**DEPTH**, -6~-24 dB)도 고릅니다. 앱 채널에서도 작동하므로, 말하는 동안 음악을 낮출 수 있습니다 |
 | **COLOUR** | 채널의 색. 이름 바를 따라, 그리고 ROUTING 블록에 표시됩니다 |
 | **IN THE MINI MIXER** | 체크하면 그 스트립의 페이더가 미니 믹서에 나타납니다([16](#16-remote-control-overlay-and-tray) 참조) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -435,7 +436,7 @@ flowchart LR
 | **레벨 바** | 채널의 레벨, 왼쪽과 오른쪽(METER에서 고른 대로 IN, PRE 또는 POST) |
 | **FILT** | 필터를 게이트/컴프레서의 디텍터로 보냅니다(키 필터링) |
 | **EQ** | EQ 켜기/끄기 |
-| **EXT** | 다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다 |
+| **EXT** | 다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다. 그 키는 마우스 오른쪽 단추 > **KEY FROM**에서 고른 채널입니다. 아직 고르지 않았을 때 누르면 그 목록이 열립니다 |
 | **처리 순서** | 블록 세 개(FILT, EQ, DYN)가 채널이 실행하는 순서대로 위에서 아래로 놓입니다. **블록을 클릭**하면 한 칸 위로 올라갑니다. 맨 위의 것은 맨 끝으로 갑니다. 켜진 블록이 사용 중입니다 |
 | **라우팅 상자** | 버스와 출력 장치마다 상자 하나. 켜짐: 채널이 그곳으로 보내집니다. 누르면 전환([출력은 장치입니다](#outputs-are-devices) 참조) |
 | **번호** | 데스크에서 스트립의 위치 |
@@ -582,7 +583,7 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 | **MIX EQ** | In 스위치, HF 게인과 주파수, LF 게인과 주파수 |
 | **CUT**, **SEL**, 페이더 | 채널과 같음 |
 
-출력을 마우스 오른쪽 단추로 클릭하면 **DEVICE...**, **HEADPHONE EQ**(헤드폰 보정: **NONE** 또는 브랜드별로 나열된 내 모델), **ALERT IF SILENT**(10초 동안 -60 dBFS 미만)와 **ALERT IF CLIPPING**(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), **IN THE MINI MIXER**, 스페이서, **RENAME...**, **REMOVE**를 쓸 수 있습니다.
+출력을 마우스 오른쪽 단추로 클릭하면 **DEVICE...**, **HEADPHONE EQ**(헤드폰 보정: **NONE** 또는 브랜드별로 나열된 내 모델), **ALERT IF SILENT**(**10 S**, **30 S**, **1 MIN** 또는 **5 MIN** 동안 -60 dBFS 미만, 또는 **OFF**)와 **ALERT IF CLIPPING**(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), **IN THE MINI MIXER**, 스페이서, **RENAME...**, **REMOVE**를 쓸 수 있습니다.
 
 출력은 장치마다 하나씩 자동으로 만들어집니다([출력은 장치입니다](#outputs-are-devices) 참조).
 
@@ -767,8 +768,9 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 
 그 아래의 **WINDOWS AUDIO**는 Windows 오디오 엔진(audiodg.exe. 모든 Windows 장치와 캡처된 앱을 처리합니다)의 우선순위를 보여 줍니다. **NORMAL**이 Windows의 기본값이며, 읽을 수 없으면 **UNKNOWN**입니다. 그 키 **BOOST WINDOWS AUDIO**(High인 동안은 **BOOSTED**)를 누르면 메뉴가 열립니다.
 
-- **BOOST (HIGH PRIORITY)**는 우선순위를 High로 올립니다. 일부 PC에서는 Windows 장치와 캡처된 앱의 지직거림이 멈출 수 있습니다. 관리자 권한이 필요하므로 Windows가 먼저 묻습니다. 거부하면 아무것도 바뀌지 않습니다. Windows 오디오나 PC를 다시 시작하면 유지되지 않습니다. Faider이 이를 지켜보다가 Normal로 돌아가면 트레이에서 한 번 알려 주며, 트레이 메뉴의 **Boost Windows audio again...**(또는 여기의 BOOST, FIND의 **BOOST WINDOWS AUDIO**)으로 다시 올립니다. 올라가 있는 동안 BOOST를 누르면 지켜보기를 멈추며, Windows 오디오가 다시 시작할 때까지 High로 남습니다.
+- **BOOST (HIGH PRIORITY)**는 우선순위를 High로 올립니다. 일부 PC에서는 Windows 장치와 캡처된 앱의 지직거림이 멈출 수 있습니다. 관리자 권한이 필요하므로 Windows가 먼저 묻습니다. 거부하면 아무것도 바뀌지 않습니다. Windows 오디오나 PC를 다시 시작하면 유지되지 않습니다. Faider이 이를 지켜보다가 Normal로 돌아가면 트레이에서 한 번 알려 주며, 트레이 메뉴의 **Boost Windows audio again...**(또는 여기의 BOOST, FIND의 **BOOST WINDOWS AUDIO**)으로 다시 올립니다. 올라가 있는 동안 BOOST를 누르면 지켜보기를 멈추며, Windows 오디오가 다시 시작하거나 BACK TO NORMAL을 고를 때까지 High로 남습니다.
 - **PIN TO ONE CORE**(직접 고르지 않으면 꺼짐)는 다음 BOOST부터 프로세서의 마지막 코어에도 고정합니다. 실행 위치를 제한할 뿐 코어를 늘리지는 않습니다. USB 헤드셋의 지직거림에만 쓰세요.
+- **BACK TO NORMAL**(Normal이 아니거나 고정되어 있을 때)은 다시 시작을 기다리지 않고 지금 바로 모든 코어에서 Normal 우선순위로 되돌립니다. BOOST처럼 Windows가 먼저 묻고, Faider은 지켜보기를 멈춥니다.
 
 Windows 오디오를 거치지 않는 ASIO 인터페이스에는 영향을 주지 않습니다.
 
@@ -1178,7 +1180,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. **SET MY DEFAULTS**
 | `--minimised` | 트레이에서 시작 |
 | `--quit` | 실행 중인 복사본 종료 |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | 이번 실행의 클럭: Windows 재생 장치, 내장 클럭, 또는 이름에 `<driver>`가 들어간 ASIO 드라이버. DEVICES > CLOCK보다 우선합니다([클럭](#clocking) 참조) |
-| `--boost-audiodg [--pin-core N]` | **BOOST WINDOWS AUDIO**가 관리자로 실행하는 것: Windows 오디오 엔진을 High 우선순위로 올리고(N을 지정한 경우에만 코어 N에 고정) 종료합니다. 0: 완료, 2: 잘못된 인수, 3: audiodg를 찾지 못함, 4: 액세스 거부, 5: 우선순위 변경 거부, 6: High로 설정했지만 고정 거부 |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | **BOOST WINDOWS AUDIO**와 **BACK TO NORMAL**이 관리자로 실행하는 것: Windows 오디오 엔진을 High 우선순위로 올리거나(N을 지정한 경우에만 코어 N에 고정) 모든 코어에서 Normal로 되돌리고 종료합니다. 0: 완료, 2: 잘못된 인수, 3: audiodg를 찾지 못함, 4: 액세스 거부, 5: 우선순위 변경 거부, 6: High로 설정했지만 고정 거부, 7: Normal로 설정했지만 모든 코어로 되돌리기 거부 |
 
 <a id="193-files"></a>
 

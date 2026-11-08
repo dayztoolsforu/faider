@@ -505,7 +505,8 @@ SPACER**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 | **PLUGINS** | Eines öffnen, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Nur Kanäle |
 | **NOISE** | Rauschunterdrückung: **ON** (wie der NOISE-Schalter des Strips), **NEURAL** oder **SPECTRAL** und ihre **DEPTH** (-6 bis -30 dB) |
-| **DUCK UNDER** | Ein anderer Kanal, unter den dieser abgesenkt wird, solange jener zu hören ist, oder **NONE**, und wie weit er absinkt (**DEPTH**, -6 bis -24 dB). Nicht bei einem App-Kanal |
+| **KEY FROM** | Der Kanal, auf den der **EXT**-Key des Strips hört (seine Sidechain), oder **NONE**. Nicht bei einem App-, Pads-, Tape- oder Combinator-Strip |
+| **DUCK UNDER** | Ein anderer Kanal, unter den dieser abgesenkt wird, solange jener zu hören ist, oder **NONE**, und wie weit er absinkt (**DEPTH**, -6 bis -24 dB). Geht auch bei einem App-Kanal, damit die Musik absinkt, während du sprichst |
 | **COLOUR** | Die Farbe des Kanals, entlang seiner Namensleiste und an seinem Routing-Block zu sehen |
 | **IN THE MINI MIXER** | Abgehakt: Der Strip hat einen Fader im Mini-Mixer (siehe [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -529,7 +530,7 @@ SPACER**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 | **Level bars** | Der Pegel des Kanals, links und rechts (IN, PRE oder POST, je nach Wahl unter METER) |
 | **FILT** | Schickt die Filter in den Detektor von Gate/Kompressor (Key-Filterung) |
 | **EQ** | Den EQ ein oder aus |
-| **EXT** | Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst |
+| **EXT** | Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst: den Kanal, der unter Rechtsklick > **KEY FROM** gewählt ist. Gedrückt, bevor einer gewählt ist, öffnet es diese Liste |
 | **Processing order** | Drei Blöcke (FILT, EQ, DYN), von oben nach unten in der Reihenfolge, in der der Kanal sie durchläuft. **Klicke auf einen Block**, um ihn eins nach oben zu schieben. Der oberste geht ans Ende. Leuchtende Blöcke sind in Benutzung |
 | **Routing boxes** | Eine Box pro Bus und Ausgabegerät. Leuchtet: Der Kanal wird dorthin gesendet. Klicke zum Umschalten (siehe [Ausgänge sind Geräte](#outputs-are-devices)) |
 | **Number** | Der Platz des Strips am Pult |
@@ -686,7 +687,7 @@ Jeder Ausgang hat seinen eigenen dunklen Strip:
 | **CUT**, **SEL**, Fader | Wie bei einem Kanal |
 
 Rechtsklick auf einen Ausgang für **DEVICE...**, **HEADPHONE EQ** (Kopfhörerkorrektur: **NONE** oder dein
-Modell, nach Marke aufgelistet), **ALERT IF SILENT** (10 Sekunden unter -60 dBFS) und **ALERT IF CLIPPING**
+Modell, nach Marke aufgelistet), **ALERT IF SILENT** (unter -60 dBFS für **10 S**, **30 S**, **1 MIN** oder **5 MIN**, oder **OFF**) und **ALERT IF CLIPPING**
 (solange LIMIT aus ist), die das Tray-Symbol blinken lassen und ins Ereignisprotokoll schreiben, **IN THE MINI MIXER**,
 Spacer, **RENAME...** und **REMOVE**.
 
@@ -914,10 +915,12 @@ lässt. Ihre Taste, **BOOST WINDOWS AUDIO** (**BOOSTED**, solange sie auf High s
   Es überdauert keinen Neustart des Windows-Audios oder des PCs: Faider behält es im Blick, sagt dir einmal
   über das Tray, wenn es wieder auf Normal steht, und **Boost Windows audio again...** im Tray-Menü (oder
   BOOST hier, oder **BOOST WINDOWS AUDIO** in FIND) hebt es erneut an. Ein Klick auf BOOST, während es angehoben ist,
-  beendet das Beobachten; es bleibt auf High, bis das Windows-Audio neu startet.
+  beendet das Beobachten; es bleibt auf High, bis das Windows-Audio neu startet oder du BACK TO NORMAL wählst.
 - **PIN TO ONE CORE** (aus, solange du es nicht wählst) bindet es zusätzlich an deinen letzten Prozessorkern, ab dem
   nächsten BOOST. Es schränkt nur ein, wo es läuft, und fügt nie Kerne hinzu: Nutze es nur bei Knistern an einem
   USB-Headset.
+- **BACK TO NORMAL** (wenn es nicht auf Normal steht oder gebunden ist) setzt es sofort wieder auf Priorität Normal auf
+  allen Kernen, ohne auf einen Neustart zu warten. Windows fragt zuerst, wie bei BOOST, und Faider hört auf zu beobachten.
 
 Auf ASIO-Interfaces wirkt es sich nicht aus, denn sie laufen nicht über das Windows-Audio.
 
@@ -1411,7 +1414,7 @@ Ausgabe ein und dein echtes Mikrofon als Standard-Eingabe, jeweils auch für Anr
 | `--minimised` | Im Tray starten |
 | `--quit` | Die laufende Kopie beenden |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Für diesen Lauf ist der Takt dein Windows-Wiedergabegerät, der eingebaute Takt oder der ASIO-Treiber, dessen Name `<driver>` enthält. Hat Vorrang vor DEVICES > CLOCK (siehe [Takt](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | Was **BOOST WINDOWS AUDIO** als Administrator startet: die Audio-Engine von Windows auf Priorität High (nur an Kern N gebunden, wenn angegeben), dann beendet es sich. 0: erledigt; 2: falsche Argumente; 3: audiodg nicht gefunden; 4: Zugriff verweigert; 5: Priorität abgelehnt; 6: High gesetzt, aber die Kernbindung abgelehnt |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Was **BOOST WINDOWS AUDIO** und **BACK TO NORMAL** als Administrator starten: die Audio-Engine von Windows auf Priorität High (nur an Kern N gebunden, wenn angegeben) oder zurück auf Normal auf allen Kernen, dann beendet es sich. 0: erledigt; 2: falsche Argumente; 3: audiodg nicht gefunden; 4: Zugriff verweigert; 5: Priorität abgelehnt; 6: High gesetzt, aber die Kernbindung abgelehnt; 7: Normal gesetzt, aber die Freigabe aller Kerne abgelehnt |
 
 <a id="193-files"></a>
 

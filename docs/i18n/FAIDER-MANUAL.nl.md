@@ -505,7 +505,8 @@ SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 | **PLUGINS** | Er een openen, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Alleen kanalen |
 | **NOISE** | Ruisonderdrukking: **ON** (zoals de NOISE-schakelaar van de strip), **NEURAL** of **SPECTRAL**, en de **DEPTH** (-6 tot -30 dB) |
-| **DUCK UNDER** | Een ander kanaal waaronder dit kanaal wegzakt zolang dat kanaal te horen is, of **NONE**, en hoe ver het wegzakt (**DEPTH**, -6 tot -24 dB). Niet op een app-kanaal |
+| **KEY FROM** | Het kanaal waarnaar de **EXT**-key van de strip luistert (de sidechain), of **NONE**. Niet op een app-, pads-, tape- of combinator-strip |
+| **DUCK UNDER** | Een ander kanaal waaronder dit kanaal wegzakt zolang dat kanaal te horen is, of **NONE**, en hoe ver het wegzakt (**DEPTH**, -6 tot -24 dB). Werkt ook op een app-kanaal, zodat muziek wegzakt terwijl je praat |
 | **COLOUR** | De kleur van het kanaal, te zien langs zijn naambalk en op zijn Routing-blok |
 | **IN THE MINI MIXER** | Aangevinkt: de strip heeft een fader in de mini-mixer (zie [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -529,7 +530,7 @@ SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 | **Level bars** | Het niveau van het kanaal, links en rechts (IN, PRE of POST, zoals gekozen bij METER) |
 | **FILT** | Stuurt de filters naar de detector van de gate/compressor (key-filtering) |
 | **EQ** | De EQ in of uit |
-| **EXT** | De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf |
+| **EXT** | De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf: het kanaal dat onder rechtsklik > **KEY FROM** is gekozen. Druk je erop voordat er een is gekozen, dan opent het die lijst |
 | **Processing order** | Drie blokken (FILT, EQ, DYN), van boven naar beneden in de volgorde waarin het kanaal ze doorloopt. **Klik op een blok** om het één plek omhoog te zetten. Het bovenste gaat naar het einde. Oplichtende blokken zijn in gebruik |
 | **Routing boxes** | Eén vakje per bus en uitvoerapparaat. Verlicht: het kanaal wordt daarheen gestuurd. Klik om te schakelen (zie [Uitgangen zijn apparaten](#outputs-are-devices)) |
 | **Number** | De plaats van de strip op de tafel |
@@ -686,7 +687,7 @@ Elke uitgang heeft zijn eigen donkere strip:
 | **CUT**, **SEL**, fader | Zoals op een kanaal |
 
 Rechtsklik op een uitgang voor **DEVICE...**, **HEADPHONE EQ** (koptelefooncorrectie: **NONE**, of je
-model, op merk gesorteerd), **ALERT IF SILENT** (10 seconden onder -60 dBFS) en **ALERT IF CLIPPING**
+model, op merk gesorteerd), **ALERT IF SILENT** (onder -60 dBFS gedurende **10 S**, **30 S**, **1 MIN** of **5 MIN**, of **OFF**) en **ALERT IF CLIPPING**
 (zolang LIMIT uit staat), die het pictogram in het systeemvak laten knipperen en in het
 gebeurtenissenlogboek schrijven, **IN THE MINI MIXER**, spacers, **RENAME...** en **REMOVE**.
 
@@ -914,10 +915,12 @@ gelezen kan worden. Zijn toets, **BOOST WINDOWS AUDIO** (**BOOSTED** zolang hij 
   Het overleeft geen herstart van Windows-audio of van de pc: Faider houdt het in de gaten, meldt je één keer
   via het systeemvak wanneer hij weer op Normal staat, en **Boost Windows audio again...** in het menu van het systeemvak (of
   BOOST hier, of **BOOST WINDOWS AUDIO** in FIND) boost hem opnieuw. Klik je op BOOST terwijl hij geboost is, dan
-  stopt het in de gaten houden; hij blijft op High tot Windows-audio opnieuw start.
+  stopt het in de gaten houden; hij blijft op High tot Windows-audio opnieuw start of je BACK TO NORMAL kiest.
 - **PIN TO ONE CORE** (uit tenzij je het kiest) houdt hem ook vast aan je laatste processorkern, vanaf de
   volgende BOOST. Het beperkt alleen waar hij draait en voegt nooit kernen toe: gebruik het alleen bij gekraak op een
   USB-headset.
+- **BACK TO NORMAL** (als hij niet op Normal staat, of vastgezet is) zet hem nu terug op Normal-prioriteit op alle
+  kernen, zonder op een herstart te wachten. Windows vraagt het eerst, net als bij BOOST, en Faider stopt met in de gaten houden.
 
 Het heeft geen invloed op ASIO-interfaces, die niet via Windows-audio gaan.
 
@@ -1410,7 +1413,7 @@ uitvoer en je echte microfoon als standaard invoer, elk ook voor gesprekken. Of 
 | `--minimised` | Starten in het systeemvak |
 | `--quit` | De draaiende kopie afsluiten |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Voor deze keer is de klok je Windows-afspeelapparaat, de ingebouwde klok, of het ASIO-stuurprogramma waarvan de naam `<driver>` bevat. Het wint van DEVICES > CLOCK (zie [Klokken](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | Wat **BOOST WINDOWS AUDIO** start, als beheerder: de audio-engine van Windows op High-prioriteit (alleen vastgezet op kern N als die is opgegeven), daarna sluit het af. 0: klaar; 2: ongeldige argumenten; 3: audiodg niet gevonden; 4: toegang geweigerd; 5: prioriteit geweigerd; 6: High ingesteld maar vastzetten geweigerd |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Wat **BOOST WINDOWS AUDIO** en **BACK TO NORMAL** starten, als beheerder: de audio-engine van Windows op High-prioriteit (alleen vastgezet op kern N als die is opgegeven), of terug op Normal op alle kernen, daarna sluit het af. 0: klaar; 2: ongeldige argumenten; 3: audiodg niet gevonden; 4: toegang geweigerd; 5: prioriteit geweigerd; 6: High ingesteld maar vastzetten geweigerd; 7: Normal ingesteld maar alle kernen vrijgeven geweigerd |
 
 <a id="193-files"></a>
 

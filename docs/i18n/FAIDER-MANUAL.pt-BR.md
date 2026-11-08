@@ -523,7 +523,8 @@ move.
 | **PLUGINS** | Abrir um, **ADD PLUGIN...**, **REMOVE** |
 | **MAKE MONO / MAKE STEREO** | Só canais |
 | **NOISE** | Redução de ruído: **ON** (como a chave NOISE do strip), **NEURAL** ou **SPECTRAL**, e a **DEPTH** dela (-6 a -30 dB) |
-| **DUCK UNDER** | Outro canal sob o qual este abaixa enquanto aquele canal é ouvido, ou **NONE**, e quanto ele abaixa (**DEPTH**, -6 a -24 dB). Não existe em canal de app |
+| **KEY FROM** | O canal que a chave **EXT** do strip escuta (o sidechain dele), ou **NONE**. Não existe em strip de app, pads, fita ou combinador |
+| **DUCK UNDER** | Outro canal sob o qual este abaixa enquanto aquele canal é ouvido, ou **NONE**, e quanto ele abaixa (**DEPTH**, -6 a -24 dB). Funciona também em canal de app, para a música abaixar enquanto você fala |
 | **COLOUR** | A cor do canal, mostrada ao longo da barra de nome e no bloco dele em Routing |
 | **IN THE MINI MIXER** | Marcado: o strip tem um fader no mini mixer (veja [16](#16-remote-control-overlay-and-tray)) |
 | **ADD SPACER BEFORE / AFTER** | |
@@ -547,7 +548,7 @@ move.
 | **Barras de nível** | O nível do canal, esquerdo e direito (IN, PRE ou POST, conforme a escolha em METER) |
 | **FILT** | Envia os filtros ao detector do gate/compressor (filtragem da chave) |
 | **EQ** | O EQ ligado ou desligado |
-| **EXT** | A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal |
+| **EXT** | A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal: o canal escolhido em botão direito > **KEY FROM**. Se for pressionado antes de escolher um, abre essa lista |
 | **Ordem de processamento** | Três blocos (FILT, EQ, DYN), de cima para baixo na ordem em que o canal os executa. **Clique em um bloco** para subi-lo uma posição. O de cima vai para o fim. Blocos acesos estão em uso |
 | **Caixas de roteamento** | Uma caixa por bus e por dispositivo de saída. Acesa: o canal é enviado para lá. Clique para alternar (veja [Saídas são dispositivos](#outputs-are-devices)) |
 | **Número** | O lugar do strip na mesa |
@@ -704,7 +705,7 @@ Cada saída tem o seu próprio strip escuro:
 | **CUT**, **SEL**, fader | Como em um canal |
 
 Botão direito em uma saída para **DEVICE...**, **HEADPHONE EQ** (correção de fones: **NONE**, ou o
-seu modelo, listado por marca), **ALERT IF SILENT** (10 segundos abaixo de -60 dBFS) e
+seu modelo, listado por marca), **ALERT IF SILENT** (abaixo de -60 dBFS por **10 S**, **30 S**, **1 MIN** ou **5 MIN**, ou **OFF**) e
 **ALERT IF CLIPPING** (enquanto o LIMIT está desligado), que fazem o ícone da bandeja piscar e
 escrevem no log de eventos, **IN THE MINI MIXER**, espaçadores, **RENAME...** e **REMOVE**.
 
@@ -937,10 +938,14 @@ um menu:
   dizer não não muda nada. Não sobrevive a um reinício do áudio do Windows nem do PC: o Faider fica de
   olho, avisa você uma vez pela bandeja quando volta a Normal, e **Boost Windows audio again...** no
   menu da bandeja (ou BOOST aqui, ou **BOOST WINDOWS AUDIO** no FIND) sobe de novo. Clicar em BOOST
-  enquanto está em boost para de vigiar; fica em High até o áudio do Windows reiniciar.
+  enquanto está em boost para de vigiar; fica em High até o áudio do Windows reiniciar ou você escolher
+  BACK TO NORMAL.
 - **PIN TO ONE CORE** (desligado, a menos que você escolha) também prende o processo ao último núcleo
   do processador, a partir do próximo BOOST. Só restringe onde ele roda, nunca adiciona núcleos: use
   apenas para estalos em um headset USB.
+- **BACK TO NORMAL** (quando não está em Normal, ou está preso a um núcleo) volta agora para a prioridade
+  Normal em todos os núcleos, sem esperar um reinício. O Windows pergunta antes, como no BOOST, e o
+  Faider para de vigiar.
 
 Não afeta interfaces ASIO, que não passam pelo áudio do Windows.
 
@@ -1443,7 +1448,7 @@ em **Configurações > Sistema > Som**. Veja o [Passo 2](#step-2-install-vb-cabl
 | `--minimised` | Iniciar na bandeja |
 | `--quit` | Encerrar a cópia em execução |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Nesta execução, o clock é o seu dispositivo de reprodução do Windows, o clock interno, ou o driver ASIO cujo nome contém `<driver>`. Vence DEVICES > CLOCK (veja [Sincronização](#clocking)) |
-| `--boost-audiodg [--pin-core N]` | O que **BOOST WINDOWS AUDIO** inicia, como administrador: o mecanismo de áudio do Windows em prioridade High (preso ao núcleo N só se for informado), e então sai. 0: feito; 2: argumentos inválidos; 3: audiodg não encontrado; 4: acesso negado; 5: prioridade recusada; 6: High definido, mas a fixação foi recusada |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | O que **BOOST WINDOWS AUDIO** e **BACK TO NORMAL** iniciam, como administrador: o mecanismo de áudio do Windows em prioridade High (preso ao núcleo N só se for informado), ou de volta a Normal em todos os núcleos, e então sai. 0: feito; 2: argumentos inválidos; 3: audiodg não encontrado; 4: acesso negado; 5: prioridade recusada; 6: High definido, mas a fixação foi recusada; 7: Normal definido, mas a volta a todos os núcleos foi recusada |
 
 <a id="193-files"></a>
 

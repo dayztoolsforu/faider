@@ -269,7 +269,7 @@ Under the top bar, on every Mixer view, you get the Tape deck's time (elapsed an
 the track name and its keys: **rewind 10 s**, **stop**, **play/pause**, **forward 10 s**,
 **record**, **loop**.
 
-- **Record** records the first output to a file (in the Recorder's format and folder). Press again to stop.
+- **Record** is the Recorder's **REC**: it records the source chosen on TOOLS > TAPE, in its format and folder, and stays lit while that recording runs. Press again to stop.
 - **Loop** steps through **repeat all** → **repeat one** (marked **1**) → **off**.
 
 ---
@@ -744,7 +744,7 @@ The top bar's transport and the tape strip on the desk control the same deck.
 |---|---|
 | **Source** | Any output, bus or input, or **ALL CHANNELS, ONE FILE EACH** (multitrack: every input, or only those with DIRECT lit, plus every output, sample-aligned) |
 | **Format** | WAV 24-bit (default), 16-bit, 32-bit, 32-bit float; FLAC 24/16-bit; AIFF 24/16-bit; OGG Vorbis 128–320k. With ffmpeg: MP3, AAC (M4A), Opus, ALAC. Each shows how much time fits on the disk |
-| **REC** | Starts and stops. The screen shows time, size, time left, and any dropped blocks |
+| **REC** | Starts and stops (the top bar's record key does the same). The screen shows time, size, time left, and any dropped blocks |
 | **PATH** / **REVEAL** | Choose the folder / open it in Explorer |
 
 Recordings go to `Music\Faider Recordings` unless you pick a folder. ffmpeg formats record

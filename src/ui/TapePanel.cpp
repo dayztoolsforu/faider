@@ -463,18 +463,9 @@ void TapePanel::toggleRecording()
     }
     rec.setToggleState (true, juce::dontSendNotification);
 
-    const int i = recordSource.getSelectedId() - 1;
-    if (! juce::isPositiveAndBelow (i, (int) recordSources.size()))
-    {
-        rec.setToggleState (false, juce::dontSendNotification);
-        return;
-    }
-
-    const auto& s = recordSources[(size_t) i];
+    // The source chosen above (the engine's, so the top bar's REC and macros record the same).
     juce::String error;
-    const auto started = s.key == multitrackKey ? engine.startMultitrack (engine.getRecorder().folder, error)
-                                                : engine.startRecording (s.kind, s.index, s.name, engine.getRecorder().folder, error);
-    if (started == juce::File())
+    if (engine.startChosenRecording (error) == juce::File())
     {
         rec.setToggleState (false, juce::dontSendNotification);
         juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "RECORD FAILED", error);

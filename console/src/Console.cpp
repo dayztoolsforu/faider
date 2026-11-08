@@ -3291,18 +3291,14 @@ namespace ConsoleDesk
             return juce::String (t / 60).paddedLeft ('0', 2) + ":" + juce::String (t % 60).paddedLeft ('0', 2);
         }
 
-        // REC: the main output (the first) to a file, as the Tape page records; again, it stops.
+        // REC: the Tape page's recording (its source, format and folder); again, it stops.
         void record()
         {
             if (engine.getRecorder().isRecording())
                 return engine.stopRecording();
             juce::String error;
-            if (engine.getMasters().empty())
-                error = "NO OUTPUT";
-            else
-                engine.startRecording (Recorder::Kind::output, 0, engine.getMasters().front()->name, engine.getRecorder().folder, error);
-            if (error.isNotEmpty())
-                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "REC", error);
+            if (engine.startChosenRecording (error) == juce::File())
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "RECORD FAILED", error);
         }
 
         void timerCallback() override

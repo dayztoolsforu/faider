@@ -493,6 +493,29 @@ public:
             sources.push_back ({ Recorder::Kind::output, i, masters[(size_t) i]->name });
         return recorder.startMultitrack (sources, folder, interfaceRate, graphLock, error);
     }
+
+    // REC (TAPE's, the top bar's, a macro's): the recorder's chosen source ("multitrack", or
+    // "output:NAME", "bus:NAME", "input:NAME") to its folder; none chosen, or it's gone: the first output.
+    juce::File startChosenRecording (juce::String& error)
+    {
+        const auto& chosen = recorder.chosen;
+        if (chosen == "multitrack")   // ALL CHANNELS: each to its own file
+            return startMultitrack (recorder.folder, error);
+        const auto kind = chosen.upToFirstOccurrenceOf (":", false, false), name = chosen.fromFirstOccurrenceOf (":", false, false);
+        const auto find = [&name] (const auto& list) { for (int i = 0; i < (int) list.size(); ++i) if (list[(size_t) i]->name == name) return i; return -1; };
+        if (const int i = kind == "output" ? find (masters) : -1; i >= 0)
+            return startRecording (Recorder::Kind::output, i, name, recorder.folder, error);
+        if (const int i = kind == "bus" ? find (buses) : -1; i >= 0)
+            return startRecording (Recorder::Kind::bus, i, name, recorder.folder, error);
+        if (const int i = kind == "input" ? find (strips) : -1; i >= 0)
+            return startRecording (Recorder::Kind::input, i, name, recorder.folder, error);
+        if (masters.empty())
+        {
+            error = "NO OUTPUT";
+            return {};
+        }
+        return startRecording (Recorder::Kind::output, 0, masters.front()->name, recorder.folder, error);
+    }
     void armReplay (Recorder::Kind k, int index, double seconds) { recorder.armReplay (k, index, seconds, interfaceRate, graphLock); }
 
     // Macros (Macros.h): steps that change the mix, fired from pads, hotkeys or the PADS tab.

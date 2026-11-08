@@ -316,22 +316,8 @@ void Macros::apply (Run& run, const Step& step)
             if (! engine.getRecorder().isRecording())
             {
                 // The recorder's chosen source, as the TAPE tab shows it (the first output if none).
-                auto chosen = engine.getRecorder().chosen;
-                if (chosen.isEmpty() && ! engine.getMasters().empty())
-                    chosen = "output:" + engine.getMasters().front()->name;
-                const auto t = resolve (engine, chosen);
-                const auto name = chosen.fromFirstOccurrenceOf (":", false, false);
                 juce::String error;
-                if (chosen == "multitrack")   // ALL CHANNELS: each to its own file
-                    engine.startMultitrack (engine.getRecorder().folder, error);
-                else if (t.output >= 0)
-                    engine.startRecording (Recorder::Kind::output, t.output, name, engine.getRecorder().folder, error);
-                else if (t.pair >= 0)
-                    engine.startRecording (Recorder::Kind::bus, t.pair, name, engine.getRecorder().folder, error);
-                else if (t.strip != nullptr)
-                    for (int i = 0; i < (int) engine.getStrips().size(); ++i)
-                        if (engine.getStrips()[(size_t) i].get() == t.strip)
-                            engine.startRecording (Recorder::Kind::input, i, name, engine.getRecorder().folder, error);
+                engine.startChosenRecording (error);
                 run.undo.push_back ([this] { engine.stopRecording(); });
             }
             break;

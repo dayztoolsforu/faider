@@ -48,6 +48,50 @@ set(ASIO_SDK_DIR "${_bundled_asio}" CACHE PATH "Path to the extracted Steinberg 
 juce_add_binary_data(FaiderAssets HEADER_NAME FaiderAssets.h NAMESPACE FaiderAssets SOURCES
     assets/autoeq/profiles.txt)
 
+# faider_core: the engine and the session (src/engine, src/devices, src/Session.cpp), built once for
+# Faider and SessionTest. JUCE's modules are compiled into each program that links it (that's how
+# JUCE builds), so faider_core takes only their headers and Faider's JUCE settings: a program linking
+# it must use the same settings. The programs have different data folders, so faider_core may not use
+# one (FAIDER_NO_DATA_FOLDER: ProductName.h); the code that does (WindowDiscovery.cpp, PluginScan.cpp)
+# is built in each program. Each program also has its own VoiceChain::createEditor.
+set(FAIDER_JUCE_SETTINGS JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_WASAPI=1 JUCE_PLUGINHOST_VST3=1 JUCE_DIRECTSOUND=0
+    JUCE_USE_MP3AUDIOFORMAT=1)
+set(_juce_modules juce_audio_utils juce_dsp juce_osc)
+add_library(faider_core STATIC
+    src/Session.cpp
+    src/engine/AudioEngine.cpp
+    src/engine/DriftFifo.cpp
+    src/engine/BuiltInClock.cpp
+    src/engine/HeadphoneEq.cpp
+    src/engine/AppCapture.cpp
+    src/engine/Pads.cpp
+    src/engine/Tape.cpp
+    src/engine/Recorder.cpp
+    src/engine/Macros.cpp
+    src/engine/Scenes.cpp
+    src/engine/RemoteControl.cpp
+    src/engine/VoiceChain.cpp
+    src/engine/NeuralNoise.cpp
+    src/devices/EndpointWatcher.cpp
+    src/devices/WindowsDefault.cpp)
+foreach(_module IN LISTS _juce_modules)
+    target_include_directories(faider_core PRIVATE $<TARGET_PROPERTY:${_module},INTERFACE_INCLUDE_DIRECTORIES>)
+    target_compile_definitions(faider_core PRIVATE $<TARGET_PROPERTY:${_module},INTERFACE_COMPILE_DEFINITIONS>)
+    target_compile_options(faider_core PRIVATE $<TARGET_PROPERTY:${_module},INTERFACE_COMPILE_OPTIONS>)
+endforeach()
+target_compile_definitions(faider_core PRIVATE FAIDER_NO_DATA_FOLDER JUCE_STANDALONE_APPLICATION=1 ${FAIDER_JUCE_SETTINGS})
+target_link_libraries(faider_core
+    PUBLIC
+        FaiderAssets
+        rnnoise
+        ole32
+    PRIVATE
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_warning_flags)
+if(MSVC)
+    target_compile_options(faider_core PRIVATE $<$<CONFIG:Release>:/Zi>)   # (Faider's release PDB: see console/CMakeLists.txt)
+endif()
+
 # Test plugin for insert chains / delay compensation. Installed to the per-user VST3 folder
 # (%LOCALAPPDATA%\Programs\Common\VST3), which Faider scans and which needs no admin rights.
 file(TO_CMAKE_PATH "$ENV{LOCALAPPDATA}/Programs/Common/VST3" USER_VST3_DIR)
@@ -211,41 +255,14 @@ target_link_libraries(RecorderTest
 # Its own data folder (FaiderSessionTest), so it never touches %APPDATA%\Faider; no audio
 # device is opened, and the ASIO SDK isn't needed.
 juce_add_console_app(SessionTest PRODUCT_NAME "SessionTest")
-target_sources(SessionTest PRIVATE
-    tests/SessionTest.cpp
-    src/Session.cpp
-    src/engine/AudioEngine.cpp
-    src/engine/DriftFifo.cpp
-    src/engine/BuiltInClock.cpp
-    src/engine/HeadphoneEq.cpp
-    src/engine/AppCapture.cpp
-    src/engine/WindowDiscovery.cpp
-    src/engine/Pads.cpp
-    src/engine/Tape.cpp
-    src/engine/Recorder.cpp
-    src/engine/Macros.cpp
-    src/engine/Scenes.cpp
-    src/engine/RemoteControl.cpp
-    src/engine/VoiceChain.cpp
-    src/engine/NeuralNoise.cpp
-    src/devices/EndpointWatcher.cpp
-    src/devices/WindowsDefault.cpp)
-target_compile_definitions(SessionTest PRIVATE
-    FAIDER_DATA_FOLDER="FaiderSessionTest"
-    JUCE_WEB_BROWSER=0
-    JUCE_USE_CURL=0
-    JUCE_WASAPI=1
-    JUCE_PLUGINHOST_VST3=1
-    JUCE_DIRECTSOUND=0
-    JUCE_USE_MP3AUDIOFORMAT=1)
+target_sources(SessionTest PRIVATE tests/SessionTest.cpp src/engine/WindowDiscovery.cpp)
+target_compile_definitions(SessionTest PRIVATE FAIDER_DATA_FOLDER="FaiderSessionTest" ${FAIDER_JUCE_SETTINGS})
 target_link_libraries(SessionTest
     PRIVATE
-        FaiderAssets
+        faider_core
         juce::juce_audio_utils
         juce::juce_dsp
         juce::juce_osc
-        rnnoise
-        ole32
     PUBLIC
         juce::juce_recommended_config_flags)
 
@@ -296,7 +313,7 @@ target_link_libraries(LookRenderTest
 add_subdirectory(console)
 
 if(MSVC AND FAIDER_WARNINGS_AS_ERRORS)
-    foreach(_target Faider FaiderTestDelay MeterTest PadsTest TapeTest NoiseReducerTest VoiceChainTest
+    foreach(_target Faider faider_core FaiderTestDelay MeterTest PadsTest TapeTest NoiseReducerTest VoiceChainTest
                     DefaultDeviceTest TriggerTest UpdateCheckTest AudioBoostTest WasapiProbe JuceWasapiProbe
                     PluginScanTest RecorderTest SessionTest AppCaptureTest BuffersTest ThemeTest LookRenderTest)
         target_compile_options(${_target} PRIVATE /WX)

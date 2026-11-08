@@ -12,6 +12,9 @@ namespace Product
     inline constexpr const char* name = "Faider";
     inline constexpr const char* nameUpper = "FAIDER";
 
+    // (faider_core is linked into programs with different data folders, so it may not use one:
+    // there dataFolder() doesn't exist, and code that uses it doesn't build)
+#ifndef FAIDER_NO_DATA_FOLDER
     inline juce::File dataFolder()
     {
         return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile (FAIDER_DATA_FOLDER);
@@ -28,4 +31,5 @@ namespace Product
         if (! earlier.moveFileTo (now))
             earlier.copyDirectoryTo (now);
     }
+#endif
 }

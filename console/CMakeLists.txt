@@ -10,42 +10,21 @@ target_sources(Faider PRIVATE
     ${_src}/Main.cpp
     ${_src}/MainComponent.cpp
     ${_src}/AudioBoost.cpp
-    ${_src}/Session.cpp
-    ${_src}/engine/DriftFifo.cpp
-    ${_src}/engine/BuiltInClock.cpp
-    ${_src}/engine/HeadphoneEq.cpp
-    ${_src}/engine/AppCapture.cpp
     ${_src}/engine/WindowDiscovery.cpp
-    ${_src}/engine/Pads.cpp
-    ${_src}/engine/Tape.cpp
-    ${_src}/engine/Recorder.cpp
     ${_src}/engine/PluginScan.cpp
-    ${_src}/engine/Macros.cpp
-    ${_src}/engine/Scenes.cpp
-    ${_src}/engine/RemoteControl.cpp
-    ${_src}/engine/VoiceChain.cpp
-    ${_src}/engine/NeuralNoise.cpp
     ${_src}/ui/VoiceChainEditor.cpp
-    ${_src}/engine/AudioEngine.cpp
     ${_src}/ui/MixerComponent.cpp
     ${_src}/ui/DevicesTab.cpp
     ${_src}/ui/PadsPanel.cpp
     ${_src}/ui/TapePanel.cpp
     ${_src}/ui/Hotkeys.cpp
     ${_src}/ui/Overlay.cpp
-    ${_src}/devices/EndpointWatcher.cpp
-    ${_src}/devices/WindowsDefault.cpp
     ${_src}/ui/WindowBackground.cpp
     ${_src}/ui/WindowSnap.cpp
     ${_src}/ui/Theme.cpp)
 target_compile_definitions(Faider PRIVATE
     FAIDER_DATA_FOLDER="Faider"
-    JUCE_WEB_BROWSER=0
-    JUCE_USE_CURL=0
-    JUCE_WASAPI=1
-    JUCE_PLUGINHOST_VST3=1
-    JUCE_DIRECTSOUND=0
-    JUCE_USE_MP3AUDIOFORMAT=1
+    ${FAIDER_JUCE_SETTINGS}   # (the engine's, faider_core: CMakeLists.txt)
     JUCE_APPLICATION_NAME_STRING="$<TARGET_PROPERTY:Faider,JUCE_PRODUCT_NAME>"
     JUCE_APPLICATION_VERSION_STRING="$<TARGET_PROPERTY:Faider,JUCE_VERSION>")
 if(ASIO_SDK_DIR)
@@ -54,11 +33,10 @@ if(ASIO_SDK_DIR)
 endif()
 target_link_libraries(Faider
     PRIVATE
-        FaiderAssets
+        faider_core
         juce::juce_audio_utils
         juce::juce_dsp
         juce::juce_osc
-        rnnoise
         ole32
     PUBLIC
         juce::juce_recommended_config_flags

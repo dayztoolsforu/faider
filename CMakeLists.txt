@@ -182,6 +182,48 @@ target_link_libraries(RecorderTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# Saved mixes load: a session's save/restore round trip, headless (see tests/SessionTest.cpp).
+# Its own data folder (FaiderSessionTest), so it never touches %APPDATA%\Faider; no audio
+# device is opened, and the ASIO SDK isn't needed.
+juce_add_console_app(SessionTest PRODUCT_NAME "SessionTest")
+target_sources(SessionTest PRIVATE
+    tests/SessionTest.cpp
+    src/Session.cpp
+    src/engine/AudioEngine.cpp
+    src/engine/DriftFifo.cpp
+    src/engine/BuiltInClock.cpp
+    src/engine/HeadphoneEq.cpp
+    src/engine/AppCapture.cpp
+    src/engine/WindowDiscovery.cpp
+    src/engine/Pads.cpp
+    src/engine/Tape.cpp
+    src/engine/Recorder.cpp
+    src/engine/Macros.cpp
+    src/engine/Scenes.cpp
+    src/engine/RemoteControl.cpp
+    src/engine/VoiceChain.cpp
+    src/engine/NeuralNoise.cpp
+    src/devices/EndpointWatcher.cpp
+    src/devices/WindowsDefault.cpp)
+target_compile_definitions(SessionTest PRIVATE
+    FAIDER_DATA_FOLDER="FaiderSessionTest"
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_WASAPI=1
+    JUCE_PLUGINHOST_VST3=1
+    JUCE_DIRECTSOUND=0
+    JUCE_USE_MP3AUDIOFORMAT=1)
+target_link_libraries(SessionTest
+    PRIVATE
+        FaiderAssets
+        juce::juce_audio_utils
+        juce::juce_dsp
+        juce::juce_osc
+        rnnoise
+        ole32
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # App capture as its program closes (see tests/AppCaptureTest.cpp).
 juce_add_console_app(AppCaptureTest PRODUCT_NAME "AppCaptureTest")
 target_sources(AppCaptureTest PRIVATE tests/AppCaptureTest.cpp src/engine/AppCapture.cpp src/engine/WindowDiscovery.cpp src/engine/DriftFifo.cpp)

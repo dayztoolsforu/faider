@@ -16,6 +16,7 @@
 #include "../../src/ui/MixerComponent.h"
 #include "../../src/ui/SettingsTab.h"   // (DeskSettings: the cards)
 #include "../../src/ui/MidiMap.h"
+#include "../../src/ui/MixMinusBuilder.h"
 #include "Console.h"
 
 namespace
@@ -2235,6 +2236,18 @@ private:
         menu.addSubMenu ("ALERT IF SILENT", silent, true, nullptr, m->silenceAlert > 0);
         menu.addItem ("ALERT IF CLIPPING", true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
         MixerComponent::addMiniMixerItem (menu, *engine, stripKey (ch));
+        // (more outputs made from this desk: a feed per guest without themselves, and stems)
+        menu.addItem ("MIX-MINUS AND STEMS...", [this]
+        {
+            MixMinusBuilder::showBuilder (*engine, [desk = juce::Component::SafePointer<Bench> (this)]
+            {
+                if (desk == nullptr)
+                    return;
+                desk->channels = desk->bind.channels();
+                desk->resizeToFit();
+                desk->repaint();
+            }, getTopLevelComponent());
+        });
         menu.addSeparator();
         menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
         menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });

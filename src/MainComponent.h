@@ -212,7 +212,8 @@ private:
 
 
     // HEAR WHAT THEY HEAR: the mic output (the one playing into VB-CABLE, which apps hear as the
-    // mic) recorded for 5 s from now, then played once in the headphones.
+    // mic) recorded for 5 s from now, then played once in the headphones. From PRE-FLIGHT's mic
+    // output row, or FIND.
     void hearWhatTheyHear();
     juce::String micOutputName() const;
 

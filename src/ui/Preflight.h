@@ -4,9 +4,10 @@
 #include "Console.h"
 
 // PRE-FLIGHT: before going live, the setup at a glance. A row per check, a light (green: fine,
-// red: not, yellow: only a suggestion), what it found, and a FIX key where one click can put it right. Shown a few seconds
+// red: not, yellow: only a suggestion), what it found, and a FIX key where one click can put it right
+// (the mic output's row, while it's fine, has HEAR WHAT THEY HEAR instead). Shown a few seconds
 // after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
-// ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, or FIND).
+// ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, SETTINGS > GENERAL, or FIND).
 class PreflightPanel : public juce::Component
 {
 public:
@@ -17,6 +18,8 @@ public:
         juce::String fixLabel;          // empty: nothing to press
         std::function<void()> fix;
         bool advisory = false;          // not ok, but only a suggestion: yellow, and not "something's wrong"
+        juce::String tryLabel = {};     // a key shown while it's fine instead (the mic output's HEAR WHAT THEY HEAR)
+        std::function<void()> tryIt = {};
     };
 
     // `recheck` gives the checks as they are now (after a fix, the list follows).
@@ -59,7 +62,8 @@ public:
             if (fixes[(int) i] != nullptr)
             {
                 const auto r = rowArea ((int) i);
-                fixes[(int) i]->setBounds (r.getRight() - 130, r.getY() + 4, 130, Space::key);
+                const int w = fixes[(int) i]->getButtonText().length() > 15 ? 190 : 130;   // (a long name gets a wider key)
+                fixes[(int) i]->setBounds (r.getRight() - w, r.getY() + 4, w, Space::key);
             }
         auto bottom = getLocalBounds().reduced (Space::pad).removeFromBottom (Space::key);
         again.setBounds (bottom.removeFromRight (160));
@@ -92,10 +96,12 @@ private:
         fixes.clear();
         for (auto& c : checks)
         {
-            auto* key = fixes.add (! c.ok && c.fix != nullptr ? new juce::TextButton (c.fixLabel.isNotEmpty() ? c.fixLabel : juce::String ("FIX")) : nullptr);
+            const bool wrong = ! c.ok && c.fix != nullptr, canTry = c.ok && c.tryIt != nullptr;
+            auto* key = fixes.add (wrong   ? new juce::TextButton (c.fixLabel.isNotEmpty() ? c.fixLabel : juce::String ("FIX"))
+                                 : canTry ? new juce::TextButton (c.tryLabel) : nullptr);
             if (key != nullptr)
             {
-                key->onClick = [this, fix = c.fix]
+                key->onClick = [this, fix = wrong ? c.fix : c.tryIt]
                 {
                     fix();
                     juce::Timer::callAfterDelay (600, [safe = juce::Component::SafePointer<PreflightPanel> (this)] { if (safe != nullptr) safe->refresh(); });

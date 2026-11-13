@@ -490,11 +490,16 @@ void MainComponent::makeSettings()
     {
         showSessions (juce::PopupMenu::Options().withMousePosition());
     });
+    general.action ("SESSION TIMELINE...", "Go back to an earlier mix, or put one channel back as it was", [this]
+    {
+        showTimeline (juce::PopupMenu::Options().withMousePosition());
+    });
     general.heading ("ON START");
     general.toggle ("PRE-FLIGHT: CHECK THE SETUP", juce::String ("A few seconds after ") + Product::name + " starts: the audio, the mic cable and route, cut mics (shown only if something's wrong)",
                     [this] { return settings.getBoolValue ("preflightOnStart", true); },
                     [remember] (bool on) { remember ("preflightOnStart", on); });
     general.action ("PRE-FLIGHT NOW...", "Check the setup now", [this] { showPreflight (false); });
+    general.action ("ZERO DESK...", "Things left set: solos, key listen, gains far off, outputs cut", [this] { showZero(); });
     general.toggle ("TIPS", "A tip about each page, the first time it's shown",
                     [this] { return settings.getBoolValue ("tips", true); }, [remember] (bool on) { remember ("tips", on); });
     general.action ("SHOW THE TIPS AGAIN", "Each page's tip once more, as it's next shown", [this, remember]
@@ -1872,7 +1877,7 @@ void MainComponent::openRelease()
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix
 // (Faider restarts), or one channel just as it was then (its level, pan, mute and rack). From
-// FIND, or the tray menu (where the window may be hidden: at the mouse).
+// SETTINGS > GENERAL, FIND, or the tray menu (where the window may be hidden: at the mouse).
 void MainComponent::showTimeline (juce::PopupMenu::Options where)
 {
     juce::PopupMenu menu;
@@ -2356,7 +2361,8 @@ std::vector<PreflightPanel::Check> MainComponent::preflightChecks()
         if (engine.getMasters()[(size_t) b]->name == mic)
             micBus = b;
     checks.push_back ({ "Mic output", mic.isNotEmpty() ? mic + " plays into the mic cable" : "No output plays into the mic cable (CABLE Input)",
-                        mic.isNotEmpty(), "ROUTING", [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Routing")); } });
+                        mic.isNotEmpty(), "ROUTING", [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Routing")); },
+                        false, "HEAR WHAT THEY HEAR", [this] { hearWhatTheyHear(); } });
 
     // The mics on their way there, and whether any is muted.
     juce::StringArray muted;

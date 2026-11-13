@@ -210,19 +210,16 @@ Tape::Track* Tape::open (int index, juce::int64 from)
     if (! juce::isPositiveAndBelow (index, size()))
         return nullptr;
 
-    auto* reader = formats.createReaderFor (playlist[(size_t) index]);
+    std::unique_ptr<juce::AudioFormatReader> reader (formats.createReaderFor (playlist[(size_t) index]));
     if (reader == nullptr || reader->lengthInSamples <= 0)
-    {
-        delete reader;
         return nullptr;
-    }
 
     auto t = std::make_unique<Track> (readAhead);
     const double ratio = reader->sampleRate / rate;
     t->index = index;
     t->length = (juce::int64) ((double) reader->lengthInSamples / ratio);
     t->produced = t->played = t->playedShown = juce::jlimit<juce::int64> (0, t->length, from);
-    t->reader = std::make_unique<juce::AudioFormatReaderSource> (reader, true);
+    t->reader = std::make_unique<juce::AudioFormatReaderSource> (reader.release(), true);   // (the source owns it from here)
     t->reader->setNextReadPosition ((juce::int64) ((double) t->produced * ratio));
     t->resampler = std::make_unique<juce::ResamplingAudioSource> (t->reader.get(), false, 2);
     t->resampler->setResamplingRatio (ratio);

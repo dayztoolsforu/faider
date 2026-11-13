@@ -2093,19 +2093,34 @@ public:
     // A combinator path renamed.
     void renamePath (int busIndex, int p)
     {
-        auto* w = new juce::AlertWindow ("RENAME PATH", {}, juce::MessageBoxIconType::NoIcon);
         auto& buses = engine->getBuses();
         if (! juce::isPositiveAndBelow (busIndex, (int) buses.size()) || ! juce::isPositiveAndBelow (p, (int) buses[(size_t) busIndex]->paths.size()))
-            return delete w;
+            return;
+        auto w = std::make_unique<juce::AlertWindow> ("RENAME PATH", juce::String(), juce::MessageBoxIconType::NoIcon);
         w->addTextEditor ("name", buses[(size_t) busIndex]->paths[(size_t) p]->name);
         w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
         w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
-        w->enterModalState (true, juce::ModalCallbackFunction::create ([this, w, busIndex, p] (int result)
+        showRenameBox (std::move (w), [busIndex, p] (Bench& bench, const juce::String& typed)
         {
-            auto& all = engine->getBuses();
-            if (result == 1 && juce::isPositiveAndBelow (busIndex, (int) all.size()) && juce::isPositiveAndBelow (p, (int) all[(size_t) busIndex]->paths.size()))
-                all[(size_t) busIndex]->paths[(size_t) p]->name = w->getTextEditorContents ("name").trim().toUpperCase();
-            repaint();
+            auto& all = bench.engine->getBuses();
+            if (juce::isPositiveAndBelow (busIndex, (int) all.size()) && juce::isPositiveAndBelow (p, (int) all[(size_t) busIndex]->paths.size()))
+                all[(size_t) busIndex]->paths[(size_t) p]->name = typed.trim().toUpperCase();
+        });
+    }
+
+    // A box with a "name" editor, shown modal: JUCE's modal manager owns it from here and deletes it
+    // when it's dismissed. RENAME (1) hands what was typed to `renamed`, unless the desk went first.
+    void showRenameBox (std::unique_ptr<juce::AlertWindow> box, std::function<void (Bench&, const juce::String& typed)> renamed)
+    {
+        auto* opened = box.release();   // (the modal manager's now: deleteWhenDismissed)
+        opened->enterModalState (true, juce::ModalCallbackFunction::create (
+            [desk = juce::Component::SafePointer<Bench> (this), window = juce::Component::SafePointer<juce::AlertWindow> (opened), renamed = std::move (renamed)] (int result)
+        {
+            if (desk == nullptr)
+                return;
+            if (result == 1 && window != nullptr)
+                renamed (*desk, window->getTextEditorContents ("name"));
+            desk->repaint();
         }), true);
     }
 
@@ -2249,23 +2264,22 @@ private:
             auto& masters = engine->getMasters();
             if (! juce::isPositiveAndBelow (index, (int) masters.size()))
                 return;
-            auto* w = new juce::AlertWindow ("RENAME", {}, juce::MessageBoxIconType::NoIcon);
+            auto w = std::make_unique<juce::AlertWindow> ("RENAME", juce::String(), juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", masters[(size_t) index]->name);
             w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
             w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
-            w->enterModalState (true, juce::ModalCallbackFunction::create ([this, index, w] (int result)
+            showRenameBox (std::move (w), [index] (Bench& bench, const juce::String& typed)
             {
-                auto& list = engine->getMasters();
-                const auto wanted = w->getTextEditorContents ("name").trim();
-                if (result == 1 && wanted.isNotEmpty() && juce::isPositiveAndBelow (index, (int) list.size()))
+                auto& list = bench.engine->getMasters();
+                const auto wanted = typed.trim();
+                if (wanted.isNotEmpty() && juce::isPositiveAndBelow (index, (int) list.size()))
                 {
                     auto& mm = *list[(size_t) index];
                     const auto old = mm.name;
-                    mm.name = engine->nameFor ("output", wanted, &mm);
-                    engine->renamed ("output", old, mm.name);   // (its spacers follow: followRename)
+                    mm.name = bench.engine->nameFor ("output", wanted, &mm);
+                    bench.engine->renamed ("output", old, mm.name);   // (its spacers follow: followRename)
                 }
-                repaint();
-            }), true);
+            });
         });
         menu.addItem ("REMOVE", [this, index, ch]
         {
@@ -2490,22 +2504,21 @@ private:
         menu.addSeparator();
         menu.addItem ("RENAME...", [this, again, bus]
         {
-            auto* w = new juce::AlertWindow ("RENAME", {}, juce::MessageBoxIconType::NoIcon);
+            auto w = std::make_unique<juce::AlertWindow> ("RENAME", juce::String(), juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", again() != nullptr ? again()->name : juce::String());
             w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
             w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
-            w->enterModalState (true, juce::ModalCallbackFunction::create ([this, again, bus, w] (int result)
+            showRenameBox (std::move (w), [again, bus] (Bench& bench, const juce::String& typed)
             {
                 auto* st = again();
-                const auto wanted = w->getTextEditorContents ("name").trim();
-                if (result == 1 && st != nullptr && wanted.isNotEmpty())
+                const auto wanted = typed.trim();
+                if (st != nullptr && wanted.isNotEmpty())
                 {
                     const auto old = st->name;
-                    st->name = engine->nameFor (bus ? "bus" : "input", wanted, st);
-                    engine->renamed (bus ? "bus" : "input", old, st->name);   // (spacers and strip type follow: followRename)
+                    st->name = bench.engine->nameFor (bus ? "bus" : "input", wanted, st);
+                    bench.engine->renamed (bus ? "bus" : "input", old, st->name);   // (spacers and strip type follow: followRename)
                 }
-                repaint();
-            }), true);
+            });
         });
         menu.addItem ("REMOVE", [this, bus, index, ch]
         {

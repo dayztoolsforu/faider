@@ -136,7 +136,7 @@ namespace
 void setTestTime (int seconds) { testSeconds = juce::jlimit (1, 600, seconds); }
 int testTime() { return testSeconds.load(); }
 
-juce::String test (const juce::String& path, int timeoutMs)
+juce::String test (const juce::String& path, int timeoutMs, const std::atomic<bool>* stop)
 {
     if (timeoutMs <= 0)
         timeoutMs = testTime() * 1000;
@@ -149,7 +149,20 @@ juce::String test (const juce::String& path, int timeoutMs)
     if (! child.start (args, 0))
         return "Couldn't start the test.";   // not the plugin's fault: nothing recorded
 
-    const bool finished = child.waitForProcessToFinish (timeoutMs);
+    bool finished = false;
+    for (const auto started = juce::Time::getMillisecondCounter();;)
+    {
+        finished = ! child.isRunning();
+        if (finished || juce::Time::getMillisecondCounter() - started >= (juce::uint32) timeoutMs)
+            break;
+        if (stop != nullptr && stop->load())
+        {
+            child.kill();
+            out.deleteFile();
+            return "The test was stopped.";   // not the plugin's fault: nothing recorded
+        }
+        juce::Thread::sleep (2);
+    }
     if (! finished)
         child.kill();
     const auto result = juce::StringArray::fromTokens (out.loadFileAsString(), "\t", {});

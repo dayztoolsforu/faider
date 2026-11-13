@@ -3,6 +3,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <map>
 #include "../engine/AudioEngine.h"
+#include "../engine/Background.h"
 #include "../engine/WindowDiscovery.h"
 
 // What the console, the pads and the tape use from Faider's old mixer: the input and plugin menus,
@@ -78,4 +79,5 @@ private:
 
     std::map<juce::AudioProcessor*, std::unique_ptr<PluginWindow>> editors;
     std::unique_ptr<juce::FileChooser> chooser;
+    BackgroundJobs pluginTests;   // plugins being tested before they load (insertPlugin): waited for as this goes
 };

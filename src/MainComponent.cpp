@@ -48,6 +48,7 @@ MainComponent::MainComponent()
     styleEventLog();
     devicesPanel.setLog (eventLog);   // on the DEVICES tab, along its bottom
     engine.getRemote().log = [this] (const juce::String& e) { logEvent (e); };
+    engine.getRecorder().log = [this] (const juce::String& e) { logEvent (e); };   // (from its background threads)
 
     watcher.rescan();   // fills `endpoints` (engine ignores it until the master runs)
 

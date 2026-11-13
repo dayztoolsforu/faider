@@ -9,6 +9,7 @@ Recorder::Recorder()
 
 Recorder::~Recorder()
 {
+    background.finish();   // (no thread of its own is left running once this has gone)
     owned = nullptr;   // flushes and closes the file (nothing's recording by now: the engine stopped it)
     tracks.clear();
     thread.stopThread (2000);
@@ -161,17 +162,38 @@ std::unique_ptr<juce::AudioFormatWriter> Recorder::createWriter (const juce::Str
     return w;
 }
 
-void Recorder::convertWithFFmpeg (const juce::File& wav, const juce::File& target, const juce::String& codec)
+void Recorder::convertWithFFmpeg (const juce::File& wav, const juce::File& target, const juce::String& codec, double seconds)
 {
-    juce::Thread::launch ([wav, target, codec]
+    background.launch ([this, wav, target, codec, seconds]
     {
         juce::ChildProcess ffmpegProcess;
         juce::StringArray args { ffmpeg().getFullPathName(), "-y", "-loglevel", "error", "-i", wav.getFullPathName() };
         args.addTokens (codec, " ", {});
         args.add (target.getFullPathName());
-        // No time limit: a recording of many hours takes minutes to convert.
-        if (ffmpegProcess.start (args, 0) && ffmpegProcess.waitForProcessToFinish (-1)
-            && ffmpegProcess.getExitCode() == 0 && target.existsAsFile())
+        if (! ffmpegProcess.start (args, 0))
+            return;   // (the WAV is kept)
+
+        // A generous limit (ffmpegLimit): a recording of many hours takes minutes to convert, so
+        // one still going after that is stuck.
+        const double limit = ffmpegLimit (seconds);
+        const double started = juce::Time::getMillisecondCounterHiRes();
+        while (ffmpegProcess.isRunning())
+        {
+            if (background.leaving.load())
+                return;   // Faider is closing: FFmpeg finishes by itself, and the WAV stays beside what it makes
+            if (juce::Time::getMillisecondCounterHiRes() - started > limit * 1000.0)
+            {
+                ffmpegProcess.kill();
+                ffmpegProcess.waitForProcessToFinish (2000);   // (it lets go of the file)
+                target.deleteFile();   // what it had written isn't left looking like the recording
+                if (log)
+                    log ("recording: FFmpeg was stopped, still converting " + wav.getFileName() + " after "
+                         + juce::String (juce::roundToInt (limit / 60.0)) + " minutes - the WAV is kept");
+                return;
+            }
+            juce::Thread::sleep (10);
+        }
+        if (ffmpegProcess.getExitCode() == 0 && target.existsAsFile())
             wav.deleteFile();   // kept if the conversion failed
     });
 }
@@ -297,7 +319,7 @@ void Recorder::stopMultitrack (juce::SpinLock& lock)
     {
         t->writer = nullptr;   // writes what's left and finishes the file
         if (t->convertTo != juce::File())
-            convertWithFFmpeg (t->file, t->convertTo, convertCodec);
+            convertWithFFmpeg (t->file, t->convertTo, convertCodec, seconds());
     }
 }
 
@@ -314,7 +336,7 @@ void Recorder::stop (juce::SpinLock& lock)
     owned = nullptr;   // writes what's left and finishes the file
     if (convertTo != juce::File())
     {
-        convertWithFFmpeg (file, convertTo, convertCodec);
+        convertWithFFmpeg (file, convertTo, convertCodec, seconds());
         file = convertTo;
         convertTo = juce::File();
     }
@@ -435,7 +457,7 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
 
     // Written in the background, so a failure there can't be reported back to the press; the
     // empty or partial file is at least not left behind looking like a replay.
-    juce::Thread::launch ([audio, target, sampleRate = replayRate, picked, viaFFmpeg]
+    background.launch ([this, audio, target, sampleRate = replayRate, picked, viaFFmpeg]
     {
         bool wrote = false;
         {
@@ -451,7 +473,8 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
             return;
         }
         if (viaFFmpeg)
-            convertWithFFmpeg (target, target.withFileExtension (picked.extension), picked.codec);
+            convertWithFFmpeg (target, target.withFileExtension (picked.extension), picked.codec,
+                               sampleRate > 0.0 ? audio->getNumSamples() / sampleRate : 0.0);
     });
     return viaFFmpeg ? target.withFileExtension (picked.extension) : target;
 }

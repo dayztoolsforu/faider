@@ -15,6 +15,15 @@ namespace DevicesTab
     // false if it couldn't start or the user said no. Doesn't wait for it to finish.
     bool runElevated (const juce::String& command);
 
+    // The device instance ID of the first sound device whose description holds `description`, from
+    // Windows' own list of them (SetupAPI: asked directly, so it's the same in every display
+    // language and never waits on another program); empty if there's none.
+    juce::String findSoundDevice (const juce::String& description);
+
+    // Whether Windows has a device node switched off (Device Manager's "disabled"), asked of its
+    // device tree directly (CfgMgr32), without elevation.
+    bool nodeDisabled (const juce::String& instanceId);
+
     // Column x positions and widths, shared by the header and the rows. The last runs to the edge.
     struct Column { const char* title; int width; };
     inline constexpr Column columns[] = { { "I/O", 52 }, { "Device", 250 }, { "Hardware", 290 }, { "Format", 130 }, { "State", 100 }, { "Tags", 0 } };
@@ -186,22 +195,7 @@ namespace DevicesTab
         }
 
         // The cable's device instance ID, from Windows' list of sound devices.
-        static juce::String cableInstanceId()
-        {
-            juce::ChildProcess pnputil;
-            if (! pnputil.start ("pnputil /enum-devices /class MEDIA"))
-                return {};
-
-            juce::String id;
-            for (auto& line : juce::StringArray::fromLines (pnputil.readAllProcessOutput()))
-            {
-                if (line.trimStart().startsWith ("Instance ID:"))
-                    id = line.fromFirstOccurrenceOf (":", false, false).trim();
-                else if (line.contains ("Device Description:") && line.contains ("VB-Audio Virtual Cable"))
-                    return id;
-            }
-            return {};
-        }
+        static juce::String cableInstanceId() { return findSoundDevice ("VB-Audio Virtual Cable"); }
 
         void applySettings()
         {
@@ -690,7 +684,7 @@ namespace DevicesTab
         void setInWindows (bool enable)
         {
             int changed = 0, total = 0;
-            juce::StringArray commands;
+            juce::StringArray commands, nodes;
             for (auto& e : selected())
             {
                 if (e.api != "WASAPI")
@@ -698,8 +692,11 @@ namespace DevicesTab
                 ++total;
                 if (setEndpointEnabled (e.id, enable))
                     ++changed;
-                if (enable && nodeDisabled ("SWD\\MMDEVAPI\\" + e.id))
-                    commands.add ("pnputil /enable-device \"SWD\\MMDEVAPI\\" + e.id + "\"");
+                if (const auto node = "SWD\\MMDEVAPI\\" + e.id; enable && nodeDisabled (node))
+                {
+                    commands.add ("pnputil /enable-device \"" + node + "\"");
+                    nodes.add (node);
+                }
             }
 
             if (total == 0)
@@ -719,29 +716,19 @@ namespace DevicesTab
 
             status.setText ("Turning " + juce::String (commands.size()) + " device(s) back on...", juce::dontSendNotification);
             waitingFor = commands.size();
+            waitingNodes = nodes;
             checks = 0;
             startTimer (500);
         }
 
-        // Whether Windows has a device node switched off (pnputil reads this without elevation).
-        static bool nodeDisabled (const juce::String& instanceId)
-        {
-            juce::ChildProcess pnputil;
-            if (! pnputil.start ("pnputil /enum-devices /instanceid \"" + instanceId + "\""))
-                return false;
-            for (auto& line : juce::StringArray::fromLines (pnputil.readAllProcessOutput()))
-                if (line.trimStart().startsWith ("Status:"))
-                    return line.containsIgnoreCase ("Disabled");
-            return false;
-        }
-
-        // Reads pnputil's report: how many it changed, or why not.
+        // How many it changed, asked of the devices themselves (pnputil's own words come in
+        // Windows' display language); its report is read for why not.
         void timerCallback() override
         {
             const auto report = windowsLog.loadFileAsString();
             int succeeded = 0;
-            for (auto& line : juce::StringArray::fromLines (report))
-                if (line.containsIgnoreCase ("successfully"))
+            for (auto& node : waitingNodes)
+                if (! nodeDisabled (node))
                     ++succeeded;
 
             if (succeeded < waitingFor && ++checks < 20 && ! report.containsIgnoreCase ("failed"))
@@ -792,6 +779,7 @@ namespace DevicesTab
         juce::Label count, status;
         const juce::File windowsLog { juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Faider-devices.log") };
         int waitingFor = 0, checks = 0;
+        juce::StringArray waitingNodes;   // the device nodes being switched back on (setInWindows)
         juce::TextButton offInFaider { "EXCLUDE" }, onInFaider { "INCLUDE" },
                          disableInWindows { "DISABLE IN WINDOWS" }, enableInWindows { "ENABLE IN WINDOWS" }, rename { "RENAME" };
     };

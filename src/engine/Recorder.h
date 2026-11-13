@@ -3,7 +3,9 @@
 
 #include <juce_audio_formats/juce_audio_formats.h>
 #include <atomic>
+#include <functional>
 #include <memory>
+#include "Background.h"
 
 // The tape deck's recorder: one output, bus or input recorded to a stereo file (Format).
 //
@@ -62,6 +64,11 @@ public:
     static void setFfmpeg (const juce::File& exe);   // the one picked in SETTINGS (none: the PATH's)
     juce::String format { "wav24" };
 
+    // What the background work has to say, for the event log (an FFmpeg conversion stopped for
+    // taking too long). Called from its threads: set it once, before recording, to something any
+    // thread may call.
+    std::function<void (const juce::String&)> log;
+
     // Disk space (message thread). A recording stops, its file finished, when less than
     // diskReserve is left on the drive or a file nears its format's limit.
     static constexpr juce::int64 diskReserve = 1024LL * 1024 * 1024;
@@ -106,8 +113,14 @@ private:
     // A writer for `format` on `stream` (null, with `error`, if it can't).
     static std::unique_ptr<juce::AudioFormatWriter> createWriter (const juce::String& format, std::unique_ptr<juce::OutputStream>& stream,
                                                                   double sampleRate, juce::String& error);
-    // Background; deletes the WAV after (kept if the conversion fails).
-    static void convertWithFFmpeg (const juce::File& wav, const juce::File& target, const juce::String& codec);
+    // Background; deletes the WAV after (kept if the conversion fails). `seconds`: the recording's
+    // length, which sets how long FFmpeg gets (ffmpegLimit) before it's stopped and the WAV kept.
+    void convertWithFFmpeg (const juce::File& wav, const juce::File& target, const juce::String& codec, double seconds);
+    static double ffmpegLimit (double seconds) { return juce::jmax (600.0, seconds); }   // ten minutes, or the recording's own length if that's more
+
+    // The conversions and replay files in the background: the recorder waits for them as it goes
+    // (a replay's file is finished; FFmpeg, once started, is left to finish by itself).
+    BackgroundJobs background;
     juce::File firstFile() const;   // the file being written (a multitrack's first track)
 
     juce::File convertTo;   // FFmpeg formats: the file the WAV being recorded becomes when it stops

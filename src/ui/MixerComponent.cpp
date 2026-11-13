@@ -462,6 +462,7 @@ MixerComponent::MixerComponent (AudioEngine& e) : engine (e) {}
 
 MixerComponent::~MixerComponent()
 {
+    pluginTests.finish();   // (a plugin's test still running is given up: its thread doesn't outlive this)
     editors.clear();   // (the plugins' windows closed before the engine lets the plugins go)
 }
 
@@ -856,9 +857,11 @@ void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path
         if (! known)
         {
             engine.logEvent ("plugins: testing " + name + " in a separate copy before it loads");
-            juce::Thread::launch ([safe = juce::Component::SafePointer<MixerComponent> (this), target, path, name, again]
+            pluginTests.launch ([jobs = &pluginTests, safe = juce::Component::SafePointer<MixerComponent> (this), target, path, name, again]
             {
-                const auto failed = PluginScan::test (path);
+                const auto failed = PluginScan::test (path, 0, &jobs->leaving);
+                if (jobs->leaving.load())
+                    return;   // (the mixer is going: nobody to tell)
                 juce::MessageManager::callAsync ([safe, target, path, name, failed, again]
                 {
                     if (safe == nullptr)

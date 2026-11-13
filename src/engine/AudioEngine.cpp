@@ -16,6 +16,64 @@ namespace
         return [removed] (int i) { return i == removed ? -1 : i > removed ? i - 1 : i; };
     }
 
+    // Adds to a list the audio thread reads (and does `also` in the same hold). A list that has to
+    // grow gets its new storage before the lock is taken and its old freed after it: inside, only
+    // pointers move.
+    template <typename T, typename Also>
+    void pushLocked (juce::SpinLock& lock, std::vector<T>& list, T item, Also&& also)
+    {
+        std::vector<T> grown;
+        if (list.size() == list.capacity())
+            grown.reserve (juce::jmax ((size_t) 8, list.capacity() * 2));
+        {
+            const juce::SpinLock::ScopedLockType sl (lock);
+            if (grown.capacity() > 0)
+            {
+                for (auto& x : list)
+                    grown.push_back (std::move (x));
+                list.swap (grown);
+            }
+            list.push_back (std::move (item));
+            also();
+        }
+    }   // (the old storage goes here, outside the lock)
+
+    template <typename T>
+    void pushLocked (juce::SpinLock& lock, std::vector<T>& list, T item)
+    {
+        pushLocked (lock, list, std::move (item), [] {});
+    }
+
+    // Pairs in processing order: each after every pair that feeds it (`feeds (a, b)`: pair a sends
+    // to pair b). Worked out before the lock is taken; the result is swapped into busOrder under it.
+    template <typename Feeds>
+    std::vector<int> busOrderFor (int count, Feeds&& feeds)
+    {
+        std::vector<int> incoming ((size_t) count, 0), order, ready;
+        order.reserve ((size_t) count);
+
+        for (int a = 0; a < count; ++a)
+            for (int b = 0; b < count; ++b)
+                if (a != b && feeds (a, b))
+                    ++incoming[(size_t) b];
+
+        for (int p = 0; p < count; ++p)
+            if (incoming[(size_t) p] == 0)
+                ready.push_back (p);
+
+        while (! ready.empty())
+        {
+            const int p = ready.front();
+            ready.erase (ready.begin());
+            order.push_back (p);
+
+            for (int b = 0; b < count; ++b)
+                if (b != p && feeds (p, b) && --incoming[(size_t) b] == 0)
+                    ready.push_back (b);
+        }
+        return order;
+    }
+
     // Delays the first two channels of `buf` by `delay` samples, through the ring `line`
     // (latency compensation).
     void delayBlock (juce::AudioBuffer<float>& line, int& pos, int delay, juce::AudioBuffer<float>& buf, int numSamples)
@@ -516,19 +574,31 @@ bool AudioEngine::setRack (Strip& s, RackPatch p)
             unique.push_back (c);
     p.cables = std::move (unique);
 
-    // The chain follows the placement: the plugins in `inserts` in the order they're placed.
+    // The chain follows the placement: the plugins in `inserts` in the order they're placed
+    // (worked out here; under the lock they only move across).
+    std::vector<size_t> order;
+    order.reserve (s.inserts.size());
+    std::vector<bool> taken (s.inserts.size(), false);
+    for (auto& u : inOrder (p))
+        for (size_t i = 0; i < s.inserts.size(); ++i)
+            if (! taken[i] && s.inserts[i] != nullptr && s.inserts[i].get() == u.plugin)
+            {
+                taken[i] = true;
+                order.push_back (i);
+            }
+    for (size_t i = 0; i < s.inserts.size(); ++i)   // any the placement missed keep their place at the end
+        if (! taken[i] && s.inserts[i] != nullptr)
+            order.push_back (i);
+
     std::vector<std::unique_ptr<juce::AudioPluginInstance>> chain;
+    chain.reserve (order.size());
     {
         const juce::SpinLock::ScopedLockType sl (graphLock);
-        for (auto& u : inOrder (p))
-            for (auto& plugin : s.inserts)
-                if (plugin != nullptr && plugin.get() == u.plugin)
-                    chain.push_back (std::move (plugin));
-        for (auto& plugin : s.inserts)   // any the placement missed keep their place at the end
-            if (plugin != nullptr)
-                chain.push_back (std::move (plugin));
-        s.inserts = std::move (chain);
+        for (size_t i : order)
+            chain.push_back (std::move (s.inserts[i]));
+        s.inserts.swap (chain);
     }
+    // (the old list's storage goes when this returns, outside the lock)
     const auto before = s.rack;
     s.rack = std::move (p);
     ++s.rackRevision;
@@ -960,14 +1030,18 @@ bool AudioEngine::switchInterface (const juce::String& name, int preferredBuffer
         {
             bus->output = nullptr;
             bus->toInterface = false;
-            bus->target.clear();
             for (auto& d : bus->alsoOn)
             {
                 d.output = nullptr;
                 d.toInterface = false;
-                d.target.clear();
             }
         }
+    }
+    for (auto& bus : masters)   // (the names are the message thread's own: let go outside the lock)
+    {
+        bus->target.clear();
+        for (auto& d : bus->alsoOn)
+            d.target.clear();
     }
     updateEndpoints (lastEndpoints);
     refreshLatency();
@@ -1213,10 +1287,7 @@ AudioEngine::Strip& AudioEngine::addStrip (const juce::String& name, const Sourc
     enableLoopbackFor (source);
 
     auto& ref = *strip;
-    {
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        strips.push_back (std::move (strip));
-    }
+    pushLocked (graphLock, strips, std::move (strip));
     refreshLatency();   // its rack compiled, and it lined up with the others from the start
     structureAdded ("input", (int) strips.size() - 1, -1);
     return ref;
@@ -1318,9 +1389,10 @@ void AudioEngine::setStripSource (int index, const Source& source)
             return;   // removed while fading
         const auto chosen = strip->sourceNext.value_or (source);
         strip->sourceNext.reset();
+        auto next = chosen;   // (swapped in: the old source's name is let go outside the lock)
         {
             const juce::SpinLock::ScopedLockType sl (graphLock);
-            strip->source = chosen;
+            std::swap (strip->source, next);
             strip->input = nullptr;   // updateEndpoints reopens the right device
             strip->app = nullptr;     // and refreshApps the right app's capture
         }
@@ -1398,10 +1470,7 @@ AudioEngine::Master* AudioEngine::addMaster (const juce::String& name, const juc
     bus->masterChain->prepareToPlay (interfaceRate, interfaceBlock);
 
     auto* raw = bus.get();
-    {
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        masters.push_back (std::move (bus));
-    }
+    pushLocked (graphLock, masters, std::move (bus));
     structureAdded ("output", (int) masters.size() - 1, -1);
     return raw;
 }
@@ -1743,24 +1812,27 @@ void AudioEngine::setMasterOutput (int index, const juce::StringArray& candidate
     {
         if (std::none_of (masters.begin(), masters.end(), [bus] (auto& b) { return b.get() == bus; }))
             return;   // removed while fading
+        // Its other devices follow mono/stereo (master channels in buses), and drop any that is
+        // now its own device. No device at all: silent everywhere. (Both lists are made here and
+        // swapped in, so nothing is copied or freed under the lock.)
+        auto nextCandidates = candidates;
+        std::vector<Master::Device> nextAlso;
+        if (! candidates.isEmpty())
+            for (auto d : bus->alsoOn)
+            {
+                if (stereo && d.candidate == interfaceOutput)
+                    d.firstChannel -= d.firstChannel % 2;
+                if (! samePlace (d.candidate, d.firstChannel, candidates[0], firstChannel, stereo))
+                    nextAlso.push_back (std::move (d));
+            }
         {
             const juce::SpinLock::ScopedLockType sl (graphLock);
-            bus->candidates = candidates;
+            bus->candidates.swapWith (nextCandidates);
             bus->firstChannel = firstChannel;
             bus->stereo = stereo;
             bus->output = nullptr;
             bus->toInterface = false;
-
-            // Its other devices follow mono/stereo (master channels in buses), and drop any that is
-            // now its own device. No device at all: silent everywhere.
-            if (candidates.isEmpty())
-                bus->alsoOn.clear();
-            for (auto& d : bus->alsoOn)
-                if (stereo && d.candidate == interfaceOutput)
-                    d.firstChannel -= d.firstChannel % 2;
-            if (! candidates.isEmpty())
-                bus->alsoOn.erase (std::remove_if (bus->alsoOn.begin(), bus->alsoOn.end(), [&] (const Master::Device& d)
-                                   { return samePlace (d.candidate, d.firstChannel, candidates[0], firstChannel, stereo); }), bus->alsoOn.end());
+            bus->alsoOn.swap (nextAlso);
         }
         refreshDevices();   // output was cleared above, so this re-resolves it
         bus->deviceFadeOut = false;
@@ -1811,10 +1883,7 @@ void AudioEngine::addMasterDevice (int index, const juce::String& candidate, int
         if (samePlace (p.candidate, p.firstChannel, candidate, firstChannel, bus.stereo))
             return;   // already plays there
 
-    {
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        bus.alsoOn.push_back ({ candidate, bus.stereo && candidate == interfaceOutput ? firstChannel - firstChannel % 2 : firstChannel });
-    }
+    pushLocked (graphLock, bus.alsoOn, Master::Device { candidate, bus.stereo && candidate == interfaceOutput ? firstChannel - firstChannel % 2 : firstChannel });
     refreshDevices();   // opens it
 }
 
@@ -1840,10 +1909,14 @@ void AudioEngine::removeMasterDevice (int index, const juce::String& candidate, 
         return;
     }
 
+    std::vector<Master::Device> kept;   // (made here and swapped in: the one dropped is freed outside the lock)
+    kept.reserve (bus.alsoOn.size());
+    for (auto& d : bus.alsoOn)
+        if (! samePlace (d.candidate, d.firstChannel, candidate, firstChannel, bus.stereo))
+            kept.push_back (d);
     {
         const juce::SpinLock::ScopedLockType sl (graphLock);
-        bus.alsoOn.erase (std::remove_if (bus.alsoOn.begin(), bus.alsoOn.end(), [&] (const Master::Device& d)
-                          { return samePlace (d.candidate, d.firstChannel, candidate, firstChannel, bus.stereo); }), bus.alsoOn.end());
+        bus.alsoOn.swap (kept);
     }
     refreshDevices();   // releases it if nothing else plays there
 }
@@ -1870,8 +1943,18 @@ std::unique_ptr<juce::AudioPluginInstance> AudioEngine::createPlugin (const juce
         options->dry.setSize (2, maxBlock);
         options->line.setSize (2, maxCompensation + maxBlock);
         options->line.clear();
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        optionsTable[made.get()] = std::move (options);
+        // Its place in the table is made here, in a table of its own, and moved across under the
+        // lock; options left by an old plugin come out the same way and are freed after it.
+        InsertOptionsTable fresh;
+        fresh.emplace (made.get(), std::move (options));
+        auto node = fresh.extract (fresh.begin());
+        {
+            const juce::SpinLock::ScopedLockType sl (graphLock);
+            if (const auto it = optionsTable.find (made.get()); it != optionsTable.end())
+                std::swap (it->second, node.mapped());
+            else
+                optionsTable.insert (std::move (node));
+        }
         return made;
     };
 
@@ -1929,10 +2012,7 @@ juce::String AudioEngine::addInsertTo (std::vector<std::unique_ptr<juce::AudioPl
         return error;
 
     const auto name = plugin->getName();
-    {
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        chain.push_back (std::move (plugin));
-    }
+    pushLocked (graphLock, chain, std::move (plugin));
 
     log (owner + ": inserted " + name);
     refreshLatency();
@@ -1962,14 +2042,11 @@ void AudioEngine::removeInsertFrom (std::vector<std::unique_ptr<juce::AudioPlugi
 // go too, taken out under the lock and freed after it.
 void AudioEngine::forgetOptions (const juce::AudioPluginInstance* plugin)
 {
-    std::unique_ptr<InsertOptions> gone;
+    InsertOptionsTable::node_type gone;   // (its place in the table too)
     {
         const juce::SpinLock::ScopedLockType sl (graphLock);
         if (const auto it = optionsTable.find (plugin); it != optionsTable.end())
-        {
-            gone = std::move (it->second);
-            optionsTable.erase (it);
-        }
+            gone = optionsTable.extract (it);
     }
 }
 
@@ -2048,11 +2125,10 @@ AudioEngine::Strip* AudioEngine::addBus (const juce::String& name)
     pair->busInput.clear();
 
     auto* raw = pair.get();
-    {
-        const juce::SpinLock::ScopedLockType sl (graphLock);
-        buses.push_back (std::move (pair));
-        updateBusOrder();
-    }
+    // (the order with it in, worked out before it is)
+    auto at = [this, raw] (int i) -> const Strip& { return i < (int) buses.size() ? *buses[(size_t) i] : *raw; };
+    auto order = busOrderFor ((int) buses.size() + 1, [&at] (int a, int b) { return at (a).busSends[(size_t) b].load(); });
+    pushLocked (graphLock, buses, std::move (pair), [this, &order] { busOrder.swap (order); });
     structureAdded ("bus", (int) buses.size() - 1, -1);
     return raw;
 }
@@ -2063,9 +2139,10 @@ AudioEngine::Strip* AudioEngine::addCombinator (const juce::String& name, int pa
     if (pair == nullptr)
         return nullptr;
 
+    juce::AudioBuffer<float> sum (2, maxBlock);   // (made here, swapped in under the lock)
     {
         const juce::SpinLock::ScopedLockType sl (graphLock);
-        pair->pathSum.setSize (2, maxBlock);
+        std::swap (pair->pathSum, sum);
         pair->combinator = true;
     }
 
@@ -2094,8 +2171,7 @@ void AudioEngine::addPath (int busIndex, const juce::String& name)
     path->delayLine.clear();
     path->midi.ensureSize (2048);
 
-    const juce::SpinLock::ScopedLockType sl (graphLock);
-    buses[(size_t) busIndex]->paths.push_back (std::move (path));
+    pushLocked (graphLock, buses[(size_t) busIndex]->paths, std::move (path));
 }
 
 void AudioEngine::removePath (int busIndex, int pathIndex)
@@ -2157,6 +2233,11 @@ void AudioEngine::removeBus (int index)
         return;
     structureRemoving ("bus", index, -1);
 
+    // The order without it, worked out before it goes: the later pairs are one place down.
+    auto was = [index] (int i) { return i < index ? i : i + 1; };
+    auto order = busOrderFor ((int) buses.size() - 1, [this, &was] (int a, int b)
+                              { return buses[(size_t) was (a)]->busSends[(size_t) was (b)].load(); });
+
     std::unique_ptr<Strip> removed;
     bool recordingLost = false;
     {
@@ -2185,7 +2266,7 @@ void AudioEngine::removeBus (int index)
 
         for (auto& s : strips) shift (*s);
         for (auto& p : buses)  shift (*p);
-        updateBusOrder();
+        busOrder.swap (order);
     }
     if (recordingLost)
         stopRecording();
@@ -2244,9 +2325,13 @@ bool AudioEngine::setBusSend (int fromBus, int toBus, bool on)
         return false;
     }
 
+    // (the order with the send as it'll be, worked out before the lock)
+    auto order = busOrderFor ((int) buses.size(), [&] (int a, int b)
+                              { return a == fromBus && b == toBus ? on : buses[(size_t) a]->busSends[(size_t) b].load(); });
+
     const juce::SpinLock::ScopedLockType sl (graphLock);
     buses[(size_t) fromBus]->busSends[(size_t) toBus] = on;
-    updateBusOrder();
+    busOrder.swap (order);
     return true;
 }
 
@@ -2280,35 +2365,6 @@ bool AudioEngine::setPathSend (Strip& from, int toBus, int path, bool on)
     send (false);
     from.pathSends[(size_t) toBus] = 0;
     return true;
-}
-
-// Topological order (call with graphLock held): each pair comes after every pair that feeds it.
-void AudioEngine::updateBusOrder()
-{
-    const int count = (int) buses.size();
-    std::vector<int> incoming ((size_t) count, 0);
-
-    for (int a = 0; a < count; ++a)
-        for (int b = 0; b < count; ++b)
-            if (a != b && buses[(size_t) a]->busSends[(size_t) b])
-                ++incoming[(size_t) b];
-
-    busOrder.clear();
-    std::vector<int> ready;
-    for (int p = 0; p < count; ++p)
-        if (incoming[(size_t) p] == 0)
-            ready.push_back (p);
-
-    while (! ready.empty())
-    {
-        const int p = ready.front();
-        ready.erase (ready.begin());
-        busOrder.push_back (p);
-
-        for (int b = 0; b < count; ++b)
-            if (b != p && buses[(size_t) p]->busSends[(size_t) b] && --incoming[(size_t) b] == 0)
-                ready.push_back (b);
-    }
 }
 
 void AudioEngine::refreshLatency()
@@ -2685,11 +2741,14 @@ void AudioEngine::refreshApps()
                 log ("engine: capturing " + strip->source.deviceName + " (process " + juce::String (pid) + ")");
                 capture = opened.get();
 
+                std::vector<Strip*> takers;   // (found here: no names are compared under the lock)
+                for (auto& s : strips)
+                    if (s->source.kind == Source::app && s->enabled && s->source.deviceName.toLowerCase() == key)
+                        takers.push_back (s.get());
                 {
                     const juce::SpinLock::ScopedLockType sl (graphLock);
-                    for (auto& s : strips)
-                        if (s->source.kind == Source::app && s->enabled && s->source.deviceName.toLowerCase() == key)
-                            s->app = capture;
+                    for (auto* s : takers)
+                        s->app = capture;
                 }
 
                 appCaptures[key] = std::move (opened);   // replaces (and stops) any old capture

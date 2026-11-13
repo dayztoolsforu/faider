@@ -761,7 +761,6 @@ private:
     std::shared_ptr<bool> alive = std::make_shared<bool> (true);
 
     bool busReaches (int from, int to) const;
-    void updateBusOrder();
     void enableLoopbackFor (const Source&);
     Secondary* openSecondary (const juce::String& deviceName, bool isOutput);
     void closeUnused();

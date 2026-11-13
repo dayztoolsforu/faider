@@ -55,6 +55,9 @@ public:
     static void checkSetupSoon (AudioEngine&);
 
     void showAddInputMenu (juce::PopupMenu::Options where);
+    // ADD APP (the sidebar's card, SIMPLE's + APP): the programs to pick from (AudioEngine::appChoices);
+    // the one picked gets its channel, then `added` is told.
+    void showAddAppMenu (juce::PopupMenu::Options where, std::function<void()> added);
     void showAddInsertMenu (InsertTarget, juce::PopupMenu::Options where);
     std::optional<InsertTarget> findTarget (const void* chain) const;   // where that chain is now (none: gone)
 

@@ -605,31 +605,7 @@ namespace
         // + APP: an app playing sound now, as a channel of its own.
         void showApps (const Hit& h)
         {
-            juce::StringArray exes;
-            for (auto& a : listAudioApps())
-                exes.addIfNotAlreadyThere (a.exe, true);
-            exes.sortNatural();
-            juce::PopupMenu menu;
-            menu.addSectionHeader ("APPS PLAYING");
-            for (auto& exe : exes)
-            {
-                const auto label = juce::File (exe).getFileNameWithoutExtension();
-                const bool there = std::any_of (engine.getStrips().begin(), engine.getStrips().end(), [&exe] (auto& s)
-                                                { return s->source.kind == AudioEngine::Source::app && s->source.deviceName.equalsIgnoreCase (exe); });
-                menu.addItem (label.toUpperCase() + (there ? "  (ON THE DESK)" : ""), ! there, false, [this, exe, label]
-                {
-                    juce::StringArray taken;
-                    for (auto& s : engine.getStrips()) taken.add (s->name);
-                    const auto name = uniqueName (taken, label.toUpperCase());
-                    engine.addStrip (name, { AudioEngine::Source::app, 0, exe, true });
-                    engine.refreshDevices();
-                    engine.logEvent ("input " + name + ": the app " + exe + " as a channel");
-                    repaint();
-                });
-            }
-            if (exes.isEmpty())
-                menu.addItem ("NO APPS PLAYING", false, false, [] {});
-            menu.showMenuAsync (near (h));
+            mixer.showAddAppMenu (near (h), [desk = juce::Component::SafePointer<Desk> (this)] { if (desk != nullptr) desk->repaint(); });
         }
 
         // A name bar's right-click: rename, colour, headphone correction (an output), the mini mixer, remove.
@@ -862,6 +838,7 @@ namespace
         struct Choice { juce::String title, detail, key; bool on = false, fixed = false; AudioEngine::OutputChoice out; AudioEngine::Source source; };
 
         AudioEngine& engine;
+        juce::SharedResourcePointer<WindowDiscovery::Scanner> windows;   // (the one the input menus use)
         std::function<void()> finished;
         juce::TextButton back { "BACK" }, next { "NEXT" }, defaults { "SET MY DEFAULTS" };
         int step = 0;
@@ -976,20 +953,19 @@ namespace
             }
             else if (step == apps)
             {
-                juce::StringArray exes;
-                for (auto& a : listAudioApps())
-                    exes.addIfNotAlreadyThere (a.exe, true);
-                for (auto& st : engine.getStrips())
-                    if (st->source.kind == AudioEngine::Source::app)
-                        exes.addIfNotAlreadyThere (st->source.deviceName, true);
-                exes.sortNatural();
-                for (auto& exe : exes)
+                auto programs = engine.appChoices (windows->snapshot());
+                for (auto& st : engine.getStrips())   // (a channel whose program isn't running now: shown as on the desk)
+                    if (st->source.kind == AudioEngine::Source::app
+                        && std::none_of (programs.begin(), programs.end(), [&st] (auto& p) { return p.exe.equalsIgnoreCase (st->source.deviceName); }))
+                        programs.push_back ({ st->source.deviceName, {}, false, true });
+                std::stable_sort (programs.begin(), programs.end(), [] (auto& a, auto& b) { return a.exe.compareNatural (b.exe) < 0; });
+                for (auto& p : programs)
                 {
-                    const bool there = std::any_of (engine.getStrips().begin(), engine.getStrips().end(), [&exe] (auto& st)
-                                                    { return st->source.kind == AudioEngine::Source::app && st->source.deviceName.equalsIgnoreCase (exe); });
-                    Choice c { juce::File (exe).getFileNameWithoutExtension().toUpperCase(), there ? "On the desk" : "Playing now", exe };
-                    c.on = there || (asked[step] && picked[step].contains (exe));
-                    c.fixed = there;
+                    if (! p.playing && ! p.onDesk)
+                        continue;
+                    Choice c { p.label().toUpperCase(), p.onDesk ? "On the desk" : "Playing now", p.exe };
+                    c.on = p.onDesk || (asked[step] && picked[step].contains (p.exe));
+                    c.fixed = p.onDesk;
                     choices.push_back (c);
                 }
             }
@@ -1088,12 +1064,10 @@ namespace
                 if (std::none_of (engine.getStrips().begin(), engine.getStrips().end(), [&exe] (auto& st)
                                   { return st->source.kind == AudioEngine::Source::app && st->source.deviceName.equalsIgnoreCase (exe); }))
                 {
-                    const auto name = uniqueName (names, juce::File (exe).getFileNameWithoutExtension().toUpperCase());
-                    names.add (name);
-                    auto& strip = engine.addStrip (name, { AudioEngine::Source::app, 0, exe, true });
+                    auto& strip = engine.addAppStrip (exe);
                     for (int m : listening)
                         strip.sends[(size_t) m] = true;
-                    built.add ("CHANNEL " + name);
+                    built.add ("CHANNEL " + strip.name);
                     // (a rule only for a channel made here: one already on the desk is routed as the user left it)
                     if (! listening.empty() && std::none_of (engine.appRules.begin(), engine.appRules.end(), [&exe] (auto& r) { return r.exe.equalsIgnoreCase (exe); }))
                         engine.appRules.push_back ({ exe, "output:" + engine.getMasters()[(size_t) listening.front()]->name });

@@ -559,6 +559,34 @@ int main()
         check (Session::getInterfaceName (juce::XmlElement ("NotASession")).isEmpty(), "not a session: no master named");
     }
 
+    //==========================================================================
+    // 6: a program's channel, made one way (ADD APP, ADD CHANNEL, SETUP, an app rule), and the list
+    // of programs to pick from.
+    {
+        AudioEngine e (logger());
+        const auto one = e.addAppStrip ("Zzfaidertest.exe").name, two = e.addAppStrip ("Zzfaidertest.exe").name;
+        check (one == "ZZFAIDERTEST" && two == "ZZFAIDERTEST 2", "a program's channel: named after it in capitals, numbered if taken (" + one + ", " + two + ")");
+        const auto& source = e.getStrips()[0]->source;
+        check (source.kind == AudioEngine::Source::app && source.deviceName == "Zzfaidertest.exe" && source.stereo,
+               "a program's channel: captures the program, in stereo");
+        check (e.addAppStrip ("Zzfaiderother.exe", "Game").name == "GAME", "a program's channel: named as asked, when a name is given");
+
+        WindowDiscovery::Window onDesk, running, host;
+        onDesk.exePath = "C:\\Somewhere\\ZZFAIDERTEST.EXE";
+        running.exePath = "C:\\Somewhere\\Zzfaiderwindow.exe";
+        running.title = "A window";
+        host.exePath = "C:\\Windows\\System32\\ApplicationFrameHost.exe";
+        int desk = 0, silent = 0, hosts = 0;
+        for (auto& c : e.appChoices ({ onDesk, running, host, running }))
+        {
+            desk += c.exe.equalsIgnoreCase ("Zzfaidertest.exe") && c.onDesk && ! c.playing ? 1 : 0;
+            silent += c.exe == "Zzfaiderwindow.exe" && ! c.onDesk && ! c.playing && c.title == "A window" && c.label() == "Zzfaiderwindow" ? 1 : 0;
+            hosts += c.exe.equalsIgnoreCase ("ApplicationFrameHost.exe") ? 1 : 0;
+        }
+        check (desk == 1 && silent == 1 && hosts == 0,
+               "programs to pick from: one with a window that isn't playing is offered once, one with a channel is marked, Windows' frame host is left out");
+    }
+
     temp.deleteRecursively();
     check (! data.exists(), "nothing written to a data folder (" + data.getFullPathName() + ")");
 

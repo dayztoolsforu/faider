@@ -7,6 +7,7 @@
 #include <map>
 #include <unordered_map>
 #include "AppCapture.h"
+#include "WindowDiscovery.h"
 #include "DriftFifo.h"
 #include "Macros.h"
 #include "Scenes.h"
@@ -589,6 +590,21 @@ public:
     // An app's channel the user is removing (`stripIndex`): its rule goes too, or the rule would
     // bring the channel straight back.
     void forgetAppRule (int stripIndex);
+
+    // The programs a channel can be made for (ADD APP, ADD CHANNEL, SETUP), each once: those playing
+    // sound now, then those only running with a window (`windows`: WindowDiscovery::Scanner's), each
+    // lot by name. `title`: a window's, for one not playing.
+    struct AppChoice
+    {
+        juce::String exe, title;
+        bool playing = false, onDesk = false;   // onDesk: it has a channel already
+        juce::String label() const { return juce::File::createFileWithoutCheckingPath (exe).getFileNameWithoutExtension(); }
+    };
+    std::vector<AppChoice> appChoices (const std::vector<WindowDiscovery::Window>& windows) const;
+
+    // A program's channel (stereo, raw), named after the program, or `name` (in capitals, numbered
+    // if taken: addStrip). A program not playing yet is captured from the moment it does.
+    Strip& addAppStrip (const juce::String& exe, const juce::String& name = {});
 
     // Moves a strip to another position. Locked strips keep their positions: the unlocked ones
     // reorder around them. Returns false if either end is locked.

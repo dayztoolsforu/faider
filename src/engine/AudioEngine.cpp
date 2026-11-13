@@ -1640,6 +1640,36 @@ void AudioEngine::macroRenamed (const juce::String& oldName, const juce::String&
     remote.renameTarget ("macro:" + oldName, "macro:" + newName);
 }
 
+std::vector<AudioEngine::AppChoice> AudioEngine::appChoices (const std::vector<WindowDiscovery::Window>& windows) const
+{
+    std::vector<AppChoice> list;
+    auto add = [this, &list] (const juce::String& exe, const juce::String& title, bool playing)
+    {
+        if (exe.isEmpty() || std::any_of (list.begin(), list.end(), [&exe] (const AppChoice& c) { return c.exe.equalsIgnoreCase (exe); }))
+            return;
+        const bool onDesk = std::any_of (strips.begin(), strips.end(), [&exe] (auto& s)
+                                         { return s->source.kind == Source::app && s->source.deviceName.equalsIgnoreCase (exe); });
+        list.push_back ({ exe, title, playing, onDesk });
+    };
+
+    for (auto& a : listAudioApps())
+        add (a.exe, {}, true);
+    for (auto& w : windows)   // (a Store app's window belongs to Windows' frame host, which plays nothing)
+        if (! w.exeName().equalsIgnoreCase ("ApplicationFrameHost.exe"))
+            add (w.exeName(), w.title, false);
+
+    std::stable_sort (list.begin(), list.end(), [] (const AppChoice& a, const AppChoice& b)
+                      { return a.playing != b.playing ? a.playing : a.exe.compareNatural (b.exe) < 0; });
+    return list;
+}
+
+AudioEngine::Strip& AudioEngine::addAppStrip (const juce::String& exe, const juce::String& name)
+{
+    // (addStrip writes the name in capitals and numbers one that's taken)
+    return addStrip (name.isNotEmpty() ? name : juce::File::createFileWithoutCheckingPath (exe).getFileNameWithoutExtension(),
+                     { Source::app, 0, exe, true });
+}
+
 void AudioEngine::forgetAppRule (int stripIndex)
 {
     if (! juce::isPositiveAndBelow (stripIndex, (int) strips.size()) || strips[(size_t) stripIndex]->source.kind != Source::app)
@@ -1664,7 +1694,7 @@ juce::StringArray AudioEngine::applyAppRules()
             continue;
 
         ++quietStructure;   // not an undo step: the rule made it
-        auto& strip = addStrip (juce::File (rule.exe).getFileNameWithoutExtension(), { Source::app, 0, rule.exe, true });
+        auto& strip = addAppStrip (rule.exe, juce::File (rule.exe).getFileNameWithoutExtension());
         --quietStructure;
         const auto kind = rule.to.upToFirstOccurrenceOf (":", false, false), name = rule.to.fromFirstOccurrenceOf (":", false, false);
         for (int i = 0; i < (int) masters.size(); ++i)

@@ -113,21 +113,18 @@ namespace
         }
 
         // Apps playing sound right now, captured directly (no virtual device needed).
+        constexpr auto app = AudioEngine::Source::app;
         heading ("Apps");
-        auto apps = listAudioApps();
-        std::sort (apps.begin(), apps.end(), [] (auto& a, auto& b) { return alphabetical (a.exe, b.exe); });
-        if (apps.isEmpty())
+        const auto programs = eng.appChoices (windows);
+        if (std::none_of (programs.begin(), programs.end(), [] (auto& p) { return p.playing; }))
             item ("(no apps playing audio)", {}, { AudioEngine::Source::none });
 
-        for (auto& a : apps)
-        {
-            const auto label = juce::File (a.exe).getFileNameWithoutExtension();
-            item (label, label, { AudioEngine::Source::app, 0, a.exe, otherStereo });
-        }
+        for (auto& p : programs)
+            if (p.playing)
+                item (p.label(), p.label(), { app, 0, p.exe, otherStereo });
 
         // Program windows and browser tabs (WindowDiscovery.h). Windows captures a program as a
         // whole, so a window or a tab captures its program; "Isolate" opens a tab on its own.
-        constexpr auto app = AudioEngine::Source::app;
         auto shortTitle = [] (const juce::String& t) { return t.length() > 48 ? t.substring (0, 46).trimEnd() + "..." : t; };
 
         bool programsShown = false;
@@ -634,28 +631,26 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
     {
         const auto route = findMicRoute (engine);
         juce::PopupMenu toMic;
-        auto apps = listAudioApps();
-        std::sort (apps.begin(), apps.end(), [] (auto& a, auto& b) { return alphabetical (a.exe, b.exe); });
-        for (auto& a : apps)
+        const auto programs = engine.appChoices (windows->snapshot());
+        auto offer = [this, &toMic, &route] (const AudioEngine::AppChoice& p)
         {
-            const AudioEngine::Source s { AudioEngine::Source::app, 0, a.exe, true };
-            const auto label = juce::File (a.exe).getFileNameWithoutExtension();
-            toMic.addItem (label, route.index >= 0 && ! sourceTaken (engine, s, -1), false, [this, s, label]
+            toMic.addItem (p.label(), route.index >= 0 && ! p.onDesk, false, [this, exe = p.exe]
             {
                 const auto r = findMicRoute (engine);
                 if (r.index < 0)
                     return;
-                auto name = label.toUpperCase();
-                for (int i = 2; std::any_of (engine.getStrips().begin(), engine.getStrips().end(), [&name] (auto& st) { return st->name == name; }); ++i)
-                    name = label.toUpperCase() + " " + juce::String (i);
-                auto& strip = engine.addStrip (name, s);
+                auto& strip = engine.addAppStrip (exe);
                 if (r.toBus) strip.busSends[(size_t) r.index] = true;
                 else          strip.sends[(size_t) r.index] = true;
-                engine.logEvent ("input " + name + ": sent to the mic (" + r.name + ")");
+                engine.logEvent ("input " + strip.name + ": sent to the mic (" + r.name + ")");
                 checkSetupSoon (engine);
             });
-        }
-        if (apps.isEmpty())
+        };
+        const bool anyPlaying = std::any_of (programs.begin(), programs.end(), [] (auto& p) { return p.playing; });
+        for (auto& p : programs)
+            if (p.playing)
+                offer (p);
+        if (! anyPlaying)
             toMic.addItem ("(no apps playing audio)", false, false, [] {});
         menu.addSubMenu (route.index >= 0 ? "SEND AN APP TO THE MIC  (via " + route.name + ")"
                                           : juce::String ("SEND AN APP TO THE MIC  (no mic cable output yet)"),
@@ -685,6 +680,13 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
                             if (! resolveSource (source, base))
                                 return;
 
+                            if (source.kind == AudioEngine::Source::app)   // (a program or an isolated tab: named as listed)
+                            {
+                                engine.addAppStrip (source.deviceName, base);
+                                engine.refreshDevices();
+                                return;
+                            }
+
                             // Number repeats: "VR Headset loop", "VR Headset loop 2", ...
                             auto name = base;
                             auto taken = [this] (const juce::String& n)
@@ -698,6 +700,30 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
                             engine.addStrip (name, source);
                             engine.refreshDevices();
                         });
+}
+
+void MixerComponent::showAddAppMenu (juce::PopupMenu::Options where, std::function<void()> added)
+{
+    const auto programs = engine.appChoices (windows->snapshot());
+    juce::PopupMenu menu;
+    menu.addSectionHeader ("APPS PLAYING");
+    for (auto& p : programs)
+        if (p.playing)
+            menu.addItem (p.label().toUpperCase() + (p.onDesk ? "  (ON THE DESK)" : ""), ! p.onDesk, false,
+                          [safe = juce::Component::SafePointer<MixerComponent> (this), exe = p.exe, added]
+            {
+                if (safe == nullptr)
+                    return;
+                auto& e = safe->engine;
+                const auto name = e.addAppStrip (exe).name;
+                e.refreshDevices();
+                e.logEvent ("input " + name + ": the app " + exe + " as a channel");
+                if (added)
+                    added();
+            });
+    if (std::none_of (programs.begin(), programs.end(), [] (auto& p) { return p.playing; }))
+        menu.addItem ("NO APPS PLAYING", false, false, [] {});
+    menu.showMenuAsync (where);
 }
 
 // A picked "Isolate: <tab>" opens the tab in a browser instance of its own and becomes that

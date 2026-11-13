@@ -2058,36 +2058,16 @@ public:
     // + APP: an app playing sound now, as a channel of its own (raw: no effects, plugins if wanted).
     void addApp (juce::Rectangle<int> near)
     {
-        if (! live())
+        if (mixer == nullptr || ! live())
             return;
-        juce::StringArray exes;
-        for (auto& a : listAudioApps())
-            exes.addIfNotAlreadyThere (a.exe, true);
-        exes.sortNatural();
-        juce::PopupMenu menu;
-        menu.addSectionHeader ("APPS PLAYING");
-        for (auto& exe : exes)
+        mixer->showAddAppMenu (juce::PopupMenu::Options().withTargetScreenArea (near), [desk = juce::Component::SafePointer<Bench> (this)]
         {
-            const auto label = juce::File (exe).getFileNameWithoutExtension();
-            const bool there = std::any_of (engine->getStrips().begin(), engine->getStrips().end(), [&exe] (auto& s)
-                                            { return s->source.kind == AudioEngine::Source::app && s->source.deviceName.equalsIgnoreCase (exe); });
-            menu.addItem (label.toUpperCase() + (there ? "  (ON THE DESK)" : ""), ! there, false, [this, exe, label] { addAppStrip (exe, label); });
-        }
-        if (exes.isEmpty())
-            menu.addItem ("NO APPS PLAYING", false, false, [] {});
-        menu.showMenuAsync (juce::PopupMenu::Options().withTargetScreenArea (near));
-    }
-    void addAppStrip (const juce::String& exe, const juce::String& label)
-    {
-        auto name = label.toUpperCase();
-        for (int i = 2; std::any_of (engine->getStrips().begin(), engine->getStrips().end(), [&name] (auto& s) { return s->name == name; }); ++i)
-            name = label.toUpperCase() + " " + juce::String (i);
-        engine->addStrip (name, { AudioEngine::Source::app, 0, exe, true });
-        engine->refreshDevices();
-        engine->logEvent ("input " + name + ": the app " + exe + " as a channel");
-        channels = bind.channels();
-        resizeToFit();
-        select ((int) engine->getStrips().size() - 1);
+            if (desk == nullptr)
+                return;
+            desk->channels = desk->bind.channels();   // (the new channel is the last input: shown, and selected)
+            desk->resizeToFit();
+            desk->select ((int) desk->engine->getStrips().size() - 1);
+        });
     }
 
     // A combinator path renamed.

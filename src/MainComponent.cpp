@@ -1182,6 +1182,17 @@ MainComponent::~MainComponent()
     tape = nullptr;
     mixer = nullptr;   // closes plugin editors before the engine destroys the plugins
     juce::LookAndFeel::setDefaultLookAndFeel (nullptr);
+
+    // The event log on screen goes before the engine does: lines still waiting are written to
+    // events.log now, and so is anything said from here on (logEvent).
+    {
+        const juce::ScopedLock sl (logQueue->lock);
+        for (auto& l : logQueue->waiting)
+            appendToEventFile (l);
+        logQueue->waiting.clear();
+        logQueue->closed = true;
+    }
+    logQueue->owner = nullptr;
 }
 
 void MainComponent::paint (juce::Graphics& g)
@@ -2213,7 +2224,53 @@ void MainComponent::restartFaider()
 
 void MainComponent::logEvent (const juce::String& event)
 {
-    const auto line = juce::Time::getCurrentTime().toString (true, true) + "  " + event + "\n";
+    std::vector<LogQueue::Line> lines;
+    bool handOver = false;
+    {
+        const juce::ScopedLock sl (logQueue->lock);
+        logQueue->waiting.push_back ({ juce::Time::getCurrentTime(), event });   // (timed under the lock: the order said is the order of the times)
+        handOver = ! logQueue->closed && ! juce::MessageManager::existsAndIsCurrentThread();
+        if (! handOver)
+            lines.swap (logQueue->waiting);   // (with any said before it on other threads, first)
+        if (logQueue->closed)
+        {
+            for (auto& l : lines)
+                appendToEventFile (l);   // (under the lock: any thread may be here)
+            return;
+        }
+    }
+
+    if (handOver)
+    {
+        juce::MessageManager::callAsync ([queue = logQueue] { if (queue->owner != nullptr) queue->owner->writeWaitingLog(); });
+        return;
+    }
+    for (auto& l : lines)
+        writeLogLine (l);
+}
+
+void MainComponent::writeWaitingLog()
+{
+    std::vector<LogQueue::Line> lines;
+    {
+        const juce::ScopedLock sl (logQueue->lock);
+        lines.swap (logQueue->waiting);
+    }
+    for (auto& l : lines)
+        writeLogLine (l);
+}
+
+void MainComponent::appendToEventFile (const LogQueue::Line& l)
+{
+    // events.log: past 5 MB it starts again, the last one kept as events.old.log.
+    if (eventFile.getSize() > 5 * 1024 * 1024)
+        eventFile.moveFileTo (eventFile.getSiblingFile ("events.old.log"));
+    eventFile.appendText (logText (l));
+}
+
+void MainComponent::writeLogLine (const LogQueue::Line& logged)
+{
+    const auto line = logText (logged);
 
     // Whether someone is reading back is told by where the view is scrolled, not by the caret: a
     // wheel scroll moves the view and leaves the caret at the end. (The view is the editor's own
@@ -2245,10 +2302,7 @@ void MainComponent::logEvent (const juce::String& event)
     if (! following && view != nullptr)
         view->setViewPosition (view->getViewPositionX(), viewY);
 
-    // events.log: past 5 MB it starts again, the last one kept as events.old.log.
-    if (eventFile.getSize() > 5 * 1024 * 1024)
-        eventFile.moveFileTo (eventFile.getSiblingFile ("events.old.log"));
-    eventFile.appendText (line);
+    appendToEventFile (logged);
 }
 
 // A page's tip, the first time it's seen (remembered as seen).

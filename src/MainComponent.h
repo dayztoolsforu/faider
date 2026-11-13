@@ -96,7 +96,7 @@ private:
     void listBoxItemDoubleClicked (int row, const juce::MouseEvent&) override;
     void endpointsChanged (const juce::Array<EndpointInfo>&, const juce::StringArray& events) override;
     void timerCallback() override;
-    void logEvent (const juce::String&);
+    void logEvent (const juce::String&);   // any thread but the audio callback (it takes memory): see LogQueue
     void createDefaultMix();
     juce::String pickClock (bool asio, bool announce = true);
     void checkClock();
@@ -181,6 +181,26 @@ private:
     juce::String interfaceName, lastSavedSession;
     bool sessionLoaded = false;   // a mix was restored or made at start; saveSession() writes only then
     int tick = 0;
+
+    // The event log from any thread. A line said on the message thread is written at once; one
+    // said on another waits here, with the time it was said, and the message thread is asked to
+    // write it, so lines keep their order. Shared with those requests, so one that arrives after
+    // the window has gone does nothing. Before the engine: it logs as it goes.
+    struct LogQueue
+    {
+        explicit LogQueue (MainComponent& m) : owner (&m) {}
+        using Line = std::pair<juce::Time, juce::String>;
+        juce::CriticalSection lock;
+        std::vector<Line> waiting;   // (under the lock)
+        bool closed = false;         // (under the lock) the window is going: lines go to events.log alone
+        MainComponent* owner;        // message thread: null once the window has gone
+    };
+    std::shared_ptr<LogQueue> logQueue = std::make_shared<LogQueue> (*this);
+    void writeWaitingLog();                                  // message thread: the lines waiting, written
+    void writeLogLine (const LogQueue::Line&);               // message thread: on screen and in events.log
+    void appendToEventFile (const LogQueue::Line&);
+    static juce::String logText (const LogQueue::Line& l) { return l.first.toString (true, true) + "  " + l.second + "\n"; }
+
     AudioEngine engine { [this] (const juce::String& e) { logEvent (e); } };
     EndpointWatcher watcher { *this };
     juce::Array<EndpointInfo> endpoints;

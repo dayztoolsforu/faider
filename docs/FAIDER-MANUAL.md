@@ -139,7 +139,7 @@ goes back.
 3. **APPS HEAR YOU**: pick the virtual cable apps use as their mic (**CABLE Input**, after step 2),
    or **NOT NOW**. While Windows still plays or records on the cable, **SET MY DEFAULTS** at the
    bottom puts your real speakers and microphone back (step 2).
-4. **PROGRAMS**: pick the programs playing sound now that you want on the desk.
+4. **PROGRAMS**: pick the programs you want on the desk: those playing sound now, and those running that are "Not playing yet" (captured when they play).
 5. Click **BUILD THE MIX**. **DONE** lists what was made.
 6. Click **OPEN THE MIXER** to see it.
 
@@ -188,12 +188,12 @@ fader and meter.
 1. Speak and watch your microphone's meter move.
 2. To hear yourself, click the mic's **HEADPHONES** key.
 3. In Discord, your game, OBS or any other app, choose **CABLE Output** as the microphone.
-4. Check what they get: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** records 5 seconds of what apps
+4. Check what they get: **HEAR WHAT THEY HEAR** (on PRE-FLIGHT's **MIC OUTPUT** row, or in **FIND**, Ctrl+K) records 5 seconds of what apps
    receive and plays it back to you.
 
 If you hear a program twice, see [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** and **+ APP** add channels. **+ OUTPUT** adds an output on a device that has none.
+**+ CHANNEL** and **+ APP** add channels (**+ APP** also lists running programs that are **NOT PLAYING YET**). **+ OUTPUT** adds an output on a device that has none.
 The device key under an output's name changes where it plays. Right-click a name for **RENAME...**,
 the colour, **HEADPHONE EQ** (an output), **IN THE MINI MIXER** and **REMOVE**. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.
@@ -240,8 +240,8 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 
 | Group | Card | What it does |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Opens the input menu: interface inputs, Windows devices, apps, program windows, a browser (whole, or one tab isolated), the test tone. Pads and tape get their channel from their own pages (**TOOLS**) |
-| | **ADD APP** | Lists the programs playing sound now. Pick one to give it a channel |
+| **DESK** | **ADD CHANNEL** | Opens the input menu: interface inputs, Windows devices, apps playing, programs not playing yet, a browser (whole, or one tab isolated), the test tone. Pads and tape get their channel from their own pages (**TOOLS**) |
+| | **ADD APP** | Lists the programs playing sound now, then, under **NOT PLAYING YET**, those running with a window that are silent. Pick one to give it a channel; one that isn't playing is captured from the moment it does |
 | | **ADD BUS** | A bus, or a combinator (two paths to start) |
 | | **PLUGINS** | Slides the plugin panel up under the strips (see [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Touching any control on a strip selects that strip |
@@ -605,11 +605,11 @@ Each output has its own dark strip:
 Right-click an output for **DEVICE...**, **HEADPHONE EQ** (headphone correction: **NONE**, or your
 model, listed by brand), **ALERT IF SILENT** (under -60 dBFS for **10 S**, **30 S**, **1 MIN** or **5 MIN**, or **OFF**) and **ALERT IF CLIPPING**
 (while LIMIT is off), which flash the tray icon and write to the event log, **IN THE MINI MIXER**,
-spacers, **RENAME...** and **REMOVE**.
+**MIX-MINUS AND STEMS...**, spacers, **RENAME...** and **REMOVE**.
 
 Outputs are made for you, one per device (see [Outputs are devices](#outputs-are-devices)).
 
-**FIND > MIX-MINUS AND STEMS** builds a feed per guest (everything but their own voice) and voice,
+**MIX-MINUS AND STEMS...** (on an output's right-click menu, or in FIND) builds a feed per guest (everything but their own voice) and voice,
 music and game stems.
 
 ---
@@ -871,7 +871,7 @@ Your mix saves itself within a second of any change, and on exit.
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND, or **Session timeline...** on the tray menu: every kept version by date. **RESTORE EVERYTHING** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, CUT and rack) without restarting |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, or **Session timeline...** on the tray menu: every kept version by date. **RESTORE EVERYTHING** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, CUT and rack) without restarting |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: keep the mix under a name |
 | **OPEN, EXPORT OR IMPORT...** | Open a named mix (restarts), save the mix to a file, or load one from a file |
 
@@ -896,8 +896,8 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **WINDOWS** | **START WITH WINDOWS**: opens in the tray when you sign in |
 | **DESK** | **WARN IF I TALK WHILE CUT** (a notice when a cut mic is above -30 dBFS) |
 | **APPS** | **APP RULES...**: which bus or output a program goes to when it starts playing (also in **FIND**). Removing a program's channel removes its rule |
-| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...**; **SESSION TIMELINE...** (see [14.3](#143-sessions)) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (see [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
 | **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
@@ -956,8 +956,8 @@ A macro is a list of **actions** run from a hotkey, a pad, a trigger or remote c
 ### HOTKEYS
 
 Every assignable hotkey is in one place: **PADS**, **MACROS**, **SCENES**, and **SAVE INSTANT REPLAY**
-under **TAPE**. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
-Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are listed too
+under **TAPE**. Each card says what its keys do and where else they can be set. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
+Ctrl, Alt or an F key, and they work while a game has focus. A key given to two things, or one Windows refused (another app may have it), is marked in red under its row: only one of them works. The fixed keys are listed too
 ([19.1](#191-keyboard-shortcuts)). The page's ON THE MIXER keys work on the console too
 ([5](#5-the-console)).
 
@@ -1009,8 +1009,8 @@ themselves.
 
 ### 17.3 Bring a program into the mix
 
-1. Start the program and make it play sound.
-2. **ADD APP** > pick it. It gets a raw channel (no effects).
+1. Start the program.
+2. **ADD APP** > pick it (under **NOT PLAYING YET** if it's silent now). It gets a raw channel (no effects).
 3. Route it where you want it heard. If you hear it twice, see
    [18.7](#187-i-hear-something-twice-or-an-echo).
 
@@ -1070,13 +1070,13 @@ up if something is wrong. Each row has a light, the finding and a fix:
 |---|---|---|
 | **AUDIO** | It didn't start (another app may have it) | **DEVICES** |
 | **MIC CABLE** | No VB-CABLE: apps can't hear your mix as a mic | **GET VB-CABLE** |
-| **MIC OUTPUT** | No output plays into the mic cable | **ROUTING** |
+| **MIC OUTPUT** | No output plays into the mic cable | **ROUTING** (while it's fine, its key is **HEAR WHAT THEY HEAR**) |
 | **MIC CHANNELS** | Something on the way to the mic is cut | **UNCUT** |
 | **WINDOWS DEFAULTS** | Windows' default speaker or mic (or its default for calls) is the virtual cable | **SET MY DEFAULTS** |
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows devices or captured apps are in the mix and Windows' audio engine is at Normal priority: yellow, a suggestion only; red if your boost was undone by a restart. Green when only ASIO is used | **BOOST** |
 
-**ZERO THE DESK** (bottom left; also **ZERO DESK** in FIND) checks what a last session can leave
+**ZERO THE DESK** (bottom left; also **ZERO DESK...** in SETTINGS > GENERAL > ON START, and **ZERO DESK** in FIND) checks what a last session can leave
 set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each has a **FIX**.
 
 ### 18.2 My mix is gone, a fresh mix started
@@ -1086,7 +1086,7 @@ Your mix isn't lost. When it can't be used at start, it's **set aside** as
 
 | Reason | What to do |
 |---|---|
-| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (FIND or the tray) > the "kept:" version > **RESTORE EVERYTHING** |
+| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (SETTINGS > GENERAL, FIND or the tray) > the "kept:" version > **RESTORE EVERYTHING** |
 | The saved interface couldn't be opened (another program has it) | Close the other program and restart Faider. Nothing is saved over your mix meanwhile |
 | session.xml couldn't be read | **SESSION TIMELINE** > a recent version > **RESTORE EVERYTHING** |
 
@@ -1135,7 +1135,7 @@ Work along the signal path:
 
 ### 18.6 An app doesn't appear in ADD APP
 
-- The program must be **playing sound** right now. Start playback, then open the menu again.
+- The program must be **playing sound**, or running with a window of its own (then it's under **NOT PLAYING YET**). One that runs without a window, or a Microsoft Store app whose window Windows hosts for it, isn't listed until it plays: start playback, then open the menu again.
 - Programs that already have a channel are greyed out (**ON THE DESK**).
 - Windows older than 10 version 2004 can't capture a single program ("Windows refused app capture").
 

@@ -4,6 +4,7 @@
 // they do in Faider). It used to close its wake-up event before letting go of Windows' audio
 // client: a late signal could then fire a reused handle's thread-pool wait and crash. Passes if
 // every round opens, keeps receiving until the kill, and tears down without crashing.
+// First, a program picked before it plays: a capture opened on it while silent hears it once it starts.
 #include "../src/engine/AppCapture.h"
 #include <juce_audio_formats/juce_audio_formats.h>
 #include <juce_events/juce_events.h>
@@ -37,6 +38,39 @@ namespace
         return f;
     }
 
+    // Two seconds of a 40 Hz tone at -72 dBFS: too quiet and too low to hear, but not silence.
+    juce::File quietToneWav()
+    {
+        auto f = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("faider-quiet-tone.wav");
+        juce::WavAudioFormat wav;
+        juce::AudioBuffer<float> tone (2, 96000);
+        for (int i = 0; i < tone.getNumSamples(); ++i)
+        {
+            const float s = 0.00025f * std::sin (juce::MathConstants<float>::twoPi * 40.0f * (float) i / 48000.0f);
+            tone.setSample (0, i, s);
+            tone.setSample (1, i, s);
+        }
+        f.deleteFile();
+        if (auto out = std::unique_ptr<juce::OutputStream> (f.createOutputStream()))
+            if (auto writer = std::unique_ptr<juce::AudioFormatWriter> (wav.createWriterFor (out.release(), 48000.0, 2, 16, {}, 0)))
+                writer->writeFromAudioSampleBuffer (tone, 0, tone.getNumSamples());
+        return f;
+    }
+
+    // The loudest sample a capture hands over in `ms`, pulled as the engine pulls it.
+    float peakFor (AppCapture& capture, int ms)
+    {
+        juce::AudioBuffer<float> block (2, 480);
+        float peak = 0.0f;
+        for (int t = 0; t < ms; t += 10)
+        {
+            capture.fifo.pull (block.getArrayOfWritePointers(), 2, block.getNumSamples());
+            peak = juce::jmax (peak, block.getMagnitude (0, block.getNumSamples()));
+            Sleep (10);
+        }
+        return peak;
+    }
+
     // Thread-pool waits on events made and closed all the time, so a closed handle gets reused.
     std::atomic<int> fired { 0 };
     void CALLBACK onWait (PTP_CALLBACK_INSTANCE, PVOID, PTP_WAIT, TP_WAIT_RESULT) { ++fired; }
@@ -47,6 +81,43 @@ int main()
     juce::ScopedJuceInitialiser_GUI juce;
     CoInitializeEx (nullptr, COINIT_MULTITHREADED);
     const auto wav = silentWav();
+
+    // A program picked before it plays (ADD APP's NOT PLAYING YET): the capture opens on it while
+    // it's silent, hears nothing, then hears it from when it starts, without being opened again.
+    {
+        const auto tone = quietToneWav();
+        STARTUPINFOW si { sizeof (si) };
+        si.dwFlags = STARTF_USESHOWWINDOW;
+        si.wShowWindow = SW_HIDE;
+        PROCESS_INFORMATION pi {};
+        auto command = juce::String ("powershell -NoProfile -Command \"Start-Sleep 5; (New-Object Media.SoundPlayer '") + tone.getFullPathName()
+                     + "').PlayLooping(); Start-Sleep 30\"";
+        std::wstring line (command.toWideCharPointer());
+        const bool started = CreateProcessW (nullptr, line.data(), nullptr, nullptr, FALSE, CREATE_NO_WINDOW, nullptr, nullptr, &si, &pi) != 0;
+        check (started, "the helper that plays later started");
+        if (started)
+        {
+            Sleep (1500);   // (PowerShell is up, and sleeping: no sound for 5 s)
+            juce::String error;
+            auto capture = AppCapture::open ((uint32_t) pi.dwProcessId, 48000.0, 480, error);
+            check (capture != nullptr, "app capture opens on a program that isn't playing yet" + (error.isEmpty() ? juce::String() : " (" + error + ")"));
+            if (capture != nullptr)
+            {
+                const float before = peakFor (*capture, 1500);
+                peakFor (*capture, 5000);   // (it starts playing somewhere in here)
+                const float after = peakFor (*capture, 2000);
+                check (before == 0.0f, "nothing comes from it while it's silent (peak " + juce::String (before, 6) + ")");
+                check (after > 0.000001f, "its sound arrives once it plays, on the capture opened before (peak " + juce::String (after, 6) + ")");
+            }
+            TerminateProcess (pi.hProcess, 0);
+            WaitForSingleObject (pi.hProcess, 3000);
+            CloseHandle (pi.hThread);
+            CloseHandle (pi.hProcess);
+            Sleep (150);
+        }
+        tone.deleteFile();
+    }
+
     std::atomic<bool> churning { true };
     std::thread churn ([&churning]
     {

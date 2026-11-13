@@ -42,8 +42,13 @@ struct AudioApp
 juce::Array<AudioApp> listAudioApps();
 
 // The process to capture for an exe name: one that's playing audio if any, else the top-level
-// running copy (its children are captured with it), or 0 if it isn't running.
-uint32_t findAppProcess (const juce::String& exe);
+// running copy (its children are captured with it), or 0 if it isn't running. `playing`: whether
+// the one found is playing.
+uint32_t findAppProcess (const juce::String& exe, bool* playing = nullptr);
+
+// Whether a process is `root` or was started by it (however many steps down): what a capture of
+// `root` hears.
+bool processIsWithin (uint32_t processId, uint32_t root);
 
 // Cheap (no process list): whether this process is still running.
 bool processIsRunning (uint32_t processId);

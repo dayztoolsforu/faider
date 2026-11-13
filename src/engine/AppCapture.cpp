@@ -258,7 +258,7 @@ juce::Array<AudioApp> listAudioApps()
     return apps;
 }
 
-uint32_t findAppProcess (const juce::String& exe)
+uint32_t findAppProcess (const juce::String& exe, bool* isPlaying)
 {
     // Prefer a copy that's actually playing audio (several copies of an exe may run, and
     // browsers play from a helper process). Lowest PID keeps the choice stable between calls.
@@ -268,6 +268,8 @@ uint32_t findAppProcess (const juce::String& exe)
         if (a.exe.equalsIgnoreCase (exe) && (playing == 0 || a.processId < playing) && ! WindowDiscovery::isIsolatedProcess (a.processId))
             playing = a.processId;
 
+    if (isPlaying != nullptr)
+        *isPlaying = playing != 0;
     if (playing != 0)
         return playing;
 
@@ -294,6 +296,34 @@ uint32_t findAppProcess (const juce::String& exe)
             return (uint32_t) pid;
 
     return matches.isEmpty() ? 0 : (uint32_t) matches.getFirst();
+}
+
+bool processIsWithin (uint32_t processId, uint32_t root)
+{
+    if (processId == root)
+        return true;
+
+    auto snapshot = CreateToolhelp32Snapshot (TH32CS_SNAPPROCESS, 0);
+    if (snapshot == INVALID_HANDLE_VALUE)
+        return false;
+
+    std::map<DWORD, DWORD> parentOf;
+    PROCESSENTRY32W entry { sizeof (entry) };
+    for (BOOL ok = Process32FirstW (snapshot, &entry); ok; ok = Process32NextW (snapshot, &entry))
+        parentOf[entry.th32ProcessID] = entry.th32ParentProcessID;
+    CloseHandle (snapshot);
+
+    DWORD at = processId;
+    for (int depth = 0; depth < 32; ++depth)   // (bounded: a reused process number could make a loop)
+    {
+        const auto parent = parentOf.find (at);
+        if (parent == parentOf.end() || parent->second == 0)
+            return false;
+        at = parent->second;
+        if (at == root)
+            return true;
+    }
+    return false;
 }
 
 uint32_t thisProcessId() { return (uint32_t) GetCurrentProcessId(); }

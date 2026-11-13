@@ -123,19 +123,26 @@ namespace
             if (p.playing)
                 item (p.label(), p.label(), { app, 0, p.exe, otherStereo });
 
-        // Program windows and browser tabs (WindowDiscovery.h). Windows captures a program as a
-        // whole, so a window or a tab captures its program; "Isolate" opens a tab on its own.
+        // Programs running with a window that aren't playing (WindowDiscovery.h), each once, with a
+        // window's title to know it by: its channel is captured from the moment it plays. Browsers
+        // have their own lists below.
         auto shortTitle = [] (const juce::String& t) { return t.length() > 48 ? t.substring (0, 46).trimEnd() + "..." : t; };
+        auto isBrowser = [&windows] (const juce::String& exe)
+        {
+            return std::any_of (windows.begin(), windows.end(), [&exe] (auto& w) { return w.isBrowser() && w.exeName().equalsIgnoreCase (exe); });
+        };
 
         bool programsShown = false;
-        for (auto& w : windows)
-            if (! w.isBrowser())
+        for (auto& p : programs)
+            if (! p.playing && ! isBrowser (p.exe))
             {
                 if (! std::exchange (programsShown, true))
-                    heading ("Program windows");
-                item (w.product + ": " + shortTitle (w.title), w.product, { app, 0, w.exeName(), otherStereo });
+                    heading ("Not playing yet");
+                item (p.label() + (p.title.isNotEmpty() ? ": " + shortTitle (p.title) : juce::String()), p.label(), { app, 0, p.exe, otherStereo });
             }
 
+        // Browser tabs. Windows captures a program as a whole, so a tab captures its browser;
+        // "Isolate" opens a tab on its own.
         for (auto& w : windows)
             if (w.isBrowser())
             {
@@ -652,6 +659,11 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
                 offer (p);
         if (! anyPlaying)
             toMic.addItem ("(no apps playing audio)", false, false, [] {});
+        if (std::any_of (programs.begin(), programs.end(), [] (auto& p) { return ! p.playing; }))
+            toMic.addSectionHeader ("Not playing yet");
+        for (auto& p : programs)
+            if (! p.playing)
+                offer (p);
         menu.addSubMenu (route.index >= 0 ? "SEND AN APP TO THE MIC  (via " + route.name + ")"
                                           : juce::String ("SEND AN APP TO THE MIC  (no mic cable output yet)"),
                          toMic, route.index >= 0);
@@ -704,25 +716,32 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
 
 void MixerComponent::showAddAppMenu (juce::PopupMenu::Options where, std::function<void()> added)
 {
+    // Those playing, then those running that aren't: one of those is captured once it plays.
     const auto programs = engine.appChoices (windows->snapshot());
     juce::PopupMenu menu;
-    menu.addSectionHeader ("APPS PLAYING");
-    for (auto& p : programs)
-        if (p.playing)
-            menu.addItem (p.label().toUpperCase() + (p.onDesk ? "  (ON THE DESK)" : ""), ! p.onDesk, false,
-                          [safe = juce::Component::SafePointer<MixerComponent> (this), exe = p.exe, added]
-            {
-                if (safe == nullptr)
-                    return;
-                auto& e = safe->engine;
-                const auto name = e.addAppStrip (exe).name;
-                e.refreshDevices();
-                e.logEvent ("input " + name + ": the app " + exe + " as a channel");
-                if (added)
-                    added();
-            });
-    if (std::none_of (programs.begin(), programs.end(), [] (auto& p) { return p.playing; }))
-        menu.addItem ("NO APPS PLAYING", false, false, [] {});
+    for (const bool playing : { true, false })
+    {
+        const bool any = std::any_of (programs.begin(), programs.end(), [playing] (auto& p) { return p.playing == playing; });
+        if (! playing && ! any)
+            break;
+        menu.addSectionHeader (playing ? "APPS PLAYING" : "NOT PLAYING YET");
+        for (auto& p : programs)
+            if (p.playing == playing)
+                menu.addItem (p.label().toUpperCase() + (p.onDesk ? "  (ON THE DESK)" : ""), ! p.onDesk, false,
+                              [safe = juce::Component::SafePointer<MixerComponent> (this), exe = p.exe, playing, added]
+                {
+                    if (safe == nullptr)
+                        return;
+                    auto& e = safe->engine;
+                    const auto name = e.addAppStrip (exe).name;
+                    e.refreshDevices();
+                    e.logEvent ("input " + name + ": the app " + exe + " as a channel" + (playing ? "" : " (not playing yet: captured when it plays)"));
+                    if (added)
+                        added();
+                });
+        if (! any)
+            menu.addItem ("NO APPS PLAYING", false, false, [] {});
+    }
     menu.showMenuAsync (where);
 }
 

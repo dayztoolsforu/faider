@@ -6,6 +6,7 @@
 #include <functional>
 #include <map>
 #include <unordered_map>
+#include <set>
 #include "AppCapture.h"
 #include "WindowDiscovery.h"
 #include "DriftFifo.h"
@@ -826,6 +827,7 @@ private:
     std::map<juce::String, std::unique_ptr<Secondary>> secondaries;   // key: device name + direction
     std::map<juce::String, std::unique_ptr<AppCapture>> appCaptures;  // key: lower-case exe name
     std::map<juce::String, uint32_t> failedApps;                      // exe -> process that refused capture
+    std::set<juce::String> quietApps;                                 // exes looked up while not playing: looked at again once they play
     juce::Array<EndpointInfo> lastEndpoints;
     juce::String interfaceAdapter;
     Clock clock = Clock::none;

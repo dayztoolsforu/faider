@@ -1187,6 +1187,7 @@ void AudioEngine::reprepareAll()
         s->app = nullptr;
     appCaptures.clear();   // the audio is stopped, so nothing is using them
     failedApps.clear();
+    quietApps.clear();
 }
 
 juce::StringArray AudioEngine::getInterfaceInputNames() const
@@ -2708,6 +2709,9 @@ void AudioEngine::refreshApps()
     if (master == nullptr)
         return;
 
+    juce::Array<AudioApp> playingNow;   // (looked up once, and only for a program that was silent)
+    bool playingKnown = false;
+
     for (auto& strip : strips)
     {
         if (strip->source.kind != Source::app)
@@ -2733,9 +2737,34 @@ void AudioEngine::refreshApps()
         const auto key = strip->source.deviceName.toLowerCase();
         auto it = appCaptures.find (key);
 
+        // A program that wasn't playing when it was looked up, playing now: its capture has to be
+        // on the copy that plays. One on the copy first found hears it only if that copy started
+        // the one playing; one Windows refused while silent is tried again.
+        bool lookAgain = false;
+        if (quietApps.count (key) > 0)
+        {
+            if (! std::exchange (playingKnown, true))
+                playingNow = listAudioApps();
+            const auto captured = it != appCaptures.end() ? it->second->getProcessId() : 0u;
+            bool plays = false, heard = false;
+            for (auto& a : playingNow)
+                if (a.exe.equalsIgnoreCase (strip->source.deviceName) && ! WindowDiscovery::isIsolatedProcess (a.processId))
+                {
+                    plays = true;
+                    heard = heard || (captured != 0 && processIsWithin (a.processId, captured));
+                }
+            if (plays)
+            {
+                quietApps.erase (key);
+                lookAgain = ! heard;
+                if (lookAgain)
+                    failedApps.erase (key);
+            }
+        }
+
         // Already capturing a process that's still running: skip the lookup (a scan of every
         // process and audio session, ~10 ms on the message thread).
-        if (it != appCaptures.end() && processIsRunning (it->second->getProcessId()))
+        if (! lookAgain && it != appCaptures.end() && processIsRunning (it->second->getProcessId()))
         {
             if (strip->app != it->second.get())
             {
@@ -2745,8 +2774,9 @@ void AudioEngine::refreshApps()
             continue;
         }
 
+        bool playing = true;   // (an isolated tab's browser is its own: there's no other copy to look for)
         const auto pid = WindowDiscovery::isIsolated (strip->source.deviceName) ? WindowDiscovery::findIsolatedProcess (strip->source.deviceName)
-                                                                               : findAppProcess (strip->source.deviceName);
+                                                                               : findAppProcess (strip->source.deviceName, &playing);
 
         // Running with the process we're already capturing: nothing to do.
         if (it != appCaptures.end() && pid != 0 && it->second->getProcessId() == pid)
@@ -2765,10 +2795,12 @@ void AudioEngine::refreshApps()
         {
             juce::String error;
             auto opened = AppCapture::open (pid, interfaceRate, interfaceBlock, error);
+            if (playing) quietApps.erase (key);
+            else         quietApps.insert (key);
 
             if (opened != nullptr)
             {
-                log ("engine: capturing " + strip->source.deviceName + " (process " + juce::String (pid) + ")");
+                log ("engine: capturing " + strip->source.deviceName + " (process " + juce::String (pid) + (playing ? ")" : ", not playing yet)"));
                 capture = opened.get();
 
                 std::vector<Strip*> takers;   // (found here: no names are compared under the lock)

@@ -869,6 +869,11 @@ namespace
             const int columns = juce::jmax (1, area.getWidth() / 290), w = (area.getWidth() - (columns - 1) * 10) / columns;
             return { area.getX() + (i % columns) * (w + 10), area.getY() + (i / columns) * 66, w, 58 };
         }
+        int choiceRoom() const   // how many cards the page holds
+        {
+            const auto area = paneArea().reduced (20).withTrimmedTop (50).withTrimmedBottom (50);
+            return juce::jmax (1, area.getWidth() / 290) * juce::jmax (1, (area.getHeight() + 8) / 66);
+        }
 
         void remember()
         {
@@ -958,12 +963,17 @@ namespace
                     if (st->source.kind == AudioEngine::Source::app
                         && std::none_of (programs.begin(), programs.end(), [&st] (auto& p) { return p.exe.equalsIgnoreCase (st->source.deviceName); }))
                         programs.push_back ({ st->source.deviceName, {}, false, true });
-                std::stable_sort (programs.begin(), programs.end(), [] (auto& a, auto& b) { return a.exe.compareNatural (b.exe) < 0; });
+                // Those playing or on the desk by name, then those running that aren't playing yet.
+                std::stable_sort (programs.begin(), programs.end(), [] (auto& a, auto& b)
+                {
+                    const bool first = a.playing || a.onDesk;
+                    return first != (b.playing || b.onDesk) ? first : a.exe.compareNatural (b.exe) < 0;
+                });
                 for (auto& p : programs)
                 {
-                    if (! p.playing && ! p.onDesk)
-                        continue;
-                    Choice c { p.label().toUpperCase(), p.onDesk ? "On the desk" : "Playing now", p.exe };
+                    if (! p.playing && ! p.onDesk && (int) choices.size() >= choiceRoom())
+                        break;   // (the page doesn't scroll: the rest are in ADD APP)
+                    Choice c { p.label().toUpperCase(), p.onDesk ? "On the desk" : p.playing ? "Playing now" : "Not playing yet: captured when it plays", p.exe };
                     c.on = p.onDesk || (asked[step] && picked[step].contains (p.exe));
                     c.fixed = p.onDesk;
                     choices.push_back (c);

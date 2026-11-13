@@ -574,7 +574,8 @@ void MainComponent::makeSettings()
     general.finish();
 
     // Every global hotkey: the pads', macros' and scenes' (set through PADS, so Windows has one
-    // set for them all), instant replay's, and the fixed ones.
+    // set for them all), instant replay's, and the fixed ones. Each group says what its keys do and
+    // where else they're set; `working`: whether Windows took the key (PadsPanel::hotkeyRegistered).
     hotkeysPage = std::make_unique<HotkeysPage> ([this]
     {
         std::vector<HotkeysPage::Entry> list;
@@ -582,11 +583,13 @@ void MainComponent::makeSettings()
         for (int i = 0; i < Pads::count; ++i)
             if (const auto& pad = p.pad (i); pad.file.isNotEmpty() || pad.hotkey.isNotEmpty())
                 list.push_back ({ "PADS", "PAD " + juce::String (i + 1) + (pad.name.isNotEmpty() ? ":  " + pad.name.toUpperCase() : juce::String()),
-                                  pad.hotkey, [this, i] (const juce::KeyPress& k) { return pads->setHotkey (i, k); } });
+                                  pad.hotkey, [this, i] (const juce::KeyPress& k) { return pads->setHotkey (i, k); },
+                                  "PLAYS THE PAD.  ALSO SET IN TOOLS > PADS", pads->hotkeyRegistered (i) });
         auto& macros = engine.getMacros().list;
         for (int i = 0; i < (int) macros.size(); ++i)
             list.push_back ({ "MACROS", macros[(size_t) i].name.toUpperCase(), macros[(size_t) i].hotkey,
-                              [this, i] (const juce::KeyPress& k) { return pads->setMacroHotkey (i, k); } });
+                              [this, i] (const juce::KeyPress& k) { return pads->setMacroHotkey (i, k); },
+                              "RUNS THE MACRO.  ALSO SET IN SETTINGS > MACROS", pads->hotkeyRegistered (PadsPanel::macroHotkeyBase + i) });
         auto& scenes = engine.getScenes().list;
         for (int i = 0; i < (int) scenes.size(); ++i)
             list.push_back ({ "SCENES", scenes[(size_t) i].name.toUpperCase(), scenes[(size_t) i].hotkey,
@@ -595,7 +598,8 @@ void MainComponent::makeSettings()
                                   const bool ok = pads->setSceneHotkey (i, k);
                                   if (ok && sceneBar != nullptr) sceneBar->repaint();
                                   return ok;
-                              } });
+                              },
+                              "RECALLS THE SCENE.  ALSO: RIGHT-CLICK ITS KEY", pads->hotkeyRegistered (PadsPanel::sceneHotkeyBase + i) });
         list.push_back ({ "TAPE", "SAVE INSTANT REPLAY", tape->replayHotkey, [this] (const juce::KeyPress& k)
         {
             const auto key = k.isValid() ? k.getTextDescription() : juce::String();
@@ -603,13 +607,15 @@ void MainComponent::makeSettings()
                 return false;
             tape->replayHotkey = key;
             return true;
-        } });
-        list.push_back ({ "ANYWHERE (FIXED)", "SHOW / HIDE THE IN-GAME OVERLAY", "ctrl + shift + O", nullptr });
-        list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "FIND (COMMAND PALETTE)", "ctrl + K", nullptr });
-        list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "MIDI MAP", "ctrl + L", nullptr });
-        list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "UNDO / REDO", "ctrl + Z  /  ctrl + Y", nullptr });
-        list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "UNDO HISTORY", "ctrl + H", nullptr });
-        list.push_back ({ juce::String ("IN ") + Product::nameUpper + " (FIXED)", "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", nullptr });
+        }, "ALSO: RIGHT-CLICK SAVE IN TOOLS > TAPE", pads->hotkeyRegistered (PadsPanel::extraHotkeyBase + 1) });
+        const auto inApp = juce::String ("IN ") + Product::nameUpper + " (FIXED)";
+        list.push_back ({ "ANYWHERE (FIXED)", "SHOW / HIDE THE IN-GAME OVERLAY", "ctrl + shift + O", nullptr, {},
+                          pads->hotkeyRegistered (PadsPanel::extraHotkeyBase + 2), { "ctrl + shift + O" } });
+        list.push_back ({ inApp, "FIND (COMMAND PALETTE)", "ctrl + K", nullptr, {}, true, { "ctrl + K" } });
+        list.push_back ({ inApp, "MIDI MAP", "ctrl + L", nullptr, {}, true, { "ctrl + L" } });
+        list.push_back ({ inApp, "UNDO / REDO", "ctrl + Z  /  ctrl + Y", nullptr, {}, true, { "ctrl + Z", "ctrl + Y", "ctrl + shift + Z" } });
+        list.push_back ({ inApp, "UNDO HISTORY", "ctrl + H", nullptr, {}, true, { "ctrl + H" } });
+        list.push_back ({ inApp, "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", nullptr, {}, true, { "ctrl + =", "ctrl + -", "ctrl + 0" } });
         list.push_back ({ "ON THE MIXER (FIXED)", "SELECT THE CHANNEL LEFT / RIGHT", "left / right", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "CUT / SOLO THE SELECTED CHANNEL", "M  /  S", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "ITS FADER UP / DOWN 0.5 DB (SHIFT: 3 DB)", "up / down", nullptr });

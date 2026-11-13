@@ -37,6 +37,12 @@ public:
     bool setExtraHotkey (int id, const juce::String& key, std::function<void()> onPress, std::function<void()> onRelease);
     static constexpr int extraHotkeyBase = 3000;
 
+    // Whether Windows took a hotkey: a pad's (its index), a macro's (macroHotkeyBase + its index), a
+    // scene's (sceneHotkeyBase + its index) or another's (its id). It refuses a key another app
+    // has, or one already given to something else here.
+    bool hotkeyRegistered (int id) const { return hotkeyWorks.count (id) > 0; }
+    static constexpr int macroHotkeyBase = 1000, sceneHotkeyBase = 2000;
+
     // A pad pressed or let go (a click or its hotkey): its sound, and its macro if it has one.
     void pressPad (int index);
     void releasePad (int index);
@@ -62,7 +68,6 @@ private:
 
     GlobalHotkeys hotkeys;
     std::set<int> hotkeyWorks;   // pads (and 1000 + macros, 2000 + scenes) whose hotkey Windows accepted
-    static constexpr int macroHotkeyBase = 1000, sceneHotkeyBase = 2000;
     struct Extra { juce::String key; std::function<void()> onPress, onRelease; };
     std::map<int, Extra> extras;
 

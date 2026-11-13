@@ -174,8 +174,9 @@ private:
 };
 
 // HOTKEYS: every global hotkey in one list (pads, macros, scenes, instant replay, the overlay),
-// grouped; click a key, then press the new one (Esc: cancel, Delete: none). The keys that only
-// work inside Faider are listed under it, fixed.
+// grouped, each group with what its keys do and where else they're set; click a key, then press
+// the new one (Esc: cancel, Delete: none). The keys that only work inside Faider are listed under
+// it, fixed. A key given twice, or one Windows refused, says so in red under its row.
 class HotkeysPage : public juce::Component, private juce::Timer
                   , public DeskSettings::WidthFill
 {
@@ -183,7 +184,10 @@ public:
     struct Entry
     {
         juce::String group, name, key;                         // key: as juce::KeyPress describes it, or empty
-        std::function<bool (const juce::KeyPress&)> set;       // false: refused (another app has it); null: fixed
+        std::function<bool (const juce::KeyPress&)> set;       // false: refused (the key is taken); null: fixed
+        juce::String where = {};                               // under the group's heading: what its keys do, where else they're set
+        bool working = true;                                   // false: Windows refused the key
+        juce::StringArray keys = {};                           // a fixed entry's keys, for the same-key check (none: it isn't checked)
     };
 
     explicit HotkeysPage (std::function<std::vector<Entry>()> listFn) : list (std::move (listFn))
@@ -191,7 +195,6 @@ public:
         note.setFont (juce::FontOptions (Console::Type::body));
         note.setColour (juce::Label::textColourId, Console::Colours::legendDim());
         DeskSettings::styleHeading (note);
-        note.setText ("CLICK A KEY, THEN PRESS THE NEW ONE.  ESC: CANCEL.  DELETE: NONE.", juce::dontSendNotification);
         addAndMakeVisible (note);
         rebuild();
         startTimerHz (1);
@@ -216,7 +219,11 @@ public:
         {
             if (row.heading != nullptr)
                 groups.push_back ({ row.heading.get(), {} });
-            else if (! groups.empty())
+            else if (groups.empty())
+                continue;
+            else if (row.keyButton == nullptr)   // (a line of its own: the group's note, a warning)
+                groups.back().rows.push_back ({ { row.name.get() }, 0 });
+            else
                 groups.back().rows.push_back ({ { row.name.get(), row.keyButton.get() }, 160 });
         }
         return DeskSettings::arrange (groups, w, apply, cards, 400, 42);
@@ -234,7 +241,13 @@ public:
         else if (! GlobalHotkeys::usable (key))
             note.setText ("NEEDS CTRL, ALT OR AN F KEY", juce::dontSendNotification);
         else
-            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : key.getTextDescription().toUpperCase() + " IS ALREADY IN USE");
+        {
+            // Refused: by what has the key here, if anything does; otherwise another app has it.
+            const int holder = holderOf (key.getTextDescription(), capturing);
+            const auto taken = key.getTextDescription().toUpperCase()
+                             + (holder >= 0 ? " IS ALREADY THE KEY FOR " + entries[(size_t) holder].name : juce::String (" IS TAKEN BY ANOTHER APP"));
+            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : taken);
+        }
         return true;
     }
 
@@ -255,8 +268,42 @@ private:
     {
         juce::String s;
         for (auto& e : list)
-            s << e.group << "|" << e.name << "|" << e.key << "\n";
+            s << e.group << "|" << e.name << "|" << e.key << "|" << e.where << "|" << (e.working ? "" : "refused") << "\n";
         return s;
+    }
+
+    static bool sameKey (const juce::String& a, const juce::String& b)
+    {
+        const auto x = juce::KeyPress::createFromDescription (a), y = juce::KeyPress::createFromDescription (b);
+        return a.isNotEmpty() && b.isNotEmpty() && x.isValid() && x == y;
+    }
+
+    // The first other entry with this key (a fixed one: any of the keys it names), or -1.
+    int holderOf (const juce::String& key, int except) const
+    {
+        for (int i = 0; i < (int) entries.size(); ++i)
+        {
+            const auto& e = entries[(size_t) i];
+            if (i == except)
+                continue;
+            if (e.set != nullptr ? sameKey (e.key, key)
+                                 : std::any_of (e.keys.begin(), e.keys.end(), [&key] (const juce::String& k) { return sameKey (k, key); }))
+                return i;
+        }
+        return -1;
+    }
+
+    // A line of its own in a group's card.
+    void addLine (const juce::String& text, juce::Colour colour)
+    {
+        Row r;
+        r.name = std::make_unique<juce::Label> (juce::String(), text);
+        DeskSettings::styleText (*r.name);
+        r.name->setColour (juce::Label::textColourId, colour);
+        r.name->setMinimumHorizontalScale (0.7f);
+        r.name->setTooltip (text);
+        addAndMakeVisible (*r.name);
+        rows.push_back (std::move (r));
     }
 
     void rebuild()
@@ -264,6 +311,7 @@ private:
         entries = list();
         shown = signature (entries);
         rows.clear();
+        clashes = 0;
         juce::String group;
         for (size_t i = 0; i < entries.size(); ++i)
         {
@@ -278,6 +326,8 @@ private:
                 DeskSettings::styleHeading (*r.heading);
                 addAndMakeVisible (*r.heading);
                 rows.push_back (std::move (r));
+                if (e.where.isNotEmpty())
+                    addLine (e.where, Console::Colours::legendDim());
             }
             Row r;
             r.name = std::make_unique<juce::Label> (juce::String(), e.name);
@@ -291,16 +341,36 @@ private:
             r.keyButton->onClick = [this, i] { startCapturing ((int) i); };
             addAndMakeVisible (*r.keyButton);
             rows.push_back (std::move (r));
+
+            // The same key twice (only one of them gets it), or a key Windows wouldn't give.
+            const int other = e.set != nullptr && e.key.isNotEmpty() ? holderOf (e.key, (int) i) : -1;
+            if (other >= 0)
+            {
+                ++clashes;
+                addLine ("SAME KEY AS " + entries[(size_t) other].name + ": ONLY ONE WORKS", Console::Colours::danger());
+            }
+            else if (e.key.isNotEmpty() && ! e.working)
+                addLine ("NOT WORKING: WINDOWS REFUSED THE KEY (ANOTHER APP MAY HAVE IT)", Console::Colours::danger());
         }
+        note.setText (problem.isNotEmpty() ? problem : usualNote(), juce::dontSendNotification);
 
         const int w = juce::jmax (getWidth(), 560);
         setSize (w, heightFor (w));
         resized();
     }
 
+    // The note across the top: how to set a key, and how many are given twice.
+    juce::String usualNote() const
+    {
+        return "CLICK A KEY, THEN PRESS THE NEW ONE.  ESC: CANCEL.  DELETE: NONE."
+             + (clashes > 0 ? "   " + juce::String (clashes) + " SHARE A KEY (IN RED)." : juce::String());
+    }
+
     void startCapturing (int index)
     {
         capturing = index;
+        problem.clear();
+        note.setText (usualNote(), juce::dontSendNotification);
         size_t n = 0;
         for (auto& r : rows)
             if (r.keyButton != nullptr && (int) n++ == index)
@@ -309,11 +379,11 @@ private:
         grabKeyboardFocus();
     }
 
-    void stopCapturing (const juce::String& problem)
+    void stopCapturing (const juce::String& whyNot)
     {
         capturing = -1;
         setWantsKeyboardFocus (false);
-        note.setText (problem.isNotEmpty() ? problem : "CLICK A KEY, THEN PRESS THE NEW ONE.  ESC: CANCEL.  DELETE: NONE.", juce::dontSendNotification);
+        problem = whyNot;   // (shown until the next key is clicked)
         rebuild();
     }
 
@@ -329,7 +399,8 @@ private:
     juce::String shown;
     std::vector<Row> rows;
     juce::Label note;
-    int capturing = -1;
+    juce::String problem;   // why the last key wasn't taken, if it wasn't
+    int capturing = -1, clashes = 0;
 };
 
 // The SETTINGS tab: its sections as keys down the left (GENERAL, LOOK, METERS, ...), the chosen

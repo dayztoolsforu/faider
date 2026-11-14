@@ -12,8 +12,11 @@
 namespace DevicesTab
 {
     // Runs `command` in cmd.exe as administrator: Windows asks the user first (UAC). Returns
-    // false if it couldn't start or the user said no. Doesn't wait for it to finish.
+    // false if it couldn't start or the user said no. Doesn't wait for it to finish. cmd.exe is
+    // Windows' own, by its full path, started in the system folder; the programs in `command` are
+    // named the same way (systemTool), and what's put in it has passed AudioBoost::safeForCommand.
     bool runElevated (const juce::String& command);
+    juce::String systemTool (const char* exe);   // "reg.exe": "C:\Windows\System32\reg.exe", quoted
 
     // The device instance ID of the first sound device whose description holds `description`, from
     // Windows' own list of them (SetupAPI: asked directly, so it's the same in every display
@@ -252,6 +255,7 @@ namespace DevicesTab
         juce::Label count, status;
         const juce::File windowsLog { juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Faider-devices.log") };
         int waitingFor = 0, checks = 0;
+        bool windowsLogKept = true;       // pnputil's words went to windowsLog (not when its path isn't safe on a command line)
         juce::StringArray waitingNodes;   // the device nodes being switched back on (setInWindows)
         juce::TextButton offInFaider { "EXCLUDE" }, onInFaider { "INCLUDE" },
                          disableInWindows { "DISABLE IN WINDOWS" }, enableInWindows { "ENABLE IN WINDOWS" }, rename { "RENAME" };

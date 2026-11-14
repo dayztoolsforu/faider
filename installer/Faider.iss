@@ -131,33 +131,44 @@ begin
   Result := '';
 end;
 
+// The copy of THIS install running in the tray is asked to quit, then given up to 15 s to go by
+// itself (it may be finishing a recording); only one still there after that (hung closing a device
+// or a plugin) is ended, so its files can go. A Faider run from anywhere else (another user's, a
+// build folder) is left alone. Called once the uninstall is confirmed (CurUninstallStepChanged,
+// below), not from InitializeUninstall, which Inno Setup runs before it asks "are you sure".
 // An all-users uninstall runs elevated and ExecAsOriginalUser isn't supported at uninstall time (it
 // fails, the copy in the tray keeps its files open and the uninstall stalls), so plain Exec is used
 // here. "--quit" skips Faider's un-elevate restart, and an elevated sender can message the
-// unelevated copy. A per-user uninstall runs as that user, and the same two steps work as they are.
-// A copy of THIS install still running after that (hung closing a device or a plugin) is ended, so
-// its files can go; a Faider run from anywhere else (another user's, a build folder) is left alone.
-function InitializeUninstall: Boolean;
+// unelevated copy. A per-user uninstall runs as that user, and the same steps work as they are.
+procedure QuitInstalledCopy;
 var
   Code: Integer;
   Exe, Quoted: String;
 begin
   Exe := ExpandConstant ('{app}\{#AppExe}');
-  if FileExists (Exe) then
-  begin
-    Exec (Exe, '--quit', '', SW_HIDE, ewWaitUntilTerminated, Code);
-    Sleep (3000);   // (time to close its devices)
-    Quoted := Exe;
-    StringChangeEx (Quoted, '''', '''''', True);   // (a ' in the path, as a user folder's name can have)
-    Exec (ExpandConstant ('{sys}\WindowsPowerShell\v1.0\powershell.exe'),
-          '-NoProfile -NonInteractive -Command "Get-Process -Name Faider -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq ''' + Quoted + ''' } | Stop-Process -Force"',
-          '', SW_HIDE, ewWaitUntilTerminated, Code);
-  end;
-  Result := True;
+  if not FileExists (Exe) then
+    Exit;
+  Exec (Exe, '--quit', '', SW_HIDE, ewWaitUntilTerminated, Code);
+  // The path goes into a PowerShell '...' string. PowerShell ends one at any of its single-quote
+  // characters (' and U+2018, U+2019, U+201A, U+201B: a user folder's name can have them), so each
+  // is doubled.
+  Quoted := Exe;
+  StringChangeEx (Quoted, '''', '''''', True);
+  StringChangeEx (Quoted, #$2018, #$2018#$2018, True);
+  StringChangeEx (Quoted, #$2019, #$2019#$2019, True);
+  StringChangeEx (Quoted, #$201A, #$201A#$201A, True);
+  StringChangeEx (Quoted, #$201B, #$201B#$201B, True);
+  Exec (ExpandConstant ('{sys}\WindowsPowerShell\v1.0\powershell.exe'),
+        '-NoProfile -NonInteractive -Command "$p = @(Get-Process -Name Faider -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq ''' + Quoted + ''' }); '
+        + 'if ($p) { $p | Wait-Process -Timeout 15 -ErrorAction SilentlyContinue; $p | Where-Object { -not $_.HasExited } | Stop-Process -Force }"',
+        '', SW_HIDE, ewWaitUntilTerminated, Code);
 end;
 
 // The mix and settings (%APPDATA%\Faider) are kept unless the person uninstalling says otherwise:
 // asked once the uninstall is confirmed, default No; a silent uninstall never removes them.
+// (The order relied on, from Inno Setup's own source, Setup.Uninstall.pas, as its help doesn't give
+// one: InitializeUninstall, the "are you sure" question, usAppMutexCheck, usUninstall, the files
+// removed, usPostUninstall.)
 // {userappdata} is the AppData of the user the uninstaller runs as. An all-users uninstall runs
 // elevated: when an administrator's password was typed for a standard user, that's the
 // administrator's AppData, not the desktop user's (Inno has no constant for the original user's,
@@ -185,6 +196,10 @@ begin
       Question := Question + #13#10#13#10 + '(This is the folder of ' + GetUserNameString + ', the user this uninstall runs as.)';
     RemoveSettings := MsgBox (Question, mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES;
   end;
+
+  // (confirmed, the question answered, and no file removed yet)
+  if CurUninstallStep = usUninstall then
+    QuitInstalledCopy;
 
   if (CurUninstallStep = usPostUninstall)
      and RegQueryStringValue (HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', '{#AppName}', Command)

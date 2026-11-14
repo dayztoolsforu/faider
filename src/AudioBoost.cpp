@@ -10,6 +10,8 @@
 #include <tlhelp32.h>
 #include <shellapi.h>
 #include <objbase.h>
+#include <shlobj.h>
+#include <knownfolders.h>
 #pragma comment (lib, "shell32.lib")
 #pragma comment (lib, "advapi32.lib")
 
@@ -33,7 +35,39 @@ namespace
         return ok;
     }
 
-    // audiodg.exe's process id, or 0.
+    juce::String systemFolder()
+    {
+        wchar_t dir[MAX_PATH] {};
+        const UINT n = GetSystemDirectoryW (dir, MAX_PATH);
+        return n > 0 && n < MAX_PATH ? juce::String (dir) : juce::String();
+    }
+
+    // Whether an open process runs Windows' own audiodg.exe (the one in the system folder).
+    bool imageIsAudiodg (HANDLE process)
+    {
+        wchar_t path[1024] {};
+        DWORD size = 1024;
+        return QueryFullProcessImageNameW (process, 0, path, &size) && AudioBoost::isWindowsAudiodg (juce::String (path), systemFolder());
+    }
+
+    // A process named audiodg.exe that isn't Windows' own is passed over: one in a user's session
+    // (Windows' runs in the services' session, 0, where a user can start nothing), or one whose
+    // file isn't the system folder's. One that can't be opened here to see its file is taken on its
+    // session; the helper looks at its file once it has it open.
+    bool looksLikeAudiodg (DWORD pid)
+    {
+        DWORD session = 0;
+        if (ProcessIdToSessionId (pid, &session) && session != 0)
+            return false;
+        HANDLE process = OpenProcess (PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
+        if (process == nullptr)
+            return true;
+        const bool real = imageIsAudiodg (process);
+        CloseHandle (process);
+        return real;
+    }
+
+    // Windows' audiodg.exe's process id, or 0.
     DWORD findAudiodg()
     {
         HANDLE snapshot = CreateToolhelp32Snapshot (TH32CS_SNAPPROCESS, 0);
@@ -43,7 +77,7 @@ namespace
         PROCESSENTRY32W entry {};
         entry.dwSize = sizeof (entry);
         for (BOOL more = Process32FirstW (snapshot, &entry); more && pid == 0; more = Process32NextW (snapshot, &entry))
-            if (_wcsicmp (entry.szExeFile, L"audiodg.exe") == 0)
+            if (_wcsicmp (entry.szExeFile, L"audiodg.exe") == 0 && looksLikeAudiodg (entry.th32ProcessID))
                 pid = entry.th32ProcessID;
         CloseHandle (snapshot);
         return pid;
@@ -77,6 +111,13 @@ namespace
     // of its own; `done` gets its exit code on the message thread.
     void runElevated (const juce::String& parameters, void* owner, std::function<void (int)> done)
     {
+        // Only from a folder that takes an administrator to write to (canElevateFrom): else Windows
+        // isn't asked, and the answer says why.
+        if (! AudioBoost::canElevate())
+        {
+            juce::MessageManager::callAsync ([done = std::move (done)] { if (done) done (AudioBoost::needsAllUsers); });
+            return;
+        }
         const auto exe = juce::File::getSpecialLocation (juce::File::currentExecutableFile);
         std::thread ([exe, parameters, owner, done = std::move (done)]
         {
@@ -111,6 +152,25 @@ namespace
                 juce::MessageManager::callAsync ([done, code] { if (done) done (code); });
         }).detach();
     }
+}
+
+bool AudioBoost::canElevate()
+{
+    // (the Program Files folders as Windows keeps them, not as the environment names them: a
+    // program can set %ProgramFiles% for what it starts)
+    juce::StringArray programFiles;
+    for (auto* id : { &FOLDERID_ProgramFiles, &FOLDERID_ProgramFilesX86, &FOLDERID_ProgramFilesX64 })
+    {
+        PWSTR path = nullptr;
+        if (SUCCEEDED (SHGetKnownFolderPath (*id, 0, nullptr, &path)) && path != nullptr)
+            programFiles.add (juce::String (path));
+        CoTaskMemFree (path);
+    }
+
+    const auto folder = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory().getFullPathName();
+    wchar_t whole[2048] {};   // (its long name, if it was started by a short one)
+    const DWORD n = GetLongPathNameW (folder.toWideCharPointer(), whole, 2048);
+    return canElevateFrom (n > 0 && n < 2048 ? juce::String (whole) : folder, programFiles);
 }
 
 AudioBoost::State AudioBoost::read()
@@ -162,6 +222,11 @@ int AudioBoost::runHelper (const juce::StringArray& args)
     }
     if (process == nullptr)
         return GetLastError() == ERROR_INVALID_PARAMETER ? notFound : accessDenied;   // (gone meanwhile: invalid)
+    if (! imageIsAudiodg (process))   // (not Windows' own: never changed)
+    {
+        CloseHandle (process);
+        return notFound;
+    }
 
     int code = ok;
     if (a.back)   // BACK TO NORMAL: Normal, and every core the system allows

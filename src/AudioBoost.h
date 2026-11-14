@@ -38,7 +38,8 @@ namespace AudioBoost
         // Not the helper's: what the app makes of starting it.
         declined     = -1,  // the user said no to Windows' prompt (a normal outcome)
         notStarted   = -2,  // it couldn't be started
-        timedOut     = -3   // it didn't finish in time
+        timedOut     = -3,  // it didn't finish in time
+        needsAllUsers = -4  // not asked for at all: Faider's own folder can be written to without an administrator
     };
 
     // The priority classes Windows has, in order (unknown: it couldn't be read).
@@ -134,6 +135,7 @@ namespace AudioBoost
             case notPinned:    return "Windows audio is at High priority, but Windows wouldn't pin it to one core.";            case declined:     return "Nothing changed: Windows' prompt was declined.";
             case notStarted:   return "Nothing changed: the boost couldn't be started.";
             case timedOut:     return "The boost didn't answer in time. Look again in a moment.";
+            case needsAllUsers: return "Nothing changed: BOOST needs Faider installed for all users (Program Files).";
             default:           break;
         }
         return "The boost ended unexpectedly (code " + juce::String (code) + ").";
@@ -196,7 +198,50 @@ namespace AudioBoost
         juce::uint32 toldPid = 0;      // the process already told about
     };
 
+    // Whether Faider may start itself as administrator from `exeFolder`: only from under one of
+    // this PC's Program Files folders (`programFiles`), which only an administrator can write to.
+    // Anywhere else (installed for one user, a build's own folder) a DLL or an exe put there by any
+    // program would run as administrator behind Windows' genuine prompt, so it isn't asked for.
+    inline bool canElevateFrom (const juce::String& exeFolder, const juce::StringArray& programFiles)
+    {
+        auto tidy = [] (juce::String path)
+        {
+            path = path.trim().replaceCharacter ('/', '\\');
+            while (path.endsWithChar ('\\'))
+                path = path.dropLastCharacters (1);
+            return path;
+        };
+        const auto folder = tidy (exeFolder);
+        if (folder.isEmpty() || (folder + "\\").contains ("\\..\\") || (folder + "\\").contains ("\\.\\"))
+            return false;   // (a path that climbs back out isn't taken at its word)
+        for (auto& root : programFiles)
+            if (const auto r = tidy (root); r.length() > 3 && (folder.equalsIgnoreCase (r) || folder.startsWithIgnoreCase (r + "\\")))
+                return true;
+        return false;
+    }
+
+    // Whether a process's file is Windows' own audiodg.exe: the one in its system folder. Another
+    // program of that name isn't it, and is never read or changed.
+    inline bool isWindowsAudiodg (const juce::String& imagePath, const juce::String& systemFolder)
+    {
+        auto folder = systemFolder.trim();
+        while (folder.endsWithChar ('\\'))
+            folder = folder.dropLastCharacters (1);
+        return folder.isNotEmpty() && imagePath.trim().replaceCharacter ('/', '\\').equalsIgnoreCase (folder + "\\audiodg.exe");
+    }
+
+    // Text put on a command line that runs as administrator (a device's ID, a file's path; DEVICES'
+    // commands: DevicesTab.cpp): only if nothing in it is more than text to cmd.exe.
+    inline bool safeForCommand (const juce::String& text)
+    {
+        return text.isNotEmpty() && ! text.containsAnyOf ("\"%&|<>^\r\n");
+    }
+
     // The Windows part (AudioBoost.cpp) ----------------------------------------------------------
+
+    // Whether this copy may start itself as administrator (canElevateFrom, for its own folder).
+    // BOOST and BACK TO NORMAL answer needsAllUsers when it may not, without asking Windows.
+    bool canElevate();
 
     // audiodg as it is, read with ordinary rights (never changes it).
     State read();

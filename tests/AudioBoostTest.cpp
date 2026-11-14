@@ -1,5 +1,7 @@
 // Checks BOOST WINDOWS AUDIO's decisions (src/AudioBoost.h) without touching Windows audio: the
-// helper's command line, PRE-FLIGHT's WINDOWS AUDIO verdict, and when the watch speaks up.
+// helper's command line, PRE-FLIGHT's WINDOWS AUDIO verdict, when the watch speaks up, where Faider
+// may start itself as administrator from, which audiodg.exe is Windows' own, and what may go on
+// an elevated command line.
 // Prints PASS/FAIL per check; exits non-zero on failure.
 #include "../src/AudioBoost.h"
 #include <iostream>
@@ -45,9 +47,9 @@ int main()
     check (isHelper (args ("--boost-audiodg")) && isHelper (args ("--unboost-audiodg --x")) && ! isHelper (args ("--scan x")), "either flag is the helper's");
 
     // Every exit code says something plain, and UAC declined isn't called an error.
-    for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notPinned, (int) declined, (int) notStarted, (int) timedOut })
+    for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notPinned, (int) declined, (int) notStarted, (int) timedOut, (int) needsAllUsers })
         check (describe (code).isNotEmpty() && ! describe (code).containsIgnoreCase ("unexpected"), "code " + juce::String (code) + ": " + describe (code));
-    for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notUnpinned, (int) declined, (int) notStarted, (int) timedOut })
+    for (int code : { (int) ok, (int) badArgs, (int) notFound, (int) accessDenied, (int) notSet, (int) notUnpinned, (int) declined, (int) notStarted, (int) timedOut, (int) needsAllUsers })
         check (describe (code, true).isNotEmpty() && ! describe (code, true).containsIgnoreCase ("unexpected"), "back, code " + juce::String (code) + ": " + describe (code, true));
     check (describe (ok, true).containsIgnoreCase ("normal") && ! describe (ok, true).containsIgnoreCase ("high"), "back: done says Normal");
     check (describe (declined).containsIgnoreCase ("declined") && ! describe (declined).containsIgnoreCase ("error"), "declined is said plainly");
@@ -77,6 +79,33 @@ int main()
     check (w.update (false, { 400, Priority::normal }) == Watch::News::none, "not wanted: never said");
     check (w.update (true, { 400, Priority::high }) == Watch::News::none && w.update (true, { 500, Priority::high }) == Watch::News::none,
            "restarted but High (something else boosted it): nothing said");
+
+    // Starting itself as administrator: only from under Program Files.
+    const juce::StringArray pf { "C:\\Program Files", "C:\\Program Files (x86)" };
+    check (canElevateFrom ("C:\\Program Files\\Faider", pf), "installed for all users (Program Files): BOOST may ask Windows");
+    check (canElevateFrom ("c:\\program files (x86)\\Faider\\", pf), "Program Files (x86), in any case, with a slash at the end");
+    check (canElevateFrom ("C:/Program Files/Faider", pf), "forward slashes are the same folder");
+    check (! canElevateFrom ("C:\\Users\\me\\AppData\\Local\\Programs\\Faider", pf), "installed for one user: not asked");
+    check (! canElevateFrom ("C:\\Faider", pf) && ! canElevateFrom ("C:\\src\\faider\\build\\console\\Faider_artefacts\\Release", pf), "a copy built from source: not asked");
+    check (! canElevateFrom ("C:\\Program Files Extra\\Faider", pf) && ! canElevateFrom ("C:\\Program FilesX", pf), "a folder that only starts with the same letters isn't Program Files");
+    check (! canElevateFrom ("C:\\Program Files\\..\\Users\\me\\Faider", pf) && ! canElevateFrom ("C:\\Program Files\\Faider\\..", pf), "a path that climbs back out isn't taken at its word");
+    check (! canElevateFrom ("", pf) && ! canElevateFrom ("C:\\Program Files\\Faider", {}) && ! canElevateFrom ("C:\\Anything", { "C:\\" }), "no folder, no Program Files, or a drive given as Program Files: not asked");
+    check (describe (needsAllUsers).contains ("BOOST needs Faider installed for all users (Program Files)") && describe (needsAllUsers, true).contains ("all users"),
+           "refused, it says so plainly (BOOST and BACK TO NORMAL)");
+
+    // Which audiodg.exe is Windows' own.
+    check (isWindowsAudiodg ("C:\\Windows\\System32\\audiodg.exe", "C:\\WINDOWS\\system32"), "the one in the system folder, in any case");
+    check (isWindowsAudiodg ("C:\\Windows\\System32\\audiodg.exe", "C:\\Windows\\System32\\"), "a slash after the system folder is the same");
+    check (! isWindowsAudiodg ("C:\\Users\\me\\audiodg.exe", "C:\\Windows\\System32"), "one of the same name elsewhere isn't it");
+    check (! isWindowsAudiodg ("C:\\Windows\\System32\\x\\audiodg.exe", "C:\\Windows\\System32") && ! isWindowsAudiodg ("C:\\Windows\\System32\\audiodg.exe.exe", "C:\\Windows\\System32"),
+           "nor one in a folder under it, or with a longer name");
+    check (! isWindowsAudiodg ("\\audiodg.exe", "") && ! isWindowsAudiodg ("", "C:\\Windows\\System32"), "no system folder or no path: not it");
+
+    // What may go on a command line that runs as administrator.
+    check (safeForCommand ("SWD\\MMDEVAPI\\{0.0.0.00000000}.{6f1c4b0a-12ab-4c3d-9e8f-001122334455}") && safeForCommand ("ROOT\\MEDIA\\0001"), "device IDs as Windows writes them");
+    check (safeForCommand ("C:\\Users\\Jo Smith\\AppData\\Local\\Temp\\Faider-devices.log") && safeForCommand ("C:\\Users\\O'Brien (work)\\x.log"), "a path with spaces, an apostrophe, brackets");
+    for (auto* bad : { "a\"b", "a%TEMP%b", "a&b", "a|b", "a<b", "a>b", "a^b", "a\nb", "a\rb", "" })
+        check (! safeForCommand (bad), "refused: " + juce::String (bad).replace ("\n", "(new line)").replace ("\r", "(return)").quoted());
 
     return failures;
 }

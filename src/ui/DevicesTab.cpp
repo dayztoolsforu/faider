@@ -11,10 +11,34 @@
 #pragma comment (lib, "setupapi.lib")
 #pragma comment (lib, "cfgmgr32.lib")
 
+namespace
+{
+    // Windows' folder for its own programs (System32).
+    juce::String systemFolder()
+    {
+        wchar_t dir[MAX_PATH] {};
+        const UINT n = GetSystemDirectoryW (dir, MAX_PATH);
+        return n > 0 && n < MAX_PATH ? juce::String (dir) : juce::String();
+    }
+}
+
+juce::String DevicesTab::systemTool (const char* exe)
+{
+    return (systemFolder() + "\\" + exe).quoted();
+}
+
 bool DevicesTab::runElevated (const juce::String& command)
 {
-    const juce::String params ("/c " + command);
-    const auto result = (INT_PTR) ShellExecuteW (nullptr, L"runas", L"cmd.exe", params.toWideCharPointer(), nullptr, SW_HIDE);
+    // Nothing that runs as administrator is found by its bare name (the folder Faider was started
+    // in, or the PATH, could hold another cmd.exe or reg.exe): cmd.exe by its full path, started in
+    // the system folder, without the AutoRun commands the registry can give it (/d), and the line
+    // after /c taken as it is (/s).
+    const auto folder = systemFolder();
+    if (folder.isEmpty() || ! AudioBoost::safeForCommand (folder))
+        return false;
+    const auto cmd = folder + "\\cmd.exe";
+    const juce::String params ("/d /s /c \"" + command + "\"");
+    const auto result = (INT_PTR) ShellExecuteW (nullptr, L"runas", cmd.toWideCharPointer(), params.toWideCharPointer(), folder.toWideCharPointer(), SW_HIDE);
     return result > 32;   // ShellExecute: <= 32 is an error, including "the user declined"
 }
 
@@ -183,12 +207,15 @@ namespace DevicesTab
 
     void CableSettings::applySettings()
     {
-        const auto id = cableInstanceId();
-        const auto reg = juce::String ("reg add \"HKLM\\SOFTWARE\\VB-Audio\\Cable\" /f /t REG_DWORD /v ");
+        // (the cable's ID goes on the line only as plain text: one that isn't, and the cable isn't
+        // restarted here; restarting Windows does it)
+        const auto cable = cableInstanceId();
+        const auto id = AudioBoost::safeForCommand (cable) ? cable : juce::String();
+        const auto reg = systemTool ("reg.exe") + " add \"HKLM\\SOFTWARE\\VB-Audio\\Cable\" /f /t REG_DWORD /v ";
         auto command = reg + "VBAudioCableWDM_SR /d " + juce::String (sampleRate.getSelectedId())
                      + " && " + reg + "VBAudioCableWDM_Latency /d " + juce::String (latency.getSelectedId());
         if (id.isNotEmpty())
-            command << " && pnputil /restart-device \"" << id << "\"";
+            command << " && " << systemTool ("pnputil.exe") << " /restart-device \"" << id << "\"";
 
         // One elevated cmd: Windows shows its UAC prompt; nothing changes unless it's approved.
         if (! runElevated (command))
@@ -583,9 +610,9 @@ namespace DevicesTab
             ++total;
             if (setEndpointEnabled (e.id, enable))
                 ++changed;
-            if (const auto node = "SWD\\MMDEVAPI\\" + e.id; enable && nodeDisabled (node))
+            if (const auto node = "SWD\\MMDEVAPI\\" + e.id; enable && nodeDisabled (node) && AudioBoost::safeForCommand (node))   // (its ID as plain text only)
             {
-                commands.add ("pnputil /enable-device \"" + node + "\"");
+                commands.add (systemTool ("pnputil.exe") + " /enable-device \"" + node + "\"");
                 nodes.add (node);
             }
         }
@@ -597,8 +624,12 @@ namespace DevicesTab
         if (commands.isEmpty())
             return;
 
+        // pnputil's words go to a log in %TEMP%, read back below: only if that path is plain text on
+        // the line (else they aren't kept, and the devices themselves say how it went).
         windowsLog.deleteFile();
-        const auto command = "(" + commands.joinIntoString (" & ") + ") > \"" + windowsLog.getFullPathName() + "\" 2>&1";
+        windowsLogKept = AudioBoost::safeForCommand (windowsLog.getFullPathName());
+        const auto command = windowsLogKept ? "(" + commands.joinIntoString (" & ") + ") > \"" + windowsLog.getFullPathName() + "\" 2>&1"
+                                            : commands.joinIntoString (" & ");
         if (! runElevated (command))
         {
             status.setText ("Cancelled. Nothing changed.", juce::dontSendNotification);
@@ -631,7 +662,7 @@ namespace DevicesTab
                 text << "  " << line.trim();
                 break;
             }
-        if (report.trim().isEmpty())
+        if (windowsLogKept && report.trim().isEmpty())
             text = "Windows didn't report back (see " + windowsLog.getFullPathName() + ").";
         status.setText (text, juce::dontSendNotification);
     }

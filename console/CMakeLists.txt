@@ -9,6 +9,10 @@ target_sources(Faider PRIVATE
     src/Simple.cpp
     ${_src}/Main.cpp
     ${_src}/MainComponent.cpp
+    ${_src}/MainComponentSettings.cpp
+    ${_src}/MainComponentCommands.cpp
+    ${_src}/MainComponentPreflight.cpp
+    ${_src}/MainComponentSessions.cpp
     ${_src}/AudioBoost.cpp
     ${_src}/engine/WindowDiscovery.cpp
     ${_src}/engine/PluginScan.cpp

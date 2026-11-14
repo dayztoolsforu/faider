@@ -64,7 +64,7 @@ a big key for every output. The switch in the top bar flips the whole console be
 
 | | |
 |---|---|
-| Install folder | `C:\Program Files\Faider` (installer), `C:\Faider` (built from source) |
+| Install folder | `C:\Program Files\Faider` (installer; `%LOCALAPPDATA%\Programs\Faider` when installed for you only), `C:\Faider` (built from source) |
 | Mix and settings | `%APPDATA%\Faider` |
 | Manual | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) (13 languages) |
 | Website | [dayztoolsforu.github.io/faider](https://dayztoolsforu.github.io/faider/) |
@@ -131,7 +131,10 @@ a big key for every output. The switch in the top bar flips the whole console be
 
 Download `Faider-<version>-Setup.exe` from [Releases](https://github.com/dayztoolsforu/faider/releases) and run it. The
 installer isn't code-signed, so Windows may warn about an unrecognised app. Click **More info > Run
-anyway**.
+anyway**. It installs for all users (the default, with an administrator's approval) or for you only
+(no administrator needed). The manual's
+[install step](https://dayztoolsforu.github.io/faider/#step-1-install-faider) lists the switches
+for a silent install.
 
 ### Build from source
 
@@ -149,8 +152,8 @@ compiler warning in Faider or its checks stop the build, as the checks on GitHub
 
 To make the installer, install [Inno Setup 6](https://jrsoftware.org/isinfo.php) and run
 `tools\build-installer.ps1`. It builds the Release app and writes
-`build\installer\Faider-<version>-Setup.exe`. That installer puts the app in Program Files,
-with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
+`build\installer\Faider-<version>-Setup.exe`. That installer puts the app in Program Files (or,
+installed for one user, in `%LOCALAPPDATA%\Programs`), with the Microsoft Visual C++ runtime files it needs beside it, and offers VB-CABLE's download page
 when no VB-Audio device is found. The version comes from `CMakeLists.txt`.
 
 To sign them, set `FAIDER_SIGN_CERT` to a `.pfx` file (with `FAIDER_SIGN_PASSWORD` its password) or
@@ -179,7 +182,11 @@ Set your speakers and microphone back under **Settings > System > Sound**.
 | Document | |
 |---|---|
 | User manual, 13 languages | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) |
+| FAQ | [docs/FAQ.md](docs/FAQ.md) |
+| OSC reference | [docs/OSC.md](docs/OSC.md) |
 | The app and its layout files | [console/README.md](console/README.md) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | All documentation | [docs/README.md](docs/README.md) |
 
 ## How it works

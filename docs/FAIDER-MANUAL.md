@@ -72,15 +72,36 @@ takes a minute or two.
 1. Run the installer, `Faider-<version>-Setup.exe`.
 2. Windows SmartScreen may warn about an unrecognised app, because the installer isn't code-signed.
    Click **More info**, then **Run anyway**.
-3. Accept the licence and allow the administrator prompt. If you want a desktop shortcut, tick it
-   on the way (it's off by default).
-4. The installer puts the app in `C:\Program Files\Faider` and adds **Faider**
-   to the Start menu. Everything it needs comes with it.
+3. Choose **Install for all users** (recommended; allow the administrator prompt) or **Install for
+   me only** (no administrator needed), then accept the licence. If you want a desktop shortcut,
+   tick it on the way (it's off by default). An update installs the same way as the copy already
+   there, without asking.
+4. The installer puts the app in `C:\Program Files\Faider` (for you only:
+   `%LOCALAPPDATA%\Programs\Faider`) and adds **Faider** to the Start menu. Everything it needs
+   comes with it.
 5. On the last page you can start Faider straight away. If no VB-CABLE is installed, it
    also offers to open VB-CABLE's download page.
 
-Your mix and settings live in `%APPDATA%\Faider`, separate from the program. Uninstalling
-leaves them in place.
+Your mix and settings live in `%APPDATA%\Faider`, separate from the program. Uninstalling asks
+whether to remove them too, and leaves them in place unless you say yes.
+
+**Installing without the wizard.** For scripts and deployment tools, the installer takes Inno
+Setup's switches:
+
+| Switch | |
+|---|---|
+| `/SILENT` | No wizard, only the progress window |
+| `/VERYSILENT` | Nothing is shown |
+| `/SUPPRESSMSGBOXES` | With either of those: message boxes get their default answer |
+| `/NORESTART` | Windows is never restarted after the install |
+| `/TASKS="desktopicon"` | Makes the desktop shortcut |
+| `/ALLUSERS`, `/CURRENTUSER` | For all users (the default: Windows asks for an administrator unless it's run as one) or for the user running it |
+| `/LOG="file"` | Writes the log to that file. A log is always written: without this it is `Setup Log <date>.txt` in `%TEMP%` |
+
+For example: `Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`.
+A silent install quits a running Faider first, and doesn't start Faider or offer VB-CABLE's page
+afterwards. The uninstaller (`unins000.exe` in the program's folder) takes `/SILENT` and
+`/VERYSILENT` too. Uninstalled silently, your mix and settings are never removed.
 
 ### Step 2: Install VB-CABLE (optional)
 
@@ -900,7 +921,7 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (see [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
-| **METER STANDARD** | How meters read (sample peak with a fast fall by default; IEC and others) |
+| **METER STANDARD** | How meters read: **PEAK** (the default: sample peak in dBFS with a fast fall), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
 | **CHANNEL METER POINT** | **IN** (raw source), **PRE** (after effects), **POST** (after the fader, default). The sidebar's **METER** cards set the same |
 | **RECORDING** | **FFMPEG**: where `ffmpeg.exe` is, or **NOT FOUND**. Click it to pick `ffmpeg.exe` (used before the one on your PATH); once one is picked, it also offers to go back to the PATH's |
 | **PLUGIN TEST TIME** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
@@ -975,7 +996,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. A key given to two 
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
-| **OSC** | Programs on this PC can send to port 9000, or the port set with **PORT...** in SETTINGS > CONTROL (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_` |
+| **OSC** | Programs on this PC can send to port 9000, or the port set with **PORT...** in SETTINGS > CONTROL (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
@@ -1060,6 +1081,14 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 ---
 
 ## 18. Troubleshooting
+
+When the overlay, a MIDI controller or OSC doesn't respond:
+
+| Problem | Check |
+|---|---|
+| **The overlay doesn't show** | Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS > HOTKEYS marks it in red and the event log says so: **SHOW OVERLAY** in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads **NO MIC CHANNELS** when there are none |
+| **A MIDI controller does nothing** | Each MIDI input is off until you switch it on in SETTINGS > CONTROL > **INPUTS AND BINDINGS**. A controller plugged in after Faider started isn't opened by itself: press **REFRESH** there and switch its input off and on, or restart Faider. Move a control and **LAST** at the bottom of that list shows what arrived. A control does nothing until it's bound in **MIDI MAP** (Ctrl+L). Only control changes and notes are read: faders and pans follow a knob or fader, not a key, and keys switch CUT, SOLO and the like |
+| **OSC does nothing** | OSC is off until **OSC ON** is lit (SETTINGS > CONTROL). The sender has to use the port shown on that key (9000 unless you changed it) and run on this PC: Faider listens on `127.0.0.1` only, so a phone or another PC can't reach it. If the port couldn't be opened (another program may have it), Faider says so and OSC stays off: pick another with **PORT...**. Then check the address: the strip's name, with `_` for spaces (see the [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)) |
 
 ### 18.1 PRE-FLIGHT
 
@@ -1215,10 +1244,13 @@ output again, and your real microphone as the default input, each for calls too.
 
 | | |
 |---|---|
-| `--minimised` | Start in the tray |
-| `--quit` | Quit the running copy |
+| `--minimised` | Start in the tray (what **START WITH WINDOWS** uses) |
+| `--quit` | Quit the running copy, as the tray's **Quit** does. With none running, nothing happens |
+| `--allow-admin` | Started as administrator, stay that way. Without it Faider starts itself again with ordinary rights (see [16](#16-remote-control-overlay-and-tray)) |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over DEVICES > CLOCK (see [Clocking](#clocking)) |
 | `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | What **BOOST WINDOWS AUDIO** and **BACK TO NORMAL** start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused |
+| `--scan <plugin> --out <file>` | Internal: the test Faider runs in a separate copy before a plugin loads (see [9](#9-plugins)). No window, no audio |
+| `--after <process id>` | Internal: added when Faider starts itself again (**RESTORE EVERYTHING**, **RESTART NOW**, giving up administrator rights). The new copy waits, up to a minute, for that process to end |
 
 ### 19.3 Files
 
@@ -1238,7 +1270,8 @@ In `%APPDATA%\Faider`:
 | `status.txt` | A snapshot of the engine every few seconds: devices, levels, buffers, drift |
 | `crash.log`, `crash.dmp` | Crash reports |
 
-The program itself is in `C:\Program Files\Faider`. Recordings go to
+The program itself is in `C:\Program Files\Faider` (installed for you only:
+`%LOCALAPPDATA%\Programs\Faider`). Recordings go to
 `Music\Faider Recordings` unless you choose another folder.
 
 ### 19.4 Colours

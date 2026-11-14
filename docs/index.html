@@ -504,15 +504,62 @@ takes a minute or two.</p>
 <li>Run the installer, <code>Faider-&lt;version&gt;-Setup.exe</code>.</li>
 <li>Windows SmartScreen may warn about an unrecognised app, because the installer isn't code-signed.
    Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
-<li>Accept the licence and allow the administrator prompt. If you want a desktop shortcut, tick it
-   on the way (it's off by default).</li>
-<li>The installer puts the app in <code>C:\Program Files\Faider</code> and adds <strong>Faider</strong>
-   to the Start menu. Everything it needs comes with it.</li>
+<li>Choose <strong>Install for all users</strong> (recommended; allow the administrator prompt) or <strong>Install for
+   me only</strong> (no administrator needed), then accept the licence. If you want a desktop shortcut,
+   tick it on the way (it's off by default). An update installs the same way as the copy already
+   there, without asking.</li>
+<li>The installer puts the app in <code>C:\Program Files\Faider</code> (for you only:
+   <code>%LOCALAPPDATA%\Programs\Faider</code>) and adds <strong>Faider</strong> to the Start menu. Everything it needs
+   comes with it.</li>
 <li>On the last page you can start Faider straight away. If no VB-CABLE is installed, it
    also offers to open VB-CABLE's download page.</li>
 </ol>
-<p>Your mix and settings live in <code>%APPDATA%\Faider</code>, separate from the program. Uninstalling
-leaves them in place.</p>
+<p>Your mix and settings live in <code>%APPDATA%\Faider</code>, separate from the program. Uninstalling asks
+whether to remove them too, and leaves them in place unless you say yes.</p>
+<p><strong>Installing without the wizard.</strong> For scripts and deployment tools, the installer takes Inno
+Setup's switches:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Switch</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/SILENT</code></td>
+<td>No wizard, only the progress window</td>
+</tr>
+<tr>
+<td><code>/VERYSILENT</code></td>
+<td>Nothing is shown</td>
+</tr>
+<tr>
+<td><code>/SUPPRESSMSGBOXES</code></td>
+<td>With either of those: message boxes get their default answer</td>
+</tr>
+<tr>
+<td><code>/NORESTART</code></td>
+<td>Windows is never restarted after the install</td>
+</tr>
+<tr>
+<td><code>/TASKS="desktopicon"</code></td>
+<td>Makes the desktop shortcut</td>
+</tr>
+<tr>
+<td><code>/ALLUSERS</code>, <code>/CURRENTUSER</code></td>
+<td>For all users (the default: Windows asks for an administrator unless it's run as one) or for the user running it</td>
+</tr>
+<tr>
+<td><code>/LOG="file"</code></td>
+<td>Writes the log to that file. A log is always written: without this it is <code>Setup Log &lt;date&gt;.txt</code> in <code>%TEMP%</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>For example: <code>Faider-&lt;version&gt;-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER</code>.
+A silent install quits a running Faider first, and doesn't start Faider or offer VB-CABLE's page
+afterwards. The uninstaller (<code>unins000.exe</code> in the program's folder) takes <code>/SILENT</code> and
+<code>/VERYSILENT</code> too. Uninstalled silently, your mix and settings are never removed.</p>
 <h3 id="step-2-install-vb-cable-optional">Step 2: Install VB-CABLE (optional)</h3>
 <p>VB-CABLE gives you a virtual microphone that other apps can pick. Skip this step if you only want
 to mix for your own headphones.</p>
@@ -563,7 +610,7 @@ goes back.</p>
 <li><span class="key">APPS HEAR YOU</span>: pick the virtual cable apps use as their mic (<strong>CABLE Input</strong>, after step 2),
    or <span class="key">NOT NOW</span>. While Windows still plays or records on the cable, <span class="key">SET MY DEFAULTS</span> at the
    bottom puts your real speakers and microphone back (step 2).</li>
-<li><span class="key">PROGRAMS</span>: pick the programs playing sound now that you want on the desk.</li>
+<li><span class="key">PROGRAMS</span>: pick the programs you want on the desk: those playing sound now, and those running that are "Not playing yet" (captured when they play).</li>
 <li>Click <span class="key">BUILD THE MIX</span>. <span class="key">DONE</span> lists what was made.</li>
 <li>Click <span class="key">OPEN THE MIXER</span> to see it.</li>
 </ol>
@@ -640,11 +687,11 @@ fader and meter.</p>
 <li>Speak and watch your microphone's meter move.</li>
 <li>To hear yourself, click the mic's <span class="key">HEADPHONES</span> key.</li>
 <li>In Discord, your game, OBS or any other app, choose <strong>CABLE Output</strong> as the microphone.</li>
-<li>Check what they get: <span class="key">FIND</span> (Ctrl+K) &gt; <span class="key">HEAR WHAT THEY HEAR</span> records 5 seconds of what apps
+<li>Check what they get: <span class="key">HEAR WHAT THEY HEAR</span> (on PRE-FLIGHT's <span class="key">MIC OUTPUT</span> row, or in <span class="key">FIND</span>, Ctrl+K) records 5 seconds of what apps
    receive and plays it back to you.</li>
 </ol>
 <p>If you hear a program twice, see <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> and <span class="key">+ APP</span> add channels. <span class="key">+ OUTPUT</span> adds an output on a device that has none.
+<p><span class="key">+ CHANNEL</span> and <span class="key">+ APP</span> add channels (<span class="key">+ APP</span> also lists running programs that are <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> adds an output on a device that has none.
 The device key under an output's name changes where it plays. Right-click a name for <span class="key">RENAME...</span>,
 the colour, <span class="key">HEADPHONE EQ</span> (an output), <span class="key">IN THE MINI MIXER</span> and <span class="key">REMOVE</span>. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.</p>
@@ -690,12 +737,12 @@ these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span clas
 <tr>
 <td><span class="key">DESK</span></td>
 <td><span class="key">ADD CHANNEL</span></td>
-<td>Opens the input menu: interface inputs, Windows devices, apps, program windows, a browser (whole, or one tab isolated), the test tone. Pads and tape get their channel from their own pages (<span class="key">TOOLS</span>)</td>
+<td>Opens the input menu: interface inputs, Windows devices, apps playing, programs not playing yet, a browser (whole, or one tab isolated), the test tone. Pads and tape get their channel from their own pages (<span class="key">TOOLS</span>)</td>
 </tr>
 <tr>
 <td></td>
 <td><span class="key">ADD APP</span></td>
-<td>Lists the programs playing sound now. Pick one to give it a channel</td>
+<td>Lists the programs playing sound now, then, under <span class="key">NOT PLAYING YET</span>, those running with a window that are silent. Pick one to give it a channel; one that isn't playing is captured from the moment it does</td>
 </tr>
 <tr>
 <td></td>
@@ -1375,9 +1422,9 @@ plugins, rename it or remove it.</p>
 <p>Right-click an output for <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (headphone correction: <span class="key">NONE</span>, or your
 model, listed by brand), <span class="key">ALERT IF SILENT</span> (under -60 dBFS for <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> or <span class="key">5 MIN</span>, or <span class="key">OFF</span>) and <span class="key">ALERT IF CLIPPING</span>
 (while LIMIT is off), which flash the tray icon and write to the event log, <span class="key">IN THE MINI MIXER</span>,
-spacers, <span class="key">RENAME...</span> and <span class="key">REMOVE</span>.</p>
+<span class="key">MIX-MINUS AND STEMS...</span>, spacers, <span class="key">RENAME...</span> and <span class="key">REMOVE</span>.</p>
 <p>Outputs are made for you, one per device (see <a href="#outputs-are-devices">Outputs are devices</a>).</p>
-<p><strong>FIND &gt; MIX-MINUS AND STEMS</strong> builds a feed per guest (everything but their own voice) and voice,
+<p><span class="key">MIX-MINUS AND STEMS...</span> (on an output's right-click menu, or in FIND) builds a feed per guest (everything but their own voice) and voice,
 music and game stems.</p>
 
 </section>
@@ -1742,7 +1789,7 @@ Pick one to jump back to it.</p>
 <tbody>
 <tr>
 <td><span class="key">SESSION TIMELINE</span></td>
-<td>FIND, or <strong>Session timeline...</strong> on the tray menu: every kept version by date. <span class="key">RESTORE EVERYTHING</span> (Faider restarts with it), or <span class="key">PUT ONE CHANNEL BACK</span> (its level, pan, CUT and rack) without restarting</td>
+<td>SETTINGS &gt; GENERAL &gt; SESSIONS, FIND, or <strong>Session timeline...</strong> on the tray menu: every kept version by date. <span class="key">RESTORE EVERYTHING</span> (Faider restarts with it), or <span class="key">PUT ONE CHANNEL BACK</span> (its level, pan, CUT and rack) without restarting</td>
 </tr>
 <tr>
 <td><span class="key">SAVE SESSION AS...</span></td>
@@ -1790,11 +1837,11 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 <tr>
 <td><span class="key">SESSIONS</span></td>
-<td><span class="key">SAVE SESSION AS...</span>; <span class="key">OPEN, EXPORT OR IMPORT...</span></td>
+<td><span class="key">SAVE SESSION AS...</span>; <span class="key">OPEN, EXPORT OR IMPORT...</span>; <span class="key">SESSION TIMELINE...</span> (see <a href="#143-sessions">14.3</a>)</td>
 </tr>
 <tr>
 <td><span class="key">ON START</span></td>
-<td><span class="key">PRE-FLIGHT: CHECK THE SETUP</span>; <span class="key">PRE-FLIGHT NOW...</span>; <span class="key">TIPS</span>; <span class="key">SHOW THE TIPS AGAIN</span></td>
+<td><span class="key">PRE-FLIGHT: CHECK THE SETUP</span>; <span class="key">PRE-FLIGHT NOW...</span>; <span class="key">ZERO DESK...</span> (see <a href="#181-pre-flight">18.1</a>); <span class="key">TIPS</span>; <span class="key">SHOW THE TIPS AGAIN</span></td>
 </tr>
 <tr>
 <td><span class="key">NOTICES (IN THE CORNER)</span></td>
@@ -1806,7 +1853,7 @@ mix starts. See <a href="#182-my-mix-is-gone-a-fresh-mix-started">18.2</a>.</p>
 </tr>
 <tr>
 <td><span class="key">METER STANDARD</span></td>
-<td>How meters read (sample peak with a fast fall by default; IEC and others)</td>
+<td>How meters read: <span class="key">PEAK</span> (the default: sample peak in dBFS with a fast fall), <span class="key">PEAK IEC</span>, <span class="key">TRUE PEAK</span> (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, NORDIC), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> and <span class="key">LUFS M</span> (momentary loudness, EBU R128)</td>
 </tr>
 <tr>
 <td><span class="key">CHANNEL METER POINT</span></td>
@@ -1893,8 +1940,8 @@ that file.</p>
 </ol>
 <h3 id="hotkeys">HOTKEYS</h3>
 <p>Every assignable hotkey is in one place: <span class="key">PADS</span>, <span class="key">MACROS</span>, <span class="key">SCENES</span>, and <span class="key">SAVE INSTANT REPLAY</span>
-under <span class="key">TAPE</span>. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
-Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are listed too
+under <span class="key">TAPE</span>. Each card says what its keys do and where else they can be set. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
+Ctrl, Alt or an F key, and they work while a game has focus. A key given to two things, or one Windows refused (another app may have it), is marked in red under its row: only one of them works. The fixed keys are listed too
 (<a href="#191-keyboard-shortcuts">19.1</a>). The page's ON THE MIXER keys work on the console too
 (<a href="#5-the-console">5</a>).</p>
 <h3 id="control">CONTROL</h3>
@@ -1933,7 +1980,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. The fixed keys are 
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
-<td>Programs on this PC can send to port 9000, or the port set with <span class="key">PORT...</span> in SETTINGS &gt; CONTROL (it never listens to the network): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 releases it). Write spaces in names as <code>_</code></td>
+<td>Programs on this PC can send to port 9000, or the port set with <span class="key">PORT...</span> in SETTINGS &gt; CONTROL (it never listens to the network): <code>/faider/input/NAME/fader -12</code> (dB), <code>/faider/output/NAME/mute 1</code>, <code>/faider/bus/NAME/pan -0.5</code>, <code>/faider/input/NAME/solo 1</code>, <code>/faider/scene NAME</code>, <code>/faider/macro/NAME 1</code> (0 releases it). Write spaces in names as <code>_</code>. Every address: <a href="https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md">OSC reference</a></td>
 </tr>
 <tr>
 <td><strong>In-game overlay</strong> (Ctrl+Shift+O)</td>
@@ -1976,8 +2023,8 @@ themselves.</p>
 </ol>
 <h3 id="173-bring-a-program-into-the-mix">17.3 Bring a program into the mix</h3>
 <ol>
-<li>Start the program and make it play sound.</li>
-<li><span class="key">ADD APP</span> &gt; pick it. It gets a raw channel (no effects).</li>
+<li>Start the program.</li>
+<li><span class="key">ADD APP</span> &gt; pick it (under <span class="key">NOT PLAYING YET</span> if it's silent now). It gets a raw channel (no effects).</li>
 <li>Route it where you want it heard. If you hear it twice, see
    <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</li>
 </ol>
@@ -2025,6 +2072,29 @@ kind, and their routes go with them. SIMPLE shows the outputs in the same order.
 
 </section>
 <section class="chapter" id="18-troubleshooting"><header class="chapter-head"><span class="chapter-num">18</span><h2>Troubleshooting</h2></header>
+<p>When the overlay, a MIDI controller or OSC doesn't respond:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The overlay doesn't show</strong></td>
+<td>Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS &gt; HOTKEYS marks it in red and the event log says so: <span class="key">SHOW OVERLAY</span> in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads <span class="key">NO MIC CHANNELS</span> when there are none</td>
+</tr>
+<tr>
+<td><strong>A MIDI controller does nothing</strong></td>
+<td>Each MIDI input is off until you switch it on in SETTINGS &gt; CONTROL &gt; <span class="key">INPUTS AND BINDINGS</span>. A controller plugged in after Faider started isn't opened by itself: press <span class="key">REFRESH</span> there and switch its input off and on, or restart Faider. Move a control and <span class="key">LAST</span> at the bottom of that list shows what arrived. A control does nothing until it's bound in <span class="key">MIDI MAP</span> (Ctrl+L). Only control changes and notes are read: faders and pans follow a knob or fader, not a key, and keys switch CUT, SOLO and the like</td>
+</tr>
+<tr>
+<td><strong>OSC does nothing</strong></td>
+<td>OSC is off until <span class="key">OSC ON</span> is lit (SETTINGS &gt; CONTROL). The sender has to use the port shown on that key (9000 unless you changed it) and run on this PC: Faider listens on <code>127.0.0.1</code> only, so a phone or another PC can't reach it. If the port couldn't be opened (another program may have it), Faider says so and OSC stays off: pick another with <span class="key">PORT...</span>. Then check the address: the strip's name, with <code>_</code> for spaces (see the <a href="https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md">OSC reference</a>)</td>
+</tr>
+</tbody>
+</table></div>
 <details class="trouble" id="181-pre-flight"><summary>18.1 PRE-FLIGHT</summary><div class="trouble-body">
 <p>PRE-FLIGHT runs a few seconds after start (and from <span class="key">PRE-FLIGHT NOW...</span> or FIND) and only shows
 up if something is wrong. Each row has a light, the finding and a fix:</p>
@@ -2050,7 +2120,7 @@ up if something is wrong. Each row has a light, the finding and a fix:</p>
 <tr>
 <td><span class="key">MIC OUTPUT</span></td>
 <td>No output plays into the mic cable</td>
-<td><span class="key">ROUTING</span></td>
+<td><span class="key">ROUTING</span> (while it's fine, its key is <span class="key">HEAR WHAT THEY HEAR</span>)</td>
 </tr>
 <tr>
 <td><span class="key">MIC CHANNELS</span></td>
@@ -2074,7 +2144,7 @@ up if something is wrong. Each row has a light, the finding and a fix:</p>
 </tr>
 </tbody>
 </table></div>
-<p><span class="key">ZERO THE DESK</span> (bottom left; also <span class="key">ZERO DESK</span> in FIND) checks what a last session can leave
+<p><span class="key">ZERO THE DESK</span> (bottom left; also <span class="key">ZERO DESK...</span> in SETTINGS &gt; GENERAL &gt; ON START, and <span class="key">ZERO DESK</span> in FIND) checks what a last session can leave
 set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each has a <span class="key">FIX</span>.</p>
 </div></details><details class="trouble" id="182-my-mix-is-gone-a-fresh-mix-started"><summary>18.2 My mix is gone, a fresh mix started</summary><div class="trouble-body">
 <p>Your mix isn't lost. When it can't be used at start, it's <strong>set aside</strong> as
@@ -2089,7 +2159,7 @@ set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each ha
 <tbody>
 <tr>
 <td>The saved interface isn't connected</td>
-<td>Connect it, then <span class="key">SESSION TIMELINE</span> (FIND or the tray) &gt; the "kept:" version &gt; <span class="key">RESTORE EVERYTHING</span></td>
+<td>Connect it, then <span class="key">SESSION TIMELINE</span> (SETTINGS &gt; GENERAL, FIND or the tray) &gt; the "kept:" version &gt; <span class="key">RESTORE EVERYTHING</span></td>
 </tr>
 <tr>
 <td>The saved interface couldn't be opened (another program has it)</td>
@@ -2145,7 +2215,7 @@ set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each ha
 </ol>
 </div></details><details class="trouble" id="186-an-app-doesnt-appear-in-add-app"><summary>18.6 An app doesn't appear in ADD APP</summary><div class="trouble-body">
 <ul>
-<li>The program must be <strong>playing sound</strong> right now. Start playback, then open the menu again.</li>
+<li>The program must be <strong>playing sound</strong>, or running with a window of its own (then it's under <span class="key">NOT PLAYING YET</span>). One that runs without a window, or a Microsoft Store app whose window Windows hosts for it, isn't listed until it plays: start playback, then open the menu again.</li>
 <li>Programs that already have a channel are greyed out (<span class="key">ON THE DESK</span>).</li>
 <li>Windows older than 10 version 2004 can't capture a single program ("Windows refused app capture").</li>
 </ul>
@@ -2252,11 +2322,15 @@ output again, and your real microphone as the default input, each for calls too.
 <tbody>
 <tr>
 <td><code>--minimised</code></td>
-<td>Start in the tray</td>
+<td>Start in the tray (what <span class="key">START WITH WINDOWS</span> uses)</td>
 </tr>
 <tr>
 <td><code>--quit</code></td>
-<td>Quit the running copy</td>
+<td>Quit the running copy, as the tray's <strong>Quit</strong> does. With none running, nothing happens</td>
+</tr>
+<tr>
+<td><code>--allow-admin</code></td>
+<td>Started as administrator, stay that way. Without it Faider starts itself again with ordinary rights (see <a href="#16-remote-control-overlay-and-tray">16</a>)</td>
 </tr>
 <tr>
 <td><code>--clock windows</code>, <code>--clock builtin</code>, <code>--clock &lt;driver&gt;</code></td>
@@ -2265,6 +2339,14 @@ output again, and your real microphone as the default input, each for calls too.
 <tr>
 <td><code>--boost-audiodg [--pin-core N]</code>, <code>--unboost-audiodg</code></td>
 <td>What <span class="key">BOOST WINDOWS AUDIO</span> and <span class="key">BACK TO NORMAL</span> start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused</td>
+</tr>
+<tr>
+<td><code>--scan &lt;plugin&gt; --out &lt;file&gt;</code></td>
+<td>Internal: the test Faider runs in a separate copy before a plugin loads (see <a href="#9-plugins">9</a>). No window, no audio</td>
+</tr>
+<tr>
+<td><code>--after &lt;process id&gt;</code></td>
+<td>Internal: added when Faider starts itself again (<span class="key">RESTORE EVERYTHING</span>, <span class="key">RESTART NOW</span>, giving up administrator rights). The new copy waits, up to a minute, for that process to end</td>
 </tr>
 </tbody>
 </table></div>
@@ -2324,7 +2406,8 @@ output again, and your real microphone as the default input, each for calls too.
 </tr>
 </tbody>
 </table></div>
-<p>The program itself is in <code>C:\Program Files\Faider</code>. Recordings go to
+<p>The program itself is in <code>C:\Program Files\Faider</code> (installed for you only:
+<code>%LOCALAPPDATA%\Programs\Faider</code>). Recordings go to
 <code>Music\Faider Recordings</code> unless you choose another folder.</p>
 <h3 id="194-colours">19.4 Colours</h3>
 <div class="table-wrap"><table>

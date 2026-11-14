@@ -66,8 +66,9 @@ installs to `C:\Faider` and starts it. The first time, it also makes a desktop s
 
 The strips are data: `console/layout/*.json`, with positions given in the pixels of a strip 214
 wide. The build copies the files beside the program, and saving one redraws
-the console. Press Ctrl+Shift+O to draw a frame round every part and check the layout. Ctrl+Shift+R
-reads the files again.
+the console. In a Debug build, Ctrl+Shift+O draws a frame round every part to check the layout, and
+Ctrl+Shift+R reads the files again. A release build has neither key: there Ctrl+Shift+O shows and
+hides the in-game overlay.
 
 `{ "width": 214, "sections": [ { "name", "height", "panel"?, "items": [ ... ] } ] }`
 

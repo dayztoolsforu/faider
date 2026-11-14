@@ -31,7 +31,11 @@ DefaultDirName={autopf}\{#AppName}
 UsePreviousAppDir=no
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
+; For all users (an administrator, Program Files) unless "for me only" is chosen in the first dialog
+; or with /CURRENTUSER: then no administrator is asked and it goes in %LOCALAPPDATA%\Programs.
+; An update installs the way the copy it finds was installed, without asking.
 PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0
@@ -69,7 +73,8 @@ Source: "{#CRT}\vcruntime140_1.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [InstallDelete]
 ; The program under its earlier name: its folder and shortcuts (settings and the mix are moved by
-; the program itself, from %APPDATA%, the first time it starts).
+; the program itself, from %APPDATA%, the first time it starts). It was only ever installed for all
+; users: installing for one user, these name that user's own folders and nothing is there to remove.
 Type: filesandordirs; Name: "{autopf}\{#EarlierName}"
 Type: files; Name: "{autoprograms}\{#EarlierName}.lnk"
 Type: files; Name: "{autodesktop}\{#EarlierName}.lnk"
@@ -126,23 +131,26 @@ begin
   Result := '';
 end;
 
-// The uninstaller runs elevated and ExecAsOriginalUser isn't supported at uninstall time (it fails,
-// the copy in the tray keeps its files open and the uninstall stalls), so plain Exec is used here.
-// "--quit" skips Faider's un-elevate restart, and an elevated sender can message the unelevated copy.
+// An all-users uninstall runs elevated and ExecAsOriginalUser isn't supported at uninstall time (it
+// fails, the copy in the tray keeps its files open and the uninstall stalls), so plain Exec is used
+// here. "--quit" skips Faider's un-elevate restart, and an elevated sender can message the
+// unelevated copy. A per-user uninstall runs as that user, and the same two steps work as they are.
 // A copy of THIS install still running after that (hung closing a device or a plugin) is ended, so
 // its files can go; a Faider run from anywhere else (another user's, a build folder) is left alone.
 function InitializeUninstall: Boolean;
 var
   Code: Integer;
-  Exe: String;
+  Exe, Quoted: String;
 begin
   Exe := ExpandConstant ('{app}\{#AppExe}');
   if FileExists (Exe) then
   begin
     Exec (Exe, '--quit', '', SW_HIDE, ewWaitUntilTerminated, Code);
     Sleep (3000);   // (time to close its devices)
+    Quoted := Exe;
+    StringChangeEx (Quoted, '''', '''''', True);   // (a ' in the path, as a user folder's name can have)
     Exec (ExpandConstant ('{sys}\WindowsPowerShell\v1.0\powershell.exe'),
-          '-NoProfile -NonInteractive -Command "Get-Process -Name Faider -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq ''' + Exe + ''' } | Stop-Process -Force"',
+          '-NoProfile -NonInteractive -Command "Get-Process -Name Faider -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq ''' + Quoted + ''' } | Stop-Process -Force"',
           '', SW_HIDE, ewWaitUntilTerminated, Code);
   end;
   Result := True;
@@ -150,11 +158,12 @@ end;
 
 // The mix and settings (%APPDATA%\Faider) are kept unless the person uninstalling says otherwise:
 // asked once the uninstall is confirmed, default No; a silent uninstall never removes them.
-// {userappdata} is the AppData of the user the uninstaller runs as, and it runs elevated: when an
-// administrator's password was typed for a standard user, that's the administrator's AppData, not
-// the desktop user's (Inno has no constant for the original user's, and ExecAsOriginalUser doesn't
-// work at uninstall time). So the question names that user and the full path, and is only asked
-// when that folder exists.
+// {userappdata} is the AppData of the user the uninstaller runs as. An all-users uninstall runs
+// elevated: when an administrator's password was typed for a standard user, that's the
+// administrator's AppData, not the desktop user's (Inno has no constant for the original user's,
+// and ExecAsOriginalUser doesn't work at uninstall time). So the question gives the full path and,
+// there, names that user; it is only asked when that folder exists. A per-user uninstall runs as
+// the user who installed it, so the folder is theirs and no name is needed.
 var
   RemoveSettings: Boolean;
 
@@ -164,15 +173,18 @@ begin
 end;
 
 // "Start with Windows" (set from the app) is removed with the exe it points at (one elsewhere is left
-// alone).
+// alone). It is the Run key of the user the uninstaller runs as, like the settings folder above.
 procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
 var
-  Command: String;
+  Command, Question: String;
 begin
   if (CurUninstallStep = usUninstall) and not UninstallSilent and DirExists (SettingsFolder) then
-    RemoveSettings := MsgBox ('Also remove your mix and settings (' + SettingsFolder + ')? Your recordings are kept.' + #13#10#13#10
-                              + '(This is the folder of ' + GetUserNameString + ', the user this uninstall runs as.)',
-                              mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES;
+  begin
+    Question := 'Also remove your mix and settings (' + SettingsFolder + ')? Your recordings are kept.';
+    if IsAdminInstallMode then
+      Question := Question + #13#10#13#10 + '(This is the folder of ' + GetUserNameString + ', the user this uninstall runs as.)';
+    RemoveSettings := MsgBox (Question, mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES;
+  end;
 
   if (CurUninstallStep = usPostUninstall)
      and RegQueryStringValue (HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', '{#AppName}', Command)

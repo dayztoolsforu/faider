@@ -2,8 +2,11 @@
 
 #include <juce_core/juce_core.h>
 
-#ifndef FAIDER_DATA_FOLDER
- #define FAIDER_DATA_FOLDER "Faider"
+// The folder's name comes from the build (CMake: Faider's is "Faider", each check has its own), or
+// the build says it uses none (FAIDER_NO_DATA_FOLDER). There is no default: a check that forgot
+// would write in the real %APPDATA%\Faider.
+#if ! defined (FAIDER_DATA_FOLDER) && ! defined (FAIDER_NO_DATA_FOLDER)
+ #error "Define FAIDER_DATA_FOLDER (this program's folder in %APPDATA%) or FAIDER_NO_DATA_FOLDER for this target in CMake"
 #endif
 
 // The program's name as people see it, and its folder in %APPDATA% (the mix, settings, logs, presets).

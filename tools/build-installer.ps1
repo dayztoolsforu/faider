@@ -71,13 +71,33 @@ if ($fileVersion -ne $version) {
     throw "Faider.exe says version $fileVersion, but this build is ${version}: not packed"
 }
 
-# Nothing from the build machine's user folder (paths baked in at compile time) goes out in the exe
+# Nothing from the build machine (paths baked in at compile time: the user folder, the repository's
+# own) goes out in the exe: looked for as ASCII, and as UTF-16 starting at an even and at an odd byte
 $bytes = [IO.File]::ReadAllBytes((Join-Path $source 'Faider.exe'))
-foreach ($text in [Text.Encoding]::ASCII.GetString($bytes), [Text.Encoding]::Unicode.GetString($bytes)) {
-    if ($text.IndexOf($env:USERPROFILE, [StringComparison]::OrdinalIgnoreCase) -ge 0 -or
-        $text.IndexOf($env:USERPROFILE.Replace('\', '/'), [StringComparison]::OrdinalIgnoreCase) -ge 0) {
-        throw 'Faider.exe contains a path in the user folder: not packed'
+$texts = @([Text.Encoding]::ASCII.GetString($bytes), [Text.Encoding]::Unicode.GetString($bytes),
+           [Text.Encoding]::Unicode.GetString($bytes, 1, $bytes.Length - 1))
+foreach ($path in @($env:USERPROFILE, $root) | Where-Object { $_ }) {
+    foreach ($form in $path, $path.Replace('\', '/')) {
+        foreach ($text in $texts) {
+            if ($text.IndexOf($form, [StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                throw "Faider.exe contains a path on this machine ($path): not packed"
+            }
+        }
     }
+}
+
+# The layouts packed are console\layout's and no others (Faider.iss packs every file in the build
+# folder): one left there from before it was removed from the source is taken out, and the two
+# lists have to be the same.
+$layouts = @(Get-ChildItem (Join-Path $root 'console\layout') -Filter *.json | ForEach-Object { $_.Name })
+if ($layouts.Count -eq 0) { throw 'No layouts in console\layout' }
+foreach ($old in @(Get-ChildItem $source -Filter *.json | Where-Object { $layouts -notcontains $_.Name })) {
+    Write-Host "Removing $($old.Name) from the build folder: it isn't in console\layout"
+    Remove-Item $old.FullName -Force
+}
+$packed = @(Get-ChildItem $source -Filter *.json | ForEach-Object { $_.Name })
+if ($packed.Count -ne $layouts.Count -or (Compare-Object $layouts $packed)) {
+    throw "The layouts in $source aren't console\layout's ($($layouts -join ', ')): not packed"
 }
 
 # The C++ runtime DLLs of the toolset that built the exe (Build Tools' VC\Redist\MSVC\<version>\x64\

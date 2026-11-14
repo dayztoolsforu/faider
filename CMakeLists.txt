@@ -53,7 +53,8 @@ juce_add_binary_data(FaiderAssets HEADER_NAME FaiderAssets.h NAMESPACE FaiderAss
 # JUCE builds), so faider_core takes only their headers and Faider's JUCE settings: a program linking
 # it must use the same settings. The programs have different data folders, so faider_core may not use
 # one (FAIDER_NO_DATA_FOLDER: ProductName.h); the code that does (WindowDiscovery.cpp, PluginScan.cpp)
-# is built in each program. Each program also has its own VoiceChain::createEditor.
+# is built in each program. Each program also has its own VoiceChain::createEditor. A target that
+# includes ProductName.h says its folder (FAIDER_DATA_FOLDER) or that it has none: there is no default.
 set(FAIDER_JUCE_SETTINGS JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_WASAPI=1 JUCE_PLUGINHOST_VST3=1 JUCE_DIRECTSOUND=0
     JUCE_USE_MP3AUDIOFORMAT=1)
 set(_juce_modules juce_audio_utils juce_dsp juce_osc)
@@ -248,7 +249,7 @@ add_dependencies(PluginScanTest FaiderTestDelay_VST3)
 # Recorder check (see tests/RecorderTest.cpp).
 juce_add_console_app(RecorderTest PRODUCT_NAME "RecorderTest")
 target_sources(RecorderTest PRIVATE tests/RecorderTest.cpp src/engine/Recorder.cpp)
-target_compile_definitions(RecorderTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_compile_definitions(RecorderTest PRIVATE FAIDER_NO_DATA_FOLDER JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)   # (Recorder.h takes the program's name from ProductName.h, not its folder)
 target_link_libraries(RecorderTest
     PRIVATE
         juce::juce_audio_formats

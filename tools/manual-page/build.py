@@ -6,7 +6,7 @@ the English ids, so links work in every language. manual.html and CREDITS.html f
     pip install markdown
     python tools/manual-page/build.py
 
-A translation whose headings differ from the English, a missing image or a link to nowhere is printed
+A translation that is missing or whose headings differ from the English, a missing image or a link to nowhere is printed
 and makes it exit non-zero (the page is still written, so the difference can be seen).
 """
 import re, sys, html, json, pathlib
@@ -149,6 +149,7 @@ templates, names, built = [], {}, []
 for code, native, rel in LANGS:
     path = DOCS / rel
     if not path.exists():
+        problem(f"missing translation: {rel}")
         continue
     if code == "en":
         out, hero = en_out, en_hero

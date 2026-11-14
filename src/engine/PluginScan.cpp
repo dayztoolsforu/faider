@@ -1,6 +1,6 @@
 #include "PluginScan.h"
-#ifndef FAIDER_DATA_FOLDER
- #define FAIDER_DATA_FOLDER "Faider"
+#ifndef FAIDER_DATA_FOLDER   // (no default: a check that forgot would write in the real %APPDATA%\Faider)
+ #error "Define FAIDER_DATA_FOLDER (this program's folder in %APPDATA%) for this target in CMake"
 #endif
 
 namespace PluginScan

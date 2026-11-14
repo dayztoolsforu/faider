@@ -90,7 +90,7 @@ jobs:
       - name: Run the checks
         run: >-
           powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
-          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest
+          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest,UpdateCheckTest,AudioBoostTest
 
       # The installer is built here too, so a mistake in installer/Faider.iss or the script that
       # runs it shows before a release. It packs the build above, which has no ASIO: a CI check,

@@ -443,7 +443,7 @@ flowchart LR
 
 ### HEADER
 
-![Dark strip (HOST MIC)과 Light strip (GUEST MIC)의 HEADER](../images/console/strip-header.jpg)
+![HEADER: 채널 스트립의 맨 위 섹션](../images/console/strip-header.jpg)
 
 | 컨트롤 | 기능 |
 |---|---|
@@ -459,7 +459,7 @@ flowchart LR
 
 ### INPUT
 
-![INPUT: Dark strip에는 마이크 드라이브와 입력 스위치가 추가되고, Light strip에는 WIDTH가 있음](../images/console/strip-input.jpg)
+![INPUT: IN TRIM, 극성, 마이크 드라이브, 입력 스위치, WIDTH](../images/console/strip-input.jpg)
 
 | 컨트롤 | |
 |---|---|
@@ -759,7 +759,7 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 
 | | |
 |---|---|
-| **Source** | 아무 출력, 버스, 입력, 또는 **ALL CHANNELS, ONE FILE EACH**(멀티트랙: 모든 입력 또는 DIRECT가 켜진 것만, 그리고 모든 출력. 샘플 단위로 정렬) |
+| **Source** | 아무 출력, 버스, 입력, 또는 **ALL CHANNELS, ONE FILE EACH**(멀티트랙: 모든 입력과 모든 출력. 샘플 단위로 정렬) |
 | **Format** | WAV 24-bit(기본값), 16-bit, 32-bit, 32-bit float. FLAC 24/16-bit. AIFF 24/16-bit. OGG Vorbis 128–320k. ffmpeg가 있으면 MP3, AAC (M4A), Opus, ALAC. 각각 디스크에 들어가는 시간이 표시됩니다 |
 | **REC** | 시작과 정지(상단 바의 녹음 키도 같은 일을 합니다). 화면에 시간, 크기, 남은 시간, 누락된 블록이 있으면 표시됩니다 |
 | **PATH** / **REVEAL** | 폴더 선택 / 탐색기에서 열기 |
@@ -785,6 +785,8 @@ ROUTING 페이지는 믹스 전체를 지도로 보여 줍니다. 스트립마�
 - **BOOST (HIGH PRIORITY)**는 우선순위를 High로 올립니다. 일부 PC에서는 Windows 장치와 캡처된 앱의 지직거림이 멈출 수 있습니다. 관리자 권한이 필요하므로 Windows가 먼저 묻습니다. 거부하면 아무것도 바뀌지 않습니다. Windows 오디오나 PC를 다시 시작하면 유지되지 않습니다. Faider이 이를 지켜보다가 Normal로 돌아가면 트레이에서 한 번 알려 주며, 트레이 메뉴의 **Boost Windows audio again...**(또는 여기의 BOOST, FIND의 **BOOST WINDOWS AUDIO**)으로 다시 올립니다. 올라가 있는 동안 BOOST를 누르면 지켜보기를 멈추며, Windows 오디오가 다시 시작하거나 BACK TO NORMAL을 고를 때까지 High로 남습니다.
 - **PIN TO ONE CORE**(직접 고르지 않으면 꺼짐)는 다음 BOOST부터 프로세서의 마지막 코어에도 고정합니다. 실행 위치를 제한할 뿐 코어를 늘리지는 않습니다. USB 헤드셋의 지직거림에만 쓰세요.
 - **BACK TO NORMAL**(Normal이 아니거나 고정되어 있을 때)은 다시 시작을 기다리지 않고 지금 바로 모든 코어에서 Normal 우선순위로 되돌립니다. BOOST처럼 Windows가 먼저 묻고, Faider은 지켜보기를 멈춥니다.
+
+**BOOST**와 **BACK TO NORMAL**에는 모든 사용자용으로(Program Files에) 설치된 Faider이 필요합니다. 나만 사용하도록 설치한 사본이나 소스에서 빌드한 사본은 Windows에 묻지 않고 그 사실을 알립니다. 그런 폴더의 파일은 어떤 프로그램이든 바꿀 수 있고, 그러면 그 파일이 관리자 권한으로 실행되기 때문입니다.
 
 Windows 오디오를 거치지 않는 ASIO 인터페이스에는 영향을 주지 않습니다.
 
@@ -889,7 +891,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **CHANNEL METER POINT** | **IN**(원래 소스), **PRE**(이펙트 뒤), **POST**(페이더 뒤, 기본값). 사이드바의 **METER** 카드도 같은 설정을 바꿉니다 |
 | **RECORDING** | **FFMPEG**: `ffmpeg.exe`의 위치 또는 **NOT FOUND**. 눌러서 `ffmpeg.exe`를 고릅니다(PATH에 있는 것보다 먼저 쓰임). 하나를 고른 뒤에는 PATH의 것으로 돌아가는 선택지도 나옵니다 |
 | **PLUGIN TEST TIME** | **30 S**(기본값), **60 S** 또는 **120 S**: 새 플러그인이 테스트에서 로드를 끝내야 하는 시간. 넘기면 실패합니다 |
-| **UPDATES** | **CHECK FOR UPDATES**(기본값은 켜짐): 시작하고 30초 뒤, 하루에 많아야 한 번, Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: `Faider/0.1.5`)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 **Get Faider x.y.z...**, FIND의 **GET FAIDER x.y.z**, 또는 여기의 키로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다. **CHECK NOW**(또는 FIND의 **CHECK FOR UPDATES NOW**)는 바로 묻고, 최신 버전이면 그렇다고 알려 줍니다 |
+| **UPDATES** | **CHECK FOR UPDATES**(기본값은 켜짐): 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: `Faider/0.1.5`)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 **Get Faider x.y.z...**, FIND의 **GET FAIDER x.y.z**, 또는 여기의 키로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다. **CHECK NOW**(또는 FIND의 **CHECK FOR UPDATES NOW**)는 바로 묻고, 최신 버전이면 그렇다고 알려 줍니다 |
 | **ABOUT** | 버전과 크레딧 |
 
 <a id="macros"></a>
@@ -928,7 +930,7 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 
 ### HOTKEYS
 
-지정할 수 있는 모든 단축키가 한곳에 있습니다. **PADS**, **MACROS**, **SCENES**, 그리고 **TAPE** 아래의 **SAVE INSTANT REPLAY**. 각 카드에는 그 키가 하는 일과, 다른 어디에서 설정할 수 있는지가 적혀 있습니다. 하나를 누르고 새 키를 누르세요(Esc는 취소, Delete는 지우기). 단축키에는 Ctrl, Alt 또는 F 키가 포함되어야 하며, 게임에 포커스가 있어도 작동합니다. 두 곳에 지정된 키나 Windows가 거부한 키(다른 앱이 쓰고 있을 수 있습니다)는 그 행 아래에 빨간색으로 표시됩니다. 그중 하나만 작동합니다. 고정 키도 나열됩니다([19.1](#191-keyboard-shortcuts)). 페이지의 ON THE MIXER 키는 콘솔에서도 작동합니다([5](#5-the-console)).
+지정할 수 있는 모든 단축키가 한곳에 있습니다. **PADS**, **MACROS**, **SCENES**, 그리고 **TAPE** 아래의 **SAVE INSTANT REPLAY**. 각 카드에는 그 키가 하는 일과, 다른 어디에서 설정할 수 있는지가 적혀 있습니다. 하나를 누르고 새 키를 누르세요(Esc는 취소, Delete는 지우기). 단축키에는 Ctrl, Alt 또는 F 키가 포함되어야 하며, 게임에 포커스가 있어도 작동합니다. Faider의 다른 항목(PADS, MACROS, SCENES, SAVE INSTANT REPLAY 아래의 항목이나 고정 키)이 이미 쓰고 있는 키는 여기서도, 단축키를 설정하는 다른 곳에서도 거부되며, 어느 항목이 쓰고 있는지 알려 줍니다. Windows가 거부한 키(다른 앱이 쓰고 있을 수 있습니다)나 이전 버전의 믹스에서 아직 두 곳이 함께 쓰는 키는 그 행 아래에 빨간색으로 표시됩니다. 그중 하나만 작동합니다. 고정 키도 나열됩니다([19.1](#191-keyboard-shortcuts)). 페이지의 ON THE MIXER 키는 콘솔에서도 작동합니다([5](#5-the-console)).
 
 <a id="control"></a>
 
@@ -951,7 +953,7 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 | **OSC** | 이 PC의 프로그램은 포트 9000, 또는 SETTINGS > CONTROL의 **PORT...**로 설정한 포트로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다. 모든 주소: [OSC 참조](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)(영어) |
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / CUT과 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
 | **MINI** | 미니 믹서: 마우스 오른쪽 단추 메뉴에서 **IN THE MINI MIXER**에 체크한 각 스트립의 페이더, 미터, **CUT**이 있는 작은 창(체크한 것이 없으면 각 출력의 것). **PIN**을 켜면 모든 것 위에 고정됩니다. **OPEN**은 메인 창으로 돌아갑니다 |
-| **Tray** | 아이콘을 누르면 미니 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
+| **Tray** | 아이콘을 누르면 미니 믹서(두 번째 클릭이 이어지지 않으면 잠시 뒤에 열립니다), 더블클릭하면 미니 믹서 없이 창만 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
 
 Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
 

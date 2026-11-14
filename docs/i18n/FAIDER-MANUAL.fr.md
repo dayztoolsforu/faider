@@ -579,7 +579,7 @@ quand cette tranche bouge.
 
 ### HEADER
 
-![HEADER sur la Dark strip (HOST MIC) et sur la Light strip (GUEST MIC)](../images/console/strip-header.jpg)
+![HEADER : la section du haut de la tranche](../images/console/strip-header.jpg)
 
 | Commande | Ce qu'elle fait |
 |---|---|
@@ -595,7 +595,7 @@ quand cette tranche bouge.
 
 ### INPUT
 
-![INPUT : la Dark strip ajoute le drive du micro et le commutateur d'entrée, la Light strip a WIDTH](../images/console/strip-input.jpg)
+![INPUT : IN TRIM, la polarité, le drive du micro, le commutateur d'entrée et WIDTH](../images/console/strip-input.jpg)
 
 | Commande | |
 |---|---|
@@ -951,7 +951,7 @@ Le transport de la barre du haut et la tranche tape du pupitre commandent le mê
 
 | | |
 |---|---|
-| **Source** | N'importe quelle sortie, n'importe quel bus ou n'importe quelle entrée, ou **ALL CHANNELS, ONE FILE EACH** (multipiste : chaque entrée, ou seulement celles dont DIRECT est allumé, plus chaque sortie, alignées à l'échantillon) |
+| **Source** | N'importe quelle sortie, n'importe quel bus ou n'importe quelle entrée, ou **ALL CHANNELS, ONE FILE EACH** (multipiste : chaque entrée et chaque sortie, alignées à l'échantillon) |
 | **Format** | WAV 24 bits (par défaut), 16 bits, 32 bits, 32 bits flottant ; FLAC 24/16 bits ; AIFF 24/16 bits ; OGG Vorbis 128–320k. Avec ffmpeg : MP3, AAC (M4A), Opus, ALAC. Chacun indique combien de temps tient sur le disque |
 | **REC** | Démarre et arrête (la touche d'enregistrement de la barre du haut fait de même). L'écran montre le temps, la taille, le temps restant et les éventuels blocs perdus |
 | **PATH** / **REVEAL** | Choisir le dossier / l'ouvrir dans l'Explorateur |
@@ -999,6 +999,8 @@ tant qu'elle est en High), ouvre un menu :
 - **BACK TO NORMAL** (quand elle n'est pas en Normal, ou qu'elle est fixée) la remet tout de suite en
   priorité Normal sur tous les cœurs, sans attendre un redémarrage. Windows demande d'abord, comme pour
   BOOST, et Faider arrête la surveillance.
+
+**BOOST** et **BACK TO NORMAL** demandent que Faider soit installé pour tous les utilisateurs (dans Program Files). Une copie installée pour vous seul, ou compilée depuis les sources, ne demande rien à Windows et le dit : n'importe quel programme pourrait modifier les fichiers d'un tel dossier, et ils s'exécuteraient alors en tant qu'administrateur.
 
 Cela n'affecte pas les interfaces ASIO, qui ne passent pas par l'audio de Windows.
 
@@ -1121,7 +1123,7 @@ en crème quand ils sont activés.
 | **CHANNEL METER POINT** | **IN** (source brute), **PRE** (après les effets), **POST** (après le fader, par défaut). Les cartes **METER** de la barre latérale règlent la même chose |
 | **RECORDING** | **FFMPEG** : l'emplacement de `ffmpeg.exe`, ou **NOT FOUND**. Cliquez dessus pour choisir `ffmpeg.exe` (utilisé avant celui du PATH) ; une fois un fichier choisi, il propose aussi de revenir à celui du PATH |
 | **PLUGIN TEST TIME** | **30 S** (par défaut), **60 S** ou **120 S** : le temps qu'a un nouveau plugin pour se charger pendant son test avant d'échouer |
-| **UPDATES** | **CHECK FOR UPDATES** (activé par défaut) : une demi-minute après le démarrage, au plus une fois par jour, Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple `Faider/0.1.5`) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et **Get Faider x.y.z...** dans le menu de la zone de notification, **GET FAIDER x.y.z** dans FIND ou la touche ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien. **CHECK NOW** (ou **CHECK FOR UPDATES NOW** dans FIND) demande tout de suite et vous dit quand vous êtes à jour |
+| **UPDATES** | **CHECK FOR UPDATES** (activé par défaut) : au plus une fois par jour (une demi-minute après le démarrage, ou quand un jour a passé alors qu'il reste ouvert), Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple `Faider/0.1.5`) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et **Get Faider x.y.z...** dans le menu de la zone de notification, **GET FAIDER x.y.z** dans FIND ou la touche ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien. **CHECK NOW** (ou **CHECK FOR UPDATES NOW** dans FIND) demande tout de suite et vous dit quand vous êtes à jour |
 | **ABOUT** | Version et crédits |
 
 <a id="macros"></a>
@@ -1181,9 +1183,7 @@ Tous les raccourcis clavier assignables sont au même endroit : **PADS**, **MACR
 **SAVE INSTANT REPLAY** sous **TAPE**. Chaque carte dit ce que font ses touches et à quel autre
 endroit elles peuvent être réglées. Cliquez sur l'un, puis appuyez sur les nouvelles touches
 (Échap annule, Suppr efface). Les raccourcis doivent comporter Ctrl, Alt ou une touche F, et ils
-fonctionnent pendant qu'un jeu a le focus. Une touche donnée à deux choses, ou que Windows a
-refusée (une autre application l'a peut-être), est signalée en rouge sous sa ligne : une seule des
-deux fonctionne. Les touches fixes sont listées aussi
+fonctionnent pendant qu'un jeu a le focus. Une touche qu'un autre élément de Faider a déjà (sous PADS, MACROS, SCENES ou SAVE INSTANT REPLAY, ou une touche fixe) est refusée, ici et partout où l'on règle un raccourci, et la note dit qui l'a. Une touche que Windows a refusée (une autre application l'a peut-être), ou que deux choses partagent encore dans un mix d'une version antérieure, est signalée en rouge sous sa ligne : une seule des deux fonctionne. Les touches fixes sont listées aussi
 ([19.1](#191-keyboard-shortcuts)). Les touches ON THE MIXER de la page fonctionnent aussi sur la
 console ([5](#5-the-console)).
 
@@ -1208,7 +1208,7 @@ console ([5](#5-the-console)).
 | **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000, ou le port réglé avec **PORT...** dans SETTINGS > CONTROL (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_`. Toutes les adresses : [référence OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (en anglais) |
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / CUT et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
 | **MINI** | Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et **CUT** pour chaque tranche cochée **IN THE MINI MIXER** dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). **PIN** la garde au premier plan de tout. **OPEN** revient à la fenêtre principale |
-| **Zone de notification** | Cliquez sur l'icône pour le mini-mixeur, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte |
+| **Zone de notification** | Cliquez sur l'icône pour le mini-mixeur (il s'ouvre un instant plus tard, une fois qu'aucun second clic n'a suivi) ; double-cliquez pour ouvrir la fenêtre, sans le mini-mixeur. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte |
 
 Faider tourne toujours avec vos droits d'utilisateur ordinaires, même s'il est lancé depuis une
 fenêtre d'administrateur. Il se relance avec des droits ordinaires, parce que l'overlay en jeu ne

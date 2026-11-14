@@ -545,7 +545,7 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 ### HEADER
 
-![HEADER på Dark strip (HOST MIC) och Light strip (GUEST MIC)](../images/console/strip-header.jpg)
+![HEADER: den översta sektionen på kanalremsan](../images/console/strip-header.jpg)
 
 | Kontroll | Vad den gör |
 |---|---|
@@ -561,7 +561,7 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 ### INPUT
 
-![INPUT: Dark strip lägger till mikrofon-drive och ingångsomkopplaren, Light strip har WIDTH](../images/console/strip-input.jpg)
+![INPUT: IN TRIM, polaritet, mikrofon-drive, ingångsomkopplaren och WIDTH](../images/console/strip-input.jpg)
 
 | Kontroll | |
 |---|---|
@@ -901,7 +901,7 @@ Den övre radens transport och tapestripen på bordet styr samma däck.
 
 | | |
 |---|---|
-| **Source** | Valfri utgång, buss eller ingång, eller **ALL CHANNELS, ONE FILE EACH** (flerspår: varje ingång, eller bara de med DIRECT tänd, plus varje utgång, samplingsexakt synkade) |
+| **Source** | Valfri utgång, buss eller ingång, eller **ALL CHANNELS, ONE FILE EACH** (flerspår: varje ingång och varje utgång, samplingsexakt synkade) |
 | **Format** | WAV 24-bitars (standard), 16-bitars, 32-bitars, 32-bitars float; FLAC 24/16-bitars; AIFF 24/16-bitars; OGG Vorbis 128–320k. Med ffmpeg: MP3, AAC (M4A), Opus, ALAC. Varje visar hur mycket tid som ryms på disken |
 | **REC** | Startar och stoppar (inspelningstangenten i den övre raden gör samma sak). Skärmen visar tid, storlek, återstående tid och eventuella tappade block |
 | **PATH** / **REVEAL** | Välj mappen / öppna den i Utforskaren |
@@ -943,6 +943,8 @@ tangent, **BOOST WINDOWS AUDIO** (**BOOSTED** medan den är på High), öppnar e
   USB-headset.
 - **BACK TO NORMAL** (när den inte är på Normal, eller är låst) sätter genast tillbaka den på Normal-prioritet på
   alla kärnor, utan att vänta på en omstart. Windows frågar först, som för BOOST, och Faider slutar bevaka den.
+
+**BOOST** och **BACK TO NORMAL** kräver att Faider är installerat för alla användare (i Program Files). En kopia som är installerad bara för dig, eller byggd från källkoden, frågar inte Windows utan säger det i stället: vilket program som helst skulle kunna ändra filerna i en sådan mapp, och de skulle då köras som administratör.
 
 Det påverkar inte ASIO-gränssnitt, som inte går via Windows-ljudet.
 
@@ -1058,7 +1060,7 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **CHANNEL METER POINT** | **IN** (rå källa), **PRE** (efter effekterna), **POST** (efter fadern, standard). Sidofältets **METER**-kort ställer in samma sak |
 | **RECORDING** | **FFMPEG**: var `ffmpeg.exe` finns, eller **NOT FOUND**. Klicka på den för att välja `ffmpeg.exe` (används före den i din PATH); när en är vald erbjuder den också att gå tillbaka till den i PATH |
 | **PLUGIN TEST TIME** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
-| **UPDATES** | **CHECK FOR UPDATES** (på som standard): en halv minut efter start, högst en gång om dagen, skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller tangenten här öppnar dess sida. Stäng av det så frågar Faider aldrig. **CHECK NOW** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
+| **UPDATES** | **CHECK FOR UPDATES** (på som standard): högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller tangenten här öppnar dess sida. Stäng av det så frågar Faider aldrig. **CHECK NOW** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
 | **ABOUT** | Version och tack |
 
 <a id="macros"></a>
@@ -1113,7 +1115,7 @@ Ett makro är en lista med **åtgärder** som körs från ett kortkommando, en p
 
 Varje tilldelbart kortkommando finns på ett ställe: **PADS**, **MACROS**, **SCENES** och **SAVE INSTANT REPLAY**
 under **TAPE**. Varje kort säger vad dess tangenter gör och var de annars kan ställas in. Klicka på ett och tryck sedan på de nya tangenterna (Esc avbryter, Delete rensar). Kortkommandon måste innehålla
-Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En tangent som getts till två saker, eller en som Windows nekade (en annan app kan ha den), markeras i rött under sin rad: bara en av dem fungerar. De fasta tangenterna listas också
+Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En tangent som något annat i Faider redan har (under PADS, MACROS, SCENES eller SAVE INSTANT REPLAY, eller en fast tangent) nekas, här och överallt annars där ett kortkommando ställs in, och meddelandet säger vad som har den. En tangent som Windows nekade (en annan app kan ha den), eller en som två saker fortfarande delar i en mix från en tidigare version, markeras i rött under sin rad: bara en av dem fungerar. De fasta tangenterna listas också
 ([19.1](#191-keyboard-shortcuts)). Sidans tangenter under ON THE MIXER fungerar också på konsolen
 ([5](#5-the-console)).
 
@@ -1138,7 +1140,7 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En tange
 | **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in med **PORT...** i SETTINGS > CONTROL (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_`. Alla adresser: [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (på engelska) |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
 | **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
-| **Tray** | Klicka på ikonen för minimixern, dubbelklicka för att öppna fönstret. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
+| **Tray** | Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
 
 Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
 Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.

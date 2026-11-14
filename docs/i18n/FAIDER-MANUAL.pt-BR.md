@@ -563,7 +563,7 @@ move.
 
 ### HEADER
 
-![HEADER no Dark strip (HOST MIC) e no Light strip (GUEST MIC)](../images/console/strip-header.jpg)
+![HEADER: a seção de cima do canal](../images/console/strip-header.jpg)
 
 | Controle | O que faz |
 |---|---|
@@ -579,7 +579,7 @@ move.
 
 ### INPUT
 
-![INPUT: o Dark strip adiciona o drive do mic e a chave de entrada, o Light strip tem WIDTH](../images/console/strip-input.jpg)
+![INPUT: IN TRIM, a polaridade, o drive do mic, a chave de entrada e WIDTH](../images/console/strip-input.jpg)
 
 | Controle | |
 |---|---|
@@ -924,7 +924,7 @@ O transporte da barra superior e o strip da fita na mesa controlam o mesmo deck.
 
 | | |
 |---|---|
-| **Source** | Qualquer saída, bus ou entrada, ou **ALL CHANNELS, ONE FILE EACH** (multipista: cada entrada, ou só as com DIRECT aceso, mais cada saída, alinhadas por amostra) |
+| **Source** | Qualquer saída, bus ou entrada, ou **ALL CHANNELS, ONE FILE EACH** (multipista: cada entrada e cada saída, alinhadas por amostra) |
 | **Format** | WAV 24 bits (padrão), 16 bits, 32 bits, 32 bits float; FLAC 24/16 bits; AIFF 24/16 bits; OGG Vorbis 128–320k. Com ffmpeg: MP3, AAC (M4A), Opus, ALAC. Cada um mostra quanto tempo cabe no disco |
 | **REC** | Inicia e para (a tecla de gravar da barra superior faz o mesmo). A tela mostra o tempo, o tamanho, o tempo restante e quaisquer blocos perdidos |
 | **PATH** / **REVEAL** | Escolher a pasta / abri-la no Explorador |
@@ -969,6 +969,8 @@ um menu:
 - **BACK TO NORMAL** (quando não está em Normal, ou está preso a um núcleo) volta agora para a prioridade
   Normal em todos os núcleos, sem esperar um reinício. O Windows pergunta antes, como no BOOST, e o
   Faider para de vigiar.
+
+**BOOST** e **BACK TO NORMAL** precisam do Faider instalado para todos os usuários (em Program Files). Uma cópia instalada só para você, ou compilada a partir do código-fonte, não pergunta ao Windows e avisa isso: qualquer programa poderia alterar os arquivos de uma pasta assim, e eles rodariam como administrador.
 
 Não afeta interfaces ASIO, que não passam pelo áudio do Windows.
 
@@ -1087,7 +1089,7 @@ creme quando ligadas.
 | **CHANNEL METER POINT** | **IN** (fonte bruta), **PRE** (depois dos efeitos), **POST** (depois do fader, padrão). Os cartões **METER** da barra lateral definem o mesmo |
 | **RECORDING** | **FFMPEG**: onde está o `ffmpeg.exe`, ou **NOT FOUND**. Clique para escolher o `ffmpeg.exe` (usado antes do que está no seu PATH); depois de escolher um, ele também oferece voltar ao do PATH |
 | **PLUGIN TEST TIME** | **30 S** (padrão), **60 S** ou **120 S**: quanto tempo um plugin novo tem para carregar no teste antes de falhar |
-| **UPDATES** | **CHECK FOR UPDATES** (ligado por padrão): meio minuto depois de iniciar, no máximo uma vez por dia, o Faider envia uma requisição ao GitHub perguntando pela versão mais nova dele. A requisição leva só o nome e a versão do app (por exemplo `Faider/0.1.5`); nada é baixado ou instalado. Se houver uma versão mais nova, a bandeja avisa, e **Get Faider x.y.z...** no menu da bandeja, **GET FAIDER x.y.z** no FIND ou a tecla aqui abre a página dela. Desligue e o Faider nunca pergunta. **CHECK NOW** (ou **CHECK FOR UPDATES NOW** no FIND) pergunta na hora e avisa quando você está em dia |
+| **UPDATES** | **CHECK FOR UPDATES** (ligado por padrão): no máximo uma vez por dia (meio minuto depois de iniciar, ou quando passa um dia com ele aberto), o Faider envia uma requisição ao GitHub perguntando pela versão mais nova dele. A requisição leva só o nome e a versão do app (por exemplo `Faider/0.1.5`); nada é baixado ou instalado. Se houver uma versão mais nova, a bandeja avisa, e **Get Faider x.y.z...** no menu da bandeja, **GET FAIDER x.y.z** no FIND ou a tecla aqui abre a página dela. Desligue e o Faider nunca pergunta. **CHECK NOW** (ou **CHECK FOR UPDATES NOW** no FIND) pergunta na hora e avisa quando você está em dia |
 | **ABOUT** | Versão e créditos |
 
 <a id="macros"></a>
@@ -1145,7 +1147,7 @@ controle remoto.
 Todas as teclas de atalho atribuíveis ficam em um só lugar: **PADS**, **MACROS**, **SCENES**, e
 **SAVE INSTANT REPLAY** em **TAPE**. Cada cartão diz o que as teclas dele fazem e onde mais elas podem ser definidas. Clique em uma e aperte as novas teclas (Esc cancela, Delete
 apaga). As teclas de atalho devem incluir Ctrl, Alt ou uma tecla F, e funcionam enquanto um jogo
-está em foco. Uma tecla dada a duas coisas, ou uma que o Windows recusou (outro app pode estar com ela), é marcada em vermelho sob a linha dela: só uma delas funciona. As teclas fixas também estão listadas ([19.1](#191-keyboard-shortcuts)). As teclas ON
+está em foco. Uma tecla que outra coisa do Faider já tem (em PADS, MACROS, SCENES ou SAVE INSTANT REPLAY, ou uma tecla fixa) é recusada, aqui e em qualquer outro lugar onde se define um atalho, e a nota diz quem está com ela. Uma tecla que o Windows recusou (outro app pode estar com ela), ou uma que duas coisas ainda dividem em um mix de uma versão anterior, é marcada em vermelho sob a linha dela: só uma delas funciona. As teclas fixas também estão listadas ([19.1](#191-keyboard-shortcuts)). As teclas ON
 THE MIXER da página também funcionam no console ([5](#5-the-console)).
 
 <a id="control"></a>
@@ -1169,7 +1171,7 @@ THE MIXER da página também funcionam no console ([5](#5-the-console)).
 | **OSC** | Programas neste PC podem enviar para a porta 9000, ou para a porta definida com **PORT...** em SETTINGS > CONTROL (ele nunca escuta a rede): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 a solta). Escreva os espaços nos nomes como `_`. Todos os endereços: [referência de OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (em inglês) |
 | **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / CUT e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
 | **MINI** | O mini mixer: uma pequena janela com um fader, um medidor e o **CUT** de cada strip marcado **IN THE MINI MIXER** no menu do botão direito (de cada saída, enquanto nenhum estiver). **PIN** a mantém por cima de tudo. **OPEN** volta para a janela principal |
-| **Bandeja** | Clique no ícone para o mini mixer, clique duas vezes para abrir a janela. Botão direito: Show, recuperar cena, Session timeline, Get Faider x.y.z... (quando há uma versão mais nova), Start with Windows, Save a problem report..., About, Quit. O ícone pisca em âmbar durante um alerta |
+| **Bandeja** | Clique no ícone para o mini mixer (ele abre um instante depois, quando não veio um segundo clique); clique duas vezes para abrir a janela, sem o mini mixer. Botão direito: Show, recuperar cena, Session timeline, Get Faider x.y.z... (quando há uma versão mais nova), Start with Windows, Save a problem report..., About, Quit. O ícone pisca em âmbar durante um alerta |
 
 O Faider sempre roda com os seus direitos de usuário comuns, mesmo quando é iniciado de uma janela
 de administrador. Ele se reinicia com direitos comuns, porque o overlay no jogo não consegue

@@ -545,7 +545,7 @@ SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 ### HEADER
 
-![HEADER op de Dark strip (HOST MIC) en de Light strip (GUEST MIC)](../images/console/strip-header.jpg)
+![HEADER: de bovenste sectie van de kanaalstrip](../images/console/strip-header.jpg)
 
 | Bediening | Wat het doet |
 |---|---|
@@ -561,7 +561,7 @@ SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 ### INPUT
 
-![INPUT: de Dark strip voegt microfoon-drive en de ingangsschakelaar toe, de Light strip heeft WIDTH](../images/console/strip-input.jpg)
+![INPUT: IN TRIM, polariteit, microfoon-drive, de ingangsschakelaar en WIDTH](../images/console/strip-input.jpg)
 
 | Bediening | |
 |---|---|
@@ -902,7 +902,7 @@ Het transport van de bovenbalk en de tapestrip op de tafel bedienen hetzelfde de
 
 | | |
 |---|---|
-| **Source** | Elke uitgang, bus of ingang, of **ALL CHANNELS, ONE FILE EACH** (multitrack: elke ingang, of alleen die met DIRECT aan, plus elke uitgang, sample-uitgelijnd) |
+| **Source** | Elke uitgang, bus of ingang, of **ALL CHANNELS, ONE FILE EACH** (multitrack: elke ingang en elke uitgang, sample-uitgelijnd) |
 | **Format** | WAV 24-bit (standaard), 16-bit, 32-bit, 32-bit float; FLAC 24/16-bit; AIFF 24/16-bit; OGG Vorbis 128–320k. Met ffmpeg: MP3, AAC (M4A), Opus, ALAC. Elk toont hoeveel tijd er op de schijf past |
 | **REC** | Start en stopt (de opnametoets in de bovenbalk doet hetzelfde). Het scherm toont tijd, grootte, resterende tijd en eventuele gemiste blokken |
 | **PATH** / **REVEAL** | Kies de map / open hem in Verkenner |
@@ -944,6 +944,8 @@ gelezen kan worden. Zijn toets, **BOOST WINDOWS AUDIO** (**BOOSTED** zolang hij 
   USB-headset.
 - **BACK TO NORMAL** (als hij niet op Normal staat, of vastgezet is) zet hem nu terug op Normal-prioriteit op alle
   kernen, zonder op een herstart te wachten. Windows vraagt het eerst, net als bij BOOST, en Faider stopt met in de gaten houden.
+
+**BOOST** en **BACK TO NORMAL** hebben een Faider nodig die voor alle gebruikers is geïnstalleerd (in Program Files). Een kopie die alleen voor jou is geïnstalleerd, of die uit de broncode is gebouwd, vraagt Windows niets en zegt dat: elk programma zou de bestanden in zo'n map kunnen wijzigen, en die zouden dan als administrator draaien.
 
 Het heeft geen invloed op ASIO-interfaces, die niet via Windows-audio gaan.
 
@@ -1059,7 +1061,7 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **CHANNEL METER POINT** | **IN** (ruwe bron), **PRE** (na de effecten), **POST** (na de fader, standaard). De **METER**-kaarten in de zijbalk stellen hetzelfde in |
 | **RECORDING** | **FFMPEG**: waar `ffmpeg.exe` staat, of **NOT FOUND**. Klik erop om `ffmpeg.exe` te kiezen (gebruikt vóór die in je PATH); is er een gekozen, dan biedt hij ook aan terug te gaan naar die van de PATH |
 | **PLUGIN TEST TIME** | **30 S** (standaard), **60 S** of **120 S**: hoe lang een nieuwe plugin in zijn test heeft om te laden voordat hij mislukt |
-| **UPDATES** | **CHECK FOR UPDATES** (standaard aan): een halve minuut na het starten, hooguit één keer per dag, stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld `Faider/0.1.5`); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en **Get Faider x.y.z...** in het menu van het systeemvak, **GET FAIDER x.y.z** in FIND of de toets hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit. **CHECK NOW** (of **CHECK FOR UPDATES NOW** in FIND) vraagt het meteen en zegt wanneer je up-to-date bent |
+| **UPDATES** | **CHECK FOR UPDATES** (standaard aan): hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld `Faider/0.1.5`); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en **Get Faider x.y.z...** in het menu van het systeemvak, **GET FAIDER x.y.z** in FIND of de toets hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit. **CHECK NOW** (of **CHECK FOR UPDATES NOW** in FIND) vraagt het meteen en zegt wanneer je up-to-date bent |
 | **ABOUT** | Versie en dankbetuigingen |
 
 <a id="macros"></a>
@@ -1117,7 +1119,7 @@ Een macro is een lijst **acties** die wordt uitgevoerd via een sneltoets, een pa
 
 Elke toewijsbare sneltoets staat op één plek: **PADS**, **MACROS**, **SCENES** en **SAVE INSTANT REPLAY**
 onder **TAPE**. Elke kaart zegt wat zijn toetsen doen en waar ze nog meer kunnen worden ingesteld. Klik op een toets en druk dan op de nieuwe toetsen (Esc annuleert, Delete wist). Sneltoetsen moeten
-Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. Een toets die aan twee dingen is gegeven, of die Windows heeft geweigerd (misschien heeft een andere app hem), is onder zijn rij rood gemarkeerd: maar één van beide werkt. De vaste toetsen staan er ook bij
+Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. Een toets die iets anders in Faider al heeft (onder PADS, MACROS, SCENES of SAVE INSTANT REPLAY, of een vaste toets) wordt geweigerd, hier en overal waar je een sneltoets instelt, en de melding zegt wie hem heeft. Een toets die Windows heeft geweigerd (misschien heeft een andere app hem), of die twee dingen nog delen in een mix uit een eerdere versie, is onder zijn rij rood gemarkeerd: maar één van beide werkt. De vaste toetsen staan er ook bij
 ([19.1](#191-keyboard-shortcuts)). De toetsen onder ON THE MIXER op de pagina werken ook op de console
 ([5](#5-the-console)).
 
@@ -1142,7 +1144,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. Een to
 | **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen, of naar de poort die is ingesteld met **PORT...** in SETTINGS > CONTROL (hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_`. Elk adres: [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels) |
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / CUT en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | De mini-mixer: een klein venster met een fader, meter en **CUT** voor elke strip die **IN THE MINI MIXER** aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
-| **Tray** | Klik op het pictogram voor de mini-mixer, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing |
+| **Tray** | Klik op het pictogram voor de mini-mixer (hij opent een ogenblik later, als er geen tweede klik is gevolgd); dubbelklik om het venster te openen, zonder de mini-mixer. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing |
 
 Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
 Het start zichzelf opnieuw met gewone rechten, omdat de in-game overlay een programma dat als beheerder draait

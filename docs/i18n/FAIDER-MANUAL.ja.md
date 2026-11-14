@@ -443,7 +443,7 @@ flowchart LR
 
 ### HEADER
 
-![Dark strip (HOST MIC) と Light strip (GUEST MIC) の HEADER](../images/console/strip-header.jpg)
+![HEADER: チャンネルストリップのいちばん上のセクション](../images/console/strip-header.jpg)
 
 | コントロール | 働き |
 |---|---|
@@ -459,7 +459,7 @@ flowchart LR
 
 ### INPUT
 
-![INPUT: Dark strip にはマイクドライブと入力スイッチがあり、Light strip には WIDTH がある](../images/console/strip-input.jpg)
+![INPUT: IN TRIM、極性、マイクドライブ、入力スイッチ、WIDTH](../images/console/strip-input.jpg)
 
 | コントロール | |
 |---|---|
@@ -759,7 +759,7 @@ ROUTING ページは、ミックス全体を地図として表示します。各
 
 | | |
 |---|---|
-| **Source** | 任意の出力、バス、入力、または **ALL CHANNELS, ONE FILE EACH**(マルチトラック: すべての入力、または DIRECT が点灯しているものだけと、すべての出力。サンプル単位で揃います) |
+| **Source** | 任意の出力、バス、入力、または **ALL CHANNELS, ONE FILE EACH**(マルチトラック: すべての入力とすべての出力。サンプル単位で揃います) |
 | **Format** | WAV 24-bit(既定)、16-bit、32-bit、32-bit float。FLAC 24/16-bit。AIFF 24/16-bit。OGG Vorbis 128–320k。ffmpeg があれば MP3、AAC (M4A)、Opus、ALAC。それぞれ、ディスクに入る時間が表示されます |
 | **REC** | 開始と停止(上部バーの録音キーも同じです)。画面に、時間、サイズ、残り時間、落ちたブロックがあれば表示されます |
 | **PATH** / **REVEAL** | フォルダーを選ぶ / エクスプローラーで開く |
@@ -785,6 +785,8 @@ ROUTING ページは、ミックス全体を地図として表示します。各
 - **BOOST (HIGH PRIORITY)** は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの **Boost Windows audio again...**(またはここの BOOST、FIND の **BOOST WINDOWS AUDIO**)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するか BACK TO NORMAL を選ぶまで High のままです。
 - **PIN TO ONE CORE**(選ばない限りオフ)は、次の BOOST から、さらにプロセッサーの最後のコアに固定します。動く場所を制限するだけで、コアを増やすことはありません。USB ヘッドセットのノイズのときだけ使ってください。
 - **BACK TO NORMAL**(Normal でないとき、または固定されているとき)は、再起動を待たずに、今すぐすべてのコアで Normal 優先度に戻します。BOOST と同じく Windows が先に確認し、Faider は見張りをやめます。
+
+**BOOST** と **BACK TO NORMAL** には、すべてのユーザー向けに(Program Files に)インストールされた Faider が必要です。自分だけにインストールしたコピーや、ソースからビルドしたコピーでは、Windows に確認せず、その旨を表示します。そのようなフォルダーのファイルはどのプログラムでも書き換えられ、それが管理者として実行されてしまうためです。
 
 Windows オーディオを通らない ASIO インターフェースには影響しません。
 
@@ -889,7 +891,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 | **CHANNEL METER POINT** | **IN**(元の音源)、**PRE**(エフェクトの後)、**POST**(フェーダーの後、既定)。サイドバーの **METER** カードも同じ設定です |
 | **RECORDING** | **FFMPEG**: `ffmpeg.exe` の場所、または **NOT FOUND**。クリックして `ffmpeg.exe` を選びます(PATH にあるものより優先されます)。選んだ後は、PATH のものに戻す選択肢も出ます |
 | **PLUGIN TEST TIME** | **30 S**(既定)、**60 S**、**120 S**: 新しいプラグインがテストで読み込みを終えるまでの持ち時間。過ぎると失敗になります |
-| **UPDATES** | **CHECK FOR UPDATES**(既定でオン): 起動の 30 秒後、多くても 1 日に 1 回、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: `Faider/0.1.5`)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの **Get Faider x.y.z...**、FIND の **GET FAIDER x.y.z**、またはここのキーでそのページが開きます。オフにすると、Faider は一切尋ねません。**CHECK NOW**(または FIND の **CHECK FOR UPDATES NOW**)はすぐに尋ね、最新のときはそう伝えます |
+| **UPDATES** | **CHECK FOR UPDATES**(既定でオン): 多くても 1 日に 1 回(起動の 30 秒後、または起動したまま 1 日たったとき)、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: `Faider/0.1.5`)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの **Get Faider x.y.z...**、FIND の **GET FAIDER x.y.z**、またはここのキーでそのページが開きます。オフにすると、Faider は一切尋ねません。**CHECK NOW**(または FIND の **CHECK FOR UPDATES NOW**)はすぐに尋ね、最新のときはそう伝えます |
 | **ABOUT** | バージョンとクレジット |
 
 <a id="macros"></a>
@@ -928,7 +930,7 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 
 ### HOTKEYS
 
-割り当てられるホットキーはすべてここにまとまっています。**PADS**、**MACROS**、**SCENES**、そして **TAPE** の下の **SAVE INSTANT REPLAY**。各カードには、そのキーの働きと、ほかにどこで設定できるかが書かれています。1 つクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。2 つのものに割り当てられたキーや、Windows に拒否されたキー(他のアプリが使っている可能性があります)は、その行の下に赤で示されます。動作するのはどちらか一方だけです。固定キーも一覧されています([19.1](#191-keyboard-shortcuts))。ページの ON THE MIXER のキーは、コンソールでも使えます([5](#5-the-console))。
+割り当てられるホットキーはすべてここにまとまっています。**PADS**、**MACROS**、**SCENES**、そして **TAPE** の下の **SAVE INSTANT REPLAY**。各カードには、そのキーの働きと、ほかにどこで設定できるかが書かれています。1 つクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。Faider のほかのもの(PADS、MACROS、SCENES、SAVE INSTANT REPLAY のいずれか、または固定キー)がすでに使っているキーは、ここでも、ホットキーを設定できるほかの場所でも拒否され、どれが使っているかが表示されます。Windows に拒否されたキー(他のアプリが使っている可能性があります)や、以前のバージョンのミックスで 2 つのものがまだ共有しているキーは、その行の下に赤で示されます。動作するのはどちらか一方だけです。固定キーも一覧されています([19.1](#191-keyboard-shortcuts))。ページの ON THE MIXER のキーは、コンソールでも使えます([5](#5-the-console))。
 
 <a id="control"></a>
 
@@ -951,7 +953,7 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 | **OSC** | この PC 上のプログラムから、ポート 9000、または SETTINGS > CONTROL の **PORT...** で設定したポートに送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます。すべてのアドレス: [OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語） |
 | **In-game overlay** (Ctrl+Shift+O) | 各マイクチャンネルのトーキングライト、LIVE / CUT とレベル、さらに最大 4 つのシーンキー。ゲームからフォーカスを奪いません。好きな位置にドラッグできます |
 | **MINI** | ミニミキサー: 右クリックメニューで **IN THE MINI MIXER** にチェックした各ストリップのフェーダー、メーター、**CUT** がある小さなウィンドウ(チェックしたものがなければ、各出力のもの)。**PIN** で、すべての上に固定されます。**OPEN** でメインウィンドウに戻ります |
-| **Tray** | アイコンをクリックするとミニミキサー、ダブルクリックするとウィンドウが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します |
+| **Tray** | アイコンをクリックするとミニミキサー(2 回目のクリックが続かないと分かった一瞬あとに開きます)、ダブルクリックするとウィンドウだけが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します |
 
 Faider は、管理者のウィンドウから起動された場合でも、常に通常のユーザー権限で動作します。自分で通常の権限で再起動します。ゲーム内オーバーレイは、管理者として動いているプログラムに届かないためです。管理者権限が必要な少数の操作(VB-CABLE の設定の適用、Windows がオフにしたデバイスの再有効化)は、自分で許可を求めます。
 

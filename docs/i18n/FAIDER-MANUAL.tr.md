@@ -545,7 +545,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 ### HEADER
 
-![Dark strip'te (HOST MIC) ve Light strip'te (GUEST MIC) HEADER](../images/console/strip-header.jpg)
+![HEADER: kanal şeridinin en üstteki bölümü](../images/console/strip-header.jpg)
 
 | Kontrol | Ne yapar |
 |---|---|
@@ -561,7 +561,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 ### INPUT
 
-![INPUT: Dark strip mikrofon drive'ını ve giriş anahtarını ekler, Light strip'te WIDTH var](../images/console/strip-input.jpg)
+![INPUT: IN TRIM, polarite, mikrofon drive'ı, giriş anahtarı ve WIDTH](../images/console/strip-input.jpg)
 
 | Kontrol | |
 |---|---|
@@ -902,7 +902,7 @@ TAPE CHANNEL**'a tıkla.
 
 | | |
 |---|---|
-| **Source** | Herhangi bir çıkış, bus veya giriş ya da **ALL CHANNELS, ONE FILE EACH** (çok izli: her giriş ya da yalnızca DIRECT yanık olanlar, artı her çıkış, örnek hizalı) |
+| **Source** | Herhangi bir çıkış, bus veya giriş ya da **ALL CHANNELS, ONE FILE EACH** (çok izli: her giriş ve her çıkış, örnek hizalı) |
 | **Format** | WAV 24 bit (varsayılan), 16 bit, 32 bit, 32 bit float; FLAC 24/16 bit; AIFF 24/16 bit; OGG Vorbis 128–320k. ffmpeg ile: MP3, AAC (M4A), Opus, ALAC. Her biri diske ne kadar süre sığacağını gösterir |
 | **REC** | Başlatır ve durdurur (üst çubuktaki kayıt tuşu da aynısını yapar). Ekran süreyi, boyutu, kalan süreyi ve düşen blokları gösterir |
 | **PATH** / **REVEAL** | Klasörü seç / Gezgin'de aç |
@@ -946,6 +946,8 @@ uygulamayı taşıyan audiodg.exe) önceliğini gösterir: **NORMAL** Windows'un
 - **BACK TO NORMAL** (Normal'de değilken ya da bağlıyken) onu yeniden başlatmayı beklemeden hemen tüm
   çekirdeklerde Normal önceliğe geri alır. Windows, BOOST'ta olduğu gibi önce sorar ve Faider izlemeyi
   bırakır.
+
+**BOOST** ve **BACK TO NORMAL** için Faider'ın tüm kullanıcılar için (Program Files'a) kurulmuş olması gerekir. Yalnızca senin için kurulmuş ya da kaynak koddan derlenmiş bir kopya Windows'a sormaz, bunu söyler: böyle bir klasördeki dosyaları herhangi bir program değiştirebilir ve bunlar sonra yönetici olarak çalışırdı.
 
 Windows sesinden geçmeyen ASIO arabirimlerini etkilemez.
 
@@ -1061,7 +1063,7 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 | **CHANNEL METER POINT** | **IN** (ham kaynak), **PRE** (efektlerden sonra), **POST** (fader'dan sonra, varsayılan). Kenar çubuğundaki **METER** kartları aynı ayarı yapar |
 | **RECORDING** | **FFMPEG**: `ffmpeg.exe`'nin yeri ya da **NOT FOUND**. `ffmpeg.exe`'yi seçmek için tıkla (PATH'teki olandan önce kullanılır); biri seçildikten sonra PATH'tekine dönmeyi de önerir |
 | **PLUGIN TEST TIME** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
-| **UPDATES** | **CHECK FOR UPDATES** (varsayılan olarak açık): başlangıçtan yarım dakika sonra, günde en fazla bir kez, Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki tuş sayfasını açar. Kapatırsan Faider asla sormaz. **CHECK NOW** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
+| **UPDATES** | **CHECK FOR UPDATES** (varsayılan olarak açık): günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki tuş sayfasını açar. Kapatırsan Faider asla sormaz. **CHECK NOW** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
 | **ABOUT** | Sürüm ve emeği geçenler |
 
 <a id="macros"></a>
@@ -1118,9 +1120,7 @@ Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrol
 Atanabilir her kısayol tek bir yerdedir: **PADS**, **MACROS**, **SCENES** ve **TAPE** altında **SAVE
 INSTANT REPLAY**. Her kart, tuşlarının ne yaptığını ve başka nerede ayarlanabileceklerini söyler.
 Birine tıkla, sonra yeni tuşlara bas (Esc iptal eder, Delete temizler). Kısayollar
-Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. İki şeye verilmiş ya da
-Windows'un reddettiği (başka bir uygulama tutuyor olabilir) bir tuş, satırının altında kırmızıyla
-işaretlenir: bunlardan yalnızca biri çalışır. Sabit tuşlar da listelenir
+Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. Faider'da başka bir şeyin zaten kullandığı bir tuş (PADS, MACROS, SCENES ya da SAVE INSTANT REPLAY altında, ya da sabit bir tuş), burada ve kısayol ayarlanan her yerde reddedilir ve not, tuşun kimde olduğunu söyler. Windows'un reddettiği (başka bir uygulama tutuyor olabilir) ya da önceki bir sürümden kalan bir mikste hâlâ iki şeyin paylaştığı bir tuş, satırının altında kırmızıyla işaretlenir: bunlardan yalnızca biri çalışır. Sabit tuşlar da listelenir
 ([19.1](#191-keyboard-shortcuts)). Sayfadaki ON THE MIXER tuşları konsolda da çalışır
 ([5](#5-the-console)).
 
@@ -1145,7 +1145,7 @@ işaretlenir: bunlardan yalnızca biri çalışır. Sabit tuşlar da listelenir
 | **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da SETTINGS > CONTROL'deki **PORT...** ile ayarlanan porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz. Her adres: [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce) |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
-| **Tepsi** | Mini mikser için simgeye tıkla, pencereyi açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
+| **Tepsi** | Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
 
 Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
 Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla

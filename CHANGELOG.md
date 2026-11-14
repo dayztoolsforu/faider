@@ -26,9 +26,27 @@ What changed in each version of Faider, newest first. Downloads are on the
   stopped, the WAV is kept and the event log says so.
 - The DEVICES tab asks Windows about the cable and switched-off devices directly, so it works in
   any display language.
+- **BOOST** and **BACK TO NORMAL** need Faider installed for all users (Program Files). From a
+  copy installed for one user or built from source, Windows isn't asked and Faider says why: files
+  in such a folder can be changed by any program, and would run as administrator.
+- A hotkey that a pad, macro, scene, instant replay or one of Faider's fixed keys already has is
+  refused wherever it's set, and the note names what has it.
+- A click on the tray icon opens the mini mixer a moment later; a double-click opens only the window.
+- The update check also runs while Faider keeps running, a day after GitHub last answered. A check
+  that got no answer is tried again an hour later.
+- An app channel's fader sets its level, and its strip has the DUCK lamp.
+- PRE-FLIGHT's rows follow what changes while it is open.
+- Uninstalling asks Faider to quit only once the uninstall is confirmed, and waits up to 15 seconds
+  for it to close before ending it.
 
 **Fixed**
 - BOOST WINDOWS AUDIO works from Windows' prompt.
+- A mix file with a wrong source kind, numbers that aren't numbers or rack cables that loop loads
+  safely: levels stay within their controls' ranges and the rack runs in the order it's placed.
+- The clock isn't started on a device the mix excludes, and a Windows clock that goes is followed by
+  another Windows device.
+- The commands DEVICES runs as administrator name Windows' own programs by their full path.
+- BOOST only reads and changes Windows' own audiodg.exe.
 - Conversions, replay files and plugin tests still running in the background are waited for as
   Faider closes.
 - The audio lock is held for less time when the mix's structure changes.

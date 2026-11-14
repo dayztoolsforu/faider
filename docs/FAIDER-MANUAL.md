@@ -474,7 +474,7 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 
 ### HEADER
 
-![HEADER on the Dark strip (HOST MIC) and the Light strip (GUEST MIC)](images/console/strip-header.jpg)
+![HEADER: the top section of the channel strip](images/console/strip-header.jpg)
 
 | Control | What it does |
 |---|---|
@@ -488,7 +488,7 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 
 ### INPUT
 
-![INPUT: the Dark strip adds mic drive and the input switch, the Light strip has WIDTH](images/console/strip-input.jpg)
+![INPUT: IN TRIM, polarity, mic drive, the input switch and WIDTH](images/console/strip-input.jpg)
 
 | Control | |
 |---|---|
@@ -788,7 +788,7 @@ The top bar's transport and the tape strip on the desk control the same deck.
 
 | | |
 |---|---|
-| **Source** | Any output, bus or input, or **ALL CHANNELS, ONE FILE EACH** (multitrack: every input, or only those with DIRECT lit, plus every output, sample-aligned) |
+| **Source** | Any output, bus or input, or **ALL CHANNELS, ONE FILE EACH** (multitrack: every input and every output, sample-aligned) |
 | **Format** | WAV 24-bit (default), 16-bit, 32-bit, 32-bit float; FLAC 24/16-bit; AIFF 24/16-bit; OGG Vorbis 128–320k. With ffmpeg: MP3, AAC (M4A), Opus, ALAC. Each shows how much time fits on the disk |
 | **REC** | Starts and stops (the top bar's record key does the same). The screen shows time, size, time left, and any dropped blocks |
 | **PATH** / **REVEAL** | Choose the folder / open it in Explorer |
@@ -826,6 +826,10 @@ read. Its key, **BOOST WINDOWS AUDIO** (**BOOSTED** while it's High), opens a me
   headset.
 - **BACK TO NORMAL** (when it isn't at Normal, or is pinned) puts it back at Normal priority on every
   core now, without waiting for a restart. Windows asks first, as for BOOST, and Faider stops watching.
+
+**BOOST** and **BACK TO NORMAL** need Faider installed for all users (in Program Files). A copy installed
+for you only, or built from source, doesn't ask Windows and says so instead: any program could change
+the files in such a folder, and they would then run as administrator.
 
 It doesn't affect ASIO interfaces, which don't go through Windows audio.
 
@@ -925,7 +929,7 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **CHANNEL METER POINT** | **IN** (raw source), **PRE** (after effects), **POST** (after the fader, default). The sidebar's **METER** cards set the same |
 | **RECORDING** | **FFMPEG**: where `ffmpeg.exe` is, or **NOT FOUND**. Click it to pick `ffmpeg.exe` (used before the one on your PATH); once one is picked, it also offers to go back to the PATH's |
 | **PLUGIN TEST TIME** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
-| **UPDATES** | **CHECK FOR UPDATES** (on by default): half a minute after start, at most once a day, Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or the key here opens its page. Switch it off and Faider never asks. **CHECK NOW** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
+| **UPDATES** | **CHECK FOR UPDATES** (on by default): at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or the key here opens its page. Switch it off and Faider never asks. **CHECK NOW** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
 | **ABOUT** | Version and credits |
 
 ### LOOKS
@@ -978,7 +982,7 @@ A macro is a list of **actions** run from a hotkey, a pad, a trigger or remote c
 
 Every assignable hotkey is in one place: **PADS**, **MACROS**, **SCENES**, and **SAVE INSTANT REPLAY**
 under **TAPE**. Each card says what its keys do and where else they can be set. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
-Ctrl, Alt or an F key, and they work while a game has focus. A key given to two things, or one Windows refused (another app may have it), is marked in red under its row: only one of them works. The fixed keys are listed too
+Ctrl, Alt or an F key, and they work while a game has focus. A key that something else in Faider already has (under PADS, MACROS, SCENES or SAVE INSTANT REPLAY, or a fixed key) is refused, here and wherever else a hotkey is set, and the note names what has it. A key Windows refused (another app may have it), or one that two things still share in a mix from an earlier version, is marked in red under its row: only one of them works. The fixed keys are listed too
 ([19.1](#191-keyboard-shortcuts)). The page's ON THE MIXER keys work on the console too
 ([5](#5-the-console)).
 
@@ -999,7 +1003,7 @@ Ctrl, Alt or an F key, and they work while a game has focus. A key given to two 
 | **OSC** | Programs on this PC can send to port 9000, or the port set with **PORT...** in SETTINGS > CONTROL (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
-| **Tray** | Click the icon for the mini mixer, double-click to open the window. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
+| **Tray** | Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
 administrator window. It restarts itself with ordinary rights, because the in-game overlay can't

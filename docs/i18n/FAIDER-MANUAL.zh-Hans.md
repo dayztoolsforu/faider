@@ -443,7 +443,7 @@ flowchart LR
 
 ### HEADER
 
-![Dark strip (HOST MIC) 和 Light strip (GUEST MIC) 的 HEADER](../images/console/strip-header.jpg)
+![HEADER：通道条最上面的部分](../images/console/strip-header.jpg)
 
 | 控件 | 作用 |
 |---|---|
@@ -459,7 +459,7 @@ flowchart LR
 
 ### INPUT
 
-![INPUT：Dark strip 增加了麦克风驱动和输入开关，Light strip 有 WIDTH](../images/console/strip-input.jpg)
+![INPUT：IN TRIM、极性、麦克风驱动、输入开关和 WIDTH](../images/console/strip-input.jpg)
 
 | 控件 | |
 |---|---|
@@ -758,7 +758,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **Source** | 任何输出、总线或输入，或 **ALL CHANNELS, ONE FILE EACH**(多轨：每个输入，或仅 DIRECT 亮起的输入，加上每个输出，采样对齐) |
+| **Source** | 任何输出、总线或输入，或 **ALL CHANNELS, ONE FILE EACH**(多轨：每个输入和每个输出，采样对齐) |
 | **Format** | WAV 24-bit(默认)、16-bit、32-bit、32-bit float；FLAC 24/16-bit；AIFF 24/16-bit；OGG Vorbis 128–320k。有 ffmpeg 时：MP3、AAC (M4A)、Opus、ALAC。每种格式都会显示磁盘能容纳多长时间 |
 | **REC** | 开始和停止(顶部栏的录音键作用相同)。屏幕显示时间、大小、剩余时间，以及任何丢弃的数据块 |
 | **PATH** / **REVEAL** | 选择文件夹 / 在资源管理器中打开 |
@@ -784,6 +784,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 - **BOOST (HIGH PRIORITY)** 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 **Boost Windows audio again...**(或这里的 BOOST，或 FIND 中的 **BOOST WINDOWS AUDIO**)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启或你选择 BACK TO NORMAL。
 - **PIN TO ONE CORE**(除非你选择，否则关闭)从下一次 BOOST 起，还会把它固定在你的最后一个处理器核心上。它只限制运行位置，从不增加核心：仅在 USB 耳机有爆音时使用。
 - **BACK TO NORMAL**(当它不是 Normal，或已被固定时)立即把它恢复为所有核心上的 Normal 优先级，无需等待重启。和 BOOST 一样，Windows 会先询问，Faider 也会停止监视。
+
+**BOOST** 和 **BACK TO NORMAL** 需要为所有用户安装的 Faider(位于 Program Files)。仅为你自己安装的副本，或从源代码构建的副本，不会询问 Windows，而是直接说明原因：任何程序都能更改这类文件夹里的文件，而这些文件随后会以管理员身份运行。
 
 它不影响 ASIO 接口，因为它们不经过 Windows 音频。
 
@@ -888,7 +890,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **CHANNEL METER POINT** | **IN**(原始声源)、**PRE**(效果之后)、**POST**(推子之后，默认)。侧边栏的 **METER** 卡片设置的是同一项 |
 | **RECORDING** | **FFMPEG**：`ffmpeg.exe` 的位置，或 **NOT FOUND**。点击它选择 `ffmpeg.exe`(优先于 PATH 中的那个)；选好后，它还提供改回 PATH 中那个的选项 |
 | **PLUGIN TEST TIME** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
-| **UPDATES** | **CHECK FOR UPDATES**(默认开启)：启动半分钟后，每天最多一次，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的键会打开它的页面。关闭后，Faider 从不询问。**CHECK NOW**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
+| **UPDATES** | **CHECK FOR UPDATES**(默认开启)：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的键会打开它的页面。关闭后，Faider 从不询问。**CHECK NOW**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
 | **ABOUT** | 版本和致谢 |
 
 <a id="macros"></a>
@@ -927,7 +929,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 ### HOTKEYS
 
-所有可分配的快捷键都集中在一处：**PADS**、**MACROS**、**SCENES**，以及 **TAPE** 下的 **SAVE INSTANT REPLAY**。每张卡片都说明它的按键做什么，以及还能在哪里设置。点击一个，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。分配给两项功能的按键，或被 Windows 拒绝的按键(可能已被其他应用占用)，会在其所在行下方标为红色：其中只有一项有效。固定按键也列在其中([19.1](#191-keyboard-shortcuts))。页面上的 ON THE MIXER 按键在调音台上同样有效([5](#5-the-console))。
+所有可分配的快捷键都集中在一处：**PADS**、**MACROS**、**SCENES**，以及 **TAPE** 下的 **SAVE INSTANT REPLAY**。每张卡片都说明它的按键做什么，以及还能在哪里设置。点击一个，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。Faider 中其他项目(PADS、MACROS、SCENES 或 SAVE INSTANT REPLAY 下的项目，或固定按键)已经占用的按键会被拒绝，在这里以及其他设置快捷键的地方都是如此，并会提示是谁占用了它。被 Windows 拒绝的按键(可能已被其他应用占用)，或在旧版本的混音中仍由两项功能共用的按键，会在其所在行下方标为红色：其中只有一项有效。固定按键也列在其中([19.1](#191-keyboard-shortcuts))。页面上的 ON THE MIXER 按键在调音台上同样有效([5](#5-the-console))。
 
 <a id="control"></a>
 
@@ -950,7 +952,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 SETTINGS > CONTROL 中用 **PORT...** 设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
-| **Tray** | 点击图标显示迷你调音台，双击打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
+| **Tray** | 点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
 
 Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
 

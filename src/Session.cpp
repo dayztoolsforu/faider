@@ -11,6 +11,29 @@ namespace
     juce::String colourToString (juce::Colour c) { return c.isTransparent() ? juce::String() : c.toString(); }
     juce::Colour stringToColour (const juce::String& s) { return s.isEmpty() ? juce::Colour() : juce::Colour::fromString (s); }
 
+    // A number that reaches the sound or sizes a buffer: kept within what its control allows. One
+    // that isn't a number at all ("nan", "inf") is the default.
+    double number (const juce::XmlElement& e, const char* attribute, double fallback, double low, double high)
+    {
+        const double v = e.getDoubleAttribute (attribute, fallback);
+        return std::isfinite (v) ? juce::jlimit (low, high, v) : fallback;
+    }
+
+    const double maxGain = 3.9810717055;                       // +12 dB: the top of every fader
+    const double trimLow = 0.0630957344, trimHigh = 15.8489319246;   // -24 and +24 dB: an insert's IN and OUT
+    float gainOf (const juce::XmlElement& e) { return (float) number (e, "gain", 1.0, 0.0, maxGain); }
+    float panOf (const juce::XmlElement& e)  { return (float) number (e, "pan", 0.0, -1.0, 1.0); }
+    float widthOf (const juce::XmlElement& e) { return (float) number (e, "width", 1.0, 0.0, 2.0); }
+    float levelOf (float db) { return std::isfinite (db) ? juce::jlimit (-60.0f, 12.0f, db) : 0.0f; }   // a send's, in dB
+
+    // What an input can take its sound from: any kind but a bus's own (Source::bus: only a bus has
+    // the buffer for it). That, or a number that isn't a kind: nothing.
+    AudioEngine::Source::Kind inputKind (int kind)
+    {
+        using Source = AudioEngine::Source;
+        return kind >= 0 && kind <= (int) Source::tape && kind != (int) Source::bus ? (Source::Kind) kind : Source::none;
+    }
+
     // Send flags as "0,2,5" (the indexes that are on).
     template <size_t N>
     juce::String flagsToString (const std::array<std::atomic<bool>, N>& flags, size_t count)
@@ -66,9 +89,9 @@ namespace
     {
         s.duckBy = e.getStringAttribute ("duckBy");
         s.keyFrom = e.getStringAttribute ("keyFrom");
-        s.duckDepth = (float) e.getDoubleAttribute ("duckDepth", -12.0);
-        s.duckThreshold = (float) e.getDoubleAttribute ("duckThreshold", -40.0);
-        s.duckRelease = (float) e.getDoubleAttribute ("duckRelease", 600.0);
+        s.duckDepth = (float) number (e, "duckDepth", -12.0, -60.0, 0.0);   // (the menu: -6 to -24 dB)
+        s.duckThreshold = (float) number (e, "duckThreshold", -40.0, -80.0, 0.0);
+        s.duckRelease = (float) number (e, "duckRelease", 600.0, 10.0, 5000.0);
     }
 
     void saveChain (const AudioEngine& engine, juce::XmlElement& parent, const std::vector<std::unique_ptr<juce::AudioPluginInstance>>& chain)
@@ -120,9 +143,9 @@ namespace
             if (auto* o = engine.insertOptions (chain.back().get()))
             {
                 o->bypassed = p->getBoolAttribute ("bypassed");
-                o->mix = (float) p->getDoubleAttribute ("mix", 1.0);
-                o->inGain = (float) p->getDoubleAttribute ("inGain", 1.0);
-                o->outGain = (float) p->getDoubleAttribute ("outGain", 1.0);
+                o->mix = (float) number (*p, "mix", 1.0, 0.0, 1.0);
+                o->inGain = (float) number (*p, "inGain", 1.0, trimLow, trimHigh);
+                o->outGain = (float) number (*p, "outGain", 1.0, trimLow, trimHigh);
                 o->locked = p->getBoolAttribute ("locked");
             }
         }
@@ -286,7 +309,7 @@ namespace
     {
         for (auto& item : juce::StringArray::fromTokens (e.getStringAttribute (attribute), ",", {}))
             if (const int i = item.upToFirstOccurrenceOf (":", false, false).getIntValue(); juce::isPositiveAndBelow (i, (int) N))
-                levels[(size_t) i] = juce::jlimit (-60.0f, 12.0f, item.fromFirstOccurrenceOf (":", false, false).getFloatValue());
+                levels[(size_t) i] = levelOf (item.fromFirstOccurrenceOf (":", false, false).getFloatValue());
     }
 
     void restorePathSends (const juce::XmlElement& e, AudioEngine::Strip& strip)
@@ -391,12 +414,12 @@ namespace
         auto* bus = engine.addMaster (b.getStringAttribute ("name"), candidates, juce::jmax (0, b.getIntAttribute ("firstChannel")), b.getBoolAttribute ("stereo", true));
         if (bus == nullptr)
             return -1;
-        bus->gain = (float) b.getDoubleAttribute ("gain", 1.0);
+        bus->gain = gainOf (b);
         bus->mute = b.getBoolAttribute ("mute");
         bus->loopback = b.getBoolAttribute ("loopback");
         bus->enabled = b.getBoolAttribute ("enabled", true);
         bus->safeOn = b.getBoolAttribute ("safe");
-        bus->width = (float) b.getDoubleAttribute ("width", 1.0);
+        bus->width = widthOf (b);
         if (juce::MemoryBlock state; bus->masterChain != nullptr && b.hasAttribute ("mixBus") && state.fromBase64Encoding (b.getStringAttribute ("mixBus")))
             bus->masterChain->setStateInformation (state.getData(), (int) state.getSize());
         bus->minusOf = b.getStringAttribute ("minusOf");
@@ -419,16 +442,16 @@ namespace
     int restoreInput (AudioEngine& engine, const juce::XmlElement& s, const Log& log)
     {
         AudioEngine::Source source;
-        source.kind = (AudioEngine::Source::Kind) juce::jlimit (0, (int) AudioEngine::Source::tape, s.getIntAttribute ("kind"));
+        source.kind = inputKind (s.getIntAttribute ("kind"));
         source.firstChannel = juce::jmax (0, s.getIntAttribute ("firstChannel"));   // (a garbled file can't index before the buffer)
         source.deviceName = s.getStringAttribute ("device");
         source.stereo = s.getBoolAttribute ("stereo", true);
         source.masterIndex = s.getIntAttribute ("busIndex", -1);
 
         auto& strip = engine.addStrip (s.getStringAttribute ("name"), source);
-        strip.gain = (float) s.getDoubleAttribute ("gain", 1.0);
-        strip.pan = (float) s.getDoubleAttribute ("pan", 0.0);
-        strip.width = (float) s.getDoubleAttribute ("width", 1.0);
+        strip.gain = gainOf (s);
+        strip.pan = panOf (s);
+        strip.width = widthOf (s);
         strip.mute = s.getBoolAttribute ("mute");
         strip.enabled = s.getBoolAttribute ("enabled", true);
         strip.insertsOn = s.getBoolAttribute ("insertsOn", true);
@@ -444,7 +467,7 @@ namespace
         if (s.hasAttribute ("altKind"))
         {
             AudioEngine::Source alt;
-            alt.kind = (AudioEngine::Source::Kind) juce::jlimit (0, (int) AudioEngine::Source::tape, s.getIntAttribute ("altKind"));
+            alt.kind = inputKind (s.getIntAttribute ("altKind"));
             alt.firstChannel = juce::jmax (0, s.getIntAttribute ("altFirstChannel"));
             alt.deviceName = s.getStringAttribute ("altDevice");
             alt.stereo = s.getBoolAttribute ("altStereo", true);
@@ -478,9 +501,9 @@ namespace
 
         const int busIndex = (int) engine.getBuses().size() - 1;
         engine.setBusStereo (busIndex, p.getBoolAttribute ("stereo", true));
-        pair->gain = (float) p.getDoubleAttribute ("gain", 1.0);
-        pair->pan = (float) p.getDoubleAttribute ("pan", 0.0);
-        pair->width = (float) p.getDoubleAttribute ("width", 1.0);
+        pair->gain = gainOf (p);
+        pair->pan = panOf (p);
+        pair->width = widthOf (p);
         pair->mute = p.getBoolAttribute ("mute");
         pair->enabled = p.getBoolAttribute ("enabled", true);
         pair->insertsOn = p.getBoolAttribute ("insertsOn", true);
@@ -504,7 +527,7 @@ namespace
             if (pathIndex < 0)
                 break;
             auto& path = *pair->paths[(size_t) pathIndex];
-            path.gain = (float) el->getDoubleAttribute ("gain", 1.0);
+            path.gain = gainOf (*el);
             path.mute = el->getBoolAttribute ("mute");
             restoreChain (engine, *el, pair->name + " / " + path.name, path.inserts,
                           [&engine, busIndex, pathIndex] (const juce::String& file) { return engine.addPathInsert (busIndex, pathIndex, file); }, log);
@@ -672,6 +695,15 @@ juce::String Session::getInterfaceName (const juce::XmlElement& xml)
     return isSession (xml) ? xml.getStringAttribute ("master") : juce::String();
 }
 
+juce::StringArray Session::getDisabledDevices (const juce::XmlElement& xml)
+{
+    juce::StringArray disabled;
+    if (isSession (xml))
+        disabled.addLines (xml.getStringAttribute ("disabledDevices"));
+    disabled.removeEmptyStrings();
+    return disabled;
+}
+
 bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const std::function<void (const juce::String&)>& log,
                        const juce::Array<EndpointInfo>& endpoints)
 {
@@ -684,9 +716,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
     for (auto& d : hidden)
         engine.setDeviceHidden (d, true);
 
-    juce::StringArray disabled;
-    disabled.addLines (xml.getStringAttribute ("disabledDevices"));
-    disabled.removeEmptyStrings();
+    const auto disabled = getDisabledDevices (xml);
     if (! disabled.isEmpty())
     {
         // The devices that are on the machine and working are switched off, and said so. The
@@ -718,7 +748,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         pad.name = p->getStringAttribute ("name");
         pad.file = p->getStringAttribute ("file");
         pad.colour = stringToColour (p->getStringAttribute ("colour"));
-        pad.gain = (float) p->getDoubleAttribute ("gain", 1.0);
+        pad.gain = gainOf (*p);
         pad.mode = (Pads::Mode) juce::jlimit (0, (int) Pads::Mode::loop, p->getIntAttribute ("mode"));
         pad.choke = p->getIntAttribute ("choke");
         pad.hotkey = p->getStringAttribute ("hotkey");
@@ -729,10 +759,10 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         juce::String error;
         if (! engine.getPads().load (index, juce::File (pad.file), engine.getSampleRate(), error))
             log ("session: pad " + pad.name + ": " + error);   // the pad keeps its file, greyed, until it's found again
-        pad.trimStart = p->getDoubleAttribute ("trimStart");   // after load, which starts them at 0
-        pad.trimEnd = p->getDoubleAttribute ("trimEnd");
-        pad.fadeIn = p->getDoubleAttribute ("fadeIn");
-        pad.fadeOut = p->getDoubleAttribute ("fadeOut");
+        pad.trimStart = number (*p, "trimStart", 0.0, 0.0, 86400.0);   // after load, which starts them at 0
+        pad.trimEnd = number (*p, "trimEnd", 0.0, 0.0, 86400.0);
+        pad.fadeIn = number (*p, "fadeIn", 0.0, 0.0, 86400.0);
+        pad.fadeOut = number (*p, "fadeOut", 0.0, 0.0, 86400.0);
         engine.getPads().applyEdits (index);
     }
 
@@ -748,7 +778,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         for (auto* s : m->getChildWithTagNameIterator ("Step"))
             macro.steps.push_back ({ (Macros::Action) juce::jlimit (0, (int) Macros::Action::pluginSet, s->getIntAttribute ("action")),
                                      s->getStringAttribute ("target"), s->getStringAttribute ("target2"),
-                                     (float) s->getDoubleAttribute ("value"), s->getIntAttribute ("ms") });
+                                     (float) number (*s, "value", 0.0, -1000.0, 1000.0), s->getIntAttribute ("ms") });
         for (auto* t : m->getChildWithTagNameIterator ("Trigger"))
             macro.triggers.push_back ({ (Macros::Trigger::When) juce::jlimit (0, (int) Macros::Trigger::When::time, t->getIntAttribute ("when")),
                                         t->getStringAttribute ("what"), t->getIntAttribute ("seconds", 10) });
@@ -786,8 +816,8 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         {
             Scenes::Setting s;
             s.target = st->getStringAttribute ("target");
-            s.gain = (float) st->getDoubleAttribute ("gain", 1.0);
-            s.pan = (float) st->getDoubleAttribute ("pan");
+            s.gain = gainOf (*st);
+            s.pan = panOf (*st);
             s.mute = st->getBoolAttribute ("mute");
             s.solo = st->getBoolAttribute ("solo");
             s.on = st->getBoolAttribute ("on", true);
@@ -812,7 +842,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         tape.clearPlaylist();
         for (auto* t : deck->getChildWithTagNameIterator ("Track"))
             tape.add (juce::File (t->getStringAttribute ("file")));
-        tape.setLevel ((float) deck->getDoubleAttribute ("level", 1.0));
+        tape.setLevel ((float) number (*deck, "level", 1.0, 0.0, maxGain));
         tape.repeat = (Tape::Repeat) juce::jlimit (0, (int) Tape::Repeat::all, deck->getIntAttribute ("repeat", (int) Tape::Repeat::all));
         tape.cue (deck->getIntAttribute ("current", -1));
         tape.setShuffle (deck->getBoolAttribute ("shuffle"));
@@ -821,7 +851,7 @@ bool Session::restore (AudioEngine& engine, const juce::XmlElement& xml, const s
         if (const auto folder = deck->getStringAttribute ("recordFolder"); juce::File::isAbsolutePath (folder))
             recorder.folder = juce::File (folder);
         recorder.chosen = deck->getStringAttribute ("recordSource");
-        recorder.replayLength = deck->getDoubleAttribute ("replay");
+        recorder.replayLength = number (*deck, "replay", 0.0, 0.0, 300.0);   // (its memory is this long: 5 minutes at most)
         recorder.format = deck->getStringAttribute ("recordFormat", "wav24");
     }
 
@@ -948,7 +978,7 @@ int Session::restoreStrip (AudioEngine& engine, const juce::XmlElement& xml, con
             if (senders[(size_t) i]->name != name)
                 continue;
             auto& sender = *senders[(size_t) i];
-            const float level = juce::jlimit (-60.0f, 12.0f, (float) from->getDoubleAttribute ("level", 0.0));
+            const float level = levelOf ((float) from->getDoubleAttribute ("level", 0.0));
             if (xml.hasTagName ("Bus"))
             {
                 sender.sendDb[(size_t) index] = level;

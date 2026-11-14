@@ -177,43 +177,6 @@ int main()
         check (std::abs (autoLevel + 21.0) < 1.0, "compressor: AUTO MAKE-UP keeps the line-up level (" + juce::String (autoLevel, 1) + " dB, expect -21)");
     }
 
-    // LINK: a quiet channel (-40 dB, under the -20 dB threshold) linked to a loud one (about -1 dB)
-    // is compressed by the louder: the pair moves together.
-    {
-        VoiceChain chain;
-        chain.prepareToPlay (rate, block);
-        chain.setAllStages (false);
-        set (chain, "compOn", 1.0f);
-        set (chain, "compThreshold", -20.0f);
-        set (chain, "compRatio", VoiceChain::compRatioInf);
-        set (chain, "compKnee", 0.0f);
-        set (chain, "makeup", 0.0f);
-        juce::AudioBuffer<float> buf (2, block), key (2, block);
-        juce::MidiBuffer midi;
-        double ph = 0.0, sum = 0.0;
-        const int blocks = (int) rate / block;
-        for (int b = 0; b < blocks; ++b)
-        {
-            for (int i = 0; i < block; ++i)
-            {
-                const float v = (float) std::sin (ph);
-                ph += juce::MathConstants<double>::twoPi * 1000.0 / rate;
-                for (int c = 0; c < 2; ++c)
-                {
-                    buf.setSample (c, i, 0.01f * v);
-                    key.setSample (c, i, 0.9f * v);
-                }
-            }
-            chain.setKey (key.getReadPointer (0), key.getReadPointer (1), block, true);
-            chain.processBlock (buf, midi);
-            if (b >= blocks / 2)
-                for (int i = 0; i < block; ++i)
-                    sum += (double) buf.getSample (0, i) * buf.getSample (0, i);
-        }
-        const double linked = 10.0 * std::log10 (sum / (blocks / 2 * block) + 1.0e-20);
-        check (linked < -55.0, "LINK: the quiet channel is held down by its loud partner (" + juce::String (linked, 1) + " dB, alone -43)");
-    }
-
     // Gate: opened by a -30 dB tone, then a -45 dB tone under its -40 dB threshold. With 10 dB of
     // hysteresis it stays open (closes only under -50 dB); without, it closes.
     {

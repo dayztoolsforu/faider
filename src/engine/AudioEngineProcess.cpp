@@ -347,6 +347,8 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
             break;
 
         case Source::bus:
+            if (s.busInput.getNumChannels() < 2)   // (only a bus has one: an input given this kind is silent)
+                break;
             buf.copyFrom (0, 0, s.busInput, 0, 0, numSamples);
             buf.copyFrom (1, 0, s.busInput, 1, 0, numSamples);
 
@@ -454,8 +456,8 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
         for (int ch = 0; ch < 2; ++ch)
             s.rawBuffer.copyFrom (ch, 0, buf, ch, 0, numSamples);
 
-    // A captured program (browser, game, player) has assign, mute, cue and DUCK UNDER only: its
-    // EQ, dynamics, inserts, pan and fader are switched out (kept, but not run).
+    // A captured program (browser, game, player) has assign, mute, its fader and DUCK UNDER: its
+    // EQ, dynamics, inserts, width and pan are switched out (kept, but not run).
     const bool program = s.source.kind == Source::app;
 
     // The channel's processing: its rack (built-in units and plugins, as patched).
@@ -534,7 +536,7 @@ void AudioEngine::processStrip (Strip& s, const float* const* inputs, int numInp
             s.preBuffer.clear (0, numSamples);
     }
 
-    const float gain = s.mute || soloedOut ? 0.0f : program ? 1.0f : s.gain.load();
+    const float gain = s.mute || soloedOut ? 0.0f : s.gain.load();   // (a program's too: its strip and the mini mixer have its fader)
     const float pan = program ? 0.0f : s.pan.load();
 
     // WIDTH (stereo): the sides narrowed (to mono at 0) or widened (to twice at 2), before the balance.

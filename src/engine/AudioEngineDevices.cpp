@@ -615,6 +615,15 @@ void AudioEngine::refreshApps()
     juce::Array<AudioApp> playingNow;   // (looked up once, and only for a program that was silent)
     bool playingKnown = false;
 
+    // Programs that weren't playing when they were looked up are looked at again every 5 s at most
+    // (the app calls this every 3 s: every other time), not on every call: each look lists every
+    // audio session and process on the message thread. One that starts playing is heard within
+    // a few seconds; a program just added isn't in the list yet, so it is looked up at once.
+    const auto now = juce::Time::getMillisecondCounter();
+    const bool quietDue = now - quietLookedAt >= 5000;
+    if (quietDue && ! quietApps.empty())
+        quietLookedAt = now;
+
     for (auto& strip : strips)
     {
         if (strip->source.kind != Source::app)
@@ -644,7 +653,17 @@ void AudioEngine::refreshApps()
         // on the copy that plays. One on the copy first found hears it only if that copy started
         // the one playing; one Windows refused while silent is tried again.
         bool lookAgain = false;
-        if (quietApps.count (key) > 0)
+        const bool quiet = quietApps.count (key) > 0;
+        if (quiet && ! quietDue)   // (not its turn: it keeps the capture it has)
+        {
+            if (auto* has = it != appCaptures.end() ? it->second.get() : nullptr; has != nullptr && strip->app != has)
+            {
+                const juce::SpinLock::ScopedLockType sl (graphLock);
+                strip->app = has;
+            }
+            continue;
+        }
+        if (quiet)
         {
             if (! std::exchange (playingKnown, true))
                 playingNow = listAudioApps();

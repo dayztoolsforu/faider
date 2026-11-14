@@ -556,7 +556,7 @@ public:
     juce::StringArray trayStrips;
 
     // An input, bus or output was renamed (kind "input", "bus" or "output"): everything that names
-    // it follows: ducks, app rules, the cue output, the tray mixer, the record source, scenes,
+    // it follows: ducks, app rules, mix-minus, the tray mixer, the record source, scenes,
     // macro steps and MIDI mappings, then onRenamed (views keeping names: the mixer's selection). A scene or
     // a macro renamed: macro steps, pads and MIDI mappings follow. Message thread.
     void renamed (const juce::String& kind, const juce::String& oldName, const juce::String& newName);
@@ -828,6 +828,7 @@ private:
     std::map<juce::String, std::unique_ptr<AppCapture>> appCaptures;  // key: lower-case exe name
     std::map<juce::String, uint32_t> failedApps;                      // exe -> process that refused capture
     std::set<juce::String> quietApps;                                 // exes looked up while not playing: looked at again once they play
+    juce::uint32 quietLookedAt = 0;                                   // when they were last looked at (refreshApps: every 5 s at most)
     juce::Array<EndpointInfo> lastEndpoints;
     juce::String interfaceAdapter;
     Clock clock = Clock::none;

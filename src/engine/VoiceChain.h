@@ -28,8 +28,7 @@ public:
 
     // SIDECHAIN: another channel's sound for the gate's and compressor's detectors (KEY on), set
     // before each block by the engine (null: none). Audio thread.
-    // `linked`: LINK, the key is a linked channel's sound, the louder of the two driving the detectors.
-    void setKey (const float* left, const float* right, int length, bool linked = false) noexcept { keyL = left; keyR = right; keyLength = length; keyLinked = linked; }   // every stage's IN key (a channel strip starts with them all out)
+    void setKey (const float* left, const float* right, int length) noexcept { keyL = left; keyR = right; keyLength = length; }   // every stage's IN key (a channel strip starts with them all out)
 
     // Noise reduction's frame, as the audio thread last ran it, reported as the chain's latency
     // here: message thread (the engine's refreshLatency), never the audio thread.
@@ -190,7 +189,6 @@ private:
     const float* keyL = nullptr;
     const float* keyR = nullptr;
     int keyLength = 0;
-    bool keyLinked = false;
     std::array<juce::IIRFilter, 2> keyHpGate, keyLpGate, keyHpComp, keyLpComp;
     float lastKeyHp = -1.0f, lastKeyLp = -1.0f;
 };

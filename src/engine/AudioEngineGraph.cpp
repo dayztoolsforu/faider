@@ -126,7 +126,7 @@ void AudioEngine::removeStrip (int index)
         removed = std::move (strips[(size_t) index]);
         strips.erase (strips.begin() + index);
         recordingLost = recorder.remapLocked (Recorder::Kind::input, removedAt (index));
-        refreshDucking();   // (ducks, mix-minus and the cue output are kept by position: in the same hold)
+        refreshDucking();   // (ducks and mix-minus are kept by position: in the same hold)
     }
     if (recordingLost)
         stopRecording();
@@ -184,7 +184,7 @@ bool AudioEngine::moveStrip (int from, int to)
             strips[(size_t) slots[i]] = std::move (moving[i]);
 
         recorder.remapLocked (Recorder::Kind::input, [&newIndex] (int i) { return juce::isPositiveAndBelow (i, (int) newIndex.size()) ? newIndex[(size_t) i] : -1; });
-        refreshDucking();   // (ducks, mix-minus and the cue output are kept by position: in the same hold)
+        refreshDucking();   // (ducks and mix-minus are kept by position: in the same hold)
     }
     return true;
 }
@@ -326,7 +326,7 @@ void AudioEngine::removeMaster (int index)
                 else if (s->source.masterIndex > index)
                     --s->source.masterIndex;
             }
-        refreshDucking();   // (mix-minus and the cue output are kept by position: in the same hold)
+        refreshDucking();   // (mix-minus is kept by position: in the same hold)
     }
     removed = nullptr;
     if (recordingLost)
@@ -593,6 +593,22 @@ void AudioEngine::removeInsertFrom (std::vector<std::unique_ptr<juce::AudioPlugi
 
     log (owner + ": removed " + removed->getName());
     refreshLatency();   // first: the racks stop running it
+
+    // (A plan that still names it, should a rack ever not compile: taken out before the plugin is
+    // freed, so the audio thread can't call it. The channel runs its own stages until the next compile.)
+    for (auto* list : { &strips, &buses })
+        for (auto& s : *list)
+            if (s->rackPlan != nullptr && std::any_of (s->rackPlan->nodes.begin(), s->rackPlan->nodes.end(),
+                                                       [&removed] (const RackPlan::Node& n) { return n.plugin == removed.get(); }))
+            {
+                std::shared_ptr<RackPlan> old;
+                {
+                    const juce::SpinLock::ScopedLockType sl (graphLock);
+                    std::swap (s->rackPlan, old);
+                }
+                s->rackCompiled.clear();
+            }
+
     removed->releaseResources();
     forgetOptions (removed.get());
 }

@@ -16,6 +16,9 @@ namespace Session
 
     juce::String getInterfaceName (const juce::XmlElement&);
 
+    // The devices a session excludes (EXCLUDE on DEVICES), for picking a clock before it's restored.
+    juce::StringArray getDisabledDevices (const juce::XmlElement&);
+
     // One strip or one plugin on its own, for undo. kind: "input", "bus" or "output". A strip
     // comes back at the end of its row, with its plugins, settings and what sent to it; a plugin
     // comes back into its slot with its state. Null / -1 / false if there's no such thing.

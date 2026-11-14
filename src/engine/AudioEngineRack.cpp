@@ -153,6 +153,19 @@ void AudioEngine::syncRack (Strip& s)
         return ! ok (c.first) || ! ok (c.second);
     }), p.cables.end());
 
+    // (a unit placed twice, as a garbled file can have it: once)
+    {
+        std::vector<RackUnit> seen;
+        for (auto* side : { &p.left, &p.right })
+            side->erase (std::remove_if (side->begin(), side->end(), [&seen] (const RackUnit& u)
+            {
+                if (std::find (seen.begin(), seen.end(), u) != seen.end())
+                    return true;
+                seen.push_back (u);
+                return false;
+            }), side->end());
+    }
+
     const auto placed = inOrder (p);
     auto isPlaced = [&placed] (const RackUnit& u) { return std::find (placed.begin(), placed.end(), u) != placed.end(); };
     // Missing built-ins (a new channel, or a rack from before they were all units). The stages
@@ -198,8 +211,20 @@ void AudioEngine::syncRack (Strip& s)
         // into them, and silently stop running).
         auto afterInput = atTop;
         afterInput.insert (afterInput.end(), others.begin(), others.end());
-        splice (afterInput, true);
-        splice (atEnd, false);
+        // (One the cables already name was only missing from the placement: it keeps its cables.
+        // Spliced in as well, it would feed itself.)
+        auto uncabled = [&p] (std::vector<int> units)
+        {
+            units.erase (std::remove_if (units.begin(), units.end(), [&p] (int b)
+            {
+                const RackUnit u { b, nullptr };
+                return std::any_of (p.cables.begin(), p.cables.end(), [&u] (const auto& c) { return c.first == u || c.second == u; });
+            }), units.end());
+            return units;
+        };
+        const auto top = uncabled (afterInput), end = uncabled (atEnd);   // (both worked out before either goes in)
+        splice (top, true);
+        splice (end, false);
     }
     // New plugins: the right rack, above the output stages at its bottom.
     for (auto& plugin : s.inserts)
@@ -219,6 +244,16 @@ void AudioEngine::syncRack (Strip& s)
         for (auto& u : *side)
             if (u.plugin != nullptr && next < s.inserts.size())
                 u.plugin = s.inserts[next++].get();
+
+    // Cables that loop (setRack refuses them, but it sees a patch before its missing units are
+    // in): the units run in the order they're placed instead, so the rack always compiles.
+    if (std::vector<RackUnit> sorted; p.manual && ! sortUnits (inOrder (p), p.cables, sorted))
+    {
+        p.manual = false;
+        p.cables.clear();
+        ++s.rackRevision;
+        logEvent ("rack: " + s.name + ": its cables looped, so its units run in the order they're placed");
+    }
 }
 
 const AudioEngine::RackPatch& AudioEngine::getRack (Strip& s)
@@ -322,7 +357,7 @@ bool AudioEngine::setRack (Strip& s, RackPatch p)
 void AudioEngine::compileRack (Strip& s)
 {
     syncRack (s);
-    const auto cables = s.rack.manual ? s.rack.cables : seriesCables (s.rack);
+    auto cables = s.rack.manual ? s.rack.cables : seriesCables (s.rack);
 
     // Only when something changed: the units, the cables, a plugin's latency or the block size.
     // (A new plan starts its delay lines empty, so compiling for nothing would drop the delayed
@@ -347,9 +382,14 @@ void AudioEngine::compileRack (Strip& s)
     if (s.rackPlan != nullptr && key == s.rackCompiled)
         return;
 
+    // (syncRack leaves no loop. Should one get here, the placement's order runs: never the plan
+    // from before, which may name a plugin that has gone.)
     std::vector<RackUnit> sorted;
     if (! sortUnits (inOrder (s.rack), cables, sorted))
-        return;   // (setRack refuses loops; keep what runs)
+    {
+        cables = seriesCables (s.rack);
+        sorted = inOrder (s.rack);
+    }
     s.rackCompiled = key;
 
     auto plan = std::make_shared<RackPlan>();

@@ -12,8 +12,11 @@
 //      saves must be the same.
 //   3. Particular values survive the round trip.
 //   4. Sessions under the earlier names (PatchbaySession, AudioHubSession) load.
-//   5. Garbage in a session doesn't crash restore.
+//   5. Garbage in a session doesn't crash restore, and every number that reaches the sound comes
+//      out a number within its control's range ("nan", "inf" and 1e40 included).
 //   Also: one strip saved and restored on its own (undo) comes back the same.
+//   7. With the built-in clock running (audio blocks, no device): an input saved with a bus's
+//      source, and hand-patched racks whose cables loop once their missing units are in.
 //
 // Prints PASS/FAIL per check (NOTE lines are information only); exits non-zero on failure.
 //
@@ -22,6 +25,7 @@
 // depend on them.
 #include "../src/Session.h"
 #include "../src/ProductName.h"
+#include "../src/engine/AudioEngineInternal.h"   // (a rack's plan, to see what the audio thread runs)
 
 // The editor isn't part of this check (it would bring the whole UI in).
 juce::AudioProcessorEditor* VoiceChain::createEditor() { return nullptr; }
@@ -514,9 +518,12 @@ int main()
         auto broken = juce::XmlDocument::parse (R"XML(<FaiderSession version="999" master="" hiddenDevices="&#10;&#10;"
               remote="&lt;not xml" pfl="maybe" monitorLevel="nan" auxOutputs="a&#10;b&#10;c&#10;d&#10;e&#10;f" activeScene="99">
               <Pad index="-4" name="x"/><Pad index="1000" name="y"/><Pad index="2" file="::bad::path::" mode="77" gain="abc"/>
-              <Macro name=""><Step action="999" ms="-5"/><Trigger when="-3"/></Macro>
-              <Scene name="S"><Trigger when="999"/><Set target="" gain="inf"><Send/><Plugin state="!!!not base64!!!"/></Set></Scene>
-              <Tape current="50" repeat="77" level="-9" recordFolder="relative\folder" replay="-1"><Track file=""/><Track/></Tape>
+              <Pad index="3" macro="m" gain="nan"/><Pad index="4" macro="m" gain="1e40"/>
+              <Macro name=""><Step action="999" ms="-5" value="inf"/><Trigger when="-3"/></Macro>
+              <Scene name="S"><Trigger when="999"/><Set target="" gain="inf" pan="nan"><Send/><Plugin state="!!!not base64!!!"/></Set>
+                <Set target="x" gain="1e40" pan="-1e40"/></Scene>
+              <Tape current="50" repeat="77" level="-9" recordFolder="relative\folder" replay="1e40"><Track file=""/><Track/></Tape>
+              <Bus name="NB" candidates="" gain="nan" width="inf"/>
               <Bus name="" candidates="&#10;&#10;x&#10;y" firstChannel="-3" stereo="perhaps" gain="1e40" width="-7" colour="zzzz"
                    headphoneEq="No Such Headphones" mixBus="@@@" silenceAlert="-1"><AlsoOn firstChannel="-9"/><AlsoOn device="&lt;master&gt;" firstChannel="1000"/></Bus>
               <Strip name="" kind="999" firstChannel="-50" gain="abc" pan="7" width="-1" sends="x,,-3,99,1" rawSends="," preSends="8"
@@ -526,7 +533,11 @@ int main()
                 <Insert name="missing" path="C:\nowhere\missing.vst3" state="xyz" mix="nan"/>
               </Strip>
               <Strip name="A" kind="1" device="" stereo="1"/><Strip name="A" kind="1"/>
-              <Pair name="P" pairSends="0,0,42,-1" pathSends="0:99" combinator="1"><Path/><Path name="x" gain="nan"/></Pair>
+              <Strip name="N" kind="2" gain="nan" pan="inf" width="-inf" duckBy="A" duckDepth="nan" duckThreshold="inf" duckRelease="-inf"
+                     sendLevels="0:nan,1:inf,2:-1e40">
+                <Insert name="chain" path="builtin:voice" state="" mix="nan" inGain="inf" outGain="-1e40"/>
+              </Strip>
+              <Pair name="P" gain="inf" pan="nan" width="1e40" pairSends="0,0,42,-1" pathSends="0:99" combinator="1"><Path/><Path name="x" gain="nan"/><Path name="y" gain="1e40"/></Pair>
               <Pair name="Q" pairSends="0" rackLeft="p0" rackCables="p0>p0"/>
               <Pair name="R" combinator="0"><Path name="not a combinator"/></Pair>
               <Unknown thing="1"/>
@@ -537,10 +548,51 @@ int main()
             AudioEngine e (logger());
             const bool ok = Session::restore (e, *broken, logger(), {});
             check (ok, "broken: restore gets through garbage attributes without crashing");
-            check (e.getStrips().size() == 3 && e.getStrips()[1]->name != e.getStrips()[2]->name,
+            check (e.getStrips().size() == 4 && e.getStrips()[1]->name != e.getStrips()[2]->name,
                    "broken: every input made, two of the same name made unique ("
                        + names (e.getStrips()).joinIntoString (", ") + ")");
             check (e.getStrips()[0]->source.firstChannel >= 0, "broken: a negative channel is not used");
+            check (e.getStrips()[0]->source.kind == AudioEngine::Source::none, "broken: a kind that isn't one (999) is no source");
+
+            // Every number that reaches the sound (or sizes a buffer) is a number, within its control's range.
+            auto within = [] (double v, double low, double high) { return std::isfinite (v) && v >= low && v <= high; };
+            bool numbers = true;
+            for (auto* list : { &e.getStrips(), &e.getBuses() })
+                for (auto& s : *list)
+                {
+                    numbers = numbers && within (s->gain.load(), 0.0, 4.0) && within (s->pan.load(), -1.0, 1.0) && within (s->width.load(), 0.0, 2.0)
+                                      && within (s->duckDepth.load(), -60.0, 0.0) && within (s->duckThreshold.load(), -80.0, 0.0)
+                                      && within (s->duckRelease.load(), 10.0, 5000.0);
+                    for (auto& db : s->sendDb)    numbers = numbers && within (db.load(), -60.0, 12.0);
+                    for (auto& db : s->busSendDb) numbers = numbers && within (db.load(), -60.0, 12.0);
+                    for (auto& path : s->paths)   numbers = numbers && within (path->gain.load(), 0.0, 4.0);
+                    for (auto& plugin : s->inserts)
+                        if (auto* o = e.insertOptions (plugin.get()))
+                            numbers = numbers && within (o->mix.load(), 0.0, 1.0) && within (o->inGain.load(), 0.06, 15.9) && within (o->outGain.load(), 0.06, 15.9);
+                }
+            for (auto& m : e.getMasters())
+                numbers = numbers && within (m->gain.load(), 0.0, 4.0) && within (m->width.load(), 0.0, 2.0);
+            for (auto& scene : e.getScenes().list)
+                for (auto& setting : scene.settings)
+                    numbers = numbers && within (setting.gain, 0.0, 4.0) && within (setting.pan, -1.0, 1.0);
+            for (auto& macro : e.getMacros().list)
+                for (auto& step : macro.steps)
+                    numbers = numbers && within (step.value, -1000.0, 1000.0);
+            for (int i = 0; i < Pads::count; ++i)
+                numbers = numbers && within (e.getPads().pad (i).gain, 0.0, 4.0);
+            numbers = numbers && within (e.getTape().getLevel(), 0.0, 4.0) && within (e.getRecorder().replayLength, 0.0, 300.0);
+            check (numbers, "broken: every level, pan, width, duck, send, insert, scene, pad, tape and replay number is a number within its range");
+
+            auto* n = findStrip (e.getStrips(), "N");
+            check (n != nullptr && n->gain.load() == 1.0f && n->pan.load() == 0.0f && n->width.load() == 1.0f && n->duckDepth.load() == -12.0f,
+                   "broken: nan and inf are the defaults (gain 0 dB, pan centre, width as it is, duck -12 dB)");
+            auto* nOptions = n != nullptr && n->inserts.size() == 1 ? e.insertOptions (n->inserts[0].get()) : nullptr;
+            check (nOptions != nullptr && nOptions->mix.load() == 1.0f && nOptions->inGain.load() == 1.0f && nOptions->outGain.load() < 0.07f,
+                   "broken: an insert's MIX nan and IN inf are the defaults, OUT -1e40 its lowest");
+            auto* nb = findMaster (e, "NB");
+            check (nb != nullptr && nb->gain.load() == 1.0f && nb->width.load() == 1.0f, "broken: an output's gain nan and width inf are the defaults");
+            check (e.getRecorder().replayLength == 300.0, "broken: a replay of 1e40 s is 5 minutes (its memory is that long at most)");
+            check (e.getTape().getLevel() == 0.0f, "broken: a tape level below nothing is off");
             auto resaved = Session::save (e, {});
             AudioEngine again (logger());
             check (resaved != nullptr && Session::restore (again, *resaved, logger(), {}), "broken: what it made saves and loads again");
@@ -585,6 +637,107 @@ int main()
         }
         check (desk == 1 && silent == 1 && hosts == 0,
                "programs to pick from: one with a window that isn't playing is offered once, one with a channel is marked, Windows' frame host is left out");
+    }
+
+    //==========================================================================
+    // 7: audio blocks running (the built-in clock: no device), through what a file can't be trusted for.
+    {
+        AudioEngine e (logger());
+        const bool running = e.startInterface (AudioEngine::builtInClock);
+        check (running, "the built-in clock starts: audio blocks run with no device");
+        auto heard = [] (const AudioEngine::Strip* s) { return s != nullptr && juce::jmax (s->peakL.load(), s->peakR.load()) > 0.05f; };   // (the tone is -18 dB)
+
+        // An input saved with a bus's source (kind 6, which only a bus has the buffer for), LINE B too.
+        auto wrongKind = juce::XmlDocument::parse (R"XML(<FaiderSession version="1" master="&lt;clock&gt;">
+              <Bus name="OUT" candidates="" stereo="1" gain="1.0"/>
+              <Strip name="TONE" kind="2" stereo="1" gain="1.0" sends="0"/>
+              <Strip name="WRONG" kind="6" altKind="6" stereo="1" gain="1.0" sends="0"/>
+            </FaiderSession>)XML");
+        check (wrongKind != nullptr && Session::restore (e, *wrongKind, logger(), {}), "kind 6: the session loads");
+        auto* tone = findStrip (e.getStrips(), "TONE");
+        auto* wrong = findStrip (e.getStrips(), "WRONG");
+        check (wrong != nullptr && wrong->source.kind == AudioEngine::Source::none
+                   && wrong->altSource.has_value() && wrong->altSource->kind == AudioEngine::Source::none,
+               "kind 6: an input can't have a bus's source: it has none, and LINE B none");
+        juce::Thread::sleep (300);
+        check (running && heard (tone) && ! heard (wrong), "kind 6: blocks run with it on the desk (the tone beside it is heard, it is silent)");
+
+        // The engine itself, handed that kind for an input: silent, not read from a buffer it doesn't have.
+        AudioEngine::Source asBus;
+        asBus.kind = AudioEngine::Source::bus;
+        e.setStripSource (1, asBus);
+        juce::Thread::sleep (200);
+        check (wrong != nullptr && wrong->source.kind == AudioEngine::Source::bus && heard (tone) && ! heard (wrong),
+               "kind 6: an input given a bus's source in the engine is silent, and blocks go on");
+
+        // Racks. A plan (what the audio thread runs) must never name a plugin that has gone.
+        auto plans = [] (const AudioEngine::Strip& s, const juce::AudioPluginInstance* plugin)
+        {
+            return s.rackPlan != nullptr && std::any_of (s.rackPlan->nodes.begin(), s.rackPlan->nodes.end(),
+                                                         [plugin] (const AudioEngine::RackPlan::Node& node) { return node.plugin == plugin; });
+        };
+        auto rackStrip = [] (const char* name, const char* cables)
+        {
+            juce::XmlElement s ("Strip");
+            s.setAttribute ("name", name);
+            s.setAttribute ("kind", (int) AudioEngine::Source::tone);
+            s.setAttribute ("sends", "0");
+            s.setAttribute ("rackLeft", "");   // (no placement: every unit is missing from it)
+            s.setAttribute ("rackCables", cables);
+            auto* insert = s.createNewChildElement ("Insert");
+            insert->setAttribute ("name", "chain");
+            insert->setAttribute ("path", VoiceChain::identifier);
+            return s;
+        };
+
+        // 7a: the cables name a unit the placement doesn't have (in > EQ > out). The missing units go
+        // in around it; before, EQ was spliced in too and fed itself, the compile failed, and the
+        // plan from before (with the plugin) kept running after the plugin was removed.
+        {
+            const int index = Session::restoreStrip (e, rackStrip ("RACK A", "in>eq,eq>out"), logger());
+            auto* s = index >= 0 ? e.getStrips()[(size_t) index].get() : nullptr;
+            check (s != nullptr && s->inserts.size() == 1, "rack, cables without a placement: the strip and its plugin load");
+            if (s != nullptr && s->inserts.size() == 1)
+            {
+                const auto* plugin = s->inserts[0].get();
+                const auto patch = e.getRack (*s);
+                const AudioEngine::RackUnit eq { AudioEngine::rackEq, nullptr };
+                const bool eqPatched = std::any_of (patch.cables.begin(), patch.cables.end(), [&] (auto& c) { return c.second == eq && c.first != eq; })
+                                    && std::any_of (patch.cables.begin(), patch.cables.end(), [&] (auto& c) { return c.first == eq && c.second != eq; });
+                check (patch.manual && ! AudioEngine::rackLoops (patch) && eqPatched
+                           && std::none_of (patch.cables.begin(), patch.cables.end(), [] (auto& c) { return c.first == c.second; }),
+                       "rack, cables without a placement: still hand-patched, EQ in its path, nothing feeds itself");
+                check (s->rackPlan != nullptr && ! plans (*s, plugin), "rack, cables without a placement: the plan is the patch's (the plugin isn't patched in, so it isn't run)");
+                juce::Thread::sleep (200);
+                check (heard (s), "rack, cables without a placement: the sound passes through it");
+                e.removeInsert (index, 0);
+                juce::Thread::sleep (200);
+                check (s->inserts.empty() && s->rackPlan != nullptr && ! plans (*s, plugin) && heard (s),
+                       "rack, cables without a placement: the plugin removed, no plan names it and the sound goes on");
+            }
+        }
+
+        // 7b: cables that loop between units the placement doesn't have (setRack can't see it: it
+        // checks the patch before they're in). The units run in the order they're placed.
+        {
+            logLines.clear();
+            const int index = Session::restoreStrip (e, rackStrip ("RACK B", "in>eq,eq>comp,comp>eq,comp>out"), logger());
+            auto* s = index >= 0 ? e.getStrips()[(size_t) index].get() : nullptr;
+            check (s != nullptr && s->inserts.size() == 1, "rack, looping cables: the strip and its plugin load");
+            if (s != nullptr && s->inserts.size() == 1)
+            {
+                const auto* plugin = s->inserts[0].get();
+                check (! e.getRack (*s).manual && logLines.joinIntoString ("\n").contains ("cables looped"),
+                       "rack, looping cables: the units run in the order they're placed, and the log says so");
+                check (plans (*s, plugin), "rack, looping cables: the plan is compiled again, with the plugin in it");
+                juce::Thread::sleep (200);
+                check (heard (s), "rack, looping cables: the sound passes through it");
+                e.removeInsert (index, 0);
+                juce::Thread::sleep (200);
+                check (s->inserts.empty() && s->rackPlan != nullptr && ! plans (*s, plugin) && heard (s),
+                       "rack, looping cables: the plugin removed, no plan names it and the sound goes on");
+            }
+        }
     }
 
     temp.deleteRecursively();

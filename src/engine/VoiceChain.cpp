@@ -530,11 +530,10 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
     const float gateClose = dbToGain (value ("gateThreshold") - value ("gateHysteresis"));
     const int gateHoldSamples = (int) (value ("gateHold") * 0.001 * rate);
     const bool gateExpand = flag ("gateExpand");
-    const bool keyLink = keyLinked && keyL != nullptr && keyR != nullptr;
-    const bool keyExt = flag ("keyExternal") && keyL != nullptr && keyR != nullptr && ! keyLink, keyHpOn = filtersToKey ? flag ("hpfOn") : value ("keyHpf") > 21.0f,
+    const bool keyExt = flag ("keyExternal") && keyL != nullptr && keyR != nullptr, keyHpOn = filtersToKey ? flag ("hpfOn") : value ("keyHpf") > 21.0f,
                keyLpOn = filtersToKey ? flag ("lpfOn") : value ("keyLpf") < 19900.0f;
     const bool keyListen = flag ("keyListen");
-    const bool useKey = keyExt || keyLink || keyHpOn || keyLpOn || keyListen;
+    const bool useKey = keyExt || keyHpOn || keyLpOn || keyListen;
     const float compThreshold = value ("compThreshold"), knee = value ("compKnee");
     const float slope = value ("compRatio") >= compRatioInf ? -1.0f : 1.0f / value ("compRatio") - 1.0f;   // the top of the range: a limit (inf:1)
     const float makeup = flag ("compAutoMakeup") ? juce::jmin (24.0f, -slope * juce::jmax (0.0f, -18.0f - compThreshold)) : value ("makeup");
@@ -608,11 +607,8 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
             for (int c = 0; c < 2; ++c)
             {
                 float k = x[c];
-                if ((keyExt || keyLink) && i < keyLength)
-                {
-                    const float e = c == 0 ? keyL[i] : keyR[i];
-                    k = keyExt || std::abs (e) > std::abs (k) ? e : k;   // (LINK: the louder)
-                }
+                if (keyExt && i < keyLength)
+                    k = c == 0 ? keyL[i] : keyR[i];
                 if (keyHpOn) k = hp[(size_t) c].processSingleSampleRaw (k);
                 if (keyLpOn) k = lp[(size_t) c].processSingleSampleRaw (k);
                 if (keep) heard[c] = k;

@@ -231,10 +231,12 @@ namespace AudioBoost
     }
 
     // Text put on a command line that runs as administrator (a device's ID, a file's path; DEVICES'
-    // commands: DevicesTab.cpp): only if nothing in it is more than text to cmd.exe.
+    // commands: DevicesTab.cpp), always inside double quotes there: only if nothing in it is more than
+    // text to cmd.exe. A quote would end the quoting and % expands even inside it, so both are refused;
+    // & (in every USB device's ID) is plain text inside quotes. | < > ^ have no place in an ID or path.
     inline bool safeForCommand (const juce::String& text)
     {
-        return text.isNotEmpty() && ! text.containsAnyOf ("\"%&|<>^\r\n");
+        return text.isNotEmpty() && ! text.containsAnyOf ("\"%|<>^\r\n");
     }
 
     // The Windows part (AudioBoost.cpp) ----------------------------------------------------------

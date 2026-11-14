@@ -103,8 +103,9 @@ int main()
 
     // What may go on a command line that runs as administrator.
     check (safeForCommand ("SWD\\MMDEVAPI\\{0.0.0.00000000}.{6f1c4b0a-12ab-4c3d-9e8f-001122334455}") && safeForCommand ("ROOT\\MEDIA\\0001"), "device IDs as Windows writes them");
+    check (safeForCommand ("USB\\VID_1235&PID_8210&MI_00\\7&2A6F3B1&0&0000"), "a USB device's ID, with its & (plain text inside the quotes it goes in)");
     check (safeForCommand ("C:\\Users\\Jo Smith\\AppData\\Local\\Temp\\Faider-devices.log") && safeForCommand ("C:\\Users\\O'Brien (work)\\x.log"), "a path with spaces, an apostrophe, brackets");
-    for (auto* bad : { "a\"b", "a%TEMP%b", "a&b", "a|b", "a<b", "a>b", "a^b", "a\nb", "a\rb", "" })
+    for (auto* bad : { "a\"b", "a%TEMP%b", "a|b", "a<b", "a>b", "a^b", "a\nb", "a\rb", "" })
         check (! safeForCommand (bad), "refused: " + juce::String (bad).replace ("\n", "(new line)").replace ("\r", "(return)").quoted());
 
     return failures;

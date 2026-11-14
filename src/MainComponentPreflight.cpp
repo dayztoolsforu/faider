@@ -327,8 +327,9 @@ juce::String MainComponent::micOutputName() const
 void MainComponent::hearWhatTheyHear()
 {
     const auto name = micOutputName();
-    if (name.isEmpty() || engine.isPreviewPlaying())
+    if (name.isEmpty() || hearingBack || engine.isPreviewPlaying())
         return;
+    hearingBack = true;   // (pressed again while these 5 s run: once)
     logEvent ("hear what they hear: speak now (5 s), then listen on the headphones");
     if (onNotify)
         onNotify ("Speak now", "Talk for 5 s, then hear it back.");
@@ -336,6 +337,7 @@ void MainComponent::hearWhatTheyHear()
     {
         if (safe == nullptr)
             return;
+        safe->hearingBack = false;
         auto clip = safe->engine.retroTail ("output", name, 5.0);
         if (clip.getNumSamples() == 0)
             return safe->logEvent ("hear what they hear: nothing came through " + name);

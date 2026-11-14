@@ -8,7 +8,11 @@
 // (the mic output's row, while it's fine, has HEAR WHAT THEY HEAR instead). Shown a few seconds
 // after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
 // ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, SETTINGS > GENERAL, or FIND).
-class PreflightPanel : public juce::Component
+// While it shows, the checks are looked at again every 1.5 s and the rows follow: a fix that ends
+// later than its key (SET MY DEFAULTS' menu, BOOST once Windows has asked), ZERO THE DESK's own
+// panel, or the mix changing behind it.
+class PreflightPanel : public juce::Component,
+                       private juce::Timer
 {
 public:
     struct Check
@@ -29,6 +33,7 @@ public:
         again.onClick = [this] { refresh(); };
         addAndMakeVisible (again);
         refresh();
+        startTimer (1500);
     }
 
     void paint (juce::Graphics& g) override
@@ -90,9 +95,28 @@ private:
         return getLocalBounds().reduced (Console::Space::pad).withTrimmedTop (36 + i * rowH).withHeight (rowH - 6);
     }
 
-    void refresh()
+    // (not while a key is held: the rows' keys are made again)
+    void timerCallback() override
     {
-        checks = recheck();
+        if (! isShowing() || juce::ModifierKeys::currentModifiers.isAnyMouseButtonDown())
+            return;
+        if (auto now = recheck(); signature (now) != signature (checks))
+            show (std::move (now));
+    }
+
+    static juce::String signature (const std::vector<Check>& list)
+    {
+        juce::String s;
+        for (auto& c : list)
+            s << c.title << "|" << c.detail << "|" << (int) c.ok << (int) c.advisory << (int) (c.fix != nullptr) << "|" << c.fixLabel << "|" << c.tryLabel << "\n";
+        return s;
+    }
+
+    void refresh() { show (recheck()); }
+
+    void show (std::vector<Check> now)
+    {
+        checks = std::move (now);
         fixes.clear();
         for (auto& c : checks)
         {

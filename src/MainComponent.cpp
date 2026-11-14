@@ -58,6 +58,11 @@ MainComponent::MainComponent()
     auto session = juce::XmlDocument::parse (sessionFile);
     interfaceName = session != nullptr ? Session::getInterfaceName (*session) : juce::String();
 
+    // The devices the saved mix excludes, known before a clock is picked (Session::restore reads
+    // them again, but only once a clock runs): an excluded device is never started as the clock.
+    const auto excluded = session != nullptr ? Session::getDisabledDevices (*session) : juce::StringArray();
+    engine.setDeviceDisabled (excluded, true, false);
+
     // An ASIO interface's mix is made for its channels; a Windows device or the built-in clock
     // only clocks the mix, so that mix comes back on whatever clocks it today.
     const auto savedName = interfaceName;
@@ -96,6 +101,7 @@ MainComponent::MainComponent()
     }
     else
         wanted = clockChosenAtStart = settings.getValue ("clock");
+    clockWindowsWanted = wanted.startsWith (AudioEngine::windowsClockPrefix) || wanted.equalsIgnoreCase ("windows");
     if (wanted.startsWith (AudioEngine::windowsClockPrefix))
     {
         // A playback device by name: if it's there now, else the best Windows one.
@@ -134,6 +140,7 @@ MainComponent::MainComponent()
         {
             setAside ("the saved interface " + interfaceName.quoted() + " isn't connected, so a fresh mix was started");
             session = nullptr;
+            engine.setDeviceDisabled (excluded, false, false);   // (a fresh mix excludes nothing)
         }
         else if (session == nullptr && sessionFile.existsAsFile())
             setAside ("session.xml couldn't be read, so a fresh mix was started");
@@ -298,6 +305,7 @@ MainComponent::MainComponent()
     // Scenes: keys after the tabs. Their hotkeys go with the pads' and macros' (one set of global keys).
     sceneBar = std::make_unique<SceneBar> (engine);
     sceneBar->setHotkey = [this] (int scene, const juce::KeyPress& key) { return pads->setSceneHotkey (scene, key); };
+    sceneBar->hotkeyRefusal = [this] { return pads->hotkeyRefusal(); };
     sceneBar->onListChanged = [this] { pads->scenesChanged(); resized(); };
     addAndMakeVisible (*sceneBar);
 
@@ -357,7 +365,7 @@ MainComponent::MainComponent()
     // Instant replay's hotkey, with the others; remembered in settings.
     tape->setReplayHotkey = [this] (const juce::String& key)
     {
-        const bool ok = pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 1, key, [this] { if (tape) tape->saveReplay(); }, {});
+        const bool ok = pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 1, "SAVE INSTANT REPLAY", key, [this] { if (tape) tape->saveReplay(); }, {});
         if (ok)
         {
             settings.setValue ("replayHotkey", key);
@@ -365,6 +373,7 @@ MainComponent::MainComponent()
         }
         return ok;
     };
+    tape->replayHotkeyRefusal = [this] { return pads->hotkeyRefusal(); };
     if (const auto key = settings.getValue ("replayHotkey"); key.isNotEmpty() && tape->setReplayHotkey (key))
         tape->replayHotkey = key;
 
@@ -379,8 +388,8 @@ MainComponent::MainComponent()
         settings.setValue ("overlayPy", juce::roundToInt ((float) p.y * zoomNow));
         settings.saveIfNeeded();
     };
-    if (! pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 2, "ctrl + shift + O", [this] { toggleOverlay(); }, {}))
-        logEvent ("overlay: Ctrl+Shift+O is taken by another app (open it from FIND)");
+    if (! pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 2, "SHOW / HIDE THE IN-GAME OVERLAY", "ctrl + shift + O", [this] { toggleOverlay(); }, {}))
+        logEvent ("overlay: " + pads->hotkeyRefusal() + " (open it from FIND)");
     if (settings.getBoolValue ("overlayShown"))
         toggleOverlay();
     // A first start: SETUP comes before anything else, a moment after the window is up.
@@ -447,16 +456,7 @@ MainComponent::MainComponent()
     muteWatch.tick = [this] { watchMutedTalk(); watchClipping(); };
     muteWatch.startTimerHz (10);
 
-    // CHECK FOR UPDATES: half a minute after start, at most once a day.
-    juce::Timer::callAfterDelay (30000, [safe = juce::Component::SafePointer<MainComponent> (this)]
-    {
-        if (safe == nullptr || ! safe->settings.getBoolValue ("checkForUpdates", true))
-            return;
-        const auto last = safe->settings.getValue ("lastUpdateCheck").getLargeIntValue();
-        const auto now = juce::Time::currentTimeMillis();
-        if (now - last >= 24LL * 60 * 60 * 1000 || now < last)
-            safe->checkForUpdates (false);
-    });
+    // (CHECK FOR UPDATES: half a minute after start, then looked at every minute: timerCallback)
 
     makeSettings();
 }
@@ -703,7 +703,7 @@ void MainComponent::checkClock()
                                         { return e.api == "WASAPI" && e.isOutput && e.isActive() && e.name == engine.getClockDevice(); });
         dead = ! engine.isClockOpen();
         if (! there || engine.isDeviceDisabled (engine.getClockDevice()) || dead)
-            next = pickClock (true);   // (refused ones skipped: pickClock)
+            next = pickClock (! clockWindowsWanted);   // (refused ones skipped: pickClock. A Windows clock asked for: another Windows device)
     }
     else if (clock == AudioEngine::Clock::builtIn && ! clockForced)
     {
@@ -1288,6 +1288,9 @@ void MainComponent::timerCallback()
     if (tick % 5 == 2)
         watchWindowsAudio();   // BOOST WINDOWS AUDIO: still on?
 
+    if (tick % 60 == 30)
+        checkForUpdatesIfDue();   // CHECK FOR UPDATES: a day since GitHub last answered? (only the time is looked at)
+
     // App preferences chosen elsewhere (meter standard in the Mixer, buffer in Devices): remember them.
     if (AudioEngine::meterPoint.load() != settings.getIntValue ("meterPoint", 2))
     {
@@ -1312,16 +1315,24 @@ void MainComponent::addUpdateItems (juce::PopupMenu& menu)
         menu.addItem ("Get " + juce::String (Product::name) + " " + newVersion + "...", [this] { openRelease(); });
 }
 
-// CHECK FOR UPDATES: the request on its own thread (UpdateCheck.h); the time is kept, so the
-// check on start comes at most once a day.
+// The daily check, when it's due (UpdateCheck::isDue): at most once a day, while Faider runs too.
+void MainComponent::checkForUpdatesIfDue()
+{
+    if (settings.getBoolValue ("checkForUpdates", true)
+        && UpdateCheck::isDue (juce::Time::currentTimeMillis(), settings.getValue ("lastUpdateCheck").getLargeIntValue(), updateTriedAt))
+        checkForUpdates (false);
+}
+
+// CHECK FOR UPDATES: the request on its own thread (UpdateCheck.h). The time kept for the daily
+// check is of GitHub's answer (updateChecked), not of the asking: a check that got no answer
+// comes again an hour later.
 void MainComponent::checkForUpdates (bool asked)
 {
     if (updates == nullptr)
         updates = std::make_unique<UpdateCheck::Checker>();
     if (updates->isChecking())
         return;
-    settings.setValue ("lastUpdateCheck", juce::String (juce::Time::currentTimeMillis()));
-    settings.saveIfNeeded();
+    updateTriedAt = juce::Time::currentTimeMillis();
     updates->start (Product::name, JUCE_APPLICATION_VERSION_STRING, [safe = juce::Component::SafePointer<MainComponent> (this), asked] (UpdateCheck::Result r)
     {
         if (safe != nullptr)
@@ -1334,6 +1345,11 @@ void MainComponent::checkForUpdates (bool asked)
 void MainComponent::updateChecked (const UpdateCheck::Result& r, bool asked)
 {
     const juce::String current (JUCE_APPLICATION_VERSION_STRING);
+    if (r.ok)   // (GitHub answered: the next daily check is a day from now)
+    {
+        settings.setValue ("lastUpdateCheck", juce::String (juce::Time::currentTimeMillis()));
+        settings.saveIfNeeded();
+    }
     if (! r.ok)
     {
         logEvent ("update check: " + r.error);

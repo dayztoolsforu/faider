@@ -187,11 +187,12 @@ bool HotkeysPage::keyPressed (const juce::KeyPress& key)
         note.setText ("NEEDS CTRL, ALT OR AN F KEY", juce::dontSendNotification);
     else
     {
-        // Refused: by what has the key here, if anything does; otherwise another app has it.
-        const int holder = holderOf (key.getTextDescription(), capturing);
-        const auto taken = key.getTextDescription().toUpperCase()
-                         + (holder >= 0 ? " IS ALREADY THE KEY FOR " + entries[(size_t) holder].name : juce::String (" IS TAKEN BY ANOTHER APP"));
-        stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : taken);
+        // Refused: what has the key here keeps it (it isn't even tried); or Windows won't give it, so another app has it.
+        const auto text = key.getTextDescription().toUpperCase();
+        if (const int holder = holderOf (key.getTextDescription(), capturing); holder >= 0)
+            stopCapturing (text + " IS ALREADY THE KEY FOR " + entries[(size_t) holder].name);
+        else
+            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : text + " IS TAKEN BY ANOTHER APP");
     }
     return true;
 }
@@ -278,12 +279,20 @@ void HotkeysPage::rebuild()
         addAndMakeVisible (*r.keyButton);
         rows.push_back (std::move (r));
 
-        // The same key twice (only one of them gets it), or a key Windows wouldn't give.
-        const int other = e.set != nullptr && e.key.isNotEmpty() ? holderOf (e.key, (int) i) : -1;
-        if (other >= 0)
+        // The same key twice (in a mix from before a second one was refused: only one of them gets
+        // it), or a key Windows wouldn't give. A fixed key that isn't working: who has it here.
+        int other = -1;
+        if (e.key.isNotEmpty() && e.set != nullptr)
+            other = holderOf (e.key, (int) i);
+        else if (e.key.isNotEmpty() && ! e.working)
+            for (auto& k : e.keys)
+                if (other < 0)
+                    other = holderOf (k, (int) i);
+        if (other >= 0 && (e.working || entries[(size_t) other].working))
         {
             ++clashes;
-            addLine ("SAME KEY AS " + entries[(size_t) other].name + ": ONLY ONE WORKS", Console::Colours::danger());
+            addLine (e.working ? "SAME KEY AS " + entries[(size_t) other].name + ": ONLY THIS ONE WORKS"
+                               : "NOT WORKING: " + entries[(size_t) other].name + " HAS THIS KEY", Console::Colours::danger());
         }
         else if (e.key.isNotEmpty() && ! e.working)
             addLine ("NOT WORKING: WINDOWS REFUSED THE KEY (ANOTHER APP MAY HAVE IT)", Console::Colours::danger());

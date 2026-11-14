@@ -15,6 +15,7 @@ class SceneBar : public juce::Component
 public:
     // Gives a scene a global hotkey (an invalid KeyPress: none). False if it's taken.
     std::function<bool (int scene, const juce::KeyPress&)> setHotkey;
+    std::function<juce::String()> hotkeyRefusal;   // why the last one was refused ("... is already the key for PAD 3")
     std::function<void()> onListChanged;   // added, removed or renamed (hotkeys and macro menus follow)
 
     explicit SceneBar (AudioEngine& e) : engine (e)
@@ -115,7 +116,7 @@ public:
         {
             if (! setHotkey (capturing, key))
                 juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HOTKEY IN USE",
-                                                        key.getTextDescription() + " is already in use.");
+                                                        (hotkeyRefusal ? hotkeyRefusal() : key.getTextDescription() + " is already in use") + ".");
             stopCapturing();
         }
         return true;

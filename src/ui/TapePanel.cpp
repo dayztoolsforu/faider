@@ -518,7 +518,8 @@ bool TapePanel::keyPressed (const juce::KeyPress& key)
         if (setReplayHotkey && setReplayHotkey (text))
             replayHotkey = text;
         else
-            juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HOTKEY IN USE", text + " is already in use.");
+            juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HOTKEY IN USE",
+                                                    (replayHotkeyRefusal ? replayHotkeyRefusal() : text + " is already in use") + ".");
     }
     learningReplayKey = false;
     setWantsKeyboardFocus (false);

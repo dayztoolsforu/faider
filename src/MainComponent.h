@@ -101,6 +101,7 @@ private:
     juce::String pickClock (bool asio, bool announce = true);
     void checkClock();
     bool clockForced = false;   // started with --clock: the built-in clock stays (no device takes over)
+    bool clockWindowsWanted = false;   // the clock asked for is a Windows device: one that goes is followed by another, not by an interface
     bool clockFromCommandLine = false;   // --clock given (it wins over DEVICES > CLOCK)
     juce::String clockChosenAtStart;     // DEVICES > CLOCK's choice as this run started ("" the interface, "builtin", "windows:NAME")
     void chooseClock (const juce::String& choice);   // DEVICES > CLOCK: kept, for the next start (RESTART NOW offered)
@@ -152,9 +153,13 @@ private:
     void checkAlerts();               // outputs' ALERTS, once a second
     void watchMutedTalk();            // a muted mic channel heard: say so (ten times a second)
     void openCommandPalette();        // Ctrl+K / FIND: everything Faider can do, by name
-    // CHECK FOR UPDATES (UpdateCheck.h): once a day a moment after start, or now (asked: says
-    // what it found, up to date too). A newer version is kept to offer its release page.
+    // CHECK FOR UPDATES (UpdateCheck.h): once a day (half a minute after start, and while Faider
+    // goes on running: looked at every minute), or now (asked: says what it found, up to date
+    // too). The time kept is of GitHub's last answer; a try that failed comes again in an hour.
+    // A newer version is kept to offer its release page.
     void checkForUpdates (bool asked);
+    void checkForUpdatesIfDue();
+    juce::int64 updateTriedAt = 0;   // this run's last try (ms; 0: none)
     void updateChecked (const UpdateCheck::Result&, bool asked);
     void openRelease();
     std::unique_ptr<UpdateCheck::Checker> updates;
@@ -215,6 +220,7 @@ private:
     // mic) recorded for 5 s from now, then played once in the headphones. From PRE-FLIGHT's mic
     // output row, or FIND.
     void hearWhatTheyHear();
+    bool hearingBack = false;   // its 5 s are running (pressed again meanwhile: nothing)
     juce::String micOutputName() const;
 
     std::unique_ptr<Overlay> overlay;   // the in-game overlay (Overlay.h)

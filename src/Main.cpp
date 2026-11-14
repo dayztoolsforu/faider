@@ -464,15 +464,26 @@ private:
             setIconTooltip (alert.isNotEmpty() ? juce::String (Product::name) + " - ALERT: " + alert : juce::String (Product::name));
         }
 
-        // Click: the mini mixer comes up. Double-click: the window.
-        void mouseDoubleClick (const juce::MouseEvent&) override { window.bringBack(); }
+        // Click: the mini mixer comes up. Double-click: the window, and not the mini mixer too: a
+        // click waits Windows' double-click time to see that no second one follows.
+        void mouseDoubleClick (const juce::MouseEvent&) override
+        {
+            ++clicks;   // (the click still waiting was this double-click's first)
+            window.bringBack();
+        }
 
         void mouseDown (const juce::MouseEvent& e) override
         {
             if (! e.mods.isPopupMenu())
             {
-                if (auto* content = dynamic_cast<MainComponent*> (window.getContentComponent()))
-                    content->showMini (juce::Desktop::getMousePosition());
+                juce::Timer::callAfterDelay (juce::MouseEvent::getDoubleClickTimeout() + 50,
+                                             [safe = juce::Component::SafePointer<TrayIcon> (this), click = ++clicks, at = juce::Desktop::getMousePosition()]
+                {
+                    if (safe == nullptr || safe->clicks != click)
+                        return;   // (another click came since: a double-click, or a click with its own wait)
+                    if (auto* content = dynamic_cast<MainComponent*> (safe->window.getContentComponent()))
+                        content->showMini (at);
+                });
                 return;
             }
 
@@ -521,6 +532,7 @@ private:
 
         MainWindow& window;
         bool flashOn = false;
+        int clicks = 0;   // counts left clicks (mouseDown: one waiting opens the mini mixer only if it's still the last)
         juce::String shownAlert;
     };
 

@@ -27,15 +27,29 @@ public:
     void chooseSound (int index);
     void swapPads (int a, int b);
 
-    // Gives a pad a global hotkey (an invalid KeyPress: none). False if another app owns it.
+    // Gives a pad a global hotkey (an invalid KeyPress: none). False if it's refused: something
+    // else in Faider has the key (and keeps it), or another app does. hotkeyRefusal says which.
     bool setHotkey (int index, const juce::KeyPress&);
     bool setMacroHotkey (int macro, const juce::KeyPress&);   // the same for a macro
     bool setSceneHotkey (int scene, const juce::KeyPress&);   // and a scene (Scenes.h)
 
     // Any other global hotkey (instant replay's SAVE, the overlay), kept with these: Windows has one
     // set per app. An empty key removes it. False if it's taken. Ids from extraHotkeyBase + 1.
-    bool setExtraHotkey (int id, const juce::String& key, std::function<void()> onPress, std::function<void()> onRelease);
+    // `name`: what it's called when another key is refused for being its.
+    bool setExtraHotkey (int id, const juce::String& name, const juce::String& key, std::function<void()> onPress, std::function<void()> onRelease);
     static constexpr int extraHotkeyBase = 3000;
+
+    // What in Faider has `key` already, other than `exceptId` (hotkeyRegistered's ids): a pad, a
+    // macro, a scene, another global key or one of the window's fixed keys, by name; empty: nothing.
+    juce::String hotkeyHolder (const juce::KeyPress& key, int exceptId) const;
+
+    // Why the last key set wasn't taken ("ctrl + F1 is already the key for PAD 3: AIRHORN", or
+    // "... is taken by another app"); empty if it was.
+    const juce::String& hotkeyRefusal() const { return refusal; }
+
+    // Faider's own keys in its window (fixed): a global hotkey on one would take it from the window.
+    struct FixedKey { const char* name; const char* shown; juce::StringArray keys; };
+    static const std::vector<FixedKey>& fixedKeys();
 
     // Whether Windows took a hotkey: a pad's (its index), a macro's (macroHotkeyBase + its index), a
     // scene's (sceneHotkeyBase + its index) or another's (its id). It refuses a key another app
@@ -65,10 +79,12 @@ private:
     bool hasPadsStrip() const;
     void edited();   // a pad changed: redraw it and the editor
     void registerHotkeys();   // every pad's hotkey, as saved
+    bool heldHere (const juce::KeyPress& key, int exceptId);   // hotkeyHolder has it: refused (and `refusal` says so)
+    juce::String refusal;
 
     GlobalHotkeys hotkeys;
     std::set<int> hotkeyWorks;   // pads (and 1000 + macros, 2000 + scenes) whose hotkey Windows accepted
-    struct Extra { juce::String key; std::function<void()> onPress, onRelease; };
+    struct Extra { juce::String name, key; std::function<void()> onPress, onRelease; };
     std::map<int, Extra> extras;
 
     AudioEngine& engine;

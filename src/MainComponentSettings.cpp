@@ -161,11 +161,8 @@ void MainComponent::makeSettings()
         const auto inApp = juce::String ("IN ") + Product::nameUpper + " (FIXED)";
         list.push_back ({ "ANYWHERE (FIXED)", "SHOW / HIDE THE IN-GAME OVERLAY", "ctrl + shift + O", nullptr, {},
                           pads->hotkeyRegistered (PadsPanel::extraHotkeyBase + 2), { "ctrl + shift + O" } });
-        list.push_back ({ inApp, "FIND (COMMAND PALETTE)", "ctrl + K", nullptr, {}, true, { "ctrl + K" } });
-        list.push_back ({ inApp, "MIDI MAP", "ctrl + L", nullptr, {}, true, { "ctrl + L" } });
-        list.push_back ({ inApp, "UNDO / REDO", "ctrl + Z  /  ctrl + Y", nullptr, {}, true, { "ctrl + Z", "ctrl + Y", "ctrl + shift + Z" } });
-        list.push_back ({ inApp, "UNDO HISTORY", "ctrl + H", nullptr, {}, true, { "ctrl + H" } });
-        list.push_back ({ inApp, "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", nullptr, {}, true, { "ctrl + =", "ctrl + -", "ctrl + 0" } });
+        for (auto& fixed : PadsPanel::fixedKeys())   // (the window's own keys: a hotkey may not take one)
+            list.push_back ({ inApp, fixed.name, fixed.shown, nullptr, {}, true, fixed.keys });
         list.push_back ({ "ON THE MIXER (FIXED)", "SELECT THE CHANNEL LEFT / RIGHT", "left / right", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "CUT / SOLO THE SELECTED CHANNEL", "M  /  S", nullptr });
         list.push_back ({ "ON THE MIXER (FIXED)", "ITS FADER UP / DOWN 0.5 DB (SHIFT: 3 DB)", "up / down", nullptr });

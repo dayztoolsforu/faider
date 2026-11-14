@@ -466,7 +466,7 @@ public:
         else if (! GlobalHotkeys::usable (key))
             { hotkeyNote.setText ("Needs Ctrl, Alt or an F key", juce::dontSendNotification); resized(); }
         else
-            stopCapturing (owner.setHotkey (index, key) ? juce::String() : key.getTextDescription() + " is already in use");
+            stopCapturing (owner.setHotkey (index, key) ? juce::String() : owner.hotkeyRefusal());
         return true;
     }
 
@@ -756,7 +756,7 @@ public:
         else if (! GlobalHotkeys::usable (key))
             hotkeyNote.setText ("Needs Ctrl, Alt or an F key", juce::dontSendNotification);
         else
-            stopCapturing (owner.setMacroHotkey (current, key) ? juce::String() : key.getTextDescription() + " is already in use");
+            stopCapturing (owner.setMacroHotkey (current, key) ? juce::String() : owner.hotkeyRefusal());
         return true;
     }
 
@@ -1434,27 +1434,69 @@ void PadsPanel::swapPads (int a, int b)
     edited();
 }
 
+const std::vector<PadsPanel::FixedKey>& PadsPanel::fixedKeys()
+{
+    static const std::vector<FixedKey> keys {
+        { "FIND (COMMAND PALETTE)", "ctrl + K", { "ctrl + K" } },
+        { "MIDI MAP", "ctrl + L", { "ctrl + L" } },
+        { "UNDO / REDO", "ctrl + Z  /  ctrl + Y", { "ctrl + Z", "ctrl + Y", "ctrl + shift + Z" } },
+        { "UNDO HISTORY", "ctrl + H", { "ctrl + H" } },
+        { "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", { "ctrl + =", "ctrl + -", "ctrl + 0" } } };
+    return keys;
+}
+
+juce::String PadsPanel::hotkeyHolder (const juce::KeyPress& key, int exceptId) const
+{
+    if (! key.isValid())
+        return {};
+    auto has = [&key] (const juce::String& text) { return text.isNotEmpty() && juce::KeyPress::createFromDescription (text) == key; };
+
+    auto& p = engine.getPads();
+    for (int i = 0; i < Pads::count; ++i)
+        if (i != exceptId && has (p.pad (i).hotkey))
+            return "PAD " + juce::String (i + 1) + (p.pad (i).name.isNotEmpty() ? ": " + p.pad (i).name.toUpperCase() : juce::String());
+    const auto& macros = engine.getMacros().list;
+    for (int i = 0; i < (int) macros.size(); ++i)
+        if (macroHotkeyBase + i != exceptId && has (macros[(size_t) i].hotkey))
+            return "MACRO " + macros[(size_t) i].name.toUpperCase();
+    const auto& scenes = engine.getScenes().list;
+    for (int i = 0; i < (int) scenes.size(); ++i)
+        if (sceneHotkeyBase + i != exceptId && has (scenes[(size_t) i].hotkey))
+            return "SCENE " + scenes[(size_t) i].name.toUpperCase();
+    for (auto& [id, extra] : extras)
+        if (id != exceptId && has (extra.key))
+            return extra.name;
+    for (auto& fixed : fixedKeys())
+        for (auto& k : fixed.keys)
+            if (has (k))
+                return fixed.name;
+    return {};
+}
+
+bool PadsPanel::heldHere (const juce::KeyPress& key, int exceptId)
+{
+    refusal.clear();
+    const auto holder = hotkeyHolder (key, exceptId);
+    if (holder.isNotEmpty())
+        refusal = key.getTextDescription() + " is already the key for " + holder;
+    return holder.isNotEmpty();
+}
+
 bool PadsPanel::setHotkey (int index, const juce::KeyPress& key)
 {
+    if (heldHere (key, index))
+        return false;   // (another pad, a macro, a scene...: it keeps its key)
     auto& pad = engine.getPads().pad (index);
     const auto before = pad.hotkey;
-    hotkeys.remove (index + 1);
     pad.hotkey = key.isValid() ? key.getTextDescription() : juce::String();
-
-    // One pad per key: another pad with the same key gives it up.
-    if (pad.hotkey.isNotEmpty())
-        for (int i = 0; i < Pads::count; ++i)
-            if (i != index && engine.getPads().pad (i).hotkey == pad.hotkey)
-            {
-                engine.getPads().pad (i).hotkey.clear();
-                hotkeys.remove (i + 1);
-            }
-
     registerHotkeys();
     const bool ok = pad.hotkey.isEmpty() || hotkeyWorks.count (index) > 0;
     if (! ok)
-        pad.hotkey = before;   // Windows refused it: keep what it had
-    registerHotkeys();
+    {
+        pad.hotkey = before;   // Windows refused it (another app has it): keep what it had
+        registerHotkeys();
+        refusal = key.getTextDescription() + " is taken by another app";
+    }
     edited();
     return ok;
 }
@@ -1487,7 +1529,7 @@ void PadsPanel::macrosChanged()
 bool PadsPanel::setMacroHotkey (int macro, const juce::KeyPress& key)
 {
     auto& list = engine.getMacros().list;
-    if (! juce::isPositiveAndBelow (macro, (int) list.size()))
+    if (! juce::isPositiveAndBelow (macro, (int) list.size()) || heldHere (key, macroHotkeyBase + macro))
         return false;
     const auto before = list[(size_t) macro].hotkey;
     list[(size_t) macro].hotkey = key.isValid() ? key.getTextDescription() : juce::String();
@@ -1495,8 +1537,9 @@ bool PadsPanel::setMacroHotkey (int macro, const juce::KeyPress& key)
     const bool ok = list[(size_t) macro].hotkey.isEmpty() || hotkeyWorks.count (macroHotkeyBase + macro) > 0;
     if (! ok)
     {
-        list[(size_t) macro].hotkey = before;   // Windows refused it (or a pad has it): keep what it had
+        list[(size_t) macro].hotkey = before;   // Windows refused it (another app has it): keep what it had
         registerHotkeys();
+        refusal = key.getTextDescription() + " is taken by another app";
     }
     return ok;
 }
@@ -1516,7 +1559,7 @@ void PadsPanel::registerHotkeys()
             hotkeyWorks.insert (i);
     }
 
-    // Macros' own hotkeys (a key already a pad's is refused by Windows, so it stays the pad's).
+    // Macros' own hotkeys (a key already a pad's, from an earlier mix, stays the pad's: Windows gives it once).
     auto& macros = engine.getMacros();
     for (int m = 0; m < (int) macros.list.size(); ++m)
     {
@@ -1542,13 +1585,15 @@ void PadsPanel::registerHotkeys()
             hotkeyWorks.insert (id);
 }
 
-bool PadsPanel::setExtraHotkey (int id, const juce::String& key, std::function<void()> onPress, std::function<void()> onRelease)
+bool PadsPanel::setExtraHotkey (int id, const juce::String& name, const juce::String& key, std::function<void()> onPress, std::function<void()> onRelease)
 {
+    if (heldHere (juce::KeyPress::createFromDescription (key), id))
+        return false;
     const auto before = extras.count (id) > 0 ? std::optional<Extra> (extras[id]) : std::nullopt;
     if (key.isEmpty())
         extras.erase (id);
     else
-        extras[id] = { key, std::move (onPress), std::move (onRelease) };
+        extras[id] = { name, key, std::move (onPress), std::move (onRelease) };
     registerHotkeys();
 
     const bool ok = key.isEmpty() || hotkeyWorks.count (id) > 0;
@@ -1556,6 +1601,7 @@ bool PadsPanel::setExtraHotkey (int id, const juce::String& key, std::function<v
     {
         if (before) extras[id] = *before; else extras.erase (id);   // refused: keep what it had
         registerHotkeys();
+        refusal = key + " is taken by another app";
     }
     return ok;
 }
@@ -1563,7 +1609,7 @@ bool PadsPanel::setExtraHotkey (int id, const juce::String& key, std::function<v
 bool PadsPanel::setSceneHotkey (int scene, const juce::KeyPress& key)
 {
     auto& list = engine.getScenes().list;
-    if (! juce::isPositiveAndBelow (scene, (int) list.size()))
+    if (! juce::isPositiveAndBelow (scene, (int) list.size()) || heldHere (key, sceneHotkeyBase + scene))
         return false;
     const auto before = list[(size_t) scene].hotkey;
     list[(size_t) scene].hotkey = key.isValid() ? key.getTextDescription() : juce::String();
@@ -1571,8 +1617,9 @@ bool PadsPanel::setSceneHotkey (int scene, const juce::KeyPress& key)
     const bool ok = list[(size_t) scene].hotkey.isEmpty() || hotkeyWorks.count (sceneHotkeyBase + scene) > 0;
     if (! ok)
     {
-        list[(size_t) scene].hotkey = before;   // Windows refused it (or a pad or macro has it): keep what it had
+        list[(size_t) scene].hotkey = before;   // Windows refused it (another app has it): keep what it had
         registerHotkeys();
+        refusal = key.getTextDescription() + " is taken by another app";
     }
     return ok;
 }

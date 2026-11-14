@@ -42,6 +42,7 @@ public:
     void toggleRecording();   // REC (also from a MIDI key)
     juce::String replayHotkey;                                    // KeyPress text, or empty
     std::function<bool (const juce::String& key)> setReplayHotkey;   // registers it with the app's other keys
+    std::function<juce::String()> replayHotkeyRefusal;               // why the last one was refused
 
 private:
     void timerCallback() override;

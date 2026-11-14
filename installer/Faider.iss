@@ -16,6 +16,16 @@ AppId={{A5EEC64C-3FD6-4D57-9FE8-768530A5E3CF}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher=Faider
+; (shown under Windows' Settings > Apps, with the version)
+AppPublisherURL=https://dayztoolsforu.github.io/faider/
+AppSupportURL=https://github.com/dayztoolsforu/faider/issues
+AppUpdatesURL=https://github.com/dayztoolsforu/faider/releases
+; (Setup.exe's own file properties)
+VersionInfoVersion={#AppVersion}
+VersionInfoProductVersion={#AppVersion}
+VersionInfoProductName={#AppName}
+VersionInfoCompany=Faider
+VersionInfoDescription={#AppName} Setup
 DefaultDirName={autopf}\{#AppName}
 ; (an install under the program's earlier name moves here: its folder and shortcuts go, below)
 UsePreviousAppDir=no

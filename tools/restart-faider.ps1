@@ -1,6 +1,7 @@
 # Rebuilds Faider from the latest code, installs it and starts it again (run by "Restart Faider.cmd").
 # It runs from C:\Faider, keeps running in the tray when its window is closed (so it's quit properly
 # first), and a failed build starts the installed copy again. A desktop shortcut is made the first time.
+# When the installer's copy is on the PC too, it warns, and says which copy Start with Windows starts.
 
 $ErrorActionPreference = 'Stop'
 trap {
@@ -16,6 +17,21 @@ $exe = Join-Path $install 'Faider.exe'
 
 $cmake = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 if (-not $cmake) { $cmake = 'C:\Program Files\CMake\bin\cmake.exe' }
+
+# The installer's copy as well (for all users, or for this one)? Then there are two Faiders, and
+# "Start with Windows" starts the one that switched it on: said here, nothing is changed.
+$uninstall = 'Microsoft\Windows\CurrentVersion\Uninstall\{A5EEC64C-3FD6-4D57-9FE8-768530A5E3CF}_is1'   # (AppId in installer\Faider.iss)
+$folders = @("$env:ProgramFiles\Faider", "$env:LOCALAPPDATA\Programs\Faider")
+foreach ($key in "HKLM:\SOFTWARE\$uninstall", "HKCU:\Software\$uninstall") {
+    $folders += (Get-ItemProperty -LiteralPath $key -ErrorAction SilentlyContinue).InstallLocation
+}
+$installed = @($folders | Where-Object { $_ } | ForEach-Object { $_.TrimEnd('\') } |
+    Where-Object { $_ -ne $install -and (Test-Path (Join-Path $_ 'Faider.exe')) } | Select-Object -Unique)
+if ($installed.Count -gt 0) {
+    $run = (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -ErrorAction SilentlyContinue).Faider
+    $starts = if ($run -match '^"([^"]+)"') { "starts $($Matches[1])" } elseif ($run) { "runs $run" } else { 'is off' }
+    Write-Host "Warning: Faider is also installed in $($installed -join ' and ') (this build goes to $install). Start with Windows $starts." -ForegroundColor Yellow
+}
 
 $running = Get-Process 'Faider' -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($running) {

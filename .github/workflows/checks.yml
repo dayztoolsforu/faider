@@ -91,3 +91,26 @@ jobs:
         run: >-
           powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
           -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest
+
+      # The installer is built here too, so a mistake in installer/Faider.iss or the script that
+      # runs it shows before a release. It packs the build above, which has no ASIO: a CI check,
+      # not for release (-CiCheck puts that in the file's name, and so does the artifact's).
+      - name: Install Inno Setup
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) {
+            choco install innosetup --no-progress -y
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+          }
+
+      - name: Build the installer (CI check, not for release)
+        run: |
+          powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1 -CiCheck
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: Keep the installer (CI check, not for release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-CI-check-NOT-FOR-RELEASE
+          path: build/installer/Faider-*-Setup-CI-check-not-for-release.exe
+          if-no-files-found: error
+          retention-days: 7

@@ -7,6 +7,12 @@
 # To sign, set FAIDER_SIGN_CERT to a .pfx file (and FAIDER_SIGN_PASSWORD to its password) or to a
 # certificate's thumbprint (one in your certificate store): Faider.exe is signed before it's packed,
 # and Setup.exe and the uninstaller inside it by Inno Setup, with signtool from the Windows SDK.
+#
+# -CiCheck is for the checks on GitHub, to show a mistake in installer\Faider.iss before a release:
+# it packs a build without the ASIO SDK, takes the C++ runtime from System32 when the toolset has no
+# redist folder, and writes Faider-<version>-Setup-CI-check-not-for-release.exe. Never hand that out.
+
+param([switch]$CiCheck)
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
@@ -36,8 +42,10 @@ if ($env:FAIDER_SIGN_CERT) {
     }
 }
 
+if ($CiCheck) { Write-Host 'CI check, not for release' }
 if (-not (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^ASIO_SDK_DIR:.*=.+' -Quiet)) {
-    throw 'build\CMakeCache.txt has no ASIO_SDK_DIR: the app would be built without ASIO'
+    if (-not $CiCheck) { throw 'build\CMakeCache.txt has no ASIO_SDK_DIR: the app would be built without ASIO' }
+    Write-Host 'CI check, not for release: built without ASIO'
 }
 
 # The version is the project's (CMakeLists.txt: project(... VERSION x.y.z ...))
@@ -75,11 +83,19 @@ foreach ($text in [Text.Encoding]::ASCII.GetString($bytes), [Text.Encoding]::Uni
 # The C++ runtime DLLs of the toolset that built the exe (Build Tools' VC\Redist\MSVC\<version>\x64\
 # Microsoft.VC*.CRT), the newest there: installed next to the exe, so no runtime installer has to run
 # (it can wait unseen for another Windows install to finish).
-$linker = (Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^CMAKE_LINKER:FILEPATH=(.+)$').Matches[0].Groups[1].Value -replace '/', '\'
-$vcRoot = $linker -replace '\\Tools\\MSVC\\.*$', ''
-$crt = Get-ChildItem (Join-Path $vcRoot 'Redist\MSVC\*\x64\Microsoft.VC*.CRT') -Directory |
-    Where-Object { Test-Path (Join-Path $_.FullName 'vcruntime140_1.dll') } |
-    Sort-Object { [version](Get-Item (Join-Path $_.FullName 'vcruntime140.dll')).VersionInfo.FileVersion } -Descending | Select-Object -First 1
+$crt = $null
+$vcRoot = '(no CMAKE_LINKER in build\CMakeCache.txt)'
+$linker = Select-String -Path (Join-Path $build 'CMakeCache.txt') -Pattern '^CMAKE_LINKER:FILEPATH=(.+)$'
+if ($linker) {
+    $vcRoot = ($linker.Matches[0].Groups[1].Value -replace '/', '\') -replace '\\Tools\\MSVC\\.*$', ''
+    $crt = Get-ChildItem (Join-Path $vcRoot 'Redist\MSVC\*\x64\Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue |
+        Where-Object { Test-Path (Join-Path $_.FullName 'vcruntime140_1.dll') } |
+        Sort-Object { [version](Get-Item (Join-Path $_.FullName 'vcruntime140.dll')).VersionInfo.FileVersion } -Descending | Select-Object -First 1
+}
+if (-not $crt -and $CiCheck) {   # (a build machine's toolset may have no redist folder: Windows' own copies do for a check)
+    $crt = Get-Item (Join-Path $env:SystemRoot 'System32')
+    Write-Host "CI check, not for release: the C++ runtime is taken from $($crt.FullName)"
+}
 if (-not $crt) { throw "No x64 C++ runtime folder under $vcRoot\Redist\MSVC" }
 foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
     if (-not (Test-Path (Join-Path $crt.FullName $dll))) { throw "$dll is missing from $($crt.FullName)" }
@@ -99,10 +115,17 @@ if ($signtool) {
     Write-Host 'not signed (set FAIDER_SIGN_CERT to sign)'
 }
 
+# (/F names the file Inno Setup writes, over OutputBaseFilename in Faider.iss)
+$name = "Faider-$version-Setup"
+if ($CiCheck) {
+    $name += '-CI-check-not-for-release'
+    $innoArgs += "/F$name"
+}
+
 Write-Host "Packing $version (C++ runtime $vc)..."
 & $iscc /Q "/DAppVersion=$version" "/DSource=$source" "/DIcon=$icon" "/DCRT=$($crt.FullName)" @innoArgs (Join-Path $root 'installer\Faider.iss')
 if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed.' }
-$setup = Join-Path $build "installer\Faider-$version-Setup.exe"
+$setup = Join-Path $build "installer\$name.exe"
 if ($signtool) {
     & $signtool verify /pa $setup
     if ($LASTEXITCODE -ne 0) { throw 'Setup.exe is not signed.' }

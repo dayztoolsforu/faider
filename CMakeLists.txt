@@ -60,6 +60,10 @@ set(_juce_modules juce_audio_utils juce_dsp juce_osc)
 add_library(faider_core STATIC
     src/Session.cpp
     src/engine/AudioEngine.cpp
+    src/engine/AudioEngineProcess.cpp
+    src/engine/AudioEngineDevices.cpp
+    src/engine/AudioEngineGraph.cpp
+    src/engine/AudioEngineRack.cpp
     src/engine/DriftFifo.cpp
     src/engine/BuiltInClock.cpp
     src/engine/HeadphoneEq.cpp

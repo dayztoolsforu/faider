@@ -19,6 +19,7 @@ target_sources(Faider PRIVATE
     ${_src}/ui/VoiceChainEditor.cpp
     ${_src}/ui/MixerComponent.cpp
     ${_src}/ui/DevicesTab.cpp
+    ${_src}/ui/SettingsTab.cpp
     ${_src}/ui/PadsPanel.cpp
     ${_src}/ui/TapePanel.cpp
     ${_src}/ui/Hotkeys.cpp

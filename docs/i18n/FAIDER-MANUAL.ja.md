@@ -80,11 +80,25 @@ Faider は、大型コンソールをモデルにした Windows 用のライブ�
 
 1. インストーラー `Faider-<version>-Setup.exe` を実行します。
 2. インストーラーにコード署名がないため、Windows SmartScreen が未認識のアプリとして警告することがあります。**詳細情報**をクリックし、**実行**をクリックします。
-3. 使用許諾に同意し、管理者権限の確認を許可します。デスクトップのショートカットが必要な場合は、途中でチェックを入れてください(初期状態ではオフです)。
-4. インストーラーはアプリを `C:\Program Files\Faider` に置き、スタートメニューに **Faider** を追加します。必要なものはすべて同梱されています。
+3. **Install for all users**(推奨。管理者権限の確認を許可します)または **Install for me only**(管理者権限は不要)を選び、使用許諾に同意します。デスクトップのショートカットが必要な場合は、途中でチェックを入れてください(初期状態ではオフです)。更新は、すでにあるコピーと同じ方法で、確認なしにインストールされます。
+4. インストーラーはアプリを `C:\Program Files\Faider`(自分だけにインストールした場合: `%LOCALAPPDATA%\Programs\Faider`)に置き、スタートメニューに **Faider** を追加します。必要なものはすべて同梱されています。
 5. 最後のページで、すぐに Faider を起動できます。VB-CABLE がインストールされていない場合は、VB-CABLE のダウンロードページを開くかどうかも尋ねられます。
 
-ミックスと設定は、プログラムとは別に `%APPDATA%\Faider` に保存されます。アンインストールしても、これらは残ります。
+ミックスと設定は、プログラムとは別に `%APPDATA%\Faider` に保存されます。アンインストール時に、これらも削除するかどうか尋ねられます。「はい」と答えない限り、残ります。
+
+**ウィザードなしでインストールする**。スクリプトや展開ツール向けに、インストーラーは Inno Setup のスイッチを受け付けます。
+
+| スイッチ | |
+|---|---|
+| `/SILENT` | ウィザードなし。進行状況のウィンドウだけを表示します |
+| `/VERYSILENT` | 何も表示しません |
+| `/SUPPRESSMSGBOXES` | 上のどちらかと併用: メッセージボックスには既定の答えが返されます |
+| `/NORESTART` | インストール後に Windows を再起動しません |
+| `/TASKS="desktopicon"` | デスクトップのショートカットを作ります |
+| `/ALLUSERS`、`/CURRENTUSER` | すべてのユーザー用(既定。管理者として実行していない場合は、Windows が管理者権限を求めます)、または実行しているユーザー用 |
+| `/LOG="file"` | そのファイルにログを書き込みます。ログは常に書き込まれます。これを指定しないときは `%TEMP%` の `Setup Log <date>.txt` です |
+
+例: `Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`。サイレントインストールは、実行中の Faider を先に終了し、インストール後に Faider を起動せず、VB-CABLE のページも案内しません。アンインストーラー(プログラムのフォルダーにある `unins000.exe`)も `/SILENT` と `/VERYSILENT` を受け付けます。サイレントでアンインストールした場合、ミックスと設定は削除されません。
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -128,7 +142,7 @@ SETUP は 1 ページに 1 つ、4 つの質問をして、答えに合わせて
 1. **WHERE YOU LISTEN**: ヘッドホンまたはスピーカーを選びます。Windows の既定がすでに選ばれています。
 2. **MICROPHONES**: 話しかけるマイクを選びます。インターフェースの入力(**IN 1**、**IN 2** …)と、Windows の録音デバイスです。
 3. **APPS HEAR YOU**: アプリがマイクとして使う仮想ケーブルを選びます(ステップ 2 の後なら **CABLE Input**)。または **NOT NOW** を選びます。Windows がまだケーブルで再生または録音している間は、下にある **SET MY DEFAULTS** で本物のスピーカーとマイクを元に戻せます(ステップ 2)。
-4. **PROGRAMS**: 今音を出していて、卓に入れたいプログラムを選びます。
+4. **PROGRAMS**: 卓に入れたいプログラムを選びます。今音を出しているものと、実行中で「Not playing yet」と表示されるもの(音を出したときにキャプチャされます)です。
 5. **BUILD THE MIX** をクリックします。**DONE** に、作られたものが一覧されます。
 6. **OPEN THE MIXER** をクリックして、ミキサーを見ます。
 
@@ -173,11 +187,11 @@ SETUP はページではありません。デバイスやプログラムを追�
 1. 話して、マイクのメーターが動くのを確認します。
 2. 自分の声を聞くには、マイクの **HEADPHONES** キーをクリックします。
 3. Discord、ゲーム、OBS など、他のアプリで、マイクとして **CABLE Output** を選びます。
-4. アプリに何が届いているか確認します。**FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** で、アプリが受け取っている音を 5 秒間録音して、再生します。
+4. アプリに何が届いているか確認します。**HEAR WHAT THEY HEAR**(PRE-FLIGHT の **MIC OUTPUT** の行、または **FIND**、Ctrl+K)で、アプリが受け取っている音を 5 秒間録音して、再生します。
 
 プログラムが二重に聞こえるときは、[18.7](#187-i-hear-something-twice-or-an-echo) を参照してください。
 
-**+ CHANNEL** と **+ APP** でチャンネルを追加します。**+ OUTPUT** は、出力がまだないデバイスに出力を追加します。出力名の下にあるデバイスキーで、再生先を変更できます。名前を右クリックすると、**RENAME...**、色、**HEADPHONE EQ**(出力)、**IN THE MINI MIXER**、**REMOVE** が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。
+**+ CHANNEL** と **+ APP** でチャンネルを追加します(**+ APP** には、実行中で **NOT PLAYING YET** のプログラムも並びます)。**+ OUTPUT** は、出力がまだないデバイスに出力を追加します。出力名の下にあるデバイスキーで、再生先を変更できます。名前を右クリックすると、**RENAME...**、色、**HEADPHONE EQ**(出力)、**IN THE MINI MIXER**、**REMOVE** が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -219,8 +233,8 @@ SETUP はページではありません。デバイスやプログラムを追�
 
 | グループ | カード | 働き |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | 入力メニューを開きます。インターフェースの入力、Windows のデバイス、アプリ、プログラムのウィンドウ、ブラウザー（全体、またはタブを 1 つだけ分離）、テストトーン。パッドとテープのチャンネルは、それぞれのページ（**TOOLS**）から追加します |
-| | **ADD APP** | 今音を出しているプログラムを一覧します。1 つ選ぶと、チャンネルが作られます |
+| **DESK** | **ADD CHANNEL** | 入力メニューを開きます。インターフェースの入力、Windows のデバイス、音を出しているアプリ、まだ音を出していないプログラム、ブラウザー（全体、またはタブを 1 つだけ分離）、テストトーン。パッドとテープのチャンネルは、それぞれのページ（**TOOLS**）から追加します |
+| | **ADD APP** | 今音を出しているプログラムを一覧し、続いて **NOT PLAYING YET** の下に、ウィンドウを持って実行中で音を出していないプログラムを一覧します。1 つ選ぶと、チャンネルが作られます。音を出していないプログラムは、音を出した時点からキャプチャされます |
 | | **ADD BUS** | バス、またはコンバイネーター(最初は 2 経路) |
 | | **PLUGINS** | ストリップの下にプラグインパネルをスライドして表示します([9](#9-plugins) を参照) |
 | **SELECT** | **AUTO** | ストリップのどのコントロールに触れても、そのストリップが選択されます |
@@ -583,11 +597,11 @@ LED は、コンプレッサーとゲートがオフの間も、オンなら*ど
 | **MIX EQ** | In スイッチ、HF のゲインと周波数、LF のゲインと周波数 |
 | **CUT**、**SEL**、フェーダー | チャンネルと同じ |
 
-出力を右クリックすると、**DEVICE...**、**HEADPHONE EQ**(ヘッドホン補正: **NONE**、またはブランド別に並んだあなたのモデル)、**ALERT IF SILENT**(-60 dBFS 未満が **10 S**、**30 S**、**1 MIN**、**5 MIN** 続いたとき。または **OFF**)と **ALERT IF CLIPPING**(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、**IN THE MINI MIXER**、スペーサー、**RENAME...**、**REMOVE** が使えます。
+出力を右クリックすると、**DEVICE...**、**HEADPHONE EQ**(ヘッドホン補正: **NONE**、またはブランド別に並んだあなたのモデル)、**ALERT IF SILENT**(-60 dBFS 未満が **10 S**、**30 S**、**1 MIN**、**5 MIN** 続いたとき。または **OFF**)と **ALERT IF CLIPPING**(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、**IN THE MINI MIXER**、**MIX-MINUS AND STEMS...**、スペーサー、**RENAME...**、**REMOVE** が使えます。
 
 出力は、デバイスごとに 1 つ、自動で作られます([出力はデバイス](#outputs-are-devices) を参照)。
 
-**FIND > MIX-MINUS AND STEMS** は、ゲストごとのフィード(本人の声以外のすべて)と、声、音楽、ゲームのステムを作ります。
+**MIX-MINUS AND STEMS...**(出力の右クリックメニュー、または FIND)は、ゲストごとのフィード(本人の声以外のすべて)と、声、音楽、ゲームのステムを作ります。
 
 ---
 
@@ -841,7 +855,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND、またはトレイメニューの **Session timeline...**: 保存されているすべてのバージョンを日付別に。**RESTORE EVERYTHING**(Faider はそのミックスで再起動します)、または、再起動せずに **PUT ONE CHANNEL BACK**(そのレベル、パン、CUT、ラック) |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS、FIND、またはトレイメニューの **Session timeline...**: 保存されているすべてのバージョンを日付別に。**RESTORE EVERYTHING**(Faider はそのミックスで再起動します)、または、再起動せずに **PUT ONE CHANNEL BACK**(そのレベル、パン、CUT、ラック) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: ミックスに名前を付けて残します |
 | **OPEN, EXPORT OR IMPORT...** | 名前付きのミックスを開く(再起動します)、ミックスをファイルに保存する、ファイルから読み込む |
 
@@ -867,11 +881,11 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 | **WINDOWS** | **START WITH WINDOWS**: サインイン時にトレイで開きます |
 | **DESK** | **WARN IF I TALK WHILE CUT**(CUT 中のマイクが -30 dBFS を超えたときの通知) |
 | **APPS** | **APP RULES...**: プログラムが再生を始めたとき、どのバスや出力へ送るか(**FIND** からも開けます)。プログラムのチャンネルを削除すると、そのルールも削除されます |
-| **SESSIONS** | **SAVE SESSION AS...**、**OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**、**PRE-FLIGHT NOW...**、**TIPS**、**SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...**、**OPEN, EXPORT OR IMPORT...**、**SESSION TIMELINE...**([14.3](#143-sessions) を参照) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**、**PRE-FLIGHT NOW...**、**ZERO DESK...**([18.1](#181-pre-flight) を参照)、**TIPS**、**SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | デバイスの接続と取り外し、チャンネルのクリップ(音源または出力がフルスケール)、シーンの呼び出し、マクロの実行、元に戻す / やり直し |
 | **ZOOM** | 100%、125%、150%、**CUSTOM...**(75〜200%) |
-| **METER STANDARD** | メーターの表示方式(既定は速く落ちるサンプルピーク。IEC など) |
+| **METER STANDARD** | メーターの表示方式: **PEAK**(既定。dBFS のサンプルピークで、速く落ちます)、**PEAK IEC**、**TRUE PEAK**(dBTP、ITU-R BS.1770。4 倍オーバーサンプリングなので、サンプル間のピークも表示します。目盛りは +3 まで)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、NORDIC)、**K-20**、**K-14**、**K-12**、**LUFS M**(モーメンタリーラウドネス、EBU R128) |
 | **CHANNEL METER POINT** | **IN**(元の音源)、**PRE**(エフェクトの後)、**POST**(フェーダーの後、既定)。サイドバーの **METER** カードも同じ設定です |
 | **RECORDING** | **FFMPEG**: `ffmpeg.exe` の場所、または **NOT FOUND**。クリックして `ffmpeg.exe` を選びます(PATH にあるものより優先されます)。選んだ後は、PATH のものに戻す選択肢も出ます |
 | **PLUGIN TEST TIME** | **30 S**(既定)、**60 S**、**120 S**: 新しいプラグインがテストで読み込みを終えるまでの持ち時間。過ぎると失敗になります |
@@ -914,7 +928,7 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 
 ### HOTKEYS
 
-割り当てられるホットキーはすべてここにまとまっています。**PADS**、**MACROS**、**SCENES**、そして **TAPE** の下の **SAVE INSTANT REPLAY**。1 つクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。固定キーも一覧されています([19.1](#191-keyboard-shortcuts))。ページの ON THE MIXER のキーは、コンソールでも使えます([5](#5-the-console))。
+割り当てられるホットキーはすべてここにまとまっています。**PADS**、**MACROS**、**SCENES**、そして **TAPE** の下の **SAVE INSTANT REPLAY**。各カードには、そのキーの働きと、ほかにどこで設定できるかが書かれています。1 つクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。2 つのものに割り当てられたキーや、Windows に拒否されたキー(他のアプリが使っている可能性があります)は、その行の下に赤で示されます。動作するのはどちらか一方だけです。固定キーも一覧されています([19.1](#191-keyboard-shortcuts))。ページの ON THE MIXER のキーは、コンソールでも使えます([5](#5-the-console))。
 
 <a id="control"></a>
 
@@ -934,7 +948,7 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下) |
-| **OSC** | この PC 上のプログラムから、ポート 9000、または SETTINGS > CONTROL の **PORT...** で設定したポートに送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます |
+| **OSC** | この PC 上のプログラムから、ポート 9000、または SETTINGS > CONTROL の **PORT...** で設定したポートに送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます。すべてのアドレス: [OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語） |
 | **In-game overlay** (Ctrl+Shift+O) | 各マイクチャンネルのトーキングライト、LIVE / CUT とレベル、さらに最大 4 つのシーンキー。ゲームからフォーカスを奪いません。好きな位置にドラッグできます |
 | **MINI** | ミニミキサー: 右クリックメニューで **IN THE MINI MIXER** にチェックした各ストリップのフェーダー、メーター、**CUT** がある小さなウィンドウ(チェックしたものがなければ、各出力のもの)。**PIN** で、すべての上に固定されます。**OPEN** でメインウィンドウに戻ります |
 | **Tray** | アイコンをクリックするとミニミキサー、ダブルクリックするとウィンドウが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します |
@@ -969,8 +983,8 @@ Faider は、管理者のウィンドウから起動された場合でも、常�
 
 ### 17.3 プログラムをミックスに入れる
 
-1. プログラムを起動し、音を出します。
-2. **ADD APP** > そのプログラムを選びます。ロー(RAW)チャンネル(エフェクトなし)が作られます。
+1. プログラムを起動します。
+2. **ADD APP** > そのプログラムを選びます(今音を出していなければ **NOT PLAYING YET** の下にあります)。ロー(RAW)チャンネル(エフェクトなし)が作られます。
 3. 聞きたい場所にルーティングします。二重に聞こえるときは、[18.7](#187-i-hear-something-twice-or-an-echo) を参照してください。
 
 <a id="174-reorder-channels"></a>
@@ -1026,6 +1040,14 @@ MIXER でチャンネルの**名前バー**を横にドラッグするか(NAME �
 
 ## 18. トラブルシューティング
 
+オーバーレイ、MIDI コントローラー、OSC が反応しないとき:
+
+| 問題 | 確認 |
+|---|---|
+| **オーバーレイが表示されない** | Ctrl+Shift+O は Windows 全体のホットキーです。他のアプリが使っている場合は、SETTINGS > HOTKEYS が赤で示し、イベントログにも記録されます。FIND の **SHOW OVERLAY** なら、キーなしでオーバーレイを開けます。オーバーレイは最前面に表示されるウィンドウで、ボーダーレスウィンドウのゲーム向けに作られています。ゲームをボーダーレスまたはウィンドウ表示にしてください。一覧に出るのはマイクのチャンネルだけ(インターフェースの入力と Windows のデバイス)で、1 つもないときは **NO MIC CHANNELS** と表示されます |
+| **MIDI コントローラーが何もしない** | MIDI 入力はそれぞれ、SETTINGS > CONTROL > **INPUTS AND BINDINGS** でオンにするまでオフです。Faider の起動後に接続したコントローラーは、自動では開かれません。そこで **REFRESH** を押し、その入力をオフにしてからオンにするか、Faider を再起動してください。コントロールを動かすと、その一覧の一番下の **LAST** に、届いた内容が表示されます。コントロールは、**MIDI MAP** (Ctrl+L) でマップするまで何もしません。読み取るのはコントロールチェンジとノートだけです。フェーダーとパンはノブやフェーダーに追従し、キーには追従しません。キーは CUT、SOLO などを切り替えます |
+| **OSC が何もしない** | OSC は、**OSC ON** が点灯するまでオフです(SETTINGS > CONTROL)。送信側は、そのキーに表示されているポート(変更していなければ 9000)を使い、この PC 上で動いている必要があります。Faider は `127.0.0.1` だけで待ち受けるので、スマートフォンや他の PC からは届きません。ポートを開けなかった場合(他のプログラムが使っている可能性があります)、Faider がそう知らせ、OSC はオフのままになります。**PORT...** で別のポートを選んでください。次にアドレスを確認します。ストリップの名前で、スペースは `_` にします([OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語）を参照) |
+
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
@@ -1036,13 +1058,13 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 |---|---|---|
 | **AUDIO** | 起動しませんでした(他のアプリが使っている可能性があります) | **DEVICES** |
 | **MIC CABLE** | VB-CABLE がありません。アプリがミックスをマイクとして聞けません | **GET VB-CABLE** |
-| **MIC OUTPUT** | マイクのケーブルに再生する出力がありません | **ROUTING** |
+| **MIC OUTPUT** | マイクのケーブルに再生する出力がありません | **ROUTING**(問題がないときは、このキーは **HEAR WHAT THEY HEAR** になります) |
 | **MIC CHANNELS** | マイクまでの途中で、CUT されているものがあります | **UNCUT** |
 | **WINDOWS DEFAULTS** | Windows の既定のスピーカーまたはマイク(または通話用の既定)が仮想ケーブルです | **SET MY DEFAULTS** |
 | **HEARD ONCE** | フィードバックループ、または二重に聞こえるもの | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows デバイスまたはキャプチャしたアプリがミックスにあり、Windows のオーディオエンジンが Normal 優先度です。黄色は提案のみ。ブーストが再起動で元に戻ったときは赤。ASIO だけを使っているときは緑 | **BOOST** |
 
-**ZERO THE DESK**(左下。FIND では **ZERO DESK** でも出ます)は、前のセッションが残しがちな設定を確認します。ソロ、キーリッスン、12 dB を超えてずれたゲイントリム、CUT された出力です。それぞれに **FIX** があります。
+**ZERO THE DESK**(左下。SETTINGS > GENERAL > ON START の **ZERO DESK...**、FIND の **ZERO DESK** でも出ます)は、前のセッションが残しがちな設定を確認します。ソロ、キーリッスン、12 dB を超えてずれたゲイントリム、CUT された出力です。それぞれに **FIX** があります。
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1052,7 +1074,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 
 | 理由 | 対処 |
 |---|---|
-| 保存されたインターフェースが接続されていない | 接続してから、**SESSION TIMELINE**(FIND またはトレイ)> "kept:" のバージョン > **RESTORE EVERYTHING** |
+| 保存されたインターフェースが接続されていない | 接続してから、**SESSION TIMELINE**(SETTINGS > GENERAL、FIND、またはトレイ)> "kept:" のバージョン > **RESTORE EVERYTHING** |
 | 保存されたインターフェースを開けなかった(他のプログラムが使用中) | 他のプログラムを閉じて、Faider を再起動します。その間、ミックスは上書き保存されません |
 | session.xml を読み込めなかった | **SESSION TIMELINE** > 最近のバージョン > **RESTORE EVERYTHING** |
 
@@ -1093,7 +1115,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 
 ### 18.6 アプリが ADD APP に表示されない
 
-- プログラムが今**音を出している**必要があります。再生を始めてから、もう一度メニューを開いてください。
+- プログラムが**音を出している**か、自分のウィンドウを持って実行中である必要があります(その場合は **NOT PLAYING YET** の下にあります)。ウィンドウなしで動くプログラムや、Windows がウィンドウを代わりにホストする Microsoft Store アプリは、音を出すまで一覧に出ません。再生を始めてから、もう一度メニューを開いてください。
 - すでにチャンネルがあるプログラムはグレーで表示されます(**ON THE DESK**)。
 - Windows 10 バージョン 2004 より古い Windows では、単一のプログラムをキャプチャできません("Windows refused app capture")。
 
@@ -1177,10 +1199,13 @@ Windows がケーブルを既定のデバイスにしています。**SET MY DEF
 
 | | |
 |---|---|
-| `--minimised` | トレイで起動 |
-| `--quit` | 実行中のコピーを終了 |
+| `--minimised` | トレイで起動(**START WITH WINDOWS** が使います) |
+| `--quit` | 実行中のコピーを終了(トレイの **Quit** と同じ)。実行中のコピーがなければ、何も起きません |
+| `--allow-admin` | 管理者として起動したとき、そのまま管理者として動きます。これがないと、Faider は通常の権限で自分を起動し直します([16](#16-remote-control-overlay-and-tray) を参照) |
 | `--clock windows`、`--clock builtin`、`--clock <driver>` | その回の起動でのクロック: Windows の再生デバイス、内蔵クロック、または名前に `<driver>` を含む ASIO ドライバー。DEVICES > CLOCK より優先されます([クロック](#clocking)を参照) |
 | `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** と **BACK TO NORMAL** が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、またはすべてのコアで Normal に戻し、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否、7: Normal にしたがすべてのコアへの戻しを拒否 |
+| `--scan <plugin> --out <file>` | 内部用: プラグインを読み込む前に、Faider が別のコピーで実行するテスト([9](#9-plugins) を参照)。ウィンドウもオーディオもありません |
+| `--after <process id>` | 内部用: Faider が自分を起動し直すとき(**RESTORE EVERYTHING**、**RESTART NOW**、管理者権限を手放すとき)に付けられます。新しいコピーは、そのプロセスが終わるのを最大 1 分待ちます |
 
 <a id="193-files"></a>
 
@@ -1202,7 +1227,7 @@ Windows がケーブルを既定のデバイスにしています。**SET MY DEF
 | `status.txt` | 数秒ごとのエンジンのスナップショット: デバイス、レベル、バッファ、ドリフト |
 | `crash.log`、`crash.dmp` | クラッシュレポート |
 
-プログラム本体は `C:\Program Files\Faider` にあります。録音は、別のフォルダーを選ばない限り `Music\Faider Recordings` に保存されます。
+プログラム本体は `C:\Program Files\Faider` にあります(自分だけにインストールした場合: `%LOCALAPPDATA%\Programs\Faider`)。録音は、別のフォルダーを選ばない限り `Music\Faider Recordings` に保存されます。
 
 <a id="194-colours"></a>
 

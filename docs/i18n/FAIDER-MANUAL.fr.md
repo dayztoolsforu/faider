@@ -88,15 +88,38 @@ canal. Suivez les étapes dans l'ordre. Chacune prend une minute ou deux.
 2. Windows SmartScreen peut vous avertir qu'il s'agit d'une application non reconnue, car
    l'installateur n'est pas signé. Cliquez sur **Informations complémentaires**, puis sur
    **Exécuter quand même**.
-3. Acceptez la licence et autorisez l'invite d'administrateur. Si vous voulez un raccourci sur le
-   bureau, cochez-le au passage (il est décoché par défaut).
-4. L'installateur place l'application dans `C:\Program Files\Faider` et ajoute
-   **Faider** au menu Démarrer. Tout ce dont elle a besoin est fourni avec.
+3. Choisissez **Install for all users** (recommandé ; autorisez l'invite d'administrateur) ou
+   **Install for me only** (aucun administrateur requis), puis acceptez la licence. Si vous voulez
+   un raccourci sur le bureau, cochez-le au passage (il est décoché par défaut). Une mise à jour
+   s'installe de la même façon que la copie déjà présente, sans poser la question.
+4. L'installateur place l'application dans `C:\Program Files\Faider` (pour vous seul :
+   `%LOCALAPPDATA%\Programs\Faider`) et ajoute **Faider** au menu Démarrer. Tout ce dont elle a
+   besoin est fourni avec.
 5. Sur la dernière page, vous pouvez lancer Faider tout de suite. Si VB-CABLE n'est pas
    installé, l'installateur propose aussi d'ouvrir la page de téléchargement de VB-CABLE.
 
 Votre mix et vos réglages se trouvent dans `%APPDATA%\Faider`, séparés du programme. La
-désinstallation les laisse en place.
+désinstallation demande s'il faut les supprimer aussi, et les laisse en place sauf si vous répondez
+oui.
+
+**Installer sans l'assistant.** Pour les scripts et les outils de déploiement, l'installateur
+accepte les commutateurs d'Inno Setup :
+
+| Commutateur | |
+|---|---|
+| `/SILENT` | Pas d'assistant, seulement la fenêtre de progression |
+| `/VERYSILENT` | Rien n'est affiché |
+| `/SUPPRESSMSGBOXES` | Avec l'un ou l'autre : les boîtes de message reçoivent leur réponse par défaut |
+| `/NORESTART` | Windows n'est jamais redémarré après l'installation |
+| `/TASKS="desktopicon"` | Crée le raccourci sur le bureau |
+| `/ALLUSERS`, `/CURRENTUSER` | Pour tous les utilisateurs (par défaut : Windows demande un administrateur sauf s'il est lancé en administrateur) ou pour l'utilisateur qui le lance |
+| `/LOG="file"` | Écrit le journal dans ce fichier. Un journal est toujours écrit : sans ce commutateur, c'est `Setup Log <date>.txt` dans `%TEMP%` |
+
+Par exemple : `Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`.
+Une installation silencieuse quitte d'abord un Faider en cours d'exécution, et ne lance pas Faider
+ni ne propose la page de VB-CABLE ensuite. Le désinstallateur (`unins000.exe` dans le dossier du
+programme) accepte aussi `/SILENT` et `/VERYSILENT`. Lors d'une désinstallation silencieuse, votre
+mix et vos réglages ne sont jamais supprimés.
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -169,8 +192,8 @@ les cartes pour choisir. Sur toutes les pages sauf la troisième, vous pouvez en
    (**CABLE Input**, après l'étape 2), ou **NOT NOW**. Tant que Windows joue ou enregistre encore
    sur le câble, **SET MY DEFAULTS** en bas remet vos vrais haut-parleurs et votre vrai microphone
    (étape 2).
-4. **PROGRAMS** : choisissez les programmes qui jouent du son en ce moment et que vous voulez sur
-   la console.
+4. **PROGRAMS** : choisissez les programmes que vous voulez sur la console : ceux qui jouent du son
+   en ce moment, et ceux qui tournent et sont « Not playing yet » (capturés dès qu'ils jouent).
 5. Cliquez sur **BUILD THE MIX**. **DONE** liste ce qui a été créé.
 6. Cliquez sur **OPEN THE MIXER** pour le voir.
 
@@ -225,12 +248,14 @@ joue, son fader et son vumètre.
 2. Pour vous entendre, cliquez sur la touche **HEADPHONES** du micro.
 3. Dans Discord, votre jeu, OBS ou toute autre application, choisissez **CABLE Output** comme
    microphone.
-4. Vérifiez ce qu'elles reçoivent : **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** enregistre 5
-   secondes de ce que reçoivent les applications et vous le rejoue.
+4. Vérifiez ce qu'elles reçoivent : **HEAR WHAT THEY HEAR** (sur la ligne **MIC OUTPUT** de
+   PRE-FLIGHT, ou dans **FIND**, Ctrl+K) enregistre 5 secondes de ce que reçoivent les applications
+   et vous le rejoue.
 
 Si vous entendez un programme deux fois, voir [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** et **+ APP** ajoutent des canaux. **+ OUTPUT** ajoute une sortie sur un périphérique
+**+ CHANNEL** et **+ APP** ajoutent des canaux (**+ APP** liste aussi les programmes en cours
+d'exécution qui sont **NOT PLAYING YET**). **+ OUTPUT** ajoute une sortie sur un périphérique
 qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
 Faites un clic droit sur un nom pour **RENAME...**, la couleur, **HEADPHONE EQ** (une sortie),
 **IN THE MINI MIXER** et **REMOVE**. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.
@@ -290,8 +315,8 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHAN
 
 | Groupe | Carte | Ce qu'elle fait |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Ouvre le menu des entrées : entrées de l'interface, périphériques Windows, applications, fenêtres de programmes, un navigateur (entier, ou un seul onglet isolé), la tonalité de test. Les pads et la bande obtiennent leur tranche depuis leurs propres pages (**TOOLS**) |
-| | **ADD APP** | Liste les programmes qui jouent du son en ce moment. Choisissez-en un pour lui donner un canal |
+| **DESK** | **ADD CHANNEL** | Ouvre le menu des entrées : entrées de l'interface, périphériques Windows, applications qui jouent, programmes qui ne jouent pas encore, un navigateur (entier, ou un seul onglet isolé), la tonalité de test. Les pads et la bande obtiennent leur tranche depuis leurs propres pages (**TOOLS**) |
+| | **ADD APP** | Liste les programmes qui jouent du son en ce moment, puis, sous **NOT PLAYING YET**, ceux qui tournent avec une fenêtre et sont silencieux. Choisissez-en un pour lui donner un canal ; celui qui ne joue pas est capturé dès l'instant où il joue |
 | | **ADD BUS** | Un bus, ou un combinateur (deux chemins au départ) |
 | | **PLUGINS** | Fait monter le panneau des plugins sous les tranches (voir [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Toucher une commande d'une tranche sélectionne cette tranche |
@@ -722,14 +747,14 @@ Chaque sortie a sa propre tranche sombre :
 Clic droit sur une sortie pour **DEVICE...**, **HEADPHONE EQ** (correction de casque : **NONE**, ou
 votre modèle, classé par marque), **ALERT IF SILENT** (sous -60 dBFS pendant **10 S**, **30 S**, **1 MIN** ou **5 MIN**, ou **OFF**) et **ALERT IF
 CLIPPING** (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
-écrivent dans le journal des événements, **IN THE MINI MIXER**, les espaceurs, **RENAME...** et
-**REMOVE**.
+écrivent dans le journal des événements, **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, les
+espaceurs, **RENAME...** et **REMOVE**.
 
 Les sorties sont créées pour vous, une par périphérique (voir
 [Les sorties sont des périphériques](#outputs-are-devices)).
 
-**FIND > MIX-MINUS AND STEMS** construit un retour par invité (tout sauf sa propre voix) et des
-stems voix, musique et jeu.
+**MIX-MINUS AND STEMS...** (dans le menu du clic droit d'une sortie, ou dans FIND) construit un
+retour par invité (tout sauf sa propre voix) et des stems voix, musique et jeu.
 
 ---
 
@@ -1057,7 +1082,7 @@ Votre mix s'enregistre tout seul dans la seconde qui suit chaque modification, e
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND, ou **Session timeline...** dans le menu de la zone de notification : chaque version conservée, par date. **RESTORE EVERYTHING** (Faider redémarre avec), ou **PUT ONE CHANNEL BACK** (son niveau, son pan, son CUT et son rack) sans redémarrer |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, ou **Session timeline...** dans le menu de la zone de notification : chaque version conservée, par date. **RESTORE EVERYTHING** (Faider redémarre avec), ou **PUT ONE CHANNEL BACK** (son niveau, son pan, son CUT et son rack) sans redémarrer |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS : garder le mix sous un nom |
 | **OPEN, EXPORT OR IMPORT...** | Ouvrir un mix nommé (redémarre), enregistrer le mix dans un fichier, ou en charger un depuis un fichier |
 
@@ -1088,11 +1113,11 @@ en crème quand ils sont activés.
 | **WINDOWS** | **START WITH WINDOWS** : s'ouvre dans la zone de notification quand vous ouvrez votre session |
 | **DESK** | **WARN IF I TALK WHILE CUT** (un avis quand un micro coupé dépasse -30 dBFS) |
 | **APPS** | **APP RULES...** : vers quel bus ou quelle sortie va un programme quand il se met à jouer (aussi dans **FIND**). Retirer le canal d'un programme retire sa règle |
-| **SESSIONS** | **SAVE SESSION AS...** ; **OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP** ; **PRE-FLIGHT NOW...** ; **TIPS** ; **SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...** ; **OPEN, EXPORT OR IMPORT...** ; **SESSION TIMELINE...** (voir [14.3](#143-sessions)) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP** ; **PRE-FLIGHT NOW...** ; **ZERO DESK...** (voir [18.1](#181-pre-flight)) ; **TIPS** ; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Périphériques connectés ou disparus, un canal qui sature (sa source ou sa sortie à pleine échelle), scènes rappelées, macros lancées, annuler et rétablir |
 | **ZOOM** | 100 %, 125 %, 150 %, **CUSTOM...** (75–200 %) |
-| **METER STANDARD** | Comment les vumètres lisent le niveau (crête d'échantillon avec une chute rapide par défaut ; IEC et autres) |
+| **METER STANDARD** | Comment les vumètres lisent le niveau : **PEAK** (par défaut : crête d'échantillon en dBFS avec une chute rapide), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** et **LUFS M** (sonie momentanée, EBU R128) |
 | **CHANNEL METER POINT** | **IN** (source brute), **PRE** (après les effets), **POST** (après le fader, par défaut). Les cartes **METER** de la barre latérale règlent la même chose |
 | **RECORDING** | **FFMPEG** : l'emplacement de `ffmpeg.exe`, ou **NOT FOUND**. Cliquez dessus pour choisir `ffmpeg.exe` (utilisé avant celui du PATH) ; une fois un fichier choisi, il propose aussi de revenir à celui du PATH |
 | **PLUGIN TEST TIME** | **30 S** (par défaut), **60 S** ou **120 S** : le temps qu'a un nouveau plugin pour se charger pendant son test avant d'échouer |
@@ -1153,9 +1178,12 @@ une télécommande.
 ### HOTKEYS
 
 Tous les raccourcis clavier assignables sont au même endroit : **PADS**, **MACROS**, **SCENES**, et
-**SAVE INSTANT REPLAY** sous **TAPE**. Cliquez sur l'un, puis appuyez sur les nouvelles touches
+**SAVE INSTANT REPLAY** sous **TAPE**. Chaque carte dit ce que font ses touches et à quel autre
+endroit elles peuvent être réglées. Cliquez sur l'un, puis appuyez sur les nouvelles touches
 (Échap annule, Suppr efface). Les raccourcis doivent comporter Ctrl, Alt ou une touche F, et ils
-fonctionnent pendant qu'un jeu a le focus. Les touches fixes sont listées aussi
+fonctionnent pendant qu'un jeu a le focus. Une touche donnée à deux choses, ou que Windows a
+refusée (une autre application l'a peut-être), est signalée en rouge sous sa ligne : une seule des
+deux fonctionne. Les touches fixes sont listées aussi
 ([19.1](#191-keyboard-shortcuts)). Les touches ON THE MIXER de la page fonctionnent aussi sur la
 console ([5](#5-the-console)).
 
@@ -1177,7 +1205,7 @@ console ([5](#5-the-console)).
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas) |
-| **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000, ou le port réglé avec **PORT...** dans SETTINGS > CONTROL (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_` |
+| **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000, ou le port réglé avec **PORT...** dans SETTINGS > CONTROL (il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_`. Toutes les adresses : [référence OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (en anglais) |
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / CUT et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
 | **MINI** | Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et **CUT** pour chaque tranche cochée **IN THE MINI MIXER** dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). **PIN** la garde au premier plan de tout. **OPEN** revient à la fenêtre principale |
 | **Zone de notification** | Cliquez sur l'icône pour le mini-mixeur, double-cliquez pour ouvrir la fenêtre. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte |
@@ -1221,8 +1249,9 @@ désactivé) demandent elles-mêmes la permission.
 
 ### 17.3 Amener un programme dans le mix
 
-1. Lancez le programme et faites-le jouer du son.
-2. **ADD APP** > choisissez-le. Il reçoit un canal brut (sans effets).
+1. Lancez le programme.
+2. **ADD APP** > choisissez-le (sous **NOT PLAYING YET** s'il est silencieux pour l'instant). Il
+   reçoit un canal brut (sans effets).
 3. Routez-le là où vous voulez l'entendre. Si vous l'entendez deux fois, voir
    [18.7](#187-i-hear-something-twice-or-an-echo).
 
@@ -1290,6 +1319,14 @@ liaisons les suivent. SIMPLE montre les sorties dans le même ordre.
 
 ## 18. Dépannage
 
+Quand l'overlay, un contrôleur MIDI ou OSC ne répond pas :
+
+| Problème | À vérifier |
+|---|---|
+| **L'overlay ne s'affiche pas** | Ctrl+Maj+O est un raccourci clavier pour tout Windows. Si une autre application l'a, SETTINGS > HOTKEYS le signale en rouge et le journal des événements le dit : **SHOW OVERLAY** dans FIND ouvre l'overlay sans la touche. L'overlay est une fenêtre qui reste au premier plan, faite pour un jeu en fenêtre sans bordure : réglez donc le jeu en fenêtre sans bordure ou en mode fenêtré. Il ne liste que les canaux micro (entrées de l'interface et périphériques Windows), et affiche **NO MIC CHANNELS** quand il n'y en a aucun |
+| **Un contrôleur MIDI ne fait rien** | Chaque entrée MIDI est désactivée tant que vous ne l'activez pas dans SETTINGS > CONTROL > **INPUTS AND BINDINGS**. Un contrôleur branché après le démarrage de Faider n'est pas ouvert tout seul : appuyez sur **REFRESH** à cet endroit et désactivez puis réactivez son entrée, ou redémarrez Faider. Bougez une commande, et **LAST** en bas de cette liste montre ce qui est arrivé. Une commande ne fait rien tant qu'elle n'est pas assignée dans **MIDI MAP** (Ctrl+L). Seuls les control changes et les notes sont lus : les faders et les pans suivent un potentiomètre ou un fader, pas une touche, et les touches commutent CUT, SOLO et autres |
+| **OSC ne fait rien** | OSC est désactivé tant que **OSC ON** n'est pas allumé (SETTINGS > CONTROL). L'émetteur doit utiliser le port affiché sur cette touche (9000 sauf si vous l'avez changé) et tourner sur ce PC : Faider n'écoute que sur `127.0.0.1`, donc un téléphone ou un autre PC ne peut pas l'atteindre. Si le port n'a pas pu être ouvert (un autre programme l'a peut-être), Faider le dit et OSC reste désactivé : choisissez-en un autre avec **PORT...**. Vérifiez ensuite l'adresse : le nom de la tranche, avec `_` pour les espaces (voir la [référence OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (en anglais)) |
+
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
@@ -1301,15 +1338,15 @@ et n'apparaît que si quelque chose ne va pas. Chaque ligne a un voyant, le cons
 |---|---|---|
 | **AUDIO** | Il n'a pas démarré (une autre application l'a peut-être) | **DEVICES** |
 | **MIC CABLE** | Pas de VB-CABLE : les applications ne peuvent pas entendre votre mix comme un micro | **GET VB-CABLE** |
-| **MIC OUTPUT** | Aucune sortie ne joue dans le câble micro | **ROUTING** |
+| **MIC OUTPUT** | Aucune sortie ne joue dans le câble micro | **ROUTING** (tant que tout va bien, sa touche est **HEAR WHAT THEY HEAR**) |
 | **MIC CHANNELS** | Quelque chose est coupé sur le chemin vers le micro | **UNCUT** |
 | **WINDOWS DEFAULTS** | Le haut-parleur ou le micro par défaut de Windows (ou son périphérique par défaut pour les appels) est le câble virtuel | **SET MY DEFAULTS** |
 | **HEARD ONCE** | Une boucle de rétroaction, ou quelque chose entendu deux fois | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Des périphériques Windows ou des applications capturées sont dans le mix et le moteur audio de Windows est en priorité Normal : jaune, une simple suggestion ; rouge si votre boost a été annulé par un redémarrage. Vert quand seul ASIO est utilisé | **BOOST** |
 
-**ZERO THE DESK** (en bas à gauche ; aussi **ZERO DESK** dans FIND) vérifie ce qu'une session
-précédente peut laisser en place : solos, écoute de la clé, trims de gain écartés de plus de 12 dB
-et sorties coupées. Chacun a un **FIX**.
+**ZERO THE DESK** (en bas à gauche ; aussi **ZERO DESK...** dans SETTINGS > GENERAL > ON START, et
+**ZERO DESK** dans FIND) vérifie ce qu'une session précédente peut laisser en place : solos, écoute
+de la clé, trims de gain écartés de plus de 12 dB et sorties coupées. Chacun a un **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1320,7 +1357,7 @@ nom `session-unloaded-<date>.xml`. Le journal des événements dit pourquoi :
 
 | Raison | Que faire |
 |---|---|
-| L'interface enregistrée n'est pas connectée | Connectez-la, puis **SESSION TIMELINE** (FIND ou la zone de notification) > la version « kept: » > **RESTORE EVERYTHING** |
+| L'interface enregistrée n'est pas connectée | Connectez-la, puis **SESSION TIMELINE** (SETTINGS > GENERAL, FIND ou la zone de notification) > la version « kept: » > **RESTORE EVERYTHING** |
 | L'interface enregistrée n'a pas pu être ouverte (un autre programme l'a) | Fermez l'autre programme et redémarrez Faider. Rien n'est enregistré par-dessus votre mix entre-temps |
 | session.xml n'a pas pu être lu | **SESSION TIMELINE** > une version récente > **RESTORE EVERYTHING** |
 
@@ -1380,7 +1417,10 @@ Suivez le chemin du signal :
 
 ### 18.6 Une application n'apparaît pas dans ADD APP
 
-- Le programme doit **jouer du son** en ce moment. Lancez la lecture, puis rouvrez le menu.
+- Le programme doit **jouer du son**, ou tourner avec une fenêtre à lui (il est alors sous **NOT
+  PLAYING YET**). Un programme qui tourne sans fenêtre, ou une application du Microsoft Store dont
+  Windows héberge la fenêtre à sa place, n'est listé que lorsqu'il joue : lancez la lecture, puis
+  rouvrez le menu.
 - Les programmes qui ont déjà un canal sont grisés (**ON THE DESK**).
 - Les versions de Windows antérieures à 10 version 2004 ne peuvent pas capturer un seul programme
   (« Windows refused app capture »).
@@ -1490,10 +1530,13 @@ l'[étape 2](#step-2-install-vb-cable-optional).
 
 | | |
 |---|---|
-| `--minimised` | Démarrer dans la zone de notification |
-| `--quit` | Quitter la copie en cours d'exécution |
+| `--minimised` | Démarrer dans la zone de notification (ce qu'utilise **START WITH WINDOWS**) |
+| `--quit` | Quitter la copie en cours d'exécution, comme le fait **Quit** dans la zone de notification. Si aucune ne tourne, il ne se passe rien |
+| `--allow-admin` | Lancé en administrateur, le rester. Sans cela, Faider se relance avec des droits ordinaires (voir [16](#16-remote-control-overlay-and-tray)) |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Pour cette exécution, l'horloge est votre périphérique de lecture Windows, l'horloge intégrée, ou le pilote ASIO dont le nom contient `<driver>`. Il l'emporte sur DEVICES > CLOCK (voir [Synchronisation](#clocking)) |
 | `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Ce que **BOOST WINDOWS AUDIO** et **BACK TO NORMAL** lancent, en administrateur : le moteur audio de Windows en priorité High (fixé sur le cœur N seulement s'il est indiqué), ou de retour en Normal sur tous les cœurs, puis il se ferme. 0 : fait ; 2 : arguments incorrects ; 3 : audiodg introuvable ; 4 : accès refusé ; 5 : priorité refusée ; 6 : High réglé mais la fixation refusée ; 7 : Normal réglé mais le retour sur tous les cœurs refusé |
+| `--scan <plugin> --out <file>` | Interne : le test que Faider exécute dans une copie séparée avant de charger un plugin (voir [9](#9-plugins)). Pas de fenêtre, pas d'audio |
+| `--after <process id>` | Interne : ajouté quand Faider se relance (**RESTORE EVERYTHING**, **RESTART NOW**, abandon des droits d'administrateur). La nouvelle copie attend, jusqu'à une minute, que ce processus se termine |
 
 <a id="193-files"></a>
 
@@ -1515,7 +1558,8 @@ Dans `%APPDATA%\Faider` :
 | `status.txt` | Un instantané du moteur toutes les quelques secondes : périphériques, niveaux, tampons, dérive |
 | `crash.log`, `crash.dmp` | Rapports de plantage |
 
-Le programme lui-même est dans `C:\Program Files\Faider`. Les enregistrements vont dans
+Le programme lui-même est dans `C:\Program Files\Faider` (installé pour vous seul :
+`%LOCALAPPDATA%\Programs\Faider`). Les enregistrements vont dans
 `Music\Faider Recordings` sauf si vous choisissez un autre dossier.
 
 <a id="194-colours"></a>

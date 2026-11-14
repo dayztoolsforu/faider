@@ -80,11 +80,25 @@ Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台�
 
 1. 运行安装程序 `Faider-<version>-Setup.exe`。
 2. 由于安装程序没有代码签名，Windows SmartScreen 可能会提示这是无法识别的应用。点击**更多信息**，然后点击**仍要运行**。
-3. 接受许可协议，并允许管理员权限提示。如果想要桌面快捷方式，请在安装过程中勾选(默认不勾选)。
-4. 安装程序会把应用放到 `C:\Program Files\Faider`，并在开始菜单中添加 **Faider**。所需的一切都已包含在内。
+3. 选择 **Install for all users**(推荐；请允许管理员权限提示)或 **Install for me only**(不需要管理员权限)，然后接受许可协议。如果想要桌面快捷方式，请在安装过程中勾选(默认不勾选)。更新会按已安装副本的方式安装，不再询问。
+4. 安装程序会把应用放到 `C:\Program Files\Faider`(仅为你自己安装时：`%LOCALAPPDATA%\Programs\Faider`)，并在开始菜单中添加 **Faider**。所需的一切都已包含在内。
 5. 在最后一页，你可以立即启动 Faider。如果没有安装 VB-CABLE，它还会提示是否打开 VB-CABLE 的下载页面。
 
-你的混音和设置保存在 `%APPDATA%\Faider`，与程序本身分开。卸载时这些内容会保留。
+你的混音和设置保存在 `%APPDATA%\Faider`，与程序本身分开。卸载时会询问是否一并删除它们；除非你同意，否则这些内容会保留。
+
+**不使用向导安装**。安装程序支持 Inno Setup 的开关，供脚本和部署工具使用：
+
+| 开关 | |
+|---|---|
+| `/SILENT` | 不显示向导，只显示进度窗口 |
+| `/VERYSILENT` | 什么都不显示 |
+| `/SUPPRESSMSGBOXES` | 与上面任一开关一起使用：消息框会得到默认回答 |
+| `/NORESTART` | 安装后绝不重启 Windows |
+| `/TASKS="desktopicon"` | 创建桌面快捷方式 |
+| `/ALLUSERS`、`/CURRENTUSER` | 为所有用户安装(默认：除非以管理员身份运行，否则 Windows 会要求管理员权限)，或为运行它的用户安装 |
+| `/LOG="file"` | 把日志写入该文件。日志总会写入：不加此开关时，它是 `%TEMP%` 中的 `Setup Log <date>.txt` |
+
+例如：`Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`。静默安装会先退出正在运行的 Faider，安装后既不启动 Faider，也不提示打开 VB-CABLE 的页面。卸载程序(程序文件夹中的 `unins000.exe`)同样支持 `/SILENT` 和 `/VERYSILENT`。静默卸载时，绝不会删除你的混音和设置。
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -128,7 +142,7 @@ SETUP 每页问一个问题，共四个，并根据你的回答建立混音。�
 1. **WHERE YOU LISTEN**：选择你的耳机或音箱。Windows 的默认设备已被选中。
 2. **MICROPHONES**：选择你对着说话的麦克风。它们是接口的输入(**IN 1**、**IN 2** …)和 Windows 录制设备。
 3. **APPS HEAR YOU**：选择应用用作麦克风的虚拟线缆(完成步骤 2 后是 **CABLE Input**)，或选 **NOT NOW**。如果 Windows 仍在用线缆播放或录音，底部的 **SET MY DEFAULTS** 会把你真正的扬声器和麦克风改回来(步骤 2)。
-4. **PROGRAMS**：选择现在正在发声、并且你想放到调音台上的程序。
+4. **PROGRAMS**：选择你想放到调音台上的程序：现在正在发声的，以及正在运行但显示为 "Not playing yet" 的(它们一发声就会被捕获)。
 5. 点击 **BUILD THE MIX**。**DONE** 会列出所创建的内容。
 6. 点击 **OPEN THE MIXER** 查看。
 
@@ -173,11 +187,11 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 1. 说话，看你的麦克风电平表跳动。
 2. 想听到自己，点击麦克风的 **HEADPHONES** 键。
 3. 在 Discord、游戏、OBS 或任何其他应用中，选择 **CABLE Output** 作为麦克风。
-4. 检查它们收到了什么：**FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** 会录下应用收到的 5 秒声音并回放给你。
+4. 检查它们收到了什么：**HEAR WHAT THEY HEAR**(在 PRE-FLIGHT 的 **MIC OUTPUT** 行上，或在 **FIND** 中，Ctrl+K)会录下应用收到的 5 秒声音并回放给你。
 
 如果你听到某个程序两遍，见 [18.7](#187-i-hear-something-twice-or-an-echo)。
 
-**+ CHANNEL** 和 **+ APP** 添加通道。**+ OUTPUT** 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 **RENAME...**、颜色、**HEADPHONE EQ**(输出)、**IN THE MINI MIXER** 和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
+**+ CHANNEL** 和 **+ APP** 添加通道(**+ APP** 还会列出正在运行但 **NOT PLAYING YET** 的程序)。**+ OUTPUT** 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 **RENAME...**、颜色、**HEADPHONE EQ**(输出)、**IN THE MINI MIXER** 和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -219,8 +233,8 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 
 | 分组 | 卡片 | 作用 |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | 打开输入菜单：接口输入、Windows 设备、应用、程序窗口、浏览器（整个浏览器，或单独隔离一个标签页）、测试音。打击垫和磁带的通道在它们各自的页面（**TOOLS**）中添加 |
-| | **ADD APP** | 列出现在正在发声的程序。选一个，就会给它一个通道 |
+| **DESK** | **ADD CHANNEL** | 打开输入菜单：接口输入、Windows 设备、正在发声的应用、尚未发声的程序、浏览器（整个浏览器，或单独隔离一个标签页）、测试音。打击垫和磁带的通道在它们各自的页面（**TOOLS**）中添加 |
+| | **ADD APP** | 列出现在正在发声的程序，然后在 **NOT PLAYING YET** 下列出正在运行、带有窗口但没有发声的程序。选一个，就会给它一个通道；尚未发声的程序会从它开始发声的那一刻起被捕获 |
 | | **ADD BUS** | 一条总线，或一个组合器(起始为两条路径) |
 | | **PLUGINS** | 把插件面板从通道条下方滑出(见 [9](#9-plugins)) |
 | **SELECT** | **AUTO** | 触碰通道条上的任何控件都会选中该通道条 |
@@ -582,11 +596,11 @@ flowchart LR
 | **MIX EQ** | In 开关、HF 增益和频率、LF 增益和频率 |
 | **CUT**、**SEL**、推子 | 与通道上相同 |
 
-右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(低于 -60 dBFS 持续 **10 S**、**30 S**、**1 MIN** 或 **5 MIN**，或 **OFF**)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、间隔条、**RENAME...** 和 **REMOVE**。
+右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(低于 -60 dBFS 持续 **10 S**、**30 S**、**1 MIN** 或 **5 MIN**，或 **OFF**)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、**MIX-MINUS AND STEMS...**、间隔条、**RENAME...** 和 **REMOVE**。
 
 输出会自动创建，每个设备一个(见[输出就是设备](#outputs-are-devices))。
 
-**FIND > MIX-MINUS AND STEMS** 会为每位嘉宾建立一路馈送(除他们自己的声音外的所有声音)，并建立人声、音乐和游戏分轨。
+**MIX-MINUS AND STEMS...**(在输出的右键菜单上，或在 FIND 中)会为每位嘉宾建立一路馈送(除他们自己的声音外的所有声音)，并建立人声、音乐和游戏分轨。
 
 ---
 
@@ -840,7 +854,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND，或托盘菜单上的 **Session timeline...**：按日期列出保留的每个版本。**RESTORE EVERYTHING**(Faider 会以它重新启动)，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、CUT 和机架) |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS、FIND，或托盘菜单上的 **Session timeline...**：按日期列出保留的每个版本。**RESTORE EVERYTHING**(Faider 会以它重新启动)，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、CUT 和机架) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS：以名称保留混音 |
 | **OPEN, EXPORT OR IMPORT...** | 打开命名的混音(会重启)、把混音保存为文件，或从文件载入 |
 
@@ -866,11 +880,11 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **WINDOWS** | **START WITH WINDOWS**：你登录时在托盘中打开 |
 | **DESK** | **WARN IF I TALK WHILE CUT**(被 CUT 的麦克风超过 -30 dBFS 时给出通知) |
 | **APPS** | **APP RULES...**：程序开始播放时它去往哪条总线或输出(也可在 **FIND** 中找到)。删除程序的通道会同时删除它的规则 |
-| **SESSIONS** | **SAVE SESSION AS...**；**OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**；**PRE-FLIGHT NOW...**；**TIPS**；**SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...**；**OPEN, EXPORT OR IMPORT...**；**SESSION TIMELINE...**(见 [14.3](#143-sessions)) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**；**PRE-FLIGHT NOW...**；**ZERO DESK...**(见 [18.1](#181-pre-flight))；**TIPS**；**SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | 设备连接或消失、通道削波(其声源或输出达到满刻度)、场景被调用、宏被运行、撤销和重做 |
 | **ZOOM** | 100%、125%、150%、**CUSTOM...**(75–200%) |
-| **METER STANDARD** | 电平表的读数方式(默认是快速回落的采样峰值；IEC 及其他) |
+| **METER STANDARD** | 电平表的读数方式：**PEAK**(默认：以 dBFS 表示的采样峰值，快速回落)、**PEAK IEC**、**TRUE PEAK**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、NORDIC)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
 | **CHANNEL METER POINT** | **IN**(原始声源)、**PRE**(效果之后)、**POST**(推子之后，默认)。侧边栏的 **METER** 卡片设置的是同一项 |
 | **RECORDING** | **FFMPEG**：`ffmpeg.exe` 的位置，或 **NOT FOUND**。点击它选择 `ffmpeg.exe`(优先于 PATH 中的那个)；选好后，它还提供改回 PATH 中那个的选项 |
 | **PLUGIN TEST TIME** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
@@ -913,7 +927,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 ### HOTKEYS
 
-所有可分配的快捷键都集中在一处：**PADS**、**MACROS**、**SCENES**，以及 **TAPE** 下的 **SAVE INSTANT REPLAY**。点击一个，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。固定按键也列在其中([19.1](#191-keyboard-shortcuts))。页面上的 ON THE MIXER 按键在调音台上同样有效([5](#5-the-console))。
+所有可分配的快捷键都集中在一处：**PADS**、**MACROS**、**SCENES**，以及 **TAPE** 下的 **SAVE INSTANT REPLAY**。每张卡片都说明它的按键做什么，以及还能在哪里设置。点击一个，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。分配给两项功能的按键，或被 Windows 拒绝的按键(可能已被其他应用占用)，会在其所在行下方标为红色：其中只有一项有效。固定按键也列在其中([19.1](#191-keyboard-shortcuts))。页面上的 ON THE MIXER 按键在调音台上同样有效([5](#5-the-console))。
 
 <a id="control"></a>
 
@@ -933,7 +947,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
-| **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 SETTINGS > CONTROL 中用 **PORT...** 设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_` |
+| **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 SETTINGS > CONTROL 中用 **PORT...** 设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
 | **Tray** | 点击图标显示迷你调音台，双击打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
@@ -968,8 +982,8 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.3 把程序带入混音
 
-1. 启动程序并让它发出声音。
-2. **ADD APP** > 选中它。它会得到一个 RAW 通道(没有效果)。
+1. 启动程序。
+2. **ADD APP** > 选中它(如果它现在没有发声，就在 **NOT PLAYING YET** 下)。它会得到一个 RAW 通道(没有效果)。
 3. 把它路由到你想听到它的地方。如果你听到它两遍，见 [18.7](#187-i-hear-something-twice-or-an-echo)。
 
 <a id="174-reorder-channels"></a>
@@ -1025,6 +1039,14 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ## 18. 故障排除
 
+当悬浮层、MIDI 控制器或 OSC 没有反应时：
+
+| 问题 | 检查 |
+|---|---|
+| **悬浮层不显示** | Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS > HOTKEYS 会把它标为红色，事件日志也会说明：FIND 中的 **SHOW OVERLAY** 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 **NO MIC CHANNELS** |
+| **MIDI 控制器没有反应** | 每个 MIDI 输入在你于 SETTINGS > CONTROL > **INPUTS AND BINDINGS** 中打开之前都是关闭的。Faider 启动后才插入的控制器不会自动打开：在那里按 **REFRESH**，把它的输入关闭再打开，或重新启动 Faider。动一下某个控件，该列表底部的 **LAST** 会显示收到了什么。控件在 **MIDI MAP** (Ctrl+L) 中映射之前不起任何作用。只读取控制变更和音符：推子和声像跟随旋钮或推子，而不是按键；按键用于切换 CUT、SOLO 等 |
+| **OSC 没有反应** | 在 **OSC ON** 点亮之前，OSC 是关闭的(SETTINGS > CONTROL)。发送方必须使用该键上显示的端口(除非你改过，否则是 9000)，并在这台电脑上运行：Faider 只监听 `127.0.0.1`，所以手机或另一台电脑无法连到它。如果端口无法打开(可能被其他程序占用)，Faider 会提示，OSC 保持关闭：用 **PORT...** 另选一个。然后检查地址：通道条的名称，空格写成 `_`(见 [OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文）) |
+
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
@@ -1035,13 +1057,13 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 |---|---|---|
 | **AUDIO** | 没有启动(可能被其他应用占用) | **DEVICES** |
 | **MIC CABLE** | 没有 VB-CABLE：应用无法把你的混音当作麦克风听到 | **GET VB-CABLE** |
-| **MIC OUTPUT** | 没有输出播放到麦克风线缆 | **ROUTING** |
+| **MIC OUTPUT** | 没有输出播放到麦克风线缆 | **ROUTING**(正常时，它的键是 **HEAR WHAT THEY HEAR**) |
 | **MIC CHANNELS** | 通往麦克风的途中有东西被 CUT | **UNCUT** |
 | **WINDOWS DEFAULTS** | Windows 的默认扬声器或麦克风(或其默认通信设备)是虚拟线缆 | **SET MY DEFAULTS** |
 | **HEARD ONCE** | 反馈回路，或有东西被听到两遍 | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | 混音中有 Windows 设备或被捕获的应用，而 Windows 音频引擎处于 Normal 优先级：黄色，仅为建议；如果你的提升被重启撤销则为红色。只用 ASIO 时为绿色 | **BOOST** |
 
-**ZERO THE DESK**(左下角；在 FIND 中也叫 **ZERO DESK**)检查上一次会话可能遗留的设置：独奏、key listen、偏离超过 12 dB 的增益微调，以及被 CUT 的输出。每一项都有一个 **FIX**。
+**ZERO THE DESK**(左下角；也是 SETTINGS > GENERAL > ON START 中的 **ZERO DESK...**，在 FIND 中叫 **ZERO DESK**)检查上一次会话可能遗留的设置：独奏、key listen、偏离超过 12 dB 的增益微调，以及被 CUT 的输出。每一项都有一个 **FIX**。
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1051,7 +1073,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 | 原因 | 该怎么做 |
 |---|---|
-| 保存的接口没有连接 | 连接它，然后 **SESSION TIMELINE**(FIND 或托盘) > 带 "kept:" 的版本 > **RESTORE EVERYTHING** |
+| 保存的接口没有连接 | 连接它，然后 **SESSION TIMELINE**(SETTINGS > GENERAL、FIND 或托盘) > 带 "kept:" 的版本 > **RESTORE EVERYTHING** |
 | 保存的接口无法打开(被其他程序占用) | 关闭其他程序，然后重新启动 Faider。在此期间不会有任何东西覆盖你的混音 |
 | 无法读取 session.xml | **SESSION TIMELINE** > 一个较新的版本 > **RESTORE EVERYTHING** |
 
@@ -1092,7 +1114,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 ### 18.6 应用没有出现在 ADD APP 中
 
-- 程序必须正在**发声**。开始播放，然后再次打开菜单。
+- 程序必须正在**发声**，或带着自己的窗口在运行(这时它在 **NOT PLAYING YET** 下)。没有窗口的程序，或窗口由 Windows 代为托管的 Microsoft Store 应用，要到发声时才会列出：开始播放，然后再次打开菜单。
 - 已经有通道的程序会显示为灰色(**ON THE DESK**)。
 - 低于 Windows 10 2004 版的 Windows 无法捕获单个程序("Windows refused app capture")。
 
@@ -1176,10 +1198,13 @@ Windows 把线缆设成了它的默认设备。**SET MY DEFAULTS**(PRE-FLIGHT �
 
 | | |
 |---|---|
-| `--minimised` | 在托盘中启动 |
-| `--quit` | 退出正在运行的副本 |
+| `--minimised` | 在托盘中启动(**START WITH WINDOWS** 用的就是它) |
+| `--quit` | 退出正在运行的副本，与托盘的 **Quit** 相同。没有副本在运行时，什么都不会发生 |
+| `--allow-admin` | 以管理员身份启动时，保持管理员身份。不加它，Faider 会以普通权限重新启动自己(见 [16](#16-remote-control-overlay-and-tray)) |
 | `--clock windows`、`--clock builtin`、`--clock <driver>` | 在这次运行中，时钟是你的 Windows 播放设备、内置时钟，或名称中包含 `<driver>` 的 ASIO 驱动。它优先于 DEVICES > CLOCK(见[时钟](#clocking)) |
 | `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** 和 **BACK TO NORMAL** 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，或恢复为所有核心上的 Normal，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝；7：已设为 Normal 但恢复所有核心被拒绝 |
+| `--scan <plugin> --out <file>` | 内部使用：插件加载前，Faider 在单独的副本中运行的测试(见 [9](#9-plugins))。没有窗口，没有音频 |
+| `--after <process id>` | 内部使用：Faider 重新启动自己时添加(**RESTORE EVERYTHING**、**RESTART NOW**、放弃管理员权限)。新副本会等待该进程结束，最多一分钟 |
 
 <a id="193-files"></a>
 
@@ -1201,7 +1226,7 @@ Windows 把线缆设成了它的默认设备。**SET MY DEFAULTS**(PRE-FLIGHT �
 | `status.txt` | 每隔几秒的引擎快照：设备、电平、缓冲区、漂移 |
 | `crash.log`、`crash.dmp` | 崩溃报告 |
 
-程序本身位于 `C:\Program Files\Faider`。除非你选择其他文件夹，录音都保存到 `Music\Faider Recordings`。
+程序本身位于 `C:\Program Files\Faider`(仅为你自己安装时：`%LOCALAPPDATA%\Programs\Faider`)。除非你选择其他文件夹，录音都保存到 `Music\Faider Recordings`。
 
 <a id="194-colours"></a>
 

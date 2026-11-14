@@ -86,15 +86,37 @@ stappen in volgorde. Elke stap kost een of twee minuten.
 1. Start het installatieprogramma, `Faider-<version>-Setup.exe`.
 2. Windows SmartScreen kan waarschuwen voor een onbekende app, omdat het installatieprogramma niet
    met een code is ondertekend. Klik op **Meer info** en dan op **Toch uitvoeren**.
-3. Accepteer de licentie en sta de beheerdersvraag toe. Wil je een bureaubladsnelkoppeling, vink die
-   dan onderweg aan (standaard staat hij uit).
-4. Het installatieprogramma zet de app in `C:\Program Files\Faider` en voegt **Faider**
-   toe aan het Startmenu. Alles wat de app nodig heeft, zit erbij.
+3. Kies **Install for all users** (aanbevolen; sta de beheerdersvraag toe) of **Install for
+   me only** (geen beheerder nodig) en accepteer dan de licentie. Wil je een bureaubladsnelkoppeling,
+   vink die dan onderweg aan (standaard staat hij uit). Een update wordt op dezelfde manier
+   geïnstalleerd als de kopie die er al staat, zonder het te vragen.
+4. Het installatieprogramma zet de app in `C:\Program Files\Faider` (alleen voor jou:
+   `%LOCALAPPDATA%\Programs\Faider`) en voegt **Faider** toe aan het Startmenu. Alles wat de app nodig
+   heeft, zit erbij.
 5. Op de laatste pagina kun je Faider meteen starten. Is er geen VB-CABLE geïnstalleerd, dan
    biedt het ook aan de downloadpagina van VB-CABLE te openen.
 
 Je mix en instellingen staan in `%APPDATA%\Faider`, los van het programma. Bij het
-verwijderen blijven ze staan.
+verwijderen wordt gevraagd of ze ook weg moeten, en ze blijven staan tenzij je ja zegt.
+
+**Installeren zonder de wizard.** Voor scripts en uitroltools neemt het installatieprogramma de
+schakelopties van Inno Setup aan:
+
+| Schakeloptie | |
+|---|---|
+| `/SILENT` | Geen wizard, alleen het voortgangsvenster |
+| `/VERYSILENT` | Er wordt niets getoond |
+| `/SUPPRESSMSGBOXES` | Samen met een van die twee: berichtvensters krijgen hun standaardantwoord |
+| `/NORESTART` | Windows wordt na de installatie nooit opnieuw gestart |
+| `/TASKS="desktopicon"` | Maakt de bureaubladsnelkoppeling |
+| `/ALLUSERS`, `/CURRENTUSER` | Voor alle gebruikers (de standaard: Windows vraagt om een beheerder, tenzij het al als beheerder wordt uitgevoerd) of voor de gebruiker die het uitvoert |
+| `/LOG="file"` | Schrijft het logboek naar dat bestand. Er wordt altijd een logboek geschreven: zonder deze optie is dat `Setup Log <date>.txt` in `%TEMP%` |
+
+Bijvoorbeeld: `Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`.
+Een stille installatie sluit eerst een draaiende Faider af, en start Faider daarna niet en biedt ook
+de pagina van VB-CABLE niet aan. Het verwijderprogramma (`unins000.exe` in de map van het programma)
+neemt ook `/SILENT` en `/VERYSILENT` aan. Bij stil verwijderen worden je mix en instellingen nooit
+verwijderd.
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -159,7 +181,7 @@ gaat terug.
 3. **APPS HEAR YOU**: kies de virtuele kabel die apps als microfoon gebruiken (**CABLE Input**, na stap 2),
    of **NOT NOW**. Speelt of neemt Windows nog op via de kabel, dan zet **SET MY DEFAULTS**
    onderaan je echte speakers en microfoon terug (stap 2).
-4. **PROGRAMS**: kies de programma's die nu geluid afspelen en die je op de tafel wilt hebben.
+4. **PROGRAMS**: kies de programma's die je op de tafel wilt hebben: de programma's die nu geluid afspelen, en de draaiende die "Not playing yet" zijn (opgevangen zodra ze spelen).
 5. Klik op **BUILD THE MIX**. **DONE** toont wat er is gemaakt.
 6. Klik op **OPEN THE MIXER** om het te zien.
 
@@ -212,12 +234,12 @@ zijn fader en meter.
 1. Spreek en kijk hoe de meter van je microfoon beweegt.
 2. Om jezelf te horen, klik je op de toets **HEADPHONES** van de microfoon.
 3. Kies in Discord, je game, OBS of een andere app **CABLE Output** als microfoon.
-4. Controleer wat ze krijgen: **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR** neemt 5 seconden op van wat apps
+4. Controleer wat ze krijgen: **HEAR WHAT THEY HEAR** (op de rij **MIC OUTPUT** van PRE-FLIGHT, of in **FIND**, Ctrl+K) neemt 5 seconden op van wat apps
    ontvangen en speelt het voor je af.
 
 Hoor je een programma dubbel, zie dan [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** en **+ APP** voegen kanalen toe. **+ OUTPUT** voegt een uitgang toe op een apparaat dat er geen heeft.
+**+ CHANNEL** en **+ APP** voegen kanalen toe (**+ APP** toont ook draaiende programma's die **NOT PLAYING YET** zijn). **+ OUTPUT** voegt een uitgang toe op een apparaat dat er geen heeft.
 De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor **RENAME...**,
 de kleur, **HEADPHONE EQ** (een uitgang), **IN THE MINI MIXER** en **REMOVE**. Als je het kanaal van een
 programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal niet vanzelf terugkomt.
@@ -274,8 +296,8 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 
 | Groep | Kaart | Wat het doet |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | Opent het ingangenmenu: interface-ingangen, Windows-apparaten, apps, programmavensters, een browser (geheel, of één tabblad geïsoleerd), de testtoon. Pads en tape krijgen hun kanaal via hun eigen pagina's (**TOOLS**) |
-| | **ADD APP** | Toont de programma's die nu geluid afspelen. Kies er een om het een kanaal te geven |
+| **DESK** | **ADD CHANNEL** | Opent het ingangenmenu: interface-ingangen, Windows-apparaten, apps die spelen, programma's die nog niet spelen, een browser (geheel, of één tabblad geïsoleerd), de testtoon. Pads en tape krijgen hun kanaal via hun eigen pagina's (**TOOLS**) |
+| | **ADD APP** | Toont de programma's die nu geluid afspelen, en daarna, onder **NOT PLAYING YET**, de draaiende programma's met een venster die stil zijn. Kies er een om het een kanaal te geven; een programma dat niet speelt, wordt opgevangen vanaf het moment dat het dat wel doet |
 | | **ADD BUS** | Een bus, of een combinator (om mee te beginnen twee paden) |
 | | **PLUGINS** | Schuift het pluginpaneel omhoog onder de strips (zie [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Een willekeurige knop op een strip aanraken selecteert die strip |
@@ -689,11 +711,12 @@ Elke uitgang heeft zijn eigen donkere strip:
 Rechtsklik op een uitgang voor **DEVICE...**, **HEADPHONE EQ** (koptelefooncorrectie: **NONE**, of je
 model, op merk gesorteerd), **ALERT IF SILENT** (onder -60 dBFS gedurende **10 S**, **30 S**, **1 MIN** of **5 MIN**, of **OFF**) en **ALERT IF CLIPPING**
 (zolang LIMIT uit staat), die het pictogram in het systeemvak laten knipperen en in het
-gebeurtenissenlogboek schrijven, **IN THE MINI MIXER**, spacers, **RENAME...** en **REMOVE**.
+gebeurtenissenlogboek schrijven, **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, spacers,
+**RENAME...** en **REMOVE**.
 
 Uitgangen worden voor je gemaakt, één per apparaat (zie [Uitgangen zijn apparaten](#outputs-are-devices)).
 
-**FIND > MIX-MINUS AND STEMS** bouwt een feed per gast (alles behalve hun eigen stem) en
+**MIX-MINUS AND STEMS...** (in het rechtsklikmenu van een uitgang, of in FIND) bouwt een feed per gast (alles behalve hun eigen stem) en
 stems voor stem, muziek en game.
 
 ---
@@ -999,7 +1022,7 @@ Je mix slaat zichzelf op binnen een seconde na elke wijziging, en bij het afslui
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND, of **Session timeline...** in het menu van het systeemvak: elke bewaarde versie op datum. **RESTORE EVERYTHING** (Faider start ermee opnieuw), of **PUT ONE CHANNEL BACK** (niveau, pan, CUT en rack) zonder opnieuw te starten |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, of **Session timeline...** in het menu van het systeemvak: elke bewaarde versie op datum. **RESTORE EVERYTHING** (Faider start ermee opnieuw), of **PUT ONE CHANNEL BACK** (niveau, pan, CUT en rack) zonder opnieuw te starten |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: bewaar de mix onder een naam |
 | **OPEN, EXPORT OR IMPORT...** | Een benoemde mix openen (start opnieuw), de mix in een bestand opslaan of er een uit een bestand laden |
 
@@ -1028,11 +1051,11 @@ verse mix. Zie [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 | **WINDOWS** | **START WITH WINDOWS**: opent in het systeemvak wanneer je je aanmeldt |
 | **DESK** | **WARN IF I TALK WHILE CUT** (een melding als een microfoon op CUT boven -30 dBFS komt) |
 | **APPS** | **APP RULES...**: naar welke bus of uitgang een programma gaat als het begint te spelen (ook in **FIND**). Het kanaal van een programma verwijderen verwijdert zijn regel |
-| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **TIPS**; **SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...**; **SESSION TIMELINE...** (zie [14.3](#143-sessions)) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (zie [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | Apparaten verbonden of weg, een kanaal dat clipt (zijn bron of zijn uitgang op volle schaal), scènes opgeroepen, macro's uitgevoerd, ongedaan maken en opnieuw |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
-| **METER STANDARD** | Hoe meters aflezen (standaard sample peak met snelle terugval; IEC en andere) |
+| **METER STANDARD** | Hoe meters aflezen: **PEAK** (de standaard: sample peak in dBFS met snelle terugval), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** en **LUFS M** (momentane luidheid, EBU R128) |
 | **CHANNEL METER POINT** | **IN** (ruwe bron), **PRE** (na de effecten), **POST** (na de fader, standaard). De **METER**-kaarten in de zijbalk stellen hetzelfde in |
 | **RECORDING** | **FFMPEG**: waar `ffmpeg.exe` staat, of **NOT FOUND**. Klik erop om `ffmpeg.exe` te kiezen (gebruikt vóór die in je PATH); is er een gekozen, dan biedt hij ook aan terug te gaan naar die van de PATH |
 | **PLUGIN TEST TIME** | **30 S** (standaard), **60 S** of **120 S**: hoe lang een nieuwe plugin in zijn test heeft om te laden voordat hij mislukt |
@@ -1093,8 +1116,8 @@ Een macro is een lijst **acties** die wordt uitgevoerd via een sneltoets, een pa
 ### HOTKEYS
 
 Elke toewijsbare sneltoets staat op één plek: **PADS**, **MACROS**, **SCENES** en **SAVE INSTANT REPLAY**
-onder **TAPE**. Klik op een toets en druk dan op de nieuwe toetsen (Esc annuleert, Delete wist). Sneltoetsen moeten
-Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vaste toetsen staan er ook bij
+onder **TAPE**. Elke kaart zegt wat zijn toetsen doen en waar ze nog meer kunnen worden ingesteld. Klik op een toets en druk dan op de nieuwe toetsen (Esc annuleert, Delete wist). Sneltoetsen moeten
+Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. Een toets die aan twee dingen is gegeven, of die Windows heeft geweigerd (misschien heeft een andere app hem), is onder zijn rij rood gemarkeerd: maar één van beide werkt. De vaste toetsen staan er ook bij
 ([19.1](#191-keyboard-shortcuts)). De toetsen onder ON THE MIXER op de pagina werken ook op de console
 ([5](#5-the-console)).
 
@@ -1116,7 +1139,7 @@ Ctrl, Alt of een F-toets bevatten en werken terwijl een game focus heeft. De vas
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
-| **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen, of naar de poort die is ingesteld met **PORT...** in SETTINGS > CONTROL (hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_` |
+| **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen, of naar de poort die is ingesteld met **PORT...** in SETTINGS > CONTROL (hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_`. Elk adres: [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels) |
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / CUT en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | De mini-mixer: een klein venster met een fader, meter en **CUT** voor elke strip die **IN THE MINI MIXER** aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
 | **Tray** | Klik op het pictogram voor de mini-mixer, dubbelklik om het venster te openen. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing |
@@ -1157,8 +1180,8 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 
 ### 17.3 Een programma in de mix brengen
 
-1. Start het programma en laat het geluid spelen.
-2. **ADD APP** > kies het. Het krijgt een raw-kanaal (zonder effecten).
+1. Start het programma.
+2. **ADD APP** > kies het (onder **NOT PLAYING YET** als het nu stil is). Het krijgt een raw-kanaal (zonder effecten).
 3. Routeer het waar je het wilt horen. Hoor je het dubbel, zie dan
    [18.7](#187-i-hear-something-twice-or-an-echo).
 
@@ -1223,6 +1246,14 @@ soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
 
 ## 18. Problemen oplossen
 
+Als de overlay, een MIDI-controller of OSC niet reageert:
+
+| Probleem | Controleer |
+|---|---|
+| **De overlay verschijnt niet** | Ctrl+Shift+O is een sneltoets voor heel Windows. Heeft een andere app hem, dan markeert SETTINGS > HOTKEYS hem rood en meldt het gebeurtenissenlogboek het: **SHOW OVERLAY** in FIND opent de overlay zonder de toets. De overlay is een venster dat bovenop blijft, gemaakt voor een game in een randloos venster, dus zet de game op randloos of in een venster. Hij toont alleen microfoonkanalen (interface-ingangen en Windows-apparaten), en meldt **NO MIC CHANNELS** als die er niet zijn |
+| **Een MIDI-controller doet niets** | Elke MIDI-ingang staat uit tot je hem aanzet in SETTINGS > CONTROL > **INPUTS AND BINDINGS**. Een controller die is aangesloten nadat Faider is gestart, wordt niet vanzelf geopend: druk daar op **REFRESH** en zet zijn ingang uit en weer aan, of start Faider opnieuw. Beweeg een bediening en **LAST** onderaan die lijst toont wat er binnenkwam. Een bediening doet niets tot hij is toegewezen in **MIDI MAP** (Ctrl+L). Alleen control changes en noten worden gelezen: faders en pans volgen een knop of fader, geen toets, en toetsen schakelen CUT, SOLO en dergelijke |
+| **OSC doet niets** | OSC staat uit tot **OSC ON** brandt (SETTINGS > CONTROL). De afzender moet de poort gebruiken die op die toets staat (9000, tenzij je hem hebt veranderd) en op deze pc draaien: Faider luistert alleen op `127.0.0.1`, dus een telefoon of een andere pc kan er niet bij. Kon de poort niet worden geopend (misschien heeft een ander programma hem), dan zegt Faider dat en blijft OSC uit: kies een andere met **PORT...**. Controleer daarna het adres: de naam van de strip, met `_` voor spaties (zie de [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels)) |
+
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
@@ -1234,13 +1265,13 @@ als er iets mis is. Elke rij heeft een lampje, de bevinding en een oplossing:
 |---|---|---|
 | **AUDIO** | Het is niet gestart (misschien heeft een andere app het) | **DEVICES** |
 | **MIC CABLE** | Geen VB-CABLE: apps kunnen je mix niet als microfoon horen | **GET VB-CABLE** |
-| **MIC OUTPUT** | Geen uitgang speelt in de microfoonkabel | **ROUTING** |
+| **MIC OUTPUT** | Geen uitgang speelt in de microfoonkabel | **ROUTING** (zolang het in orde is, is zijn toets **HEAR WHAT THEY HEAR**) |
 | **MIC CHANNELS** | Iets op de weg naar de microfoon staat op CUT | **UNCUT** |
 | **WINDOWS DEFAULTS** | De standaardspeaker of -microfoon van Windows (of zijn standaard voor gesprekken) is de virtuele kabel | **SET MY DEFAULTS** |
 | **HEARD ONCE** | Een feedbacklus, of iets wordt dubbel gehoord | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows-apparaten of opgevangen apps zitten in de mix en de audio-engine van Windows staat op Normal-prioriteit: geel, alleen een suggestie; rood als je boost door een herstart ongedaan is gemaakt. Groen als alleen ASIO wordt gebruikt | **BOOST** |
 
-**ZERO THE DESK** (linksonder; ook **ZERO DESK** in FIND) controleert wat een vorige sessie ingesteld kan laten:
+**ZERO THE DESK** (linksonder; ook **ZERO DESK...** in SETTINGS > GENERAL > ON START, en **ZERO DESK** in FIND) controleert wat een vorige sessie ingesteld kan laten:
 solo's, key listen, gain trims van meer dan 12 dB afwijking, en uitgangen op CUT. Elk heeft een **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
@@ -1252,7 +1283,7 @@ Je mix is niet verloren. Als hij bij het starten niet gebruikt kan worden, wordt
 
 | Reden | Wat te doen |
 |---|---|
-| De opgeslagen interface is niet aangesloten | Sluit hem aan, dan **SESSION TIMELINE** (FIND of het systeemvak) > de versie met "kept:" > **RESTORE EVERYTHING** |
+| De opgeslagen interface is niet aangesloten | Sluit hem aan, dan **SESSION TIMELINE** (SETTINGS > GENERAL, FIND of het systeemvak) > de versie met "kept:" > **RESTORE EVERYTHING** |
 | De opgeslagen interface kon niet worden geopend (een ander programma heeft hem) | Sluit het andere programma en start Faider opnieuw. Ondertussen wordt er niets over je mix heen opgeslagen |
 | session.xml kon niet worden gelezen | **SESSION TIMELINE** > een recente versie > **RESTORE EVERYTHING** |
 
@@ -1309,7 +1340,7 @@ Loop het signaalpad af:
 
 ### 18.6 Een app verschijnt niet in ADD APP
 
-- Het programma moet nu **geluid spelen**. Start het afspelen en open het menu dan opnieuw.
+- Het programma moet **geluid spelen**, of draaien met een eigen venster (dan staat het onder **NOT PLAYING YET**). Een programma dat zonder venster draait, of een Microsoft Store-app waarvan Windows het venster host, staat er pas bij als het speelt: start het afspelen en open het menu dan opnieuw.
 - Programma's die al een kanaal hebben, zijn grijs (**ON THE DESK**).
 - Windows ouder dan 10 versie 2004 kan geen enkel programma opvangen ("Windows refused app capture").
 
@@ -1410,10 +1441,13 @@ uitvoer en je echte microfoon als standaard invoer, elk ook voor gesprekken. Of 
 
 | | |
 |---|---|
-| `--minimised` | Starten in het systeemvak |
-| `--quit` | De draaiende kopie afsluiten |
+| `--minimised` | Starten in het systeemvak (wat **START WITH WINDOWS** gebruikt) |
+| `--quit` | De draaiende kopie afsluiten, zoals **Quit** in het systeemvak doet. Draait er geen, dan gebeurt er niets |
+| `--allow-admin` | Als beheerder gestart, zo blijven. Zonder deze optie start Faider zichzelf opnieuw met gewone rechten (zie [16](#16-remote-control-overlay-and-tray)) |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | Voor deze keer is de klok je Windows-afspeelapparaat, de ingebouwde klok, of het ASIO-stuurprogramma waarvan de naam `<driver>` bevat. Het wint van DEVICES > CLOCK (zie [Klokken](#clocking)) |
 | `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Wat **BOOST WINDOWS AUDIO** en **BACK TO NORMAL** starten, als beheerder: de audio-engine van Windows op High-prioriteit (alleen vastgezet op kern N als die is opgegeven), of terug op Normal op alle kernen, daarna sluit het af. 0: klaar; 2: ongeldige argumenten; 3: audiodg niet gevonden; 4: toegang geweigerd; 5: prioriteit geweigerd; 6: High ingesteld maar vastzetten geweigerd; 7: Normal ingesteld maar alle kernen vrijgeven geweigerd |
+| `--scan <plugin> --out <file>` | Intern: de test die Faider in een aparte kopie draait voordat een plugin laadt (zie [9](#9-plugins)). Geen venster, geen audio |
+| `--after <process id>` | Intern: toegevoegd wanneer Faider zichzelf opnieuw start (**RESTORE EVERYTHING**, **RESTART NOW**, beheerdersrechten opgeven). De nieuwe kopie wacht, tot een minuut, tot dat proces is beëindigd |
 
 <a id="193-files"></a>
 
@@ -1435,7 +1469,8 @@ In `%APPDATA%\Faider`:
 | `status.txt` | Een momentopname van de engine om de paar seconden: apparaten, niveaus, buffers, drift |
 | `crash.log`, `crash.dmp` | Crashrapporten |
 
-Het programma zelf staat in `C:\Program Files\Faider`. Opnamen gaan naar
+Het programma zelf staat in `C:\Program Files\Faider` (alleen voor jou geïnstalleerd:
+`%LOCALAPPDATA%\Programs\Faider`). Opnamen gaan naar
 `Music\Faider Recordings` tenzij je een andere map kiest.
 
 <a id="194-colours"></a>

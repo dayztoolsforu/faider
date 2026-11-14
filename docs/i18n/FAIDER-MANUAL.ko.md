@@ -80,11 +80,25 @@ Faider은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우�
 
 1. 설치 프로그램 `Faider-<version>-Setup.exe`를 실행합니다.
 2. 설치 프로그램에 코드 서명이 없으므로 Windows SmartScreen이 인식되지 않는 앱이라고 경고할 수 있습니다. **추가 정보**를 누른 다음 **실행**을 누릅니다.
-3. 사용권 계약에 동의하고 관리자 권한 요청을 허용합니다. 바탕 화면 바로 가기가 필요하면 설치 중에 선택하세요(기본값은 꺼짐입니다).
-4. 설치 프로그램은 앱을 `C:\Program Files\Faider`에 넣고 시작 메뉴에 **Faider**을 추가합니다. 필요한 것은 모두 함께 들어 있습니다.
+3. **Install for all users**(권장. 관리자 권한 요청을 허용합니다) 또는 **Install for me only**(관리자 권한이 필요 없습니다)를 고른 다음 사용권 계약에 동의합니다. 바탕 화면 바로 가기가 필요하면 설치 중에 선택하세요(기본값은 꺼짐입니다). 업데이트는 묻지 않고, 이미 설치되어 있는 복사본과 같은 방식으로 설치됩니다.
+4. 설치 프로그램은 앱을 `C:\Program Files\Faider`(나만 쓰도록 설치하면 `%LOCALAPPDATA%\Programs\Faider`)에 넣고 시작 메뉴에 **Faider**을 추가합니다. 필요한 것은 모두 함께 들어 있습니다.
 5. 마지막 페이지에서 바로 Faider을 시작할 수 있습니다. VB-CABLE이 설치되어 있지 않으면 VB-CABLE 다운로드 페이지를 열지도 물어봅니다.
 
-믹스와 설정은 프로그램과 별도로 `%APPDATA%\Faider`에 저장됩니다. 제거해도 그대로 남습니다.
+믹스와 설정은 프로그램과 별도로 `%APPDATA%\Faider`에 저장됩니다. 제거할 때 이것도 함께 지울지 묻고, 예라고 답하지 않으면 그대로 남깁니다.
+
+**마법사 없이 설치하기.** 스크립트와 배포 도구에서 쓸 수 있도록 설치 프로그램은 Inno Setup의 스위치를 받습니다.
+
+| 스위치 | |
+|---|---|
+| `/SILENT` | 마법사 없이 진행 창만 표시 |
+| `/VERYSILENT` | 아무것도 표시하지 않음 |
+| `/SUPPRESSMSGBOXES` | 위의 둘 중 하나와 함께: 메시지 상자에 기본 답이 적용됩니다 |
+| `/NORESTART` | 설치 후 Windows를 다시 시작하지 않습니다 |
+| `/TASKS="desktopicon"` | 바탕 화면 바로 가기를 만듭니다 |
+| `/ALLUSERS`, `/CURRENTUSER` | 모든 사용자용(기본값. 관리자로 실행하지 않았으면 Windows가 관리자 권한을 요청합니다) 또는 실행한 사용자용 |
+| `/LOG="file"` | 그 파일에 로그를 씁니다. 로그는 항상 기록됩니다. 이 스위치가 없으면 `%TEMP%`의 `Setup Log <date>.txt`입니다 |
+
+예: `Faider-<version>-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /CURRENTUSER`. 자동 설치는 실행 중인 Faider을 먼저 종료하며, 설치 후 Faider을 시작하거나 VB-CABLE 페이지를 열지 묻지 않습니다. 제거 프로그램(프로그램 폴더의 `unins000.exe`)도 `/SILENT`와 `/VERYSILENT`를 받습니다. 자동으로 제거할 때는 믹스와 설정이 절대 지워지지 않습니다.
 
 <a id="step-2-install-vb-cable-optional"></a>
 
@@ -128,7 +142,7 @@ SETUP은 페이지마다 하나씩 네 가지 질문을 하고, 답에 맞춰 �
 1. **WHERE YOU LISTEN**: 헤드폰이나 스피커를 고릅니다. Windows 기본값이 이미 선택되어 있습니다.
 2. **MICROPHONES**: 말할 마이크를 고릅니다. 인터페이스의 입력(**IN 1**, **IN 2** …)과 Windows 녹음 장치입니다.
 3. **APPS HEAR YOU**: 앱이 마이크로 쓰는 가상 케이블을 고릅니다(2단계 이후라면 **CABLE Input**). 아니면 **NOT NOW**를 고릅니다. Windows가 아직 케이블로 재생하거나 녹음하고 있으면, 아래의 **SET MY DEFAULTS**로 실제 스피커와 마이크를 되돌릴 수 있습니다(2단계).
-4. **PROGRAMS**: 지금 소리를 내고 있고 데스크에 올리고 싶은 프로그램을 고릅니다.
+4. **PROGRAMS**: 데스크에 올리고 싶은 프로그램을 고릅니다. 지금 소리를 내고 있는 프로그램과, 실행 중이지만 "Not playing yet"인 프로그램(소리를 내면 캡처됩니다)입니다.
 5. **BUILD THE MIX**를 누릅니다. **DONE**에 만들어진 것이 나열됩니다.
 6. **OPEN THE MIXER**를 눌러 확인합니다.
 
@@ -173,11 +187,11 @@ SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마�
 1. 말을 하고 마이크의 미터가 움직이는지 봅니다.
 2. 자신의 소리를 들으려면 마이크의 **HEADPHONES** 키를 누릅니다.
 3. Discord, 게임, OBS 등 다른 앱에서 마이크로 **CABLE Output**을 선택합니다.
-4. 앱이 무엇을 받는지 확인합니다. **FIND** (Ctrl+K) > **HEAR WHAT THEY HEAR**는 앱이 받는 소리를 5초 동안 녹음해서 들려줍니다.
+4. 앱이 무엇을 받는지 확인합니다. **HEAR WHAT THEY HEAR**(PRE-FLIGHT의 **MIC OUTPUT** 행, 또는 **FIND**, Ctrl+K에 있습니다)는 앱이 받는 소리를 5초 동안 녹음해서 들려줍니다.
 
 프로그램 소리가 두 번 들리면 [18.7](#187-i-hear-something-twice-or-an-echo)을 참조하세요.
 
-**+ CHANNEL**과 **+ APP**은 채널을 추가합니다. **+ OUTPUT**은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 **RENAME...**, 색, **HEADPHONE EQ**(출력), **IN THE MINI MIXER**, **REMOVE**를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.
+**+ CHANNEL**과 **+ APP**은 채널을 추가합니다(**+ APP**에는 실행 중이지만 **NOT PLAYING YET**인 프로그램도 나열됩니다). **+ OUTPUT**은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 **RENAME...**, 색, **HEADPHONE EQ**(출력), **IN THE MINI MIXER**, **REMOVE**를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
@@ -219,8 +233,8 @@ SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마�
 
 | 그룹 | 카드 | 기능 |
 |---|---|---|
-| **DESK** | **ADD CHANNEL** | 입력 메뉴를 엽니다: 인터페이스 입력, Windows 장치, 앱, 프로그램 창, 브라우저(전체 또는 탭 하나만 분리), 테스트 톤. 패드와 테이프는 각자의 페이지(**TOOLS**)에서 채널을 받습니다 |
-| | **ADD APP** | 지금 소리를 내고 있는 프로그램을 나열합니다. 하나를 고르면 채널이 만들어집니다 |
+| **DESK** | **ADD CHANNEL** | 입력 메뉴를 엽니다: 인터페이스 입력, Windows 장치, 소리를 내고 있는 앱, 아직 소리를 내지 않는 프로그램, 브라우저(전체 또는 탭 하나만 분리), 테스트 톤. 패드와 테이프는 각자의 페이지(**TOOLS**)에서 채널을 받습니다 |
+| | **ADD APP** | 지금 소리를 내고 있는 프로그램을 나열하고, 이어서 **NOT PLAYING YET** 아래에 창이 있는 채로 실행 중이지만 소리를 내지 않는 프로그램을 나열합니다. 하나를 고르면 채널이 만들어집니다. 소리를 내지 않는 프로그램은 소리를 내기 시작하는 순간부터 캡처됩니다 |
 | | **ADD BUS** | 버스 또는 컴바이너(처음에는 경로 두 개) |
 | | **PLUGINS** | 스트립 아래로 플러그인 패널을 밀어 올립니다([9](#9-plugins) 참조) |
 | **SELECT** | **AUTO** | 스트립의 아무 컨트롤이나 만지면 그 스트립이 선택됩니다 |
@@ -583,11 +597,11 @@ LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 *어떻게
 | **MIX EQ** | In 스위치, HF 게인과 주파수, LF 게인과 주파수 |
 | **CUT**, **SEL**, 페이더 | 채널과 같음 |
 
-출력을 마우스 오른쪽 단추로 클릭하면 **DEVICE...**, **HEADPHONE EQ**(헤드폰 보정: **NONE** 또는 브랜드별로 나열된 내 모델), **ALERT IF SILENT**(**10 S**, **30 S**, **1 MIN** 또는 **5 MIN** 동안 -60 dBFS 미만, 또는 **OFF**)와 **ALERT IF CLIPPING**(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), **IN THE MINI MIXER**, 스페이서, **RENAME...**, **REMOVE**를 쓸 수 있습니다.
+출력을 마우스 오른쪽 단추로 클릭하면 **DEVICE...**, **HEADPHONE EQ**(헤드폰 보정: **NONE** 또는 브랜드별로 나열된 내 모델), **ALERT IF SILENT**(**10 S**, **30 S**, **1 MIN** 또는 **5 MIN** 동안 -60 dBFS 미만, 또는 **OFF**)와 **ALERT IF CLIPPING**(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, 스페이서, **RENAME...**, **REMOVE**를 쓸 수 있습니다.
 
 출력은 장치마다 하나씩 자동으로 만들어집니다([출력은 장치입니다](#outputs-are-devices) 참조).
 
-**FIND > MIX-MINUS AND STEMS**는 게스트마다 피드(본인 목소리를 뺀 모든 것)와 음성, 음악, 게임 스템을 만듭니다.
+**MIX-MINUS AND STEMS...**(출력의 마우스 오른쪽 단추 메뉴, 또는 FIND에 있습니다)는 게스트마다 피드(본인 목소리를 뺀 모든 것)와 음성, 음악, 게임 스템을 만듭니다.
 
 ---
 
@@ -841,7 +855,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | FIND, 또는 트레이 메뉴의 **Session timeline...**: 보관된 모든 버전을 날짜별로. **RESTORE EVERYTHING**(Faider이 그 믹스로 다시 시작됩니다), 또는 다시 시작하지 않고 **PUT ONE CHANNEL BACK**(그 채널의 레벨, 팬, CUT, 랙) |
+| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, 또는 트레이 메뉴의 **Session timeline...**: 보관된 모든 버전을 날짜별로. **RESTORE EVERYTHING**(Faider이 그 믹스로 다시 시작됩니다), 또는 다시 시작하지 않고 **PUT ONE CHANNEL BACK**(그 채널의 레벨, 팬, CUT, 랙) |
 | **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: 믹스를 이름을 붙여 보관 |
 | **OPEN, EXPORT OR IMPORT...** | 이름 붙인 믹스 열기(다시 시작됨), 믹스를 파일로 저장, 파일에서 불러오기 |
 
@@ -867,11 +881,11 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **WINDOWS** | **START WITH WINDOWS**: 로그인할 때 트레이에서 열림 |
 | **DESK** | **WARN IF I TALK WHILE CUT**(CUT된 마이크가 -30 dBFS를 넘으면 알림) |
 | **APPS** | **APP RULES...**: 프로그램이 재생을 시작할 때 어느 버스나 출력으로 갈지(**FIND**에서도 열 수 있음). 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다 |
-| **SESSIONS** | **SAVE SESSION AS...**, **OPEN, EXPORT OR IMPORT...** |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**, **PRE-FLIGHT NOW...**, **TIPS**, **SHOW THE TIPS AGAIN** |
+| **SESSIONS** | **SAVE SESSION AS...**, **OPEN, EXPORT OR IMPORT...**, **SESSION TIMELINE...**([14.3](#143-sessions) 참조) |
+| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**, **PRE-FLIGHT NOW...**, **ZERO DESK...**([18.1](#181-pre-flight) 참조), **TIPS**, **SHOW THE TIPS AGAIN** |
 | **NOTICES (IN THE CORNER)** | 장치 연결/제거, 채널 클리핑(소스나 출력이 풀 스케일), 씬 불러오기, 매크로 실행, 실행 취소와 다시 실행 |
 | **ZOOM** | 100%, 125%, 150%, **CUSTOM...**(75–200%) |
-| **METER STANDARD** | 미터의 표시 방식(기본값은 빠르게 떨어지는 샘플 피크. IEC 등) |
+| **METER STANDARD** | 미터의 표시 방식: **PEAK**(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), **PEAK IEC**, **TRUE PEAK**(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), **RMS**, **VU**, **PPM**(EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12**, **LUFS M**(모멘터리 라우드니스, EBU R128) |
 | **CHANNEL METER POINT** | **IN**(원래 소스), **PRE**(이펙트 뒤), **POST**(페이더 뒤, 기본값). 사이드바의 **METER** 카드도 같은 설정을 바꿉니다 |
 | **RECORDING** | **FFMPEG**: `ffmpeg.exe`의 위치 또는 **NOT FOUND**. 눌러서 `ffmpeg.exe`를 고릅니다(PATH에 있는 것보다 먼저 쓰임). 하나를 고른 뒤에는 PATH의 것으로 돌아가는 선택지도 나옵니다 |
 | **PLUGIN TEST TIME** | **30 S**(기본값), **60 S** 또는 **120 S**: 새 플러그인이 테스트에서 로드를 끝내야 하는 시간. 넘기면 실패합니다 |
@@ -914,7 +928,7 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 
 ### HOTKEYS
 
-지정할 수 있는 모든 단축키가 한곳에 있습니다. **PADS**, **MACROS**, **SCENES**, 그리고 **TAPE** 아래의 **SAVE INSTANT REPLAY**. 하나를 누르고 새 키를 누르세요(Esc는 취소, Delete는 지우기). 단축키에는 Ctrl, Alt 또는 F 키가 포함되어야 하며, 게임에 포커스가 있어도 작동합니다. 고정 키도 나열됩니다([19.1](#191-keyboard-shortcuts)). 페이지의 ON THE MIXER 키는 콘솔에서도 작동합니다([5](#5-the-console)).
+지정할 수 있는 모든 단축키가 한곳에 있습니다. **PADS**, **MACROS**, **SCENES**, 그리고 **TAPE** 아래의 **SAVE INSTANT REPLAY**. 각 카드에는 그 키가 하는 일과, 다른 어디에서 설정할 수 있는지가 적혀 있습니다. 하나를 누르고 새 키를 누르세요(Esc는 취소, Delete는 지우기). 단축키에는 Ctrl, Alt 또는 F 키가 포함되어야 하며, 게임에 포커스가 있어도 작동합니다. 두 곳에 지정된 키나 Windows가 거부한 키(다른 앱이 쓰고 있을 수 있습니다)는 그 행 아래에 빨간색으로 표시됩니다. 그중 하나만 작동합니다. 고정 키도 나열됩니다([19.1](#191-keyboard-shortcuts)). 페이지의 ON THE MIXER 키는 콘솔에서도 작동합니다([5](#5-the-console)).
 
 <a id="control"></a>
 
@@ -934,7 +948,7 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 | | |
 |---|---|
 | **MIDI MAP** (Ctrl+L) | 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 SIMPLE과 PRO에서 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래) |
-| **OSC** | 이 PC의 프로그램은 포트 9000, 또는 SETTINGS > CONTROL의 **PORT...**로 설정한 포트로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다 |
+| **OSC** | 이 PC의 프로그램은 포트 9000, 또는 SETTINGS > CONTROL의 **PORT...**로 설정한 포트로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다. 모든 주소: [OSC 참조](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)(영어) |
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / CUT과 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
 | **MINI** | 미니 믹서: 마우스 오른쪽 단추 메뉴에서 **IN THE MINI MIXER**에 체크한 각 스트립의 페이더, 미터, **CUT**이 있는 작은 창(체크한 것이 없으면 각 출력의 것). **PIN**을 켜면 모든 것 위에 고정됩니다. **OPEN**은 메인 창으로 돌아갑니다 |
 | **Tray** | 아이콘을 누르면 미니 믹서, 더블클릭하면 창이 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
@@ -969,8 +983,8 @@ Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 
 
 ### 17.3 프로그램을 믹스에 넣기
 
-1. 프로그램을 시작하고 소리가 나게 합니다.
-2. **ADD APP** > 그 프로그램을 고릅니다. RAW 채널(이펙트 없음)이 만들어집니다.
+1. 프로그램을 시작합니다.
+2. **ADD APP** > 그 프로그램을 고릅니다(지금 소리를 내지 않으면 **NOT PLAYING YET** 아래에 있습니다). RAW 채널(이펙트 없음)이 만들어집니다.
 3. 들으려는 곳으로 라우팅합니다. 소리가 두 번 들리면 [18.7](#187-i-hear-something-twice-or-an-echo)을 참조하세요.
 
 <a id="174-reorder-channels"></a>
@@ -1026,6 +1040,14 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 
 ## 18. 문제 해결
 
+오버레이, MIDI 컨트롤러, OSC가 반응하지 않을 때:
+
+| 문제 | 확인할 것 |
+|---|---|
+| **오버레이가 나타나지 않음** | Ctrl+Shift+O는 Windows 전체에 적용되는 단축키입니다. 다른 앱이 쓰고 있으면 SETTINGS > HOTKEYS에 빨간색으로 표시되고 이벤트 로그에도 기록됩니다. FIND의 **SHOW OVERLAY**로 키 없이 오버레이를 열 수 있습니다. 오버레이는 맨 위에 머무는 창이며 테두리 없는 창으로 실행되는 게임에 맞춰 만들어졌으므로, 게임을 테두리 없는 창 모드나 창 모드로 설정하세요. 마이크 채널(인터페이스 입력과 Windows 장치)만 나열하며, 하나도 없으면 **NO MIC CHANNELS**라고 표시됩니다 |
+| **MIDI 컨트롤러가 아무 동작도 하지 않음** | 각 MIDI 입력은 SETTINGS > CONTROL > **INPUTS AND BINDINGS**에서 켜기 전에는 꺼져 있습니다. Faider이 시작된 뒤에 연결한 컨트롤러는 저절로 열리지 않습니다. 거기서 **REFRESH**를 누르고 그 입력을 껐다 켜거나, Faider을 다시 시작하세요. 컨트롤을 움직이면 그 목록 맨 아래의 **LAST**에 들어온 것이 표시됩니다. 컨트롤은 **MIDI MAP** (Ctrl+L)에서 바인딩하기 전에는 아무 동작도 하지 않습니다. 컨트롤 체인지와 노트만 읽습니다. 페이더와 팬은 키가 아니라 노브나 페이더를 따르고, 키는 CUT, SOLO 등을 전환합니다 |
+| **OSC가 아무 동작도 하지 않음** | OSC는 **OSC ON**이 켜질 때까지 꺼져 있습니다(SETTINGS > CONTROL). 보내는 쪽은 그 키에 표시된 포트(바꾸지 않았다면 9000)를 써야 하고 이 PC에서 실행되어야 합니다. Faider은 `127.0.0.1`에서만 수신하므로 휴대폰이나 다른 PC에서는 닿을 수 없습니다. 포트를 열 수 없으면(다른 프로그램이 쓰고 있을 수 있습니다) Faider이 그렇다고 알려 주고 OSC는 꺼진 채로 남습니다. **PORT...**로 다른 포트를 고르세요. 그다음 주소를 확인하세요. 스트립의 이름이며 공백은 `_`로 씁니다([OSC 참조](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)(영어) 참조) |
+
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
@@ -1036,13 +1058,13 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 |---|---|---|
 | **AUDIO** | 시작되지 않았습니다(다른 앱이 사용 중일 수 있음) | **DEVICES** |
 | **MIC CABLE** | VB-CABLE 없음: 앱이 믹스를 마이크로 들을 수 없습니다 | **GET VB-CABLE** |
-| **MIC OUTPUT** | 마이크 케이블로 재생하는 출력이 없습니다 | **ROUTING** |
+| **MIC OUTPUT** | 마이크 케이블로 재생하는 출력이 없습니다 | **ROUTING**(문제가 없는 동안에는 이 키가 **HEAR WHAT THEY HEAR**입니다) |
 | **MIC CHANNELS** | 마이크로 가는 도중에 CUT된 것이 있습니다 | **UNCUT** |
 | **WINDOWS DEFAULTS** | Windows의 기본 스피커나 마이크(또는 통화용 기본 장치)가 가상 케이블입니다 | **SET MY DEFAULTS** |
 | **HEARD ONCE** | 피드백 루프이거나 소리가 두 번 들립니다 | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows 장치나 캡처된 앱이 믹스에 있고 Windows 오디오 엔진이 Normal 우선순위입니다. 노란색은 제안일 뿐이고, 부스트가 다시 시작으로 풀렸으면 빨간색입니다. ASIO만 쓸 때는 초록색 | **BOOST** |
 
-**ZERO THE DESK**(왼쪽 아래. FIND에서는 **ZERO DESK**로도 나옵니다)는 지난 세션이 남겨 둘 수 있는 설정을 확인합니다. 솔로, 키 리슨, 12 dB 넘게 벗어난 게인 트림, CUT된 출력입니다. 각각에 **FIX**가 있습니다.
+**ZERO THE DESK**(왼쪽 아래. SETTINGS > GENERAL > ON START에서는 **ZERO DESK...**, FIND에서는 **ZERO DESK**로도 나옵니다)는 지난 세션이 남겨 둘 수 있는 설정을 확인합니다. 솔로, 키 리슨, 12 dB 넘게 벗어난 게인 트림, CUT된 출력입니다. 각각에 **FIX**가 있습니다.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1052,7 +1074,7 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 
 | 이유 | 할 일 |
 |---|---|
-| 저장된 인터페이스가 연결되어 있지 않음 | 연결한 뒤 **SESSION TIMELINE**(FIND 또는 트레이) > "kept:" 버전 > **RESTORE EVERYTHING** |
+| 저장된 인터페이스가 연결되어 있지 않음 | 연결한 뒤 **SESSION TIMELINE**(SETTINGS > GENERAL, FIND 또는 트레이) > "kept:" 버전 > **RESTORE EVERYTHING** |
 | 저장된 인터페이스를 열 수 없음(다른 프로그램이 사용 중) | 다른 프로그램을 닫고 Faider을 다시 시작합니다. 그동안 믹스 위에 아무것도 덮어쓰지 않습니다 |
 | session.xml을 읽을 수 없음 | **SESSION TIMELINE** > 최근 버전 > **RESTORE EVERYTHING** |
 
@@ -1093,7 +1115,7 @@ PRE-FLIGHT는 시작하고 몇 초 뒤에(그리고 **PRE-FLIGHT NOW...** 또는
 
 ### 18.6 앱이 ADD APP에 나타나지 않음
 
-- 프로그램이 지금 **소리를 내고** 있어야 합니다. 재생을 시작한 다음 메뉴를 다시 여세요.
+- 프로그램이 **소리를 내고** 있거나, 자기 창이 있는 채로 실행 중이어야 합니다(이때는 **NOT PLAYING YET** 아래에 있습니다). 창 없이 실행되는 프로그램이나, Windows가 창을 대신 호스팅하는 Microsoft Store 앱은 소리를 내기 전에는 나열되지 않습니다. 재생을 시작한 다음 메뉴를 다시 여세요.
 - 이미 채널이 있는 프로그램은 회색으로 표시됩니다(**ON THE DESK**).
 - Windows 10 버전 2004보다 오래된 Windows는 개별 프로그램을 캡처할 수 없습니다("Windows refused app capture").
 
@@ -1177,10 +1199,13 @@ Windows가 케이블을 기본 장치로 만들었습니다. **SET MY DEFAULTS**
 
 | | |
 |---|---|
-| `--minimised` | 트레이에서 시작 |
-| `--quit` | 실행 중인 복사본 종료 |
+| `--minimised` | 트레이에서 시작(**START WITH WINDOWS**가 쓰는 것) |
+| `--quit` | 트레이의 **Quit**처럼 실행 중인 복사본을 종료합니다. 실행 중인 것이 없으면 아무 일도 일어나지 않습니다 |
+| `--allow-admin` | 관리자로 시작했다면 그대로 유지합니다. 이것이 없으면 Faider은 스스로 일반 권한으로 다시 시작합니다([16](#16-remote-control-overlay-and-tray) 참조) |
 | `--clock windows`, `--clock builtin`, `--clock <driver>` | 이번 실행의 클럭: Windows 재생 장치, 내장 클럭, 또는 이름에 `<driver>`가 들어간 ASIO 드라이버. DEVICES > CLOCK보다 우선합니다([클럭](#clocking) 참조) |
 | `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | **BOOST WINDOWS AUDIO**와 **BACK TO NORMAL**이 관리자로 실행하는 것: Windows 오디오 엔진을 High 우선순위로 올리거나(N을 지정한 경우에만 코어 N에 고정) 모든 코어에서 Normal로 되돌리고 종료합니다. 0: 완료, 2: 잘못된 인수, 3: audiodg를 찾지 못함, 4: 액세스 거부, 5: 우선순위 변경 거부, 6: High로 설정했지만 고정 거부, 7: Normal로 설정했지만 모든 코어로 되돌리기 거부 |
+| `--scan <plugin> --out <file>` | 내부용: 플러그인을 로드하기 전에 Faider이 별도 복사본에서 실행하는 테스트([9](#9-plugins) 참조). 창도 오디오도 없습니다 |
+| `--after <process id>` | 내부용: Faider이 스스로 다시 시작할 때 붙습니다(**RESTORE EVERYTHING**, **RESTART NOW**, 관리자 권한 내려놓기). 새 복사본은 그 프로세스가 끝나기를 최대 1분 동안 기다립니다 |
 
 <a id="193-files"></a>
 
@@ -1202,7 +1227,7 @@ Windows가 케이블을 기본 장치로 만들었습니다. **SET MY DEFAULTS**
 | `status.txt` | 몇 초마다 찍는 엔진 스냅샷: 장치, 레벨, 버퍼, 드리프트 |
 | `crash.log`, `crash.dmp` | 충돌 보고서 |
 
-프로그램 자체는 `C:\Program Files\Faider`에 있습니다. 녹음은 다른 폴더를 고르지 않으면 `Music\Faider Recordings`에 저장됩니다.
+프로그램 자체는 `C:\Program Files\Faider`(나만 쓰도록 설치했다면 `%LOCALAPPDATA%\Programs\Faider`)에 있습니다. 녹음은 다른 폴더를 고르지 않으면 `Music\Faider Recordings`에 저장됩니다.
 
 <a id="194-colours"></a>
 

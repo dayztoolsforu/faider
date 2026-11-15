@@ -872,7 +872,8 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | 페이지 | 설정 | 하는 일 |
 |---|---|---|
-| **General** | **Start with Windows** | 로그인할 때 Faider을 트레이에서 엽니다 |
+| **General** | **Language** | 인터페이스의 언어: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(각 언어의 고유 이름으로 표시). 첫 실행 때는 Windows의 표시 언어가 이 중 하나이면 그것을 따르고, 아니면 영어입니다. 변경은 다음 실행부터 적용됩니다. **RESTART NOW**는 Faider을 바로 다시 시작하고, **LATER**는 그때까지 보류합니다. 데스크의 키, 이벤트 로그, 제품 이름은 영어로 남습니다 |
+| | **Start with Windows** | 로그인할 때 Faider을 트레이에서 엽니다 |
 | | **Zoom** | **100%**, **125%**, **150%**, 또는 75–200% 사이의 아무 크기로 하는 **Custom…**. Ctrl + 와 Ctrl - 로 처음 세 개 사이를 오갑니다 |
 | | **Look** | 데스크의 색과 글꼴. 메뉴에 가지고 있는 LOOK과 **Save as…**가 나열됩니다 (아래 [LOOKS](#looks)) |
 | | **Tips** | 각 페이지를 처음 보여 줄 때의 팁. **Show again**을 누르면 각 페이지의 팁이 한 번 더 나옵니다 |

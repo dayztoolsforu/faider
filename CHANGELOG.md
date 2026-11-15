@@ -6,6 +6,11 @@ What changed in each version of Faider, newest first. Downloads are on the
 ## Unreleased
 
 **New**
+- The interface in 13 languages: **Language** in SETTINGS > General picks English, Deutsch,
+  Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or
+  简体中文, from the next start (**RESTART NOW** offers it at once). The first start follows Windows'
+  display language when it's one of them. The desk's keys, the event log and product names stay
+  in English.
 - **COMPACT** in the Mixer's sidebar (and **COMPACT DESK** / **FULL DESK** in FIND) folds every
   strip to its name bar and fader, so the desk fits on a
   short screen. It is remembered.

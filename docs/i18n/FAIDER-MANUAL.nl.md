@@ -1052,7 +1052,8 @@ De **APP**-pagina's:
 
 | Pagina | Instelling | Wat het doet |
 |---|---|---|
-| **General** | **Start with Windows** | Opent Faider in het systeemvak wanneer je je aanmeldt |
+| **General** | **Language** | De taal van de interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, elk in zijn eigen naam. De eerste start volgt de weergavetaal van Windows als het daar een van is, anders Engels. Een wijziging geldt vanaf de volgende start: **RESTART NOW** start Faider meteen opnieuw, **LATER** bewaart het tot dan. De toetsen van de desk, het gebeurtenislogboek en productnamen blijven Engels |
+| | **Start with Windows** | Opent Faider in het systeemvak wanneer je je aanmeldt |
 | | **Zoom** | **100%**, **125%**, **150%**, of **Custom…** voor elke grootte van 75 tot 200%. Ctrl + en Ctrl - stappen tussen de eerste drie |
 | | **Look** | De kleuren en het lettertype van de tafel; het menu toont je LOOKS en **Save as…** (zie [LOOKS](#looks)) |
 | | **Tips** | Een tip over elke pagina, de eerste keer dat die getoond wordt. **Show again** toont de tip van elke pagina nog één keer |

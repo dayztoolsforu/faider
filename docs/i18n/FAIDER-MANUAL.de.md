@@ -1052,7 +1052,8 @@ Die Seiten unter **APP**:
 
 | Seite | Einstellung | Was sie tut |
 |---|---|---|
-| **General** | **Start with Windows** | Öffnet Faider im Tray, wenn du dich anmeldest |
+| **General** | **Language** | Die Sprache der Oberfläche: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, jede in ihrem eigenen Namen. Beim ersten Start folgt sie der Anzeigesprache von Windows, wenn es eine davon ist, sonst Englisch. Eine Änderung gilt ab dem nächsten Start: **RESTART NOW** startet Faider sofort neu, **LATER** hebt sie bis dahin auf. Die Tasten des Pults, das Ereignisprotokoll und Produktnamen bleiben Englisch |
+| | **Start with Windows** | Öffnet Faider im Tray, wenn du dich anmeldest |
 | | **Zoom** | **100%**, **125%**, **150%** oder **Custom…** für jede Größe von 75 bis 200%. Ctrl + und Ctrl - wechseln zwischen den ersten dreien |
 | | **Look** | Die Farben und die Schrift des Pults; sein Menü listet deine LOOKS und **Save as…** (siehe [LOOKS](#looks)) |
 | | **Tips** | Ein Tipp zu jeder Seite, wenn sie zum ersten Mal erscheint. **Show again** zeigt den Tipp jeder Seite noch einmal |

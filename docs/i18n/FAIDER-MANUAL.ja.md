@@ -872,7 +872,8 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 | ページ | 設定 | 働き |
 |---|---|---|
-| **General** | **Start with Windows** | サインイン時に Faider をトレイで開きます |
+| **General** | **Language** | インターフェースの言語: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(それぞれの言語での名前で表示)。初回起動時は、Windows の表示言語がこのいずれかならそれに従い、そうでなければ英語になります。変更は次回の起動から有効です。**RESTART NOW** で Faider をすぐに再起動し、**LATER** でそのときまで保留します。デスクのキー、イベントログ、製品名は英語のままです |
+| | **Start with Windows** | サインイン時に Faider をトレイで開きます |
 | | **Zoom** | **100%**、**125%**、**150%**、または 75〜200% の任意のサイズにする **Custom…**。Ctrl + と Ctrl - で最初の 3 つを切り替えます |
 | | **Look** | 卓の色と書体。メニューに手元の LOOK と **Save as…** が並びます(下記 [LOOKS](#looks)) |
 | | **Tips** | 各ページを初めて表示したときのヒント。**Show again** で、各ページのヒントがもう一度表示されます |

@@ -39,7 +39,8 @@ It builds and runs the checks in `tests\` that need no hardware. Each prints PAS
 failure makes it exit non-zero. `-Tests MeterTest,PadsTest` runs only those named. AppCaptureTest
 needs an audio output device, so the checks on GitHub leave it out.
 
-The checks on GitHub (`.github/workflows/checks.yml`) build the website, build Faider without the
+The checks on GitHub (`.github/workflows/checks.yml`) build the website, check the translations
+(`tools/translations.py`), build Faider without the
 ASIO SDK and with warnings as errors, run the checks, and build the installer as a check (its file
 and artifact are named "CI check, not for release").
 
@@ -63,7 +64,8 @@ The manual is `docs/FAIDER-MANUAL.md`. Its 12 translations are in `docs/i18n`
 `tools/manual-page` and from `docs/CREDITS.md`.
 
 - Describe only what the code does. Names of keys, pages and menus stay in English capitals in
-  every language, as the desk shows them.
+  every language. (The desk's keys are English in the app too; the rest of the interface follows
+  SETTINGS > General > Language: see [Translations of the interface](#translations-of-the-interface).)
 - Every language has the same `##` and `###` headings in the same order. The page pairs them up by
   position and gives each the English heading's id, so links work in every language. Adding,
   removing or moving a heading means doing it in all 13 files.
@@ -80,6 +82,36 @@ The manual is `docs/FAIDER-MANUAL.md`. Its 12 translations are in `docs/i18n`
   It prints the languages it built. A translation whose headings differ, a missing image or a link
   to nowhere is printed and makes it fail. The checks on GitHub run the same build and fail when
   the committed page isn't what it builds, so use the same version of `markdown` as they do.
+
+## Translations of the interface
+
+The interface's English is in the code, and is the key its translations are found by: every text
+shown is written `TRANS ("Save report")`, or `TRANS ("%1 is still running").replace ("%1", name)`
+when it holds a value (a whole sentence, so a translator can move the value). A text that is also
+used as a name inside the code (a tab's, a settings page's) is marked `NEEDS_TRANS ("Settings")`
+where it's written and translated where it's shown. The desk's keys (the layout files' labels),
+meter standards and units, product names, the event log and command-line output stay English.
+
+The translations are `assets/i18n/<code>.txt`, one per language (`de`, `es`, `fr`, `it`, `ja`,
+`ko`, `nl`, `pl`, `pt-BR`, `sv`, `tr`, `zh-Hans`), built into Faider.exe and set at start
+(`src/Language.h`). Each line is `"English" = "translation"`, in JUCE's LocalisedStrings format
+(`\"` for a quote, `\n` for a new line).
+
+```powershell
+python tools/translations.py               # check every language against the code
+python tools/translations.py update de     # de.txt brought to the code's texts (new ones empty)
+```
+
+- After adding or changing a text in the code, run `update` for each language and fill in the
+  empty translations. The check fails on a text missing from a language, one no longer in the code,
+  an empty translation, or a translation that drops a `%1` / `%2`.
+- Use the words that language's manual (`docs/i18n`) uses for the same things, keep translations
+  short (the interface has little room), sentence case where the English is, ALL CAPS where the
+  English is, and keep `%1`, `...`, shortcuts (Ctrl+K) and product names as they are.
+- A new language: its file in `assets/i18n`, its line in `CMakeLists.txt` (FaiderAssets), in
+  `Language::all()` (`src/Language.h`) and in `LANGUAGES` in `tools/translations.py`.
+- `TranslationTest` (in `tools\run-tests.ps1`) loads each built-in table as the program does. The
+  checks on GitHub run both.
 
 Other documents: [docs/OSC.md](docs/OSC.md) (the OSC addresses), [docs/FAQ.md](docs/FAQ.md),
 [PRIVACY.md](PRIVACY.md), [console/README.md](console/README.md).

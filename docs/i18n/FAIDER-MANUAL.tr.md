@@ -1054,7 +1054,8 @@ yanık olarak açar.
 
 | Sayfa | Ayar | Ne yapar |
 |---|---|---|
-| **General** | **Start with Windows** | Oturum açtığında Faider'i tepside açar |
+| **General** | **Language** | Arayüzün dili: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, her biri kendi adıyla. İlk açılışta, bunlardan biriyse Windows'un görüntüleme dili, değilse İngilizce kullanılır. Değişiklik bir sonraki açılışta geçerli olur: **RESTART NOW** Faider'i hemen yeniden başlatır, **LATER** o zamana bırakır. Masanın tuşları, olay günlüğü ve ürün adları İngilizce kalır |
+| | **Start with Windows** | Oturum açtığında Faider'i tepside açar |
 | | **Zoom** | **100%**, **125%**, **150%** ya da 75 ile 200% arasında herhangi bir boyut için **Custom…**. Ctrl + ve Ctrl - ilk üçü arasında geçiş yapar |
 | | **Look** | Konsolun renkleri ve yazı tipi; menüsü LOOK'larını ve **Save as…**'i listeler (bkz. [LOOKS](#looks)) |
 | | **Tips** | Her sayfa ilk gösterildiğinde onunla ilgili bir ipucu. **Show again** her sayfanın ipucunu bir kez daha gösterir |

@@ -921,7 +921,8 @@ The **APP** pages:
 
 | Page | Setting | What it does |
 |---|---|---|
-| **General** | **Start with Windows** | Opens Faider in the tray when you sign in |
+| **General** | **Language** | The language of the interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or 简体中文, each in its own name. The first start follows Windows' display language if it's one of them, English if not. A change takes effect at the next start: **RESTART NOW** restarts Faider at once, **LATER** keeps it for then. The desk's keys, the event log and product names stay in English |
+| | **Start with Windows** | Opens Faider in the tray when you sign in |
 | | **Zoom** | **100%**, **125%**, **150%**, or **Custom…** for any size from 75 to 200%. Ctrl + and Ctrl - step between the first three |
 | | **Look** | The console's colours and typeface; its menu lists your looks and **Save as…** (see [Looks](#looks)) |
 | | **Tips** | A tip about each page, the first time it's shown. **Show again** shows each page's tip once more |

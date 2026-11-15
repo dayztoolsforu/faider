@@ -1050,7 +1050,8 @@ upplyst en stund.
 
 | Sida | Inställning | Vad den gör |
 |---|---|---|
-| **General** | **Start with Windows** | Öppnar Faider i aktivitetsfältets notisyta när du loggar in |
+| **General** | **Language** | Gränssnittets språk: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, vart och ett med sitt eget namn. Första starten följer Windows visningsspråk om det är ett av dem, annars engelska. En ändring gäller från nästa start: **RESTART NOW** startar om Faider direkt, **LATER** sparar den till dess. Bordets tangenter, händelseloggen och produktnamn förblir engelska |
+| | **Start with Windows** | Öppnar Faider i aktivitetsfältets notisyta när du loggar in |
 | | **Zoom** | **100%**, **125%**, **150%**, eller **Custom…** för valfri storlek från 75 till 200%. Ctrl + och Ctrl - stegar mellan de tre första |
 | | **Look** | Bordets färger och typsnitt; dess meny listar dina LOOK:ar och **Save as…** (se [LOOKS](#looks)) |
 | | **Tips** | Ett tips om varje sida, första gången den visas. **Show again** visar varje sidas tips en gång till |

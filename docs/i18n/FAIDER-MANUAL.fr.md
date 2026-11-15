@@ -1116,7 +1116,8 @@ Les pages **APP** :
 
 | Page | Réglage | Ce qu'il fait |
 |---|---|---|
-| **General** | **Start with Windows** | Ouvre Faider dans la zone de notification quand vous ouvrez votre session |
+| **General** | **Language** | La langue de l'interface : English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, chacune sous son propre nom. Au premier démarrage, elle suit la langue d'affichage de Windows si c'est l'une d'elles, sinon l'anglais. Un changement prend effet au démarrage suivant : **RESTART NOW** redémarre Faider tout de suite, **LATER** le garde pour ce moment-là. Les touches de la console, le journal des événements et les noms de produits restent en anglais |
+| | **Start with Windows** | Ouvre Faider dans la zone de notification quand vous ouvrez votre session |
 | | **Zoom** | **100%**, **125%**, **150%**, ou **Custom…** pour toute taille de 75 à 200 %. Ctrl + et Ctrl - passent de l'un à l'autre des trois premiers |
 | | **Look** | Les couleurs et le type de lettres du pupitre ; son menu liste vos LOOKS et **Save as…** (voir [LOOKS](#looks)) |
 | | **Tips** | Une astuce sur chaque page, la première fois qu'elle s'affiche. **Show again** réaffiche une fois l'astuce de chaque page |

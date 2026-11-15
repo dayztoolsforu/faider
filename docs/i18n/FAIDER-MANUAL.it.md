@@ -1076,7 +1076,8 @@ Le pagine **APP**:
 
 | Pagina | Impostazione | Cosa fa |
 |---|---|---|
-| **General** | **Start with Windows** | Apre Faider nell'area di notifica quando accedi |
+| **General** | **Language** | La lingua dell'interfaccia: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, ognuna con il proprio nome. Al primo avvio segue la lingua di visualizzazione di Windows se è una di queste, altrimenti l'inglese. Una modifica vale dall'avvio successivo: **RESTART NOW** riavvia subito Faider, **LATER** la tiene per allora. I tasti del banco, il registro eventi e i nomi dei prodotti restano in inglese |
+| | **Start with Windows** | Apre Faider nell'area di notifica quando accedi |
 | | **Zoom** | **100%**, **125%**, **150%**, o **Custom…** per qualsiasi misura da 75 a 200%. Ctrl + e Ctrl - passano tra le prime tre |
 | | **Look** | I colori e il tipo di carattere della console; il suo menu elenca i tuoi LOOK e **Save as…** (vedi [LOOKS](#looks)) |
 | | **Tips** | Un suggerimento su ogni pagina, la prima volta che viene mostrata. **Show again** mostra ancora una volta il suggerimento di ogni pagina |

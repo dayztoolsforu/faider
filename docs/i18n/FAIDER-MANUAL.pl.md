@@ -1058,7 +1058,8 @@ Strony **APP**:
 
 | Strona | Ustawienie | Co robi |
 |---|---|---|
-| **General** | **Start with Windows** | Otwiera Faider w zasobniku przy logowaniu |
+| **General** | **Language** | Język interfejsu: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, każdy pod własną nazwą. Przy pierwszym uruchomieniu wybierany jest język wyświetlania Windows, jeśli jest jednym z nich, a jeśli nie, angielski. Zmiana działa od następnego uruchomienia: **RESTART NOW** od razu uruchamia Faider ponownie, **LATER** zostawia ją na później. Klawisze stołu, dziennik zdarzeń i nazwy produktów zostają po angielsku |
+| | **Start with Windows** | Otwiera Faider w zasobniku przy logowaniu |
 | | **Zoom** | **100%**, **125%**, **150%** albo **Custom…** dla dowolnego rozmiaru od 75 do 200%. Ctrl + i Ctrl - przełączają między pierwszymi trzema |
 | | **Look** | Kolory i krój pisma konsoli; jego menu pokazuje twoje LOOK-i i **Save as…** (patrz [LOOKS](#looks)) |
 | | **Tips** | Wskazówka o każdej stronie, gdy pokazuje się po raz pierwszy. **Show again** pokazuje wskazówkę każdej strony jeszcze raz |

@@ -871,7 +871,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | 页面 | 设置 | 作用 |
 |---|---|---|
-| **General** | **Start with Windows** | 你登录时在托盘中打开 Faider |
+| **General** | **Language** | 界面的语言：English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文，各以其本身的名称显示。首次启动时，如果 Windows 的显示语言是其中之一就跟随它，否则为英语。更改从下次启动起生效：**RESTART NOW** 立即重启 Faider，**LATER** 留到那时。调音台的按键、事件日志和产品名称保持英文 |
+| | **Start with Windows** | 你登录时在托盘中打开 Faider |
 | | **Zoom** | **100%**、**125%**、**150%**，或用 **Custom…** 设为 75 到 200% 之间的任意大小。Ctrl + 和 Ctrl - 在前三个之间切换 |
 | | **Look** | 调音台的颜色与字体；它的菜单列出你的 LOOK 和 **Save as…**（见 [LOOKS](#looks)） |
 | | **Tips** | 每个页面第一次显示时的一条提示。**Show again** 让每个页面的提示再显示一次 |

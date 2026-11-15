@@ -1077,7 +1077,8 @@ As páginas de **APP**:
 
 | Página | Configuração | O que faz |
 |---|---|---|
-| **General** | **Start with Windows** | Abre o Faider na bandeja quando você entra no Windows |
+| **General** | **Language** | O idioma da interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, cada um com o próprio nome. A primeira inicialização segue o idioma de exibição do Windows se for um deles; se não, inglês. Uma mudança vale a partir da próxima inicialização: **RESTART NOW** reinicia o Faider na hora, **LATER** deixa para depois. As teclas da mesa, o log de eventos e os nomes de produtos continuam em inglês |
+| | **Start with Windows** | Abre o Faider na bandeja quando você entra no Windows |
 | | **Zoom** | **100%**, **125%**, **150%**, ou **Custom…** para qualquer tamanho de 75 a 200%. Ctrl + e Ctrl - alternam entre os três primeiros |
 | | **Look** | As cores e o tipo de letra da mesa; o menu dele lista os seus LOOKS e **Save as…** (ver [LOOKS](#looks)) |
 | | **Tips** | Uma dica sobre cada página, na primeira vez que ela aparece. **Show again** mostra a dica de cada página mais uma vez |

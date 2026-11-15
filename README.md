@@ -67,6 +67,7 @@ on a short screen. Click it again for the whole strips.
 | Install folder | `C:\Program Files\Faider` (installer; `%LOCALAPPDATA%\Programs\Faider` when installed for you only), `C:\Faider` (built from source) |
 | Mix and settings | `%APPDATA%\Faider` |
 | Manual | [Faider manual](https://dayztoolsforu.github.io/faider/#manual) (13 languages) |
+| Languages | English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文 (SETTINGS > General > Language; the desk's keys stay in English) |
 | Website | [dayztoolsforu.github.io/faider](https://dayztoolsforu.github.io/faider/) |
 | Privacy | [PRIVACY.md](PRIVACY.md): no accounts, analytics or telemetry; one daily update check you can switch off |
 

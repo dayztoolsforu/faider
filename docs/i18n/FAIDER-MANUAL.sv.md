@@ -194,9 +194,9 @@ Vad varje svar skapar:
 | **PROGRAMS** | En raw-kanal för varje, routad dit du lyssnar, plus en appregel som för tillbaka den av sig själv när programmet spelar |
 
 Dina mikrofoner routas inte till dina egna hörlurar, så du hör inget fördröjt eko av din
-röst. För att höra dig själv tänder du mikrofonens tangent **HEADPHONES** (steg 6).
+röst. För att höra dig själv routar du mikrofonen till dina hörlurar (steg 6).
 
-SETUP är ingen sida: kör den igen från **FIND** (**SETUP: BUILD A MIX**) eller **SETUP**-tangenten i SIMPLE
+SETUP är ingen sida: kör den igen från **FIND** (**SETUP: BUILD A MIX**)
 när du lägger till en enhet eller ett program. Den lägger till det som saknas och tar aldrig bort något.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -218,40 +218,33 @@ som spelar utan knaster ger dig minst fördröjning. 256 eller 512 samplingar pa
 
 ### Steg 6: Hör dig själv och låt appar höra dig
 
-![SIMPLE-bordet med en demomix: sex kanaler, var och en med en tangent för HEADPHONES och STREAM, och två utgångar](../images/console/simple.jpg)
+Mixern visar en strip för varje kanal, buss och utgång. **Routingrutorna** i varje strips
+header visar vart den går: en ruta per buss och utgångsenhet, tänd där den är routad (se
+[4](#4-how-routing-works)).
 
-Mixern öppnas i **SIMPLE**. Varje kanal visar sitt namn, vad den lyssnar på, en tangent för varje
-utgång, sin fader och mätare, **CUT** och **SOLO**. Varje utgång visar enheten den spelar på,
-sin fader och mätare.
-
-| Tangent på en kanal | Betyder |
-|---|---|
-| Vanlig grå | Inte routad till den utgången |
-| Fylld i utgångens färg | Routad dit. Klicka för att stänga av |
-| Bara färgad kant, **VIA BUS** | Den kommer dit via en buss (inställd i PRO). Klicka för att routa den direkt dit också |
-
-1. Prata och se hur mikrofonens mätare rör sig.
-2. För att höra dig själv klickar du på mikrofonens tangent **HEADPHONES**.
+1. Prata och se hur mikrofonens nivåmätare rör sig.
+2. För att höra dig själv tänder du rutan för dina hörlurar bland mikrofonens routingrutor.
 3. Välj **CABLE Output** som mikrofon i Discord, ditt spel, OBS eller vilken annan app som helst.
 4. Kontrollera vad de får: **HEAR WHAT THEY HEAR** (på raden **MIC OUTPUT** i PRE-FLIGHT, eller i **FIND**, Ctrl+K) spelar in 5 sekunder av vad appar
    tar emot och spelar upp det för dig.
 
 Om du hör ett program dubbelt, se [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** och **+ APP** lägger till kanaler (**+ APP** listar också program som körs och är **NOT PLAYING YET**). **+ OUTPUT** lägger till en utgång på en enhet som saknar en.
-Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för **RENAME...**,
-färgen, **HEADPHONE EQ** (en utgång), **IN THE MINI MIXER** och **REMOVE**. När du tar bort ett programs
+**ADD CHANNEL** och **ADD APP** i sidofältet lägger till kanaler (**ADD APP** listar också program som körs och är **NOT PLAYING YET**). Routa något till en enhet som saknar utgång så skapas en utgång på den.
+Högerklicka på en utgång för **DEVICE...** (var den spelar) och **HEADPHONE EQ**. Högerklicka på vilken strip som helst för **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** och **REMOVE**. När du tar bort ett programs
 kanal försvinner också dess appregel, så kanalen kommer inte tillbaka av sig själv.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Steg 7: PRO, för hela konsolen
 
-Omkopplaren **SIMPLE / PRO** i den övre raden visar samma mix i båda lägena. **PRO** är hela
-konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, plugins.
+Mixern är hela konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och
+combinators, plugins. För en mindre vy fäller **COMPACT** i sidofältet ihop varje strip till dess namnlist
+och fadersektion. Klicka igen för hela strippar (se [Sidofältet](#the-sidebar)).
 
 För att forma din mikrofon, se [17.1](#171-hear-yourself-set-up-a-microphone). Varje kontroll finns i
-[6](#6-the-channel-strip-section-by-section). Inställningar du gör i PRO fortsätter gälla i SIMPLE.
+[6](#6-the-channel-strip-section-by-section).
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -291,7 +284,7 @@ Det var installationen. Resten av den här handboken går igenom varje del i det
 
 Sidorna är kort längs vänster kant: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Sidan som visas har en lysande blå kant. Medan Mixer visas har sidofältet också
-de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
+de här korten:
 
 | Grupp | Kort | Vad det gör |
 |---|---|---|
@@ -299,7 +292,7 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 | | **ADD APP** | Listar programmen som spelar ljud nu, sedan, under **NOT PLAYING YET**, de som körs med ett fönster och är tysta. Välj ett för att ge det en kanal; ett som inte spelar fångas från det ögonblick det gör det |
 | | **ADD BUS** | En buss, eller en combinator (två vägar till att börja med) |
 | | **PLUGINS** | Skjuter upp pluginpanelen under strippar (se [9](#9-plugins)) |
-| | **COMPACT** | Fäller ihop varje strip till dess namnlist och fadersektion (panorering, SOLO, CUT, SEL, fadern och dess avläsning), med stripens nivåmätare bredvid faderns skala; bordet krymper och går till toppen. Tänd medan bordet är kompakt; klicka igen för hela strippar. Även **COMPACT DESK** / **FULL DESK** i FIND |
+| | **COMPACT** | Fäller ihop varje strip till dess namnlist och fadersektion (panorering, SOLO, CUT, SEL, fadern och dess avläsning); bordet krymper och går till toppen. Tänd medan bordet är kompakt; klicka igen för hela strippar. Även **COMPACT DESK** / **FULL DESK** i FIND |
 | **SELECT** | **AUTO** | Att röra vid vilken kontroll som helst på en strip väljer den stripen |
 | | **FOLLOW** | Bordet glider till den valda stripen, även när den väljs någon annanstans (FIND, ett kortkommando) |
 | **SECTIONS** | HEADER … FADER | Stripens avsnitt (med COMPACT bara NAME och FADER). Tända är i bild. Klicka på ett för att glida dit |
@@ -323,8 +316,6 @@ Från höger:
 | **MINI** | Minimixern: ett litet mixerfönster (ikonen i aktivitetsfältet öppnar det också). **PIN** på det håller det överst |
 | **Hälsolampa** | Grön: ljudet är bra. Gul: ljudbelastningen är hög eller en enhet fick nyligen för lite. Röd: ett hörbart glapp under de senaste 10 sekunderna, eller inget ljud går. Talet är ljudbelastningen. Klicka på den för DEVICES |
 | **SCENES** | Dina sparade mixar. **+** sparar en ny (se [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | Samma mix, enkel eller som hela konsolen (se [Steg 7](#step-7-pro-for-the-whole-console)) |
-
 I ett smalt fönster försvinner hälsolampan först, sedan MINI, sedan HISTORY. FIND når dem alla.
 
 <a id="the-transport"></a>
@@ -712,7 +703,7 @@ Varje utgång har sin egen mörka strip:
 Högerklicka på en utgång för **DEVICE...**, **HEADPHONE EQ** (hörlurskorrigering: **NONE**, eller din
 modell, listad efter märke), **ALERT IF SILENT** (under -60 dBFS i **10 S**, **30 S**, **1 MIN** eller **5 MIN**, eller **OFF**) och **ALERT IF CLIPPING**
 (medan LIMIT är av), som får ikonen i aktivitetsfältet att blinka och skriver till händelseloggen,
-**IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, spacers, **RENAME...** och **REMOVE**.
+**IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, spacers, **COLOUR** (längs dess namnlist och på dess Routing-block), **RENAME...** och **REMOVE**.
 
 Utgångar skapas åt dig, en per enhet (se [Utgångar är enheter](#outputs-are-devices)).
 
@@ -749,8 +740,8 @@ SETTINGS > Audio ger långsamma plugins 60 eller 120). Resultatet kommer ihåg t
 ![Pluginpanelen för den valda stripen](../images/console/plugins.jpg)
 
 Klicka på **PLUGINS** i sidofältet. En panel skjuts upp under strippar med den **valda stripens**
-plugins i den ordning de körs. **FIND** > **PLUGINS: name** öppnar den på den stripen och byter till
-PRO om SIMPLE visas. Varje kort visar:
+plugins i den ordning de körs. **FIND** > **PLUGINS: name** öppnar den på den stripen. Varje kort
+visar:
 
 - **CPU**: pluginets andel av bearbetningstiden (grön, gul över 2 %, röd över 5 %)
 - **Latency**: fördröjningen det lägger till
@@ -1172,7 +1163,7 @@ Sidan **MIDI & OSC**:
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L, eller **Start mapping** i SETTINGS > MIDI & OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, eller **Start mapping** i SETTINGS > MIDI & OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
 | **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in i **OSC port** (SETTINGS > MIDI & OSC; den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_`. Alla adresser: [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (på engelska) |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
 | **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
@@ -1226,7 +1217,7 @@ De få steg som kräver en administratör
 Dra en kanals **namnlist** i sidled i Mixern (rulla ned till avsnittet NAME), eller dra dess
 block på sidan Routing. En blå list visar var den landar, och strippar glider på plats.
 Spacers flyttas med stripen de följer. Bussar och utgångar flyttas på samma sätt, var och en bland sin egen
-sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.
+sort, och deras rutter följer med.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1383,8 +1374,8 @@ Följ signalvägen:
 ### 18.7 Jag hör något två gånger, eller ett eko
 
 - Ett program fortsätter spela på sin egen enhet och även in i sin kanal. Om dess kanal är routad
-  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (i SIMPLE,
-  utgångens tangent på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
+  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (dess
+  routingruta på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
   varnar för detta.
 - Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT > **WINDOWS DEFAULTS** pekar ut den,
   och **SET MY DEFAULTS** sätter tillbaka dina högtalare.

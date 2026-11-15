@@ -199,10 +199,10 @@ O que cada resposta cria:
 | **PROGRAMS** | Um canal bruto para cada um, roteado para onde você ouve, mais uma regra de app que o traz de volta sozinha sempre que o programa tocar |
 
 Seus microfones não são roteados para os seus próprios fones, então você não ouve um eco atrasado da
-sua voz. Para se ouvir, acenda a tecla **HEADPHONES** do mic (passo 6).
+sua voz. Para se ouvir, roteie o mic para os seus fones (passo 6).
 
-O SETUP não é uma página: execute-o de novo pelo **FIND** (**SETUP: BUILD A MIX**) ou pela tecla **SETUP** do
-SIMPLE sempre que adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.
+O SETUP não é uma página: execute-o de novo pelo **FIND** (**SETUP: BUILD A MIX**) sempre que
+adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -223,20 +223,12 @@ que toca sem estalos dá o menor atraso. 256 ou 512 amostras servem para a maior
 
 ### Passo 6: se ouvir e deixar os apps ouvirem você
 
-![A mesa SIMPLE com uma mixagem de demonstração: seis canais, cada um com uma tecla para HEADPHONES e STREAM, e duas saídas](../images/console/simple.jpg)
+O Mixer mostra um strip para cada canal, bus e saída. As **caixas de roteamento** no header de cada
+strip mostram para onde ele vai: uma caixa por bus e por dispositivo de saída, acesa onde está
+roteado (veja [4](#4-how-routing-works)).
 
-O Mixer abre em **SIMPLE**. Cada canal mostra seu nome, o que ele escuta, uma tecla para cada saída,
-seu fader e seu medidor, **CUT** e **SOLO**. Cada saída mostra o dispositivo em que toca, seu fader
-e seu medidor.
-
-| Tecla de um canal | Significado |
-|---|---|
-| Cinza liso | Não roteado para essa saída |
-| Preenchida com a cor da saída | Roteado para lá. Clique para desligar |
-| Só a borda colorida, **VIA BUS** | Chega lá por um bus (configurado no PRO). Clique para rotear também direto para lá |
-
-1. Fale e veja o medidor do seu microfone se mexer.
-2. Para se ouvir, clique na tecla **HEADPHONES** do mic.
+1. Fale e veja o medidor de nível do seu microfone se mexer.
+2. Para se ouvir, acenda a caixa dos seus fones nas caixas de roteamento do mic.
 3. No Discord, no seu jogo, no OBS ou em qualquer outro app, escolha **CABLE Output** como
    microfone.
 4. Confira o que eles recebem: **HEAR WHAT THEY HEAR** (na linha **MIC OUTPUT** do PRE-FLIGHT, ou no **FIND**, Ctrl+K) grava 5 segundos do que
@@ -244,22 +236,23 @@ e seu medidor.
 
 Se você ouvir um programa duas vezes, veja [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** e **+ APP** adicionam canais (**+ APP** também lista os programas em execução que estão em **NOT PLAYING YET**). **+ OUTPUT** adiciona uma saída em um dispositivo que não
-tem nenhuma. A tecla de dispositivo sob o nome de uma saída muda onde ela toca. Clique com o botão
-direito em um nome para **RENAME...**, a cor, **HEADPHONE EQ** (uma saída), **IN THE MINI MIXER** e
-**REMOVE**. Remover o canal de um programa também remove a regra de app dele, para o canal não voltar
+**ADD CHANNEL** e **ADD APP** na barra lateral adicionam canais (**ADD APP** também lista os programas em execução que estão em **NOT PLAYING YET**). Roteie algo para um dispositivo que não
+tem saída e uma saída é criada nele. Clique com o botão direito em uma saída para **DEVICE...** (onde
+ela toca) e **HEADPHONE EQ**. Clique com o botão direito em qualquer strip para **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** e **REMOVE**. Remover o canal de um programa também remove a regra de app dele, para o canal não voltar
 sozinho.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Passo 7: PRO, para o console inteiro
 
-A chave **SIMPLE / PRO** na barra superior mostra a mesma mixagem nos dois casos. O **PRO** é o
-console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e combinadores, plugins.
+O Mixer é o console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e
+combinadores, plugins. Para uma visão menor, **COMPACT** na barra lateral recolhe cada strip à sua
+barra de nome e à sua seção de fader. Clique de novo para os strips inteiros (veja
+[A barra lateral](#the-sidebar)).
 
 Para dar forma ao seu microfone, veja [17.1](#171-hear-yourself-set-up-a-microphone). Todos os
-controles estão em [6](#6-the-channel-strip-section-by-section). As configurações que você faz no
-PRO continuam valendo no SIMPLE.
+controles estão em [6](#6-the-channel-strip-section-by-section).
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -300,7 +293,7 @@ Com isso a configuração está pronta. O resto deste manual cobre cada parte em
 
 As páginas são cartões ao longo da esquerda: **MIXER**, **ROUTING**, **TOOLS**,
 **DEVICES**, **SETTINGS**. A página exibida tem uma borda azul acesa. Enquanto o Mixer está
-aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHANNEL** e **ADD APP**):
+aparecendo, a barra lateral também tem estes cartões:
 
 | Grupo | Cartão | O que faz |
 |---|---|---|
@@ -308,7 +301,7 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHA
 | | **ADD APP** | Lista os programas que estão tocando som agora e depois, em **NOT PLAYING YET**, os que estão em execução com uma janela e em silêncio. Escolha um para dar um canal a ele; um que não está tocando é capturado a partir do momento em que tocar |
 | | **ADD BUS** | Um bus, ou um combinador (dois caminhos para começar) |
 | | **PLUGINS** | Sobe o painel de plugins sob os strips (veja [9](#9-plugins)) |
-| | **COMPACT** | Recolhe cada strip à sua barra de nome e à sua seção de fader (pan, SOLO, CUT, SEL, o fader e sua leitura), com o medidor de nível do strip ao lado da escala do fader; a mesa encolhe e volta ao topo. Acesa enquanto está compacta; clique de novo para os strips inteiros. Também **COMPACT DESK** / **FULL DESK** no FIND |
+| | **COMPACT** | Recolhe cada strip à sua barra de nome e à sua seção de fader (pan, SOLO, CUT, SEL, o fader e sua leitura); a mesa encolhe e volta ao topo. Acesa enquanto está compacta; clique de novo para os strips inteiros. Também **COMPACT DESK** / **FULL DESK** no FIND |
 | **SELECT** | **AUTO** | Tocar em qualquer controle de um strip seleciona esse strip |
 | | **FOLLOW** | A mesa desliza até o strip selecionado, também quando ele é escolhido em outro lugar (FIND, uma tecla de atalho) |
 | **SECTIONS** | HEADER … FADER | As seções do strip (com COMPACT, só NAME e FADER). As acesas estão na tela. Clique em uma para deslizar até ela |
@@ -332,8 +325,6 @@ Da direita para a esquerda:
 | **MINI** | O mini mixer: uma pequena janela de mixer (o ícone da bandeja também a abre). O **PIN** nela a mantém por cima |
 | **Luz de status** | Verde: o áudio está bem. Âmbar: a carga de áudio está alta ou um dispositivo ficou sem dados há pouco. Vermelha: uma falha audível nos últimos 10 segundos, ou nenhum áudio rodando. O número é a carga de áudio. Clique nela para ir a DEVICES |
 | **SCENES** | Suas mixagens guardadas. **+** guarda uma nova (veja [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | A mesma mixagem, simples ou como o console inteiro (veja o [passo 7](#step-7-pro-for-the-whole-console)) |
-
 Em uma janela estreita, a luz de status some primeiro, depois o MINI, depois o HISTORY. O FIND chega
 a todos.
 
@@ -731,7 +722,7 @@ Botão direito em uma saída para **DEVICE...**, **HEADPHONE EQ** (correção de
 seu modelo, listado por marca), **ALERT IF SILENT** (abaixo de -60 dBFS por **10 S**, **30 S**, **1 MIN** ou **5 MIN**, ou **OFF**) e
 **ALERT IF CLIPPING** (enquanto o LIMIT está desligado), que fazem o ícone da bandeja piscar e
 escrevem no log de eventos, **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, espaçadores,
-**RENAME...** e **REMOVE**.
+**COLOUR** (ao longo da barra de nome e no bloco dela em Routing), **RENAME...** e **REMOVE**.
 
 As saídas são criadas para você, uma por dispositivo (veja [Saídas são dispositivos](#outputs-are-devices)).
 
@@ -768,8 +759,8 @@ até o arquivo do plugin mudar.
 ![O painel de plugins do strip selecionado](../images/console/plugins.jpg)
 
 Clique em **PLUGINS** na barra lateral. Um painel sobe sob os strips com os plugins do **strip
-selecionado** na ordem em que rodam. **FIND** > **PLUGINS: name** o abre nesse strip, e muda para o
-PRO se o SIMPLE estiver aparecendo. Cada cartão mostra:
+selecionado** na ordem em que rodam. **FIND** > **PLUGINS: name** o abre nesse strip. Cada cartão
+mostra:
 
 - **CPU**: a parte do tempo de processamento que o plugin usa (verde, âmbar acima de 2%, vermelho
   acima de 5%)
@@ -1200,7 +1191,7 @@ A página **MIDI & OSC**:
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L, ou **Start mapping** em SETTINGS > MIDI & OSC, o inicia; Esc o encerra. Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, no SIMPLE e no PRO, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, ou **Start mapping** em SETTINGS > MIDI & OSC, o inicia; Esc o encerra. Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo) |
 | **OSC** | Programas neste PC podem enviar para a porta 9000, ou para a porta definida em **OSC port** (SETTINGS > MIDI & OSC; ele nunca escuta a rede): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 a solta). Escreva os espaços nos nomes como `_`. Todos os endereços: [referência de OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (em inglês) |
 | **Overlay no jogo** (Ctrl+Shift+O) | A luz de fala de cada canal de mic, LIVE / CUT e o nível, mais até quatro teclas de cena. Nunca tira o foco de um jogo. Arraste para onde quiser |
 | **MINI** | O mini mixer: uma pequena janela com um fader, um medidor e o **CUT** de cada strip marcado **IN THE MINI MIXER** no menu do botão direito (de cada saída, enquanto nenhum estiver). **PIN** a mantém por cima de tudo. **OPEN** volta para a janela principal |
@@ -1255,8 +1246,7 @@ permissão por conta própria.
 Arraste a **barra de nome** de um canal para o lado no Mixer (role para baixo até a seção NAME), ou
 arraste o bloco dele na página Routing. Uma barra azul mostra onde ele vai cair, e os strips
 deslizam para o lugar. Espaçadores se movem com o strip que seguem. Buses e saídas se movem do mesmo
-jeito, cada um entre os do seu tipo, e as rotas deles vão junto. O SIMPLE mostra as saídas na mesma
-ordem.
+jeito, cada um entre os do seu tipo, e as rotas deles vão junto.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1417,7 +1407,7 @@ Siga o caminho do sinal:
 
 - Um programa continua tocando no próprio dispositivo além de tocar no canal dele. Se o canal dele
   estiver roteado para uma saída nesse mesmo dispositivo, você o ouve direto e pelo Faider. Desligue
-  essa rota (no SIMPLE, a tecla da saída no canal), ou mude o programa para outro dispositivo. O
+  essa rota (a caixa de roteamento dela no canal), ou mude o programa para outro dispositivo. O
   PRE-FLIGHT avisa sobre isso.
 - O alto-falante padrão do Windows está definido como o cabo virtual. O PRE-FLIGHT > **WINDOWS DEFAULTS**
   o nomeia, e **SET MY DEFAULTS** coloca seus alto-falantes de volta.

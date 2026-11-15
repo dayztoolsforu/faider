@@ -195,10 +195,10 @@ Her yanıtın yaptığı şey:
 | **PROGRAMS** | Her biri için, dinlediğin yere yönlendirilmiş bir raw kanal, ayrıca program her çaldığında onu kendiliğinden geri getiren bir uygulama kuralı |
 
 Mikrofonların kendi kulaklığına yönlendirilmez, böylece sesinin gecikmeli bir yankısını duymazsın.
-Kendini duymak için mikrofonun **HEADPHONES** tuşunu yak (adım 6).
+Kendini duymak için mikrofonu kulaklığına yönlendir (adım 6).
 
-SETUP bir sayfa değil: bir aygıt ya da program eklediğinde **FIND** (**SETUP: BUILD A MIX**) üzerinden ya da
-SIMPLE'daki **SETUP** tuşuyla yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.
+SETUP bir sayfa değil: bir aygıt ya da program eklediğinde **FIND** (**SETUP: BUILD A MIX**) üzerinden
+yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -219,40 +219,34 @@ küçük boyut sana en düşük gecikmeyi verir. Çoğu sistem için 256 veya 51
 
 ### Adım 6: Kendini duy ve uygulamaların seni duymasını sağla
 
-![Örnek bir karışımla SIMPLE konsol: altı kanal, her birinde HEADPHONES ve STREAM tuşu, ve iki çıkış](../images/console/simple.jpg)
+Mixer her kanal, bus ve çıkış için bir şerit gösterir. Her şeridin header'ındaki **yönlendirme
+kutuları** nereye gittiğini gösterir: her bus ve çıkış aygıtı için bir kutu, yönlendirildiği yerde
+yanık (bkz. [4](#4-how-routing-works)).
 
-Mixer **SIMPLE**'da açılır. Her kanal adını, neyi dinlediğini, her çıkış için bir tuşu, fader'ını ve
-ölçerini, **CUT** ve **SOLO**'yu gösterir. Her çıkış, çaldığı aygıtı, fader'ını ve ölçerini gösterir.
-
-| Bir kanaldaki tuş | Anlamı |
-|---|---|
-| Düz gri | O çıkışa yönlendirilmemiş |
-| Çıkışın renginde dolu | Oraya yönlendirilmiş. Kapatmak için tıkla |
-| Yalnızca renkli kenar, **VIA BUS** | Oraya bir bus üzerinden ulaşıyor (PRO'da kurulur). Doğrudan da yönlendirmek için tıkla |
-
-1. Konuş ve mikrofonunun ölçerinin hareket etmesini izle.
-2. Kendini duymak için mikrofonun **HEADPHONES** tuşuna tıkla.
+1. Konuş ve mikrofonunun seviye ölçerinin hareket etmesini izle.
+2. Kendini duymak için mikrofonun yönlendirme kutularında kulaklığının kutusunu yak.
 3. Discord'da, oyununda, OBS'te veya başka herhangi bir uygulamada mikrofon olarak **CABLE Output**'u seç.
 4. Onların ne aldığını kontrol et: **HEAR WHAT THEY HEAR** (PRE-FLIGHT'ın **MIC OUTPUT** satırında ya
    da **FIND**'da, Ctrl+K), uygulamaların aldığı sesin 5 saniyesini kaydeder ve sana çalar.
 
 Bir programı iki kez duyuyorsan bkz. [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** ve **+ APP** kanal ekler (**+ APP**, çalışan ama **NOT PLAYING YET** olan programları da
-listeler). **+ OUTPUT**, çıkışı olmayan bir aygıta çıkış ekler. Bir
-çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. **RENAME...**, renk, **HEADPHONE EQ**
-(bir çıkışta), **IN THE MINI MIXER** ve **REMOVE** için bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
+Kenar çubuğundaki **ADD CHANNEL** ve **ADD APP** kanal ekler (**ADD APP**, çalışan ama **NOT PLAYING YET** olan programları da
+listeler). Çıkışı olmayan bir aygıta bir şey yönlendirirsen o aygıtta bir çıkış oluşur.
+**DEVICE...** (nerede çaldığı) ve **HEADPHONE EQ** için bir çıkışa sağ tıkla. **RENAME...**, **COLOUR**,
+**IN THE MINI MIXER** ve **REMOVE** için herhangi bir şeride sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Adım 7: PRO, konsolun tamamı için
 
-Üst çubuktaki **SIMPLE / PRO** anahtarı aynı karışımı iki halde de gösterir. **PRO** konsolun
-tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve kombinatörler, eklentiler.
+Mixer konsolun tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve
+kombinatörler, eklentiler. Daha küçük bir görünüm için kenar çubuğundaki **COMPACT** her şeridi ad
+çubuğuna ve fader bölümüne indirir. Tam şeritler için yeniden tıkla (bkz. [Kenar çubuğu](#the-sidebar)).
 
 Mikrofonunu şekillendirmek için bkz. [17.1](#171-hear-yourself-set-up-a-microphone). Her kontrol
-[6](#6-the-channel-strip-section-by-section) içinde. PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.
+[6](#6-the-channel-strip-section-by-section) içinde.
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -292,7 +286,7 @@ Kurulum bu kadar. Kılavuzun geri kalanı her bölümü ayrıntılı anlatır.
 
 Sayfalar solda aşağı doğru kartlardır: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Görünen sayfanın kenarı parlak mavidir. Mixer görünürken kenar çubuğunda şu kartlar da
-bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
+bulunur:
 
 | Grup | Kart | Ne yapar |
 |---|---|---|
@@ -300,7 +294,7 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 | | **ADD APP** | Şu anda ses çalan programları, sonra **NOT PLAYING YET** altında, çalışan ve penceresi olan ama sessiz olanları listeler. Birini seçmek ona bir kanal verir; çalmayan bir program, çalmaya başladığı andan itibaren yakalanır |
 | | **ADD BUS** | Bir bus ya da bir kombinatör (başlangıçta iki yol) |
 | | **PLUGINS** | Eklenti panelini şeritlerin altından yukarı kaydırır (bkz. [9](#9-plugins)) |
-| | **COMPACT** | Her şeridi ad çubuğuna ve fader bölümüne (pan, SOLO, CUT, SEL, fader ve göstergesi) indirir; şeridin seviye ölçeri faderin ölçeğinin yanında görünür. Konsol buna göre kısalır ve en üste döner. Kompaktken yanar; tam şeritler için yeniden tıkla. FIND'da **COMPACT DESK** / **FULL DESK** de aynısını yapar |
+| | **COMPACT** | Her şeridi ad çubuğuna ve fader bölümüne (pan, SOLO, CUT, SEL, fader ve göstergesi) indirir. Konsol buna göre kısalır ve en üste döner. Kompaktken yanar; tam şeritler için yeniden tıkla. FIND'da **COMPACT DESK** / **FULL DESK** de aynısını yapar |
 | **SELECT** | **AUTO** | Bir şeritteki herhangi bir kontrole dokunmak o şeridi seçer |
 | | **FOLLOW** | Konsol seçili şeride kayar, şerit başka yerden seçildiğinde de (FIND, bir kısayol) |
 | **SECTIONS** | HEADER … FADER | Şeridin bölümleri (COMPACT iken yalnızca NAME ve FADER). Yanık olanlar ekrandadır. Birine kaymak için tıkla |
@@ -324,8 +318,6 @@ Sağdan başlayarak:
 | **MINI** | Mini mikser: küçük bir mikser penceresi (tepsi simgesi de onu açar). Üzerindeki **PIN** onu üstte tutar |
 | **Durum ışığı** | Yeşil: ses iyi. Kehribar: ses yükü yüksek ya da bir aygıtın verisi yakın zamanda yetmedi. Kırmızı: son 10 saniyede duyulur bir aksama ya da çalışan ses yok. Sayı ses yüküdür. DEVICES için tıkla |
 | **SCENES** | Kayıtlı karışımların. **+** yeni birini kaydeder (bkz. [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | Aynı karışım, sade ya da konsolun tamamı olarak (bkz. [Adım 7](#step-7-pro-for-the-whole-console)) |
-
 Dar bir pencerede önce durum ışığı gider, sonra MINI, sonra HISTORY. FIND hepsine ulaşır.
 
 <a id="the-transport"></a>
@@ -712,7 +704,8 @@ Her çıkışın kendi koyu şeridi vardır:
 Bir çıkışa sağ tıklayınca **DEVICE...**, **HEADPHONE EQ** (kulaklık düzeltmesi: **NONE** ya da markaya
 göre listelenmiş modelin), **ALERT IF SILENT** (**10 S**, **30 S**, **1 MIN** ya da **5 MIN** boyunca -60 dBFS'nin altında, ya da **OFF**) ve **ALERT IF CLIPPING**
 (LIMIT kapalıyken), ki bunlar tepsi simgesini yanıp söndürür ve olay günlüğüne yazar, **IN THE MINI
-MIXER**, **MIX-MINUS AND STEMS...**, boşluklar, **RENAME...** ve **REMOVE** çıkar.
+MIXER**, **MIX-MINUS AND STEMS...**, boşluklar, **COLOUR** (ad çubuğu boyunca ve Routing'deki bloğunda),
+**RENAME...** ve **REMOVE** çıkar.
 
 Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. [Çıkışlar aygıttır](#outputs-are-devices)).
 
@@ -748,8 +741,8 @@ time** yavaş eklentilere 60 ya da 120 verir). Sonuç, eklenti dosyası değişe
 ![Seçili şerit için eklenti paneli](../images/console/plugins.jpg)
 
 Kenar çubuğunda **PLUGINS**'e tıkla. Şeritlerin altından, **seçili şeridin** eklentilerini çalıştıkları
-sırayla gösteren bir panel kayar. **FIND** > **PLUGINS: name** onu o şeritte açar ve SIMPLE
-görünüyorsa PRO'ya geçer. Her kart şunları gösterir:
+sırayla gösteren bir panel kayar. **FIND** > **PLUGINS: name** onu o şeritte açar. Her kart
+şunları gösterir:
 
 - **CPU**: eklentinin işlem süresindeki payı (yeşil, %2 üzerinde kehribar, %5 üzerinde kırmızı)
 - **Latency**: eklediği gecikme
@@ -1175,7 +1168,7 @@ olan tuşları ve nerede çalıştıklarını listeler ([19.1](#191-keyboard-sho
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L ya da SETTINGS > MIDI & OSC içindeki **Start mapping** onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L ya da SETTINGS > MIDI & OSC içindeki **Start mapping** onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
 | **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da **OSC port** ile ayarlanan porta gönderebilir (SETTINGS > MIDI & OSC; ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz. Her adres: [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce) |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
@@ -1229,7 +1222,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 Bir kanalın **ad çubuğunu** Mixer'da yana sürükle (NAME bölümüne kadar aşağı kaydır) ya da Routing
 sayfasında bloğunu sürükle. Mavi bir çubuk nereye ineceğini gösterir ve şeritler yerlerine kayar.
 Boşluklar takip ettikleri şeritle birlikte taşınır. Bus'lar ve çıkışlar aynı şekilde, her biri kendi
-türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışları aynı sırayla gösterir.
+türü arasında taşınır ve yönlendirmeleri onlarla gider.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1389,7 +1382,7 @@ Sinyal yolu boyunca ilerle:
 
 - Bir program hem kendi aygıtında hem de kanalına çalmaya devam eder. Kanalı aynı aygıttaki bir
   çıkışa yönlendirilmişse onu hem doğrudan hem Faider üzerinden duyarsın. O yönlendirmeyi kapat
-  (SIMPLE'da kanaldaki o çıkışın tuşu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
+  (kanaldaki yönlendirme kutusu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
   uyarır.
 - Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT > **WINDOWS DEFAULTS** bunu adıyla
   söyler ve **SET MY DEFAULTS** hoparlörlerini yerine koyar.

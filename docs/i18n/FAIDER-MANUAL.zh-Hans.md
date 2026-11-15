@@ -155,9 +155,9 @@ SETUP 每页问一个问题，共四个，并根据你的回答建立混音。�
 | **APPS HEAR YOU** | 线缆上名为 **MIC FOR APPS** 的输出。每个麦克风都路由到它 |
 | **PROGRAMS** | 每个程序一个 RAW 通道，路由到你的收听位置，外加一条应用规则，每当该程序发声时自动把它带回来 |
 
-你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请点亮麦克风的 **HEADPHONES** 键(步骤 6)。
+你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请把麦克风路由到你的耳机(步骤 6)。
 
-SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 **FIND**(**SETUP: BUILD A MIX**) 或 SIMPLE 中的 **SETUP** 按键再次运行它。它会补上缺少的内容，不会删除任何东西。
+SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 **FIND**(**SETUP: BUILD A MIX**) 再次运行它。它会补上缺少的内容，不会删除任何东西。
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -174,32 +174,24 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 
 ### 步骤 6：听到自己，也让应用听到你
 
-![带演示混音的 SIMPLE 调音台：六个通道，每个都有 HEADPHONES 和 STREAM 键，另有两个输出](../images/console/simple.jpg)
-
-调音台以 **SIMPLE** 打开。每个通道显示它的名称、它收听的内容、每个输出一个键、推子和电平表，以及 **CUT** 和 **SOLO**。每个输出显示它播放所在的设备、推子和电平表。
-
-| 通道上的键 | 含义 |
-|---|---|
-| 普通灰色 | 没有路由到该输出 |
-| 填充为输出的颜色 | 已路由到那里。点击可关闭 |
-| 只有彩色边缘，**VIA BUS** | 通过总线到达(在 PRO 中设置)。点击可同时直接路由过去 |
+调音台为每个通道、总线和输出各显示一条通道条。每条通道条 HEADER 中的**路由框**显示它被送到哪里：每条总线和每个输出设备一个框，已路由的地方亮起(见 [4](#4-how-routing-works))。
 
 1. 说话，看你的麦克风电平表跳动。
-2. 想听到自己，点击麦克风的 **HEADPHONES** 键。
+2. 想听到自己，在麦克风的路由框中点亮你耳机的那个框。
 3. 在 Discord、游戏、OBS 或任何其他应用中，选择 **CABLE Output** 作为麦克风。
 4. 检查它们收到了什么：**HEAR WHAT THEY HEAR**(在 PRE-FLIGHT 的 **MIC OUTPUT** 行上，或在 **FIND** 中，Ctrl+K)会录下应用收到的 5 秒声音并回放给你。
 
 如果你听到某个程序两遍，见 [18.7](#187-i-hear-something-twice-or-an-echo)。
 
-**+ CHANNEL** 和 **+ APP** 添加通道(**+ APP** 还会列出正在运行但 **NOT PLAYING YET** 的程序)。**+ OUTPUT** 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 **RENAME...**、颜色、**HEADPHONE EQ**(输出)、**IN THE MINI MIXER** 和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
+侧边栏中的 **ADD CHANNEL** 和 **ADD APP** 添加通道(**ADD APP** 还会列出正在运行但 **NOT PLAYING YET** 的程序)。把某个声音路由到还没有输出的设备，就会在该设备上建立输出。右键点击输出可使用 **DEVICE...**(它在哪里播放)和 **HEADPHONE EQ**。右键点击任何通道条可使用 **RENAME...**、**COLOUR**、**IN THE MINI MIXER** 和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### 步骤 7：PRO，整个调音台
 
-顶部栏的 **SIMPLE / PRO** 开关无论在哪一边显示的都是同一个混音。**PRO** 是整个调音台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。
+调音台就是整个控制台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。想要更小的视图，侧边栏中的 **COMPACT** 会把每条通道条折叠成只剩名称栏和推子部分。再点一次恢复完整的通道条(见[侧边栏](#the-sidebar))。
 
-要调整你的麦克风，见 [17.1](#171-hear-yourself-set-up-a-microphone)。每个控件都在 [6](#6-the-channel-strip-section-by-section) 中。你在 PRO 中所做的设置，在 SIMPLE 中同样有效。
+要调整你的麦克风，见 [17.1](#171-hear-yourself-set-up-a-microphone)。每个控件都在 [6](#6-the-channel-strip-section-by-section) 中。
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -229,7 +221,7 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 
 ### 侧边栏
 
-页面是左侧自上而下排列的卡片：**MIXER**、**ROUTING**、**TOOLS**、**DEVICES**、**SETTINGS**。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 **ADD CHANNEL** 和 **ADD APP**)：
+页面是左侧自上而下排列的卡片：**MIXER**、**ROUTING**、**TOOLS**、**DEVICES**、**SETTINGS**。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片：
 
 | 分组 | 卡片 | 作用 |
 |---|---|---|
@@ -237,7 +229,7 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 | | **ADD APP** | 列出现在正在发声的程序，然后在 **NOT PLAYING YET** 下列出正在运行、带有窗口但没有发声的程序。选一个，就会给它一个通道；尚未发声的程序会从它开始发声的那一刻起被捕获 |
 | | **ADD BUS** | 一条总线，或一个组合器(起始为两条路径) |
 | | **PLUGINS** | 把插件面板从通道条下方滑出(见 [9](#9-plugins)) |
-| | **COMPACT** | 把每条通道条折叠成只剩名称栏和推子部分(声像、SOLO、CUT、SEL、推子及其读数)，并在推子刻度旁显示该通道条的电平表；调音台随之变矮并回到顶部。紧凑时亮起；再点一次恢复完整的通道条。FIND 中的 **COMPACT DESK** / **FULL DESK** 也一样 |
+| | **COMPACT** | 把每条通道条折叠成只剩名称栏和推子部分(声像、SOLO、CUT、SEL、推子及其读数)；调音台随之变矮并回到顶部。紧凑时亮起；再点一次恢复完整的通道条。FIND 中的 **COMPACT DESK** / **FULL DESK** 也一样 |
 | **SELECT** | **AUTO** | 触碰通道条上的任何控件都会选中该通道条 |
 | | **FOLLOW** | 调音台平滑滚动到所选通道条，在别处选中时(FIND、快捷键)也一样 |
 | **SECTIONS** | HEADER … FADER | 通道条的各个部分(COMPACT 时只有 NAME 和 FADER)。亮着的就是屏幕上显示的。点击其一可滑动过去 |
@@ -260,7 +252,6 @@ SELECT 和 COMPACT 的选择会被记住。通道电平表的测量位置(**IN**
 | **MINI** | 迷你调音台：一个小调音台窗口(点击托盘图标也能打开)。它上面的 **PIN** 让它保持置顶 |
 | **状态灯** | 绿色：音频正常。琥珀色：音频负载很高，或最近有设备数据不足。红色：最近 10 秒内有可听见的故障，或没有音频在运行。数字是音频负载。点击它进入 DEVICES |
 | **SCENES** | 你保存的混音。**+** 保存一个新的(见 [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | 同一个混音，以简单方式或整个调音台显示(见[步骤 7](#step-7-pro-for-the-whole-console)) |
 
 窗口变窄时，状态灯最先消失，然后是 MINI，再是 HISTORY。FIND 可以找到它们全部。
 
@@ -596,7 +587,7 @@ flowchart LR
 | **MIX EQ** | In 开关、HF 增益和频率、LF 增益和频率 |
 | **CUT**、**SEL**、推子 | 与通道上相同 |
 
-右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(低于 -60 dBFS 持续 **10 S**、**30 S**、**1 MIN** 或 **5 MIN**，或 **OFF**)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、**MIX-MINUS AND STEMS...**、间隔条、**RENAME...** 和 **REMOVE**。
+右键点击输出可使用 **DEVICE...**、**HEADPHONE EQ**(耳机校正：**NONE**，或你的型号，按品牌列出)、**ALERT IF SILENT**(低于 -60 dBFS 持续 **10 S**、**30 S**、**1 MIN** 或 **5 MIN**，或 **OFF**)和 **ALERT IF CLIPPING**(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、**IN THE MINI MIXER**、**MIX-MINUS AND STEMS...**、间隔条、**COLOUR**(显示在它的名称栏上和它的 ROUTING 方块上)、**RENAME...** 和 **REMOVE**。
 
 输出会自动创建，每个设备一个(见[输出就是设备](#outputs-are-devices))。
 
@@ -625,7 +616,7 @@ Faider 在通道、总线和组合器路径上承载 **VST3** 插件，并自动
 
 ![所选通道条的插件面板](../images/console/plugins.jpg)
 
-点击侧边栏中的 **PLUGINS**。一个面板会从通道条下方滑出，按运行顺序显示**所选通道条**的插件。**FIND** > **PLUGINS: name** 会在该通道条上打开它，如果正在显示 SIMPLE，则切换到 PRO。每张卡片显示：
+点击侧边栏中的 **PLUGINS**。一个面板会从通道条下方滑出，按运行顺序显示**所选通道条**的插件。**FIND** > **PLUGINS: name** 会在该通道条上打开它。每张卡片显示：
 
 - **CPU**：插件占处理时间的份额(绿色，超过 2 % 为琥珀色，超过 5 % 为红色)
 - **Latency**：它增加的延迟
@@ -969,7 +960,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L 或 SETTINGS > MIDI & OSC 中的 **Start mapping** 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L 或 SETTINGS > MIDI & OSC 中的 **Start mapping** 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
 | **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 **OSC port**(SETTINGS > MIDI & OSC)中设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
@@ -1013,7 +1004,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.4 重新排列通道
 
-在 Mixer 上左右拖动通道的**名称栏**(向下滚动到 NAME 部分)，或在 ROUTING 页面上拖动它的方块。一条蓝色竖条显示它将落在哪里，通道条会平滑滑入位置。间隔条跟随它前面的通道条移动。总线和输出以同样的方式移动，各自在同类之间，它们的路由也随之移动。SIMPLE 按相同的顺序显示输出。
+在 Mixer 上左右拖动通道的**名称栏**(向下滚动到 NAME 部分)，或在 ROUTING 页面上拖动它的方块。一条蓝色竖条显示它将落在哪里，通道条会平滑滑入位置。间隔条跟随它前面的通道条移动。总线和输出以同样的方式移动，各自在同类之间，它们的路由也随之移动。
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1145,7 +1136,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 SETTINGS > Startup & checks 中的
 
 ### 18.7 我听到两遍声音，或有回声
 
-- 程序除了送入它的通道，也会继续在自己的设备上播放。如果它的通道被路由到同一个设备的输出上，你就会既直接听到它，又通过 Faider 听到它。关闭那条路由(在 SIMPLE 中，是通道上该输出的键)，或把程序移到另一个设备。PRE-FLIGHT 会就此警告。
+- 程序除了送入它的通道，也会继续在自己的设备上播放。如果它的通道被路由到同一个设备的输出上，你就会既直接听到它，又通过 Faider 听到它。关闭那条路由(通道上它的路由框)，或把程序移到另一个设备。PRE-FLIGHT 会就此警告。
 - Windows 的默认扬声器被设成了虚拟线缆。PRE-FLIGHT > **WINDOWS DEFAULTS** 会指出它，**SET MY DEFAULTS** 会把你的扬声器改回来。
 
 <a id="188-a-route-wont-switch-on"></a>

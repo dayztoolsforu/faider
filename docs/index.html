@@ -260,10 +260,10 @@
 
     <article class="feature flip reveal">
       <div class="copy">
-        <h2>SIMPLE when you want it</h2>
-        <p>SIMPLE shows the same mix with the processing hidden: each channel's fader, meter, CUT, SOLO and a big key for every output. Flip to PRO and the whole console is back.</p>
+        <h2>COMPACT when you want it</h2>
+        <p>COMPACT in the sidebar folds every strip to its name bar and fader, so the desk fits on a short screen. Click it again and the whole console is back.</p>
       </div>
-      <img src="images/console/simple.jpg" alt="The SIMPLE desk: faders, meters and a key per output">
+      <img src="images/console/strip-fader.jpg" alt="The name bar and fader section: what COMPACT keeps of each strip">
     </article>
 
     <article class="feature flip reveal">
@@ -372,7 +372,7 @@
   <nav><a href="#credits">Credits</a><a href="https://github.com/dayztoolsforu/faider">Source on GitHub</a></nav>
 </footer>
 
-<script id="shots-data" type="application/json">{"images/console/setup.jpg": "images/console/setup.jpg", "images/console/simple.jpg": "images/console/simple.jpg", "images/console/mixer.jpg": "images/console/mixer.jpg", "images/console/topbar.jpg": "images/console/topbar.jpg", "images/console/strip-header.jpg": "images/console/strip-header.jpg", "images/console/strip-input.jpg": "images/console/strip-input.jpg", "images/console/strip-dynamics.jpg": "images/console/strip-dynamics.jpg", "images/console/strip-filters.jpg": "images/console/strip-filters.jpg", "images/console/strip-eq.jpg": "images/console/strip-eq.jpg", "images/console/strip-fader.jpg": "images/console/strip-fader.jpg", "images/console/raw-strips.jpg": "images/console/raw-strips.jpg", "images/console/combinators.jpg": "images/console/combinators.jpg", "images/console/outputs.jpg": "images/console/outputs.jpg", "images/console/plugins.jpg": "images/console/plugins.jpg", "images/console/routing.jpg": "images/console/routing.jpg", "images/console/routing-selected.jpg": "images/console/routing-selected.jpg", "images/console/pads.jpg": "images/console/pads.jpg", "images/console/pad-editor.jpg": "images/console/pad-editor.jpg", "images/console/tape.jpg": "images/console/tape.jpg"}</script>
+<script id="shots-data" type="application/json">{"images/console/setup.jpg": "images/console/setup.jpg", "images/console/mixer.jpg": "images/console/mixer.jpg", "images/console/topbar.jpg": "images/console/topbar.jpg", "images/console/strip-header.jpg": "images/console/strip-header.jpg", "images/console/strip-input.jpg": "images/console/strip-input.jpg", "images/console/strip-dynamics.jpg": "images/console/strip-dynamics.jpg", "images/console/strip-filters.jpg": "images/console/strip-filters.jpg", "images/console/strip-eq.jpg": "images/console/strip-eq.jpg", "images/console/strip-fader.jpg": "images/console/strip-fader.jpg", "images/console/raw-strips.jpg": "images/console/raw-strips.jpg", "images/console/combinators.jpg": "images/console/combinators.jpg", "images/console/outputs.jpg": "images/console/outputs.jpg", "images/console/plugins.jpg": "images/console/plugins.jpg", "images/console/routing.jpg": "images/console/routing.jpg", "images/console/routing-selected.jpg": "images/console/routing-selected.jpg", "images/console/pads.jpg": "images/console/pads.jpg", "images/console/pad-editor.jpg": "images/console/pad-editor.jpg", "images/console/tape.jpg": "images/console/tape.jpg"}</script>
 <template id="lang-en" data-hero="{&quot;title&quot;: &quot;User Manual&quot;, &quot;version&quot;: &quot;Version 0.1.6 · Windows 10 (2004) or later&quot;, &quot;chrome&quot;: [&quot;Search the manual&quot;, &quot;e.g. combinator, crackle, hotkey&quot;, &quot;Contents&quot;, &quot;{n} chapters match&quot;, &quot;1 chapter matches&quot;, &quot;Nothing matches. Try another word.&quot;, &quot;The channel strip, to scale. Click a section.&quot;, &quot;Language&quot;, &quot;Enlarge&quot;]}"><div data-part="intro"><p>Faider is a live audio router and mixer for Windows, built around a large-format console.
 It takes sound from your audio interface, your Windows devices and individual programs, runs it
 through channel strips, buses and outputs, and plays the result on any devices you choose: your
@@ -642,9 +642,9 @@ goes back.</p>
 </tbody>
 </table></div>
 <p>Your microphones aren't routed to your own headphones, so you don't hear a delayed echo of your
-voice. To hear yourself, light the mic's <span class="key">HEADPHONES</span> key (step 6).</p>
-<p>SETUP is not a page: run it again from <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>), or the <span class="key">SETUP</span> key in
-SIMPLE, whenever you add a device or a program. It adds what's missing and never removes anything.</p>
+voice. To hear yourself, route the mic to your headphones (step 6).</p>
+<p>SETUP is not a page: run it again from <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) whenever you add a
+device or a program. It adds what's missing and never removes anything.</p>
 <h3 id="step-5-check-the-audio-is-running">Step 5: Check the audio is running</h3>
 <p>Look at the <strong>health light</strong> at the top right.</p>
 <ul>
@@ -657,49 +657,27 @@ SIMPLE, whenever you add a device or a program. It adds what's missing and never
 built-in clock; see <a href="#clocking">Clocking</a>), and <span class="key">BUFFER</span> sets its buffer size. The smallest size
 that plays without crackles gives you the least delay. 256 or 512 samples suits most systems.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Step 6: Hear yourself and let apps hear you</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="The SIMPLE desk with a demo mix: six channels, each with a key for HEADPHONES and STREAM, and two outputs"><img data-shot="images/console/simple.jpg" alt="The SIMPLE desk with a demo mix: six channels, each with a key for HEADPHONES and STREAM, and two outputs" loading="lazy"></button><figcaption>The SIMPLE desk with a demo mix: six channels, each with a key for HEADPHONES and STREAM, and two outputs</figcaption></figure></div>
-<p>The Mixer opens in <span class="key">SIMPLE</span>. Each channel shows its name, what it listens to, a key for each
-output, its fader and meter, <span class="key">CUT</span> and <span class="key">SOLO</span>. Each output shows the device it plays on, its
-fader and meter.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Key on a channel</th>
-<th>Means</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Plain grey</td>
-<td>Not routed to that output</td>
-</tr>
-<tr>
-<td>Filled in the output's colour</td>
-<td>Routed there. Click to switch it off</td>
-</tr>
-<tr>
-<td>Coloured edge only, <span class="key">VIA BUS</span></td>
-<td>It gets there through a bus (set up in PRO). Click to route it straight there too</td>
-</tr>
-</tbody>
-</table></div>
+<p>The Mixer shows a strip for each channel, bus and output. The <strong>routing boxes</strong> in each strip's
+header show where it goes: one box per bus and output device, lit where it's routed (see
+<a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Speak and watch your microphone's meter move.</li>
-<li>To hear yourself, click the mic's <span class="key">HEADPHONES</span> key.</li>
+<li>Speak and watch your microphone's level meter move.</li>
+<li>To hear yourself, light the box for your headphones in the mic's routing boxes.</li>
 <li>In Discord, your game, OBS or any other app, choose <strong>CABLE Output</strong> as the microphone.</li>
 <li>Check what they get: <span class="key">HEAR WHAT THEY HEAR</span> (on PRE-FLIGHT's <span class="key">MIC OUTPUT</span> row, or in <span class="key">FIND</span>, Ctrl+K) records 5 seconds of what apps
    receive and plays it back to you.</li>
 </ol>
 <p>If you hear a program twice, see <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> and <span class="key">+ APP</span> add channels (<span class="key">+ APP</span> also lists running programs that are <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> adds an output on a device that has none.
-The device key under an output's name changes where it plays. Right-click a name for <span class="key">RENAME...</span>,
-the colour, <span class="key">HEADPHONE EQ</span> (an output), <span class="key">IN THE MINI MIXER</span> and <span class="key">REMOVE</span>. Removing a
+<p><span class="key">ADD CHANNEL</span> and <span class="key">ADD APP</span> in the sidebar add channels (<span class="key">ADD APP</span> also lists running programs that are <span class="key">NOT PLAYING YET</span>). Route something to a device that has no output and an output is made on it.
+Right-click an output for <span class="key">DEVICE...</span> (where it plays) and <span class="key">HEADPHONE EQ</span>. Right-click any strip for <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> and <span class="key">REMOVE</span>. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.</p>
 <h3 id="step-7-pro-for-the-whole-console">Step 7: PRO, for the whole console</h3>
-<p>The <span class="key">SIMPLE / PRO</span> switch in the top bar shows the same mix either way. <span class="key">PRO</span> is the whole
-console: each channel's input, filters, dynamics and EQ, buses and combinators, plugins.</p>
+<p>The Mixer is the whole console: each channel's input, filters, dynamics and EQ, buses and
+combinators, plugins. For a smaller view, <span class="key">COMPACT</span> in the sidebar folds every strip to its name
+bar and fader section. Click it again for the whole strips (see <a href="#the-sidebar">The sidebar</a>).</p>
 <p>To shape your microphone, see <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Every control is in
-<a href="#6-the-channel-strip-section-by-section">6</a>. Settings you make in PRO keep working in SIMPLE.</p>
+<a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Step 8: Run PRE-FLIGHT</h3>
 <p>A few seconds after start, <span class="key">PRE-FLIGHT</span> checks the setup and opens only if something needs
 attention (not on the very first start, when SETUP comes first). Run it any time from
@@ -724,7 +702,7 @@ attention (not on the very first start, when SETUP comes first). Run it any time
 <h3 id="the-sidebar">The sidebar</h3>
 <p>The pages are cards down the left: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. The page showing has a lit blue edge. While the Mixer shows, the sidebar also has
-these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span class="key">ADD APP</span>):</p>
+these cards:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -757,7 +735,7 @@ these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span clas
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Folds every strip to its name bar and its fader section (pan, SOLO, CUT, SEL, the fader and its readout), with the strip's level meter beside the fader's scale; the desk shrinks to fit and goes to the top. Lit while compact; click it again for the whole strips. Also <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
+<td>Folds every strip to its name bar and its fader section (pan, SOLO, CUT, SEL, the fader and its readout); the desk shrinks to fit and goes to the top. Lit while compact; click it again for the whole strips. Also <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -812,10 +790,6 @@ these cards (in SIMPLE, only <span class="key">ADD CHANNEL</span> and <span clas
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Your stored mixes. <strong>+</strong> stores a new one (see <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>The same mix, simple or as the whole console (see <a href="#step-7-pro-for-the-whole-console">Step 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -1423,7 +1397,7 @@ plugins, rename it or remove it.</p>
 <p>Right-click an output for <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (headphone correction: <span class="key">NONE</span>, or your
 model, listed by brand), <span class="key">ALERT IF SILENT</span> (under -60 dBFS for <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> or <span class="key">5 MIN</span>, or <span class="key">OFF</span>) and <span class="key">ALERT IF CLIPPING</span>
 (while LIMIT is off), which flash the tray icon and write to the event log, <span class="key">IN THE MINI MIXER</span>,
-<span class="key">MIX-MINUS AND STEMS...</span>, spacers, <span class="key">RENAME...</span> and <span class="key">REMOVE</span>.</p>
+<span class="key">MIX-MINUS AND STEMS...</span>, spacers, <span class="key">COLOUR</span> (along its name bar and on its Routing block), <span class="key">RENAME...</span> and <span class="key">REMOVE</span>.</p>
 <p>Outputs are made for you, one per device (see <a href="#outputs-are-devices">Outputs are devices</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (on an output's right-click menu, or in FIND) builds a feed per guest (everything but their own voice) and voice,
 music and game stems.</p>
@@ -1446,8 +1420,8 @@ changes.</p>
 <h3 id="the-plugin-panel">The plugin panel</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="The plugin panel for the selected strip"><img data-shot="images/console/plugins.jpg" alt="The plugin panel for the selected strip" loading="lazy"></button><figcaption>The plugin panel for the selected strip</figcaption></figure></div>
 <p>Click <span class="key">PLUGINS</span> in the sidebar. A panel slides up under the strips with the <strong>selected strip's</strong>
-plugins in the order they run. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> opens it on that strip, and switches to
-PRO if SIMPLE is showing. Each card shows:</p>
+plugins in the order they run. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> opens it on that strip. Each card
+shows:</p>
 <ul>
 <li><span class="key">CPU</span>: the plugin's share of the processing time (green, amber past 2 %, red past 5 %)</li>
 <li><strong>Latency</strong>: the delay it adds</li>
@@ -2081,7 +2055,7 @@ only one of them works. <strong>Fixed</strong> lists the keys that are always th
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, or <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down)</td>
+<td>Ctrl+L, or <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -2137,7 +2111,7 @@ themselves.</p>
 <p>Drag a channel's <strong>name bar</strong> sideways on the Mixer (scroll down to the NAME section), or drag its
 block on the Routing page. A blue bar shows where it will land, and the strips glide into place.
 Spacers move with the strip they follow. Buses and outputs move the same way, each among its own
-kind, and their routes go with them. SIMPLE shows the outputs in the same order.</p>
+kind, and their routes go with them.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Group channels into a bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, then rename it (right-click &gt; <span class="key">RENAME...</span>).</li>
@@ -2328,7 +2302,7 @@ set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each ha
 <ul>
 <li>A program keeps playing on its own device as well as into its channel. If its channel is routed
   to an output on that same device, you hear it directly and through Faider. Switch that route off
-  (in SIMPLE, the output's key on the channel), or move the program to another device. PRE-FLIGHT
+  (its routing box on the channel), or move the program to another device. PRE-FLIGHT
   warns about this.</li>
 <li>Windows' default speaker is set to the virtual cable. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> names it,
   and <span class="key">SET MY DEFAULTS</span> puts your speakers back.</li>
@@ -2830,9 +2804,9 @@ avanza, <span class="key">BACK</span> retrocede.</p>
 </tbody>
 </table></div>
 <p>Tus micrófonos no se enrutan a tus propios auriculares, así que no oyes un eco retardado de tu voz.
-Para oírte, enciende la tecla <span class="key">HEADPHONES</span> del micro (paso 6).</p>
-<p>SETUP no es una página: vuelve a ejecutarlo desde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) o desde la tecla
-<span class="key">SETUP</span> de SIMPLE cada vez que añadas un dispositivo o un programa. Añade lo que falta y nunca quita nada.</p>
+Para oírte, enruta el micro a tus auriculares (paso 6).</p>
+<p>SETUP no es una página: vuelve a ejecutarlo desde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) cada vez que
+añadas un dispositivo o un programa. Añade lo que falta y nunca quita nada.</p>
 <h3 id="step-5-check-the-audio-is-running">Paso 5: comprobar que el audio funciona</h3>
 <p>Mira la <strong>luz de estado</strong> arriba a la derecha.</p>
 <ul>
@@ -2846,51 +2820,28 @@ reloj integrado; consulta <a href="#clocking">Sincronización</a>), y <span clas
 tamaño más pequeño que suena sin chasquidos te da el menor retardo. 256 o 512 muestras sirven para
 la mayoría de los sistemas.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Paso 6: oírte y dejar que las aplicaciones te oigan</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La mesa SIMPLE con una mezcla de demostración: seis canales, cada uno con una tecla para HEADPHONES y STREAM, y dos salidas"><img data-shot="images/console/simple.jpg" alt="La mesa SIMPLE con una mezcla de demostración: seis canales, cada uno con una tecla para HEADPHONES y STREAM, y dos salidas" loading="lazy"></button><figcaption>La mesa SIMPLE con una mezcla de demostración: seis canales, cada uno con una tecla para HEADPHONES y STREAM, y dos salidas</figcaption></figure></div>
-<p>El Mixer se abre en <span class="key">SIMPLE</span>. Cada canal muestra su nombre, lo que escucha, una tecla por cada
-salida, su fader y su medidor, <span class="key">CUT</span> y <span class="key">SOLO</span>. Cada salida muestra el dispositivo en el que
-suena, su fader y su medidor.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Tecla de un canal</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gris liso</td>
-<td>No enrutado a esa salida</td>
-</tr>
-<tr>
-<td>Rellena con el color de la salida</td>
-<td>Enrutado ahí. Haz clic para desactivarlo</td>
-</tr>
-<tr>
-<td>Solo borde de color, <span class="key">VIA BUS</span></td>
-<td>Llega ahí a través de un bus (configurado en PRO). Haz clic para enrutarlo también directamente</td>
-</tr>
-</tbody>
-</table></div>
+<p>El Mixer muestra un strip por cada canal, bus y salida. Las <strong>casillas de enrutamiento</strong> de la
+cabecera de cada strip muestran adónde va: una casilla por bus y por dispositivo de salida, encendida
+donde está enrutado (consulta <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Habla y mira cómo se mueve el medidor de tu micrófono.</li>
-<li>Para oírte, haz clic en la tecla <span class="key">HEADPHONES</span> del micro.</li>
+<li>Habla y mira cómo se mueve el medidor de nivel de tu micrófono.</li>
+<li>Para oírte, enciende la casilla de tus auriculares en las casillas de enrutamiento del micro.</li>
 <li>En Discord, tu juego, OBS o cualquier otra aplicación, elige <strong>CABLE Output</strong> como micrófono.</li>
 <li>Comprueba lo que reciben: <span class="key">HEAR WHAT THEY HEAR</span> (en la fila <span class="key">MIC OUTPUT</span> de PRE-FLIGHT, o en <span class="key">FIND</span>, Ctrl+K) graba 5 segundos de lo que
    reciben las aplicaciones y te lo reproduce.</li>
 </ol>
 <p>Si oyes un programa dos veces, consulta <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> y <span class="key">+ APP</span> añaden canales (<span class="key">+ APP</span> también enumera los programas en ejecución que están en <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> añade una salida en un dispositivo que no
-tiene ninguna. La tecla de dispositivo bajo el nombre de una salida cambia dónde suena. Haz clic
-derecho en un nombre para <span class="key">RENAME...</span>, el color, <span class="key">HEADPHONE EQ</span> (una salida), <strong>IN THE MINI
+<p><span class="key">ADD CHANNEL</span> y <span class="key">ADD APP</span> de la barra lateral añaden canales (<span class="key">ADD APP</span> también enumera los programas en ejecución que están en <span class="key">NOT PLAYING YET</span>). Enruta algo a un dispositivo que no
+tiene salida y se crea una salida en él. Haz clic derecho en una salida para <span class="key">DEVICE...</span> (dónde
+suena) y <span class="key">HEADPHONE EQ</span>. Haz clic derecho en cualquier strip para <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <strong>IN THE MINI
 MIXER</strong> y <span class="key">REMOVE</span>. Quitar el canal de un programa también quita su regla de aplicación, para que el canal no vuelva solo.</p>
 <h3 id="step-7-pro-for-the-whole-console">Paso 7: PRO, para toda la consola</h3>
-<p>El conmutador <span class="key">SIMPLE / PRO</span> de la barra superior muestra la misma mezcla en ambos casos. <span class="key">PRO</span>
-es la consola entera: la entrada de cada canal, los filtros, la dinámica y el EQ, los buses y los
-combinadores, los plugins.</p>
+<p>El Mixer es la consola entera: la entrada de cada canal, los filtros, la dinámica y el EQ, los buses
+y los combinadores, los plugins. Para una vista más pequeña, <span class="key">COMPACT</span> en la barra lateral pliega
+cada strip a su barra de nombre y su sección de fader. Vuelve a hacer clic para ver los strips
+enteros (consulta <a href="#the-sidebar">La barra lateral</a>).</p>
 <p>Para dar forma a tu micrófono, consulta <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Todos los
-controles están en <a href="#6-the-channel-strip-section-by-section">6</a>. Los ajustes que haces en PRO siguen
-funcionando en SIMPLE.</p>
+controles están en <a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Paso 8: ejecutar PRE-FLIGHT</h3>
 <p>Unos segundos después del inicio, <span class="key">PRE-FLIGHT</span> comprueba la configuración y solo se abre si algo
 necesita atención (no en el primerísimo inicio, cuando SETUP va primero). Ejecútalo cuando quieras
@@ -2916,8 +2867,7 @@ en <strong>SETTINGS &gt; General</strong>.</p>
 <h3 id="the-sidebar">La barra lateral</h3>
 <p>Las páginas son tarjetas a lo largo de la izquierda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La página que se muestra tiene un borde azul encendido. Mientras se
-muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, solo <span class="key">ADD CHANNEL</span> y
-<span class="key">ADD APP</span>):</p>
+muestra el Mixer, la barra lateral también tiene estas tarjetas:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -2950,7 +2900,7 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, sol
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Pliega cada strip a su barra de nombre y su sección de fader (pan, SOLO, CUT, SEL, el fader y su lectura), con el medidor de nivel del strip junto a la escala del fader; la mesa se encoge y vuelve arriba. Encendida mientras está compacta; vuelve a hacer clic para ver los strips enteros. También <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> en FIND</td>
+<td>Pliega cada strip a su barra de nombre y su sección de fader (pan, SOLO, CUT, SEL, el fader y su lectura); la mesa se encoge y vuelve arriba. Encendida mientras está compacta; vuelve a hacer clic para ver los strips enteros. También <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> en FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -3007,13 +2957,15 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas (en SIMPLE, sol
 <td>Tus mezclas guardadas. <strong>+</strong> guarda una nueva (consulta <a href="#141-scenes">14.1</a>)</td>
 </tr>
 <tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>La misma mezcla, simple o como la consola entera (consulta el <a href="#step-7-pro-for-the-whole-console">paso 7</a>)</td>
+<td>En una ventana estrecha desaparece primero la luz de estado, luego MINI, luego HISTORY. FIND llega</td>
+<td></td>
+</tr>
+<tr>
+<td>a todos.</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
-<p>En una ventana estrecha desaparece primero la luz de estado, luego MINI, luego HISTORY. FIND llega
-a todos.</p>
 <h3 id="the-transport">El transporte</h3>
 <p>Bajo la barra superior, en cada vista del Mixer, tienes el tiempo de la cinta (transcurrido y
 duración de la pista), el nombre de la pista y sus teclas: <strong>rebobinar 10 s</strong>, <strong>parar</strong>,
@@ -3627,7 +3579,7 @@ o quitar sus plugins, renombrarlo o eliminarlo.</p>
 o tu modelo, ordenados por marca), <span class="key">ALERT IF SILENT</span> (por debajo de -60 dBFS durante <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> o <span class="key">5 MIN</span>, u <span class="key">OFF</span>) y <strong>ALERT
 IF CLIPPING</strong> (mientras LIMIT está desactivado), que hacen parpadear el icono de la bandeja y escriben
 en el registro de eventos, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, separadores,
-<span class="key">RENAME...</span> y <span class="key">REMOVE</span>.</p>
+<span class="key">COLOUR</span> (a lo largo de su barra de nombre y en su bloque de Routing), <span class="key">RENAME...</span> y <span class="key">REMOVE</span>.</p>
 <p>Las salidas se crean por ti, una por dispositivo (consulta
 <a href="#outputs-are-devices">Las salidas son dispositivos</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (en el menú de clic derecho de una salida, o en FIND) construye un envío por invitado (todo menos su propia voz) y stems de
@@ -3652,7 +3604,7 @@ el archivo del plugin cambie.</p>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="El panel de plugins del strip seleccionado"><img data-shot="images/console/plugins.jpg" alt="El panel de plugins del strip seleccionado" loading="lazy"></button><figcaption>El panel de plugins del strip seleccionado</figcaption></figure></div>
 <p>Haz clic en <span class="key">PLUGINS</span> en la barra lateral. Un panel sube bajo los strips con los plugins del
 <strong>strip seleccionado</strong> en el orden en que se ejecutan. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> lo abre en ese
-strip, y cambia a PRO si SIMPLE está a la vista. Cada tarjeta muestra:</p>
+strip. Cada tarjeta muestra:</p>
 <ul>
 <li><span class="key">CPU</span>: la parte del tiempo de procesamiento que usa el plugin (verde, ámbar por encima del 2 %,
   rojo por encima del 5 %)</li>
@@ -4302,7 +4254,7 @@ también funcionan en la consola (<a href="#5-the-console">5</a>).</p>
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, o <strong>Start mapping</strong> en SETTINGS &gt; MIDI &amp; OSC, lo inicia; Esc lo termina. Haz clic en un control en pantalla y luego mueve una perilla o una tecla de tu controlador. Se pueden asignar el fader, el pan, CUT, SOLO, el encendido y las teclas de enrutamiento de cada strip, en SIMPLE y en PRO, así como las escenas, los pads y la cinta. La rueda del ratón desplaza la mesa mientras asignas (Mayús+rueda arriba y abajo)</td>
+<td>Ctrl+L, o <strong>Start mapping</strong> en SETTINGS &gt; MIDI &amp; OSC, lo inicia; Esc lo termina. Haz clic en un control en pantalla y luego mueve una perilla o una tecla de tu controlador. Se pueden asignar el fader, el pan, CUT, SOLO, el encendido y las teclas de enrutamiento de cada strip, así como las escenas, los pads y la cinta. La rueda del ratón desplaza la mesa mientras asignas (Mayús+rueda arriba y abajo)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -4360,8 +4312,7 @@ apagado) piden permiso por sí mismos.</p>
 <p>Arrastra de lado la <strong>barra de nombre</strong> de un canal en el Mixer (desplázate hacia abajo hasta la
 sección NAME), o arrastra su bloque en la página Routing. Una barra azul muestra dónde caerá, y los
 strips se deslizan a su sitio. Los separadores se mueven con el strip al que siguen. Los buses y las
-salidas se mueven igual, cada uno entre los de su tipo, y sus rutas van con ellos. SIMPLE muestra
-las salidas en el mismo orden.</p>
+salidas se mueven igual, cada uno entre los de su tipo, y sus rutas van con ellos.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Agrupar canales en un bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, y luego renómbralo (clic derecho &gt; <span class="key">RENAME...</span>).</li>
@@ -4558,7 +4509,7 @@ salidas en CUT. Cada uno tiene un <span class="key">FIX</span>.</p>
 <ul>
 <li>Un programa sigue sonando en su propio dispositivo además de en su canal. Si su canal está
   enrutado a una salida de ese mismo dispositivo, lo oyes directamente y a través de Faider.
-  Desactiva esa ruta (en SIMPLE, la tecla de la salida en el canal), o pasa el programa a otro
+  Desactiva esa ruta (su casilla de enrutamiento en el canal), o pasa el programa a otro
   dispositivo. PRE-FLIGHT avisa de esto.</li>
 <li>El altavoz predeterminado de Windows está puesto en el cable virtual. PRE-FLIGHT &gt; <strong>WINDOWS
   DEFAULTS</strong> lo nombra, y <span class="key">SET MY DEFAULTS</span> devuelve tus altavoces a su sitio.</li>
@@ -5069,9 +5020,9 @@ les cartes pour choisir. Sur toutes les pages sauf la troisième, vous pouvez en
 </tbody>
 </table></div>
 <p>Vos microphones ne sont pas routés vers votre propre casque, donc vous n'entendez pas d'écho
-retardé de votre voix. Pour vous entendre, allumez la touche <span class="key">HEADPHONES</span> du micro (étape 6).</p>
-<p>SETUP n'est pas une page : relancez-le depuis <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) ou la touche <span class="key">SETUP</span>
-de SIMPLE chaque fois que vous ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.</p>
+retardé de votre voix. Pour vous entendre, routez le micro vers votre casque (étape 6).</p>
+<p>SETUP n'est pas une page : relancez-le depuis <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) chaque fois que vous
+ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.</p>
 <h3 id="step-5-check-the-audio-is-running">Étape 5 : vérifier que l'audio fonctionne</h3>
 <p>Regardez le <strong>voyant d'état</strong> en haut à droite.</p>
 <ul>
@@ -5085,35 +5036,12 @@ ou l'horloge intégrée ; voir <a href="#clocking">Synchronisation</a>), et <spa
 tampon. La plus petite taille qui joue sans craquements vous donne le moins de retard. 256 ou 512
 échantillons conviennent à la plupart des systèmes.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Étape 6 : vous entendre et laisser les applications vous entendre</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La console SIMPLE avec un mix de démonstration : six canaux, chacun avec une touche pour HEADPHONES et STREAM, et deux sorties"><img data-shot="images/console/simple.jpg" alt="La console SIMPLE avec un mix de démonstration : six canaux, chacun avec une touche pour HEADPHONES et STREAM, et deux sorties" loading="lazy"></button><figcaption>La console SIMPLE avec un mix de démonstration : six canaux, chacun avec une touche pour HEADPHONES et STREAM, et deux sorties</figcaption></figure></div>
-<p>Le Mixer s'ouvre en <span class="key">SIMPLE</span>. Chaque canal montre son nom, ce qu'il écoute, une touche par sortie,
-son fader et son vumètre, <span class="key">CUT</span> et <span class="key">SOLO</span>. Chaque sortie montre le périphérique sur lequel elle
-joue, son fader et son vumètre.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Touche d'un canal</th>
-<th>Signification</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gris uni</td>
-<td>Pas routé vers cette sortie</td>
-</tr>
-<tr>
-<td>Remplie de la couleur de la sortie</td>
-<td>Routé vers cette sortie. Cliquez pour le désactiver</td>
-</tr>
-<tr>
-<td>Bord coloré seulement, <span class="key">VIA BUS</span></td>
-<td>Il y arrive par un bus (réglé dans PRO). Cliquez pour le router aussi directement</td>
-</tr>
-</tbody>
-</table></div>
+<p>Le Mixer montre une tranche pour chaque canal, bus et sortie. Les <strong>cases de routage</strong> dans l'en-tête
+de chaque tranche montrent où elle va : une case par bus et par périphérique de sortie, allumée là où
+c'est routé (voir <a href="#4-how-routing-works">4</a>).</p>
 <ol>
 <li>Parlez et regardez bouger le vumètre de votre microphone.</li>
-<li>Pour vous entendre, cliquez sur la touche <span class="key">HEADPHONES</span> du micro.</li>
+<li>Pour vous entendre, allumez la case de votre casque dans les cases de routage du micro.</li>
 <li>Dans Discord, votre jeu, OBS ou toute autre application, choisissez <strong>CABLE Output</strong> comme
    microphone.</li>
 <li>Vérifiez ce qu'elles reçoivent : <span class="key">HEAR WHAT THEY HEAR</span> (sur la ligne <span class="key">MIC OUTPUT</span> de
@@ -5121,18 +5049,18 @@ joue, son fader et son vumètre.</p>
    et vous le rejoue.</li>
 </ol>
 <p>Si vous entendez un programme deux fois, voir <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> et <span class="key">+ APP</span> ajoutent des canaux (<span class="key">+ APP</span> liste aussi les programmes en cours
-d'exécution qui sont <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> ajoute une sortie sur un périphérique
-qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
-Faites un clic droit sur un nom pour <span class="key">RENAME...</span>, la couleur, <span class="key">HEADPHONE EQ</span> (une sortie),
-<span class="key">IN THE MINI MIXER</span> et <span class="key">REMOVE</span>. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.</p>
+<p><span class="key">ADD CHANNEL</span> et <span class="key">ADD APP</span> dans la barre latérale ajoutent des canaux (<span class="key">ADD APP</span> liste aussi les programmes en cours
+d'exécution qui sont <span class="key">NOT PLAYING YET</span>). Routez quelque chose vers un périphérique qui n'a pas de
+sortie et une sortie est créée dessus. Faites un clic droit sur une sortie pour <span class="key">DEVICE...</span> (l'endroit
+où elle joue) et <span class="key">HEADPHONE EQ</span>. Faites un clic droit sur n'importe quelle tranche pour <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> et <span class="key">REMOVE</span>. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.</p>
 <h3 id="step-7-pro-for-the-whole-console">Étape 7 : PRO, pour toute la console</h3>
-<p>Le commutateur <span class="key">SIMPLE / PRO</span> de la barre du haut montre le même mix dans les deux cas. <span class="key">PRO</span>
-est la console complète : l'entrée de chaque canal, les filtres, la dynamique et l'égaliseur, les
-bus et les combinateurs, les plugins.</p>
+<p>Le Mixer est la console complète : l'entrée de chaque canal, les filtres, la dynamique et
+l'égaliseur, les bus et les combinateurs, les plugins. Pour une vue plus petite, <span class="key">COMPACT</span> dans la
+barre latérale replie chaque tranche sur sa barre de nom et sa section de fader. Cliquez à nouveau
+pour retrouver les tranches entières (voir <a href="#the-sidebar">La barre latérale</a>).</p>
 <p>Pour façonner votre microphone, voir <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Chaque
-commande est décrite en <a href="#6-the-channel-strip-section-by-section">6</a>. Les réglages faits en PRO continuent à
-fonctionner en SIMPLE.</p>
+commande est décrite en <a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Étape 8 : lancer PRE-FLIGHT</h3>
 <p>Quelques secondes après le démarrage, <span class="key">PRE-FLIGHT</span> vérifie la configuration et ne s'ouvre que si
 quelque chose demande votre attention (pas au tout premier démarrage, où SETUP passe d'abord).
@@ -5159,7 +5087,7 @@ Chaque ligne doit être verte. Voir <a href="#181-pre-flight">18.1</a>.</p>
 <h3 id="the-sidebar">La barre latérale</h3>
 <p>Les pages sont des cartes le long de la gauche : <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La page affichée a un bord bleu allumé. Pendant que le Mixer est
-affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement <span class="key">ADD CHANNEL</span> et <span class="key">ADD APP</span>) :</p>
+affiché, la barre latérale a aussi ces cartes :</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -5192,7 +5120,7 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement <span clas
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Replie chaque tranche sur sa barre de nom et sa section de fader (pan, SOLO, CUT, SEL, le fader et son affichage), avec le vumètre de la tranche à côté de l'échelle du fader ; le pupitre se réduit et revient en haut. Allumée tant que le pupitre est compact ; cliquez à nouveau pour retrouver les tranches entières. Aussi <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> dans FIND</td>
+<td>Replie chaque tranche sur sa barre de nom et sa section de fader (pan, SOLO, CUT, SEL, le fader et son affichage) ; le pupitre se réduit et revient en haut. Allumée tant que le pupitre est compact ; cliquez à nouveau pour retrouver les tranches entières. Aussi <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> dans FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -5249,13 +5177,15 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement <span clas
 <td>Vos mix enregistrés. <strong>+</strong> en enregistre un nouveau (voir <a href="#141-scenes">14.1</a>)</td>
 </tr>
 <tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Le même mix, en simple ou en console complète (voir l'<a href="#step-7-pro-for-the-whole-console">étape 7</a>)</td>
+<td>Dans une fenêtre étroite, le voyant d'état disparaît en premier, puis MINI, puis HISTORY. FIND</td>
+<td></td>
+</tr>
+<tr>
+<td>permet d'atteindre tout cela.</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
-<p>Dans une fenêtre étroite, le voyant d'état disparaît en premier, puis MINI, puis HISTORY. FIND
-permet d'atteindre tout cela.</p>
 <h3 id="the-transport">Le transport</h3>
 <p>Sous la barre du haut, sur chaque vue du Mixer, vous trouvez le temps du lecteur Tape (écoulé et
 durée de la piste), le nom de la piste et ses touches : <strong>retour de 10 s</strong>, <strong>stop</strong>,
@@ -5874,7 +5804,7 @@ ou retirer ses plugins, le renommer ou le supprimer.</p>
 votre modèle, classé par marque), <span class="key">ALERT IF SILENT</span> (sous -60 dBFS pendant <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ou <span class="key">5 MIN</span>, ou <span class="key">OFF</span>) et <strong>ALERT IF
 CLIPPING</strong> (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
 écrivent dans le journal des événements, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, les
-espaceurs, <span class="key">RENAME...</span> et <span class="key">REMOVE</span>.</p>
+espaceurs, <span class="key">COLOUR</span> (le long de sa barre de nom et sur son bloc Routing), <span class="key">RENAME...</span> et <span class="key">REMOVE</span>.</p>
 <p>Les sorties sont créées pour vous, une par périphérique (voir
 <a href="#outputs-are-devices">Les sorties sont des périphériques</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (dans le menu du clic droit d'une sortie, ou dans FIND) construit un
@@ -5899,7 +5829,7 @@ mémorisé jusqu'à ce que le fichier du plugin change.</p>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Le panneau des plugins pour la tranche sélectionnée"><img data-shot="images/console/plugins.jpg" alt="Le panneau des plugins pour la tranche sélectionnée" loading="lazy"></button><figcaption>Le panneau des plugins pour la tranche sélectionnée</figcaption></figure></div>
 <p>Cliquez sur <span class="key">PLUGINS</span> dans la barre latérale. Un panneau monte sous les tranches avec les plugins
 de la <strong>tranche sélectionnée</strong> dans l'ordre où ils s'exécutent. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> l'ouvre
-sur cette tranche, et passe en PRO si SIMPLE est affiché. Chaque carte montre :</p>
+sur cette tranche. Chaque carte montre :</p>
 <ul>
 <li><span class="key">CPU</span> : la part du plugin dans le temps de traitement (vert, orange au-delà de 2 %, rouge
   au-delà de 5 %)</li>
@@ -6560,7 +6490,7 @@ touches <strong>On the mixer</strong> fonctionnent aussi sur la console (<a href
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, ou <strong>Start mapping</strong> dans SETTINGS &gt; MIDI &amp; OSC, le lance ; Échap le termine. Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas)</td>
+<td>Ctrl+L, ou <strong>Start mapping</strong> dans SETTINGS &gt; MIDI &amp; OSC, le lance ; Échap le termine. Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -6620,7 +6550,7 @@ désactivé) demandent elles-mêmes la permission.</p>
 section NAME), ou faites glisser son bloc sur la page Routing. Une barre bleue montre où il
 atterrira, et les tranches glissent à leur place. Les espaceurs suivent la tranche qu'ils suivent. Les
 bus et les sorties se déplacent de la même façon, chacun parmi ceux de son type, et leurs
-liaisons les suivent. SIMPLE montre les sorties dans le même ordre.</p>
+liaisons les suivent.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Grouper des canaux dans un bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, puis renommez-le (clic droit &gt; <span class="key">RENAME...</span>).</li>
@@ -6821,7 +6751,7 @@ nom <code>session-unloaded-&lt;date&gt;.xml</code>. Le journal des événements 
 <ul>
 <li>Un programme continue de jouer sur son propre périphérique en même temps que dans son canal. Si
   son canal est routé vers une sortie de ce même périphérique, vous l'entendez directement et par
-  Faider. Désactivez cette liaison (en SIMPLE, la touche de la sortie sur le canal), ou déplacez le
+  Faider. Désactivez cette liaison (sa case de routage sur le canal), ou déplacez le
   programme vers un autre périphérique. PRE-FLIGHT vous en avertit.</li>
 <li>Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT &gt; <strong>WINDOWS
   DEFAULTS</strong> le nomme, et <span class="key">SET MY DEFAULTS</span> remet vos haut-parleurs.</li>
@@ -7324,9 +7254,9 @@ geht zurück.</p>
 </tbody>
 </table></div>
 <p>Deine Mikrofone werden nicht auf deine eigenen Kopfhörer geroutet, damit du kein verzögertes Echo deiner
-Stimme hörst. Um dich selbst zu hören, schalte die Taste <span class="key">HEADPHONES</span> des Mikrofons ein (Schritt 6).</p>
-<p>SETUP ist keine Seite: starte es über <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) oder die <span class="key">SETUP</span>-Taste in
-SIMPLE neu, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was fehlt, und entfernt nie etwas.</p>
+Stimme hörst. Um dich selbst zu hören, route das Mikrofon auf deine Kopfhörer (Schritt 6).</p>
+<p>SETUP ist keine Seite: starte es über <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) neu, wenn du ein Gerät oder ein
+Programm hinzufügst. Es ergänzt, was fehlt, und entfernt nie etwas.</p>
 <h3 id="step-5-check-the-audio-is-running">Schritt 5: Prüfen, ob das Audio läuft</h3>
 <p>Sieh dir das <strong>Gesundheitslicht</strong> oben rechts an.</p>
 <ul>
@@ -7339,49 +7269,27 @@ SIMPLE neu, wenn du ein Gerät oder ein Programm hinzufügst. Es ergänzt, was f
 eingebaute Takt; siehe <a href="#clocking">Takt</a>), und mit <span class="key">BUFFER</span> stellst du seine Puffergröße ein. Die kleinste Größe,
 die ohne Knistern spielt, gibt dir die geringste Verzögerung. 256 oder 512 Samples passen für die meisten Systeme.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Schritt 6: Dich selbst hören und Apps dich hören lassen</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Das SIMPLE-Pult mit einem Demo-Mix: sechs Kanäle, jeder mit einer Taste für HEADPHONES und STREAM, und zwei Ausgänge"><img data-shot="images/console/simple.jpg" alt="Das SIMPLE-Pult mit einem Demo-Mix: sechs Kanäle, jeder mit einer Taste für HEADPHONES und STREAM, und zwei Ausgänge" loading="lazy"></button><figcaption>Das SIMPLE-Pult mit einem Demo-Mix: sechs Kanäle, jeder mit einer Taste für HEADPHONES und STREAM, und zwei Ausgänge</figcaption></figure></div>
-<p>Der Mixer öffnet sich in <span class="key">SIMPLE</span>. Jeder Kanal zeigt seinen Namen, was er abhört, eine Taste für jeden
-Ausgang, seinen Fader und Pegelmesser, <span class="key">CUT</span> und <span class="key">SOLO</span>. Jeder Ausgang zeigt das Gerät, auf dem er spielt,
-seinen Fader und Pegelmesser.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Taste an einem Kanal</th>
-<th>Bedeutung</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Schlicht grau</td>
-<td>Nicht auf diesen Ausgang geroutet</td>
-</tr>
-<tr>
-<td>In der Farbe des Ausgangs gefüllt</td>
-<td>Dorthin geroutet. Klicke, um sie auszuschalten</td>
-</tr>
-<tr>
-<td>Nur farbiger Rand, <span class="key">VIA BUS</span></td>
-<td>Er kommt über einen Bus dorthin (in PRO eingerichtet). Klicke, um ihn zusätzlich direkt dorthin zu routen</td>
-</tr>
-</tbody>
-</table></div>
+<p>Der Mixer zeigt einen Strip für jeden Kanal, jeden Bus und jeden Ausgang. Die <strong>Routing-Boxen</strong> im Header jedes
+Strips zeigen, wohin er geht: eine Box pro Bus und Ausgabegerät, leuchtend, wo er hingeroutet ist (siehe
+<a href="#4-how-routing-works">4</a>).</p>
 <ol>
 <li>Sprich und sieh zu, wie sich der Pegelmesser deines Mikrofons bewegt.</li>
-<li>Um dich selbst zu hören, klicke auf die Taste <span class="key">HEADPHONES</span> des Mikrofons.</li>
+<li>Um dich selbst zu hören, schalte in den Routing-Boxen des Mikrofons die Box für deine Kopfhörer ein.</li>
 <li>Wähle in Discord, deinem Spiel, in OBS oder jeder anderen App <strong>CABLE Output</strong> als Mikrofon.</li>
 <li>Prüfe, was sie bekommen: <span class="key">HEAR WHAT THEY HEAR</span> (in der Zeile <span class="key">MIC OUTPUT</span> von PRE-FLIGHT oder in <span class="key">FIND</span>, Ctrl+K) nimmt 5 Sekunden von dem auf, was Apps
    empfangen, und spielt es dir vor.</li>
 </ol>
 <p>Hörst du ein Programm doppelt, siehe <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> und <span class="key">+ APP</span> fügen Kanäle hinzu (<span class="key">+ APP</span> listet auch laufende Programme auf, die <span class="key">NOT PLAYING YET</span> sind). <span class="key">+ OUTPUT</span> fügt einen Ausgang auf einem Gerät hinzu, das keinen hat.
-Die Gerätetaste unter dem Namen eines Ausgangs ändert, wo er spielt. Klicke mit rechts auf einen Namen für <span class="key">RENAME...</span>,
-die Farbe, <span class="key">HEADPHONE EQ</span> (bei einem Ausgang), <span class="key">IN THE MINI MIXER</span> und <span class="key">REMOVE</span>. Wenn du den Kanal eines Programms entfernst, wird auch seine App-Regel entfernt, damit der Kanal
+<p><span class="key">ADD CHANNEL</span> und <span class="key">ADD APP</span> in der Seitenleiste fügen Kanäle hinzu (<span class="key">ADD APP</span> listet auch laufende Programme auf, die <span class="key">NOT PLAYING YET</span> sind). Route etwas auf ein Gerät, das keinen Ausgang hat, und darauf wird ein Ausgang angelegt.
+Klicke mit rechts auf einen Ausgang für <span class="key">DEVICE...</span> (wo er spielt) und <span class="key">HEADPHONE EQ</span>. Klicke mit rechts auf einen beliebigen Strip für <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> und <span class="key">REMOVE</span>. Wenn du den Kanal eines Programms entfernst, wird auch seine App-Regel entfernt, damit der Kanal
 nicht von selbst zurückkommt.</p>
 <h3 id="step-7-pro-for-the-whole-console">Schritt 7: PRO, für das ganze Pult</h3>
-<p>Der Schalter <span class="key">SIMPLE / PRO</span> in der oberen Leiste zeigt in beiden Fällen denselben Mix. <span class="key">PRO</span> ist das ganze
-Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren, Plugins.</p>
+<p>Der Mixer ist das ganze Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren,
+Plugins. Für eine kleinere Ansicht faltet <span class="key">COMPACT</span> in der Seitenleiste jeden Strip auf seine Namensleiste und
+seinen Fader-Bereich zusammen. Ein weiterer Klick bringt die ganzen Strips zurück (siehe <a href="#the-sidebar">Die Seitenleiste</a>).</p>
 <p>Wie du dein Mikrofon formst, steht in <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Jedes Bedienelement steht in
-<a href="#6-the-channel-strip-section-by-section">6</a>. Einstellungen, die du in PRO machst, wirken auch in SIMPLE weiter.</p>
+<a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Schritt 8: PRE-FLIGHT ausführen</h3>
 <p>Wenige Sekunden nach dem Start prüft <span class="key">PRE-FLIGHT</span> das Setup und öffnet sich nur, wenn etwas Aufmerksamkeit braucht
 (nicht beim allerersten Start, wenn zuerst SETUP kommt). Starte es jederzeit über
@@ -7406,7 +7314,7 @@ Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren, Plug
 <h3 id="the-sidebar">Die Seitenleiste</h3>
 <p>Die Seiten sind Karten am linken Rand: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Die aktuelle Seite hat einen leuchtend blauen Rand. Solange der Mixer zu sehen ist, hat die Seitenleiste außerdem
-diese Karten (in SIMPLE nur <span class="key">ADD CHANNEL</span> und <span class="key">ADD APP</span>):</p>
+diese Karten:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -7439,7 +7347,7 @@ diese Karten (in SIMPLE nur <span class="key">ADD CHANNEL</span> und <span class
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Faltet jeden Strip auf seine Namensleiste und seinen Fader-Bereich zusammen (Pan, SOLO, CUT, SEL, der Fader und seine Anzeige), mit dem Pegelmesser des Strips neben der Skala des Faders; das Pult schrumpft passend und springt nach oben. Leuchtet, solange es kompakt ist; ein weiterer Klick bringt die ganzen Strips zurück. Auch <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
+<td>Faltet jeden Strip auf seine Namensleiste und seinen Fader-Bereich zusammen (Pan, SOLO, CUT, SEL, der Fader und seine Anzeige); das Pult schrumpft passend und springt nach oben. Leuchtet, solange es kompakt ist; ein weiterer Klick bringt die ganzen Strips zurück. Auch <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -7494,10 +7402,6 @@ diese Karten (in SIMPLE nur <span class="key">ADD CHANNEL</span> und <span class
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Deine gespeicherten Mixe. Mit <strong>+</strong> speicherst du einen neuen (siehe <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Derselbe Mix, schlicht oder als ganzes Pult (siehe <a href="#step-7-pro-for-the-whole-console">Schritt 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -8103,7 +8007,7 @@ entfernen, ihn umzubenennen oder zu entfernen.</p>
 <p>Rechtsklick auf einen Ausgang für <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (Kopfhörerkorrektur: <span class="key">NONE</span> oder dein
 Modell, nach Marke aufgelistet), <span class="key">ALERT IF SILENT</span> (unter -60 dBFS für <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> oder <span class="key">5 MIN</span>, oder <span class="key">OFF</span>) und <span class="key">ALERT IF CLIPPING</span>
 (solange LIMIT aus ist), die das Tray-Symbol blinken lassen und ins Ereignisprotokoll schreiben, <span class="key">IN THE MINI MIXER</span>,
-<span class="key">MIX-MINUS AND STEMS...</span>, Spacer, <span class="key">RENAME...</span> und <span class="key">REMOVE</span>.</p>
+<span class="key">MIX-MINUS AND STEMS...</span>, Spacer, <span class="key">COLOUR</span> (entlang seiner Namensleiste und an seinem Routing-Block), <span class="key">RENAME...</span> und <span class="key">REMOVE</span>.</p>
 <p>Ausgänge werden für dich erstellt, einer pro Gerät (siehe <a href="#outputs-are-devices">Ausgänge sind Geräte</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (im Rechtsklick-Menü eines Ausgangs oder in FIND) baut für jeden Gast einen Feed (alles außer seiner eigenen Stimme) sowie
 Stems für Stimme, Musik und Spiel.</p>
@@ -8126,8 +8030,8 @@ SETTINGS &gt; Audio gibt langsamen Plugins 60 oder 120). Das Ergebnis bleibt ges
 <h3 id="the-plugin-panel">Das Plugin-Panel</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Das Plugin-Panel für den gewählten Strip"><img data-shot="images/console/plugins.jpg" alt="Das Plugin-Panel für den gewählten Strip" loading="lazy"></button><figcaption>Das Plugin-Panel für den gewählten Strip</figcaption></figure></div>
 <p>Klicke in der Seitenleiste auf <span class="key">PLUGINS</span>. Ein Panel schiebt sich unter den Strips hoch und zeigt die Plugins des <strong>gewählten Strips</strong>
-in der Reihenfolge, in der sie laufen. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> öffnet es an diesem Strip und wechselt zu
-PRO, wenn gerade SIMPLE zu sehen ist. Jede Karte zeigt:</p>
+in der Reihenfolge, in der sie laufen. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> öffnet es an diesem Strip. Jede Karte
+zeigt:</p>
 <ul>
 <li><span class="key">CPU</span>: der Anteil des Plugins an der Verarbeitungszeit (grün, gelb ab 2 %, rot ab 5 %)</li>
 <li><strong>Latency</strong>: die Verzögerung, die es hinzufügt</li>
@@ -8760,7 +8664,7 @@ funktioniert. <strong>Fixed</strong> listet die Tasten, die immer gleich sind, u
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L oder <strong>Start mapping</strong> unter SETTINGS &gt; MIDI &amp; OSC startet es; Esc beendet es. Klicke ein Bedienelement auf dem Bildschirm an und bewege dann einen Regler oder eine Taste deines Controllers. Fader, Pan, CUT, SOLO, Ein/Aus und Routing-Tasten jedes Strips lassen sich zuordnen, in SIMPLE und PRO, ebenso Szenen, Pads und das Tape. Das Mausrad scrollt das Pult während der Zuordnung (Shift+Rad nach oben und unten)</td>
+<td>Ctrl+L oder <strong>Start mapping</strong> unter SETTINGS &gt; MIDI &amp; OSC startet es; Esc beendet es. Klicke ein Bedienelement auf dem Bildschirm an und bewege dann einen Regler oder eine Taste deines Controllers. Fader, Pan, CUT, SOLO, Ein/Aus und Routing-Tasten jedes Strips lassen sich zuordnen, ebenso Szenen, Pads und das Tape. Das Mausrad scrollt das Pult während der Zuordnung (Shift+Rad nach oben und unten)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -8815,7 +8719,7 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 <p>Ziehe die <strong>Namensleiste</strong> eines Kanals im Mixer zur Seite (scrolle nach unten zum Bereich NAME) oder ziehe seinen
 Block auf der Seite Routing. Ein blauer Balken zeigt, wo er landet, und die Strips gleiten an ihren Platz.
 Spacer wandern mit dem Strip, dem sie folgen. Busse und Ausgänge bewegen sich genauso, jeweils unter ihresgleichen,
-und ihre Routen gehen mit. SIMPLE zeigt die Ausgänge in derselben Reihenfolge.</p>
+und ihre Routen gehen mit.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Kanäle in einem Bus gruppieren</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, dann umbenennen (Rechtsklick &gt; <span class="key">RENAME...</span>).</li>
@@ -9006,7 +8910,7 @@ kann: Solos, Key Listen, Gain-Trims, die mehr als 12 dB von null abweichen, und 
 <ul>
 <li>Ein Programm spielt auf seinem eigenen Gerät weiter und zusätzlich in seinen Kanal. Ist sein Kanal auf einen
   Ausgang auf demselben Gerät geroutet, hörst du es direkt und über Faider. Schalte diese Route aus
-  (in SIMPLE die Taste des Ausgangs am Kanal) oder verschiebe das Programm auf ein anderes Gerät. PRE-FLIGHT
+  (ihre Routing-Box am Kanal) oder verschiebe das Programm auf ein anderes Gerät. PRE-FLIGHT
   warnt davor.</li>
 <li>Der Standardlautsprecher von Windows ist auf das virtuelle Kabel gestellt. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> nennt es,
   und <span class="key">SET MY DEFAULTS</span> stellt deine Lautsprecher zurück.</li>
@@ -9507,9 +9411,9 @@ schede per scegliere. In ogni pagina tranne la terza puoi sceglierne più di una
 </tbody>
 </table></div>
 <p>I tuoi microfoni non sono instradati alle tue cuffie, così non senti un'eco ritardata della tua
-voce. Per sentirti, accendi il tasto <span class="key">HEADPHONES</span> del microfono (passo 6).</p>
-<p>SETUP non è una pagina: eseguilo di nuovo da <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) o dal tasto <span class="key">SETUP</span> di
-SIMPLE ogni volta che aggiungi un dispositivo o un programma. Aggiunge ciò che manca e non toglie mai nulla.</p>
+voce. Per sentirti, instrada il microfono alle tue cuffie (passo 6).</p>
+<p>SETUP non è una pagina: eseguilo di nuovo da <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) ogni volta che
+aggiungi un dispositivo o un programma. Aggiunge ciò che manca e non toglie mai nulla.</p>
 <h3 id="step-5-check-the-audio-is-running">Passo 5: Controlla che l'audio sia in funzione</h3>
 <p>Guarda la <strong>spia di salute</strong> in alto a destra.</p>
 <ul>
@@ -9523,51 +9427,29 @@ clock integrato; vedi <a href="#clocking">Clock</a>), e <span class="key">BUFFER
 dimensione più piccola che suona senza crepitii ti dà il ritardo minore. 256 o 512 campioni vanno
 bene per la maggior parte dei sistemi.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Passo 6: Ascoltati e fai sentire la tua voce alle app</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="La console SIMPLE con un mix dimostrativo: sei canali, ognuno con un tasto per HEADPHONES e STREAM, e due uscite"><img data-shot="images/console/simple.jpg" alt="La console SIMPLE con un mix dimostrativo: sei canali, ognuno con un tasto per HEADPHONES e STREAM, e due uscite" loading="lazy"></button><figcaption>La console SIMPLE con un mix dimostrativo: sei canali, ognuno con un tasto per HEADPHONES e STREAM, e due uscite</figcaption></figure></div>
-<p>Il Mixer si apre in <span class="key">SIMPLE</span>. Ogni canale mostra il suo nome, cosa ascolta, un tasto per ogni
-uscita, il suo fader e il suo meter, <span class="key">CUT</span> e <span class="key">SOLO</span>. Ogni uscita mostra il dispositivo su cui
-suona, il suo fader e il suo meter.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Tasto su un canale</th>
-<th>Significa</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Grigio semplice</td>
-<td>Non instradato a quell'uscita</td>
-</tr>
-<tr>
-<td>Pieno, del colore dell'uscita</td>
-<td>Instradato lì. Fai clic per disattivarlo</td>
-</tr>
-<tr>
-<td>Solo il bordo colorato, <span class="key">VIA BUS</span></td>
-<td>Ci arriva attraverso un bus (impostato in PRO). Fai clic per instradarlo anche direttamente</td>
-</tr>
-</tbody>
-</table></div>
+<p>Il Mixer mostra una strip per ogni canale, bus e uscita. Le <strong>caselle di instradamento</strong> nell'header
+di ogni strip mostrano dove va: una casella per ogni bus e dispositivo di uscita, accesa dove è
+instradata (vedi <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Parla e guarda muoversi il meter del tuo microfono.</li>
-<li>Per sentirti, fai clic sul tasto <span class="key">HEADPHONES</span> del microfono.</li>
+<li>Parla e guarda muoversi il meter di livello del tuo microfono.</li>
+<li>Per sentirti, accendi la casella delle tue cuffie tra le caselle di instradamento del microfono.</li>
 <li>In Discord, nel tuo gioco, in OBS o in qualsiasi altra app, scegli <strong>CABLE Output</strong> come microfono.</li>
 <li>Controlla cosa ricevono: <span class="key">HEAR WHAT THEY HEAR</span> (nella riga <span class="key">MIC OUTPUT</span> di PRE-FLIGHT, o in
    <span class="key">FIND</span>, Ctrl+K) registra 5 secondi di ciò che ricevono le app e te li riproduce.</li>
 </ol>
 <p>Se senti un programma due volte, vedi <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> e <span class="key">+ APP</span> aggiungono canali (<span class="key">+ APP</span> elenca anche i programmi in esecuzione che
-sono <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> aggiunge un'uscita su un dispositivo che
-non ne ha. Il tasto del dispositivo sotto il nome di un'uscita cambia dove suona. Fai clic con il
-tasto destro su un nome per <span class="key">RENAME...</span>, il colore, <span class="key">HEADPHONE EQ</span> (un'uscita), <strong>IN THE MINI
-MIXER</strong> e <span class="key">REMOVE</span>. Rimuovere il canale di un programma rimuove anche la sua regola app, così il canale non torna da solo.</p>
+<p><span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span> nella barra laterale aggiungono canali (<span class="key">ADD APP</span> elenca anche i
+programmi in esecuzione che sono <span class="key">NOT PLAYING YET</span>). Instrada qualcosa a un dispositivo che non ha
+un'uscita e su di esso viene creata un'uscita. Clic destro su un'uscita per <span class="key">DEVICE...</span> (dove
+suona) e <span class="key">HEADPHONE EQ</span>. Clic destro su qualsiasi strip per <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <strong>IN THE
+MINI MIXER</strong> e <span class="key">REMOVE</span>. Rimuovere il canale di un programma rimuove anche la sua regola app, così il canale non torna da solo.</p>
 <h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, per tutta la console</h3>
-<p>L'interruttore <span class="key">SIMPLE / PRO</span> nella barra superiore mostra lo stesso mix in entrambi i modi. <span class="key">PRO</span>
-è tutta la console: ingresso, filtri, dinamica ed EQ di ogni canale, bus e combinatori, plugin.</p>
+<p>Il Mixer è tutta la console: ingresso, filtri, dinamica ed EQ di ogni canale, bus e combinatori,
+plugin. Per una vista più piccola, <span class="key">COMPACT</span> nella barra laterale ripiega ogni strip sulla sua
+barra del nome e sulla sezione del fader. Fai di nuovo clic per le strip intere (vedi
+<a href="#the-sidebar">La barra laterale</a>).</p>
 <p>Per modellare il tuo microfono, vedi <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Ogni controllo
-è in <a href="#6-the-channel-strip-section-by-section">6</a>. Le impostazioni che fai in PRO continuano a
-funzionare in SIMPLE.</p>
+è in <a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Passo 8: Esegui PRE-FLIGHT</h3>
 <p>Pochi secondi dopo l'avvio, <span class="key">PRE-FLIGHT</span> controlla la configurazione e si apre solo se qualcosa
 richiede attenzione (non al primissimo avvio, quando viene prima SETUP). Eseguilo quando vuoi con
@@ -9594,7 +9476,7 @@ con <strong>Tips</strong> in <strong>SETTINGS &gt; General</strong>.</p>
 <h3 id="the-sidebar">La barra laterale</h3>
 <p>Le pagine sono schede lungo il lato sinistro: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. La pagina visualizzata ha un bordo blu acceso. Mentre è visibile il
-Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo <span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span>):</p>
+Mixer, la barra laterale ha anche queste schede:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -9627,7 +9509,7 @@ Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo <span class="ke
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Ripiega ogni strip sulla sua barra del nome e sulla sezione del fader (pan, SOLO, CUT, SEL, il fader e la sua lettura), con il meter di livello della strip accanto alla scala del fader; la console si accorcia e torna in cima. Acceso finché è compatta; fai di nuovo clic per le strip intere. Anche <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
+<td>Ripiega ogni strip sulla sua barra del nome e sulla sezione del fader (pan, SOLO, CUT, SEL, il fader e la sua lettura); la console si accorcia e torna in cima. Acceso finché è compatta; fai di nuovo clic per le strip intere. Anche <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -9682,10 +9564,6 @@ si imposta in <strong>SETTINGS &gt; Audio &gt; Channel meter point</strong>.</p>
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>I tuoi mix memorizzati. <strong>+</strong> ne memorizza uno nuovo (vedi <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Lo stesso mix, semplice o come tutta la console (vedi <a href="#step-7-pro-for-the-whole-console">Passo 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -10297,8 +10175,8 @@ o rimuoverne i plugin, rinominarlo o rimuoverlo.</p>
 <p>Clic destro su un'uscita per <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (correzione per cuffie: <span class="key">NONE</span>, o il
 tuo modello, elencato per marca), <span class="key">ALERT IF SILENT</span> (sotto -60 dBFS per <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> o <span class="key">5 MIN</span>, oppure <span class="key">OFF</span>) e <strong>ALERT IF
 CLIPPING</strong> (mentre LIMIT è spento), che fanno lampeggiare l'icona nell'area di notifica e scrivono
-nel log degli eventi, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, spacer, <span class="key">RENAME...</span> e
-<span class="key">REMOVE</span>.</p>
+nel log degli eventi, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, spacer, <span class="key">COLOUR</span> (lungo la sua barra del
+nome e sul suo blocco in Routing), <span class="key">RENAME...</span> e <span class="key">REMOVE</span>.</p>
 <p>Le uscite si creano da sole, una per dispositivo (vedi <a href="#outputs-are-devices">Le uscite sono dispositivi</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (nel menu del clic destro di un'uscita, o in FIND) costruisce un feed
 per ogni ospite (tutto tranne la sua voce) e stem di voce, musica e gioco.</p>
@@ -10322,7 +10200,7 @@ finché il file del plugin non cambia.</p>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Il pannello dei plugin per la strip selezionata"><img data-shot="images/console/plugins.jpg" alt="Il pannello dei plugin per la strip selezionata" loading="lazy"></button><figcaption>Il pannello dei plugin per la strip selezionata</figcaption></figure></div>
 <p>Fai clic su <span class="key">PLUGINS</span> nella barra laterale. Un pannello sale sotto le strip con i plugin della
 <strong>strip selezionata</strong> nell'ordine in cui vengono eseguiti. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> lo apre su
-quella strip e passa a PRO se è visibile SIMPLE. Ogni scheda mostra:</p>
+quella strip. Ogni scheda mostra:</p>
 <ul>
 <li><span class="key">CPU</span>: la quota del tempo di elaborazione usata dal plugin (verde, ambra oltre il 2 %, rosso oltre il 5 %)</li>
 <li><strong>Latency</strong>: il ritardo che aggiunge</li>
@@ -10960,7 +10838,7 @@ due. <strong>Fixed</strong> elenca i tasti che sono sempre gli stessi, e dove fu
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, o <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, lo avvia; Esc lo termina. Fai clic su un controllo sullo schermo, poi muovi una manopola o un tasto del tuo controller. Si possono assegnare fader, pan, CUT, SOLO, accensione e tasti di instradamento di ogni strip, in SIMPLE e in PRO, oltre a scene, pad e tape. Durante l'assegnazione la rotellina del mouse fa scorrere la console (Shift+rotellina su e giù)</td>
+<td>Ctrl+L, o <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, lo avvia; Esc lo termina. Fai clic su un controllo sullo schermo, poi muovi una manopola o un tasto del tuo controller. Si possono assegnare fader, pan, CUT, SOLO, accensione e tasti di instradamento di ogni strip, oltre a scene, pad e tape. Durante l'assegnazione la rotellina del mouse fa scorrere la console (Shift+rotellina su e giù)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -11017,8 +10895,7 @@ spento) chiedono da soli il permesso.</p>
 <p>Trascina di lato la <strong>barra del nome</strong> di un canale nel Mixer (scorri in basso fino alla sezione NAME),
 oppure trascina il suo blocco nella pagina Routing. Una barra blu mostra dove atterrerà, e le strip
 scivolano al loro posto. Gli spacer si muovono con la strip che seguono. Bus e uscite si spostano nello
-stesso modo, ognuno tra quelli del suo tipo, e le loro route vanno con loro. SIMPLE mostra le uscite
-nello stesso ordine.</p>
+stesso modo, ognuno tra quelli del suo tipo, e le loro route vanno con loro.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Raggruppa i canali in un bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, poi rinominalo (clic destro &gt; <span class="key">RENAME...</span>).</li>
@@ -11213,7 +11090,7 @@ ascolto della key, trim di gain spostati di oltre 12 dB e uscite in CUT. Ognuno 
 <ul>
 <li>Un programma continua a suonare sul proprio dispositivo oltre che nel suo canale. Se il suo canale
   è instradato a un'uscita su quello stesso dispositivo, lo senti direttamente e attraverso Faider.
-  Disattiva quella route (in SIMPLE, il tasto dell'uscita sul canale), oppure sposta il programma su
+  Disattiva quella route (la sua casella di instradamento sul canale), oppure sposta il programma su
   un altro dispositivo. PRE-FLIGHT te lo segnala.</li>
 <li>L'altoparlante predefinito di Windows è impostato sul cavo virtuale. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> lo nomina,
   e <span class="key">SET MY DEFAULTS</span> rimette a posto i tuoi altoparlanti.</li>
@@ -11715,9 +11592,9 @@ nos cartões para escolher. Em todas as páginas, exceto a terceira, você pode 
 </tbody>
 </table></div>
 <p>Seus microfones não são roteados para os seus próprios fones, então você não ouve um eco atrasado da
-sua voz. Para se ouvir, acenda a tecla <span class="key">HEADPHONES</span> do mic (passo 6).</p>
-<p>O SETUP não é uma página: execute-o de novo pelo <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) ou pela tecla <span class="key">SETUP</span> do
-SIMPLE sempre que adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.</p>
+sua voz. Para se ouvir, roteie o mic para os seus fones (passo 6).</p>
+<p>O SETUP não é uma página: execute-o de novo pelo <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) sempre que
+adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.</p>
 <h3 id="step-5-check-the-audio-is-running">Passo 5: conferir se o áudio está funcionando</h3>
 <p>Olhe a <strong>luz de status</strong> no canto superior direito.</p>
 <ul>
@@ -11730,52 +11607,30 @@ SIMPLE sempre que adicionar um dispositivo ou um programa. Ele adiciona o que fa
 interno; veja <a href="#clocking">Sincronização</a>), e <span class="key">BUFFER</span> define o tamanho do buffer. O menor tamanho
 que toca sem estalos dá o menor atraso. 256 ou 512 amostras servem para a maioria dos sistemas.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Passo 6: se ouvir e deixar os apps ouvirem você</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="A mesa SIMPLE com uma mixagem de demonstração: seis canais, cada um com uma tecla para HEADPHONES e STREAM, e duas saídas"><img data-shot="images/console/simple.jpg" alt="A mesa SIMPLE com uma mixagem de demonstração: seis canais, cada um com uma tecla para HEADPHONES e STREAM, e duas saídas" loading="lazy"></button><figcaption>A mesa SIMPLE com uma mixagem de demonstração: seis canais, cada um com uma tecla para HEADPHONES e STREAM, e duas saídas</figcaption></figure></div>
-<p>O Mixer abre em <span class="key">SIMPLE</span>. Cada canal mostra seu nome, o que ele escuta, uma tecla para cada saída,
-seu fader e seu medidor, <span class="key">CUT</span> e <span class="key">SOLO</span>. Cada saída mostra o dispositivo em que toca, seu fader
-e seu medidor.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Tecla de um canal</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cinza liso</td>
-<td>Não roteado para essa saída</td>
-</tr>
-<tr>
-<td>Preenchida com a cor da saída</td>
-<td>Roteado para lá. Clique para desligar</td>
-</tr>
-<tr>
-<td>Só a borda colorida, <span class="key">VIA BUS</span></td>
-<td>Chega lá por um bus (configurado no PRO). Clique para rotear também direto para lá</td>
-</tr>
-</tbody>
-</table></div>
+<p>O Mixer mostra um strip para cada canal, bus e saída. As <strong>caixas de roteamento</strong> no header de cada
+strip mostram para onde ele vai: uma caixa por bus e por dispositivo de saída, acesa onde está
+roteado (veja <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Fale e veja o medidor do seu microfone se mexer.</li>
-<li>Para se ouvir, clique na tecla <span class="key">HEADPHONES</span> do mic.</li>
+<li>Fale e veja o medidor de nível do seu microfone se mexer.</li>
+<li>Para se ouvir, acenda a caixa dos seus fones nas caixas de roteamento do mic.</li>
 <li>No Discord, no seu jogo, no OBS ou em qualquer outro app, escolha <strong>CABLE Output</strong> como
    microfone.</li>
 <li>Confira o que eles recebem: <span class="key">HEAR WHAT THEY HEAR</span> (na linha <span class="key">MIC OUTPUT</span> do PRE-FLIGHT, ou no <span class="key">FIND</span>, Ctrl+K) grava 5 segundos do que
    os apps recebem e toca para você.</li>
 </ol>
 <p>Se você ouvir um programa duas vezes, veja <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> e <span class="key">+ APP</span> adicionam canais (<span class="key">+ APP</span> também lista os programas em execução que estão em <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> adiciona uma saída em um dispositivo que não
-tem nenhuma. A tecla de dispositivo sob o nome de uma saída muda onde ela toca. Clique com o botão
-direito em um nome para <span class="key">RENAME...</span>, a cor, <span class="key">HEADPHONE EQ</span> (uma saída), <span class="key">IN THE MINI MIXER</span> e
-<span class="key">REMOVE</span>. Remover o canal de um programa também remove a regra de app dele, para o canal não voltar
+<p><span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span> na barra lateral adicionam canais (<span class="key">ADD APP</span> também lista os programas em execução que estão em <span class="key">NOT PLAYING YET</span>). Roteie algo para um dispositivo que não
+tem saída e uma saída é criada nele. Clique com o botão direito em uma saída para <span class="key">DEVICE...</span> (onde
+ela toca) e <span class="key">HEADPHONE EQ</span>. Clique com o botão direito em qualquer strip para <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> e <span class="key">REMOVE</span>. Remover o canal de um programa também remove a regra de app dele, para o canal não voltar
 sozinho.</p>
 <h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, para o console inteiro</h3>
-<p>A chave <span class="key">SIMPLE / PRO</span> na barra superior mostra a mesma mixagem nos dois casos. O <span class="key">PRO</span> é o
-console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e combinadores, plugins.</p>
+<p>O Mixer é o console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e
+combinadores, plugins. Para uma visão menor, <span class="key">COMPACT</span> na barra lateral recolhe cada strip à sua
+barra de nome e à sua seção de fader. Clique de novo para os strips inteiros (veja
+<a href="#the-sidebar">A barra lateral</a>).</p>
 <p>Para dar forma ao seu microfone, veja <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Todos os
-controles estão em <a href="#6-the-channel-strip-section-by-section">6</a>. As configurações que você faz no
-PRO continuam valendo no SIMPLE.</p>
+controles estão em <a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Passo 8: executar o PRE-FLIGHT</h3>
 <p>Alguns segundos depois de iniciar, o <span class="key">PRE-FLIGHT</span> confere a configuração e só abre se algo
 precisar de atenção (não no primeiríssimo início, quando o SETUP vem primeiro). Execute-o a qualquer
@@ -11801,7 +11656,7 @@ estar verdes. Veja <a href="#181-pre-flight">18.1</a>.</p>
 <h3 id="the-sidebar">A barra lateral</h3>
 <p>As páginas são cartões ao longo da esquerda: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>,
 <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. A página exibida tem uma borda azul acesa. Enquanto o Mixer está
-aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só <span class="key">ADD CHANNEL</span> e <span class="key">ADD APP</span>):</p>
+aparecendo, a barra lateral também tem estes cartões:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -11834,7 +11689,7 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só <span cla
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Recolhe cada strip à sua barra de nome e à sua seção de fader (pan, SOLO, CUT, SEL, o fader e sua leitura), com o medidor de nível do strip ao lado da escala do fader; a mesa encolhe e volta ao topo. Acesa enquanto está compacta; clique de novo para os strips inteiros. Também <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> no FIND</td>
+<td>Recolhe cada strip à sua barra de nome e à sua seção de fader (pan, SOLO, CUT, SEL, o fader e sua leitura); a mesa encolhe e volta ao topo. Acesa enquanto está compacta; clique de novo para os strips inteiros. Também <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> no FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -11891,13 +11746,15 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só <span cla
 <td>Suas mixagens guardadas. <strong>+</strong> guarda uma nova (veja <a href="#141-scenes">14.1</a>)</td>
 </tr>
 <tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>A mesma mixagem, simples ou como o console inteiro (veja o <a href="#step-7-pro-for-the-whole-console">passo 7</a>)</td>
+<td>Em uma janela estreita, a luz de status some primeiro, depois o MINI, depois o HISTORY. O FIND chega</td>
+<td></td>
+</tr>
+<tr>
+<td>a todos.</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
-<p>Em uma janela estreita, a luz de status some primeiro, depois o MINI, depois o HISTORY. O FIND chega
-a todos.</p>
 <h3 id="the-transport">O transporte</h3>
 <p>Sob a barra superior, em toda visão do Mixer, você tem o tempo da fita (decorrido e duração da
 faixa), o nome da faixa e as teclas dela: <strong>voltar 10 s</strong>, <strong>parar</strong>, <strong>tocar/pausar</strong>, <strong>avançar
@@ -12509,7 +12366,7 @@ adicionar ou remover seus plugins, renomeá-lo ou removê-lo.</p>
 seu modelo, listado por marca), <span class="key">ALERT IF SILENT</span> (abaixo de -60 dBFS por <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ou <span class="key">5 MIN</span>, ou <span class="key">OFF</span>) e
 <span class="key">ALERT IF CLIPPING</span> (enquanto o LIMIT está desligado), que fazem o ícone da bandeja piscar e
 escrevem no log de eventos, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, espaçadores,
-<span class="key">RENAME...</span> e <span class="key">REMOVE</span>.</p>
+<span class="key">COLOUR</span> (ao longo da barra de nome e no bloco dela em Routing), <span class="key">RENAME...</span> e <span class="key">REMOVE</span>.</p>
 <p>As saídas são criadas para você, uma por dispositivo (veja <a href="#outputs-are-devices">Saídas são dispositivos</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (no menu do botão direito de uma saída, ou no FIND) monta um retorno por convidado (tudo menos a própria voz dele) e
 stems de voz, música e jogo.</p>
@@ -12532,8 +12389,8 @@ até o arquivo do plugin mudar.</p>
 <h3 id="the-plugin-panel">O painel de plugins</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="O painel de plugins do strip selecionado"><img data-shot="images/console/plugins.jpg" alt="O painel de plugins do strip selecionado" loading="lazy"></button><figcaption>O painel de plugins do strip selecionado</figcaption></figure></div>
 <p>Clique em <span class="key">PLUGINS</span> na barra lateral. Um painel sobe sob os strips com os plugins do <strong>strip
-selecionado</strong> na ordem em que rodam. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> o abre nesse strip, e muda para o
-PRO se o SIMPLE estiver aparecendo. Cada cartão mostra:</p>
+selecionado</strong> na ordem em que rodam. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> o abre nesse strip. Cada cartão
+mostra:</p>
 <ul>
 <li><span class="key">CPU</span>: a parte do tempo de processamento que o plugin usa (verde, âmbar acima de 2%, vermelho
   acima de 5%)</li>
@@ -13172,7 +13029,7 @@ As teclas <strong>On the mixer</strong> dela também funcionam no console (<a hr
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, ou <strong>Start mapping</strong> em SETTINGS &gt; MIDI &amp; OSC, o inicia; Esc o encerra. Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, no SIMPLE e no PRO, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo)</td>
+<td>Ctrl+L, ou <strong>Start mapping</strong> em SETTINGS &gt; MIDI &amp; OSC, o inicia; Esc o encerra. Clique em um controle na tela e mexa em um knob ou tecla do seu controlador. O fader, o pan, CUT, SOLO, a energia e as teclas de roteamento de cada strip podem ser mapeados, assim como cenas, pads e a fita. A roda do mouse rola a mesa durante o mapeamento (Shift+roda para cima e para baixo)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -13228,8 +13085,7 @@ permissão por conta própria.</p>
 <p>Arraste a <strong>barra de nome</strong> de um canal para o lado no Mixer (role para baixo até a seção NAME), ou
 arraste o bloco dele na página Routing. Uma barra azul mostra onde ele vai cair, e os strips
 deslizam para o lugar. Espaçadores se movem com o strip que seguem. Buses e saídas se movem do mesmo
-jeito, cada um entre os do seu tipo, e as rotas deles vão junto. O SIMPLE mostra as saídas na mesma
-ordem.</p>
+jeito, cada um entre os do seu tipo, e as rotas deles vão junto.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Agrupar canais em um bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span> e depois renomeie (botão direito &gt; <span class="key">RENAME...</span>).</li>
@@ -13423,7 +13279,7 @@ CUT. Cada um tem um <span class="key">FIX</span>.</p>
 <ul>
 <li>Um programa continua tocando no próprio dispositivo além de tocar no canal dele. Se o canal dele
   estiver roteado para uma saída nesse mesmo dispositivo, você o ouve direto e pelo Faider. Desligue
-  essa rota (no SIMPLE, a tecla da saída no canal), ou mude o programa para outro dispositivo. O
+  essa rota (a caixa de roteamento dela no canal), ou mude o programa para outro dispositivo. O
   PRE-FLIGHT avisa sobre isso.</li>
 <li>O alto-falante padrão do Windows está definido como o cabo virtual. O PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span>
   o nomeia, e <span class="key">SET MY DEFAULTS</span> coloca seus alto-falantes de volta.</li>
@@ -13920,9 +13776,9 @@ gaat terug.</p>
 </tbody>
 </table></div>
 <p>Je microfoons worden niet naar je eigen koptelefoon gerouteerd, zodat je geen vertraagde echo van je
-stem hoort. Om jezelf te horen, zet je de toets <span class="key">HEADPHONES</span> van de microfoon aan (stap 6).</p>
-<p>SETUP is geen pagina: start het opnieuw via <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) of de <span class="key">SETUP</span>-toets in
-SIMPLE als je een apparaat of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.</p>
+stem hoort. Om jezelf te horen, routeer je de microfoon naar je koptelefoon (stap 6).</p>
+<p>SETUP is geen pagina: start het opnieuw via <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) als je een apparaat
+of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.</p>
 <h3 id="step-5-check-the-audio-is-running">Stap 5: Controleren of de audio draait</h3>
 <p>Kijk naar het <strong>gezondheidslicht</strong> rechtsboven.</p>
 <ul>
@@ -13935,49 +13791,27 @@ SIMPLE als je een apparaat of programma toevoegt. Het voegt toe wat ontbreekt en
 ingebouwde klok; zie <a href="#clocking">Klokken</a>), en met <span class="key">BUFFER</span> stel je de buffergrootte in. De kleinste grootte
 die zonder gekraak speelt, geeft je de minste vertraging. 256 of 512 samples past bij de meeste systemen.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Stap 6: Jezelf horen en apps jou laten horen</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="De SIMPLE-tafel met een demomix: zes kanalen, elk met een toets voor HEADPHONES en STREAM, en twee uitgangen"><img data-shot="images/console/simple.jpg" alt="De SIMPLE-tafel met een demomix: zes kanalen, elk met een toets voor HEADPHONES en STREAM, en twee uitgangen" loading="lazy"></button><figcaption>De SIMPLE-tafel met een demomix: zes kanalen, elk met een toets voor HEADPHONES en STREAM, en twee uitgangen</figcaption></figure></div>
-<p>De Mixer opent in <span class="key">SIMPLE</span>. Elk kanaal toont zijn naam, waarnaar het luistert, een toets voor elke
-uitgang, zijn fader en meter, <span class="key">CUT</span> en <span class="key">SOLO</span>. Elke uitgang toont het apparaat waarop hij speelt,
-zijn fader en meter.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Toets op een kanaal</th>
-<th>Betekent</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gewoon grijs</td>
-<td>Niet gerouteerd naar die uitgang</td>
-</tr>
-<tr>
-<td>Gevuld in de kleur van de uitgang</td>
-<td>Daarheen gerouteerd. Klik om uit te zetten</td>
-</tr>
-<tr>
-<td>Alleen gekleurde rand, <span class="key">VIA BUS</span></td>
-<td>Het komt er via een bus (ingesteld in PRO). Klik om het ook rechtstreeks erheen te routeren</td>
-</tr>
-</tbody>
-</table></div>
+<p>De Mixer toont een strip voor elk kanaal, elke bus en elke uitgang. De <strong>routeringsvakjes</strong> in de header
+van elke strip tonen waar hij heen gaat: één vakje per bus en uitvoerapparaat, verlicht waar hij
+heen gerouteerd is (zie <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Spreek en kijk hoe de meter van je microfoon beweegt.</li>
-<li>Om jezelf te horen, klik je op de toets <span class="key">HEADPHONES</span> van de microfoon.</li>
+<li>Spreek en kijk hoe de niveaumeter van je microfoon beweegt.</li>
+<li>Om jezelf te horen, zet je het vakje van je koptelefoon aan in de routeringsvakjes van de microfoon.</li>
 <li>Kies in Discord, je game, OBS of een andere app <strong>CABLE Output</strong> als microfoon.</li>
 <li>Controleer wat ze krijgen: <span class="key">HEAR WHAT THEY HEAR</span> (op de rij <span class="key">MIC OUTPUT</span> van PRE-FLIGHT, of in <span class="key">FIND</span>, Ctrl+K) neemt 5 seconden op van wat apps
    ontvangen en speelt het voor je af.</li>
 </ol>
 <p>Hoor je een programma dubbel, zie dan <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> en <span class="key">+ APP</span> voegen kanalen toe (<span class="key">+ APP</span> toont ook draaiende programma's die <span class="key">NOT PLAYING YET</span> zijn). <span class="key">+ OUTPUT</span> voegt een uitgang toe op een apparaat dat er geen heeft.
-De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor <span class="key">RENAME...</span>,
-de kleur, <span class="key">HEADPHONE EQ</span> (een uitgang), <span class="key">IN THE MINI MIXER</span> en <span class="key">REMOVE</span>. Als je het kanaal van een
+<p><span class="key">ADD CHANNEL</span> en <span class="key">ADD APP</span> in de zijbalk voegen kanalen toe (<span class="key">ADD APP</span> toont ook draaiende programma's die <span class="key">NOT PLAYING YET</span> zijn). Routeer iets naar een apparaat zonder uitgang en er wordt een uitgang op gemaakt.
+Rechtsklik op een uitgang voor <span class="key">DEVICE...</span> (waar hij speelt) en <span class="key">HEADPHONE EQ</span>. Rechtsklik op een strip voor <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> en <span class="key">REMOVE</span>. Als je het kanaal van een
 programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal niet vanzelf terugkomt.</p>
 <h3 id="step-7-pro-for-the-whole-console">Stap 7: PRO, voor de hele console</h3>
-<p>De schakelaar <span class="key">SIMPLE / PRO</span> in de bovenbalk toont in beide gevallen dezelfde mix. <span class="key">PRO</span> is de hele
-console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinators, plugins.</p>
+<p>De Mixer is de hele console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en
+combinators, plugins. Voor een kleinere weergave vouwt <span class="key">COMPACT</span> in de zijbalk elke strip op tot
+zijn naambalk en fadersectie. Klik er nog eens op voor de hele strips (zie <a href="#the-sidebar">De zijbalk</a>).</p>
 <p>Om je microfoon te vormen, zie <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Elke knop staat in
-<a href="#6-the-channel-strip-section-by-section">6</a>. Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.</p>
+<a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Stap 8: PRE-FLIGHT uitvoeren</h3>
 <p>Een paar seconden na het starten controleert <span class="key">PRE-FLIGHT</span> de opstelling en opent alleen als er iets aandacht nodig heeft
 (niet bij de allereerste start, wanneer SETUP eerst komt). Start het op elk moment via
@@ -14002,7 +13836,7 @@ console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinator
 <h3 id="the-sidebar">De zijbalk</h3>
 <p>De pagina's zijn kaarten langs de linkerkant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. De pagina die je ziet, heeft een oplichtende blauwe rand. Zolang de Mixer zichtbaar is, heeft de zijbalk ook
-deze kaarten (in SIMPLE alleen <span class="key">ADD CHANNEL</span> en <span class="key">ADD APP</span>):</p>
+deze kaarten:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -14035,7 +13869,7 @@ deze kaarten (in SIMPLE alleen <span class="key">ADD CHANNEL</span> en <span cla
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Vouwt elke strip op tot zijn naambalk en zijn fadersectie (pan, SOLO, CUT, SEL, de fader en zijn uitlezing), met de niveaumeter van de strip naast de schaal van de fader; de tafel krimpt mee en gaat naar boven. Licht op zolang de tafel compact is; klik nog eens voor de hele strips. Ook <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
+<td>Vouwt elke strip op tot zijn naambalk en zijn fadersectie (pan, SOLO, CUT, SEL, de fader en zijn uitlezing); de tafel krimpt mee en gaat naar boven. Licht op zolang de tafel compact is; klik nog eens voor de hele strips. Ook <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> in FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -14090,10 +13924,6 @@ deze kaarten (in SIMPLE alleen <span class="key">ADD CHANNEL</span> en <span cla
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Je opgeslagen mixen. Met <strong>+</strong> sla je een nieuwe op (zie <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Dezelfde mix, eenvoudig of als de hele console (zie <a href="#step-7-pro-for-the-whole-console">Stap 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -14700,7 +14530,7 @@ het pad te hernoemen of te verwijderen.</p>
 model, op merk gesorteerd), <span class="key">ALERT IF SILENT</span> (onder -60 dBFS gedurende <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> of <span class="key">5 MIN</span>, of <span class="key">OFF</span>) en <span class="key">ALERT IF CLIPPING</span>
 (zolang LIMIT uit staat), die het pictogram in het systeemvak laten knipperen en in het
 gebeurtenissenlogboek schrijven, <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, spacers,
-<span class="key">RENAME...</span> en <span class="key">REMOVE</span>.</p>
+<span class="key">COLOUR</span> (langs zijn naambalk en op zijn Routing-blok), <span class="key">RENAME...</span> en <span class="key">REMOVE</span>.</p>
 <p>Uitgangen worden voor je gemaakt, één per apparaat (zie <a href="#outputs-are-devices">Uitgangen zijn apparaten</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (in het rechtsklikmenu van een uitgang, of in FIND) bouwt een feed per gast (alles behalve hun eigen stem) en
 stems voor stem, muziek en game.</p>
@@ -14723,8 +14553,8 @@ verandert.</p>
 <h3 id="the-plugin-panel">Het pluginpaneel</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Het pluginpaneel voor de geselecteerde strip"><img data-shot="images/console/plugins.jpg" alt="Het pluginpaneel voor de geselecteerde strip" loading="lazy"></button><figcaption>Het pluginpaneel voor de geselecteerde strip</figcaption></figure></div>
 <p>Klik op <span class="key">PLUGINS</span> in de zijbalk. Een paneel schuift omhoog onder de strips met de plugins van de <strong>geselecteerde strip</strong>
-in de volgorde waarin ze draaien. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> opent het op die strip en schakelt over naar
-PRO als SIMPLE in beeld is. Elke kaart toont:</p>
+in de volgorde waarin ze draaien. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> opent het op die strip. Elke kaart
+toont:</p>
 <ul>
 <li><span class="key">CPU</span>: het aandeel van de plugin in de verwerkingstijd (groen, oranje boven 2 %, rood boven 5 %)</li>
 <li><strong>Latency</strong>: de vertraging die hij toevoegt</li>
@@ -15356,7 +15186,7 @@ werken (<a href="#191-keyboard-shortcuts">19.1</a>). De toetsen onder <strong>On
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, of <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, start het; Esc beëindigt het. Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag)</td>
+<td>Ctrl+L, of <strong>Start mapping</strong> in SETTINGS &gt; MIDI &amp; OSC, start het; Esc beëindigt het. Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -15411,7 +15241,7 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 <p>Sleep de <strong>naambalk</strong> van een kanaal opzij op de Mixer (scrol omlaag naar de sectie NAME), of sleep zijn
 blok op de pagina Routing. Een blauwe balk toont waar het terechtkomt, en de strips glijden op hun plek.
 Spacers verhuizen met de strip die ze volgen. Bussen en uitgangen verplaatsen op dezelfde manier, elk onder zijn eigen
-soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.</p>
+soort, en hun routes gaan mee.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Kanalen groeperen in een bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, en hernoem hem dan (rechtsklik &gt; <span class="key">RENAME...</span>).</li>
@@ -15601,8 +15431,8 @@ solo's, key listen, gain trims van meer dan 12 dB afwijking, en uitgangen op CUT
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Ik hoor iets dubbel, of een echo</summary><div class="trouble-body">
 <ul>
 <li>Een programma blijft op zijn eigen apparaat spelen en ook in zijn kanaal. Is zijn kanaal gerouteerd naar
-  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (in SIMPLE
-  de toets van de uitgang op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
+  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (zijn
+  routeringsvakje op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
   waarschuwt hiervoor.</li>
 <li>De standaardspeaker van Windows staat op de virtuele kabel. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> noemt hem,
   en <span class="key">SET MY DEFAULTS</span> zet je speakers terug.</li>
@@ -16096,9 +15926,9 @@ dalej, <span class="key">BACK</span> wraca.</p>
 </tbody>
 </table></div>
 <p>Twoje mikrofony nie są skierowane do twoich słuchawek, więc nie słyszysz opóźnionego echa własnego
-głosu. Żeby usłyszeć siebie, zapal klawisz <span class="key">HEADPHONES</span> mikrofonu (krok 6).</p>
-<p>SETUP to nie strona: uruchom go ponownie z <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) albo z klawisza <span class="key">SETUP</span>
-w SIMPLE, gdy dodasz urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.</p>
+głosu. Żeby usłyszeć siebie, skieruj mikrofon do słuchawek (krok 6).</p>
+<p>SETUP to nie strona: uruchom go ponownie z <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>), gdy dodasz
+urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.</p>
 <h3 id="step-5-check-the-audio-is-running">Krok 5: Sprawdź, czy audio działa</h3>
 <p>Spójrz na <strong>kontrolkę stanu</strong> w prawym górnym rogu.</p>
 <ul>
@@ -16112,49 +15942,27 @@ zegar wbudowany; zobacz <a href="#clocking">Zegar</a>), a <span class="key">BUFF
 rozmiar, przy którym nie ma trzasków, daje najmniejsze opóźnienie. 256 lub 512 próbek pasuje do
 większości systemów.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Krok 6: Usłysz siebie i pozwól aplikacjom usłyszeć ciebie</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Konsola SIMPLE z miksem demonstracyjnym: sześć kanałów, każdy z klawiszem HEADPHONES i STREAM, oraz dwa wyjścia"><img data-shot="images/console/simple.jpg" alt="Konsola SIMPLE z miksem demonstracyjnym: sześć kanałów, każdy z klawiszem HEADPHONES i STREAM, oraz dwa wyjścia" loading="lazy"></button><figcaption>Konsola SIMPLE z miksem demonstracyjnym: sześć kanałów, każdy z klawiszem HEADPHONES i STREAM, oraz dwa wyjścia</figcaption></figure></div>
-<p>Mixer otwiera się w <span class="key">SIMPLE</span>. Każdy kanał pokazuje swoją nazwę, czego słucha, klawisz dla każdego
-wyjścia, swój fader i miernik, <span class="key">CUT</span> i <span class="key">SOLO</span>. Każde wyjście pokazuje urządzenie, na którym gra,
-swój fader i miernik.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Klawisz na kanale</th>
-<th>Znaczy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Zwykły szary</td>
-<td>Nie skierowany na to wyjście</td>
-</tr>
-<tr>
-<td>Wypełniony kolorem wyjścia</td>
-<td>Skierowany tam. Kliknij, żeby wyłączyć</td>
-</tr>
-<tr>
-<td>Tylko kolorowa krawędź, <span class="key">VIA BUS</span></td>
-<td>Dociera tam przez bus (ustawiony w PRO). Kliknij, żeby skierować go tam też bezpośrednio</td>
-</tr>
-</tbody>
-</table></div>
+<p>Mixer pokazuje pasek dla każdego kanału, busa i wyjścia. <strong>Pola routingu</strong> w nagłówku każdego
+paska pokazują, dokąd on trafia: jedno pole na każdy bus i urządzenie wyjściowe, zapalone tam, gdzie
+jest skierowany (zobacz <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Mów i patrz, jak rusza się miernik twojego mikrofonu.</li>
-<li>Żeby usłyszeć siebie, kliknij klawisz <span class="key">HEADPHONES</span> mikrofonu.</li>
+<li>Mów i patrz, jak rusza się miernik poziomu twojego mikrofonu.</li>
+<li>Żeby usłyszeć siebie, zapal pole swoich słuchawek w polach routingu mikrofonu.</li>
 <li>W Discordzie, w grze, w OBS lub w dowolnej innej aplikacji wybierz <strong>CABLE Output</strong> jako mikrofon.</li>
 <li>Sprawdź, co dostają: <span class="key">HEAR WHAT THEY HEAR</span> (w wierszu <span class="key">MIC OUTPUT</span> w PRE-FLIGHT albo w <span class="key">FIND</span>, Ctrl+K) nagrywa 5 sekund tego, co
    odbierają aplikacje, i odtwarza ci to.</li>
 </ol>
 <p>Jeśli słyszysz program dwa razy, zobacz <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> i <span class="key">+ APP</span> dodają kanały (<span class="key">+ APP</span> wylicza też uruchomione programy, które są <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> dodaje wyjście na urządzeniu, które go nie ma.
-Klawisz urządzenia pod nazwą wyjścia zmienia, gdzie ono gra. Kliknij nazwę prawym przyciskiem, żeby
-dostać <span class="key">RENAME...</span>, kolor, <span class="key">HEADPHONE EQ</span> (wyjście), <span class="key">IN THE MINI MIXER</span> i <span class="key">REMOVE</span>. Usunięcie
+<p><span class="key">ADD CHANNEL</span> i <span class="key">ADD APP</span> na panelu bocznym dodają kanały (<span class="key">ADD APP</span> wylicza też uruchomione programy, które są <span class="key">NOT PLAYING YET</span>). Skieruj coś na urządzenie, które nie ma wyjścia, a powstanie na nim wyjście.
+Prawy przycisk na wyjściu daje <span class="key">DEVICE...</span> (gdzie ono gra) i <span class="key">HEADPHONE EQ</span>. Prawy przycisk na dowolnym pasku daje <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> i <span class="key">REMOVE</span>. Usunięcie
 kanału programu usuwa też jego regułę aplikacji, więc kanał nie wraca sam.</p>
 <h3 id="step-7-pro-for-the-whole-console">Krok 7: PRO, czyli cała konsola</h3>
-<p>Przełącznik <span class="key">SIMPLE / PRO</span> na górnym pasku pokazuje ten sam miks w obu trybach. <span class="key">PRO</span> to cała
-konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.</p>
+<p>Mixer to cała konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.
+Dla mniejszego widoku <span class="key">COMPACT</span> na panelu bocznym składa każdy pasek do jego paska nazwy i sekcji
+suwaka. Kliknij go ponownie, żeby wróciły całe paski (zobacz <a href="#the-sidebar">Panel boczny</a>).</p>
 <p>Żeby ukształtować swój mikrofon, zobacz <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Każdy element
-jest opisany w <a href="#6-the-channel-strip-section-by-section">6</a>. Ustawienia zrobione w PRO nadal działają w SIMPLE.</p>
+jest opisany w <a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Krok 8: Uruchom PRE-FLIGHT</h3>
 <p>Kilka sekund po starcie <span class="key">PRE-FLIGHT</span> sprawdza konfigurację i otwiera się tylko wtedy, gdy coś
 wymaga uwagi (nie przy pierwszym starcie, kiedy najpierw jest SETUP). Uruchom go kiedy chcesz przez
@@ -16180,7 +15988,7 @@ Zobacz <a href="#181-pre-flight">18.1</a>.</p>
 <h3 id="the-sidebar">Panel boczny</h3>
 <p>Strony są kartami po lewej stronie: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Widoczna strona ma jasnoniebieską krawędź. Gdy widać Mixer, panel boczny ma też te
-karty (w SIMPLE tylko <span class="key">ADD CHANNEL</span> i <span class="key">ADD APP</span>):</p>
+karty:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -16213,7 +16021,7 @@ karty (w SIMPLE tylko <span class="key">ADD CHANNEL</span> i <span class="key">A
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Składa każdy pasek do jego paska nazwy i sekcji suwaka (panorama, SOLO, CUT, SEL, suwak i jego odczyt), z miernikiem poziomu paska obok skali suwaka; konsola się skraca i wraca na górę. Świeci, dopóki konsola jest złożona; kliknij ponownie, żeby wróciły całe paski. Także <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> w FIND</td>
+<td>Składa każdy pasek do jego paska nazwy i sekcji suwaka (panorama, SOLO, CUT, SEL, suwak i jego odczyt); konsola się skraca i wraca na górę. Świeci, dopóki konsola jest złożona; kliknij ponownie, żeby wróciły całe paski. Także <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> w FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -16268,10 +16076,6 @@ karty (w SIMPLE tylko <span class="key">ADD CHANNEL</span> i <span class="key">A
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>Twoje zapisane miksy. <strong>+</strong> zapisuje nowy (zobacz <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Ten sam miks, w prostej postaci albo jako cała konsola (zobacz <a href="#step-7-pro-for-the-whole-console">Krok 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -16879,7 +16683,8 @@ usunąć jej wtyczki, zmienić jej nazwę albo ją usunąć.</p>
 <p>Prawy przycisk na wyjściu daje <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (korekcja słuchawek: <span class="key">NONE</span> albo
 twój model, według marki), <span class="key">ALERT IF SILENT</span> (poniżej -60 dBFS przez <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> lub <span class="key">5 MIN</span>, albo <span class="key">OFF</span>) i <span class="key">ALERT IF CLIPPING</span>
 (gdy LIMIT jest wyłączony), które migają ikoną w zasobniku i zapisują do dziennika zdarzeń,
-<span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, odstępy, <span class="key">RENAME...</span> i <span class="key">REMOVE</span>.</p>
+<span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, odstępy, <span class="key">COLOUR</span> (wzdłuż jego paska nazwy i
+na jego bloku w Routing), <span class="key">RENAME...</span> i <span class="key">REMOVE</span>.</p>
 <p>Wyjścia tworzą się same, po jednym na urządzenie (zobacz <a href="#outputs-are-devices">Wyjścia to urządzenia</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (w menu prawego przycisku wyjścia albo w FIND) buduje osobny feed dla każdego gościa (wszystko poza jego własnym
 głosem) oraz stemy głosu, muzyki i gry.</p>
@@ -16902,8 +16707,8 @@ plik wtyczki się nie zmieni.</p>
 <h3 id="the-plugin-panel">Panel wtyczek</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Panel wtyczek dla zaznaczonego paska"><img data-shot="images/console/plugins.jpg" alt="Panel wtyczek dla zaznaczonego paska" loading="lazy"></button><figcaption>Panel wtyczek dla zaznaczonego paska</figcaption></figure></div>
 <p>Kliknij <span class="key">PLUGINS</span> na panelu bocznym. Pod paskami wysuwa się panel z wtyczkami <strong>zaznaczonego
-paska</strong> w kolejności, w jakiej działają. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> otwiera go na tym pasku i
-przełącza na PRO, jeśli widać SIMPLE. Każda karta pokazuje:</p>
+paska</strong> w kolejności, w jakiej działają. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> otwiera go na tym pasku.
+Każda karta pokazuje:</p>
 <ul>
 <li><span class="key">CPU</span>: udział wtyczki w czasie przetwarzania (zielony, bursztynowy powyżej 2 %, czerwony powyżej 5 %)</li>
 <li><strong>Latency</strong>: opóźnienie, które dodaje</li>
@@ -17534,7 +17339,7 @@ klawisze, które są zawsze takie same, i gdzie działają (<a href="#191-keyboa
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L albo <strong>Start mapping</strong> w SETTINGS &gt; MIDI &amp; OSC je uruchamia; Esc kończy. Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, w SIMPLE i w PRO, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół)</td>
+<td>Ctrl+L albo <strong>Start mapping</strong> w SETTINGS &gt; MIDI &amp; OSC je uruchamia; Esc kończy. Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -17590,7 +17395,7 @@ proszą o zgodę.</p>
 <p>Przeciągnij <strong>pasek nazwy</strong> kanału w bok w Mixerze (przewiń w dół do sekcji NAME) albo przeciągnij
 jego blok na stronie Routing. Niebieski pasek pokazuje, gdzie wyląduje, a paski płynnie wskakują na
 miejsce. Odstępy przesuwają się z paskiem, za którym stoją. Busy i wyjścia przesuwa się tak samo,
-każde wśród swojego rodzaju, a ich trasy idą z nimi. SIMPLE pokazuje wyjścia w tej samej kolejności.</p>
+każde wśród swojego rodzaju, a ich trasy idą z nimi.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Zgrupuj kanały w bus</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, potem zmień jego nazwę (prawy przycisk &gt; <span class="key">RENAME...</span>).</li>
@@ -17780,7 +17585,7 @@ poprzednia sesja: sola, key listen, gain trimy odbiegające o więcej niż 12 dB
 <ul>
 <li>Program gra nadal na własnym urządzeniu, a także do swojego kanału. Jeśli jego kanał jest
   skierowany na wyjście na tym samym urządzeniu, słyszysz go bezpośrednio i przez Faider. Wyłącz tę
-  trasę (w SIMPLE klawisz tego wyjścia na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
+  trasę (jej polem routingu na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
   ostrzega o tym.</li>
 <li>Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> go wskazuje,
   a <span class="key">SET MY DEFAULTS</span> przywraca twoje głośniki.</li>
@@ -18274,8 +18079,8 @@ går tillbaka.</p>
 </tbody>
 </table></div>
 <p>Dina mikrofoner routas inte till dina egna hörlurar, så du hör inget fördröjt eko av din
-röst. För att höra dig själv tänder du mikrofonens tangent <span class="key">HEADPHONES</span> (steg 6).</p>
-<p>SETUP är ingen sida: kör den igen från <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) eller <span class="key">SETUP</span>-tangenten i SIMPLE
+röst. För att höra dig själv routar du mikrofonen till dina hörlurar (steg 6).</p>
+<p>SETUP är ingen sida: kör den igen från <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>)
 när du lägger till en enhet eller ett program. Den lägger till det som saknas och tar aldrig bort något.</p>
 <h3 id="step-5-check-the-audio-is-running">Steg 5: Kontrollera att ljudet går</h3>
 <p>Titta på <strong>hälsolampan</strong> uppe till höger.</p>
@@ -18289,49 +18094,27 @@ när du lägger till en enhet eller ett program. Den lägger till det som saknas
 inbyggda klockan; se <a href="#clocking">Klockor</a>), och <span class="key">BUFFER</span> ställer in dess buffertstorlek. Den minsta storlek
 som spelar utan knaster ger dig minst fördröjning. 256 eller 512 samplingar passar de flesta system.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Steg 6: Hör dig själv och låt appar höra dig</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="SIMPLE-bordet med en demomix: sex kanaler, var och en med en tangent för HEADPHONES och STREAM, och två utgångar"><img data-shot="images/console/simple.jpg" alt="SIMPLE-bordet med en demomix: sex kanaler, var och en med en tangent för HEADPHONES och STREAM, och två utgångar" loading="lazy"></button><figcaption>SIMPLE-bordet med en demomix: sex kanaler, var och en med en tangent för HEADPHONES och STREAM, och två utgångar</figcaption></figure></div>
-<p>Mixern öppnas i <span class="key">SIMPLE</span>. Varje kanal visar sitt namn, vad den lyssnar på, en tangent för varje
-utgång, sin fader och mätare, <span class="key">CUT</span> och <span class="key">SOLO</span>. Varje utgång visar enheten den spelar på,
-sin fader och mätare.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Tangent på en kanal</th>
-<th>Betyder</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vanlig grå</td>
-<td>Inte routad till den utgången</td>
-</tr>
-<tr>
-<td>Fylld i utgångens färg</td>
-<td>Routad dit. Klicka för att stänga av</td>
-</tr>
-<tr>
-<td>Bara färgad kant, <span class="key">VIA BUS</span></td>
-<td>Den kommer dit via en buss (inställd i PRO). Klicka för att routa den direkt dit också</td>
-</tr>
-</tbody>
-</table></div>
+<p>Mixern visar en strip för varje kanal, buss och utgång. <strong>Routingrutorna</strong> i varje strips
+header visar vart den går: en ruta per buss och utgångsenhet, tänd där den är routad (se
+<a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Prata och se hur mikrofonens mätare rör sig.</li>
-<li>För att höra dig själv klickar du på mikrofonens tangent <span class="key">HEADPHONES</span>.</li>
+<li>Prata och se hur mikrofonens nivåmätare rör sig.</li>
+<li>För att höra dig själv tänder du rutan för dina hörlurar bland mikrofonens routingrutor.</li>
 <li>Välj <strong>CABLE Output</strong> som mikrofon i Discord, ditt spel, OBS eller vilken annan app som helst.</li>
 <li>Kontrollera vad de får: <span class="key">HEAR WHAT THEY HEAR</span> (på raden <span class="key">MIC OUTPUT</span> i PRE-FLIGHT, eller i <span class="key">FIND</span>, Ctrl+K) spelar in 5 sekunder av vad appar
    tar emot och spelar upp det för dig.</li>
 </ol>
 <p>Om du hör ett program dubbelt, se <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> och <span class="key">+ APP</span> lägger till kanaler (<span class="key">+ APP</span> listar också program som körs och är <span class="key">NOT PLAYING YET</span>). <span class="key">+ OUTPUT</span> lägger till en utgång på en enhet som saknar en.
-Enhetstangenten under en utgångs namn ändrar var den spelar. Högerklicka på ett namn för <span class="key">RENAME...</span>,
-färgen, <span class="key">HEADPHONE EQ</span> (en utgång), <span class="key">IN THE MINI MIXER</span> och <span class="key">REMOVE</span>. När du tar bort ett programs
+<p><span class="key">ADD CHANNEL</span> och <span class="key">ADD APP</span> i sidofältet lägger till kanaler (<span class="key">ADD APP</span> listar också program som körs och är <span class="key">NOT PLAYING YET</span>). Routa något till en enhet som saknar utgång så skapas en utgång på den.
+Högerklicka på en utgång för <span class="key">DEVICE...</span> (var den spelar) och <span class="key">HEADPHONE EQ</span>. Högerklicka på vilken strip som helst för <span class="key">RENAME...</span>,
+<span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> och <span class="key">REMOVE</span>. När du tar bort ett programs
 kanal försvinner också dess appregel, så kanalen kommer inte tillbaka av sig själv.</p>
 <h3 id="step-7-pro-for-the-whole-console">Steg 7: PRO, för hela konsolen</h3>
-<p>Omkopplaren <span class="key">SIMPLE / PRO</span> i den övre raden visar samma mix i båda lägena. <span class="key">PRO</span> är hela
-konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, plugins.</p>
+<p>Mixern är hela konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och
+combinators, plugins. För en mindre vy fäller <span class="key">COMPACT</span> i sidofältet ihop varje strip till dess namnlist
+och fadersektion. Klicka igen för hela strippar (se <a href="#the-sidebar">Sidofältet</a>).</p>
 <p>För att forma din mikrofon, se <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Varje kontroll finns i
-<a href="#6-the-channel-strip-section-by-section">6</a>. Inställningar du gör i PRO fortsätter gälla i SIMPLE.</p>
+<a href="#6-the-channel-strip-section-by-section">6</a>.</p>
 <h3 id="step-8-run-pre-flight">Steg 8: Kör PRE-FLIGHT</h3>
 <p>Några sekunder efter start kontrollerar <span class="key">PRE-FLIGHT</span> uppsättningen och öppnas bara om något behöver uppmärksamhet
 (inte vid allra första starten, då SETUP kommer först). Kör den när som helst via
@@ -18356,7 +18139,7 @@ konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och combinators, 
 <h3 id="the-sidebar">Sidofältet</h3>
 <p>Sidorna är kort längs vänster kant: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Sidan som visas har en lysande blå kant. Medan Mixer visas har sidofältet också
-de här korten (i SIMPLE bara <span class="key">ADD CHANNEL</span> och <span class="key">ADD APP</span>):</p>
+de här korten:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -18389,7 +18172,7 @@ de här korten (i SIMPLE bara <span class="key">ADD CHANNEL</span> och <span cla
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Fäller ihop varje strip till dess namnlist och fadersektion (panorering, SOLO, CUT, SEL, fadern och dess avläsning), med stripens nivåmätare bredvid faderns skala; bordet krymper och går till toppen. Tänd medan bordet är kompakt; klicka igen för hela strippar. Även <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> i FIND</td>
+<td>Fäller ihop varje strip till dess namnlist och fadersektion (panorering, SOLO, CUT, SEL, fadern och dess avläsning); bordet krymper och går till toppen. Tänd medan bordet är kompakt; klicka igen för hela strippar. Även <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> i FIND</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -18446,12 +18229,11 @@ de här korten (i SIMPLE bara <span class="key">ADD CHANNEL</span> och <span cla
 <td>Dina sparade mixar. <strong>+</strong> sparar en ny (se <a href="#141-scenes">14.1</a>)</td>
 </tr>
 <tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Samma mix, enkel eller som hela konsolen (se <a href="#step-7-pro-for-the-whole-console">Steg 7</a>)</td>
+<td>I ett smalt fönster försvinner hälsolampan först, sedan MINI, sedan HISTORY. FIND når dem alla.</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
-<p>I ett smalt fönster försvinner hälsolampan först, sedan MINI, sedan HISTORY. FIND når dem alla.</p>
 <h3 id="the-transport">Transporten</h3>
 <p>Under den övre raden får du, i varje Mixer-vy, Tape-däckets tid (förfluten och spårets längd),
 spårets namn och dess tangenter: <strong>10 s bakåt</strong>, <strong>stopp</strong>, <strong>spela/paus</strong>, <strong>10 s framåt</strong>,
@@ -19054,7 +18836,7 @@ plugins, byta namn på den eller ta bort den.</p>
 <p>Högerklicka på en utgång för <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (hörlurskorrigering: <span class="key">NONE</span>, eller din
 modell, listad efter märke), <span class="key">ALERT IF SILENT</span> (under -60 dBFS i <span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> eller <span class="key">5 MIN</span>, eller <span class="key">OFF</span>) och <span class="key">ALERT IF CLIPPING</span>
 (medan LIMIT är av), som får ikonen i aktivitetsfältet att blinka och skriver till händelseloggen,
-<span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, spacers, <span class="key">RENAME...</span> och <span class="key">REMOVE</span>.</p>
+<span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, spacers, <span class="key">COLOUR</span> (längs dess namnlist och på dess Routing-block), <span class="key">RENAME...</span> och <span class="key">REMOVE</span>.</p>
 <p>Utgångar skapas åt dig, en per enhet (se <a href="#outputs-are-devices">Utgångar är enheter</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (i en utgångs högerklicksmeny, eller i FIND) bygger en feed per gäst (allt utom deras egen röst) och
 stems för röst, musik och spel.</p>
@@ -19077,8 +18859,8 @@ SETTINGS &gt; Audio ger långsamma plugins 60 eller 120). Resultatet kommer ihå
 <h3 id="the-plugin-panel">Pluginpanelen</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Pluginpanelen för den valda stripen"><img data-shot="images/console/plugins.jpg" alt="Pluginpanelen för den valda stripen" loading="lazy"></button><figcaption>Pluginpanelen för den valda stripen</figcaption></figure></div>
 <p>Klicka på <span class="key">PLUGINS</span> i sidofältet. En panel skjuts upp under strippar med den <strong>valda stripens</strong>
-plugins i den ordning de körs. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> öppnar den på den stripen och byter till
-PRO om SIMPLE visas. Varje kort visar:</p>
+plugins i den ordning de körs. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> öppnar den på den stripen. Varje kort
+visar:</p>
 <ul>
 <li><span class="key">CPU</span>: pluginets andel av bearbetningstiden (grön, gul över 2 %, röd över 5 %)</li>
 <li><strong>Latency</strong>: fördröjningen det lägger till</li>
@@ -19708,7 +19490,7 @@ fungerar också på konsolen (<a href="#5-the-console">5</a>).</p>
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L, eller <strong>Start mapping</strong> i SETTINGS &gt; MIDI &amp; OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt)</td>
+<td>Ctrl+L, eller <strong>Start mapping</strong> i SETTINGS &gt; MIDI &amp; OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -19763,7 +19545,7 @@ De få steg som kräver en administratör
 <p>Dra en kanals <strong>namnlist</strong> i sidled i Mixern (rulla ned till avsnittet NAME), eller dra dess
 block på sidan Routing. En blå list visar var den landar, och strippar glider på plats.
 Spacers flyttas med stripen de följer. Bussar och utgångar flyttas på samma sätt, var och en bland sin egen
-sort, och deras rutter följer med. SIMPLE visar utgångarna i samma ordning.</p>
+sort, och deras rutter följer med.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Gruppera kanaler i en buss</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, och byt sedan namn på den (högerklicka &gt; <span class="key">RENAME...</span>).</li>
@@ -19953,8 +19735,8 @@ inställt: solo, key listen, gain trims som ligger mer än 12 dB från noll, och
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 Jag hör något två gånger, eller ett eko</summary><div class="trouble-body">
 <ul>
 <li>Ett program fortsätter spela på sin egen enhet och även in i sin kanal. Om dess kanal är routad
-  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (i SIMPLE,
-  utgångens tangent på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
+  till en utgång på samma enhet hör du det direkt och via Faider. Stäng av den rutten (dess
+  routingruta på kanalen), eller flytta programmet till en annan enhet. PRE-FLIGHT
   varnar för detta.</li>
 <li>Windows standardhögtalare är inställd på den virtuella kabeln. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> pekar ut den,
   och <span class="key">SET MY DEFAULTS</span> sätter tillbaka dina högtalare.</li>
@@ -20448,9 +20230,9 @@ ilerler, <span class="key">BACK</span> geri döner.</p>
 </tbody>
 </table></div>
 <p>Mikrofonların kendi kulaklığına yönlendirilmez, böylece sesinin gecikmeli bir yankısını duymazsın.
-Kendini duymak için mikrofonun <span class="key">HEADPHONES</span> tuşunu yak (adım 6).</p>
-<p>SETUP bir sayfa değil: bir aygıt ya da program eklediğinde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) üzerinden ya da
-SIMPLE'daki <span class="key">SETUP</span> tuşuyla yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.</p>
+Kendini duymak için mikrofonu kulaklığına yönlendir (adım 6).</p>
+<p>SETUP bir sayfa değil: bir aygıt ya da program eklediğinde <span class="key">FIND</span> (<span class="key">SETUP: BUILD A MIX</span>) üzerinden
+yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.</p>
 <h3 id="step-5-check-the-audio-is-running">Adım 5: Sesin çalıştığını kontrol et</h3>
 <p>Sağ üstteki <strong>durum ışığına</strong> bak.</p>
 <ul>
@@ -20463,49 +20245,28 @@ SIMPLE'daki <span class="key">SETUP</span> tuşuyla yeniden çalıştır. Eksik 
 yerleşik saat; bkz. <a href="#clocking">Saat</a>), <span class="key">BUFFER</span> ise tampon boyutunu ayarlar. Çıtırtısız çalan en
 küçük boyut sana en düşük gecikmeyi verir. Çoğu sistem için 256 veya 512 örnek uygundur.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">Adım 6: Kendini duy ve uygulamaların seni duymasını sağla</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Örnek bir karışımla SIMPLE konsol: altı kanal, her birinde HEADPHONES ve STREAM tuşu, ve iki çıkış"><img data-shot="images/console/simple.jpg" alt="Örnek bir karışımla SIMPLE konsol: altı kanal, her birinde HEADPHONES ve STREAM tuşu, ve iki çıkış" loading="lazy"></button><figcaption>Örnek bir karışımla SIMPLE konsol: altı kanal, her birinde HEADPHONES ve STREAM tuşu, ve iki çıkış</figcaption></figure></div>
-<p>Mixer <span class="key">SIMPLE</span>'da açılır. Her kanal adını, neyi dinlediğini, her çıkış için bir tuşu, fader'ını ve
-ölçerini, <span class="key">CUT</span> ve <span class="key">SOLO</span>'yu gösterir. Her çıkış, çaldığı aygıtı, fader'ını ve ölçerini gösterir.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>Bir kanaldaki tuş</th>
-<th>Anlamı</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Düz gri</td>
-<td>O çıkışa yönlendirilmemiş</td>
-</tr>
-<tr>
-<td>Çıkışın renginde dolu</td>
-<td>Oraya yönlendirilmiş. Kapatmak için tıkla</td>
-</tr>
-<tr>
-<td>Yalnızca renkli kenar, <span class="key">VIA BUS</span></td>
-<td>Oraya bir bus üzerinden ulaşıyor (PRO'da kurulur). Doğrudan da yönlendirmek için tıkla</td>
-</tr>
-</tbody>
-</table></div>
+<p>Mixer her kanal, bus ve çıkış için bir şerit gösterir. Her şeridin header'ındaki <strong>yönlendirme
+kutuları</strong> nereye gittiğini gösterir: her bus ve çıkış aygıtı için bir kutu, yönlendirildiği yerde
+yanık (bkz. <a href="#4-how-routing-works">4</a>).</p>
 <ol>
-<li>Konuş ve mikrofonunun ölçerinin hareket etmesini izle.</li>
-<li>Kendini duymak için mikrofonun <span class="key">HEADPHONES</span> tuşuna tıkla.</li>
+<li>Konuş ve mikrofonunun seviye ölçerinin hareket etmesini izle.</li>
+<li>Kendini duymak için mikrofonun yönlendirme kutularında kulaklığının kutusunu yak.</li>
 <li>Discord'da, oyununda, OBS'te veya başka herhangi bir uygulamada mikrofon olarak <strong>CABLE Output</strong>'u seç.</li>
 <li>Onların ne aldığını kontrol et: <span class="key">HEAR WHAT THEY HEAR</span> (PRE-FLIGHT'ın <span class="key">MIC OUTPUT</span> satırında ya
    da <span class="key">FIND</span>'da, Ctrl+K), uygulamaların aldığı sesin 5 saniyesini kaydeder ve sana çalar.</li>
 </ol>
 <p>Bir programı iki kez duyuyorsan bkz. <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>.</p>
-<p><span class="key">+ CHANNEL</span> ve <span class="key">+ APP</span> kanal ekler (<span class="key">+ APP</span>, çalışan ama <span class="key">NOT PLAYING YET</span> olan programları da
-listeler). <span class="key">+ OUTPUT</span>, çıkışı olmayan bir aygıta çıkış ekler. Bir
-çıkışın adının altındaki aygıt tuşu nerede çaldığını değiştirir. <span class="key">RENAME...</span>, renk, <span class="key">HEADPHONE EQ</span>
-(bir çıkışta), <span class="key">IN THE MINI MIXER</span> ve <span class="key">REMOVE</span> için bir ada sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
+<p>Kenar çubuğundaki <span class="key">ADD CHANNEL</span> ve <span class="key">ADD APP</span> kanal ekler (<span class="key">ADD APP</span>, çalışan ama <span class="key">NOT PLAYING YET</span> olan programları da
+listeler). Çıkışı olmayan bir aygıta bir şey yönlendirirsen o aygıtta bir çıkış oluşur.
+<span class="key">DEVICE...</span> (nerede çaldığı) ve <span class="key">HEADPHONE EQ</span> için bir çıkışa sağ tıkla. <span class="key">RENAME...</span>, <span class="key">COLOUR</span>,
+<span class="key">IN THE MINI MIXER</span> ve <span class="key">REMOVE</span> için herhangi bir şeride sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.</p>
 <h3 id="step-7-pro-for-the-whole-console">Adım 7: PRO, konsolun tamamı için</h3>
-<p>Üst çubuktaki <span class="key">SIMPLE / PRO</span> anahtarı aynı karışımı iki halde de gösterir. <span class="key">PRO</span> konsolun
-tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve kombinatörler, eklentiler.</p>
+<p>Mixer konsolun tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve
+kombinatörler, eklentiler. Daha küçük bir görünüm için kenar çubuğundaki <span class="key">COMPACT</span> her şeridi ad
+çubuğuna ve fader bölümüne indirir. Tam şeritler için yeniden tıkla (bkz. <a href="#the-sidebar">Kenar çubuğu</a>).</p>
 <p>Mikrofonunu şekillendirmek için bkz. <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>. Her kontrol
-<a href="#6-the-channel-strip-section-by-section">6</a> içinde. PRO'da yaptığın ayarlar SIMPLE'da da çalışmaya devam eder.</p>
+<a href="#6-the-channel-strip-section-by-section">6</a> içinde.</p>
 <h3 id="step-8-run-pre-flight">Adım 8: PRE-FLIGHT'ı çalıştır</h3>
 <p>Başlangıçtan birkaç saniye sonra <span class="key">PRE-FLIGHT</span> düzeni kontrol eder ve yalnızca bir şeyin dikkat
 istemesi halinde açılır (SETUP'ın önce geldiği ilk başlangıçta değil). İstediğin zaman
@@ -20530,7 +20291,7 @@ olmalı. Bkz. <a href="#181-pre-flight">18.1</a>.</p>
 <h3 id="the-sidebar">Kenar çubuğu</h3>
 <p>Sayfalar solda aşağı doğru kartlardır: <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>,
 <span class="key">SETTINGS</span>. Görünen sayfanın kenarı parlak mavidir. Mixer görünürken kenar çubuğunda şu kartlar da
-bulunur (SIMPLE'da yalnızca <span class="key">ADD CHANNEL</span> ve <span class="key">ADD APP</span>):</p>
+bulunur:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -20563,7 +20324,7 @@ bulunur (SIMPLE'da yalnızca <span class="key">ADD CHANNEL</span> ve <span class
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>Her şeridi ad çubuğuna ve fader bölümüne (pan, SOLO, CUT, SEL, fader ve göstergesi) indirir; şeridin seviye ölçeri faderin ölçeğinin yanında görünür. Konsol buna göre kısalır ve en üste döner. Kompaktken yanar; tam şeritler için yeniden tıkla. FIND'da <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> de aynısını yapar</td>
+<td>Her şeridi ad çubuğuna ve fader bölümüne (pan, SOLO, CUT, SEL, fader ve göstergesi) indirir. Konsol buna göre kısalır ve en üste döner. Kompaktken yanar; tam şeritler için yeniden tıkla. FIND'da <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> de aynısını yapar</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -20620,12 +20381,11 @@ bulunur (SIMPLE'da yalnızca <span class="key">ADD CHANNEL</span> ve <span class
 <td>Kayıtlı karışımların. <strong>+</strong> yeni birini kaydeder (bkz. <a href="#141-scenes">14.1</a>)</td>
 </tr>
 <tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>Aynı karışım, sade ya da konsolun tamamı olarak (bkz. <a href="#step-7-pro-for-the-whole-console">Adım 7</a>)</td>
+<td>Dar bir pencerede önce durum ışığı gider, sonra MINI, sonra HISTORY. FIND hepsine ulaşır.</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
-<p>Dar bir pencerede önce durum ışığı gider, sonra MINI, sonra HISTORY. FIND hepsine ulaşır.</p>
 <h3 id="the-transport">Transport</h3>
 <p>Üst çubuğun altında, her Mixer görünümünde, Tape deck'in zamanını (geçen ve parça uzunluğu), parça
 adını ve tuşlarını görürsün: <strong>rewind 10 s</strong>, <strong>stop</strong>, <strong>play/pause</strong>, <strong>forward 10 s</strong>,
@@ -21227,7 +20987,8 @@ kaldırmak için ona sağ tık &gt; <span class="key">PATHS</span>.</p>
 <p>Bir çıkışa sağ tıklayınca <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span> (kulaklık düzeltmesi: <span class="key">NONE</span> ya da markaya
 göre listelenmiş modelin), <span class="key">ALERT IF SILENT</span> (<span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> ya da <span class="key">5 MIN</span> boyunca -60 dBFS'nin altında, ya da <span class="key">OFF</span>) ve <span class="key">ALERT IF CLIPPING</span>
 (LIMIT kapalıyken), ki bunlar tepsi simgesini yanıp söndürür ve olay günlüğüne yazar, <strong>IN THE MINI
-MIXER</strong>, <span class="key">MIX-MINUS AND STEMS...</span>, boşluklar, <span class="key">RENAME...</span> ve <span class="key">REMOVE</span> çıkar.</p>
+MIXER</strong>, <span class="key">MIX-MINUS AND STEMS...</span>, boşluklar, <span class="key">COLOUR</span> (ad çubuğu boyunca ve Routing'deki bloğunda),
+<span class="key">RENAME...</span> ve <span class="key">REMOVE</span> çıkar.</p>
 <p>Çıkışlar senin için, aygıt başına bir tane oluşturulur (bkz. <a href="#outputs-are-devices">Çıkışlar aygıttır</a>).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span> (bir çıkışın sağ tık menüsünde ya da FIND'da), her konuk için bir besleme
 (kendi sesi dışındaki her şey) ve ses, müzik ve oyun stem'leri oluşturur.</p>
@@ -21249,8 +21010,8 @@ time</strong> yavaş eklentilere 60 ya da 120 verir). Sonuç, eklenti dosyası d
 <h3 id="the-plugin-panel">Eklenti paneli</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="Seçili şerit için eklenti paneli"><img data-shot="images/console/plugins.jpg" alt="Seçili şerit için eklenti paneli" loading="lazy"></button><figcaption>Seçili şerit için eklenti paneli</figcaption></figure></div>
 <p>Kenar çubuğunda <span class="key">PLUGINS</span>'e tıkla. Şeritlerin altından, <strong>seçili şeridin</strong> eklentilerini çalıştıkları
-sırayla gösteren bir panel kayar. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> onu o şeritte açar ve SIMPLE
-görünüyorsa PRO'ya geçer. Her kart şunları gösterir:</p>
+sırayla gösteren bir panel kayar. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> onu o şeritte açar. Her kart
+şunları gösterir:</p>
 <ul>
 <li><span class="key">CPU</span>: eklentinin işlem süresindeki payı (yeşil, %2 üzerinde kehribar, %5 üzerinde kırmızı)</li>
 <li><strong>Latency</strong>: eklediği gecikme</li>
@@ -21884,7 +21645,7 @@ olan tuşları ve nerede çalıştıklarını listeler (<a href="#191-keyboard-s
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L ya da SETTINGS &gt; MIDI &amp; OSC içindeki <strong>Start mapping</strong> onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı)</td>
+<td>Ctrl+L ya da SETTINGS &gt; MIDI &amp; OSC içindeki <strong>Start mapping</strong> onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -21939,7 +21700,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
 <p>Bir kanalın <strong>ad çubuğunu</strong> Mixer'da yana sürükle (NAME bölümüne kadar aşağı kaydır) ya da Routing
 sayfasında bloğunu sürükle. Mavi bir çubuk nereye ineceğini gösterir ve şeritler yerlerine kayar.
 Boşluklar takip ettikleri şeritle birlikte taşınır. Bus'lar ve çıkışlar aynı şekilde, her biri kendi
-türü arasında taşınır ve yönlendirmeleri onlarla gider. SIMPLE çıkışları aynı sırayla gösterir.</p>
+türü arasında taşınır ve yönlendirmeleri onlarla gider.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 Kanalları bir bus'ta grupla</h3>
 <ol>
 <li><span class="key">ADD BUS</span>, sonra yeniden adlandır (sağ tık &gt; <span class="key">RENAME...</span>).</li>
@@ -22132,7 +21893,7 @@ kenara ayrılır</strong>. Olay günlüğü nedenini söyler:</p>
 <ul>
 <li>Bir program hem kendi aygıtında hem de kanalına çalmaya devam eder. Kanalı aynı aygıttaki bir
   çıkışa yönlendirilmişse onu hem doğrudan hem Faider üzerinden duyarsın. O yönlendirmeyi kapat
-  (SIMPLE'da kanaldaki o çıkışın tuşu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
+  (kanaldaki yönlendirme kutusu) ya da programı başka bir aygıta taşı. PRE-FLIGHT bu konuda
   uyarır.</li>
 <li>Windows'un varsayılan hoparlörü sanal kablo olarak ayarlı. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> bunu adıyla
   söyler ve <span class="key">SET MY DEFAULTS</span> hoparlörlerini yerine koyar.</li>
@@ -22589,8 +22350,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>マイクは自分のヘッドホンにはルーティングされないので、遅れて返ってくる自分の声のエコーは聞こえません。自分の声を聞きたいときは、マイクの <span class="key">HEADPHONES</span> キーを点灯させます(ステップ 6)。</p>
-<p>SETUP はページではありません。デバイスやプログラムを追加したら、<span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) や SIMPLE の <span class="key">SETUP</span> キーからいつでも実行し直せます。足りないものを追加するだけで、何も削除しません。</p>
+<p>マイクは自分のヘッドホンにはルーティングされないので、遅れて返ってくる自分の声のエコーは聞こえません。自分の声を聞きたいときは、マイクをヘッドホンにルーティングします(ステップ 6)。</p>
+<p>SETUP はページではありません。デバイスやプログラムを追加したら、<span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) からいつでも実行し直せます。足りないものを追加するだけで、何も削除しません。</p>
 <h3 id="step-5-check-the-audio-is-running">ステップ 5: オーディオが動いているか確認する</h3>
 <p>右上の<strong>ヘルスライト</strong>を見ます。</p>
 <ul>
@@ -22599,41 +22360,18 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 <p>ライトをクリックすると <span class="key">DEVICES</span> が開きます。<span class="key">STREAMS</span> には使用中のクロック(ASIO、Windows、内蔵クロック。<a href="#clocking">クロック</a>を参照)が表示され、<span class="key">BUFFER</span> でそのバッファサイズを設定します。ノイズなしで再生できる最小のサイズが、最も遅延の少ない設定です。多くの環境では 256 または 512 サンプルが適しています。</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">ステップ 6: 自分の声を聞き、アプリにも聞かせる</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="デモミックスの SIMPLE 卓: 6 つのチャンネルそれぞれに HEADPHONES と STREAM のキーがあり、出力が 2 つ"><img data-shot="images/console/simple.jpg" alt="デモミックスの SIMPLE 卓: 6 つのチャンネルそれぞれに HEADPHONES と STREAM のキーがあり、出力が 2 つ" loading="lazy"></button><figcaption>デモミックスの SIMPLE 卓: 6 つのチャンネルそれぞれに HEADPHONES と STREAM のキーがあり、出力が 2 つ</figcaption></figure></div>
-<p>ミキサーは <span class="key">SIMPLE</span> で開きます。各チャンネルには、名前、聞いている音源、出力ごとのキー、フェーダーとメーター、<span class="key">CUT</span> と <span class="key">SOLO</span> が表示されます。各出力には、再生しているデバイス、フェーダー、メーターが表示されます。</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>チャンネル上のキー</th>
-<th>意味</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>無地のグレー</td>
-<td>その出力にはルーティングされていません</td>
-</tr>
-<tr>
-<td>出力の色で塗りつぶし</td>
-<td>そこにルーティングされています。クリックでオフになります</td>
-</tr>
-<tr>
-<td>縁だけ色付き、<span class="key">VIA BUS</span></td>
-<td>バス経由で届いています(PRO で設定)。クリックすると、そこへ直接もルーティングします</td>
-</tr>
-</tbody>
-</table></div>
+<p>ミキサーには、チャンネル、バス、出力ごとにストリップが並びます。各ストリップのヘッダーにある<strong>ルーティングボックス</strong>が、どこへ送られているかを示します。バスと出力デバイスごとに 1 つのボックスがあり、ルーティングされている先が点灯します(<a href="#4-how-routing-works">4</a> を参照)。</p>
 <ol>
-<li>話して、マイクのメーターが動くのを確認します。</li>
-<li>自分の声を聞くには、マイクの <span class="key">HEADPHONES</span> キーをクリックします。</li>
+<li>話して、マイクのレベルメーターが動くのを確認します。</li>
+<li>自分の声を聞くには、マイクのルーティングボックスで、ヘッドホンのボックスを点灯させます。</li>
 <li>Discord、ゲーム、OBS など、他のアプリで、マイクとして <strong>CABLE Output</strong> を選びます。</li>
 <li>アプリに何が届いているか確認します。<span class="key">HEAR WHAT THEY HEAR</span>(PRE-FLIGHT の <span class="key">MIC OUTPUT</span> の行、または <span class="key">FIND</span>、Ctrl+K)で、アプリが受け取っている音を 5 秒間録音して、再生します。</li>
 </ol>
 <p>プログラムが二重に聞こえるときは、<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照してください。</p>
-<p><span class="key">+ CHANNEL</span> と <span class="key">+ APP</span> でチャンネルを追加します(<span class="key">+ APP</span> には、実行中で <span class="key">NOT PLAYING YET</span> のプログラムも並びます)。<span class="key">+ OUTPUT</span> は、出力がまだないデバイスに出力を追加します。出力名の下にあるデバイスキーで、再生先を変更できます。名前を右クリックすると、<span class="key">RENAME...</span>、色、<span class="key">HEADPHONE EQ</span>(出力)、<span class="key">IN THE MINI MIXER</span>、<span class="key">REMOVE</span> が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。</p>
+<p>サイドバーの <span class="key">ADD CHANNEL</span> と <span class="key">ADD APP</span> でチャンネルを追加します(<span class="key">ADD APP</span> には、実行中で <span class="key">NOT PLAYING YET</span> のプログラムも並びます)。出力のないデバイスに何かをルーティングすると、そのデバイスに出力が作られます。出力を右クリックすると、<span class="key">DEVICE...</span>(再生先)と <span class="key">HEADPHONE EQ</span> が使えます。どのストリップでも、右クリックすると <span class="key">RENAME...</span>、<span class="key">COLOUR</span>、<span class="key">IN THE MINI MIXER</span>、<span class="key">REMOVE</span> が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。</p>
 <h3 id="step-7-pro-for-the-whole-console">ステップ 7: PRO で、コンソール全体を使う</h3>
-<p>上部バーの <span class="key">SIMPLE / PRO</span> スイッチは、どちらでも同じミックスを表示します。<span class="key">PRO</span> はコンソール全体です。各チャンネルの入力、フィルター、ダイナミクス、EQ、バスとコンバイネーター、プラグインを操作できます。</p>
-<p>マイクの音を整えるには、<a href="#171-hear-yourself-set-up-a-microphone">17.1</a> を参照してください。すべてのコントロールは <a href="#6-the-channel-strip-section-by-section">6</a> にあります。PRO で行った設定は、SIMPLE でも有効です。</p>
+<p>ミキサーはコンソール全体です。各チャンネルの入力、フィルター、ダイナミクス、EQ、バスとコンバイネーター、プラグインを操作できます。小さく表示したいときは、サイドバーの <span class="key">COMPACT</span> で、すべてのストリップを名前バーとフェーダー部だけに折りたたみます。もう一度クリックすると、元のストリップに戻ります(<a href="#the-sidebar">サイドバー</a> を参照)。</p>
+<p>マイクの音を整えるには、<a href="#171-hear-yourself-set-up-a-microphone">17.1</a> を参照してください。すべてのコントロールは <a href="#6-the-channel-strip-section-by-section">6</a> にあります。</p>
 <h3 id="step-8-run-pre-flight">ステップ 8: PRE-FLIGHT を実行する</h3>
 <p>起動の数秒後に、<span class="key">PRE-FLIGHT</span> がセットアップを確認し、対処が必要なときだけ開きます(最初の起動では SETUP が先なので開きません)。いつでも <strong>SETTINGS &gt; Startup &amp; checks</strong> の <strong>Run pre-flight</strong>、または <span class="key">FIND</span> (Ctrl+K) から実行できます。すべての行が緑になるはずです。<a href="#181-pre-flight">18.1</a> を参照してください。</p>
 <h3 id="step-9-finish">ステップ 9: 仕上げ</h3>
@@ -22648,7 +22386,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>ウィンドウ</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ"><img data-shot="images/console/mixer.jpg" alt="デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ" loading="lazy"></button><figcaption>デモミックスの MIXER ページ: マイク 2 本、アプリのチャンネル 2 つ、パッド、テープ、バス 3 つ、出力 2 つ</figcaption></figure></div>
 <h3 id="the-sidebar">サイドバー</h3>
-<p>ページは左に縦に並んだカードです。<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます(SIMPLE では <span class="key">ADD CHANNEL</span> と <span class="key">ADD APP</span> だけです)。</p>
+<p>ページは左に縦に並んだカードです。<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。表示中のページは、青く光る縁が付きます。MIXER を表示している間は、サイドバーに次のカードも並びます。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -22681,7 +22419,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>すべてのストリップを名前バーとフェーダー部(パン、SOLO、CUT、SEL、フェーダーとその表示)だけに折りたたみ、ストリップのレベルメーターをフェーダーの目盛りの横に表示します。卓はその分だけ縮み、いちばん上に戻ります。コンパクトの間は点灯し、もう一度クリックすると元のストリップに戻ります。FIND の <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> でも同じです</td>
+<td>すべてのストリップを名前バーとフェーダー部(パン、SOLO、CUT、SEL、フェーダーとその表示)だけに折りたたみます。卓はその分だけ縮み、いちばん上に戻ります。コンパクトの間は点灯し、もう一度クリックすると元のストリップに戻ります。FIND の <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> でも同じです</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -22735,10 +22473,6 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>保存したミックス。<strong>+</strong> で新しく保存します(<a href="#141-scenes">14.1</a> を参照)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>同じミックスを、シンプルに、またはコンソール全体として表示します(<a href="#step-7-pro-for-the-whole-console">ステップ 7</a> を参照)</td>
 </tr>
 </tbody>
 </table></div>
@@ -23293,7 +23027,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>出力を右クリックすると、<span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(ヘッドホン補正: <span class="key">NONE</span>、またはブランド別に並んだあなたのモデル)、<span class="key">ALERT IF SILENT</span>(-60 dBFS 未満が <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span>、<span class="key">5 MIN</span> 続いたとき。または <span class="key">OFF</span>)と <span class="key">ALERT IF CLIPPING</span>(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、<span class="key">IN THE MINI MIXER</span>、<span class="key">MIX-MINUS AND STEMS...</span>、スペーサー、<span class="key">RENAME...</span>、<span class="key">REMOVE</span> が使えます。</p>
+<p>出力を右クリックすると、<span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(ヘッドホン補正: <span class="key">NONE</span>、またはブランド別に並んだあなたのモデル)、<span class="key">ALERT IF SILENT</span>(-60 dBFS 未満が <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span>、<span class="key">5 MIN</span> 続いたとき。または <span class="key">OFF</span>)と <span class="key">ALERT IF CLIPPING</span>(LIMIT がオフの間)(トレイアイコンを点滅させ、イベントログに記録します)、<span class="key">IN THE MINI MIXER</span>、<span class="key">MIX-MINUS AND STEMS...</span>、スペーサー、<span class="key">COLOUR</span>(名前バーに沿って、また ROUTING のブロックに表示)、<span class="key">RENAME...</span>、<span class="key">REMOVE</span> が使えます。</p>
 <p>出力は、デバイスごとに 1 つ、自動で作られます(<a href="#outputs-are-devices">出力はデバイス</a> を参照)。</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span>(出力の右クリックメニュー、または FIND)は、ゲストごとのフィード(本人の声以外のすべて)と、声、音楽、ゲームのステムを作ります。</p>
 
@@ -23308,7 +23042,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p>どのプラグインも、<strong>まず、プログラムの別のコピーでテスト</strong>されるので、読み込み中にクラッシュしたり止まったりするプラグインがミックスを巻き込むことはありません。読み込みの持ち時間は 30 秒です(SETTINGS &gt; Audio の <strong>Plugin test time</strong> で、遅いプラグインに 60 秒または 120 秒を与えられます)。結果は、プラグインのファイルが変わるまで記憶されます。</p>
 <h3 id="the-plugin-panel">プラグインパネル</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="選択したストリップのプラグインパネル"><img data-shot="images/console/plugins.jpg" alt="選択したストリップのプラグインパネル" loading="lazy"></button><figcaption>選択したストリップのプラグインパネル</figcaption></figure></div>
-<p>サイドバーの <span class="key">PLUGINS</span> をクリックします。ストリップの下にパネルがスライドして現れ、<strong>選択中のストリップ</strong>のプラグインが、処理される順に並びます。<span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> は、そのストリップでパネルを開き、SIMPLE を表示中なら PRO に切り替えます。各カードには次が表示されます。</p>
+<p>サイドバーの <span class="key">PLUGINS</span> をクリックします。ストリップの下にパネルがスライドして現れ、<strong>選択中のストリップ</strong>のプラグインが、処理される順に並びます。<span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> は、そのストリップでパネルを開きます。各カードには次が表示されます。</p>
 <ul>
 <li><span class="key">CPU</span>: プラグインが処理時間に占める割合(緑、2 % を超えると琥珀色、5 % を超えると赤)</li>
 <li><strong>Latency</strong>: 加わる遅延</li>
@@ -23860,7 +23594,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L、または SETTINGS &gt; MIDI &amp; OSC の <strong>Start mapping</strong> で始まり、Esc で終わります。画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下)</td>
+<td>Ctrl+L、または SETTINGS &gt; MIDI &amp; OSC の <strong>Start mapping</strong> で始まり、Esc で終わります。画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーをマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -23905,7 +23639,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <li>聞きたい場所にルーティングします。二重に聞こえるときは、<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照してください。</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 チャンネルを並べ替える</h3>
-<p>MIXER でチャンネルの<strong>名前バー</strong>を横にドラッグするか(NAME セクションまで下にスクロールします)、ROUTING ページでそのブロックをドラッグします。青いバーが移動先を示し、ストリップは滑らかにその位置へ動きます。スペーサーは、直前のストリップと一緒に動きます。バスと出力も、それぞれ同じ種類の中で同じように動き、ルートも一緒に動きます。SIMPLE でも出力は同じ順番で表示されます。</p>
+<p>MIXER でチャンネルの<strong>名前バー</strong>を横にドラッグするか(NAME セクションまで下にスクロールします)、ROUTING ページでそのブロックをドラッグします。青いバーが移動先を示し、ストリップは滑らかにその位置へ動きます。スペーサーは、直前のストリップと一緒に動きます。バスと出力も、それぞれ同じ種類の中で同じように動き、ルートも一緒に動きます。</p>
 <h3 id="175-group-channels-into-a-bus">17.5 チャンネルをバスにまとめる</h3>
 <ol>
 <li><span class="key">ADD BUS</span> をクリックし、名前を変更します(右クリック &gt; <span class="key">RENAME...</span>)。</li>
@@ -24070,7 +23804,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 二重に聞こえる、またはエコーがある</summary><div class="trouble-body">
 <ul>
-<li>プログラムは、チャンネルに入るだけでなく、自分のデバイスでも再生され続けます。そのチャンネルが同じデバイスの出力にルーティングされていると、直接と Faider 経由の両方で聞こえます。そのルートをオフにする(SIMPLE では、チャンネル上のその出力のキー)か、プログラムを別のデバイスに移してください。PRE-FLIGHT がこれを警告します。</li>
+<li>プログラムは、チャンネルに入るだけでなく、自分のデバイスでも再生され続けます。そのチャンネルが同じデバイスの出力にルーティングされていると、直接と Faider 経由の両方で聞こえます。そのルートをオフにする(チャンネル上のそのルーティングボックス)か、プログラムを別のデバイスに移してください。PRE-FLIGHT がこれを警告します。</li>
 <li>Windows の既定のスピーカーが仮想ケーブルになっています。PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> がそれを示し、<span class="key">SET MY DEFAULTS</span> でスピーカーを元に戻せます。</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 ルートがオンにならない</summary><div class="trouble-body">
@@ -24508,8 +24242,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>마이크는 자신의 헤드폰으로는 라우팅되지 않으므로, 지연된 내 목소리의 에코가 들리지 않습니다. 자신의 소리를 듣고 싶으면 마이크의 <span class="key">HEADPHONES</span> 키를 켜세요(6단계).</p>
-<p>SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>)나 SIMPLE의 <span class="key">SETUP</span> 키로 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.</p>
+<p>마이크는 자신의 헤드폰으로는 라우팅되지 않으므로, 지연된 내 목소리의 에코가 들리지 않습니다. 자신의 소리를 듣고 싶으면 마이크를 헤드폰으로 라우팅하세요(6단계).</p>
+<p>SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>)에서 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.</p>
 <h3 id="step-5-check-the-audio-is-running">5단계: 오디오가 실행 중인지 확인</h3>
 <p>오른쪽 위의 <strong>상태 표시등</strong>을 봅니다.</p>
 <ul>
@@ -24518,41 +24252,18 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 <p>표시등을 누르면 <span class="key">DEVICES</span>가 열립니다. <span class="key">STREAMS</span>에는 사용 중인 클럭(ASIO, Windows, 내장 클럭. <a href="#clocking">클럭</a> 참조)이 표시되고, <span class="key">BUFFER</span>로 버퍼 크기를 설정합니다. 잡음 없이 재생되는 가장 작은 크기가 지연이 가장 짧습니다. 대부분의 시스템에는 256 또는 512 샘플이 적당합니다.</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">6단계: 내 소리 듣기, 앱이 내 소리 듣게 하기</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="데모 믹스가 있는 SIMPLE 데스크: 채널 여섯 개, 각 채널에 HEADPHONES와 STREAM 키, 출력 두 개"><img data-shot="images/console/simple.jpg" alt="데모 믹스가 있는 SIMPLE 데스크: 채널 여섯 개, 각 채널에 HEADPHONES와 STREAM 키, 출력 두 개" loading="lazy"></button><figcaption>데모 믹스가 있는 SIMPLE 데스크: 채널 여섯 개, 각 채널에 HEADPHONES와 STREAM 키, 출력 두 개</figcaption></figure></div>
-<p>믹서는 <span class="key">SIMPLE</span>로 열립니다. 각 채널에는 이름, 듣고 있는 소스, 출력마다 키 하나, 페이더와 미터, <span class="key">CUT</span>과 <span class="key">SOLO</span>가 표시됩니다. 각 출력에는 재생 중인 장치, 페이더, 미터가 표시됩니다.</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>채널의 키</th>
-<th>의미</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>밋밋한 회색</td>
-<td>그 출력으로 라우팅되지 않음</td>
-</tr>
-<tr>
-<td>출력의 색으로 채워짐</td>
-<td>그곳으로 라우팅됨. 누르면 꺼집니다</td>
-</tr>
-<tr>
-<td>가장자리만 색이 있음, <span class="key">VIA BUS</span></td>
-<td>버스를 거쳐 도착합니다(PRO에서 설정). 누르면 그곳으로 직접도 라우팅합니다</td>
-</tr>
-</tbody>
-</table></div>
+<p>믹서에는 채널, 버스, 출력마다 스트립이 하나씩 표시됩니다. 각 스트립 헤더의 <strong>라우팅 상자</strong>가 그 소리가 어디로 가는지 보여 줍니다. 버스와 출력 장치마다 상자가 하나 있고, 라우팅된 곳이 켜집니다(<a href="#4-how-routing-works">4</a> 참조).</p>
 <ol>
-<li>말을 하고 마이크의 미터가 움직이는지 봅니다.</li>
-<li>자신의 소리를 들으려면 마이크의 <span class="key">HEADPHONES</span> 키를 누릅니다.</li>
+<li>말을 하고 마이크의 레벨 미터가 움직이는지 봅니다.</li>
+<li>자신의 소리를 들으려면 마이크의 라우팅 상자에서 헤드폰 상자를 켭니다.</li>
 <li>Discord, 게임, OBS 등 다른 앱에서 마이크로 <strong>CABLE Output</strong>을 선택합니다.</li>
 <li>앱이 무엇을 받는지 확인합니다. <span class="key">HEAR WHAT THEY HEAR</span>(PRE-FLIGHT의 <span class="key">MIC OUTPUT</span> 행, 또는 <span class="key">FIND</span>, Ctrl+K에 있습니다)는 앱이 받는 소리를 5초 동안 녹음해서 들려줍니다.</li>
 </ol>
 <p>프로그램 소리가 두 번 들리면 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>을 참조하세요.</p>
-<p><span class="key">+ CHANNEL</span>과 <span class="key">+ APP</span>은 채널을 추가합니다(<span class="key">+ APP</span>에는 실행 중이지만 <span class="key">NOT PLAYING YET</span>인 프로그램도 나열됩니다). <span class="key">+ OUTPUT</span>은 출력이 없는 장치에 출력을 추가합니다. 출력 이름 아래의 장치 키로 재생 위치를 바꿉니다. 이름을 마우스 오른쪽 단추로 누르면 <span class="key">RENAME...</span>, 색, <span class="key">HEADPHONE EQ</span>(출력), <span class="key">IN THE MINI MIXER</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.</p>
+<p>사이드바의 <span class="key">ADD CHANNEL</span>과 <span class="key">ADD APP</span>은 채널을 추가합니다(<span class="key">ADD APP</span>에는 실행 중이지만 <span class="key">NOT PLAYING YET</span>인 프로그램도 나열됩니다). 출력이 없는 장치로 무언가를 라우팅하면 그 장치에 출력이 만들어집니다. 출력을 마우스 오른쪽 단추로 누르면 <span class="key">DEVICE...</span>(재생 위치)와 <span class="key">HEADPHONE EQ</span>를 쓸 수 있습니다. 어느 스트립이든 마우스 오른쪽 단추로 누르면 <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.</p>
 <h3 id="step-7-pro-for-the-whole-console">7단계: PRO, 콘솔 전체 사용하기</h3>
-<p>상단 바의 <span class="key">SIMPLE / PRO</span> 스위치는 어느 쪽이든 같은 믹스를 보여 줍니다. <span class="key">PRO</span>는 콘솔 전체입니다. 각 채널의 입력, 필터, 다이내믹스, EQ, 버스와 컴바이너, 플러그인을 다룹니다.</p>
-<p>마이크 소리를 다듬으려면 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>을 참조하세요. 모든 컨트롤은 <a href="#6-the-channel-strip-section-by-section">6</a>에 있습니다. PRO에서 한 설정은 SIMPLE에서도 계속 적용됩니다.</p>
+<p>믹서는 콘솔 전체입니다. 각 채널의 입력, 필터, 다이내믹스, EQ, 버스와 컴바이너, 플러그인을 다룹니다. 더 작게 보려면 사이드바의 <span class="key">COMPACT</span>로 모든 스트립을 이름 막대와 페이더 섹션만 남기고 접습니다. 다시 누르면 전체 스트립으로 돌아옵니다(<a href="#the-sidebar">사이드바</a> 참조).</p>
+<p>마이크 소리를 다듬으려면 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>을 참조하세요. 모든 컨트롤은 <a href="#6-the-channel-strip-section-by-section">6</a>에 있습니다.</p>
 <h3 id="step-8-run-pre-flight">8단계: PRE-FLIGHT 실행</h3>
 <p>시작하고 몇 초 뒤에 <span class="key">PRE-FLIGHT</span>가 설정을 점검하며, 확인할 것이 있을 때만 열립니다(SETUP이 먼저 나오는 첫 시작 때는 열리지 않습니다). 언제든 <strong>SETTINGS &gt; Startup &amp; checks</strong>의 <strong>Run pre-flight</strong> 또는 <span class="key">FIND</span> (Ctrl+K)에서 실행할 수 있습니다. 모든 행이 녹색이어야 합니다. <a href="#181-pre-flight">18.1</a>을 참조하세요.</p>
 <h3 id="step-9-finish">9단계: 마무리</h3>
@@ -24567,7 +24278,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>창</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개"><img data-shot="images/console/mixer.jpg" alt="데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개" loading="lazy"></button><figcaption>데모 믹스가 있는 MIXER 페이지: 마이크 두 개, 앱 채널 두 개, 패드, 테이프, 버스 세 개, 출력 두 개</figcaption></figure></div>
 <h3 id="the-sidebar">사이드바</h3>
-<p>페이지는 왼쪽에 세로로 놓인 카드입니다. <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다(SIMPLE에서는 <span class="key">ADD CHANNEL</span>과 <span class="key">ADD APP</span>만).</p>
+<p>페이지는 왼쪽에 세로로 놓인 카드입니다. <span class="key">MIXER</span>, <span class="key">ROUTING</span>, <span class="key">TOOLS</span>, <span class="key">DEVICES</span>, <span class="key">SETTINGS</span>. 표시 중인 페이지에는 파랗게 빛나는 테두리가 있습니다. MIXER가 표시되는 동안 사이드바에는 다음 카드도 나타납니다.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -24600,7 +24311,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>모든 스트립을 이름 막대와 페이더 섹션(팬, SOLO, CUT, SEL, 페이더와 그 표시)만 남기고 접으며, 스트립의 레벨 미터를 페이더 눈금 옆에 보여 줍니다. 데스크는 그만큼 줄어들고 맨 위로 돌아갑니다. 접혀 있는 동안 켜져 있으며, 다시 누르면 전체 스트립으로 돌아옵니다. FIND의 <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span>도 같습니다</td>
+<td>모든 스트립을 이름 막대와 페이더 섹션(팬, SOLO, CUT, SEL, 페이더와 그 표시)만 남기고 접습니다. 데스크는 그만큼 줄어들고 맨 위로 돌아갑니다. 접혀 있는 동안 켜져 있으며, 다시 누르면 전체 스트립으로 돌아옵니다. FIND의 <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span>도 같습니다</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -24654,10 +24365,6 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>저장한 믹스. <strong>+</strong>로 새로 저장합니다(<a href="#141-scenes">14.1</a> 참조)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>같은 믹스를 간단하게, 또는 콘솔 전체로 보여 줍니다(<a href="#step-7-pro-for-the-whole-console">7단계</a> 참조)</td>
 </tr>
 </tbody>
 </table></div>
@@ -25212,7 +24919,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>출력을 마우스 오른쪽 단추로 클릭하면 <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span>(헤드폰 보정: <span class="key">NONE</span> 또는 브랜드별로 나열된 내 모델), <span class="key">ALERT IF SILENT</span>(<span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> 또는 <span class="key">5 MIN</span> 동안 -60 dBFS 미만, 또는 <span class="key">OFF</span>)와 <span class="key">ALERT IF CLIPPING</span>(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, 스페이서, <span class="key">RENAME...</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다.</p>
+<p>출력을 마우스 오른쪽 단추로 클릭하면 <span class="key">DEVICE...</span>, <span class="key">HEADPHONE EQ</span>(헤드폰 보정: <span class="key">NONE</span> 또는 브랜드별로 나열된 내 모델), <span class="key">ALERT IF SILENT</span>(<span class="key">10 S</span>, <span class="key">30 S</span>, <span class="key">1 MIN</span> 또는 <span class="key">5 MIN</span> 동안 -60 dBFS 미만, 또는 <span class="key">OFF</span>)와 <span class="key">ALERT IF CLIPPING</span>(LIMIT이 꺼져 있는 동안)(트레이 아이콘을 깜박이고 이벤트 로그에 기록합니다), <span class="key">IN THE MINI MIXER</span>, <span class="key">MIX-MINUS AND STEMS...</span>, 스페이서, <span class="key">COLOUR</span>(이름 바를 따라, 그리고 ROUTING 블록에 표시), <span class="key">RENAME...</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다.</p>
 <p>출력은 장치마다 하나씩 자동으로 만들어집니다(<a href="#outputs-are-devices">출력은 장치입니다</a> 참조).</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span>(출력의 마우스 오른쪽 단추 메뉴, 또는 FIND에 있습니다)는 게스트마다 피드(본인 목소리를 뺀 모든 것)와 음성, 음악, 게임 스템을 만듭니다.</p>
 
@@ -25227,7 +24934,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p>모든 플러그인은 <strong>먼저 프로그램의 별도 복사본에서 테스트</strong>되므로, 불러오는 중에 충돌하거나 멈추는 플러그인이 믹스를 망가뜨릴 수 없습니다. 로드할 시간은 30초입니다(SETTINGS &gt; Audio의 <strong>Plugin test time</strong>으로 느린 플러그인에 60초나 120초를 줄 수 있습니다). 결과는 플러그인 파일이 바뀔 때까지 기억됩니다.</p>
 <h3 id="the-plugin-panel">플러그인 패널</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="선택한 스트립의 플러그인 패널"><img data-shot="images/console/plugins.jpg" alt="선택한 스트립의 플러그인 패널" loading="lazy"></button><figcaption>선택한 스트립의 플러그인 패널</figcaption></figure></div>
-<p>사이드바의 <span class="key">PLUGINS</span>를 누릅니다. 스트립 아래로 패널이 올라오며 <strong>선택한 스트립</strong>의 플러그인이 실행되는 순서대로 나옵니다. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong>은 그 스트립의 패널을 열고, SIMPLE이 표시 중이면 PRO로 전환합니다. 각 카드에는 다음이 표시됩니다.</p>
+<p>사이드바의 <span class="key">PLUGINS</span>를 누릅니다. 스트립 아래로 패널이 올라오며 <strong>선택한 스트립</strong>의 플러그인이 실행되는 순서대로 나옵니다. <span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong>은 그 스트립의 패널을 엽니다. 각 카드에는 다음이 표시됩니다.</p>
 <ul>
 <li><span class="key">CPU</span>: 플러그인이 차지하는 처리 시간 비율(녹색, 2 % 초과 주황색, 5 % 초과 빨간색)</li>
 <li><strong>Latency</strong>: 추가되는 지연</li>
@@ -25779,7 +25486,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L 또는 SETTINGS &gt; MIDI &amp; OSC의 <strong>Start mapping</strong>으로 시작하고, Esc로 끝냅니다. 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 SIMPLE과 PRO에서 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래)</td>
+<td>Ctrl+L 또는 SETTINGS &gt; MIDI &amp; OSC의 <strong>Start mapping</strong>으로 시작하고, Esc로 끝냅니다. 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -25824,7 +25531,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <li>들으려는 곳으로 라우팅합니다. 소리가 두 번 들리면 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>을 참조하세요.</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 채널 순서 바꾸기</h3>
-<p>Mixer에서 채널의 <strong>이름 바</strong>를 옆으로 드래그하거나(NAME 섹션까지 아래로 스크롤), ROUTING 페이지에서 그 블록을 드래그합니다. 파란 막대가 놓일 위치를 보여 주고, 스트립이 부드럽게 제자리로 이동합니다. 스페이서는 앞 스트립과 함께 움직입니다. 버스와 출력도 같은 방식으로, 각자 같은 종류 안에서 움직이며 루트도 함께 따라갑니다. SIMPLE도 출력을 같은 순서로 보여 줍니다.</p>
+<p>Mixer에서 채널의 <strong>이름 바</strong>를 옆으로 드래그하거나(NAME 섹션까지 아래로 스크롤), ROUTING 페이지에서 그 블록을 드래그합니다. 파란 막대가 놓일 위치를 보여 주고, 스트립이 부드럽게 제자리로 이동합니다. 스페이서는 앞 스트립과 함께 움직입니다. 버스와 출력도 같은 방식으로, 각자 같은 종류 안에서 움직이며 루트도 함께 따라갑니다.</p>
 <h3 id="175-group-channels-into-a-bus">17.5 채널을 버스로 묶기</h3>
 <ol>
 <li><span class="key">ADD BUS</span>를 누르고 이름을 바꿉니다(마우스 오른쪽 단추 &gt; <span class="key">RENAME...</span>).</li>
@@ -25989,7 +25696,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 소리가 두 번 들리거나 에코가 있음</summary><div class="trouble-body">
 <ul>
-<li>프로그램은 채널로 들어가는 것과 함께 자기 장치로도 계속 재생됩니다. 그 채널이 같은 장치의 출력으로 라우팅되어 있으면, 소리가 직접 들리고 Faider를 거쳐서도 들립니다. 그 루트를 끄거나(SIMPLE에서는 채널에 있는 그 출력의 키) 프로그램을 다른 장치로 옮기세요. PRE-FLIGHT가 이를 경고합니다.</li>
+<li>프로그램은 채널로 들어가는 것과 함께 자기 장치로도 계속 재생됩니다. 그 채널이 같은 장치의 출력으로 라우팅되어 있으면, 소리가 직접 들리고 Faider를 거쳐서도 들립니다. 그 루트를 끄거나(채널에 있는 그 라우팅 상자) 프로그램을 다른 장치로 옮기세요. PRE-FLIGHT가 이를 경고합니다.</li>
 <li>Windows의 기본 스피커가 가상 케이블로 설정되어 있습니다. PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span>가 알려 주며, <span class="key">SET MY DEFAULTS</span>로 스피커를 되돌릴 수 있습니다.</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 루트가 켜지지 않음</summary><div class="trouble-body">
@@ -26427,8 +26134,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请点亮麦克风的 <span class="key">HEADPHONES</span> 键(步骤 6)。</p>
-<p>SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) 或 SIMPLE 中的 <span class="key">SETUP</span> 按键再次运行它。它会补上缺少的内容，不会删除任何东西。</p>
+<p>你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请把麦克风路由到你的耳机(步骤 6)。</p>
+<p>SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 <span class="key">FIND</span>(<span class="key">SETUP: BUILD A MIX</span>) 再次运行它。它会补上缺少的内容，不会删除任何东西。</p>
 <h3 id="step-5-check-the-audio-is-running">步骤 5：检查音频是否在运行</h3>
 <p>看右上角的<strong>状态灯</strong>。</p>
 <ul>
@@ -26437,41 +26144,18 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 <p>点击状态灯打开 <span class="key">DEVICES</span>。<span class="key">STREAMS</span> 显示正在使用的时钟(ASIO、Windows 或内置时钟；见<a href="#clocking">时钟</a>)，<span class="key">BUFFER</span> 设置其缓冲区大小。不产生爆音的最小值延迟最低。256 或 512 个采样适合大多数系统。</p>
 <h3 id="step-6-hear-yourself-and-let-apps-hear-you">步骤 6：听到自己，也让应用听到你</h3>
-<div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="带演示混音的 SIMPLE 调音台：六个通道，每个都有 HEADPHONES 和 STREAM 键，另有两个输出"><img data-shot="images/console/simple.jpg" alt="带演示混音的 SIMPLE 调音台：六个通道，每个都有 HEADPHONES 和 STREAM 键，另有两个输出" loading="lazy"></button><figcaption>带演示混音的 SIMPLE 调音台：六个通道，每个都有 HEADPHONES 和 STREAM 键，另有两个输出</figcaption></figure></div>
-<p>调音台以 <span class="key">SIMPLE</span> 打开。每个通道显示它的名称、它收听的内容、每个输出一个键、推子和电平表，以及 <span class="key">CUT</span> 和 <span class="key">SOLO</span>。每个输出显示它播放所在的设备、推子和电平表。</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>通道上的键</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>普通灰色</td>
-<td>没有路由到该输出</td>
-</tr>
-<tr>
-<td>填充为输出的颜色</td>
-<td>已路由到那里。点击可关闭</td>
-</tr>
-<tr>
-<td>只有彩色边缘，<span class="key">VIA BUS</span></td>
-<td>通过总线到达(在 PRO 中设置)。点击可同时直接路由过去</td>
-</tr>
-</tbody>
-</table></div>
+<p>调音台为每个通道、总线和输出各显示一条通道条。每条通道条 HEADER 中的<strong>路由框</strong>显示它被送到哪里：每条总线和每个输出设备一个框，已路由的地方亮起(见 <a href="#4-how-routing-works">4</a>)。</p>
 <ol>
 <li>说话，看你的麦克风电平表跳动。</li>
-<li>想听到自己，点击麦克风的 <span class="key">HEADPHONES</span> 键。</li>
+<li>想听到自己，在麦克风的路由框中点亮你耳机的那个框。</li>
 <li>在 Discord、游戏、OBS 或任何其他应用中，选择 <strong>CABLE Output</strong> 作为麦克风。</li>
 <li>检查它们收到了什么：<span class="key">HEAR WHAT THEY HEAR</span>(在 PRE-FLIGHT 的 <span class="key">MIC OUTPUT</span> 行上，或在 <span class="key">FIND</span> 中，Ctrl+K)会录下应用收到的 5 秒声音并回放给你。</li>
 </ol>
 <p>如果你听到某个程序两遍，见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>。</p>
-<p><span class="key">+ CHANNEL</span> 和 <span class="key">+ APP</span> 添加通道(<span class="key">+ APP</span> 还会列出正在运行但 <span class="key">NOT PLAYING YET</span> 的程序)。<span class="key">+ OUTPUT</span> 在还没有输出的设备上添加输出。输出名称下方的设备键用于更改播放位置。右键点击名称可使用 <span class="key">RENAME...</span>、颜色、<span class="key">HEADPHONE EQ</span>(输出)、<span class="key">IN THE MINI MIXER</span> 和 <span class="key">REMOVE</span>。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。</p>
+<p>侧边栏中的 <span class="key">ADD CHANNEL</span> 和 <span class="key">ADD APP</span> 添加通道(<span class="key">ADD APP</span> 还会列出正在运行但 <span class="key">NOT PLAYING YET</span> 的程序)。把某个声音路由到还没有输出的设备，就会在该设备上建立输出。右键点击输出可使用 <span class="key">DEVICE...</span>(它在哪里播放)和 <span class="key">HEADPHONE EQ</span>。右键点击任何通道条可使用 <span class="key">RENAME...</span>、<span class="key">COLOUR</span>、<span class="key">IN THE MINI MIXER</span> 和 <span class="key">REMOVE</span>。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。</p>
 <h3 id="step-7-pro-for-the-whole-console">步骤 7：PRO，整个调音台</h3>
-<p>顶部栏的 <span class="key">SIMPLE / PRO</span> 开关无论在哪一边显示的都是同一个混音。<span class="key">PRO</span> 是整个调音台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。</p>
-<p>要调整你的麦克风，见 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>。每个控件都在 <a href="#6-the-channel-strip-section-by-section">6</a> 中。你在 PRO 中所做的设置，在 SIMPLE 中同样有效。</p>
+<p>调音台就是整个控制台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。想要更小的视图，侧边栏中的 <span class="key">COMPACT</span> 会把每条通道条折叠成只剩名称栏和推子部分。再点一次恢复完整的通道条(见<a href="#the-sidebar">侧边栏</a>)。</p>
+<p>要调整你的麦克风，见 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>。每个控件都在 <a href="#6-the-channel-strip-section-by-section">6</a> 中。</p>
 <h3 id="step-8-run-pre-flight">步骤 8：运行 PRE-FLIGHT</h3>
 <p>启动几秒后，<span class="key">PRE-FLIGHT</span> 会检查设置，只在有需要注意的地方时才打开(首次启动时不会，因为先出现的是 SETUP)。你可以随时从 <strong>SETTINGS &gt; Startup &amp; checks</strong> 中的 <strong>Run pre-flight</strong> 或 <span class="key">FIND</span> (Ctrl+K) 运行它。每一行都应该是绿色。见 <a href="#181-pre-flight">18.1</a>。</p>
 <h3 id="step-9-finish">步骤 9：完成</h3>
@@ -26486,7 +26170,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <section class="chapter" id="3-the-window"><header class="chapter-head"><span class="chapter-num">3</span><h2>窗口</h2></header>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出"><img data-shot="images/console/mixer.jpg" alt="带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出" loading="lazy"></button><figcaption>带演示混音的 MIXER 页面：两个麦克风、两个应用通道、打击垫和磁带、三条总线和两个输出</figcaption></figure></div>
 <h3 id="the-sidebar">侧边栏</h3>
-<p>页面是左侧自上而下排列的卡片：<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片(在 SIMPLE 中只有 <span class="key">ADD CHANNEL</span> 和 <span class="key">ADD APP</span>)：</p>
+<p>页面是左侧自上而下排列的卡片：<span class="key">MIXER</span>、<span class="key">ROUTING</span>、<span class="key">TOOLS</span>、<span class="key">DEVICES</span>、<span class="key">SETTINGS</span>。当前显示的页面带有亮起的蓝色边缘。显示 MIXER 时，侧边栏还会出现下列卡片：</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -26519,7 +26203,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><span class="key">COMPACT</span></td>
-<td>把每条通道条折叠成只剩名称栏和推子部分(声像、SOLO、CUT、SEL、推子及其读数)，并在推子刻度旁显示该通道条的电平表；调音台随之变矮并回到顶部。紧凑时亮起；再点一次恢复完整的通道条。FIND 中的 <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> 也一样</td>
+<td>把每条通道条折叠成只剩名称栏和推子部分(声像、SOLO、CUT、SEL、推子及其读数)；调音台随之变矮并回到顶部。紧凑时亮起；再点一次恢复完整的通道条。FIND 中的 <span class="key">COMPACT DESK</span> / <span class="key">FULL DESK</span> 也一样</td>
 </tr>
 <tr>
 <td><span class="key">SELECT</span></td>
@@ -26573,10 +26257,6 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><span class="key">SCENES</span></td>
 <td>你保存的混音。<strong>+</strong> 保存一个新的(见 <a href="#141-scenes">14.1</a>)</td>
-</tr>
-<tr>
-<td><span class="key">SIMPLE / PRO</span></td>
-<td>同一个混音，以简单方式或整个调音台显示(见<a href="#step-7-pro-for-the-whole-console">步骤 7</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -27130,7 +26810,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div>
-<p>右键点击输出可使用 <span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(耳机校正：<span class="key">NONE</span>，或你的型号，按品牌列出)、<span class="key">ALERT IF SILENT</span>(低于 -60 dBFS 持续 <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span> 或 <span class="key">5 MIN</span>，或 <span class="key">OFF</span>)和 <span class="key">ALERT IF CLIPPING</span>(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、<span class="key">IN THE MINI MIXER</span>、<span class="key">MIX-MINUS AND STEMS...</span>、间隔条、<span class="key">RENAME...</span> 和 <span class="key">REMOVE</span>。</p>
+<p>右键点击输出可使用 <span class="key">DEVICE...</span>、<span class="key">HEADPHONE EQ</span>(耳机校正：<span class="key">NONE</span>，或你的型号，按品牌列出)、<span class="key">ALERT IF SILENT</span>(低于 -60 dBFS 持续 <span class="key">10 S</span>、<span class="key">30 S</span>、<span class="key">1 MIN</span> 或 <span class="key">5 MIN</span>，或 <span class="key">OFF</span>)和 <span class="key">ALERT IF CLIPPING</span>(LIMIT 关闭时)(它们会让托盘图标闪烁并写入事件日志)、<span class="key">IN THE MINI MIXER</span>、<span class="key">MIX-MINUS AND STEMS...</span>、间隔条、<span class="key">COLOUR</span>(显示在它的名称栏上和它的 ROUTING 方块上)、<span class="key">RENAME...</span> 和 <span class="key">REMOVE</span>。</p>
 <p>输出会自动创建，每个设备一个(见<a href="#outputs-are-devices">输出就是设备</a>)。</p>
 <p><span class="key">MIX-MINUS AND STEMS...</span>(在输出的右键菜单上，或在 FIND 中)会为每位嘉宾建立一路馈送(除他们自己的声音外的所有声音)，并建立人声、音乐和游戏分轨。</p>
 
@@ -27145,7 +26825,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <p>每个插件<strong>都会先在程序的一个独立副本中测试</strong>，所以加载时崩溃或卡死的插件不会拖垮你的混音。它有 30 秒的加载时间(SETTINGS &gt; Audio 中的 <strong>Plugin test time</strong> 可给慢的插件 60 或 120 秒)。结果会被记住，直到插件文件发生变化。</p>
 <h3 id="the-plugin-panel">插件面板</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="所选通道条的插件面板"><img data-shot="images/console/plugins.jpg" alt="所选通道条的插件面板" loading="lazy"></button><figcaption>所选通道条的插件面板</figcaption></figure></div>
-<p>点击侧边栏中的 <span class="key">PLUGINS</span>。一个面板会从通道条下方滑出，按运行顺序显示<strong>所选通道条</strong>的插件。<span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> 会在该通道条上打开它，如果正在显示 SIMPLE，则切换到 PRO。每张卡片显示：</p>
+<p>点击侧边栏中的 <span class="key">PLUGINS</span>。一个面板会从通道条下方滑出，按运行顺序显示<strong>所选通道条</strong>的插件。<span class="key">FIND</span> &gt; <strong>PLUGINS: name</strong> 会在该通道条上打开它。每张卡片显示：</p>
 <ul>
 <li><span class="key">CPU</span>：插件占处理时间的份额(绿色，超过 2 % 为琥珀色，超过 5 % 为红色)</li>
 <li><strong>Latency</strong>：它增加的延迟</li>
@@ -27697,7 +27377,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">MIDI MAP</span> (Ctrl+L)</td>
-<td>Ctrl+L 或 SETTINGS &gt; MIDI &amp; OSC 中的 <strong>Start mapping</strong> 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下)</td>
+<td>Ctrl+L 或 SETTINGS &gt; MIDI &amp; OSC 中的 <strong>Start mapping</strong> 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下)</td>
 </tr>
 <tr>
 <td><span class="key">OSC</span></td>
@@ -27742,7 +27422,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <li>把它路由到你想听到它的地方。如果你听到它两遍，见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>。</li>
 </ol>
 <h3 id="174-reorder-channels">17.4 重新排列通道</h3>
-<p>在 Mixer 上左右拖动通道的<strong>名称栏</strong>(向下滚动到 NAME 部分)，或在 ROUTING 页面上拖动它的方块。一条蓝色竖条显示它将落在哪里，通道条会平滑滑入位置。间隔条跟随它前面的通道条移动。总线和输出以同样的方式移动，各自在同类之间，它们的路由也随之移动。SIMPLE 按相同的顺序显示输出。</p>
+<p>在 Mixer 上左右拖动通道的<strong>名称栏</strong>(向下滚动到 NAME 部分)，或在 ROUTING 页面上拖动它的方块。一条蓝色竖条显示它将落在哪里，通道条会平滑滑入位置。间隔条跟随它前面的通道条移动。总线和输出以同样的方式移动，各自在同类之间，它们的路由也随之移动。</p>
 <h3 id="175-group-channels-into-a-bus">17.5 把通道编成一条总线</h3>
 <ol>
 <li><span class="key">ADD BUS</span>，然后重命名(右键点击 &gt; <span class="key">RENAME...</span>)。</li>
@@ -27907,7 +27587,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ul>
 </div></details><details class="trouble" id="187-i-hear-something-twice-or-an-echo"><summary>18.7 我听到两遍声音，或有回声</summary><div class="trouble-body">
 <ul>
-<li>程序除了送入它的通道，也会继续在自己的设备上播放。如果它的通道被路由到同一个设备的输出上，你就会既直接听到它，又通过 Faider 听到它。关闭那条路由(在 SIMPLE 中，是通道上该输出的键)，或把程序移到另一个设备。PRE-FLIGHT 会就此警告。</li>
+<li>程序除了送入它的通道，也会继续在自己的设备上播放。如果它的通道被路由到同一个设备的输出上，你就会既直接听到它，又通过 Faider 听到它。关闭那条路由(通道上它的路由框)，或把程序移到另一个设备。PRE-FLIGHT 会就此警告。</li>
 <li>Windows 的默认扬声器被设成了虚拟线缆。PRE-FLIGHT &gt; <span class="key">WINDOWS DEFAULTS</span> 会指出它，<span class="key">SET MY DEFAULTS</span> 会把你的扬声器改回来。</li>
 </ul>
 </div></details><details class="trouble" id="188-a-route-wont-switch-on"><summary>18.8 路由无法打开</summary><div class="trouble-body">

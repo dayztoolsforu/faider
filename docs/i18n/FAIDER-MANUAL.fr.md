@@ -207,10 +207,10 @@ Ce que crée chaque réponse :
 | **PROGRAMS** | Un canal brut pour chacun, routé vers l'endroit où vous écoutez, plus une règle d'application qui le ramène tout seul chaque fois que le programme joue |
 
 Vos microphones ne sont pas routés vers votre propre casque, donc vous n'entendez pas d'écho
-retardé de votre voix. Pour vous entendre, allumez la touche **HEADPHONES** du micro (étape 6).
+retardé de votre voix. Pour vous entendre, routez le micro vers votre casque (étape 6).
 
-SETUP n'est pas une page : relancez-le depuis **FIND** (**SETUP: BUILD A MIX**) ou la touche **SETUP**
-de SIMPLE chaque fois que vous ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.
+SETUP n'est pas une page : relancez-le depuis **FIND** (**SETUP: BUILD A MIX**) chaque fois que vous
+ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -232,20 +232,12 @@ tampon. La plus petite taille qui joue sans craquements vous donne le moins de r
 
 ### Étape 6 : vous entendre et laisser les applications vous entendre
 
-![La console SIMPLE avec un mix de démonstration : six canaux, chacun avec une touche pour HEADPHONES et STREAM, et deux sorties](../images/console/simple.jpg)
-
-Le Mixer s'ouvre en **SIMPLE**. Chaque canal montre son nom, ce qu'il écoute, une touche par sortie,
-son fader et son vumètre, **CUT** et **SOLO**. Chaque sortie montre le périphérique sur lequel elle
-joue, son fader et son vumètre.
-
-| Touche d'un canal | Signification |
-|---|---|
-| Gris uni | Pas routé vers cette sortie |
-| Remplie de la couleur de la sortie | Routé vers cette sortie. Cliquez pour le désactiver |
-| Bord coloré seulement, **VIA BUS** | Il y arrive par un bus (réglé dans PRO). Cliquez pour le router aussi directement |
+Le Mixer montre une tranche pour chaque canal, bus et sortie. Les **cases de routage** dans l'en-tête
+de chaque tranche montrent où elle va : une case par bus et par périphérique de sortie, allumée là où
+c'est routé (voir [4](#4-how-routing-works)).
 
 1. Parlez et regardez bouger le vumètre de votre microphone.
-2. Pour vous entendre, cliquez sur la touche **HEADPHONES** du micro.
+2. Pour vous entendre, allumez la case de votre casque dans les cases de routage du micro.
 3. Dans Discord, votre jeu, OBS ou toute autre application, choisissez **CABLE Output** comme
    microphone.
 4. Vérifiez ce qu'elles reçoivent : **HEAR WHAT THEY HEAR** (sur la ligne **MIC OUTPUT** de
@@ -254,23 +246,23 @@ joue, son fader et son vumètre.
 
 Si vous entendez un programme deux fois, voir [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** et **+ APP** ajoutent des canaux (**+ APP** liste aussi les programmes en cours
-d'exécution qui sont **NOT PLAYING YET**). **+ OUTPUT** ajoute une sortie sur un périphérique
-qui n'en a pas. La touche de périphérique sous le nom d'une sortie change l'endroit où elle joue.
-Faites un clic droit sur un nom pour **RENAME...**, la couleur, **HEADPHONE EQ** (une sortie),
-**IN THE MINI MIXER** et **REMOVE**. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.
+**ADD CHANNEL** et **ADD APP** dans la barre latérale ajoutent des canaux (**ADD APP** liste aussi les programmes en cours
+d'exécution qui sont **NOT PLAYING YET**). Routez quelque chose vers un périphérique qui n'a pas de
+sortie et une sortie est créée dessus. Faites un clic droit sur une sortie pour **DEVICE...** (l'endroit
+où elle joue) et **HEADPHONE EQ**. Faites un clic droit sur n'importe quelle tranche pour **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** et **REMOVE**. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Étape 7 : PRO, pour toute la console
 
-Le commutateur **SIMPLE / PRO** de la barre du haut montre le même mix dans les deux cas. **PRO**
-est la console complète : l'entrée de chaque canal, les filtres, la dynamique et l'égaliseur, les
-bus et les combinateurs, les plugins.
+Le Mixer est la console complète : l'entrée de chaque canal, les filtres, la dynamique et
+l'égaliseur, les bus et les combinateurs, les plugins. Pour une vue plus petite, **COMPACT** dans la
+barre latérale replie chaque tranche sur sa barre de nom et sa section de fader. Cliquez à nouveau
+pour retrouver les tranches entières (voir [La barre latérale](#the-sidebar)).
 
 Pour façonner votre microphone, voir [17.1](#171-hear-yourself-set-up-a-microphone). Chaque
-commande est décrite en [6](#6-the-channel-strip-section-by-section). Les réglages faits en PRO continuent à
-fonctionner en SIMPLE.
+commande est décrite en [6](#6-the-channel-strip-section-by-section).
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -312,7 +304,7 @@ La configuration est terminée. Le reste de ce manuel décrit chaque partie en d
 
 Les pages sont des cartes le long de la gauche : **MIXER**, **ROUTING**, **TOOLS**,
 **DEVICES**, **SETTINGS**. La page affichée a un bord bleu allumé. Pendant que le Mixer est
-affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHANNEL** et **ADD APP**) :
+affiché, la barre latérale a aussi ces cartes :
 
 | Groupe | Carte | Ce qu'elle fait |
 |---|---|---|
@@ -320,7 +312,7 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHAN
 | | **ADD APP** | Liste les programmes qui jouent du son en ce moment, puis, sous **NOT PLAYING YET**, ceux qui tournent avec une fenêtre et sont silencieux. Choisissez-en un pour lui donner un canal ; celui qui ne joue pas est capturé dès l'instant où il joue |
 | | **ADD BUS** | Un bus, ou un combinateur (deux chemins au départ) |
 | | **PLUGINS** | Fait monter le panneau des plugins sous les tranches (voir [9](#9-plugins)) |
-| | **COMPACT** | Replie chaque tranche sur sa barre de nom et sa section de fader (pan, SOLO, CUT, SEL, le fader et son affichage), avec le vumètre de la tranche à côté de l'échelle du fader ; le pupitre se réduit et revient en haut. Allumée tant que le pupitre est compact ; cliquez à nouveau pour retrouver les tranches entières. Aussi **COMPACT DESK** / **FULL DESK** dans FIND |
+| | **COMPACT** | Replie chaque tranche sur sa barre de nom et sa section de fader (pan, SOLO, CUT, SEL, le fader et son affichage) ; le pupitre se réduit et revient en haut. Allumée tant que le pupitre est compact ; cliquez à nouveau pour retrouver les tranches entières. Aussi **COMPACT DESK** / **FULL DESK** dans FIND |
 | **SELECT** | **AUTO** | Toucher une commande d'une tranche sélectionne cette tranche |
 | | **FOLLOW** | Le pupitre glisse jusqu'à la tranche sélectionnée, y compris quand elle est choisie ailleurs (FIND, un raccourci clavier) |
 | **SECTIONS** | HEADER … FADER | Les sections de la tranche (en COMPACT, seulement NAME et FADER). Celles qui sont allumées sont à l'écran. Cliquez sur l'une pour y glisser |
@@ -344,8 +336,6 @@ En partant de la droite :
 | **MINI** | Le mini-mixeur : une petite fenêtre de mixage (l'icône de la zone de notification l'ouvre aussi). Son **PIN** la garde au premier plan |
 | **Voyant d'état** | Vert : l'audio va bien. Orange : la charge audio est élevée ou un périphérique a manqué de données récemment. Rouge : un accroc audible dans les 10 dernières secondes, ou aucun audio en marche. Le nombre est la charge audio. Cliquez dessus pour ouvrir DEVICES |
 | **SCENES** | Vos mix enregistrés. **+** en enregistre un nouveau (voir [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | Le même mix, en simple ou en console complète (voir l'[étape 7](#step-7-pro-for-the-whole-console)) |
-
 Dans une fenêtre étroite, le voyant d'état disparaît en premier, puis MINI, puis HISTORY. FIND
 permet d'atteindre tout cela.
 
@@ -750,7 +740,7 @@ Clic droit sur une sortie pour **DEVICE...**, **HEADPHONE EQ** (correction de ca
 votre modèle, classé par marque), **ALERT IF SILENT** (sous -60 dBFS pendant **10 S**, **30 S**, **1 MIN** ou **5 MIN**, ou **OFF**) et **ALERT IF
 CLIPPING** (tant que LIMIT est désactivé), qui font clignoter l'icône de la zone de notification et
 écrivent dans le journal des événements, **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, les
-espaceurs, **RENAME...** et **REMOVE**.
+espaceurs, **COLOUR** (le long de sa barre de nom et sur son bloc Routing), **RENAME...** et **REMOVE**.
 
 Les sorties sont créées pour vous, une par périphérique (voir
 [Les sorties sont des périphériques](#outputs-are-devices)).
@@ -789,7 +779,7 @@ mémorisé jusqu'à ce que le fichier du plugin change.
 
 Cliquez sur **PLUGINS** dans la barre latérale. Un panneau monte sous les tranches avec les plugins
 de la **tranche sélectionnée** dans l'ordre où ils s'exécutent. **FIND** > **PLUGINS: name** l'ouvre
-sur cette tranche, et passe en PRO si SIMPLE est affiché. Chaque carte montre :
+sur cette tranche. Chaque carte montre :
 
 - **CPU** : la part du plugin dans le temps de traitement (vert, orange au-delà de 2 %, rouge
   au-delà de 5 %)
@@ -1242,7 +1232,7 @@ La page **MIDI & OSC** :
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L, ou **Start mapping** dans SETTINGS > MIDI & OSC, le lance ; Échap le termine. Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, en SIMPLE et en PRO, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, ou **Start mapping** dans SETTINGS > MIDI & OSC, le lance ; Échap le termine. Cliquez sur une commande à l'écran, puis bougez un potentiomètre ou une touche de votre contrôleur. Le fader, le pan, CUT, SOLO, l'alimentation et les touches de routage de chaque tranche peuvent être assignés, de même que les scènes, les pads et la bande. La molette de la souris fait défiler le pupitre pendant l'assignation (Maj+molette de haut en bas) |
 | **OSC** | Les programmes de ce PC peuvent envoyer vers le port 9000, ou le port réglé dans **OSC port** (SETTINGS > MIDI & OSC ; il n'écoute jamais le réseau) : `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 la relâche). Écrivez les espaces des noms sous la forme `_`. Toutes les adresses : [référence OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (en anglais) |
 | **Overlay en jeu** (Ctrl+Maj+O) | Pour chaque canal micro, le voyant de parole, LIVE / CUT et le niveau, plus jusqu'à quatre touches de scène. Ne prend jamais le focus à un jeu. Faites-le glisser où vous voulez |
 | **MINI** | Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et **CUT** pour chaque tranche cochée **IN THE MINI MIXER** dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). **PIN** la garde au premier plan de tout. **OPEN** revient à la fenêtre principale |
@@ -1301,7 +1291,7 @@ Faites glisser la **barre de nom** d'un canal latéralement dans le Mixer (desce
 section NAME), ou faites glisser son bloc sur la page Routing. Une barre bleue montre où il
 atterrira, et les tranches glissent à leur place. Les espaceurs suivent la tranche qu'ils suivent. Les
 bus et les sorties se déplacent de la même façon, chacun parmi ceux de son type, et leurs
-liaisons les suivent. SIMPLE montre les sorties dans le même ordre.
+liaisons les suivent.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1469,7 +1459,7 @@ Suivez le chemin du signal :
 
 - Un programme continue de jouer sur son propre périphérique en même temps que dans son canal. Si
   son canal est routé vers une sortie de ce même périphérique, vous l'entendez directement et par
-  Faider. Désactivez cette liaison (en SIMPLE, la touche de la sortie sur le canal), ou déplacez le
+  Faider. Désactivez cette liaison (sa case de routage sur le canal), ou déplacez le
   programme vers un autre périphérique. PRE-FLIGHT vous en avertit.
 - Le haut-parleur par défaut de Windows est réglé sur le câble virtuel. PRE-FLIGHT > **WINDOWS
   DEFAULTS** le nomme, et **SET MY DEFAULTS** remet vos haut-parleurs.

@@ -21,7 +21,7 @@ The sidebar down the left shows the pages as cards: **MIXER**, **ROUTING**, **TO
 | **ADD APP** | An app playing sound now, as a channel of its own |
 | **ADD BUS** | A new bus |
 | **PLUGINS** | The selected strip's plugins, in a panel under the strips |
-| **COMPACT** | Every strip folded to its name bar and fader, its level meter beside the fader. Again: whole strips |
+| **COMPACT** | Every strip folded to its name bar and fader. Again: whole strips |
 | **SELECT** | **AUTO**: touching a strip selects it. **FOLLOW**: the view follows the selection, also when it's made elsewhere |
 | **SECTIONS** | The strip's sections, lit while in view (COMPACT: NAME and FADER). Click one to go to it |
 

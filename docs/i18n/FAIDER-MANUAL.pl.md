@@ -195,10 +195,10 @@ Co tworzy każda odpowiedź:
 | **PROGRAMS** | Kanał raw dla każdego, skierowany tam, gdzie słuchasz, plus reguła aplikacji, która przywraca go sama, gdy tylko program zagra |
 
 Twoje mikrofony nie są skierowane do twoich słuchawek, więc nie słyszysz opóźnionego echa własnego
-głosu. Żeby usłyszeć siebie, zapal klawisz **HEADPHONES** mikrofonu (krok 6).
+głosu. Żeby usłyszeć siebie, skieruj mikrofon do słuchawek (krok 6).
 
-SETUP to nie strona: uruchom go ponownie z **FIND** (**SETUP: BUILD A MIX**) albo z klawisza **SETUP**
-w SIMPLE, gdy dodasz urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.
+SETUP to nie strona: uruchom go ponownie z **FIND** (**SETUP: BUILD A MIX**), gdy dodasz
+urządzenie lub program. Dodaje to, czego brakuje, i niczego nie usuwa.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -220,40 +220,33 @@ większości systemów.
 
 ### Krok 6: Usłysz siebie i pozwól aplikacjom usłyszeć ciebie
 
-![Konsola SIMPLE z miksem demonstracyjnym: sześć kanałów, każdy z klawiszem HEADPHONES i STREAM, oraz dwa wyjścia](../images/console/simple.jpg)
+Mixer pokazuje pasek dla każdego kanału, busa i wyjścia. **Pola routingu** w nagłówku każdego
+paska pokazują, dokąd on trafia: jedno pole na każdy bus i urządzenie wyjściowe, zapalone tam, gdzie
+jest skierowany (zobacz [4](#4-how-routing-works)).
 
-Mixer otwiera się w **SIMPLE**. Każdy kanał pokazuje swoją nazwę, czego słucha, klawisz dla każdego
-wyjścia, swój fader i miernik, **CUT** i **SOLO**. Każde wyjście pokazuje urządzenie, na którym gra,
-swój fader i miernik.
-
-| Klawisz na kanale | Znaczy |
-|---|---|
-| Zwykły szary | Nie skierowany na to wyjście |
-| Wypełniony kolorem wyjścia | Skierowany tam. Kliknij, żeby wyłączyć |
-| Tylko kolorowa krawędź, **VIA BUS** | Dociera tam przez bus (ustawiony w PRO). Kliknij, żeby skierować go tam też bezpośrednio |
-
-1. Mów i patrz, jak rusza się miernik twojego mikrofonu.
-2. Żeby usłyszeć siebie, kliknij klawisz **HEADPHONES** mikrofonu.
+1. Mów i patrz, jak rusza się miernik poziomu twojego mikrofonu.
+2. Żeby usłyszeć siebie, zapal pole swoich słuchawek w polach routingu mikrofonu.
 3. W Discordzie, w grze, w OBS lub w dowolnej innej aplikacji wybierz **CABLE Output** jako mikrofon.
 4. Sprawdź, co dostają: **HEAR WHAT THEY HEAR** (w wierszu **MIC OUTPUT** w PRE-FLIGHT albo w **FIND**, Ctrl+K) nagrywa 5 sekund tego, co
    odbierają aplikacje, i odtwarza ci to.
 
 Jeśli słyszysz program dwa razy, zobacz [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** i **+ APP** dodają kanały (**+ APP** wylicza też uruchomione programy, które są **NOT PLAYING YET**). **+ OUTPUT** dodaje wyjście na urządzeniu, które go nie ma.
-Klawisz urządzenia pod nazwą wyjścia zmienia, gdzie ono gra. Kliknij nazwę prawym przyciskiem, żeby
-dostać **RENAME...**, kolor, **HEADPHONE EQ** (wyjście), **IN THE MINI MIXER** i **REMOVE**. Usunięcie
+**ADD CHANNEL** i **ADD APP** na panelu bocznym dodają kanały (**ADD APP** wylicza też uruchomione programy, które są **NOT PLAYING YET**). Skieruj coś na urządzenie, które nie ma wyjścia, a powstanie na nim wyjście.
+Prawy przycisk na wyjściu daje **DEVICE...** (gdzie ono gra) i **HEADPHONE EQ**. Prawy przycisk na dowolnym pasku daje **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** i **REMOVE**. Usunięcie
 kanału programu usuwa też jego regułę aplikacji, więc kanał nie wraca sam.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Krok 7: PRO, czyli cała konsola
 
-Przełącznik **SIMPLE / PRO** na górnym pasku pokazuje ten sam miks w obu trybach. **PRO** to cała
-konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.
+Mixer to cała konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.
+Dla mniejszego widoku **COMPACT** na panelu bocznym składa każdy pasek do jego paska nazwy i sekcji
+suwaka. Kliknij go ponownie, żeby wróciły całe paski (zobacz [Panel boczny](#the-sidebar)).
 
 Żeby ukształtować swój mikrofon, zobacz [17.1](#171-hear-yourself-set-up-a-microphone). Każdy element
-jest opisany w [6](#6-the-channel-strip-section-by-section). Ustawienia zrobione w PRO nadal działają w SIMPLE.
+jest opisany w [6](#6-the-channel-strip-section-by-section).
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -294,7 +287,7 @@ To koniec konfiguracji. Reszta podręcznika omawia każdą część szczegółow
 
 Strony są kartami po lewej stronie: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. Widoczna strona ma jasnoniebieską krawędź. Gdy widać Mixer, panel boczny ma też te
-karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
+karty:
 
 | Grupa | Karta | Co robi |
 |---|---|---|
@@ -302,7 +295,7 @@ karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
 | | **ADD APP** | Wylicza programy, które teraz grają, a potem, pod **NOT PLAYING YET**, te uruchomione z oknem, które milczą. Wybranie jednego daje mu kanał; ten, który nie gra, jest przechwytywany od chwili, gdy zagra |
 | | **ADD BUS** | Bus albo kombinator (na początek dwie ścieżki) |
 | | **PLUGINS** | Wysuwa panel wtyczek pod paski (zobacz [9](#9-plugins)) |
-| | **COMPACT** | Składa każdy pasek do jego paska nazwy i sekcji suwaka (panorama, SOLO, CUT, SEL, suwak i jego odczyt), z miernikiem poziomu paska obok skali suwaka; konsola się skraca i wraca na górę. Świeci, dopóki konsola jest złożona; kliknij ponownie, żeby wróciły całe paski. Także **COMPACT DESK** / **FULL DESK** w FIND |
+| | **COMPACT** | Składa każdy pasek do jego paska nazwy i sekcji suwaka (panorama, SOLO, CUT, SEL, suwak i jego odczyt); konsola się skraca i wraca na górę. Świeci, dopóki konsola jest złożona; kliknij ponownie, żeby wróciły całe paski. Także **COMPACT DESK** / **FULL DESK** w FIND |
 | **SELECT** | **AUTO** | Dotknięcie dowolnego elementu paska zaznacza ten pasek |
 | | **FOLLOW** | Konsola płynie do zaznaczonego paska, także gdy zaznaczono go gdzie indziej (FIND, skrót klawiszowy) |
 | **SECTIONS** | HEADER … FADER | Sekcje paska (przy COMPACT tylko NAME i FADER). Zapalone są na ekranie. Kliknij jedną, żeby do niej popłynąć |
@@ -326,7 +319,6 @@ Od prawej:
 | **MINI** | Mini mikser: małe okno miksera (otwiera je też ikona w zasobniku). **PIN** na nim trzyma je na wierzchu |
 | **Kontrolka stanu** | Zielona: audio jest w porządku. Bursztynowa: obciążenie audio jest wysokie albo urządzeniu niedawno zabrakło danych. Czerwona: słyszalny zgrzyt w ostatnich 10 sekundach albo audio nie działa. Liczba to obciążenie audio. Kliknij, żeby otworzyć DEVICES |
 | **SCENES** | Twoje zapisane miksy. **+** zapisuje nowy (zobacz [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | Ten sam miks, w prostej postaci albo jako cała konsola (zobacz [Krok 7](#step-7-pro-for-the-whole-console)) |
 
 W wąskim oknie najpierw znika kontrolka stanu, potem MINI, potem HISTORY. FIND dosięga ich wszystkich.
 
@@ -716,7 +708,8 @@ Każde wyjście ma własny ciemny pasek:
 Prawy przycisk na wyjściu daje **DEVICE...**, **HEADPHONE EQ** (korekcja słuchawek: **NONE** albo
 twój model, według marki), **ALERT IF SILENT** (poniżej -60 dBFS przez **10 S**, **30 S**, **1 MIN** lub **5 MIN**, albo **OFF**) i **ALERT IF CLIPPING**
 (gdy LIMIT jest wyłączony), które migają ikoną w zasobniku i zapisują do dziennika zdarzeń,
-**IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, odstępy, **RENAME...** i **REMOVE**.
+**IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, odstępy, **COLOUR** (wzdłuż jego paska nazwy i
+na jego bloku w Routing), **RENAME...** i **REMOVE**.
 
 Wyjścia tworzą się same, po jednym na urządzenie (zobacz [Wyjścia to urządzenia](#outputs-are-devices)).
 
@@ -753,8 +746,8 @@ plik wtyczki się nie zmieni.
 ![Panel wtyczek dla zaznaczonego paska](../images/console/plugins.jpg)
 
 Kliknij **PLUGINS** na panelu bocznym. Pod paskami wysuwa się panel z wtyczkami **zaznaczonego
-paska** w kolejności, w jakiej działają. **FIND** > **PLUGINS: name** otwiera go na tym pasku i
-przełącza na PRO, jeśli widać SIMPLE. Każda karta pokazuje:
+paska** w kolejności, w jakiej działają. **FIND** > **PLUGINS: name** otwiera go na tym pasku.
+Każda karta pokazuje:
 
 - **CPU**: udział wtyczki w czasie przetwarzania (zielony, bursztynowy powyżej 2 %, czerwony powyżej 5 %)
 - **Latency**: opóźnienie, które dodaje
@@ -1177,7 +1170,7 @@ Strona **MIDI & OSC**:
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L albo **Start mapping** w SETTINGS > MIDI & OSC je uruchamia; Esc kończy. Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, w SIMPLE i w PRO, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L albo **Start mapping** w SETTINGS > MIDI & OSC je uruchamia; Esc kończy. Kliknij element na ekranie, potem ruszaj pokrętłem lub klawiszem kontrolera. Można przypisać fader, pan, CUT, SOLO, zasilanie i klawisze routingu każdego paska, a także sceny, pady i tape. Podczas przypisywania kółko myszy przewija konsolę (Shift+kółko w górę i w dół) |
 | **OSC** | Programy na tym komputerze mogą wysyłać na port 9000 albo na port ustawiony w **OSC port** (SETTINGS > MIDI & OSC; nigdy nie nasłuchuje sieci): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 je zwalnia). Spacje w nazwach zapisuj jako `_`. Wszystkie adresy: [opis OSC](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (po angielsku) |
 | **Nakładka w grze** (Ctrl+Shift+O) | Kontrolka mówienia każdego kanału mikrofonu, LIVE / CUT i poziom, plus do czterech klawiszy scen. Nigdy nie odbiera fokusu grze. Przeciągnij ją gdziekolwiek |
 | **MINI** | Mini mikser: małe okno z faderem, miernikiem i **CUT** dla każdego paska z zaznaczonym **IN THE MINI MIXER** w menu prawego przycisku (dla każdego wyjścia, gdy nie ma żadnego). **PIN** trzyma je nad wszystkim. **OPEN** wraca do głównego okna |
@@ -1232,7 +1225,7 @@ proszą o zgodę.
 Przeciągnij **pasek nazwy** kanału w bok w Mixerze (przewiń w dół do sekcji NAME) albo przeciągnij
 jego blok na stronie Routing. Niebieski pasek pokazuje, gdzie wyląduje, a paski płynnie wskakują na
 miejsce. Odstępy przesuwają się z paskiem, za którym stoją. Busy i wyjścia przesuwa się tak samo,
-każde wśród swojego rodzaju, a ich trasy idą z nimi. SIMPLE pokazuje wyjścia w tej samej kolejności.
+każde wśród swojego rodzaju, a ich trasy idą z nimi.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1389,7 +1382,7 @@ Idź wzdłuż drogi sygnału:
 
 - Program gra nadal na własnym urządzeniu, a także do swojego kanału. Jeśli jego kanał jest
   skierowany na wyjście na tym samym urządzeniu, słyszysz go bezpośrednio i przez Faider. Wyłącz tę
-  trasę (w SIMPLE klawisz tego wyjścia na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
+  trasę (jej polem routingu na kanale) albo przenieś program na inne urządzenie. PRE-FLIGHT
   ostrzega o tym.
 - Domyślny głośnik Windows jest ustawiony na wirtualny kabel. PRE-FLIGHT > **WINDOWS DEFAULTS** go wskazuje,
   a **SET MY DEFAULTS** przywraca twoje głośniki.

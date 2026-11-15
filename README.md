@@ -59,8 +59,8 @@ The mixer is a large-format console. It has full channel strips, raw strips for 
 and tape, and output strips with a bus compressor. On the Routing page every strip is a block under
 its place on the desk. Click one block, then another, and the route between them goes on or off.
 
-**SIMPLE** shows the same mix with the processing hidden: each channel's fader, meter, CUT, SOLO and
-a big key for every output. The switch in the top bar flips the whole console between SIMPLE and PRO.
+**COMPACT** in the Mixer's sidebar folds every strip to its name bar and fader, so the desk fits
+on a short screen. Click it again for the whole strips.
 
 | | |
 |---|---|
@@ -111,7 +111,7 @@ a big key for every output. The switch in the top bar flips the whole console be
     <td width="50%"><img src="docs/images/console/pads.jpg" alt="Pads"><br><sub>Pads: four banks of sixteen, with an editor per pad</sub></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/images/console/simple.jpg" alt="The SIMPLE desk"><br><sub>SIMPLE: a key for every output on each channel, the processing hidden</sub></td>
+    <td width="50%"><img src="docs/images/console/setup.jpg" alt="SETUP's microphones page"><br><sub>SETUP: four questions, then the mix is built from the answers</sub></td>
     <td width="50%"><img src="docs/images/console/outputs.jpg" alt="Output strips"><br><sub>Outputs: bus compressor, mix EQ, width, limiter (LIMIT) and LUFS metering</sub></td>
   </tr>
 </table>

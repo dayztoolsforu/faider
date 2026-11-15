@@ -174,10 +174,10 @@ What each answer makes:
 | **PROGRAMS** | A raw channel for each, routed to where you listen, plus an app rule that brings it back by itself whenever the program plays |
 
 Your microphones aren't routed to your own headphones, so you don't hear a delayed echo of your
-voice. To hear yourself, light the mic's **HEADPHONES** key (step 6).
+voice. To hear yourself, route the mic to your headphones (step 6).
 
-SETUP is not a page: run it again from **FIND** (**SETUP: BUILD A MIX**), or the **SETUP** key in
-SIMPLE, whenever you add a device or a program. It adds what's missing and never removes anything.
+SETUP is not a page: run it again from **FIND** (**SETUP: BUILD A MIX**) whenever you add a
+device or a program. It adds what's missing and never removes anything.
 
 ### Step 5: Check the audio is running
 
@@ -194,38 +194,31 @@ that plays without crackles gives you the least delay. 256 or 512 samples suits 
 
 ### Step 6: Hear yourself and let apps hear you
 
-![The SIMPLE desk with a demo mix: six channels, each with a key for HEADPHONES and STREAM, and two outputs](images/console/simple.jpg)
+The Mixer shows a strip for each channel, bus and output. The **routing boxes** in each strip's
+header show where it goes: one box per bus and output device, lit where it's routed (see
+[4](#4-how-routing-works)).
 
-The Mixer opens in **SIMPLE**. Each channel shows its name, what it listens to, a key for each
-output, its fader and meter, **CUT** and **SOLO**. Each output shows the device it plays on, its
-fader and meter.
-
-| Key on a channel | Means |
-|---|---|
-| Plain grey | Not routed to that output |
-| Filled in the output's colour | Routed there. Click to switch it off |
-| Coloured edge only, **VIA BUS** | It gets there through a bus (set up in PRO). Click to route it straight there too |
-
-1. Speak and watch your microphone's meter move.
-2. To hear yourself, click the mic's **HEADPHONES** key.
+1. Speak and watch your microphone's level meter move.
+2. To hear yourself, light the box for your headphones in the mic's routing boxes.
 3. In Discord, your game, OBS or any other app, choose **CABLE Output** as the microphone.
 4. Check what they get: **HEAR WHAT THEY HEAR** (on PRE-FLIGHT's **MIC OUTPUT** row, or in **FIND**, Ctrl+K) records 5 seconds of what apps
    receive and plays it back to you.
 
 If you hear a program twice, see [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** and **+ APP** add channels (**+ APP** also lists running programs that are **NOT PLAYING YET**). **+ OUTPUT** adds an output on a device that has none.
-The device key under an output's name changes where it plays. Right-click a name for **RENAME...**,
-the colour, **HEADPHONE EQ** (an output), **IN THE MINI MIXER** and **REMOVE**. Removing a
+**ADD CHANNEL** and **ADD APP** in the sidebar add channels (**ADD APP** also lists running programs that are **NOT PLAYING YET**). Route something to a device that has no output and an output is made on it.
+Right-click an output for **DEVICE...** (where it plays) and **HEADPHONE EQ**. Right-click any strip for **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** and **REMOVE**. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.
 
 ### Step 7: PRO, for the whole console
 
-The **SIMPLE / PRO** switch in the top bar shows the same mix either way. **PRO** is the whole
-console: each channel's input, filters, dynamics and EQ, buses and combinators, plugins.
+The Mixer is the whole console: each channel's input, filters, dynamics and EQ, buses and
+combinators, plugins. For a smaller view, **COMPACT** in the sidebar folds every strip to its name
+bar and fader section. Click it again for the whole strips (see [The sidebar](#the-sidebar)).
 
 To shape your microphone, see [17.1](#171-hear-yourself-set-up-a-microphone). Every control is in
-[6](#6-the-channel-strip-section-by-section). Settings you make in PRO keep working in SIMPLE.
+[6](#6-the-channel-strip-section-by-section).
 
 ### Step 8: Run PRE-FLIGHT
 
@@ -257,7 +250,7 @@ That's the setup done. The rest of this manual covers each part in detail.
 
 The pages are cards down the left: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. The page showing has a lit blue edge. While the Mixer shows, the sidebar also has
-these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
+these cards:
 
 | Group | Card | What it does |
 |---|---|---|
@@ -287,7 +280,6 @@ From the right:
 | **MINI** | The mini mixer: a small mixer window (the tray icon opens it too). **PIN** on it keeps it on top |
 | **Health light** | Green: audio is fine. Amber: the audio load is high or a device ran short recently. Red: an audible glitch in the last 10 seconds, or no audio running. The number is the audio load. Click it for DEVICES |
 | **SCENES** | Your stored mixes. **+** stores a new one (see [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | The same mix, simple or as the whole console (see [Step 7](#step-7-pro-for-the-whole-console)) |
 
 In a narrow window the health light goes first, then MINI, then HISTORY. FIND reaches them all.
 
@@ -627,7 +619,7 @@ Each output has its own dark strip:
 Right-click an output for **DEVICE...**, **HEADPHONE EQ** (headphone correction: **NONE**, or your
 model, listed by brand), **ALERT IF SILENT** (under -60 dBFS for **10 S**, **30 S**, **1 MIN** or **5 MIN**, or **OFF**) and **ALERT IF CLIPPING**
 (while LIMIT is off), which flash the tray icon and write to the event log, **IN THE MINI MIXER**,
-**MIX-MINUS AND STEMS...**, spacers, **RENAME...** and **REMOVE**.
+**MIX-MINUS AND STEMS...**, spacers, **COLOUR** (along its name bar and on its Routing block), **RENAME...** and **REMOVE**.
 
 Outputs are made for you, one per device (see [Outputs are devices](#outputs-are-devices)).
 
@@ -658,8 +650,8 @@ changes.
 ![The plugin panel for the selected strip](images/console/plugins.jpg)
 
 Click **PLUGINS** in the sidebar. A panel slides up under the strips with the **selected strip's**
-plugins in the order they run. **FIND** > **PLUGINS: name** opens it on that strip, and switches to
-PRO if SIMPLE is showing. Each card shows:
+plugins in the order they run. **FIND** > **PLUGINS: name** opens it on that strip. Each card
+shows:
 
 - **CPU**: the plugin's share of the processing time (green, amber past 2 %, red past 5 %)
 - **Latency**: the delay it adds
@@ -1035,7 +1027,7 @@ The **MIDI & OSC** page:
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L, or **Start mapping** in SETTINGS > MIDI & OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, or **Start mapping** in SETTINGS > MIDI & OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
 | **OSC** | Programs on this PC can send to port 9000, or the port set in **OSC port** (SETTINGS > MIDI & OSC; it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
@@ -1080,7 +1072,7 @@ themselves.
 Drag a channel's **name bar** sideways on the Mixer (scroll down to the NAME section), or drag its
 block on the Routing page. A blue bar shows where it will land, and the strips glide into place.
 Spacers move with the strip they follow. Buses and outputs move the same way, each among its own
-kind, and their routes go with them. SIMPLE shows the outputs in the same order.
+kind, and their routes go with them.
 
 ### 17.5 Group channels into a bus
 
@@ -1212,7 +1204,7 @@ Work along the signal path:
 
 - A program keeps playing on its own device as well as into its channel. If its channel is routed
   to an output on that same device, you hear it directly and through Faider. Switch that route off
-  (in SIMPLE, the output's key on the channel), or move the program to another device. PRE-FLIGHT
+  (its routing box on the channel), or move the program to another device. PRE-FLIGHT
   warns about this.
 - Windows' default speaker is set to the virtual cable. PRE-FLIGHT > **WINDOWS DEFAULTS** names it,
   and **SET MY DEFAULTS** puts your speakers back.

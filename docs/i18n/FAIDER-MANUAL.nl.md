@@ -195,10 +195,10 @@ Wat elk antwoord maakt:
 | **PROGRAMS** | Een raw-kanaal voor elk, gerouteerd naar waar je luistert, plus een app-regel die het vanzelf terugbrengt zodra het programma speelt |
 
 Je microfoons worden niet naar je eigen koptelefoon gerouteerd, zodat je geen vertraagde echo van je
-stem hoort. Om jezelf te horen, zet je de toets **HEADPHONES** van de microfoon aan (stap 6).
+stem hoort. Om jezelf te horen, routeer je de microfoon naar je koptelefoon (stap 6).
 
-SETUP is geen pagina: start het opnieuw via **FIND** (**SETUP: BUILD A MIX**) of de **SETUP**-toets in
-SIMPLE als je een apparaat of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.
+SETUP is geen pagina: start het opnieuw via **FIND** (**SETUP: BUILD A MIX**) als je een apparaat
+of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -219,40 +219,33 @@ die zonder gekraak speelt, geeft je de minste vertraging. 256 of 512 samples pas
 
 ### Stap 6: Jezelf horen en apps jou laten horen
 
-![De SIMPLE-tafel met een demomix: zes kanalen, elk met een toets voor HEADPHONES en STREAM, en twee uitgangen](../images/console/simple.jpg)
+De Mixer toont een strip voor elk kanaal, elke bus en elke uitgang. De **routeringsvakjes** in de header
+van elke strip tonen waar hij heen gaat: één vakje per bus en uitvoerapparaat, verlicht waar hij
+heen gerouteerd is (zie [4](#4-how-routing-works)).
 
-De Mixer opent in **SIMPLE**. Elk kanaal toont zijn naam, waarnaar het luistert, een toets voor elke
-uitgang, zijn fader en meter, **CUT** en **SOLO**. Elke uitgang toont het apparaat waarop hij speelt,
-zijn fader en meter.
-
-| Toets op een kanaal | Betekent |
-|---|---|
-| Gewoon grijs | Niet gerouteerd naar die uitgang |
-| Gevuld in de kleur van de uitgang | Daarheen gerouteerd. Klik om uit te zetten |
-| Alleen gekleurde rand, **VIA BUS** | Het komt er via een bus (ingesteld in PRO). Klik om het ook rechtstreeks erheen te routeren |
-
-1. Spreek en kijk hoe de meter van je microfoon beweegt.
-2. Om jezelf te horen, klik je op de toets **HEADPHONES** van de microfoon.
+1. Spreek en kijk hoe de niveaumeter van je microfoon beweegt.
+2. Om jezelf te horen, zet je het vakje van je koptelefoon aan in de routeringsvakjes van de microfoon.
 3. Kies in Discord, je game, OBS of een andere app **CABLE Output** als microfoon.
 4. Controleer wat ze krijgen: **HEAR WHAT THEY HEAR** (op de rij **MIC OUTPUT** van PRE-FLIGHT, of in **FIND**, Ctrl+K) neemt 5 seconden op van wat apps
    ontvangen en speelt het voor je af.
 
 Hoor je een programma dubbel, zie dan [18.7](#187-i-hear-something-twice-or-an-echo).
 
-**+ CHANNEL** en **+ APP** voegen kanalen toe (**+ APP** toont ook draaiende programma's die **NOT PLAYING YET** zijn). **+ OUTPUT** voegt een uitgang toe op een apparaat dat er geen heeft.
-De apparaattoets onder de naam van een uitgang verandert waar hij speelt. Klik met rechts op een naam voor **RENAME...**,
-de kleur, **HEADPHONE EQ** (een uitgang), **IN THE MINI MIXER** en **REMOVE**. Als je het kanaal van een
+**ADD CHANNEL** en **ADD APP** in de zijbalk voegen kanalen toe (**ADD APP** toont ook draaiende programma's die **NOT PLAYING YET** zijn). Routeer iets naar een apparaat zonder uitgang en er wordt een uitgang op gemaakt.
+Rechtsklik op een uitgang voor **DEVICE...** (waar hij speelt) en **HEADPHONE EQ**. Rechtsklik op een strip voor **RENAME...**,
+**COLOUR**, **IN THE MINI MIXER** en **REMOVE**. Als je het kanaal van een
 programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal niet vanzelf terugkomt.
 
 <a id="step-7-pro-for-the-whole-console"></a>
 
 ### Stap 7: PRO, voor de hele console
 
-De schakelaar **SIMPLE / PRO** in de bovenbalk toont in beide gevallen dezelfde mix. **PRO** is de hele
-console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en combinators, plugins.
+De Mixer is de hele console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en
+combinators, plugins. Voor een kleinere weergave vouwt **COMPACT** in de zijbalk elke strip op tot
+zijn naambalk en fadersectie. Klik er nog eens op voor de hele strips (zie [De zijbalk](#the-sidebar)).
 
 Om je microfoon te vormen, zie [17.1](#171-hear-yourself-set-up-a-microphone). Elke knop staat in
-[6](#6-the-channel-strip-section-by-section). Instellingen die je in PRO maakt, blijven ook in SIMPLE werken.
+[6](#6-the-channel-strip-section-by-section).
 
 <a id="step-8-run-pre-flight"></a>
 
@@ -292,7 +285,7 @@ Daarmee is de installatie klaar. De rest van deze handleiding behandelt elk onde
 
 De pagina's zijn kaarten langs de linkerkant: **MIXER**, **ROUTING**, **TOOLS**, **DEVICES**,
 **SETTINGS**. De pagina die je ziet, heeft een oplichtende blauwe rand. Zolang de Mixer zichtbaar is, heeft de zijbalk ook
-deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
+deze kaarten:
 
 | Groep | Kaart | Wat het doet |
 |---|---|---|
@@ -300,7 +293,7 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 | | **ADD APP** | Toont de programma's die nu geluid afspelen, en daarna, onder **NOT PLAYING YET**, de draaiende programma's met een venster die stil zijn. Kies er een om het een kanaal te geven; een programma dat niet speelt, wordt opgevangen vanaf het moment dat het dat wel doet |
 | | **ADD BUS** | Een bus, of een combinator (om mee te beginnen twee paden) |
 | | **PLUGINS** | Schuift het pluginpaneel omhoog onder de strips (zie [9](#9-plugins)) |
-| | **COMPACT** | Vouwt elke strip op tot zijn naambalk en zijn fadersectie (pan, SOLO, CUT, SEL, de fader en zijn uitlezing), met de niveaumeter van de strip naast de schaal van de fader; de tafel krimpt mee en gaat naar boven. Licht op zolang de tafel compact is; klik nog eens voor de hele strips. Ook **COMPACT DESK** / **FULL DESK** in FIND |
+| | **COMPACT** | Vouwt elke strip op tot zijn naambalk en zijn fadersectie (pan, SOLO, CUT, SEL, de fader en zijn uitlezing); de tafel krimpt mee en gaat naar boven. Licht op zolang de tafel compact is; klik nog eens voor de hele strips. Ook **COMPACT DESK** / **FULL DESK** in FIND |
 | **SELECT** | **AUTO** | Een willekeurige knop op een strip aanraken selecteert die strip |
 | | **FOLLOW** | De tafel glijdt naar de geselecteerde strip, ook als die elders is gekozen (FIND, een sneltoets) |
 | **SECTIONS** | HEADER … FADER | De secties van de strip (bij COMPACT alleen NAME en FADER). Oplichtende staan in beeld. Klik op een sectie om erheen te glijden |
@@ -324,7 +317,6 @@ Van rechts:
 | **MINI** | De mini-mixer: een klein mixervenster (het pictogram in het systeemvak opent hem ook). Met **PIN** erop blijft hij bovenop |
 | **Gezondheidslicht** | Groen: de audio is in orde. Oranje: de audiobelasting is hoog of een apparaat kwam onlangs tekort. Rood: een hoorbare storing in de laatste 10 seconden, of er draait geen audio. Het getal is de audiobelasting. Klik erop voor DEVICES |
 | **SCENES** | Je opgeslagen mixen. Met **+** sla je een nieuwe op (zie [14.1](#141-scenes)) |
-| **SIMPLE / PRO** | Dezelfde mix, eenvoudig of als de hele console (zie [Stap 7](#step-7-pro-for-the-whole-console)) |
 
 In een smal venster verdwijnt eerst het gezondheidslicht, dan MINI, dan HISTORY. Met FIND bereik je ze allemaal.
 
@@ -713,7 +705,7 @@ Rechtsklik op een uitgang voor **DEVICE...**, **HEADPHONE EQ** (koptelefooncorre
 model, op merk gesorteerd), **ALERT IF SILENT** (onder -60 dBFS gedurende **10 S**, **30 S**, **1 MIN** of **5 MIN**, of **OFF**) en **ALERT IF CLIPPING**
 (zolang LIMIT uit staat), die het pictogram in het systeemvak laten knipperen en in het
 gebeurtenissenlogboek schrijven, **IN THE MINI MIXER**, **MIX-MINUS AND STEMS...**, spacers,
-**RENAME...** en **REMOVE**.
+**COLOUR** (langs zijn naambalk en op zijn Routing-blok), **RENAME...** en **REMOVE**.
 
 Uitgangen worden voor je gemaakt, één per apparaat (zie [Uitgangen zijn apparaten](#outputs-are-devices)).
 
@@ -750,8 +742,8 @@ verandert.
 ![Het pluginpaneel voor de geselecteerde strip](../images/console/plugins.jpg)
 
 Klik op **PLUGINS** in de zijbalk. Een paneel schuift omhoog onder de strips met de plugins van de **geselecteerde strip**
-in de volgorde waarin ze draaien. **FIND** > **PLUGINS: name** opent het op die strip en schakelt over naar
-PRO als SIMPLE in beeld is. Elke kaart toont:
+in de volgorde waarin ze draaien. **FIND** > **PLUGINS: name** opent het op die strip. Elke kaart
+toont:
 
 - **CPU**: het aandeel van de plugin in de verwerkingstijd (groen, oranje boven 2 %, rood boven 5 %)
 - **Latency**: de vertraging die hij toevoegt
@@ -1175,7 +1167,7 @@ De pagina **MIDI & OSC**:
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ctrl+L, of **Start mapping** in SETTINGS > MIDI & OSC, start het; Esc beëindigt het. Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, in SIMPLE en PRO, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, of **Start mapping** in SETTINGS > MIDI & OSC, start het; Esc beëindigt het. Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
 | **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen, of naar de poort die is ingesteld in **OSC port** (SETTINGS > MIDI & OSC; hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_`. Elk adres: [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels) |
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / CUT en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
 | **MINI** | De mini-mixer: een klein venster met een fader, meter en **CUT** voor elke strip die **IN THE MINI MIXER** aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
@@ -1229,7 +1221,7 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 Sleep de **naambalk** van een kanaal opzij op de Mixer (scrol omlaag naar de sectie NAME), of sleep zijn
 blok op de pagina Routing. Een blauwe balk toont waar het terechtkomt, en de strips glijden op hun plek.
 Spacers verhuizen met de strip die ze volgen. Bussen en uitgangen verplaatsen op dezelfde manier, elk onder zijn eigen
-soort, en hun routes gaan mee. SIMPLE toont de uitgangen in dezelfde volgorde.
+soort, en hun routes gaan mee.
 
 <a id="175-group-channels-into-a-bus"></a>
 
@@ -1386,8 +1378,8 @@ Loop het signaalpad af:
 ### 18.7 Ik hoor iets dubbel, of een echo
 
 - Een programma blijft op zijn eigen apparaat spelen en ook in zijn kanaal. Is zijn kanaal gerouteerd naar
-  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (in SIMPLE
-  de toets van de uitgang op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
+  een uitgang op datzelfde apparaat, dan hoor je het rechtstreeks en via Faider. Zet die route uit (zijn
+  routeringsvakje op het kanaal), of verplaats het programma naar een ander apparaat. PRE-FLIGHT
   waarschuwt hiervoor.
 - De standaardspeaker van Windows staat op de virtuele kabel. PRE-FLIGHT > **WINDOWS DEFAULTS** noemt hem,
   en **SET MY DEFAULTS** zet je speakers terug.

@@ -82,7 +82,7 @@ public:
         for (auto* c : columns)
         {
             const auto r = c->meter.toFloat();
-            const float pitch = r.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (r.getWidth() - 2.0f, pitch * 0.72f);
+            const float pitch = r.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (r.getWidth() - 2.0f, pitch * 0.58f);
             const int on = Metering::ledsLit (st, Metering::toDb (c->level));
             if (on >= c->held || now - c->heldAt > 1500)   // (PEAK HOLD, as the desk's)
             {

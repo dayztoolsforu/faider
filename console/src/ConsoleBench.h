@@ -2215,7 +2215,7 @@ private:
             const auto& st = Metering::standard();
             const int count = (int) st.leds.size(), columns = item.single ? 1 : 2;
             const float pitch = r.getHeight() / (float) juce::jmax (1, count), colW = r.getWidth() / (float) columns;
-            const float d = juce::jmax (3.0f, juce::jmin (colW - 3.0f * zoom, pitch * 0.72f));
+            const float d = juce::jmax (3.0f, juce::jmin (colW - 3.0f * zoom, pitch * 0.58f));
             for (int side = 0; side < columns; ++side)
             {
                 const float db = item.single ? juce::jmax (bind.meterDb (ch, 0), bind.meterDb (ch, 1)) : bind.meterDb (ch, side);

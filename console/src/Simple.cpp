@@ -389,7 +389,7 @@ namespace
             const auto& st = Metering::standard();
             const int count = (int) st.leds.size();
             const auto column = meter.reduced (0.0f, 14.0f);
-            const float pitch = column.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (8.0f, pitch * 0.72f);
+            const float pitch = column.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (8.0f, pitch * 0.58f);
             for (int side = 0; side < 2; ++side)
             {
                 const int on = Metering::ledsLit (st, Metering::toDb (side == 0 ? meterL : meterR));

@@ -91,7 +91,6 @@ namespace
     {
         juce::String kind, id, text, name, colour, lamp, align, ink;
         bool lit = false, single = false;
-        bool compactOnly = false;   // (drawn only while the desk is COMPACT: the level meter beside the fader)
         int litCount = -1;
         juce::StringArray marks;
         juce::Rectangle<float> r;
@@ -132,7 +131,6 @@ namespace
                 item.lit = (bool) v.getProperty ("lit", false) && ! v["lit"].isInt();
                 item.litCount = v["lit"].isInt() ? (int) v["lit"] : -1;
                 item.single = (bool) v.getProperty ("single", false);
-                item.compactOnly = (bool) v.getProperty ("compactOnly", false);
                 if (auto* list = v["marks"].getArray())
                     for (auto& m : *list)
                         item.marks.add (m.toString());

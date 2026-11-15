@@ -265,7 +265,7 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 | | **ADD APP** | Lists the programs playing sound now, then, under **NOT PLAYING YET**, those running with a window that are silent. Pick one to give it a channel; one that isn't playing is captured from the moment it does |
 | | **ADD BUS** | A bus, or a combinator (two paths to start) |
 | | **PLUGINS** | Slides the plugin panel up under the strips (see [9](#9-plugins)) |
-| | **COMPACT** | Folds every strip to its name bar and its fader section (pan, SOLO, CUT, SEL, the fader and its readout), with the strip's level meter beside the fader's scale; the desk shrinks to fit and goes to the top. Lit while compact; click it again for the whole strips. Also **COMPACT DESK** / **FULL DESK** in FIND |
+| | **COMPACT** | Folds every strip to its name bar and its fader section (pan, SOLO, CUT, SEL, the fader and its readout); the desk shrinks to fit and goes to the top. Lit while compact; click it again for the whole strips. Also **COMPACT DESK** / **FULL DESK** in FIND |
 | **SELECT** | **AUTO** | Touching any control on a strip selects that strip |
 | | **FOLLOW** | The desk glides to the selected strip, also when it's chosen elsewhere (FIND, a hotkey) |
 | **SECTIONS** | HEADER … FADER | The sections of the strip (while COMPACT, only NAME and FADER). Lit ones are on screen. Click one to glide to it |

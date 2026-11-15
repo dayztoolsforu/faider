@@ -178,15 +178,6 @@
    "compact": true,
    "items": [
     {
-     "kind": "bars",
-     "x": 198.0,
-     "y": 146.7,
-     "w": 14.0,
-     "h": 401.2,
-     "single": true,
-     "compactOnly": true
-    },
-    {
      "kind": "knob",
      "id": "pan",
      "x": 74.1,

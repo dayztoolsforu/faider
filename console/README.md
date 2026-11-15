@@ -73,7 +73,7 @@ hides the in-game overlay.
 `{ "width": 214, "sections": [ { "name", "height", "panel"?, "compact"?, "items": [ ... ] } ] }`
 
 A section with `"compact": true` stays when the desk is COMPACT (NAME and FADER); the others fold
-away. An item with `"compactOnly": true` is drawn only then (the `bars` meter beside the fader).
+away.
 
 | Kind | Fields |
 |---|---|

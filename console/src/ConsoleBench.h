@@ -34,7 +34,7 @@ public:
             for (auto& s : layoutFor (ch).sections)
                 for (auto& item : s.items)
                 {
-                    if (! shows (s) || ! shows (item))
+                    if (! shows (s))
                         continue;   // (folded away: nothing there to bind)
                     const auto r = itemArea (item, ch);
                     if (item.kind == "fader")                        list.push_back ({ r.toNearestInt(), "fader:" + key });
@@ -152,8 +152,6 @@ public:
             g.fillRect (area.withHeight (juce::jmax (1.0f, 1.5f * zoom)));
             for (auto& item : s.items)
             {
-                if (! shows (item))
-                    continue;
                 // (a part away from the area being drawn: skipped; a line can reach past its box)
                 if (item.kind != "line" && ! clip.intersects ((item.r * zoom).translated (x0, y0).expanded (24.0f * zoom)))
                     continue;
@@ -653,10 +651,8 @@ private:
         return live() && (bind.isMaster (ch) || isCombinator (ch));
     }
     // COMPACT: a section shows if the desk is whole or it's kept for COMPACT (the name bar, the
-    // fader); a part marked compactOnly (the meter beside the fader) only while it's compact. Every
-    // walk down a strip (drawing, clicks, MIDI MAP, sizes, the sidebar's SECTIONS) asks these.
+    // fader). Every walk down a strip (drawing, clicks, MIDI MAP, sizes, the sidebar's SECTIONS) asks this.
     bool shows (const Section& s) const { return ! compact || s.compact; }
-    bool shows (const Item& item) const { return compact || ! item.compactOnly; }
 
     const Layout& layoutFor (int ch) const
     {
@@ -1001,7 +997,7 @@ private:
             {
                 if (n == drawn.size())
                     drawn.push_back (-1);
-                if (shows (s) && shows (item))   // (folded away: not drawn, so not watched; each part keeps its slot)
+                if (shows (s))   // (folded away: not drawn, so not watched; each part keeps its slot)
                     if (const auto now = partState (item, ch); std::exchange (drawn[n], now) != now && ! all)
                         repaint ((item.r * zoom).translated (x0, y0).expanded (16.0f * zoom).getSmallestIntegerContainer());
                 ++n;
@@ -1189,7 +1185,7 @@ private:
                 continue;
             for (auto& it : s.items)
                 if (&it == &item)
-                    return shows (item) ? (item.r * zoom).translated (x0, y0) : juce::Rectangle<float>();
+                    return (item.r * zoom).translated (x0, y0);
             y0 += s.height * zoom;
         }
         return {};   // (not on this strip, or folded away)
@@ -1892,8 +1888,6 @@ private:
                     continue;
                 for (auto& item : s.items)
                 {
-                    if (! shows (item))
-                        continue;
                     const auto area = (item.r * zoom).translated (x0, y0);
                     if (item.id.isNotEmpty() && area.contains (p))
                         return { &item, ch };

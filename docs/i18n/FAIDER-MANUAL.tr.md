@@ -54,7 +54,7 @@ ters gittiğinde ne yapacağını söyler.
 | **Bir ses arabirimi** | İsteğe bağlı. ASIO sürücüsü kuruluysa Faider en düşük gecikme için arabirimin saatiyle çalışır. Arabirim yoksa Windows oynatma aygıtınla ya da yerleşik saatiyle çalışır ([Saat](#clocking) bölümüne bak) |
 | **Kulaklık** | Karışımını duyabilmek için arabirimine (veya herhangi bir Windows oynatma aygıtına) takılı |
 | **VB-CABLE** | İsteğe bağlı ve ücretsiz (vb-audio.com/Cable). Discord, oyunlar ve OBS gibi uygulamaların karışımını duyabilmesi için sanal bir mikrofon |
-| **ffmpeg** | İsteğe bağlı. `ffmpeg.exe` PATH'inde olursa ya da **SETTINGS > GENERAL > FFMPEG**'de seçilirse kaydedici MP3, AAC, Opus ve ALAC de yazabilir |
+| **ffmpeg** | İsteğe bağlı. `ffmpeg.exe` PATH'inde olursa ya da **SETTINGS > Recording > FFmpeg** içinde seçilirse kaydedici MP3, AAC, Opus ve ALAC de yazabilir |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -260,7 +260,7 @@ Mikrofonunu şekillendirmek için bkz. [17.1](#171-hear-yourself-set-up-a-microp
 
 Başlangıçtan birkaç saniye sonra **PRE-FLIGHT** düzeni kontrol eder ve yalnızca bir şeyin dikkat
 istemesi halinde açılır (SETUP'ın önce geldiği ilk başlangıçta değil). İstediğin zaman
-**SETTINGS > GENERAL > PRE-FLIGHT NOW...** veya **FIND** (Ctrl+K) ile çalıştırabilirsin. Her satır yeşil
+**SETTINGS > Startup & checks** içindeki **Run pre-flight** veya **FIND** (Ctrl+K) ile çalıştırabilirsin. Her satır yeşil
 olmalı. Bkz. [18.1](#181-pre-flight).
 
 <a id="step-9-finish"></a>
@@ -268,15 +268,15 @@ olmalı. Bkz. [18.1](#181-pre-flight).
 ### Adım 9: Bitir
 
 - **Karışımın kendiliğinden kaydedilir**, her değişiklikten sonra bir saniye içinde. Bir sürümü adla
-  saklamak için **SETTINGS > GENERAL > SAVE SESSION AS...** kullan.
-- **Windows ile başlat**: **SETTINGS > GENERAL > WINDOWS**, oturum açtığında Faider'i
+  saklamak için **SETTINGS > Sessions** içindeki **Save as…**'i kullan.
+- **Windows ile başlat**: **SETTINGS > General** içindeki anahtarı, oturum açtığında Faider'i
   tepsiyde başlatır, böylece mikrofonun en baştan çalışır.
 - **Pencereyi kapatmak sesi durdurmaz.** Faider sistem tepsisinde çalışmaya devam eder,
   böylece mikrofonun ve kulaklığın çalışmayı sürdürür. Durdurmak için tepsi simgesine sağ tıkla ve
   **Quit Faider**'u seç. Program tepsideyken onu yeniden başlatmak pencereyi geri getirir.
 
-Her sayfa ilk açıldığında kısa bir ipucu onu açıklar. İpuçlarını **SETTINGS > GENERAL > ON START**
-altından kapat.
+Her sayfa ilk açıldığında kısa bir ipucu onu açıklar. İpuçlarını **SETTINGS > General** içindeki
+**Tips** ile kapat.
 
 Kurulum bu kadar. Kılavuzun geri kalanı her bölümü ayrıntılı anlatır.
 
@@ -302,10 +302,10 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 | | **PLUGINS** | Eklenti panelini şeritlerin altından yukarı kaydırır (bkz. [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Bir şeritteki herhangi bir kontrole dokunmak o şeridi seçer |
 | | **FOLLOW** | Konsol seçili şeride kayar, şerit başka yerden seçildiğinde de (FIND, bir kısayol) |
-| **METER** | **IN** / **PRE** / **POST** | Kanal ölçerlerinin nereyi okuduğu: gelen kaynak (işlemeden önce), efektlerden sonra (fader'dan önce) ya da fader'dan sonra. **SETTINGS > GENERAL > CHANNEL METER POINT** ile aynı ayardır |
 | **SECTIONS** | HEADER … FADER | Şeridin bölümleri. Yanık olanlar ekrandadır. Birine kaymak için tıkla |
 
-SELECT ve METER seçimleri hatırlanır.
+SELECT seçimleri hatırlanır. Kanal ölçerlerinin nereyi okuduğu (**IN**, **PRE** ya da **POST**)
+**SETTINGS > Audio > Channel meter point** içinden ayarlanır.
 
 <a id="the-top-bar"></a>
 
@@ -444,8 +444,8 @@ kendiliğinden devralır ve bir bildirim hangisi olduğunu söyler. Başlamayan 
 program onu tuttuğu için) aygıt listen değişene kadar atlanır, sonra yeniden denenir. Yerleşik saatteyken
 takılan bir oynatma aygıtı saati ondan devralır.
 
-Saati kendin seçmek için **DEVICES**'ın üstündeki **CLOCK**'u kullan: **THE INTERFACE (ASIO)** (yukarıdaki
-sıra, varsayılan), adıyla **A WINDOWS PLAYBACK DEVICE** ya da **THE BUILT-IN CLOCK**. Seçim Faider
+Saati kendin seçmek için **SETTINGS > Audio** içindeki **Clock**'u kullan: **The interface (ASIO)** (yukarıdaki
+sıra, varsayılan), adıyla bir Windows oynatma aygıtı ya da **The built-in clock**. Seçim Faider
 yeniden başladığında geçerli olur; **RESTART NOW** bunu hemen yapar. Karışımın seninle gelir ve
 arabirimin için kayıtlı kalır. Yerleşik saati seçtiğinde hiçbir aygıt saati ondan devralmaz.
 
@@ -549,7 +549,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 | Kontrol | Ne yapar |
 |---|---|
-| **Seviye çubukları** | Kanalın sol ve sağ seviyesi (METER altında seçildiği gibi IN, PRE veya POST) |
+| **Seviye çubukları** | Kanalın sol ve sağ seviyesi (SETTINGS > Audio > Channel meter point içinde seçildiği gibi IN, PRE veya POST) |
 | **FILT** | Filtreleri gate/kompresörün dedektörüne gönderir (key filtering) |
 | **EQ** | EQ devrede veya devre dışı |
 | **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain): sağ tık > **KEY FROM** altında seçilen kanalı. Henüz biri seçilmeden basılırsa o listeyi açar |
@@ -737,8 +737,8 @@ gecikmeyi otomatik telafi eder.
   kombinatör şeridindeki yolun eklentisine tıkla.
 
 Her eklenti **önce programın ayrı bir kopyasında sınanır**, böylece yüklenirken çöken ya da donan bir
-eklenti karışımını düşüremez. Yüklenmek için 30 saniyesi vardır (SETTINGS > GENERAL'daki **PLUGIN TEST
-TIME** yavaş eklentilere 60 ya da 120 verir). Sonuç, eklenti dosyası değişene kadar hatırlanır.
+eklenti karışımını düşüremez. Yüklenmek için 30 saniyesi vardır (SETTINGS > Audio içindeki **Plugin test
+time** yavaş eklentilere 60 ya da 120 verir). Sonuç, eklenti dosyası değişene kadar hatırlanır.
 
 <a id="the-plugin-panel"></a>
 
@@ -909,7 +909,7 @@ TAPE CHANNEL**'a tıkla.
 
 Kayıtlar, bir klasör seçmezsen `Music\Faider Recordings` içine gider. ffmpeg biçimleri önce
 bir WAV kaydeder ve durdurduğunda dönüştürür (dönüştürme başarısız olursa WAV saklanır). Faider
-**SETTINGS > GENERAL > FFMPEG**'de seçilen `ffmpeg.exe`'yi, yoksa PATH'teki olanı kullanır. Kayıt,
+**SETTINGS > Recording > FFmpeg** içinde seçilen `ffmpeg.exe`'yi, yoksa PATH'teki olanı kullanır. Kayıt,
 1 GB'tan az yer kaldığında kendiliğinden durur.
 
 <a id="instant-replay"></a>
@@ -926,28 +926,28 @@ kullanır.
 
 ## 13. Aygıtlar
 
-**DEVICES** her Windows ses aygıtını ve ASIO sürücüsünü listeler. Üstteki **CLOCK** saati şu anda neyin
-belirlediğini gösterir ve tuşu onu seçer (bkz. [Saat](#clocking)).
+**DEVICES** her Windows ses aygıtını ve ASIO sürücüsünü listeler. Saati neyin belirleyeceği
+**SETTINGS > Audio > Clock** içinden seçilir (bkz. [Saat](#clocking)).
 
-Onun altındaki **WINDOWS AUDIO**, Windows'un ses motorunun (her Windows aygıtını ve yakalanan her
-uygulamayı taşıyan audiodg.exe) önceliğini gösterir: **NORMAL** Windows'un varsayılanıdır, okunamazsa
-**UNKNOWN**. Tuşu, **BOOST WINDOWS AUDIO** (High iken **BOOSTED**), bir menü açar:
+Yine **SETTINGS > Audio** içindeki **Windows audio**, Windows'un ses motorunun (her Windows aygıtını ve
+yakalanan her uygulamayı taşıyan audiodg.exe) önceliğini gösterir: **Normal priority** Windows'un
+varsayılanıdır, okunamazsa **Priority unknown**. Yanında:
 
-- **BOOST (HIGH PRIORITY)** onu High'a çıkarır; bu, bazı bilgisayarlarda Windows aygıtlarındaki ve
-  yakalanan uygulamalardaki çıtırtıyı durdurabilir. Yönetici hakları gerektirir, bu yüzden Windows önce
-  sorar; hayır demek hiçbir şeyi değiştirmez. Windows sesinin ya da bilgisayarın yeniden başlatılmasından
-  sonra kalmaz: Faider onu izler, Normal'e döndüğünde tepsiden bir kez söyler ve tepsi menüsündeki
-  **Boost Windows audio again...** (ya da buradaki BOOST veya FIND'daki **BOOST WINDOWS AUDIO**) onu
-  yeniden yükseltir. Yükseltilmişken BOOST'a tıklamak izlemeyi durdurur; Windows sesi yeniden başlayana
-  ya da sen BACK TO NORMAL'ı seçene kadar High kalır.
-- **PIN TO ONE CORE** (sen seçmedikçe kapalı) bir sonraki BOOST'tan itibaren onu son işlemci çekirdeğine
-  de bağlar. Yalnızca nerede çalıştığını kısıtlar, asla çekirdek eklemez: yalnızca bir USB kulaklıktaki
-  çıtırtı için kullan.
-- **BACK TO NORMAL** (Normal'de değilken ya da bağlıyken) onu yeniden başlatmayı beklemeden hemen tüm
-  çekirdeklerde Normal önceliğe geri alır. Windows, BOOST'ta olduğu gibi önce sorar ve Faider izlemeyi
+- **Boost** onu High'a çıkarır; bu, bazı bilgisayarlarda Windows aygıtlarındaki ve yakalanan
+  uygulamalardaki çıtırtıyı durdurabilir. Yönetici hakları gerektirir, bu yüzden Windows önce sorar;
+  hayır demek hiçbir şeyi değiştirmez. Windows sesinin ya da bilgisayarın yeniden başlatılmasından sonra
+  kalmaz: Faider onu izler, Normal'e döndüğünde tepsiden bir kez söyler ve tepsi menüsündeki
+  **Boost Windows audio again...** (ya da buradaki **Boost** veya FIND'daki **BOOST WINDOWS AUDIO**) onu
+  yeniden yükseltir. Yükseltilmişken tuşta **Stop boosting** yazar ve bu izlemeyi durdurur; Windows sesi
+  yeniden başlayana ya da sen **Back to normal**'ı seçene kadar High kalır.
+- **Pin to one core** (altındaki anahtar, sen seçmedikçe kapalı) bir sonraki Boost'tan itibaren onu son
+  işlemci çekirdeğine de bağlar. Yalnızca nerede çalıştığını kısıtlar, asla çekirdek eklemez: yalnızca
+  bir USB kulaklıktaki çıtırtı için kullan.
+- **Back to normal** (Normal'de değilken ya da bağlıyken) onu yeniden başlatmayı beklemeden hemen tüm
+  çekirdeklerde Normal önceliğe geri alır. Windows, Boost'ta olduğu gibi önce sorar ve Faider izlemeyi
   bırakır.
 
-**BOOST** ve **BACK TO NORMAL** için Faider'ın tüm kullanıcılar için (Program Files'a) kurulmuş olması gerekir. Yalnızca senin için kurulmuş ya da kaynak koddan derlenmiş bir kopya Windows'a sormaz, bunu söyler: böyle bir klasördeki dosyaları herhangi bir program değiştirebilir ve bunlar sonra yönetici olarak çalışırdı.
+**Boost** ve **Back to normal** için Faider'ın tüm kullanıcılar için (Program Files'a) kurulmuş olması gerekir. Yalnızca senin için kurulmuş ya da kaynak koddan derlenmiş bir kopya, satırın altında **Needs Faider installed for all users** yazar ve Windows'a sormaz: böyle bir klasördeki dosyaları herhangi bir program değiştirebilir ve bunlar sonra yönetici olarak çalışırdı.
 
 Windows sesinden geçmeyen ASIO arabirimlerini etkilemez.
 
@@ -1026,9 +1026,9 @@ Karışımın her değişiklikten sonra bir saniye içinde ve çıkışta kendil
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND ya da tepsi menüsündeki **Session timeline...**: tarihe göre saklanan her sürüm. **RESTORE EVERYTHING** (Faider onunla yeniden başlar), ya da yeniden başlatmadan **PUT ONE CHANNEL BACK** (seviyesi, pan'ı, CUT'ı ve rack'i) |
-| **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: karışımı bir adla sakla |
-| **OPEN, EXPORT OR IMPORT...** | Adlı bir karışımı aç (yeniden başlatır), karışımı bir dosyaya kaydet ya da bir dosyadan yükle |
+| **SESSION TIMELINE** | SETTINGS > Sessions içindeki **Open timeline**, FIND ya da tepsi menüsündeki **Session timeline...**: tarihe göre saklanan her sürüm. **RESTORE EVERYTHING** (Faider onunla yeniden başlar), ya da yeniden başlatmadan **PUT ONE CHANNEL BACK** (seviyesi, pan'ı, CUT'ı ve rack'i) |
+| **Save as…** | SETTINGS > Sessions > This mix (ya da FIND'daki **SAVE SESSION AS...**): karışımı bir adla sakla. Yanındaki **Export…** karışımı bir dosyaya kaydeder |
+| **Saved sessions** | SETTINGS > Sessions: adlı bir karışımı **Open** ile aç (Faider onunla yeniden başlar) ya da **Export** ile bir dosyaya kaydet; **Import…** bir dosyadan yükler |
 
 60'a kadar önceki sürüm saklanır (en fazla 5 dakikada bir). Karışımın yüklenemezse (arabirim yok,
 dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım başlar. Bkz.
@@ -1040,31 +1040,55 @@ dosya bozuk), kaybolmak yerine **bir kenara ayrılır** ve yeni bir karışım b
 
 ## 15. Ayarlar
 
-**SETTINGS**'in solda aşağı doğru kartlar olarak dört bölümü vardır: **GENERAL**, **MACROS**,
-**HOTKEYS**, **CONTROL**. Açık/kapalı ayarlar, açıkken krem renkte parlayan kare anahtarlardır.
+**SETTINGS**'in solunda bir kenar çubuğu vardır: üstte bir arama kutusu, altında dört grupta sayfaları.
+**APP**: **General**, **Notifications**, **Startup & checks**, **Updates & about**. **AUDIO**:
+**Audio**, **Recording**. **MIX**: **Apps**, **Sessions**. **CONTROL**: **MIDI & OSC**, **Hotkeys**,
+**Macros**. Seçtiğin sayfa geri kalan alanı tek bir sütun olarak doldurur: başlığı, ne işe yaradığını
+anlatan bir satır, sonra her ayar için bir satır: adı, adının altında ne yaptığı ve sağda kontrolü.
+Açık/kapalı ayarlar, açıkken krem renkte parlayan anahtarlardır; birkaç seçenekten biri seçiliyorsa
+seçenekler yan yana gösterilir, seçili olan krem renktedir; menülü bir değer, tıkladığında menüsünü açar.
 
-![SETTINGS > GENERAL: her ayar grubu bir karttır](../images/console/settings.jpg)
+Her sayfadan eşleşen ayarları görmek için arama kutusuna yaz; her biri kendi sayfasının adı altında
+gösterilir (Esc temizler). **FIND** (Ctrl+K) de her ayarı adıyla bulur ve sayfasını, satırı bir an
+yanık olarak açar.
 
 <a id="general"></a>
 
 ### GENERAL
 
-| Kart | Ayarlar |
-|---|---|
-| **LOOK** | **LOOK...**: konsolun renkleri ve yazı tipi, bir LOOK dosyasından (bkz. [LOOKS](#looks)) |
-| **WINDOWS** | **START WITH WINDOWS**: oturum açtığında tepside açılır |
-| **DESK** | **WARN IF I TALK WHILE CUT** (CUT durumundaki bir mikrofon -30 dBFS'in üzerindeyken bir bildirim) |
-| **APPS** | **APP RULES...**: bir program çalmaya başladığında hangi bus'a veya çıkışa gideceği (**FIND**'da da). Bir programın kanalını kaldırmak kuralını kaldırır |
-| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...**; **SESSION TIMELINE...** (bkz. [14.3](#143-sessions)) |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (bkz. [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
-| **NOTICES (IN THE CORNER)** | Bağlanan veya giden aygıtlar, clip yapan bir kanal (kaynağı veya çıkışı tam ölçekte), geri çağrılan sahneler, çalışan makrolar, geri alma ve yineleme |
-| **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
-| **METER STANDARD** | Ölçerlerin nasıl okuduğu: **PEAK** (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** ve **LUFS M** (anlık gürlük, EBU R128) |
-| **CHANNEL METER POINT** | **IN** (ham kaynak), **PRE** (efektlerden sonra), **POST** (fader'dan sonra, varsayılan). Kenar çubuğundaki **METER** kartları aynı ayarı yapar |
-| **RECORDING** | **FFMPEG**: `ffmpeg.exe`'nin yeri ya da **NOT FOUND**. `ffmpeg.exe`'yi seçmek için tıkla (PATH'teki olandan önce kullanılır); biri seçildikten sonra PATH'tekine dönmeyi de önerir |
-| **PLUGIN TEST TIME** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
-| **UPDATES** | **CHECK FOR UPDATES** (varsayılan olarak açık): günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki tuş sayfasını açar. Kapatırsan Faider asla sormaz. **CHECK NOW** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
-| **ABOUT** | Sürüm ve emeği geçenler |
+**APP** sayfaları:
+
+| Sayfa | Ayar | Ne yapar |
+|---|---|---|
+| **General** | **Start with Windows** | Oturum açtığında Faider'i tepside açar |
+| | **Zoom** | **100%**, **125%**, **150%** ya da 75 ile 200% arasında herhangi bir boyut için **Custom…**. Ctrl + ve Ctrl - ilk üçü arasında geçiş yapar |
+| | **Look** | Konsolun renkleri ve yazı tipi; menüsü LOOK'larını ve **Save as…**'i listeler (bkz. [LOOKS](#looks)) |
+| | **Tips** | Her sayfa ilk gösterildiğinde onunla ilgili bir ipucu. **Show again** her sayfanın ipucunu bir kez daha gösterir |
+| **Notifications** | **Warn if I talk while cut** | CUT durumundaki bir mikrofon -30 dBFS'in üzerindeyken bir bildirim |
+| | Köşe bildirimleri | Her biri için bir anahtar: bağlanan veya giden aygıtlar, clip yapan bir kanal (kaynağı veya çıkışı tam ölçekte), geri çağrılan sahneler, çalışan makrolar, geri alma ve yineleme. Olay günlüğünde her durumda hepsi vardır |
+| **Startup & checks** | **Pre-flight on start** | Başlangıçtan birkaç saniye sonra PRE-FLIGHT; yalnızca bir şey ters olduğunda gösterilir |
+| | **Pre-flight**, **Zero the desk** | **Run pre-flight** ve **Check** bunları şimdi çalıştırır (bkz. [18.1](#181-pre-flight)) |
+| **Updates & about** | **Check for updates** | Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki **Get Faider x.y.z…** sayfasını açar. Kapatırsan Faider asla sormaz. |
+| | **Version** | Şu anda çalışan sürüm. **Check now** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
+| | **About Faider** | Sürüm ve emeği geçenler |
+| | **Privacy** | **Read policy**, Faider'ın gizlilik politikasını GitHub'da açar |
+| | **Problem report** | **Save report…** günlükleri, son çökmeyi ve sürümleri gönderebileceğin bir .zip dosyasına kaydeder. Kendiliğinden hiçbir şey gönderilmez |
+
+**AUDIO** ve **MIX** sayfaları:
+
+| Sayfa | Ayar | Ne yapar |
+|---|---|---|
+| **Audio** | **Clock** | Bir sonraki başlangıçtan itibaren saati neyin belirleyeceği: **The interface (ASIO)**, adıyla bir Windows oynatma aygıtı ya da **The built-in clock** (bkz. [Saat](#clocking)). Altında, şu anda neyin belirlediği |
+| | **Windows audio** | Windows'un ses motorunun önceliği, **Boost** ve **Back to normal** ile (bkz. [13](#13-devices)) |
+| | **Pin to one core** | Boost ile Windows sesi son çekirdeğe bağlanır: yalnızca bir USB kulaklıktaki çıtırtı için |
+| | **Channel meter point** | Her kanalın ölçerinin nereyi okuduğu: **IN** (ham kaynak), **PRE** (efektlerden sonra) ya da **POST** (fader'dan sonra, varsayılan) |
+| | **Meter standard** | Ölçerlerin nasıl okuduğu: **Peak** (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** ve **LUFS M** (anlık gürlük, EBU R128) |
+| | **Plugin test time** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
+| **Recording** | **FFmpeg** | `ffmpeg.exe`'nin yeri ya da **Not found**. **Pick…** onu seçer (PATH'teki olandan önce kullanılır); **Use PATH** seçileni unutur ve PATH'tekini kullanır |
+| **Apps** | **App rules** | Bir tablo: her program, nereye gittiği, **Change** ve **Delete**. **Add rule** şu anda çalan bir programı (ya da kanalı olan birini), sonra bir bus'ı veya çıkışı seçer. Bir programın kanalını kaldırmak kuralını kaldırır. FIND'daki **APP RULES** aynısını bir menüden yapar |
+| **Sessions** | **This mix** | **Save as…** karışımı bir adla saklar; **Export…** onu bir dosyaya kaydeder |
+| | **Saved sessions** | Bir adla saklanan karışımlar, her birinin ne zaman kaydedildiğiyle: **Open** (Faider onunla yeniden başlar) ya da bir dosyaya **Export**. **Import…** bir dosyadan oturum açar |
+| | **Session timeline** | **Open timeline**: tarihe göre saklanan her sürüm (bkz. [14.3](#143-sessions)) |
 
 <a id="macros"></a>
 
@@ -1074,8 +1098,9 @@ Bir **LOOK**, konsolün boyadığı her renk, yanında yazı tipi ve ona eşlik 
 göstergeler, düğmeler, tuşlar ve lambalar hepsi yürürlükteki LOOK'tan çizer; bir LOOK bütün konsolu birden
 değiştirir.
 
-**LOOK...**, sahip olduğun LOOK'ları listeler ve seçtiğini yürürlüğe koyar; değiştiği anda konsol baştan
-çizilir. **SAVE THIS LOOK AS...**, yürürlükteki LOOK'u senin verdiğin bir adla yeni bir dosyaya yazar.
+**Look** (SETTINGS > General), sahip olduğun LOOK'ları listeler ve seçtiğini yürürlüğe koyar; değiştiği
+anda konsol baştan çizilir. Listesinin sonundaki **Save as…**, yürürlükteki LOOK'u senin verdiğin bir
+adla yeni bir dosyaya yazar.
 
 Bir LOOK, `%APPDATA%\Faider\looks` içinde JSON olarak yazılmış tek bir dosyadır; yani elle yazıp başka bir
 makineye kopyalayabilirsin. Eksik ya da bozuk bir dosya yerleşik LOOK'u yerinde bırakır ve bir dosyanın
@@ -1091,7 +1116,7 @@ atladığı şey yerleşik değere döner: yarısı yazılmış bir dosya yine �
 
 Renkler, boyadıkları parçanın adını taşır: alanlar ve baskı, tuşlar, faderların plakası, göstergeler,
 işlev göre düğmeler, lambalar, şeritlerin gövdeleri, bir kanalın, bus'ın ve çıkışın görünüşü, vurgu,
-çukurlar ve gölgelendirme. **SAVE THIS LOOK AS...**, LOOK'un sahip olduğu her adı yazar; en hızlısı
+çukurlar ve gölgelendirme. **Save as…**, LOOK'un sahip olduğu her adı yazar; en hızlısı
 masada bir şeyi değiştirip kaydetmek ve sonra o dosyayı düzenlemek.
 
 Bir `palette` grubu, bir yerleşim dosyasının bir parçaya verebileceği renkleri adlandırır: `red`,
@@ -1117,21 +1142,29 @@ Bir makro, bir kısayoldan, bir pad'den, bir tetikleyiciden veya uzaktan kontrol
 
 ### HOTKEYS
 
-Atanabilir her kısayol tek bir yerdedir: **PADS**, **MACROS**, **SCENES** ve **TAPE** altında **SAVE
-INSTANT REPLAY**. Her kart, tuşlarının ne yaptığını ve başka nerede ayarlanabileceklerini söyler.
-Birine tıkla, sonra yeni tuşlara bas (Esc iptal eder, Delete temizler). Kısayollar
-Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. Faider'da başka bir şeyin zaten kullandığı bir tuş (PADS, MACROS, SCENES ya da SAVE INSTANT REPLAY altında, ya da sabit bir tuş), burada ve kısayol ayarlanan her yerde reddedilir ve not, tuşun kimde olduğunu söyler. Windows'un reddettiği (başka bir uygulama tutuyor olabilir) ya da önceki bir sürümden kalan bir mikste hâlâ iki şeyin paylaştığı bir tuş, satırının altında kırmızıyla işaretlenir: bunlardan yalnızca biri çalışır. Sabit tuşlar da listelenir
-([19.1](#191-keyboard-shortcuts)). Sayfadaki ON THE MIXER tuşları konsolda da çalışır
-([5](#5-the-console)).
+Atanabilir her kısayol **Hotkeys** sayfasında, iki tablodadır. **Assigned**, pad'leri, makroları,
+sahneleri ve **Save instant replay**'i (tape) listeler; her birinin başka nerede ayarlanabileceği ve
+tuşuyla. Bir tuşa tıkla, sonra yeni tuşlara bas (Esc iptal eder, Delete temizler). Kısayollar Ctrl, Alt
+veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. Faider'da başka bir şeyin zaten kullandığı
+bir tuş (bir pad, bir makro, bir sahne, instant replay ya da sabit bir tuş), burada ve kısayol ayarlanan
+her yerde reddedilir ve üstteki not, tuşun kimde olduğunu söyler. Windows'un reddettiği (başka bir
+uygulama tutuyor olabilir) ya da önceki bir sürümden kalan bir mikste hâlâ iki şeyin paylaştığı bir tuş,
+satırının altında kırmızıyla işaretlenir: bunlardan yalnızca biri çalışır. **Fixed**, her zaman aynı
+olan tuşları ve nerede çalıştıklarını listeler ([19.1](#191-keyboard-shortcuts)). Buradaki
+**On the mixer** tuşları konsolda da çalışır ([5](#5-the-console)).
 
 <a id="control"></a>
 
 ### CONTROL
 
-| Kart | |
+**MIDI & OSC** sayfası:
+
+| Ayar | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); her MIDI girişinin açılıp kapatıldığı **INPUTS AND BINDINGS** |
-| **OSC** | Bu bilgisayardaki programlar için **OSC ON (PORT 9000)**. **PORT...** portu ayarlar (1024–65535); OSC açıksa hemen oraya taşınır |
+| **MIDI map** | **Start mapping** MIDI MAP'i başlatır (bkz. [16](#16-remote-control-overlay-and-tray)). Ctrl+L onu her yerden başlatır; Esc ya da **Finish mapping** bitirir |
+| **Inputs and bindings** | **Open**: her MIDI girişinin açılıp kapatılması ve her atama. Altında, kaç atama olduğu |
+| **OSC** | Bir anahtar: bu bilgisayardaki programlardan OSC dinle. Altında, dinlediği port |
+| **OSC port** | Port (1024–65535, başlangıçta 9000): yaz ve **Apply**'a tıkla. OSC açıksa hemen oraya taşınır |
 
 ---
 
@@ -1141,8 +1174,8 @@ Ctrl, Alt veya bir F tuşu içermelidir ve bir oyun odaktayken de çalışır. F
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
-| **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da SETTINGS > CONTROL'deki **PORT...** ile ayarlanan porta gönderebilir (ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz. Her adres: [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L ya da SETTINGS > MIDI & OSC içindeki **Start mapping** onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, SIMPLE ve PRO'da, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
+| **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da **OSC port** ile ayarlanan porta gönderebilir (SETTINGS > MIDI & OSC; ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz. Her adres: [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce) |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
 | **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
 | **Tepsi** | Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
@@ -1177,7 +1210,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 2. Mikrofon kanalını **CABLE Input** aygıtına yönlendir. Üzerinde bir çıkış oluşturulur.
 3. Uygulamada mikrofon olarak **CABLE Output**'u seç.
 4. Yol üzerinde hiçbir şeyin CUT durumunda olmadığını ve hiçbir şeyin döngü yapmadığını kontrol etmek için
-   **PRE-FLIGHT NOW...**'u çalıştır.
+   **Run pre-flight**'u çalıştır.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1252,14 +1285,14 @@ Kaplama, bir MIDI kontrol cihazı ya da OSC yanıt vermediğinde:
 | Sorun | Kontrol et |
 |---|---|
 | **Kaplama görünmüyor** | Ctrl+Shift+O, Windows'un tamamı için geçerli bir kısayoldur. Başka bir uygulama onu tutuyorsa SETTINGS > HOTKEYS onu kırmızıyla işaretler ve olay günlüğü bunu söyler: FIND'daki **SHOW OVERLAY** kaplamayı tuş olmadan açar. Kaplama, üstte kalan bir penceredir ve kenarlıksız pencerede çalışan bir oyun için yapılmıştır; bu yüzden oyunu kenarlıksız ya da pencereli moda al. Yalnızca mikrofon kanallarını listeler (arabirim girişleri ve Windows aygıtları) ve hiç yoksa **NO MIC CHANNELS** yazar |
-| **Bir MIDI kontrol cihazı hiçbir şey yapmıyor** | Her MIDI girişi, sen onu SETTINGS > CONTROL > **INPUTS AND BINDINGS**'te açana kadar kapalıdır. Faider başladıktan sonra takılan bir kontrol cihazı kendiliğinden açılmaz: orada **REFRESH**'e bas ve girişini kapatıp aç ya da Faider'i yeniden başlat. Bir kontrolü oynat; o listenin altındaki **LAST** neyin geldiğini gösterir. Bir kontrol, **MIDI MAP**'te (Ctrl+L) atanana kadar hiçbir şey yapmaz. Yalnızca control change'ler ve notalar okunur: fader'lar ve pan'lar bir tuşu değil, bir düğmeyi ya da fader'ı izler; tuşlar ise CUT, SOLO ve benzerlerini açıp kapatır |
-| **OSC hiçbir şey yapmıyor** | OSC, **OSC ON** yanana kadar kapalıdır (SETTINGS > CONTROL). Gönderen, o tuşta gösterilen portu kullanmalı (değiştirmediysen 9000) ve bu bilgisayarda çalışmalıdır: Faider yalnızca `127.0.0.1` üzerinde dinler, bu yüzden bir telefon ya da başka bir bilgisayar ona ulaşamaz. Port açılamadıysa (başka bir program tutuyor olabilir) Faider bunu söyler ve OSC kapalı kalır: **PORT...** ile başka birini seç. Sonra adresi kontrol et: şeridin adı, boşluklar yerine `_` ile (bkz. [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce)) |
+| **Bir MIDI kontrol cihazı hiçbir şey yapmıyor** | Her MIDI girişi, sen onu SETTINGS > MIDI & OSC > **Inputs and bindings** içinde açana kadar kapalıdır. Faider başladıktan sonra takılan bir kontrol cihazı kendiliğinden açılmaz: orada **REFRESH**'e bas ve girişini kapatıp aç ya da Faider'i yeniden başlat. Bir kontrolü oynat; o listenin altındaki **LAST** neyin geldiğini gösterir. Bir kontrol, **MIDI MAP**'te (Ctrl+L) atanana kadar hiçbir şey yapmaz. Yalnızca control change'ler ve notalar okunur: fader'lar ve pan'lar bir tuşu değil, bir düğmeyi ya da fader'ı izler; tuşlar ise CUT, SOLO ve benzerlerini açıp kapatır |
+| **OSC hiçbir şey yapmıyor** | OSC, anahtarı açılana kadar kapalıdır (SETTINGS > MIDI & OSC). Gönderen, onun altında gösterilen portu kullanmalı (değiştirmediysen 9000) ve bu bilgisayarda çalışmalıdır: Faider yalnızca `127.0.0.1` üzerinde dinler, bu yüzden bir telefon ya da başka bir bilgisayar ona ulaşamaz. Port açılamadıysa (başka bir program tutuyor olabilir) Faider bunu söyler ve OSC kapalı kalır: **OSC port**'a başka birini yaz ve **Apply**'a tıkla. Sonra adresi kontrol et: şeridin adı, boşluklar yerine `_` ile (bkz. [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce)) |
 
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
 
-PRE-FLIGHT başlangıçtan birkaç saniye sonra (ve **PRE-FLIGHT NOW...** veya FIND'dan) çalışır ve yalnızca
+PRE-FLIGHT başlangıçtan birkaç saniye sonra (ve SETTINGS > Startup & checks içindeki **Run pre-flight** veya FIND'dan) çalışır ve yalnızca
 bir şey ters olduğunda görünür. Her satırın bir ışığı, bulgusu ve bir çözümü vardır:
 
 | Kontrol | Sorun | Çözüm |
@@ -1272,7 +1305,7 @@ bir şey ters olduğunda görünür. Her satırın bir ışığı, bulgusu ve bi
 | **HEARD ONCE** | Bir geri besleme döngüsü ya da iki kez duyulan bir şey | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Karışımda Windows aygıtları veya yakalanan uygulamalar var ve Windows'un ses motoru Normal öncelikte: sarı, yalnızca bir öneri; yükseltmen bir yeniden başlatmayla geri alındıysa kırmızı. Yalnızca ASIO kullanılırken yeşil | **BOOST** |
 
-**ZERO THE DESK** (sol altta; ayrıca SETTINGS > GENERAL > ON START'ta **ZERO DESK...** ve FIND'da
+**ZERO THE DESK** (sol altta; ayrıca SETTINGS > Startup & checks içindeki **Zero the desk** ve FIND'da
 **ZERO DESK**) bir önceki oturumun açık bırakabileceklerini kontrol eder: solo'lar, key listen, 12 dB'den fazla kaymış gain trim'leri ve CUT
 durumundaki çıkışlar. Her birinin bir **FIX**'i vardır.
 
@@ -1285,7 +1318,7 @@ kenara ayrılır**. Olay günlüğü nedenini söyler:
 
 | Neden | Ne yapmalı |
 |---|---|
-| Kayıtlı arabirim bağlı değil | Bağla, sonra **SESSION TIMELINE** (SETTINGS > GENERAL, FIND ya da tepsi) > "kept:" sürümü > **RESTORE EVERYTHING** |
+| Kayıtlı arabirim bağlı değil | Bağla, sonra **SESSION TIMELINE** (SETTINGS > Sessions, FIND ya da tepsi) > "kept:" sürümü > **RESTORE EVERYTHING** |
 | Kayıtlı arabirim açılamadı (başka bir program tutuyor) | Diğer programı kapat ve Faider'i yeniden başlat. Bu sırada karışımının üzerine hiçbir şey kaydedilmez |
 | session.xml okunamadı | **SESSION TIMELINE** > yakın tarihli bir sürüm > **RESTORE EVERYTHING** |
 
@@ -1297,7 +1330,7 @@ Sinyal yolu boyunca ilerle:
 
 1. **Durum ışığı** kırmızı ve OFF yazıyor: ses çalışmıyor. Bkz.
    [18.2](#182-my-mix-is-gone-a-fresh-mix-started) ve [18.4](#184-the-interface-wont-start-or-stopped).
-2. **Kanalın ölçeri** (METER: IN): hareket etmiyorsa **Input**'una (sağ tık) ve kaynağın çalıp
+2. **Kanalın ölçeri** (Channel meter point: IN): hareket etmiyorsa **Input**'una (sağ tık) ve kaynağın çalıp
    çalmadığına bak. Kapalı bir şerit hiçbir şey geçirmez.
 3. **CUT** kapalı, fader yukarıda ve başka hiçbir şey solo değil (başka bir şeridin **SOLO**'su
    diğer her şeyi susturur).
@@ -1314,12 +1347,12 @@ Sinyal yolu boyunca ilerle:
 - Tepsideki **INTERFACE DOWN**: arabirim kendini sıfırladı ve yeniden açılmadı. DEVICES'ta tampon
   boyutunu değiştir ya da Faider'i yeniden başlat.
 - Arabirimin kendi denetim masasında yapılan hız veya tampon değişiklikleri kendiliğinden algılanır.
-- Bir süre arabirimsiz çalışmak için **DEVICES > CLOCK**'ta bir Windows oynatma aygıtı ya da yerleşik
+- Bir süre arabirimsiz çalışmak için **SETTINGS > Audio > Clock** içinde bir Windows oynatma aygıtı ya da yerleşik
   saati seç ve **RESTART NOW**'a tıkla. Karışımın seninle gelir ve arabirimin için kayıtlı kalır:
-  **THE INTERFACE (ASIO)**'yu yeniden seçmek ona döner.
+  **The interface (ASIO)**'yu yeniden seçmek ona döner.
 - Ya da Faider'i `"C:\Program Files\Faider\Faider.exe" --clock windows` (Windows oynatma
   aygıtın) ya da `--clock builtin` (yerleşik saat) ile başlat. Bir ASIO sürücüsünün adının bir
-  kısmıyla `--clock` (`--clock focusrite`) o sürücüyü seçer. O çalışma için DEVICES > CLOCK'un önüne
+  kısmıyla `--clock` (`--clock focusrite`) o sürücüyü seçer. O çalışma için SETTINGS > Audio > Clock'un önüne
   geçer ve onsuz bir sonraki başlangıç senin seçimine döner.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
@@ -1332,11 +1365,11 @@ Sinyal yolu boyunca ilerle:
 3. Bir aygıtta **UNDER / OVER** artıyor: o aygıt zorlanıyor. Başka bir USB girişi dene, onu kullanan
    diğer programları kapat ya da kullanmıyorsan dışla.
 4. Sabit **DRIFT** normaldir. Saatleri adım adım tutan düzeltmedir.
-5. Çıtırtı yalnızca Windows aygıtlarında veya yakalanan uygulamalarda: **BOOST WINDOWS AUDIO**'yu dene
-   (DEVICES > WINDOWS AUDIO ya da FIND). Windows'un ses motorunu Windows'un varsayılanı olan Normal'den
+5. Çıtırtı yalnızca Windows aygıtlarında veya yakalanan uygulamalarda: **Boost**'u dene
+   (SETTINGS > Audio > Windows audio ya da FIND'daki **BOOST WINDOWS AUDIO**). Windows'un ses motorunu Windows'un varsayılanı olan Normal'den
    High'a çıkarır. Windows yönetici onayı ister ve Windows sesinin ya da bilgisayarın yeniden
    başlatılması bunu geri alır (Faider sana söyler). ASIO arabirimlerini etkilemez. Hâlâ çıtırtı yapan
-   bir USB kulaklık için **PIN TO ONE CORE** isteğe bağlıdır ve onu yalnızca tek bir çekirdekle kısıtlar.
+   bir USB kulaklık için **Pin to one core** isteğe bağlıdır ve onu yalnızca tek bir çekirdekle kısıtlar.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1386,7 +1419,7 @@ giremez.
 ### 18.11 Bir eklenti yüklenmiyor
 
 Her eklenti önce programın ayrı bir kopyasında sınanır ve hatanın nedeni bildirilir: zamanında
-yüklemeyi bitirmedi (30 s; SETTINGS > GENERAL'daki **PLUGIN TEST TIME** ona 60 ya da 120 vermedikçe),
+yüklemeyi bitirmedi (30 s; SETTINGS > Audio içindeki **Plugin test time** ona 60 ya da 120 vermedikçe),
 sınanırken çöktü ya da dosyada VST3 eklentisi yok. Eklentiyi güncelle veya yeniden kur. Dosyası
 değiştiğinde yeniden sınanır.
 
@@ -1448,11 +1481,11 @@ DEFAULTS** satırı ya da FIND'da **WINDOWS DEFAULTS**) kulaklığını veya hop
 
 | | |
 |---|---|
-| `--minimised` | Tepside başlat (**START WITH WINDOWS**'un kullandığı) |
+| `--minimised` | Tepside başlat (**Start with Windows**'un kullandığı) |
 | `--quit` | Çalışan kopyayı kapat, tepsideki **Quit**'in yaptığı gibi. Çalışan kopya yoksa hiçbir şey olmaz |
 | `--allow-admin` | Yönetici olarak başlatıldıysa öyle kalır. Bu olmadan Faider kendini sıradan haklarla yeniden başlatır (bkz. [16](#16-remote-control-overlay-and-tray)) |
-| `--clock windows`, `--clock builtin`, `--clock <driver>` | Bu çalışma için saat, Windows oynatma aygıtın, yerleşik saat ya da adında `<driver>` geçen ASIO sürücüsüdür. DEVICES > CLOCK'un önüne geçer (bkz. [Saat](#clocking)) |
-| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | **BOOST WINDOWS AUDIO** ve **BACK TO NORMAL**'ın yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar) ya da tüm çekirdeklerde Normal'e geri alır, sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi; 7: Normal ayarlandı ama tüm çekirdeklere dönüş reddedildi |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | Bu çalışma için saat, Windows oynatma aygıtın, yerleşik saat ya da adında `<driver>` geçen ASIO sürücüsüdür. SETTINGS > Audio > Clock'un önüne geçer (bkz. [Saat](#clocking)) |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | **Boost** ve **Back to normal**'ın (SETTINGS > Audio > Windows audio) yönetici olarak başlattığı şey: Windows'un ses motorunu High önceliğe alır (yalnızca verilirse N çekirdeğine bağlar) ya da tüm çekirdeklerde Normal'e geri alır, sonra çıkar. 0: tamam; 2: hatalı argümanlar; 3: audiodg bulunamadı; 4: erişim reddedildi; 5: öncelik reddedildi; 6: High ayarlandı ama bağlama reddedildi; 7: Normal ayarlandı ama tüm çekirdeklere dönüş reddedildi |
 | `--scan <plugin> --out <file>` | Dahili: bir eklenti yüklenmeden önce Faider'in ayrı bir kopyada çalıştırdığı sınama (bkz. [9](#9-plugins)). Pencere yok, ses yok |
 | `--after <process id>` | Dahili: Faider kendini yeniden başlattığında eklenir (**RESTORE EVERYTHING**, **RESTART NOW**, yönetici haklarından vazgeçme). Yeni kopya, o işlemin bitmesini en çok bir dakika bekler |
 

@@ -46,7 +46,7 @@ tells you what to do when something goes wrong.
 | **An audio interface** | Optional. With its ASIO driver installed, Faider runs on the interface's clock for the lowest delay. Without one it runs on your Windows playback device, or on its built-in clock (see [Clocking](#clocking)) |
 | **Headphones** | Plugged into your interface (or any Windows playback device) so you can hear your mix |
 | **VB-CABLE** | Optional and free (vb-audio.com/Cable). A virtual microphone, so apps such as Discord, games and OBS can hear your mix |
-| **ffmpeg** | Optional. With `ffmpeg.exe` on your PATH, or picked in **SETTINGS > GENERAL > FFMPEG**, the recorder can also write MP3, AAC, Opus and ALAC |
+| **ffmpeg** | Optional. With `ffmpeg.exe` on your PATH, or picked in **SETTINGS > Recording > FFmpeg**, the recorder can also write MP3, AAC, Opus and ALAC |
 
 ### Words used in this manual
 
@@ -231,21 +231,21 @@ To shape your microphone, see [17.1](#171-hear-yourself-set-up-a-microphone). Ev
 
 A few seconds after start, **PRE-FLIGHT** checks the setup and opens only if something needs
 attention (not on the very first start, when SETUP comes first). Run it any time from
-**SETTINGS > GENERAL > PRE-FLIGHT NOW...** or **FIND** (Ctrl+K). Every row should be green. See
+**Run pre-flight** in **SETTINGS > Startup & checks**, or **FIND** (Ctrl+K). Every row should be green. See
 [18.1](#181-pre-flight).
 
 ### Step 9: Finish
 
 - **Your mix saves itself** within a second of any change. To keep a version under a name, use
-  **SETTINGS > GENERAL > SAVE SESSION AS...**.
-- **Start with Windows**: **SETTINGS > GENERAL > WINDOWS** starts Faider in the tray when
+  **Save as…** in **SETTINGS > Sessions**.
+- **Start with Windows**: its switch in **SETTINGS > General** starts Faider in the tray when
   you sign in, so your mic works from the start.
 - **Closing the window doesn't stop the audio.** Faider keeps running in the system tray
   so your mic and headphones keep working. To stop it, right-click the tray icon and choose
   **Quit Faider**. Starting the program while it's in the tray brings the window back.
 
-The first time each page opens, a short tip explains it. Turn tips off under
-**SETTINGS > GENERAL > ON START**.
+The first time each page opens, a short tip explains it. Turn tips off with **Tips** in
+**SETTINGS > General**.
 
 That's the setup done. The rest of this manual covers each part in detail.
 
@@ -267,10 +267,10 @@ these cards (in SIMPLE, only **ADD CHANNEL** and **ADD APP**):
 | | **PLUGINS** | Slides the plugin panel up under the strips (see [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Touching any control on a strip selects that strip |
 | | **FOLLOW** | The desk glides to the selected strip, also when it's chosen elsewhere (FIND, a hotkey) |
-| **METER** | **IN** / **PRE** / **POST** | Where the channel meters read: the source as it comes in (before processing), after the effects (before the fader), or after the fader. The same setting as **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | The sections of the strip. Lit ones are on screen. Click one to glide to it |
 
-The SELECT and METER choices are remembered.
+The SELECT choices are remembered. Where the channel meters read (**IN**, **PRE** or **POST**) is set in
+**SETTINGS > Audio > Channel meter point**.
 
 ### The top bar
 
@@ -390,8 +390,8 @@ takes over by itself and a notice tells you which. A device that won't start (be
 program holds it) is skipped until your devices change, then tried again. On the built-in clock, a
 playback device that's plugged in takes over from it.
 
-To choose the clock yourself, use **CLOCK** at the top of **DEVICES**: **THE INTERFACE (ASIO)** (the
-order above, the default), **A WINDOWS PLAYBACK DEVICE** by name, or **THE BUILT-IN CLOCK**. The
+To choose the clock yourself, use **Clock** in **SETTINGS > Audio**: **The interface (ASIO)** (the
+order above, the default), a Windows playback device by name, or **The built-in clock**. The
 choice takes effect when Faider starts again, and **RESTART NOW** does that straight away. Your mix
 comes with it and stays saved for your interface. When you choose the built-in clock, no device takes
 over from it.
@@ -478,7 +478,7 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 
 | Control | What it does |
 |---|---|
-| **Level bars** | The channel's level, left and right (IN, PRE or POST, as chosen under METER) |
+| **Level bars** | The channel's level, left and right (IN, PRE or POST, as chosen in SETTINGS > Audio > Channel meter point) |
 | **FILT** | Sends the filters into the gate/compressor's detector (key filtering) |
 | **EQ** | The EQ in or out |
 | **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself: the channel picked under right-click > **KEY FROM**. Pressed before one is picked, it opens that list |
@@ -648,8 +648,8 @@ latency compensation.
   path's plugin on the combinator strip to open it.
 
 Every plugin is **tested first in a separate copy of the program**, so a plugin that crashes or
-hangs while loading can't take your mix down. It has 30 seconds to load (**PLUGIN TEST TIME** in
-SETTINGS > GENERAL gives slow plugins 60 or 120). The result is remembered until the plugin file
+hangs while loading can't take your mix down. It has 30 seconds to load (**Plugin test time** in
+SETTINGS > Audio gives slow plugins 60 or 120). The result is remembered until the plugin file
 changes.
 
 ### The plugin panel
@@ -795,7 +795,7 @@ The top bar's transport and the tape strip on the desk control the same deck.
 
 Recordings go to `Music\Faider Recordings` unless you pick a folder. ffmpeg formats record
 a WAV first and convert it when you stop (the WAV is kept if conversion fails). Faider uses the
-`ffmpeg.exe` picked in **SETTINGS > GENERAL > FFMPEG**, else the one on your PATH. Recording stops by
+`ffmpeg.exe` picked in **SETTINGS > Recording > FFmpeg**, else the one on your PATH. Recording stops by
 itself when less than 1 GB is free.
 
 ### Instant replay
@@ -808,28 +808,30 @@ replay uses the first output.
 
 ## 13. Devices
 
-**DEVICES** lists every Windows audio device and ASIO driver. **CLOCK** at the top shows what sets the
-clock now, and its key chooses it (see [Clocking](#clocking)).
+**DEVICES** lists every Windows audio device and ASIO driver. What sets the clock is chosen in
+**SETTINGS > Audio > Clock** (see [Clocking](#clocking)).
 
-**WINDOWS AUDIO**, under it, shows the priority of Windows' audio engine (audiodg.exe, which carries
-every Windows device and captured app): **NORMAL** is Windows' default, **UNKNOWN** if it can't be
-read. Its key, **BOOST WINDOWS AUDIO** (**BOOSTED** while it's High), opens a menu:
+**Windows audio**, in **SETTINGS > Audio** too, shows the priority of Windows' audio engine
+(audiodg.exe, which carries every Windows device and captured app): **Normal priority** is Windows'
+default, **Priority unknown** if it can't be read. Beside it:
 
-- **BOOST (HIGH PRIORITY)** raises it to High, which can stop crackling on Windows devices and captured
-  apps on some PCs. It needs administrator rights, so Windows asks first; saying no changes nothing.
-  It doesn't survive a restart of Windows audio or of the PC: Faider watches it, tells you once
-  from the tray when it's back at Normal, and **Boost Windows audio again...** on the tray menu (or
-  BOOST here, or **BOOST WINDOWS AUDIO** in FIND) boosts it again. Clicking BOOST while it's boosted
-  stops the watching; it stays High until Windows audio restarts or you choose BACK TO NORMAL.
-- **PIN TO ONE CORE** (off unless you choose it) also holds it to your last processor core, from the
-  next BOOST. It only restricts where it runs, never adds cores: use it only for crackle on a USB
-  headset.
-- **BACK TO NORMAL** (when it isn't at Normal, or is pinned) puts it back at Normal priority on every
-  core now, without waiting for a restart. Windows asks first, as for BOOST, and Faider stops watching.
+- **Boost** raises it to High, which can stop crackling on Windows devices and captured apps on some
+  PCs. It needs administrator rights, so Windows asks first; saying no changes nothing. It doesn't
+  survive a restart of Windows audio or of the PC: Faider watches it, tells you once from the tray
+  when it's back at Normal, and **Boost Windows audio again...** on the tray menu (or **Boost** here,
+  or **BOOST WINDOWS AUDIO** in FIND) boosts it again. While it's boosted the key reads **Stop
+  boosting**, which stops the watching; it stays High until Windows audio restarts or you choose
+  **Back to normal**.
+- **Pin to one core** (the switch under it, off unless you choose it) also holds it to your last
+  processor core, from the next Boost. It only restricts where it runs, never adds cores: use it only
+  for crackle on a USB headset.
+- **Back to normal** (when it isn't at Normal, or is pinned) puts it back at Normal priority on every
+  core now, without waiting for a restart. Windows asks first, as for Boost, and Faider stops watching.
 
-**BOOST** and **BACK TO NORMAL** need Faider installed for all users (in Program Files). A copy installed
-for you only, or built from source, doesn't ask Windows and says so instead: any program could change
-the files in such a folder, and they would then run as administrator.
+**Boost** and **Back to normal** need Faider installed for all users (in Program Files). A copy
+installed for you only, or built from source, says **Needs Faider installed for all users** under the
+row and doesn't ask Windows: any program could change the files in such a folder, and they would then
+run as administrator.
 
 It doesn't affect ASIO interfaces, which don't go through Windows audio.
 
@@ -896,9 +898,9 @@ Your mix saves itself within a second of any change, and on exit.
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, or **Session timeline...** on the tray menu: every kept version by date. **RESTORE EVERYTHING** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, CUT and rack) without restarting |
-| **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: keep the mix under a name |
-| **OPEN, EXPORT OR IMPORT...** | Open a named mix (restarts), save the mix to a file, or load one from a file |
+| **SESSION TIMELINE** | **Open timeline** in SETTINGS > Sessions, FIND, or **Session timeline...** on the tray menu: every kept version by date. **RESTORE EVERYTHING** (Faider restarts with it), or **PUT ONE CHANNEL BACK** (its level, pan, CUT and rack) without restarting |
+| **Save as…** | SETTINGS > Sessions > This mix (or **SAVE SESSION AS...** in FIND): keep the mix under a name. **Export…** beside it saves the mix to a file |
+| **Saved sessions** | SETTINGS > Sessions: **Open** a named mix (Faider restarts with it) or **Export** it to a file; **Import…** loads one from a file |
 
 Up to 60 earlier versions are kept (at most one every 5 minutes). If your mix ever can't be loaded
 (the interface is missing, the file is damaged), it's **set aside** rather than lost, and a fresh
@@ -908,29 +910,53 @@ mix starts. See [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 ## 15. Settings
 
-**SETTINGS** has four sections, as cards down the left: **GENERAL**, **MACROS**, **HOTKEYS**,
-**CONTROL**. On/off settings are square switches that glow cream when on.
+**SETTINGS** has a sidebar down its left: a search box at the top, then its pages in four groups.
+**APP**: **General**, **Notifications**, **Startup & checks**, **Updates & about**. **AUDIO**:
+**Audio**, **Recording**. **MIX**: **Apps**, **Sessions**. **CONTROL**: **MIDI & OSC**, **Hotkeys**,
+**Macros**. The page you pick fills the rest as one column: its title, a line on what it's for, then
+a row for each setting with its name, what it does under the name, and its control at the right.
+On/off settings are switches that glow cream when on; a choice of a few shows them side by side, the
+one chosen in cream; a value with a menu opens it when you click it.
 
-![SETTINGS > GENERAL: each group of settings is a card](images/console/settings.jpg)
+Type in the search box to see the settings that match from every page, each under its page's name
+(Esc clears it). **FIND** (Ctrl+K) finds every setting by its name too, and opens its page with its
+row lit for a moment.
 
 ### GENERAL
 
-| Card | Settings |
-|---|---|
-| **LOOK** | **LOOK...**: the console's colours and typeface, from a look file (see [Looks](#looks)) |
-| **WINDOWS** | **START WITH WINDOWS**: opens in the tray when you sign in |
-| **DESK** | **WARN IF I TALK WHILE CUT** (a notice when a cut mic is above -30 dBFS) |
-| **APPS** | **APP RULES...**: which bus or output a program goes to when it starts playing (also in **FIND**). Removing a program's channel removes its rule |
-| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...**; **SESSION TIMELINE...** (see [14.3](#143-sessions)) |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (see [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
-| **NOTICES (IN THE CORNER)** | Devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo |
-| **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
-| **METER STANDARD** | How meters read: **PEAK** (the default: sample peak in dBFS with a fast fall), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
-| **CHANNEL METER POINT** | **IN** (raw source), **PRE** (after effects), **POST** (after the fader, default). The sidebar's **METER** cards set the same |
-| **RECORDING** | **FFMPEG**: where `ffmpeg.exe` is, or **NOT FOUND**. Click it to pick `ffmpeg.exe` (used before the one on your PATH); once one is picked, it also offers to go back to the PATH's |
-| **PLUGIN TEST TIME** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
-| **UPDATES** | **CHECK FOR UPDATES** (on by default): at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or the key here opens its page. Switch it off and Faider never asks. **CHECK NOW** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
-| **ABOUT** | Version and credits |
+The **APP** pages:
+
+| Page | Setting | What it does |
+|---|---|---|
+| **General** | **Start with Windows** | Opens Faider in the tray when you sign in |
+| | **Zoom** | **100%**, **125%**, **150%**, or **Custom…** for any size from 75 to 200%. Ctrl + and Ctrl - step between the first three |
+| | **Look** | The console's colours and typeface; its menu lists your looks and **Save as…** (see [Looks](#looks)) |
+| | **Tips** | A tip about each page, the first time it's shown. **Show again** shows each page's tip once more |
+| **Notifications** | **Warn if I talk while cut** | A notice when a cut mic is above -30 dBFS |
+| | Corner notices | A switch each: devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo. The event log has everything either way |
+| **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT a few seconds after start, shown only if something's wrong |
+| | **Pre-flight**, **Zero the desk** | **Run pre-flight** and **Check** run them now (see [18.1](#181-pre-flight)) |
+| **Updates & about** | **Check for updates** | On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or **Get Faider x.y.z…** here opens its page. Switch it off and Faider never asks. |
+| | **Version** | The version running now. **Check now** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
+| | **About Faider** | Version and credits |
+| | **Privacy** | **Read policy** opens Faider's privacy policy on GitHub |
+| | **Problem report** | **Save report…** saves the logs, the last crash and the versions in a .zip you can send. Nothing is sent by itself |
+
+The **AUDIO** and **MIX** pages:
+
+| Page | Setting | What it does |
+|---|---|---|
+| **Audio** | **Clock** | What sets the clock, from the next start: **The interface (ASIO)**, a Windows playback device by name, or **The built-in clock** (see [Clocking](#clocking)). Under it, what sets it now |
+| | **Windows audio** | The priority of Windows' audio engine, with **Boost** and **Back to normal** (see [13](#13-devices)) |
+| | **Pin to one core** | With Boost, Windows audio is held to the last core: only for crackle on a USB headset |
+| | **Channel meter point** | Where every channel's meter reads: **IN** (raw source), **PRE** (after effects) or **POST** (after the fader, the default) |
+| | **Meter standard** | How meters read: **Peak** (the default: sample peak in dBFS with a fast fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
+| | **Plugin test time** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
+| **Recording** | **FFmpeg** | Where `ffmpeg.exe` is, or **Not found**. **Pick…** chooses it (used before the one on your PATH); **Use PATH** forgets the one picked and uses the PATH's |
+| **Apps** | **App rules** | A table: each program, where it goes, **Change** and **Delete**. **Add rule** picks a program playing now (or one with a channel), then a bus or output. Removing a program's channel removes its rule. **APP RULES** in FIND does the same from a menu |
+| **Sessions** | **This mix** | **Save as…** keeps the mix under a name; **Export…** saves it to a file |
+| | **Saved sessions** | The mixes kept under a name, with when each was saved: **Open** (Faider restarts with it) or **Export** to a file. **Import…** opens a session from a file |
+| | **Session timeline** | **Open timeline**: every kept version by date (see [14.3](#143-sessions)) |
 
 ### LOOKS
 
@@ -938,9 +964,9 @@ A **look** is every colour the console paints with, together with the typeface a
 with it. The strips, the readouts, the knobs, the keys and the lamps all draw from the look in force,
 so one look changes the whole desk at once.
 
-**LOOK...** lists the looks you have and puts the one you choose in force; the desk is drawn again the
-moment it changes. **SAVE THIS LOOK AS...** writes the look in force to a new file under a name you
-give it.
+**Look** (SETTINGS > General) lists the looks you have and puts the one you choose in force; the desk
+is drawn again the moment it changes. **Save as…** at the end of its list writes the look in force to
+a new file under a name you give it.
 
 A look is one file in `%APPDATA%\Faider\looks`, written as JSON, so you can write one by hand and copy
 it to another machine. A file that is missing or broken leaves the built-in look in place, and whatever
@@ -956,7 +982,7 @@ a file leaves out falls back to the built-in value: a part-written file still wo
 
 The colours are named after the part they paint: the panels and the printing, the keys, the faders'
 plate, the readouts, the knobs by function, the lamps, the strips' bodies, what a channel, a bus and an
-output look like, the accent, the recesses and the shading. **SAVE THIS LOOK AS...** writes out every
+output look like, the accent, the recesses and the shading. **Save as…** writes out every
 name the look has, so the quickest way to begin is to change one thing on the desk, save it, and edit
 that file.
 
@@ -980,18 +1006,27 @@ A macro is a list of **actions** run from a hotkey, a pad, a trigger or remote c
 
 ### HOTKEYS
 
-Every assignable hotkey is in one place: **PADS**, **MACROS**, **SCENES**, and **SAVE INSTANT REPLAY**
-under **TAPE**. Each card says what its keys do and where else they can be set. Click one, then press the new keys (Esc cancels, Delete clears). Hotkeys must include
-Ctrl, Alt or an F key, and they work while a game has focus. A key that something else in Faider already has (under PADS, MACROS, SCENES or SAVE INSTANT REPLAY, or a fixed key) is refused, here and wherever else a hotkey is set, and the note names what has it. A key Windows refused (another app may have it), or one that two things still share in a mix from an earlier version, is marked in red under its row: only one of them works. The fixed keys are listed too
-([19.1](#191-keyboard-shortcuts)). The page's ON THE MIXER keys work on the console too
+Every assignable hotkey is on the **Hotkeys** page, in two tables. **Assigned** lists the pads, the
+macros, the scenes and **Save instant replay** (the tape), each with where else it can be set and its
+key. Click a key, then press the new keys (Esc cancels, Delete clears). Hotkeys must include Ctrl, Alt
+or an F key, and they work while a game has focus. A key that something else in Faider already has (a
+pad, a macro, a scene, instant replay or a fixed key) is refused, here and wherever else a hotkey is
+set, and the note at the top names what has it. A key Windows refused (another app may have it), or
+one that two things still share in a mix from an earlier version, is marked in red under its line:
+only one of them works. **Fixed** lists the keys that are always the same, and where they work
+([19.1](#191-keyboard-shortcuts)). Its **On the mixer** keys work on the console too
 ([5](#5-the-console)).
 
 ### CONTROL
 
-| Card | |
+The **MIDI & OSC** page:
+
+| Setting | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, where each MIDI input is switched on or off |
-| **OSC** | **OSC ON (PORT 9000)**, for programs on this PC. **PORT...** sets the port (1024–65535); if OSC is on, it moves there at once |
+| **MIDI map** | **Start mapping** starts MIDI MAP (see [16](#16-remote-control-overlay-and-tray)). Ctrl+L starts it anywhere; Esc or **Finish mapping** ends it |
+| **Inputs and bindings** | **Open**: each MIDI input switched on or off, and every binding. Under it, how many bindings there are |
+| **OSC** | A switch: listen for OSC from programs on this PC. Under it, the port it listens on |
+| **OSC port** | The port (1024–65535, 9000 to start): type it and click **Apply**. If OSC is on, it moves there at once |
 
 ---
 
@@ -999,8 +1034,8 @@ Ctrl, Alt or an F key, and they work while a game has focus. A key that somethin
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
-| **OSC** | Programs on this PC can send to port 9000, or the port set with **PORT...** in SETTINGS > CONTROL (it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, or **Start mapping** in SETTINGS > MIDI & OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, in SIMPLE and PRO, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
+| **OSC** | Programs on this PC can send to port 9000, or the port set in **OSC port** (SETTINGS > MIDI & OSC; it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
 | **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
 | **Tray** | Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
@@ -1030,7 +1065,7 @@ themselves.
    Windows' defaults ([Step 2](#step-2-install-vb-cable-optional)).
 2. Route your mic channel to the **CABLE Input** device. An output is created on it.
 3. In the app, choose **CABLE Output** as its microphone.
-4. Run **PRE-FLIGHT NOW...** to check that nothing on the way is cut and nothing loops.
+4. Click **Run pre-flight** (SETTINGS > Startup & checks) to check that nothing on the way is cut and nothing loops.
 
 ### 17.3 Bring a program into the mix
 
@@ -1091,12 +1126,12 @@ When the overlay, a MIDI controller or OSC doesn't respond:
 | Problem | Check |
 |---|---|
 | **The overlay doesn't show** | Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS > HOTKEYS marks it in red and the event log says so: **SHOW OVERLAY** in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads **NO MIC CHANNELS** when there are none |
-| **A MIDI controller does nothing** | Each MIDI input is off until you switch it on in SETTINGS > CONTROL > **INPUTS AND BINDINGS**. A controller plugged in after Faider started isn't opened by itself: press **REFRESH** there and switch its input off and on, or restart Faider. Move a control and **LAST** at the bottom of that list shows what arrived. A control does nothing until it's bound in **MIDI MAP** (Ctrl+L). Only control changes and notes are read: faders and pans follow a knob or fader, not a key, and keys switch CUT, SOLO and the like |
-| **OSC does nothing** | OSC is off until **OSC ON** is lit (SETTINGS > CONTROL). The sender has to use the port shown on that key (9000 unless you changed it) and run on this PC: Faider listens on `127.0.0.1` only, so a phone or another PC can't reach it. If the port couldn't be opened (another program may have it), Faider says so and OSC stays off: pick another with **PORT...**. Then check the address: the strip's name, with `_` for spaces (see the [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)) |
+| **A MIDI controller does nothing** | Each MIDI input is off until you switch it on in SETTINGS > MIDI & OSC > **Inputs and bindings**. A controller plugged in after Faider started isn't opened by itself: press **REFRESH** there and switch its input off and on, or restart Faider. Move a control and **LAST** at the bottom of that list shows what arrived. A control does nothing until it's bound in **MIDI MAP** (Ctrl+L). Only control changes and notes are read: faders and pans follow a knob or fader, not a key, and keys switch CUT, SOLO and the like |
+| **OSC does nothing** | OSC is off until its switch is on (SETTINGS > MIDI & OSC). The sender has to use the port shown under it (9000 unless you changed it) and run on this PC: Faider listens on `127.0.0.1` only, so a phone or another PC can't reach it. If the port couldn't be opened (another program may have it), Faider says so and OSC stays off: type another in **OSC port** and click **Apply**. Then check the address: the strip's name, with `_` for spaces (see the [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)) |
 
 ### 18.1 PRE-FLIGHT
 
-PRE-FLIGHT runs a few seconds after start (and from **PRE-FLIGHT NOW...** or FIND) and only shows
+PRE-FLIGHT runs a few seconds after start (and from **Run pre-flight** in SETTINGS > Startup & checks, or FIND) and only shows
 up if something is wrong. Each row has a light, the finding and a fix:
 
 | Check | Problem | Fix |
@@ -1109,7 +1144,7 @@ up if something is wrong. Each row has a light, the finding and a fix:
 | **HEARD ONCE** | A feedback loop, or something heard twice | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows devices or captured apps are in the mix and Windows' audio engine is at Normal priority: yellow, a suggestion only; red if your boost was undone by a restart. Green when only ASIO is used | **BOOST** |
 
-**ZERO THE DESK** (bottom left; also **ZERO DESK...** in SETTINGS > GENERAL > ON START, and **ZERO DESK** in FIND) checks what a last session can leave
+**ZERO THE DESK** (bottom left; also **Zero the desk** in SETTINGS > Startup & checks, and **ZERO DESK** in FIND) checks what a last session can leave
 set: solos, key listen, gain trims more than 12 dB off, and cut outputs. Each has a **FIX**.
 
 ### 18.2 My mix is gone, a fresh mix started
@@ -1119,7 +1154,7 @@ Your mix isn't lost. When it can't be used at start, it's **set aside** as
 
 | Reason | What to do |
 |---|---|
-| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (SETTINGS > GENERAL, FIND or the tray) > the "kept:" version > **RESTORE EVERYTHING** |
+| The saved interface isn't connected | Connect it, then **SESSION TIMELINE** (SETTINGS > Sessions, FIND or the tray) > the "kept:" version > **RESTORE EVERYTHING** |
 | The saved interface couldn't be opened (another program has it) | Close the other program and restart Faider. Nothing is saved over your mix meanwhile |
 | session.xml couldn't be read | **SESSION TIMELINE** > a recent version > **RESTORE EVERYTHING** |
 
@@ -1129,7 +1164,7 @@ Work along the signal path:
 
 1. **Health light** red and reading OFF: the audio isn't running. See
    [18.2](#182-my-mix-is-gone-a-fresh-mix-started) and [18.4](#184-the-interface-wont-start-or-stopped).
-2. **The channel's meter** (METER: IN): if it isn't moving, check its **Input** (right-click) and
+2. **The channel's meter** (Channel meter point: IN): if it isn't moving, check its **Input** (right-click) and
    that the source is playing. A strip that's switched off passes nothing.
 3. **CUT** is off, the fader is up, and nothing else is soloed (another strip's **SOLO** silences
    everything else).
@@ -1145,11 +1180,11 @@ Work along the signal path:
   size on DEVICES or restart Faider.
 - Rate or buffer changes made in the interface's own control panel are picked up by themselves.
 - To run without the interface for a while, choose a Windows playback device or the built-in clock
-  in **DEVICES > CLOCK** and click **RESTART NOW**. Your mix comes with it and stays saved for your
-  interface: choosing **THE INTERFACE (ASIO)** again goes back to it.
+  in **SETTINGS > Audio > Clock** and click **RESTART NOW**. Your mix comes with it and stays saved for your
+  interface: choosing **The interface (ASIO)** again goes back to it.
 - Or start Faider with `"C:\Program Files\Faider\Faider.exe" --clock windows` (your Windows playback
   device) or `--clock builtin` (the built-in clock). `--clock` with part of an ASIO driver's name
-  (`--clock focusrite`) picks that driver. It wins over DEVICES > CLOCK for that run, and the next
+  (`--clock focusrite`) picks that driver. It wins over SETTINGS > Audio > Clock for that run, and the next
   start without it goes back to your choice.
 
 ### 18.5 Clicks, crackles or dropouts
@@ -1160,11 +1195,11 @@ Work along the signal path:
 3. **UNDER / OVER** climbing on one device: that device is struggling. Try another USB port, close
    other programs using it, or exclude it if you don't use it.
 4. Steady **DRIFT** is normal. It's the correction that keeps clocks in step.
-5. Crackling only on Windows devices or captured apps: try **BOOST WINDOWS AUDIO** (DEVICES >
-   WINDOWS AUDIO, or FIND). It raises Windows' audio engine from Normal, Windows' default, to High.
+5. Crackling only on Windows devices or captured apps: try **Boost** (SETTINGS > Audio >
+   Windows audio, or **BOOST WINDOWS AUDIO** in FIND). It raises Windows' audio engine from Normal, Windows' default, to High.
    Windows asks for administrator approval, and a restart of Windows audio or of the PC undoes it
    (Faider tells you). It doesn't affect ASIO interfaces. For a USB headset that still crackles,
-   **PIN TO ONE CORE** is optional and only restricts it to one core.
+   **Pin to one core** is optional and only restricts it to one core.
 
 ### 18.6 An app doesn't appear in ADD APP
 
@@ -1199,7 +1234,7 @@ channels.
 ### 18.11 A plugin won't load
 
 Each plugin is tested in a separate copy of the program first, and the reason for a failure is
-reported: it didn't finish loading in time (30 s, unless **PLUGIN TEST TIME** in SETTINGS > GENERAL
+reported: it didn't finish loading in time (30 s, unless **Plugin test time** in SETTINGS > Audio
 gives it 60 or 120), it crashed while being tested, or there's no VST3 plugin in the file. Update or
 reinstall the plugin. Once its file changes, it's tested again.
 
@@ -1248,11 +1283,11 @@ output again, and your real microphone as the default input, each for calls too.
 
 | | |
 |---|---|
-| `--minimised` | Start in the tray (what **START WITH WINDOWS** uses) |
+| `--minimised` | Start in the tray (what **Start with Windows** uses) |
 | `--quit` | Quit the running copy, as the tray's **Quit** does. With none running, nothing happens |
 | `--allow-admin` | Started as administrator, stay that way. Without it Faider starts itself again with ordinary rights (see [16](#16-remote-control-overlay-and-tray)) |
-| `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over DEVICES > CLOCK (see [Clocking](#clocking)) |
-| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | What **BOOST WINDOWS AUDIO** and **BACK TO NORMAL** start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | For this run, the clock is your Windows playback device, the built-in clock, or the ASIO driver whose name contains `<driver>`. It wins over SETTINGS > Audio > Clock (see [Clocking](#clocking)) |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | What **Boost** and **Back to normal** (SETTINGS > Audio > Windows audio) start, as administrator: Windows' audio engine to High priority (pinned to core N only if given), or back to Normal on every core, then it exits. 0: done; 2: bad arguments; 3: audiodg not found; 4: access denied; 5: priority refused; 6: High set but the pin refused; 7: Normal set but every core refused |
 | `--scan <plugin> --out <file>` | Internal: the test Faider runs in a separate copy before a plugin loads (see [9](#9-plugins)). No window, no audio |
 | `--after <process id>` | Internal: added when Faider starts itself again (**RESTORE EVERYTHING**, **RESTART NOW**, giving up administrator rights). The new copy waits, up to a minute, for that process to end |
 

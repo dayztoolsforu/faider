@@ -51,7 +51,7 @@ Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台�
 | **音频接口** | 可选。安装其 ASIO 驱动后，Faider 会使用接口的时钟运行，延迟最低。没有接口时，它使用你的 Windows 播放设备，或内置时钟运行(见[时钟](#clocking)) |
 | **耳机** | 接到音频接口(或任何 Windows 播放设备)上，这样你才能听到自己的混音 |
 | **VB-CABLE** | 可选，免费 (vb-audio.com/Cable)。一个虚拟麦克风，让 Discord、游戏、OBS 等应用能听到你的混音 |
-| **ffmpeg** | 可选。PATH 中有 `ffmpeg.exe`，或在 **SETTINGS > GENERAL > FFMPEG** 中选好了它时，录音机还能写出 MP3、AAC、Opus 和 ALAC |
+| **ffmpeg** | 可选。PATH 中有 `ffmpeg.exe`，或在 **SETTINGS > Recording > FFmpeg** 中选好了它时，录音机还能写出 MP3、AAC、Opus 和 ALAC |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -205,17 +205,17 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 
 ### 步骤 8：运行 PRE-FLIGHT
 
-启动几秒后，**PRE-FLIGHT** 会检查设置，只在有需要注意的地方时才打开(首次启动时不会，因为先出现的是 SETUP)。你可以随时从 **SETTINGS > GENERAL > PRE-FLIGHT NOW...** 或 **FIND** (Ctrl+K) 运行它。每一行都应该是绿色。见 [18.1](#181-pre-flight)。
+启动几秒后，**PRE-FLIGHT** 会检查设置，只在有需要注意的地方时才打开(首次启动时不会，因为先出现的是 SETUP)。你可以随时从 **SETTINGS > Startup & checks** 中的 **Run pre-flight** 或 **FIND** (Ctrl+K) 运行它。每一行都应该是绿色。见 [18.1](#181-pre-flight)。
 
 <a id="step-9-finish"></a>
 
 ### 步骤 9：完成
 
-- **你的混音会自动保存**，任何改动后一秒内就会保存。若要以名称保留一个版本，请使用 **SETTINGS > GENERAL > SAVE SESSION AS...**。
-- **随 Windows 启动：** **SETTINGS > GENERAL > WINDOWS** 会在你登录时让 Faider 在托盘中启动，这样你的麦克风从一开始就能工作。
+- **你的混音会自动保存**，任何改动后一秒内就会保存。若要以名称保留一个版本，请使用 **SETTINGS > Sessions** 中的 **Save as…**。
+- **随 Windows 启动：** **SETTINGS > General** 中它的开关会在你登录时让 Faider 在托盘中启动，这样你的麦克风从一开始就能工作。
 - **关闭窗口不会停止音频。** Faider 会继续在系统托盘中运行，所以你的麦克风和耳机保持工作。要停止它，请右键点击托盘图标并选择 **Quit Faider**。程序在托盘中时再次启动它，会让窗口重新出现。
 
-每个页面第一次打开时，都会有一条简短的提示进行说明。可在 **SETTINGS > GENERAL > ON START** 下关闭提示。
+每个页面第一次打开时，都会有一条简短的提示进行说明。可用 **SETTINGS > General** 中的 **Tips** 关闭提示。
 
 设置到此完成。本手册的其余部分详细介绍每个部分。
 
@@ -239,10 +239,9 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 | | **PLUGINS** | 把插件面板从通道条下方滑出(见 [9](#9-plugins)) |
 | **SELECT** | **AUTO** | 触碰通道条上的任何控件都会选中该通道条 |
 | | **FOLLOW** | 调音台平滑滚动到所选通道条，在别处选中时(FIND、快捷键)也一样 |
-| **METER** | **IN** / **PRE** / **POST** | 通道电平表的测量位置：进入的声源(处理前)、效果之后(推子之前)，或推子之后。与 **SETTINGS > GENERAL > CHANNEL METER POINT** 是同一个设置 |
 | **SECTIONS** | HEADER … FADER | 通道条的各个部分。亮着的就是屏幕上显示的。点击其一可滑动过去 |
 
-SELECT 和 METER 的选择会被记住。
+SELECT 的选择会被记住。通道电平表的测量位置(**IN**、**PRE** 或 **POST**)在 **SETTINGS > Audio > Channel meter point** 中设置。
 
 <a id="the-top-bar"></a>
 
@@ -354,7 +353,7 @@ flowchart LR
 
 如果决定时钟的 Windows 设备被拔出、被关闭或停止工作，下一个时钟会自动接替，并有通知告诉你是哪一个。无法启动的设备(因为被其他程序占用)会被跳过，直到你的设备发生变化，然后再次尝试。使用内置时钟时，只要接入了播放设备，它就会从内置时钟那里接替。
 
-若要自己选择时钟，请使用 **DEVICES** 顶部的 **CLOCK**：**THE INTERFACE (ASIO)**(上面的顺序，默认)、按名称选择的 **A WINDOWS PLAYBACK DEVICE**，或 **THE BUILT-IN CLOCK**。选择在 Faider 下次启动时生效，**RESTART NOW** 会立即重启。你的混音会随之带过去，并仍为你的接口保存。选择内置时钟时，不会有设备从它那里接替。
+若要自己选择时钟，请使用 **SETTINGS > Audio** 中的 **Clock**：**The interface (ASIO)**(上面的顺序，默认)、按名称选择的 Windows 播放设备，或 **The built-in clock**。选择在 Faider 下次启动时生效，**RESTART NOW** 会立即重启。你的混音会随之带过去，并仍为你的接口保存。选择内置时钟时，不会有设备从它那里接替。
 
 <a id="5-the-console"></a>
 
@@ -447,7 +446,7 @@ flowchart LR
 
 | 控件 | 作用 |
 |---|---|
-| **电平条** | 通道的电平，左和右(IN、PRE 或 POST，按 METER 的选择) |
+| **电平条** | 通道的电平，左和右(IN、PRE 或 POST，按 SETTINGS > Audio > Channel meter point 的选择) |
 | **FILT** | 把滤波器送入门限/压缩器的检测器(键控滤波) |
 | **EQ** | 接入或旁路 EQ |
 | **EXT** | 动态处理收听外部键控信号(侧链)，而不是通道本身：即在右键 > **KEY FROM** 中选择的通道。尚未选择时按下它，会打开那个列表 |
@@ -617,7 +616,7 @@ Faider 在通道、总线和组合器路径上承载 **VST3** 插件，并自动
 - 在通道上：右键点击 > **PLUGINS > ADD PLUGIN...**，或 RAW 通道条上的 **ADD PLUGIN**，或插件面板中的 **ADD**。
 - 在组合器路径上：右键点击组合器 > **PATHS > PATH n > ADD PLUGIN...**。在组合器通道条上点击某条路径的插件即可打开它。
 
-每个插件**都会先在程序的一个独立副本中测试**，所以加载时崩溃或卡死的插件不会拖垮你的混音。它有 30 秒的加载时间(SETTINGS > GENERAL 中的 **PLUGIN TEST TIME** 可给慢的插件 60 或 120 秒)。结果会被记住，直到插件文件发生变化。
+每个插件**都会先在程序的一个独立副本中测试**，所以加载时崩溃或卡死的插件不会拖垮你的混音。它有 30 秒的加载时间(SETTINGS > Audio 中的 **Plugin test time** 可给慢的插件 60 或 120 秒)。结果会被记住，直到插件文件发生变化。
 
 <a id="the-plugin-panel"></a>
 
@@ -763,7 +762,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **REC** | 开始和停止(顶部栏的录音键作用相同)。屏幕显示时间、大小、剩余时间，以及任何丢弃的数据块 |
 | **PATH** / **REVEAL** | 选择文件夹 / 在资源管理器中打开 |
 
-除非你选择了文件夹，录音都保存到 `Music\Faider Recordings`。ffmpeg 格式会先录成 WAV，停止时再转换(转换失败时会保留 WAV)。Faider 使用在 **SETTINGS > GENERAL > FFMPEG** 中选择的 `ffmpeg.exe`，否则使用 PATH 中的那个。剩余空间不足 1 GB 时，录音会自动停止。
+除非你选择了文件夹，录音都保存到 `Music\Faider Recordings`。ffmpeg 格式会先录成 WAV，停止时再转换(转换失败时会保留 WAV)。Faider 使用在 **SETTINGS > Recording > FFmpeg** 中选择的 `ffmpeg.exe`，否则使用 PATH 中的那个。剩余空间不足 1 GB 时，录音会自动停止。
 
 <a id="instant-replay"></a>
 
@@ -777,15 +776,15 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 ## 13. 设备
 
-**DEVICES** 列出每个 Windows 音频设备和 ASIO 驱动。顶部的 **CLOCK** 显示现在由什么决定时钟，它的键用于选择时钟(见[时钟](#clocking))。
+**DEVICES** 列出每个 Windows 音频设备和 ASIO 驱动。由什么决定时钟，在 **SETTINGS > Audio > Clock** 中选择(见[时钟](#clocking))。
 
-它下面的 **WINDOWS AUDIO** 显示 Windows 音频引擎(audiodg.exe，承载每个 Windows 设备和被捕获的应用)的优先级：**NORMAL** 是 Windows 的默认值，无法读取时为 **UNKNOWN**。它的键 **BOOST WINDOWS AUDIO**(处于 High 时为 **BOOSTED**)会打开一个菜单：
+**Windows audio** 也在 **SETTINGS > Audio** 中，显示 Windows 音频引擎(audiodg.exe，承载每个 Windows 设备和被捕获的应用)的优先级：**Normal priority** 是 Windows 的默认值，无法读取时为 **Priority unknown**。它旁边有：
 
-- **BOOST (HIGH PRIORITY)** 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 **Boost Windows audio again...**(或这里的 BOOST，或 FIND 中的 **BOOST WINDOWS AUDIO**)会再次提升它。在已提升时点击 BOOST 会停止监视；它会保持 High，直到 Windows 音频重启或你选择 BACK TO NORMAL。
-- **PIN TO ONE CORE**(除非你选择，否则关闭)从下一次 BOOST 起，还会把它固定在你的最后一个处理器核心上。它只限制运行位置，从不增加核心：仅在 USB 耳机有爆音时使用。
-- **BACK TO NORMAL**(当它不是 Normal，或已被固定时)立即把它恢复为所有核心上的 Normal 优先级，无需等待重启。和 BOOST 一样，Windows 会先询问，Faider 也会停止监视。
+- **Boost** 把它提高到 High，在某些电脑上可以消除 Windows 设备和被捕获应用的爆音。这需要管理员权限，所以 Windows 会先询问；拒绝则什么都不会改变。重启 Windows 音频或电脑后它不会保留：Faider 会监视它，在它回到 Normal 时从托盘通知你一次，托盘菜单上的 **Boost Windows audio again...**(或这里的 **Boost**，或 FIND 中的 **BOOST WINDOWS AUDIO**)会再次提升它。已提升时，这个键显示为 **Stop boosting**，点击它会停止监视；它会保持 High，直到 Windows 音频重启或你选择 **Back to normal**。
+- **Pin to one core**(它下面的开关，除非你选择，否则关闭)从下一次 Boost 起，还会把它固定在你的最后一个处理器核心上。它只限制运行位置，从不增加核心：仅在 USB 耳机有爆音时使用。
+- **Back to normal**(当它不是 Normal，或已被固定时)立即把它恢复为所有核心上的 Normal 优先级，无需等待重启。和 Boost 一样，Windows 会先询问，Faider 也会停止监视。
 
-**BOOST** 和 **BACK TO NORMAL** 需要为所有用户安装的 Faider(位于 Program Files)。仅为你自己安装的副本，或从源代码构建的副本，不会询问 Windows，而是直接说明原因：任何程序都能更改这类文件夹里的文件，而这些文件随后会以管理员身份运行。
+**Boost** 和 **Back to normal** 需要为所有用户安装的 Faider(位于 Program Files)。仅为你自己安装的副本，或从源代码构建的副本，会在该行下方显示 **Needs Faider installed for all users**，并且不会询问 Windows：任何程序都能更改这类文件夹里的文件，而这些文件随后会以管理员身份运行。
 
 它不影响 ASIO 接口，因为它们不经过 Windows 音频。
 
@@ -856,9 +855,9 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS、FIND，或托盘菜单上的 **Session timeline...**：按日期列出保留的每个版本。**RESTORE EVERYTHING**(Faider 会以它重新启动)，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、CUT 和机架) |
-| **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS：以名称保留混音 |
-| **OPEN, EXPORT OR IMPORT...** | 打开命名的混音(会重启)、把混音保存为文件，或从文件载入 |
+| **SESSION TIMELINE** | SETTINGS > Sessions 中的 **Open timeline**、FIND，或托盘菜单上的 **Session timeline...**：按日期列出保留的每个版本。**RESTORE EVERYTHING**(Faider 会以它重新启动)，或无需重启的 **PUT ONE CHANNEL BACK**(它的电平、声像、CUT 和机架) |
+| **Save as…** | SETTINGS > Sessions > This mix(或 FIND 中的 **SAVE SESSION AS...**)：以名称保留混音。旁边的 **Export…** 把混音保存为文件 |
+| **Saved sessions** | SETTINGS > Sessions：**Open** 一个命名的混音(Faider 会以它重新启动)，或把它 **Export** 为文件；**Import…** 从文件载入一个 |
 
 最多保留 60 个早期版本(最多每 5 分钟一个)。如果你的混音无法载入(接口缺失、文件损坏)，它会被**搁置**而不是丢失，并以一个全新的混音开始。见 [18.2](#182-my-mix-is-gone-a-fresh-mix-started)。
 
@@ -868,30 +867,47 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 ## 15. 设置
 
-**SETTINGS** 有四个部分，以卡片形式排在左侧：**GENERAL**、**MACROS**、**HOTKEYS**、**CONTROL**。开/关设置是方形开关，开启时发出奶油色的光。
+**SETTINGS** 的左侧有一个侧边栏：顶部是搜索框，下面是分成四组的页面。**APP**：**General**、**Notifications**、**Startup & checks**、**Updates & about**。**AUDIO**：**Audio**、**Recording**。**MIX**：**Apps**、**Sessions**。**CONTROL**：**MIDI & OSC**、**Hotkeys**、**Macros**。你选中的页面以一列填满其余部分：它的标题、一行说明它的用途，然后每个设置一行，包括名称、名称下方说明它做什么，以及右侧的控件。开/关设置是开关，开启时发出奶油色的光；只有几个选项时会并排显示，选中的那个为奶油色；带菜单的值在点击时打开菜单。
 
-![SETTINGS > GENERAL：每组设置是一张卡片](../images/console/settings.jpg)
+在搜索框中输入，即可看到所有页面中匹配的设置，每个都列在其页面名称下(Esc 清除)。**FIND** (Ctrl+K) 也能按名称找到每个设置，并打开它的页面，让它那一行短暂亮起。
 
 <a id="general"></a>
 
 ### GENERAL
 
-| 卡片 | 设置 |
-|---|---|
-| **LOOK** | **LOOK...**：调音台的颜色与字体，取自 LOOK 文件（见 [LOOKS](#looks)） |
-| **WINDOWS** | **START WITH WINDOWS**：你登录时在托盘中打开 |
-| **DESK** | **WARN IF I TALK WHILE CUT**(被 CUT 的麦克风超过 -30 dBFS 时给出通知) |
-| **APPS** | **APP RULES...**：程序开始播放时它去往哪条总线或输出(也可在 **FIND** 中找到)。删除程序的通道会同时删除它的规则 |
-| **SESSIONS** | **SAVE SESSION AS...**；**OPEN, EXPORT OR IMPORT...**；**SESSION TIMELINE...**(见 [14.3](#143-sessions)) |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**；**PRE-FLIGHT NOW...**；**ZERO DESK...**(见 [18.1](#181-pre-flight))；**TIPS**；**SHOW THE TIPS AGAIN** |
-| **NOTICES (IN THE CORNER)** | 设备连接或消失、通道削波(其声源或输出达到满刻度)、场景被调用、宏被运行、撤销和重做 |
-| **ZOOM** | 100%、125%、150%、**CUSTOM...**(75–200%) |
-| **METER STANDARD** | 电平表的读数方式：**PEAK**(默认：以 dBFS 表示的采样峰值，快速回落)、**PEAK IEC**、**TRUE PEAK**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、NORDIC)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
-| **CHANNEL METER POINT** | **IN**(原始声源)、**PRE**(效果之后)、**POST**(推子之后，默认)。侧边栏的 **METER** 卡片设置的是同一项 |
-| **RECORDING** | **FFMPEG**：`ffmpeg.exe` 的位置，或 **NOT FOUND**。点击它选择 `ffmpeg.exe`(优先于 PATH 中的那个)；选好后，它还提供改回 PATH 中那个的选项 |
-| **PLUGIN TEST TIME** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
-| **UPDATES** | **CHECK FOR UPDATES**(默认开启)：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的键会打开它的页面。关闭后，Faider 从不询问。**CHECK NOW**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
-| **ABOUT** | 版本和致谢 |
+**APP** 页面：
+
+| 页面 | 设置 | 作用 |
+|---|---|---|
+| **General** | **Start with Windows** | 你登录时在托盘中打开 Faider |
+| | **Zoom** | **100%**、**125%**、**150%**，或用 **Custom…** 设为 75 到 200% 之间的任意大小。Ctrl + 和 Ctrl - 在前三个之间切换 |
+| | **Look** | 调音台的颜色与字体；它的菜单列出你的 LOOK 和 **Save as…**（见 [LOOKS](#looks)） |
+| | **Tips** | 每个页面第一次显示时的一条提示。**Show again** 让每个页面的提示再显示一次 |
+| **Notifications** | **Warn if I talk while cut** | 被 CUT 的麦克风超过 -30 dBFS 时给出通知 |
+| | 角落通知 | 每项一个开关：设备连接或消失、通道削波(其声源或输出达到满刻度)、场景被调用、宏被运行、撤销和重做。无论开关如何，事件日志都会记录全部内容 |
+| **Startup & checks** | **Pre-flight on start** | 启动几秒后运行 PRE-FLIGHT，只在有问题时才显示 |
+| | **Pre-flight**、**Zero the desk** | **Run pre-flight** 和 **Check** 立即运行它们(见 [18.1](#181-pre-flight)) |
+| **Updates & about** | **Check for updates** | 默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的 **Get Faider x.y.z…** 会打开它的页面。关闭后，Faider 从不询问。 |
+| | **Version** | 当前运行的版本。**Check now**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
+| | **About Faider** | 版本和致谢 |
+| | **Privacy** | **Read policy** 打开 GitHub 上 Faider 的隐私政策 |
+| | **Problem report** | **Save report…** 把日志、最近一次崩溃和各个版本保存为一个你可以发送的 .zip。不会自动发送任何东西 |
+
+**AUDIO** 和 **MIX** 页面：
+
+| 页面 | 设置 | 作用 |
+|---|---|---|
+| **Audio** | **Clock** | 从下次启动起由什么决定时钟：**The interface (ASIO)**、按名称选择的 Windows 播放设备，或 **The built-in clock**(见[时钟](#clocking))。它下方显示现在由什么决定时钟 |
+| | **Windows audio** | Windows 音频引擎的优先级，以及 **Boost** 和 **Back to normal**(见 [13](#13-devices)) |
+| | **Pin to one core** | Boost 时，把 Windows 音频固定在最后一个核心上：仅用于 USB 耳机的爆音 |
+| | **Channel meter point** | 每个通道电平表的测量位置：**IN**(原始声源)、**PRE**(效果之后)或 **POST**(推子之后，默认) |
+| | **Meter standard** | 电平表的读数方式：**Peak**(默认：以 dBFS 表示的采样峰值，快速回落)、**Peak IEC**、**True Peak**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、Nordic)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
+| | **Plugin test time** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
+| **Recording** | **FFmpeg** | `ffmpeg.exe` 的位置，或 **Not found**。**Pick…** 选择它(优先于 PATH 中的那个)；**Use PATH** 忘掉选好的那个，改用 PATH 中的 |
+| **Apps** | **App rules** | 一张表：每个程序、它去往哪里、**Change** 和 **Delete**。**Add rule** 先选一个正在播放的程序(或有通道的程序)，再选总线或输出。删除程序的通道会同时删除它的规则。FIND 中的 **APP RULES** 通过菜单做同样的事 |
+| **Sessions** | **This mix** | **Save as…** 以名称保留混音；**Export…** 把它保存为文件 |
+| | **Saved sessions** | 以名称保留的混音，以及各自的保存时间：**Open**(Faider 会以它重新启动)或 **Export** 为文件。**Import…** 从文件打开一个会话 |
+| | **Session timeline** | **Open timeline**：按日期列出保留的每个版本(见 [14.3](#143-sessions)) |
 
 <a id="macros"></a>
 
@@ -899,7 +915,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 **LOOK** 就是调音台绘制时使用的每一种颜色，再加上与之相配的字体和尺寸。通道条、数值显示、旋钮、按键和指示灯都从当前生效的 LOOK 取值绘制，所以换一个 LOOK，整张调音台会一起变。
 
-**LOOK...** 列出你已有的 LOOK，并启用你选中的那个；一有改变，调音台就会立刻重新绘制。**SAVE THIS LOOK AS...** 会把当前生效的 LOOK 写成一个新文件，名字由你定。
+**Look**(SETTINGS > General)列出你已有的 LOOK，并启用你选中的那个；一有改变，调音台就会立刻重新绘制。列表末尾的 **Save as…** 会把当前生效的 LOOK 写成一个新文件，名字由你定。
 
 一个 LOOK 就是 `%APPDATA%\Faider\looks` 里的一个 JSON 文件，因此你可以手写一个，再复制到别的电脑上。文件缺失或损坏时，内置 LOOK 保持不变；文件里没写的项目会退回内置值——只写了一半的文件照样能用。
 
@@ -911,7 +927,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | `fontSizes` | `legend`、`caption`、`readout`：三种印刷尺寸 |
 | `colours` | 每个颜色写成 `#rrggbb`，需要透明时写成 `#rrggbbaa` |
 
-颜色的名字就是它绘制的那部分：面板与印刷、按键、推子的面板、数值显示、按功能分的旋钮、指示灯、通道条的体、通道／总线／输出的样子、强调色、凹槽和明暗。**SAVE THIS LOOK AS...** 会把 LOOK 拥有的每个名字都写出来，所以最快的办法是在调音台上改一下、保存它，再编辑那个文件。
+颜色的名字就是它绘制的那部分：面板与印刷、按键、推子的面板、数值显示、按功能分的旋钮、指示灯、通道条的体、通道／总线／输出的样子、强调色、凹槽和明暗。**Save as…** 会把 LOOK 拥有的每个名字都写出来，所以最快的办法是在调音台上改一下、保存它，再编辑那个文件。
 
 `palette` 这一组列出布局文件可以加在某个部件上的颜色：`red`、`green`、`blue`、`black`、`white`、`violet`、`grey`、`cream`、`orange`、`amber`、`teal`、`salmon`。
 
@@ -929,16 +945,20 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 ### HOTKEYS
 
-所有可分配的快捷键都集中在一处：**PADS**、**MACROS**、**SCENES**，以及 **TAPE** 下的 **SAVE INSTANT REPLAY**。每张卡片都说明它的按键做什么，以及还能在哪里设置。点击一个，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。Faider 中其他项目(PADS、MACROS、SCENES 或 SAVE INSTANT REPLAY 下的项目，或固定按键)已经占用的按键会被拒绝，在这里以及其他设置快捷键的地方都是如此，并会提示是谁占用了它。被 Windows 拒绝的按键(可能已被其他应用占用)，或在旧版本的混音中仍由两项功能共用的按键，会在其所在行下方标为红色：其中只有一项有效。固定按键也列在其中([19.1](#191-keyboard-shortcuts))。页面上的 ON THE MIXER 按键在调音台上同样有效([5](#5-the-console))。
+所有可分配的快捷键都在 **Hotkeys** 页面上，分为两张表。**Assigned** 列出打击垫、宏、场景和 **Save instant replay**(磁带)，每项都注明还能在哪里设置，以及它的按键。点击一个按键，然后按下新的按键(Esc 取消，Delete 清除)。快捷键必须包含 Ctrl、Alt 或 F 键，并且在游戏拥有焦点时也有效。Faider 中其他项目(打击垫、宏、场景、即时回放或固定按键)已经占用的按键会被拒绝，在这里以及其他设置快捷键的地方都是如此，顶部的提示会说明是谁占用了它。被 Windows 拒绝的按键(可能已被其他应用占用)，或在旧版本的混音中仍由两项功能共用的按键，会在其所在行下方标为红色：其中只有一项有效。**Fixed** 列出始终不变的按键，以及它们在哪里有效([19.1](#191-keyboard-shortcuts))。其中的 **On the mixer** 按键在调音台上同样有效([5](#5-the-console))。
 
 <a id="control"></a>
 
 ### CONTROL
 
-| 卡片 | |
+**MIDI & OSC** 页面：
+
+| 设置 | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L)；**INPUTS AND BINDINGS**，可在此开启或关闭每个 MIDI 输入 |
-| **OSC** | **OSC ON (PORT 9000)**，供这台电脑上的程序使用。**PORT...** 设置端口(1024–65535)；如果 OSC 已开启，会立即改到该端口 |
+| **MIDI map** | **Start mapping** 启动 MIDI MAP(见 [16](#16-remote-control-overlay-and-tray))。Ctrl+L 在任何地方都能启动它；Esc 或 **Finish mapping** 结束它 |
+| **Inputs and bindings** | **Open**：开启或关闭每个 MIDI 输入，以及所有绑定。它下方显示有多少个绑定 |
+| **OSC** | 一个开关：监听这台电脑上的程序发来的 OSC。它下方显示它监听的端口 |
+| **OSC port** | 端口(1024–65535，初始为 9000)：输入后点击 **Apply**。如果 OSC 已开启，会立即改到该端口 |
 
 ---
 
@@ -948,8 +968,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | 点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
-| **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 SETTINGS > CONTROL 中用 **PORT...** 设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L 或 SETTINGS > MIDI & OSC 中的 **Start mapping** 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，在 SIMPLE 和 PRO 中均可，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
+| **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 **OSC port**(SETTINGS > MIDI & OSC)中设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
 | **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
 | **Tray** | 点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
@@ -978,7 +998,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 1. 安装 **VB-CABLE**(PRE-FLIGHT 会提供链接)，然后把你真正的扬声器和麦克风设回 Windows 的默认设备([步骤 2](#step-2-install-vb-cable-optional))。
 2. 把你的麦克风通道路由到 **CABLE Input** 设备。它上面会创建一个输出。
 3. 在应用中，选择 **CABLE Output** 作为它的麦克风。
-4. 运行 **PRE-FLIGHT NOW...**，检查途中没有被 CUT 的环节，也没有回路。
+4. 运行 **Run pre-flight**，检查途中没有被 CUT 的环节，也没有回路。
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1046,14 +1066,14 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 | 问题 | 检查 |
 |---|---|
 | **悬浮层不显示** | Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS > HOTKEYS 会把它标为红色，事件日志也会说明：FIND 中的 **SHOW OVERLAY** 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 **NO MIC CHANNELS** |
-| **MIDI 控制器没有反应** | 每个 MIDI 输入在你于 SETTINGS > CONTROL > **INPUTS AND BINDINGS** 中打开之前都是关闭的。Faider 启动后才插入的控制器不会自动打开：在那里按 **REFRESH**，把它的输入关闭再打开，或重新启动 Faider。动一下某个控件，该列表底部的 **LAST** 会显示收到了什么。控件在 **MIDI MAP** (Ctrl+L) 中映射之前不起任何作用。只读取控制变更和音符：推子和声像跟随旋钮或推子，而不是按键；按键用于切换 CUT、SOLO 等 |
-| **OSC 没有反应** | 在 **OSC ON** 点亮之前，OSC 是关闭的(SETTINGS > CONTROL)。发送方必须使用该键上显示的端口(除非你改过，否则是 9000)，并在这台电脑上运行：Faider 只监听 `127.0.0.1`，所以手机或另一台电脑无法连到它。如果端口无法打开(可能被其他程序占用)，Faider 会提示，OSC 保持关闭：用 **PORT...** 另选一个。然后检查地址：通道条的名称，空格写成 `_`(见 [OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文）) |
+| **MIDI 控制器没有反应** | 每个 MIDI 输入在你于 SETTINGS > MIDI & OSC > **Inputs and bindings** 中打开之前都是关闭的。Faider 启动后才插入的控制器不会自动打开：在那里按 **REFRESH**，把它的输入关闭再打开，或重新启动 Faider。动一下某个控件，该列表底部的 **LAST** 会显示收到了什么。控件在 **MIDI MAP** (Ctrl+L) 中映射之前不起任何作用。只读取控制变更和音符：推子和声像跟随旋钮或推子，而不是按键；按键用于切换 CUT、SOLO 等 |
+| **OSC 没有反应** | 在它的开关打开之前，OSC 是关闭的(SETTINGS > MIDI & OSC)。发送方必须使用开关下方显示的端口(除非你改过，否则是 9000)，并在这台电脑上运行：Faider 只监听 `127.0.0.1`，所以手机或另一台电脑无法连到它。如果端口无法打开(可能被其他程序占用)，Faider 会提示，OSC 保持关闭：在 **OSC port** 中输入另一个并点击 **Apply**。然后检查地址：通道条的名称，空格写成 `_`(见 [OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文）) |
 
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
 
-PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运行)，只在出问题时才会出现。每一行有一个指示灯、检查结果和一个修复方法：
+PRE-FLIGHT 在启动几秒后运行(也可从 SETTINGS > Startup & checks 中的 **Run pre-flight** 或 FIND 运行)，只在出问题时才会出现。每一行有一个指示灯、检查结果和一个修复方法：
 
 | 检查 | 问题 | 修复 |
 |---|---|---|
@@ -1065,7 +1085,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 | **HEARD ONCE** | 反馈回路，或有东西被听到两遍 | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | 混音中有 Windows 设备或被捕获的应用，而 Windows 音频引擎处于 Normal 优先级：黄色，仅为建议；如果你的提升被重启撤销则为红色。只用 ASIO 时为绿色 | **BOOST** |
 
-**ZERO THE DESK**(左下角；也是 SETTINGS > GENERAL > ON START 中的 **ZERO DESK...**，在 FIND 中叫 **ZERO DESK**)检查上一次会话可能遗留的设置：独奏、key listen、偏离超过 12 dB 的增益微调，以及被 CUT 的输出。每一项都有一个 **FIX**。
+**ZERO THE DESK**(左下角；也是 SETTINGS > Startup & checks 中的 **Zero the desk**，在 FIND 中叫 **ZERO DESK**)检查上一次会话可能遗留的设置：独奏、key listen、偏离超过 12 dB 的增益微调，以及被 CUT 的输出。每一项都有一个 **FIX**。
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1075,7 +1095,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 | 原因 | 该怎么做 |
 |---|---|
-| 保存的接口没有连接 | 连接它，然后 **SESSION TIMELINE**(SETTINGS > GENERAL、FIND 或托盘) > 带 "kept:" 的版本 > **RESTORE EVERYTHING** |
+| 保存的接口没有连接 | 连接它，然后 **SESSION TIMELINE**(SETTINGS > Sessions、FIND 或托盘) > 带 "kept:" 的版本 > **RESTORE EVERYTHING** |
 | 保存的接口无法打开(被其他程序占用) | 关闭其他程序，然后重新启动 Faider。在此期间不会有任何东西覆盖你的混音 |
 | 无法读取 session.xml | **SESSION TIMELINE** > 一个较新的版本 > **RESTORE EVERYTHING** |
 
@@ -1086,7 +1106,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 沿着信号路径逐一检查：
 
 1. **状态灯**为红色并显示 OFF：音频没有运行。见 [18.2](#182-my-mix-is-gone-a-fresh-mix-started) 和 [18.4](#184-the-interface-wont-start-or-stopped)。
-2. **通道的电平表**(METER: IN)：如果它不动，检查它的 **Input**(右键点击)以及声源是否在播放。已关闭的通道条不会通过任何声音。
+2. **通道的电平表**(Channel meter point: IN)：如果它不动，检查它的 **Input**(右键点击)以及声源是否在播放。已关闭的通道条不会通过任何声音。
 3. **CUT** 已关闭，推子已推上去，并且没有其他东西被独奏(另一个通道条的 **SOLO** 会让其他所有东西静音)。
 4. **路由：** 至少有一个路由框亮着，或者 ROUTING 页面上有一条线。
 5. **输出**：没有 CUT，推子已推上去，**DEVICE** 显示了正确的设备(不是 "NO DEVICE" 或 "(OFF)")。
@@ -1099,8 +1119,8 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 - 可能有其他程序占用了它(DAW、驱动的控制面板)。关闭它并重新启动。
 - 托盘上的 **INTERFACE DOWN**：接口自己重置了，并且无法重新打开。在 DEVICES 上更改它的缓冲区大小，或重新启动 Faider。
 - 在接口自己的控制面板中所做的采样率或缓冲区更改会被自动识别。
-- 若要暂时不用接口运行，请在 **DEVICES > CLOCK** 中选择一个 Windows 播放设备或内置时钟，然后点击 **RESTART NOW**。你的混音会随之带过去，并仍为你的接口保存：再次选择 **THE INTERFACE (ASIO)** 即可回到接口。
-- 或这样启动 Faider：`"C:\Program Files\Faider\Faider.exe" --clock windows`(你的 Windows 播放设备)或 `--clock builtin`(内置时钟)。`--clock` 后面跟 ASIO 驱动名称的一部分(`--clock focusrite`)会选择那个驱动。在这次运行中它优先于 DEVICES > CLOCK，下次不带它启动时会回到你的选择。
+- 若要暂时不用接口运行，请在 **SETTINGS > Audio > Clock** 中选择一个 Windows 播放设备或内置时钟，然后点击 **RESTART NOW**。你的混音会随之带过去，并仍为你的接口保存：再次选择 **The interface (ASIO)** 即可回到接口。
+- 或这样启动 Faider：`"C:\Program Files\Faider\Faider.exe" --clock windows`(你的 Windows 播放设备)或 `--clock builtin`(内置时钟)。`--clock` 后面跟 ASIO 驱动名称的一部分(`--clock focusrite`)会选择那个驱动。在这次运行中它优先于 SETTINGS > Audio > Clock，下次不带它启动时会回到你的选择。
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1110,7 +1130,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 2. **CALLBACK LOAD** 很高或有 OVERLOADS：调大 **BUFFER**，或在插件面板中找出开销大的插件(**HEAVY**、CPU 高)，将它们旁路或移除。
 3. 某一个设备上的 **UNDER / OVER** 持续增长：那个设备吃力了。试试另一个 USB 端口，关闭其他使用它的程序，或者如果你不用它就把它排除。
 4. 稳定的 **DRIFT** 是正常的。这是让各时钟保持同步的修正。
-5. 只有 Windows 设备或被捕获的应用有爆音：试试 **BOOST WINDOWS AUDIO**(DEVICES > WINDOWS AUDIO，或 FIND)。它把 Windows 音频引擎从 Windows 默认的 Normal 提高到 High。Windows 会请求管理员批准，重启 Windows 音频或电脑会撤销它(Faider 会告诉你)。它不影响 ASIO 接口。对于仍有爆音的 USB 耳机，可以选用 **PIN TO ONE CORE**，它只是把它限制在一个核心上。
+5. 只有 Windows 设备或被捕获的应用有爆音：试试 **Boost**(SETTINGS > Audio > Windows audio，或 FIND 中的 **BOOST WINDOWS AUDIO**)。它把 Windows 音频引擎从 Windows 默认的 Normal 提高到 High。Windows 会请求管理员批准，重启 Windows 音频或电脑会撤销它(Faider 会告诉你)。它不影响 ASIO 接口。对于仍有爆音的 USB 耳机，可以选用 **Pin to one core**，它只是把它限制在一个核心上。
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1149,7 +1169,7 @@ PRE-FLIGHT 在启动几秒后运行(也可从 **PRE-FLIGHT NOW...** 或 FIND 运
 
 ### 18.11 插件无法加载
 
-每个插件都会先在程序的一个独立副本中测试，并报告失败原因：它没有在时限内完成加载(30 秒，除非 SETTINGS > GENERAL 中的 **PLUGIN TEST TIME** 给它 60 或 120 秒)、测试时崩溃了，或文件中没有 VST3 插件。请更新或重新安装该插件。其文件一旦变化，就会再次测试。
+每个插件都会先在程序的一个独立副本中测试，并报告失败原因：它没有在时限内完成加载(30 秒，除非 SETTINGS > Audio 中的 **Plugin test time** 给它 60 或 120 秒)、测试时崩溃了，或文件中没有 VST3 插件。请更新或重新安装该插件。其文件一旦变化，就会再次测试。
 
 <a id="1812-the-program-crashed"></a>
 
@@ -1200,11 +1220,11 @@ Windows 把线缆设成了它的默认设备。**SET MY DEFAULTS**(PRE-FLIGHT �
 
 | | |
 |---|---|
-| `--minimised` | 在托盘中启动(**START WITH WINDOWS** 用的就是它) |
+| `--minimised` | 在托盘中启动(**Start with Windows** 用的就是它) |
 | `--quit` | 退出正在运行的副本，与托盘的 **Quit** 相同。没有副本在运行时，什么都不会发生 |
 | `--allow-admin` | 以管理员身份启动时，保持管理员身份。不加它，Faider 会以普通权限重新启动自己(见 [16](#16-remote-control-overlay-and-tray)) |
-| `--clock windows`、`--clock builtin`、`--clock <driver>` | 在这次运行中，时钟是你的 Windows 播放设备、内置时钟，或名称中包含 `<driver>` 的 ASIO 驱动。它优先于 DEVICES > CLOCK(见[时钟](#clocking)) |
-| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** 和 **BACK TO NORMAL** 以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，或恢复为所有核心上的 Normal，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝；7：已设为 Normal 但恢复所有核心被拒绝 |
+| `--clock windows`、`--clock builtin`、`--clock <driver>` | 在这次运行中，时钟是你的 Windows 播放设备、内置时钟，或名称中包含 `<driver>` 的 ASIO 驱动。它优先于 SETTINGS > Audio > Clock(见[时钟](#clocking)) |
+| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **Boost** 和 **Back to normal**(SETTINGS > Audio > Windows audio)以管理员身份启动的命令：把 Windows 音频引擎设为 High 优先级(仅在给出 N 时固定到核心 N)，或恢复为所有核心上的 Normal，然后退出。0：完成；2：参数错误；3：找不到 audiodg；4：访问被拒绝；5：优先级被拒绝；6：已设为 High 但固定被拒绝；7：已设为 Normal 但恢复所有核心被拒绝 |
 | `--scan <plugin> --out <file>` | 内部使用：插件加载前，Faider 在单独的副本中运行的测试(见 [9](#9-plugins))。没有窗口，没有音频 |
 | `--after <process id>` | 内部使用：Faider 重新启动自己时添加(**RESTORE EVERYTHING**、**RESTART NOW**、放弃管理员权限)。新副本会等待该进程结束，最多一分钟 |
 

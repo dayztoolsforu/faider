@@ -8,8 +8,8 @@ ignored without an error.
 
 | | |
 |---|---|
-| On / off | **SETTINGS > CONTROL > OSC ON (PORT n)**. Off until you switch it on |
-| Port | UDP 9000 to start. **PORT...** beside the key sets another, 1024 to 65535. If OSC is on, it moves there at once |
+| On / off | The **OSC** switch in **SETTINGS > MIDI & OSC**. Off until you switch it on |
+| Port | UDP 9000 to start. **OSC port** on the same page sets another, 1024 to 65535 (type it, then **Apply**). If OSC is on, it moves there at once |
 | Where it listens | `127.0.0.1` only: this PC. A phone, a tablet or another PC can't reach it, and there is no setting that opens it to the network |
 | Saved | On or off and the port are kept with your mix |
 
@@ -75,7 +75,7 @@ same as `/faider`.
 
 ## When nothing happens
 
-- **OSC ON** isn't lit, or the sender uses another port than the one on that key.
+- The **OSC** switch (SETTINGS > MIDI & OSC) is off, or the sender uses another port than the one shown under it.
 - The sender runs on another device. Faider listens on this PC only.
 - The name doesn't match a strip of that kind (`input`, `bus`, `output`), or `pan` or `solo` was
   sent to an output.

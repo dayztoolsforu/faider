@@ -9,8 +9,8 @@ What changed in each version of Faider, newest first. Downloads are on the
 - ADD APP, ADD CHANNEL and SETUP also offer programs that are running but **NOT PLAYING YET**. The
   channel is made at once and hears the program from the moment it plays.
 - **MIX-MINUS AND STEMS...** is on an output's right-click menu, **HEAR WHAT THEY HEAR** on
-  PRE-FLIGHT's MIC OUTPUT row, and **SESSION TIMELINE...** and **ZERO DESK...** in SETTINGS >
-  GENERAL, as well as in FIND.
+  PRE-FLIGHT's MIC OUTPUT row, and **SESSION TIMELINE** and **ZERO DESK** in SETTINGS, as well as
+  in FIND.
 - SETTINGS > HOTKEYS says what each group's keys do and where else they're set, and marks in red a
   key given to two things or one Windows refused.
 - The installer can install for you only, without an administrator (**Install for me only**, or
@@ -20,6 +20,13 @@ What changed in each version of Faider, newest first. Downloads are on the
   option.
 
 **Changed**
+- SETTINGS is a sidebar of pages (General, Notifications, Startup & checks, Updates & about, Audio,
+  Recording, Apps, Sessions, MIDI & OSC, Hotkeys, Macros) with a search box. Each setting says what
+  it does under its name, and FIND finds every setting by name. App rules and saved sessions are
+  tables, a saved session can be exported, FFmpeg has **Pick...** and **Use PATH**, and MIDI MAP is
+  started with **Start mapping**.
+- CLOCK and WINDOWS AUDIO moved from DEVICES to SETTINGS > Audio. The sidebar's METER cards are
+  gone: SETTINGS > Audio > Channel meter point sets where the meters read.
 - A program's channel is made one way, from ADD APP, ADD CHANNEL, SEND AN APP TO THE MIC, SETUP or
   an app rule. They pick from one list of programs, each listed once, by name.
 - FFmpeg gets ten minutes, or the recording's own length, to convert a recording. After that it is

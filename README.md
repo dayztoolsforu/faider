@@ -93,7 +93,8 @@ a big key for every output. The switch in the top bar flips the whole console be
 - Scenes that glide, undo and redo for every mix change, named sessions and a session timeline
 - Macros fired by hotkeys, pads, the API or triggers (an app starts, a device connects, an output falls silent, a time of day)
 - MIDI mapping, and OSC from programs on the same PC
-- APP RULES (SETTINGS > GENERAL, or FIND) give a program its own channel the moment it starts playing
+- APP RULES (SETTINGS > Apps, or FIND) give a program its own channel the moment it starts playing
+- SETTINGS: a page per subject down a sidebar, each setting with what it does under its name, and a search box; FIND (Ctrl+K) finds every setting by name
 - An in-game overlay, and a mini mixer that the tray icon opens; the tray menu's Session timeline goes back to an earlier mix
 
 **Reliability**
@@ -236,7 +237,7 @@ third_party/    RNNoise (the optional ASIO SDK goes here, not committed)
 ## Acknowledgements
 
 Faider is built on other people's work. The full list is in the app under
-SETTINGS > GENERAL > ABOUT and in [docs/CREDITS.md](docs/CREDITS.md).
+SETTINGS > Updates & about > About Faider and in [docs/CREDITS.md](docs/CREDITS.md).
 
 | Component | Authors | Licence | Used for |
 |---|---|---|---|

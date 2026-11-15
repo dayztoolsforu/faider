@@ -54,7 +54,7 @@ och berättar vad du ska göra när något går fel.
 | **Ett ljudgränssnitt** | Valfritt. Med dess ASIO-drivrutin installerad går Faider på gränssnittets klocka, för lägst fördröjning. Utan ett går det på din Windows-uppspelningsenhet eller på sin inbyggda klocka (se [Klockor](#clocking)) |
 | **Hörlurar** | Anslutna till ditt gränssnitt (eller till valfri Windows-uppspelningsenhet) så att du hör din mix |
 | **VB-CABLE** | Valfri och gratis (vb-audio.com/Cable). En virtuell mikrofon, så att appar som Discord, spel och OBS kan höra din mix |
-| **ffmpeg** | Valfritt. Med `ffmpeg.exe` i din PATH, eller valt i **SETTINGS > GENERAL > FFMPEG**, kan recordern också skriva MP3, AAC, Opus och ALAC |
+| **ffmpeg** | Valfritt. Med `ffmpeg.exe` i din PATH, eller valt i **SETTINGS > Recording > FFmpeg**, kan recordern också skriva MP3, AAC, Opus och ALAC |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -259,7 +259,7 @@ För att forma din mikrofon, se [17.1](#171-hear-yourself-set-up-a-microphone). 
 
 Några sekunder efter start kontrollerar **PRE-FLIGHT** uppsättningen och öppnas bara om något behöver uppmärksamhet
 (inte vid allra första starten, då SETUP kommer först). Kör den när som helst via
-**SETTINGS > GENERAL > PRE-FLIGHT NOW...** eller **FIND** (Ctrl+K). Varje rad ska vara grön. Se
+**Run pre-flight** i **SETTINGS > Startup & checks**, eller **FIND** (Ctrl+K). Varje rad ska vara grön. Se
 [18.1](#181-pre-flight).
 
 <a id="step-9-finish"></a>
@@ -267,15 +267,15 @@ Några sekunder efter start kontrollerar **PRE-FLIGHT** uppsättningen och öppn
 ### Steg 9: Klart
 
 - **Din mix sparas av sig själv** inom en sekund efter varje ändring. För att behålla en version under ett namn, använd
-  **SETTINGS > GENERAL > SAVE SESSION AS...**.
-- **Starta med Windows**: **SETTINGS > GENERAL > WINDOWS** startar Faider i aktivitetsfältets notisyta när
+  **Save as…** i **SETTINGS > Sessions**.
+- **Starta med Windows**: dess omkopplare i **SETTINGS > General** startar Faider i aktivitetsfältets notisyta när
   du loggar in, så att din mikrofon fungerar från början.
 - **Att stänga fönstret stoppar inte ljudet.** Faider fortsätter köra i aktivitetsfältets notisyta
   så att din mikrofon och dina hörlurar fortsätter fungera. För att stänga av, högerklicka på ikonen och välj
   **Quit Faider**. Startar du programmet medan det ligger i notisytan kommer fönstret tillbaka.
 
-Första gången varje sida öppnas förklarar ett kort tips den. Stäng av tips under
-**SETTINGS > GENERAL > ON START**.
+Första gången varje sida öppnas förklarar ett kort tips den. Stäng av tips med **Tips** i
+**SETTINGS > General**.
 
 Det var installationen. Resten av den här handboken går igenom varje del i detalj.
 
@@ -301,10 +301,10 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 | | **PLUGINS** | Skjuter upp pluginpanelen under strippar (se [9](#9-plugins)) |
 | **SELECT** | **AUTO** | Att röra vid vilken kontroll som helst på en strip väljer den stripen |
 | | **FOLLOW** | Bordet glider till den valda stripen, även när den väljs någon annanstans (FIND, ett kortkommando) |
-| **METER** | **IN** / **PRE** / **POST** | Var kanalmätarna mäter: källan som den kommer in (före bearbetning), efter effekterna (före fadern) eller efter fadern. Samma inställning som **SETTINGS > GENERAL > CHANNEL METER POINT** |
 | **SECTIONS** | HEADER … FADER | Stripens avsnitt. Tända är i bild. Klicka på ett för att glida dit |
 
-Valen under SELECT och METER kommer ihåg.
+Valen under SELECT kommer ihåg. Var kanalmätarna mäter (**IN**, **PRE** eller **POST**) ställer du in i
+**SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>
 
@@ -444,8 +444,8 @@ Om Windows-enheten som sätter klockan dras ut, stängs av eller slutar fungera 
 program håller den) hoppas över tills dina enheter ändras och försöks sedan igen. På den inbyggda klockan tar en
 ansluten uppspelningsenhet över från den.
 
-För att välja klockan själv använder du **CLOCK** högst upp i **DEVICES**: **THE INTERFACE (ASIO)** (ordningen
-ovan, standard), **A WINDOWS PLAYBACK DEVICE** efter namn, eller **THE BUILT-IN CLOCK**. Valet gäller när
+För att välja klockan själv använder du **Clock** i **SETTINGS > Audio**: **The interface (ASIO)** (ordningen
+ovan, standard), en Windows-uppspelningsenhet efter namn, eller **The built-in clock**. Valet gäller när
 Faider startar igen, och **RESTART NOW** gör det direkt. Din mix följer med och förblir sparad för ditt
 gränssnitt. När du väljer den inbyggda klockan tar ingen enhet över från den.
 
@@ -549,7 +549,7 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 | Kontroll | Vad den gör |
 |---|---|
-| **Level bars** | Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet under METER) |
+| **Level bars** | Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet i SETTINGS > Audio > Channel meter point) |
 | **FILT** | Skickar filtren till gatens/kompressorns detektor (key-filtrering) |
 | **EQ** | EQ:n in eller ut |
 | **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv: kanalen som valts under högerklick > **KEY FROM**. Trycker du på den innan någon är vald öppnas den listan |
@@ -737,8 +737,8 @@ latenskompensation.
   på combinatorstripen för att öppna det.
 
 Varje plugin **testas först i en separat kopia av programmet**, så att ett plugin som kraschar eller
-hänger sig vid inläsning inte kan dra ned din mix. Det har 30 sekunder på sig att läsas in (**PLUGIN TEST TIME** i
-SETTINGS > GENERAL ger långsamma plugins 60 eller 120). Resultatet kommer ihåg tills pluginfilen
+hänger sig vid inläsning inte kan dra ned din mix. Det har 30 sekunder på sig att läsas in (**Plugin test time** i
+SETTINGS > Audio ger långsamma plugins 60 eller 120). Resultatet kommer ihåg tills pluginfilen
 ändras.
 
 <a id="the-plugin-panel"></a>
@@ -908,7 +908,7 @@ Den övre radens transport och tapestripen på bordet styr samma däck.
 
 Inspelningar hamnar i `Music\Faider Recordings` om du inte väljer en mapp. ffmpeg-format spelar först in
 en WAV och konverterar den när du stoppar (WAV-filen behålls om konverteringen misslyckas). Faider använder den
-`ffmpeg.exe` som är vald i **SETTINGS > GENERAL > FFMPEG**, annars den i din PATH. Inspelningen stoppar
+`ffmpeg.exe` som är vald i **SETTINGS > Recording > FFmpeg**, annars den i din PATH. Inspelningen stoppar
 av sig själv när mindre än 1 GB är ledigt.
 
 <a id="instant-replay"></a>
@@ -925,26 +925,27 @@ använder replay den första utgången.
 
 ## 13. Enheter
 
-**DEVICES** listar varje Windows-ljudenhet och ASIO-drivrutin. **CLOCK** högst upp visar vad som styr
-klockan nu, och dess tangent väljer den (se [Klockor](#clocking)).
+**DEVICES** listar varje Windows-ljudenhet och ASIO-drivrutin. Vad som styr klockan väljer du i
+**SETTINGS > Audio > Clock** (se [Klockor](#clocking)).
 
-**WINDOWS AUDIO**, under den, visar prioriteten för Windows ljudmotor (audiodg.exe, som bär varje
-Windows-enhet och fångad app): **NORMAL** är Windows standard, **UNKNOWN** om den inte kan läsas. Dess
-tangent, **BOOST WINDOWS AUDIO** (**BOOSTED** medan den är på High), öppnar en meny:
+**Windows audio**, också i **SETTINGS > Audio**, visar prioriteten för Windows ljudmotor (audiodg.exe, som
+bär varje Windows-enhet och fångad app): **Normal priority** är Windows standard, **Priority unknown** om den
+inte kan läsas. Bredvid den:
 
-- **BOOST (HIGH PRIORITY)** höjer den till High, vilket på vissa datorer kan stoppa knaster på Windows-enheter och fångade
+- **Boost** höjer den till High, vilket på vissa datorer kan stoppa knaster på Windows-enheter och fångade
   appar. Det kräver administratörsrättigheter, så Windows frågar först; säger du nej ändras ingenting.
   Det överlever inte en omstart av Windows-ljudet eller datorn: Faider bevakar det, säger till en gång
-  från aktivitetsfältet när den är tillbaka på Normal, och **Boost Windows audio again...** i menyn i aktivitetsfältet (eller
-  BOOST här, eller **BOOST WINDOWS AUDIO** i FIND) höjer den igen. Klickar du på BOOST medan den är höjd
-  slutar bevakningen; den stannar på High tills Windows-ljudet startar om eller du väljer BACK TO NORMAL.
-- **PIN TO ONE CORE** (av om du inte väljer det) låser den också till din sista processorkärna, från nästa
-  BOOST. Det begränsar bara var den körs och lägger aldrig till kärnor: använd det bara mot knaster i ett
-  USB-headset.
-- **BACK TO NORMAL** (när den inte är på Normal, eller är låst) sätter genast tillbaka den på Normal-prioritet på
-  alla kärnor, utan att vänta på en omstart. Windows frågar först, som för BOOST, och Faider slutar bevaka den.
+  från aktivitetsfältet när den är tillbaka på Normal, och **Boost Windows audio again...** i menyn i
+  aktivitetsfältet (eller **Boost** här, eller **BOOST WINDOWS AUDIO** i FIND) höjer den igen. Medan den är
+  höjd heter tangenten **Stop boosting**, som stoppar bevakningen; den stannar på High tills Windows-ljudet
+  startar om eller du väljer **Back to normal**.
+- **Pin to one core** (omkopplaren under den, av om du inte väljer det) låser den också till din sista
+  processorkärna, från nästa Boost. Det begränsar bara var den körs och lägger aldrig till kärnor: använd det
+  bara mot knaster i ett USB-headset.
+- **Back to normal** (när den inte är på Normal, eller är låst) sätter genast tillbaka den på Normal-prioritet på
+  alla kärnor, utan att vänta på en omstart. Windows frågar först, som för Boost, och Faider slutar bevaka den.
 
-**BOOST** och **BACK TO NORMAL** kräver att Faider är installerat för alla användare (i Program Files). En kopia som är installerad bara för dig, eller byggd från källkoden, frågar inte Windows utan säger det i stället: vilket program som helst skulle kunna ändra filerna i en sådan mapp, och de skulle då köras som administratör.
+**Boost** och **Back to normal** kräver att Faider är installerat för alla användare (i Program Files). En kopia som är installerad bara för dig, eller byggd från källkoden, visar **Needs Faider installed for all users** under raden och frågar inte Windows: vilket program som helst skulle kunna ändra filerna i en sådan mapp, och de skulle då köras som administratör.
 
 Det påverkar inte ASIO-gränssnitt, som inte går via Windows-ljudet.
 
@@ -1023,9 +1024,9 @@ Din mix sparas av sig själv inom en sekund efter varje ändring, och vid avslut
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS, FIND, eller **Session timeline...** i menyn i aktivitetsfältet: varje sparad version efter datum. **RESTORE EVERYTHING** (Faider startar om med den), eller **PUT ONE CHANNEL BACK** (dess nivå, pan, CUT och rack) utan omstart |
-| **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: behåll mixen under ett namn |
-| **OPEN, EXPORT OR IMPORT...** | Öppna en namngiven mix (startar om), spara mixen till en fil eller läs in en från en fil |
+| **SESSION TIMELINE** | **Open timeline** i SETTINGS > Sessions, FIND, eller **Session timeline...** i menyn i aktivitetsfältet: varje sparad version efter datum. **RESTORE EVERYTHING** (Faider startar om med den), eller **PUT ONE CHANNEL BACK** (dess nivå, pan, CUT och rack) utan omstart |
+| **Save as…** | SETTINGS > Sessions > This mix (eller **SAVE SESSION AS...** i FIND): behåll mixen under ett namn. **Export…** bredvid sparar mixen till en fil |
+| **Saved sessions** | SETTINGS > Sessions: **Open** en namngiven mix (Faider startar om med den) eller **Export** den till en fil; **Import…** läser in en från en fil |
 
 Upp till 60 tidigare versioner behålls (högst en var 5:e minut). Om din mix någonsin inte kan läsas in
 (gränssnittet saknas, filen är skadad) **läggs den åt sidan** i stället för att gå förlorad, och en ny
@@ -1037,31 +1038,55 @@ mix startar. Se [18.2](#182-my-mix-is-gone-a-fresh-mix-started).
 
 ## 15. Inställningar
 
-**SETTINGS** har fyra avsnitt, som kort längs vänster kant: **GENERAL**, **MACROS**, **HOTKEYS**,
-**CONTROL**. På/av-inställningar är fyrkantiga omkopplare som lyser cremefärgade när de är på.
+**SETTINGS** har ett sidofält längs vänster kant: en sökruta högst upp, sedan dess sidor i fyra grupper.
+**APP**: **General**, **Notifications**, **Startup & checks**, **Updates & about**. **AUDIO**:
+**Audio**, **Recording**. **MIX**: **Apps**, **Sessions**. **CONTROL**: **MIDI & OSC**, **Hotkeys**,
+**Macros**. Sidan du väljer fyller resten som en kolumn: dess rubrik, en rad om vad den är till för, sedan
+en rad för varje inställning med dess namn, vad den gör under namnet och dess kontroll till höger.
+På/av-inställningar är omkopplare som lyser cremefärgade när de är på; ett val mellan några få visar dem sida
+vid sida, det valda i creme; ett värde med en meny öppnar den när du klickar på det.
 
-![SETTINGS > GENERAL: varje grupp av inställningar är ett kort](../images/console/settings.jpg)
+Skriv i sökrutan för att se de inställningar som matchar från alla sidor, var och en under sin sidas namn
+(Esc rensar den). **FIND** (Ctrl+K) hittar också varje inställning efter namn, och öppnar dess sida med raden
+upplyst en stund.
 
 <a id="general"></a>
 
 ### GENERAL
 
-| Kort | Inställningar |
-|---|---|
-| **LOOK** | **LOOK...**: bordets färger och typsnitt, från en LOOK-fil (se [LOOKS](#looks)) |
-| **WINDOWS** | **START WITH WINDOWS**: öppnas i aktivitetsfältets notisyta när du loggar in |
-| **DESK** | **WARN IF I TALK WHILE CUT** (en notis när en mikrofon på CUT ligger över -30 dBFS) |
-| **APPS** | **APP RULES...**: vilken buss eller utgång ett program går till när det börjar spela (finns också i **FIND**). Att ta bort ett programs kanal tar bort dess regel |
-| **SESSIONS** | **SAVE SESSION AS...**; **OPEN, EXPORT OR IMPORT...**; **SESSION TIMELINE...** (se [14.3](#143-sessions)) |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**; **PRE-FLIGHT NOW...**; **ZERO DESK...** (se [18.1](#181-pre-flight)); **TIPS**; **SHOW THE TIPS AGAIN** |
-| **NOTICES (IN THE CORNER)** | Enheter anslutna eller borta, en kanal som klipper (dess källa eller dess utgång på full skala), scener återkallade, makron körda, ångra och gör om |
-| **ZOOM** | 100%, 125%, 150%, **CUSTOM...** (75–200%) |
-| **METER STANDARD** | Hur mätare läser: **PEAK** (standard: sample peak i dBFS med snabbt fall), **PEAK IEC**, **TRUE PEAK** (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, NORDIC), **K-20**, **K-14**, **K-12** och **LUFS M** (momentan loudness, EBU R128) |
-| **CHANNEL METER POINT** | **IN** (rå källa), **PRE** (efter effekterna), **POST** (efter fadern, standard). Sidofältets **METER**-kort ställer in samma sak |
-| **RECORDING** | **FFMPEG**: var `ffmpeg.exe` finns, eller **NOT FOUND**. Klicka på den för att välja `ffmpeg.exe` (används före den i din PATH); när en är vald erbjuder den också att gå tillbaka till den i PATH |
-| **PLUGIN TEST TIME** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
-| **UPDATES** | **CHECK FOR UPDATES** (på som standard): högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller tangenten här öppnar dess sida. Stäng av det så frågar Faider aldrig. **CHECK NOW** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
-| **ABOUT** | Version och tack |
+**APP**-sidorna:
+
+| Sida | Inställning | Vad den gör |
+|---|---|---|
+| **General** | **Start with Windows** | Öppnar Faider i aktivitetsfältets notisyta när du loggar in |
+| | **Zoom** | **100%**, **125%**, **150%**, eller **Custom…** för valfri storlek från 75 till 200%. Ctrl + och Ctrl - stegar mellan de tre första |
+| | **Look** | Bordets färger och typsnitt; dess meny listar dina LOOK:ar och **Save as…** (se [LOOKS](#looks)) |
+| | **Tips** | Ett tips om varje sida, första gången den visas. **Show again** visar varje sidas tips en gång till |
+| **Notifications** | **Warn if I talk while cut** | En notis när en mikrofon på CUT ligger över -30 dBFS |
+| | Notiser i hörnet | En omkopplare var: enheter anslutna eller borta, en kanal som klipper (dess källa eller dess utgång på full skala), scener återkallade, makron körda, ångra och gör om. Händelseloggen har allt i vilket fall som helst |
+| **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT några sekunder efter start, visas bara om något är fel |
+| | **Pre-flight**, **Zero the desk** | **Run pre-flight** och **Check** kör dem nu (se [18.1](#181-pre-flight)) |
+| **Updates & about** | **Check for updates** | På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller **Get Faider x.y.z…** här öppnar dess sida. Stäng av det så frågar Faider aldrig. |
+| | **Version** | Versionen som körs nu. **Check now** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
+| | **About Faider** | Version och tack |
+| | **Privacy** | **Read policy** öppnar Faiders integritetspolicy på GitHub |
+| | **Problem report** | **Save report…** sparar loggarna, den senaste kraschen och versionerna i en .zip som du kan skicka. Ingenting skickas av sig självt |
+
+**AUDIO**- och **MIX**-sidorna:
+
+| Sida | Inställning | Vad den gör |
+|---|---|---|
+| **Audio** | **Clock** | Vad som styr klockan, från nästa start: **The interface (ASIO)**, en Windows-uppspelningsenhet efter namn, eller **The built-in clock** (se [Klockor](#clocking)). Under den, vad som styr den nu |
+| | **Windows audio** | Prioriteten för Windows ljudmotor, med **Boost** och **Back to normal** (se [13](#13-devices)) |
+| | **Pin to one core** | Med Boost låses Windows-ljudet till den sista kärnan: bara mot knaster i ett USB-headset |
+| | **Channel meter point** | Var varje kanals mätare mäter: **IN** (rå källa), **PRE** (efter effekterna) eller **POST** (efter fadern, standard) |
+| | **Meter standard** | Hur mätare läser: **Peak** (standard: sample peak i dBFS med snabbt fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** och **LUFS M** (momentan loudness, EBU R128) |
+| | **Plugin test time** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
+| **Recording** | **FFmpeg** | Var `ffmpeg.exe` finns, eller **Not found**. **Pick…** väljer den (används före den i din PATH); **Use PATH** glömmer den valda och använder den i PATH |
+| **Apps** | **App rules** | En tabell: varje program, vart det går, **Change** och **Delete**. **Add rule** väljer ett program som spelar nu (eller ett med en kanal), sedan en buss eller utgång. Att ta bort ett programs kanal tar bort dess regel. **APP RULES** i FIND gör samma sak från en meny |
+| **Sessions** | **This mix** | **Save as…** behåller mixen under ett namn; **Export…** sparar den till en fil |
+| | **Saved sessions** | Mixarna som sparats under ett namn, med när var och en sparades: **Open** (Faider startar om med den) eller **Export** till en fil. **Import…** öppnar en session från en fil |
+| | **Session timeline** | **Open timeline**: varje sparad version efter datum (se [14.3](#143-sessions)) |
 
 <a id="macros"></a>
 
@@ -1071,8 +1096,9 @@ En **LOOK** är varje färg bordet ritar med, tillsammans med typsnittet och de 
 Stripsarna, displayerna, reglagen, tangenterna och lamporna ritar alla från den LOOK som gäller, så en
 LOOK ändrar hela bordet på en gång.
 
-**LOOK...** listar de LOOK:ar du har och sätter den du väljer i kraft; bordet ritas om i det ögonblick den
-ändras. **SAVE THIS LOOK AS...** skriver LOOK:en som gäller till en ny fil med ett namn du ger den.
+**Look** (SETTINGS > General) listar de LOOK:ar du har och sätter den du väljer i kraft; bordet ritas om i
+det ögonblick den ändras. **Save as…** i slutet av dess lista skriver LOOK:en som gäller till en ny fil med ett
+namn du ger den.
 
 En LOOK är en fil i `%APPDATA%\Faider\looks`, skriven som JSON, så du kan skriva den för hand och kopiera
 den till en annan dator. En fil som saknas eller är trasig låter den inbyggda LOOK:en stå kvar, och det en
@@ -1088,7 +1114,7 @@ fil utelämnar faller tillbaka på det inbyggda värdet: en halvskriven fil fung
 
 Färgerna bär namn efter den del de ritar: fälten och trycken, tangenterna, plattan under faderna,
 displayerna, reglagen efter funktion, lamporna, striparnas kroppar, hur en kanal, en buss och en utgång
-ser ut, accenten, urtagen och nyanseringen. **SAVE THIS LOOK AS...** skriver varje namn som LOOK:en har;
+ser ut, accenten, urtagen och nyanseringen. **Save as…** skriver varje namn som LOOK:en har;
 det snabbaste är att ändra något på bordet, spara det och redigera den filen.
 
 En grupp `palette` namnger de färger en layoutfil kan lägga på en del: `red`, `green`, `blue`, `black`,
@@ -1113,20 +1139,29 @@ Ett makro är en lista med **åtgärder** som körs från ett kortkommando, en p
 
 ### HOTKEYS
 
-Varje tilldelbart kortkommando finns på ett ställe: **PADS**, **MACROS**, **SCENES** och **SAVE INSTANT REPLAY**
-under **TAPE**. Varje kort säger vad dess tangenter gör och var de annars kan ställas in. Klicka på ett och tryck sedan på de nya tangenterna (Esc avbryter, Delete rensar). Kortkommandon måste innehålla
-Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En tangent som något annat i Faider redan har (under PADS, MACROS, SCENES eller SAVE INSTANT REPLAY, eller en fast tangent) nekas, här och överallt annars där ett kortkommando ställs in, och meddelandet säger vad som har den. En tangent som Windows nekade (en annan app kan ha den), eller en som två saker fortfarande delar i en mix från en tidigare version, markeras i rött under sin rad: bara en av dem fungerar. De fasta tangenterna listas också
-([19.1](#191-keyboard-shortcuts)). Sidans tangenter under ON THE MIXER fungerar också på konsolen
-([5](#5-the-console)).
+Varje tilldelbart kortkommando finns på sidan **Hotkeys**, i två tabeller. **Assigned** listar padsen,
+makrona, scenerna och **Save instant replay** (tapen), var och en med var den annars kan ställas in och dess
+tangent. Klicka på en tangent och tryck sedan på de nya tangenterna (Esc avbryter, Delete rensar).
+Kortkommandon måste innehålla Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En
+tangent som något annat i Faider redan har (en pad, ett makro, en scen, instant replay eller en fast tangent)
+nekas, här och överallt annars där ett kortkommando ställs in, och meddelandet högst upp säger vad som har den.
+En tangent som Windows nekade (en annan app kan ha den), eller en som två saker fortfarande delar i en mix från
+en tidigare version, markeras i rött under sin rad: bara en av dem fungerar. **Fixed** listar tangenterna som
+alltid är desamma, och var de fungerar ([19.1](#191-keyboard-shortcuts)). Dess tangenter under **On the mixer**
+fungerar också på konsolen ([5](#5-the-console)).
 
 <a id="control"></a>
 
 ### CONTROL
 
-| Kort | |
+Sidan **MIDI & OSC**:
+
+| Inställning | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L); **INPUTS AND BINDINGS**, där varje MIDI-ingång slås på eller av |
-| **OSC** | **OSC ON (PORT 9000)**, för program på den här datorn. **PORT...** ställer in porten (1024–65535); är OSC på flyttar den dit direkt |
+| **MIDI map** | **Start mapping** startar MIDI MAP (se [16](#16-remote-control-overlay-and-tray)). Ctrl+L startar den var som helst; Esc eller **Finish mapping** avslutar den |
+| **Inputs and bindings** | **Open**: varje MIDI-ingång påslagen eller avslagen, och varje mappning. Under den, hur många mappningar det finns |
+| **OSC** | En omkopplare: lyssna efter OSC från program på den här datorn. Under den, porten den lyssnar på |
+| **OSC port** | Porten (1024–65535, 9000 från början): skriv in den och klicka på **Apply**. Är OSC på flyttar den dit direkt |
 
 ---
 
@@ -1136,8 +1171,8 @@ Ctrl, Alt eller en F-tangent, och de fungerar medan ett spel har fokus. En tange
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
-| **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in med **PORT...** i SETTINGS > CONTROL (den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_`. Alla adresser: [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (på engelska) |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L, eller **Start mapping** i SETTINGS > MIDI & OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, i SIMPLE och PRO, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
+| **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in i **OSC port** (SETTINGS > MIDI & OSC; den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_`. Alla adresser: [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (på engelska) |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
 | **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
 | **Tray** | Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
@@ -1172,7 +1207,7 @@ De få steg som kräver en administratör
    Windows standard ([Steg 2](#step-2-install-vb-cable-optional)).
 2. Routa din mikrofonkanal till enheten **CABLE Input**. En utgång skapas på den.
 3. Välj **CABLE Output** som mikrofon i appen.
-4. Kör **PRE-FLIGHT NOW...** för att kontrollera att inget på vägen är på CUT och att inget bildar en slinga.
+4. Kör **Run pre-flight** för att kontrollera att inget på vägen är på CUT och att inget bildar en slinga.
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1249,14 +1284,14 @@ När overlayen, en MIDI-kontroller eller OSC inte svarar:
 | Problem | Kontrollera |
 |---|---|
 | **Overlayen visas inte** | Ctrl+Shift+O är ett kortkommando för hela Windows. Om en annan app har det markerar SETTINGS > HOTKEYS det i rött och händelseloggen säger det: **SHOW OVERLAY** i FIND öppnar overlayen utan tangenten. Overlayen är ett fönster som ligger kvar överst, gjort för ett spel i ett kantlöst fönster, så ställ in spelet på kantlöst eller fönsterläge. Den listar bara mikrofonkanaler (gränssnittets ingångar och Windows-enheter), och visar **NO MIC CHANNELS** när det inte finns några |
-| **En MIDI-kontroller gör ingenting** | Varje MIDI-ingång är av tills du slår på den i SETTINGS > CONTROL > **INPUTS AND BINDINGS**. En kontroller som ansluts efter att Faider startat öppnas inte av sig själv: tryck på **REFRESH** där och slå av och på dess ingång, eller starta om Faider. Rör en kontroll, så visar **LAST** längst ned i den listan vad som kom in. En kontroll gör ingenting förrän den är mappad i **MIDI MAP** (Ctrl+L). Bara control change och noter läses: faders och pan följer en ratt eller fader, inte en tangent, och tangenter växlar CUT, SOLO och liknande |
-| **OSC gör ingenting** | OSC är av tills **OSC ON** lyser (SETTINGS > CONTROL). Avsändaren måste använda porten som visas på den tangenten (9000 om du inte har ändrat den) och köras på den här datorn: Faider lyssnar bara på `127.0.0.1`, så en telefon eller en annan dator kan inte nå det. Om porten inte kunde öppnas (ett annat program kan ha den) säger Faider det och OSC förblir av: välj en annan med **PORT...**. Kontrollera sedan adressen: stripens namn, med `_` för mellanslag (se [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md), på engelska) |
+| **En MIDI-kontroller gör ingenting** | Varje MIDI-ingång är av tills du slår på den i SETTINGS > MIDI & OSC > **Inputs and bindings**. En kontroller som ansluts efter att Faider startat öppnas inte av sig själv: tryck på **REFRESH** där och slå av och på dess ingång, eller starta om Faider. Rör en kontroll, så visar **LAST** längst ned i den listan vad som kom in. En kontroll gör ingenting förrän den är mappad i **MIDI MAP** (Ctrl+L). Bara control change och noter läses: faders och pan följer en ratt eller fader, inte en tangent, och tangenter växlar CUT, SOLO och liknande |
+| **OSC gör ingenting** | OSC är av tills dess omkopplare är på (SETTINGS > MIDI & OSC). Avsändaren måste använda porten som visas under den (9000 om du inte har ändrat den) och köras på den här datorn: Faider lyssnar bara på `127.0.0.1`, så en telefon eller en annan dator kan inte nå det. Om porten inte kunde öppnas (ett annat program kan ha den) säger Faider det och OSC förblir av: skriv en annan i **OSC port** och klicka på **Apply**. Kontrollera sedan adressen: stripens namn, med `_` för mellanslag (se [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md), på engelska) |
 
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
 
-PRE-FLIGHT körs några sekunder efter start (och från **PRE-FLIGHT NOW...** eller FIND) och dyker bara
+PRE-FLIGHT körs några sekunder efter start (och från **Run pre-flight** i SETTINGS > Startup & checks, eller FIND) och dyker bara
 upp om något är fel. Varje rad har en lampa, resultatet och en åtgärd:
 
 | Check | Problem | Åtgärd |
@@ -1269,7 +1304,7 @@ upp om något är fel. Varje rad har en lampa, resultatet och en åtgärd:
 | **HEARD ONCE** | En återkopplingsslinga, eller något hörs två gånger | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows-enheter eller fångade appar finns i mixen och Windows ljudmotor har Normal-prioritet: gul, bara ett förslag; röd om din höjning togs bort av en omstart. Grön när bara ASIO används | **BOOST** |
 
-**ZERO THE DESK** (nere till vänster; även **ZERO DESK...** i SETTINGS > GENERAL > ON START, och **ZERO DESK** i FIND) kontrollerar vad en tidigare session kan lämna
+**ZERO THE DESK** (nere till vänster; även **Zero the desk** i SETTINGS > Startup & checks, och **ZERO DESK** i FIND) kontrollerar vad en tidigare session kan lämna
 inställt: solo, key listen, gain trims som ligger mer än 12 dB från noll, och utgångar på CUT. Var och en har en **FIX**.
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
@@ -1281,7 +1316,7 @@ Din mix är inte förlorad. När den inte kan användas vid start **läggs den �
 
 | Orsak | Vad du ska göra |
 |---|---|
-| Det sparade gränssnittet är inte anslutet | Anslut det, sedan **SESSION TIMELINE** (SETTINGS > GENERAL, FIND eller aktivitetsfältet) > versionen med "kept:" > **RESTORE EVERYTHING** |
+| Det sparade gränssnittet är inte anslutet | Anslut det, sedan **SESSION TIMELINE** (SETTINGS > Sessions, FIND eller aktivitetsfältet) > versionen med "kept:" > **RESTORE EVERYTHING** |
 | Det sparade gränssnittet kunde inte öppnas (ett annat program har det) | Stäng det andra programmet och starta om Faider. Ingenting sparas över din mix under tiden |
 | session.xml kunde inte läsas | **SESSION TIMELINE** > en ny version > **RESTORE EVERYTHING** |
 
@@ -1293,7 +1328,7 @@ Följ signalvägen:
 
 1. **Hälsolampan** röd med OFF: ljudet går inte. Se
    [18.2](#182-my-mix-is-gone-a-fresh-mix-started) och [18.4](#184-the-interface-wont-start-or-stopped).
-2. **Kanalens mätare** (METER: IN): rör den sig inte, kontrollera dess **Input** (högerklicka) och
+2. **Kanalens mätare** (Channel meter point: IN): rör den sig inte, kontrollera dess **Input** (högerklicka) och
    att källan spelar. En strip som är avstängd släpper igenom ingenting.
 3. **CUT** är av, fadern är uppe och inget annat soloas (en annan strips **SOLO** tystar
    allt annat).
@@ -1311,11 +1346,11 @@ Följ signalvägen:
   under DEVICES eller starta om Faider.
 - Ändringar av samplingsfrekvens eller buffert i gränssnittets egen kontrollpanel plockas upp av sig själva.
 - För att köra utan gränssnittet en stund, välj en Windows-uppspelningsenhet eller den inbyggda klockan
-  i **DEVICES > CLOCK** och klicka på **RESTART NOW**. Din mix följer med och förblir sparad för ditt
-  gränssnitt: väljer du **THE INTERFACE (ASIO)** igen går du tillbaka till det.
+  i **SETTINGS > Audio > Clock** och klicka på **RESTART NOW**. Din mix följer med och förblir sparad för ditt
+  gränssnitt: väljer du **The interface (ASIO)** igen går du tillbaka till det.
 - Eller starta Faider med `"C:\Program Files\Faider\Faider.exe" --clock windows` (din Windows-uppspelningsenhet)
   eller `--clock builtin` (den inbyggda klockan). `--clock` med en del av en ASIO-drivrutins namn
-  (`--clock focusrite`) väljer den drivrutinen. Det går före DEVICES > CLOCK för den körningen, och nästa
+  (`--clock focusrite`) väljer den drivrutinen. Det går före SETTINGS > Audio > Clock för den körningen, och nästa
   start utan det går tillbaka till ditt val.
 
 <a id="185-clicks-crackles-or-dropouts"></a>
@@ -1328,11 +1363,11 @@ Följ signalvägen:
 3. **UNDER / OVER** stiger på en enhet: den enheten har det svårt. Prova en annan USB-port, stäng
    andra program som använder den, eller uteslut den om du inte använder den.
 4. Jämn **DRIFT** är normalt. Det är korrigeringen som håller klockorna i takt.
-5. Knaster bara på Windows-enheter eller fångade appar: prova **BOOST WINDOWS AUDIO** (DEVICES >
-   WINDOWS AUDIO, eller FIND). Det höjer Windows ljudmotor från Normal, Windows standard, till High.
+5. Knaster bara på Windows-enheter eller fångade appar: prova **Boost** (SETTINGS > Audio >
+   Windows audio, eller **BOOST WINDOWS AUDIO** i FIND). Det höjer Windows ljudmotor från Normal, Windows standard, till High.
    Windows ber om administratörsgodkännande, och en omstart av Windows-ljudet eller datorn tar bort det
    (Faider säger till). Det påverkar inte ASIO-gränssnitt. För ett USB-headset som fortfarande knastrar är
-   **PIN TO ONE CORE** valfritt och begränsar den bara till en kärna.
+   **Pin to one core** valfritt och begränsar den bara till en kärna.
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1379,7 +1414,7 @@ kanalerna.
 ### 18.11 Ett plugin går inte att läsa in
 
 Varje plugin testas först i en separat kopia av programmet, och orsaken till ett fel
-rapporteras: det blev inte färdigt med inläsningen i tid (30 s, om inte **PLUGIN TEST TIME** i SETTINGS > GENERAL
+rapporteras: det blev inte färdigt med inläsningen i tid (30 s, om inte **Plugin test time** i SETTINGS > Audio
 ger det 60 eller 120), det kraschade under testet, eller så finns det inget VST3-plugin i filen. Uppdatera eller installera om pluginet. När dess fil ändras testas det igen.
 
 <a id="1812-the-program-crashed"></a>
@@ -1439,11 +1474,11 @@ utdata igen, och din riktiga mikrofon som standardindata, var och en även för 
 
 | | |
 |---|---|
-| `--minimised` | Starta i aktivitetsfältets notisyta (det som **START WITH WINDOWS** använder) |
+| `--minimised` | Starta i aktivitetsfältets notisyta (det som **Start with Windows** använder) |
 | `--quit` | Avsluta den körande kopian, som **Quit** i aktivitetsfältet gör. Körs ingen händer ingenting |
 | `--allow-admin` | Startat som administratör förblir det så. Utan den startar Faider om sig självt med vanliga rättigheter (se [16](#16-remote-control-overlay-and-tray)) |
-| `--clock windows`, `--clock builtin`, `--clock <driver>` | För den här körningen är klockan din Windows-uppspelningsenhet, den inbyggda klockan, eller den ASIO-drivrutin vars namn innehåller `<driver>`. Det går före DEVICES > CLOCK (se [Klockor](#clocking)) |
-| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Det som **BOOST WINDOWS AUDIO** och **BACK TO NORMAL** startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), eller tillbaka till Normal på alla kärnor, sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades; 7: Normal satt men återgången till alla kärnor nekades |
+| `--clock windows`, `--clock builtin`, `--clock <driver>` | För den här körningen är klockan din Windows-uppspelningsenhet, den inbyggda klockan, eller den ASIO-drivrutin vars namn innehåller `<driver>`. Det går före SETTINGS > Audio > Clock (se [Klockor](#clocking)) |
+| `--boost-audiodg [--pin-core N]`, `--unboost-audiodg` | Det som **Boost** och **Back to normal** (SETTINGS > Audio > Windows audio) startar, som administratör: Windows ljudmotor till High-prioritet (låst till kärna N bara om den anges), eller tillbaka till Normal på alla kärnor, sedan avslutas det. 0: klart; 2: felaktiga argument; 3: audiodg hittades inte; 4: åtkomst nekad; 5: prioriteten nekades; 6: High satt men låsningen nekades; 7: Normal satt men återgången till alla kärnor nekades |
 | `--scan <plugin> --out <file>` | Internt: testet som Faider kör i en separat kopia innan ett plugin läses in (se [9](#9-plugins)). Inget fönster, inget ljud |
 | `--after <process id>` | Internt: läggs till när Faider startar om sig självt (**RESTORE EVERYTHING**, **RESTART NOW**, när det släpper administratörsrättigheterna). Den nya kopian väntar, upp till en minut, på att den processen ska avslutas |
 

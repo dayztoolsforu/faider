@@ -10,7 +10,7 @@ WINDOWS DEFAULTS in FIND) makes your headphones or speakers and your real microp
 again, for calls too. Or do it in Settings > System > Sound.
 
 **I hear nothing.**
-Work along the signal path. Is the health light green? Does the channel's meter move (METER: IN)? Is
+Work along the signal path. Is the health light green? Does the channel's meter move (Channel meter point: IN)? Is
 CUT off, the fader up and nothing else soloed? Is a routing box lit? Is the output uncut, its fader
 up and its DEVICE the right one? Is the device plugged in and not excluded on DEVICES?
 
@@ -27,19 +27,19 @@ needs Windows 10 version 2004 or later.
 
 **My mix is gone and a fresh one started.**
 It isn't lost. A mix that can't be used at start is set aside as `session-unloaded-<date>.xml`, and
-the event log says why. **SESSION TIMELINE** (SETTINGS > GENERAL, FIND or the tray) brings a kept
+the event log says why. **SESSION TIMELINE** (SETTINGS > Sessions, FIND or the tray) brings a kept
 version back with **RESTORE EVERYTHING**.
 
 **The interface won't start.**
 Another program may hold it (a DAW, the driver's control panel): close it and restart Faider. To run
 without the interface for a while, choose a Windows playback device or the built-in clock in
-DEVICES > CLOCK and click **RESTART NOW**.
+SETTINGS > Audio > Clock and click **RESTART NOW**.
 
 **It clicks, crackles or drops out.**
 Look at the health light and DEVICES > STREAMS. High CALLBACK LOAD or OVERLOADS: raise the BUFFER, or
 bypass plugins marked HEAVY. UNDER or OVER climbing on one device: try another USB port, or exclude
-the device if you don't use it. Crackling only on Windows devices or captured apps: try **BOOST
-WINDOWS AUDIO** (DEVICES > WINDOWS AUDIO).
+the device if you don't use it. Crackling only on Windows devices or captured apps: try **Boost**
+(SETTINGS > Audio > Windows audio, or **BOOST WINDOWS AUDIO** in FIND).
 
 **A route won't switch on.**
 It would make a feedback loop. The event log names the loop.
@@ -53,7 +53,7 @@ kind.
 
 **A plugin won't load.**
 Each plugin is tested in a separate copy of the program first, and the reason for a failure is
-reported: it took too long (30 s, or 60 or 120 with PLUGIN TEST TIME in SETTINGS > GENERAL), it
+reported: it took too long (30 s, or 60 or 120 with Plugin test time in SETTINGS > Audio), it
 crashed in the test, or the file holds no VST3 plugin. Update or reinstall the plugin.
 
 **Recording stopped by itself.**
@@ -71,10 +71,10 @@ FIND. The overlay is made for a game in a borderless window, so set the game to 
 windowed.
 
 **My MIDI controller does nothing.**
-Switch its input on in SETTINGS > CONTROL > **INPUTS AND BINDINGS**, then bind its controls in
-**MIDI MAP** (Ctrl+L).
+Switch its input on in SETTINGS > MIDI & OSC > **Inputs and bindings**, then bind its controls in
+**MIDI MAP** (Ctrl+L, or **Start mapping** on the same page).
 
 **OSC does nothing.**
-Light **OSC ON** in SETTINGS > CONTROL, send to the port on that key (9000 unless you changed it),
+Switch **OSC** on in SETTINGS > MIDI & OSC, send to the port shown under it (9000 unless you changed it),
 and send from this PC: Faider doesn't listen on the network. The addresses are in the
 [OSC reference](OSC.md).

@@ -10,7 +10,7 @@ internet by itself is one daily update check, which you can switch off.
 
 | What | When | What is sent | Can you stop it? |
 |---|---|---|---|
-| Update check | At most once a day: half a minute after Faider starts, or when a day has passed while it keeps running. If GitHub doesn't answer, it tries again an hour later | One request to GitHub's API (`api.github.com`) asking for Faider's newest release. It carries only `Faider/<version>` (for example `Faider/0.1.6`). Nothing is downloaded or installed | Yes: SETTINGS > GENERAL > UPDATES > **CHECK FOR UPDATES** off. Faider then never asks |
+| Update check | At most once a day: half a minute after Faider starts, or when a day has passed while it keeps running. If GitHub doesn't answer, it tries again an hour later | One request to GitHub's API (`api.github.com`) asking for Faider's newest release. It carries only `Faider/<version>` (for example `Faider/0.1.6`). Nothing is downloaded or installed | Yes: SETTINGS > Updates & about > **Check for updates** off. Faider then never asks |
 
 Like any web request, the update check reaches GitHub from your IP address. GitHub handles that
 under the [GitHub Privacy Statement](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement).

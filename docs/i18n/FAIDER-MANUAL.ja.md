@@ -51,7 +51,7 @@ Faider は、大型コンソールをモデルにした Windows 用のライブ�
 | **オーディオインターフェース** | 必須ではありません。ASIO ドライバーをインストールすると、Faider はインターフェースのクロックで動作し、遅延が最小になります。インターフェースがない場合は、Windows の再生デバイス、または内蔵クロックで動作します([クロック](#clocking)を参照) |
 | **ヘッドホン** | ミックスを聞くために、インターフェース(または任意の Windows 再生デバイス)につなぎます |
 | **VB-CABLE** | 必須ではなく、無料です (vb-audio.com/Cable)。仮想マイクとして、Discord、ゲーム、OBS などのアプリがあなたのミックスを聞けるようになります |
-| **ffmpeg** | 必須ではありません。`ffmpeg.exe` が PATH にあるか、**SETTINGS > GENERAL > FFMPEG** で選んであると、レコーダーは MP3、AAC、Opus、ALAC でも書き出せます |
+| **ffmpeg** | 必須ではありません。`ffmpeg.exe` が PATH にあるか、**SETTINGS > Recording > FFmpeg** で選んであると、レコーダーは MP3、AAC、Opus、ALAC でも書き出せます |
 
 <a id="words-used-in-this-manual"></a>
 
@@ -205,17 +205,17 @@ SETUP はページではありません。デバイスやプログラムを追�
 
 ### ステップ 8: PRE-FLIGHT を実行する
 
-起動の数秒後に、**PRE-FLIGHT** がセットアップを確認し、対処が必要なときだけ開きます(最初の起動では SETUP が先なので開きません)。いつでも **SETTINGS > GENERAL > PRE-FLIGHT NOW...** または **FIND** (Ctrl+K) から実行できます。すべての行が緑になるはずです。[18.1](#181-pre-flight) を参照してください。
+起動の数秒後に、**PRE-FLIGHT** がセットアップを確認し、対処が必要なときだけ開きます(最初の起動では SETUP が先なので開きません)。いつでも **SETTINGS > Startup & checks** の **Run pre-flight**、または **FIND** (Ctrl+K) から実行できます。すべての行が緑になるはずです。[18.1](#181-pre-flight) を参照してください。
 
 <a id="step-9-finish"></a>
 
 ### ステップ 9: 仕上げ
 
-- **ミックスは自動で保存されます。** 変更から 1 秒以内に保存されます。名前を付けてバージョンを残すには、**SETTINGS > GENERAL > SAVE SESSION AS...** を使います。
-- **Windows と一緒に起動:** **SETTINGS > GENERAL > WINDOWS** で、サインイン時に Faider がトレイで起動し、最初からマイクが使えます。
+- **ミックスは自動で保存されます。** 変更から 1 秒以内に保存されます。名前を付けてバージョンを残すには、**SETTINGS > Sessions** の **Save as…** を使います。
+- **Windows と一緒に起動:** **SETTINGS > General** にあるそのスイッチで、サインイン時に Faider がトレイで起動し、最初からマイクが使えます。
 - **ウィンドウを閉じても、オーディオは止まりません。** Faider はシステムトレイで動き続けるので、マイクとヘッドホンはそのまま使えます。止めるには、トレイアイコンを右クリックして **Quit Faider** を選びます。トレイにある間にプログラムを起動すると、ウィンドウが戻ります。
 
-各ページを初めて開くと、短いヒントが表示されます。ヒントは **SETTINGS > GENERAL > ON START** でオフにできます。
+各ページを初めて開くと、短いヒントが表示されます。ヒントは **SETTINGS > General** の **Tips** でオフにできます。
 
 これでセットアップは完了です。残りの章では、各部分を詳しく説明します。
 
@@ -239,10 +239,9 @@ SETUP はページではありません。デバイスやプログラムを追�
 | | **PLUGINS** | ストリップの下にプラグインパネルをスライドして表示します([9](#9-plugins) を参照) |
 | **SELECT** | **AUTO** | ストリップのどのコントロールに触れても、そのストリップが選択されます |
 | | **FOLLOW** | 卓が、選択したストリップへ滑らかに移動します。FIND やホットキーなど、他の場所で選んだときも同様です |
-| **METER** | **IN** / **PRE** / **POST** | チャンネルのメーターが測る位置: 入ってくる音源(処理の前)、エフェクトの後(フェーダーの前)、またはフェーダーの後。**SETTINGS > GENERAL > CHANNEL METER POINT** と同じ設定です |
 | **SECTIONS** | HEADER … FADER | ストリップの各セクション。点灯しているものが画面に出ています。クリックすると、そこへ滑らかに移動します |
 
-SELECT と METER の選択は記憶されます。
+SELECT の選択は記憶されます。チャンネルのメーターが測る位置(**IN**、**PRE**、**POST**)は **SETTINGS > Audio > Channel meter point** で設定します。
 
 <a id="the-top-bar"></a>
 
@@ -354,7 +353,7 @@ flowchart LR
 
 クロックを決めている Windows デバイスが抜かれたり、オフになったり、動かなくなったりすると、次のクロックが自動で引き継ぎ、どれになったかが通知されます。起動できないデバイス(他のプログラムが使用中など)は、デバイスの構成が変わるまで飛ばされ、その後で再度試されます。内蔵クロックで動作中に再生デバイスが接続されると、そちらに引き継がれます。
 
-クロックを自分で選ぶには、**DEVICES** の上部にある **CLOCK** を使います。**THE INTERFACE (ASIO)**(上の順序。既定)、名前で選ぶ **A WINDOWS PLAYBACK DEVICE**、または **THE BUILT-IN CLOCK** です。選択は Faider の次回起動時に有効になり、**RESTART NOW** ですぐに再起動できます。ミックスはそのまま引き継がれ、インターフェース用として保存されたままです。内蔵クロックを選んだ場合は、どのデバイスもそれを引き継ぎません。
+クロックを自分で選ぶには、**SETTINGS > Audio** の **Clock** を使います。**The interface (ASIO)**(上の順序。既定)、名前で選ぶ Windows の再生デバイス、または **The built-in clock** です。選択は Faider の次回起動時に有効になり、**RESTART NOW** ですぐに再起動できます。ミックスはそのまま引き継がれ、インターフェース用として保存されたままです。内蔵クロックを選んだ場合は、どのデバイスもそれを引き継ぎません。
 
 <a id="5-the-console"></a>
 
@@ -447,7 +446,7 @@ flowchart LR
 
 | コントロール | 働き |
 |---|---|
-| **レベルバー** | チャンネルのレベル。左右別(METER の選択に応じて IN、PRE または POST) |
+| **レベルバー** | チャンネルのレベル。左右別(SETTINGS > Audio > Channel meter point の選択に応じて IN、PRE または POST) |
 | **FILT** | フィルターを、ゲート / コンプレッサーの検出器に通します(キーフィルタリング) |
 | **EQ** | EQ のオン / オフ |
 | **EXT** | ダイナミクスが、チャンネル自身ではなく外部のキー(サイドチェイン)を聞きます。そのキーは、右クリック > **KEY FROM** で選んだチャンネルです。まだ選んでいないときに押すと、その一覧が開きます |
@@ -618,7 +617,7 @@ Faider は、チャンネル、バス、コンバイネーターの経路で **V
 - チャンネルで: 右クリック > **PLUGINS > ADD PLUGIN...**、またはローストリップの **ADD PLUGIN**、またはプラグインパネルの **ADD**。
 - コンバイネーターの経路で: コンバイネーターを右クリック > **PATHS > PATH n > ADD PLUGIN...**。コンバイネーターのストリップ上で経路のプラグインをクリックすると開きます。
 
-どのプラグインも、**まず、プログラムの別のコピーでテスト**されるので、読み込み中にクラッシュしたり止まったりするプラグインがミックスを巻き込むことはありません。読み込みの持ち時間は 30 秒です(SETTINGS > GENERAL の **PLUGIN TEST TIME** で、遅いプラグインに 60 秒または 120 秒を与えられます)。結果は、プラグインのファイルが変わるまで記憶されます。
+どのプラグインも、**まず、プログラムの別のコピーでテスト**されるので、読み込み中にクラッシュしたり止まったりするプラグインがミックスを巻き込むことはありません。読み込みの持ち時間は 30 秒です(SETTINGS > Audio の **Plugin test time** で、遅いプラグインに 60 秒または 120 秒を与えられます)。結果は、プラグインのファイルが変わるまで記憶されます。
 
 <a id="the-plugin-panel"></a>
 
@@ -764,7 +763,7 @@ ROUTING ページは、ミックス全体を地図として表示します。各
 | **REC** | 開始と停止(上部バーの録音キーも同じです)。画面に、時間、サイズ、残り時間、落ちたブロックがあれば表示されます |
 | **PATH** / **REVEAL** | フォルダーを選ぶ / エクスプローラーで開く |
 
-録音は、フォルダーを選ばない限り `Music\Faider Recordings` に保存されます。ffmpeg の形式は、まず WAV で録音し、停止したときに変換します(変換に失敗しても WAV は残ります)。Faider は **SETTINGS > GENERAL > FFMPEG** で選んだ `ffmpeg.exe` を使い、なければ PATH にあるものを使います。空き容量が 1 GB 未満になると、録音は自動で止まります。
+録音は、フォルダーを選ばない限り `Music\Faider Recordings` に保存されます。ffmpeg の形式は、まず WAV で録音し、停止したときに変換します(変換に失敗しても WAV は残ります)。Faider は **SETTINGS > Recording > FFmpeg** で選んだ `ffmpeg.exe` を使い、なければ PATH にあるものを使います。空き容量が 1 GB 未満になると、録音は自動で止まります。
 
 <a id="instant-replay"></a>
 
@@ -778,15 +777,15 @@ ROUTING ページは、ミックス全体を地図として表示します。各
 
 ## 13. デバイス
 
-**DEVICES** は、すべての Windows オーディオデバイスと ASIO ドライバーを一覧します。上部の **CLOCK** には今クロックを決めているものが表示され、そのキーで選べます([クロック](#clocking)を参照)。
+**DEVICES** は、すべての Windows オーディオデバイスと ASIO ドライバーを一覧します。クロックを決めるものは **SETTINGS > Audio > Clock** で選びます([クロック](#clocking)を参照)。
 
-その下の **WINDOWS AUDIO** には、Windows のオーディオエンジン(audiodg.exe。すべての Windows デバイスとキャプチャしたアプリを運びます)の優先度が表示されます。**NORMAL** が Windows の既定で、読み取れないときは **UNKNOWN** です。そのキー **BOOST WINDOWS AUDIO**(High の間は **BOOSTED**)でメニューが開きます。
+**Windows audio** も **SETTINGS > Audio** にあり、Windows のオーディオエンジン(audiodg.exe。すべての Windows デバイスとキャプチャしたアプリを運びます)の優先度を表示します。**Normal priority** が Windows の既定で、読み取れないときは **Priority unknown** です。その横には次があります。
 
-- **BOOST (HIGH PRIORITY)** は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの **Boost Windows audio again...**(またはここの BOOST、FIND の **BOOST WINDOWS AUDIO**)で、もう一度上げられます。上げてある間に BOOST をクリックすると見張りが止まり、Windows オーディオが再起動するか BACK TO NORMAL を選ぶまで High のままです。
-- **PIN TO ONE CORE**(選ばない限りオフ)は、次の BOOST から、さらにプロセッサーの最後のコアに固定します。動く場所を制限するだけで、コアを増やすことはありません。USB ヘッドセットのノイズのときだけ使ってください。
-- **BACK TO NORMAL**(Normal でないとき、または固定されているとき)は、再起動を待たずに、今すぐすべてのコアで Normal 優先度に戻します。BOOST と同じく Windows が先に確認し、Faider は見張りをやめます。
+- **Boost** は優先度を High に上げます。PC によっては、Windows デバイスやキャプチャしたアプリのノイズが止まることがあります。管理者権限が必要なので、Windows が先に確認します。拒否すれば何も変わりません。Windows オーディオや PC を再起動すると元に戻ります。Faider はそれを見張っていて、Normal に戻るとトレイから一度知らせます。トレイメニューの **Boost Windows audio again...**(またはここの **Boost**、FIND の **BOOST WINDOWS AUDIO**)で、もう一度上げられます。上げてある間はキーが **Stop boosting** になり、押すと見張りが止まります。Windows オーディオが再起動するか **Back to normal** を選ぶまで High のままです。
+- **Pin to one core**(その下のスイッチ。選ばない限りオフ)は、次の Boost から、さらにプロセッサーの最後のコアに固定します。動く場所を制限するだけで、コアを増やすことはありません。USB ヘッドセットのノイズのときだけ使ってください。
+- **Back to normal**(Normal でないとき、または固定されているとき)は、再起動を待たずに、今すぐすべてのコアで Normal 優先度に戻します。Boost と同じく Windows が先に確認し、Faider は見張りをやめます。
 
-**BOOST** と **BACK TO NORMAL** には、すべてのユーザー向けに(Program Files に)インストールされた Faider が必要です。自分だけにインストールしたコピーや、ソースからビルドしたコピーでは、Windows に確認せず、その旨を表示します。そのようなフォルダーのファイルはどのプログラムでも書き換えられ、それが管理者として実行されてしまうためです。
+**Boost** と **Back to normal** には、すべてのユーザー向けに(Program Files に)インストールされた Faider が必要です。自分だけにインストールしたコピーや、ソースからビルドしたコピーでは、行の下に **Needs Faider installed for all users** と表示され、Windows には確認しません。そのようなフォルダーのファイルはどのプログラムでも書き換えられ、それが管理者として実行されてしまうためです。
 
 Windows オーディオを通らない ASIO インターフェースには影響しません。
 
@@ -857,9 +856,9 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 | | |
 |---|---|
-| **SESSION TIMELINE** | SETTINGS > GENERAL > SESSIONS、FIND、またはトレイメニューの **Session timeline...**: 保存されているすべてのバージョンを日付別に。**RESTORE EVERYTHING**(Faider はそのミックスで再起動します)、または、再起動せずに **PUT ONE CHANNEL BACK**(そのレベル、パン、CUT、ラック) |
-| **SAVE SESSION AS...** | SETTINGS > GENERAL > SESSIONS: ミックスに名前を付けて残します |
-| **OPEN, EXPORT OR IMPORT...** | 名前付きのミックスを開く(再起動します)、ミックスをファイルに保存する、ファイルから読み込む |
+| **SESSION TIMELINE** | SETTINGS > Sessions の **Open timeline**、FIND、またはトレイメニューの **Session timeline...**: 保存されているすべてのバージョンを日付別に。**RESTORE EVERYTHING**(Faider はそのミックスで再起動します)、または、再起動せずに **PUT ONE CHANNEL BACK**(そのレベル、パン、CUT、ラック) |
+| **Save as…** | SETTINGS > Sessions > This mix(または FIND の **SAVE SESSION AS...**): ミックスに名前を付けて残します。横の **Export…** は、ミックスをファイルに保存します |
+| **Saved sessions** | SETTINGS > Sessions: 名前付きのミックスを **Open**(Faider はそのミックスで再起動します)するか、ファイルに **Export** します。**Import…** はファイルから読み込みます |
 
 以前のバージョンは最大 60 個まで保持されます(5 分に 1 回まで)。ミックスを読み込めないとき(インターフェースがない、ファイルが壊れているなど)は、失われずに**別に保管**され、新しいミックスで始まります。[18.2](#182-my-mix-is-gone-a-fresh-mix-started) を参照してください。
 
@@ -869,30 +868,47 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 ## 15. 設定
 
-**SETTINGS** には 4 つのセクションがあり、左にカードとして並びます。**GENERAL**、**MACROS**、**HOTKEYS**、**CONTROL**。オン/オフの設定は四角いスイッチで、オンのときはクリーム色に光ります。
+**SETTINGS** の左にはサイドバーがあります。上に検索ボックス、その下にページが 4 つのグループに分かれて並びます。**APP**: **General**、**Notifications**、**Startup & checks**、**Updates & about**。**AUDIO**: **Audio**、**Recording**。**MIX**: **Apps**、**Sessions**。**CONTROL**: **MIDI & OSC**、**Hotkeys**、**Macros**。選んだページが残りの部分に 1 列で表示されます。タイトル、何のためのページかを示す 1 行、そして設定ごとの行です。各行には名前、その下に働き、右端にコントロールがあります。オン/オフの設定はスイッチで、オンのときはクリーム色に光ります。少数の選択肢は横に並び、選ばれているものがクリーム色になります。メニューのある値は、クリックするとメニューが開きます。
 
-![SETTINGS > GENERAL: 設定のグループはそれぞれカード](../images/console/settings.jpg)
+検索ボックスに入力すると、すべてのページから一致する設定が、それぞれのページ名の下に表示されます(Esc で消去)。**FIND** (Ctrl+K) でも、すべての設定を名前で探せます。そのページが開き、該当する行が一瞬点灯します。
 
 <a id="general"></a>
 
 ### GENERAL
 
-| カード | 設定 |
-|---|---|
-| **LOOK** | **LOOK...**: 卓の色と書体を LOOK ファイルから取ります(下記 [LOOKS](#looks)) |
-| **WINDOWS** | **START WITH WINDOWS**: サインイン時にトレイで開きます |
-| **DESK** | **WARN IF I TALK WHILE CUT**(CUT 中のマイクが -30 dBFS を超えたときの通知) |
-| **APPS** | **APP RULES...**: プログラムが再生を始めたとき、どのバスや出力へ送るか(**FIND** からも開けます)。プログラムのチャンネルを削除すると、そのルールも削除されます |
-| **SESSIONS** | **SAVE SESSION AS...**、**OPEN, EXPORT OR IMPORT...**、**SESSION TIMELINE...**([14.3](#143-sessions) を参照) |
-| **ON START** | **PRE-FLIGHT: CHECK THE SETUP**、**PRE-FLIGHT NOW...**、**ZERO DESK...**([18.1](#181-pre-flight) を参照)、**TIPS**、**SHOW THE TIPS AGAIN** |
-| **NOTICES (IN THE CORNER)** | デバイスの接続と取り外し、チャンネルのクリップ(音源または出力がフルスケール)、シーンの呼び出し、マクロの実行、元に戻す / やり直し |
-| **ZOOM** | 100%、125%、150%、**CUSTOM...**(75〜200%) |
-| **METER STANDARD** | メーターの表示方式: **PEAK**(既定。dBFS のサンプルピークで、速く落ちます)、**PEAK IEC**、**TRUE PEAK**(dBTP、ITU-R BS.1770。4 倍オーバーサンプリングなので、サンプル間のピークも表示します。目盛りは +3 まで)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、NORDIC)、**K-20**、**K-14**、**K-12**、**LUFS M**(モーメンタリーラウドネス、EBU R128) |
-| **CHANNEL METER POINT** | **IN**(元の音源)、**PRE**(エフェクトの後)、**POST**(フェーダーの後、既定)。サイドバーの **METER** カードも同じ設定です |
-| **RECORDING** | **FFMPEG**: `ffmpeg.exe` の場所、または **NOT FOUND**。クリックして `ffmpeg.exe` を選びます(PATH にあるものより優先されます)。選んだ後は、PATH のものに戻す選択肢も出ます |
-| **PLUGIN TEST TIME** | **30 S**(既定)、**60 S**、**120 S**: 新しいプラグインがテストで読み込みを終えるまでの持ち時間。過ぎると失敗になります |
-| **UPDATES** | **CHECK FOR UPDATES**(既定でオン): 多くても 1 日に 1 回(起動の 30 秒後、または起動したまま 1 日たったとき)、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: `Faider/0.1.5`)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの **Get Faider x.y.z...**、FIND の **GET FAIDER x.y.z**、またはここのキーでそのページが開きます。オフにすると、Faider は一切尋ねません。**CHECK NOW**(または FIND の **CHECK FOR UPDATES NOW**)はすぐに尋ね、最新のときはそう伝えます |
-| **ABOUT** | バージョンとクレジット |
+**APP** のページ:
+
+| ページ | 設定 | 働き |
+|---|---|---|
+| **General** | **Start with Windows** | サインイン時に Faider をトレイで開きます |
+| | **Zoom** | **100%**、**125%**、**150%**、または 75〜200% の任意のサイズにする **Custom…**。Ctrl + と Ctrl - で最初の 3 つを切り替えます |
+| | **Look** | 卓の色と書体。メニューに手元の LOOK と **Save as…** が並びます(下記 [LOOKS](#looks)) |
+| | **Tips** | 各ページを初めて表示したときのヒント。**Show again** で、各ページのヒントがもう一度表示されます |
+| **Notifications** | **Warn if I talk while cut** | CUT 中のマイクが -30 dBFS を超えたときの通知 |
+| | 隅の通知 | それぞれにスイッチがあります: デバイスの接続と取り外し、チャンネルのクリップ(音源または出力がフルスケール)、シーンの呼び出し、マクロの実行、元に戻す / やり直し。どちらにしても、イベントログにはすべて残ります |
+| **Startup & checks** | **Pre-flight on start** | 起動の数秒後に PRE-FLIGHT を実行し、問題があるときだけ表示します |
+| | **Pre-flight**、**Zero the desk** | **Run pre-flight** と **Check** で今すぐ実行します([18.1](#181-pre-flight) を参照) |
+| **Updates & about** | **Check for updates** | 既定でオン: 多くても 1 日に 1 回(起動の 30 秒後、または起動したまま 1 日たったとき)、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: `Faider/0.1.5`)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの **Get Faider x.y.z...**、FIND の **GET FAIDER x.y.z**、またはここの **Get Faider x.y.z…** でそのページが開きます。オフにすると、Faider は一切尋ねません。 |
+| | **Version** | 今動いているバージョン。**Check now**(または FIND の **CHECK FOR UPDATES NOW**)はすぐに尋ね、最新のときはそう伝えます |
+| | **About Faider** | バージョンとクレジット |
+| | **Privacy** | **Read policy** で、GitHub 上の Faider のプライバシーポリシーが開きます |
+| | **Problem report** | **Save report…** は、ログ、直近のクラッシュ、各バージョンを、送れる .zip に保存します。自動では何も送信されません |
+
+**AUDIO** と **MIX** のページ:
+
+| ページ | 設定 | 働き |
+|---|---|---|
+| **Audio** | **Clock** | 次回の起動からクロックを決めるもの: **The interface (ASIO)**、名前で選ぶ Windows の再生デバイス、または **The built-in clock**([クロック](#clocking)を参照)。その下に、今クロックを決めているものが表示されます |
+| | **Windows audio** | Windows のオーディオエンジンの優先度と、**Boost** と **Back to normal**([13](#13-devices) を参照) |
+| | **Pin to one core** | Boost のとき、Windows オーディオを最後のコアに固定します。USB ヘッドセットのノイズのときだけ使います |
+| | **Channel meter point** | すべてのチャンネルのメーターが測る位置: **IN**(元の音源)、**PRE**(エフェクトの後)、**POST**(フェーダーの後、既定) |
+| | **Meter standard** | メーターの表示方式: **Peak**(既定。dBFS のサンプルピークで、速く落ちます)、**Peak IEC**、**True Peak**(dBTP、ITU-R BS.1770。4 倍オーバーサンプリングなので、サンプル間のピークも表示します。目盛りは +3 まで)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、Nordic)、**K-20**、**K-14**、**K-12**、**LUFS M**(モーメンタリーラウドネス、EBU R128) |
+| | **Plugin test time** | **30 S**(既定)、**60 S**、**120 S**: 新しいプラグインがテストで読み込みを終えるまでの持ち時間。過ぎると失敗になります |
+| **Recording** | **FFmpeg** | `ffmpeg.exe` の場所、または **Not found**。**Pick…** で選びます(PATH にあるものより優先されます)。**Use PATH** は、選んだものを忘れて PATH のものを使います |
+| **Apps** | **App rules** | 表: プログラムごとに、送り先、**Change**、**Delete**。**Add rule** で、今再生中の(またはチャンネルのある)プログラムを選び、次にバスか出力を選びます。プログラムのチャンネルを削除すると、そのルールも削除されます。FIND の **APP RULES** でも、メニューから同じことができます |
+| **Sessions** | **This mix** | **Save as…** でミックスに名前を付けて残します。**Export…** はファイルに保存します |
+| | **Saved sessions** | 名前を付けて残したミックスと、それぞれの保存日時: **Open**(Faider はそのミックスで再起動します)、またはファイルに **Export**。**Import…** はファイルからセッションを開きます |
+| | **Session timeline** | **Open timeline**: 保存されているすべてのバージョンを日付別に([14.3](#143-sessions) を参照) |
 
 <a id="macros"></a>
 
@@ -900,7 +916,7 @@ VB-CABLE がインストールされていると、上部のバーでその**サ
 
 **LOOK** は、卓が描くのに使うすべての色に、書体と、それに見えるサイズまで含めたものです。ストリップも、数値表示も、ノブも、キーも、ランプも、有効な LOOK から描くので、LOOK を一つ変えると卓全体が同時に変わります。
 
-**LOOK...** は手元にある LOOK を並べ、選んだものを有効にします。変わった瞬間に卓は描き直されます。**SAVE THIS LOOK AS...** は、有効な LOOK を、あなたが付けた名前で新しいファイルに書き出します。
+**Look**(SETTINGS > General)は手元にある LOOK を並べ、選んだものを有効にします。変わった瞬間に卓は描き直されます。リストの最後にある **Save as…** は、有効な LOOK を、あなたが付けた名前で新しいファイルに書き出します。
 
 LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。手で書いて、別のマシンにコピーすることもできます。ファイルが無かったり壊れていたりすれば組み込みの LOOK がそのまま残り、ファイルに書かれていない項目は組み込みの値に戻ります。途中でやめたファイルでも使えます。
 
@@ -912,7 +928,7 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 | `fontSizes` | `legend`、`caption`、`readout`: 文字の 3 つのサイズ |
 | `colours` | すべての色。`#rrggbb`、半透明の箇所があるときは `#rrggbbaa` |
 
-色は、描く部分の名前で付いています。面と印刷、キー、フェーダーの盤面、数値表示、機能別のノブ、ランプ、ストリップの胴体、チャンネル・バス・出力の見え方、アクセント、くぼみ、それに陰影です。**SAVE THIS LOOK AS...** は LOOK が持つ名前をすべて書き出します。いちばん手軽なのは、卓で何かを変えてそれを保存し、そのファイルを編集することです。
+色は、描く部分の名前で付いています。面と印刷、キー、フェーダーの盤面、数値表示、機能別のノブ、ランプ、ストリップの胴体、チャンネル・バス・出力の見え方、アクセント、くぼみ、それに陰影です。**Save as…** は LOOK が持つ名前をすべて書き出します。いちばん手軽なのは、卓で何かを変えてそれを保存し、そのファイルを編集することです。
 
 `palette` のグループは、レイアウト ファイルが部分に指定できる色を名前で並べます: `red`、`green`、`blue`、`black`、`white`、`violet`、`grey`、`cream`、`orange`、`amber`、`teal`、`salmon`。
 
@@ -930,16 +946,20 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 
 ### HOTKEYS
 
-割り当てられるホットキーはすべてここにまとまっています。**PADS**、**MACROS**、**SCENES**、そして **TAPE** の下の **SAVE INSTANT REPLAY**。各カードには、そのキーの働きと、ほかにどこで設定できるかが書かれています。1 つクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。Faider のほかのもの(PADS、MACROS、SCENES、SAVE INSTANT REPLAY のいずれか、または固定キー)がすでに使っているキーは、ここでも、ホットキーを設定できるほかの場所でも拒否され、どれが使っているかが表示されます。Windows に拒否されたキー(他のアプリが使っている可能性があります)や、以前のバージョンのミックスで 2 つのものがまだ共有しているキーは、その行の下に赤で示されます。動作するのはどちらか一方だけです。固定キーも一覧されています([19.1](#191-keyboard-shortcuts))。ページの ON THE MIXER のキーは、コンソールでも使えます([5](#5-the-console))。
+割り当てられるホットキーはすべて **Hotkeys** ページにあり、2 つの表に分かれています。**Assigned** には、パッド、マクロ、シーン、**Save instant replay**(テープ)が並び、それぞれ、ほかにどこで設定できるかと、そのキーが書かれています。キーをクリックして、新しいキーを押します(Esc で取り消し、Delete で消去)。ホットキーには Ctrl、Alt、F キーのいずれかを含める必要があり、ゲームがフォーカスしていても動作します。Faider のほかのもの(パッド、マクロ、シーン、インスタントリプレイ、または固定キー)がすでに使っているキーは、ここでも、ホットキーを設定できるほかの場所でも拒否され、どれが使っているかが上部の注記に表示されます。Windows に拒否されたキー(他のアプリが使っている可能性があります)や、以前のバージョンのミックスで 2 つのものがまだ共有しているキーは、その行の下に赤で示されます。動作するのはどちらか一方だけです。**Fixed** には、いつも同じキーと、それが動作する場所が並びます([19.1](#191-keyboard-shortcuts))。その **On the mixer** のキーは、コンソールでも使えます([5](#5-the-console))。
 
 <a id="control"></a>
 
 ### CONTROL
 
-| カード | |
+**MIDI & OSC** のページ:
+
+| 設定 | |
 |---|---|
-| **MIDI** | **MIDI MAP** (Ctrl+L)、**INPUTS AND BINDINGS**（各 MIDI 入力のオン／オフを切り替えます） |
-| **OSC** | **OSC ON (PORT 9000)**。この PC 上のプログラム用。**PORT...** でポートを設定します(1024〜65535)。OSC がオンなら、すぐにそのポートに移ります |
+| **MIDI map** | **Start mapping** で MIDI MAP を始めます([16](#16-remote-control-overlay-and-tray) を参照)。Ctrl+L なら、どこからでも始められます。Esc または **Finish mapping** で終わります |
+| **Inputs and bindings** | **Open**: 各 MIDI 入力のオン / オフと、すべてのバインド。その下に、バインドの数が表示されます |
+| **OSC** | スイッチ: この PC 上のプログラムからの OSC を待ち受けます。その下に、待ち受けているポートが表示されます |
+| **OSC port** | ポート(1024〜65535。最初は 9000): 入力して **Apply** をクリックします。OSC がオンなら、すぐにそのポートに移ります |
 
 ---
 
@@ -949,8 +969,8 @@ LOOK は `%APPDATA%\Faider\looks` にある JSON のファイル 1 つです。�
 
 | | |
 |---|---|
-| **MIDI MAP** (Ctrl+L) | 画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下) |
-| **OSC** | この PC 上のプログラムから、ポート 9000、または SETTINGS > CONTROL の **PORT...** で設定したポートに送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます。すべてのアドレス: [OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語） |
+| **MIDI MAP** (Ctrl+L) | Ctrl+L、または SETTINGS > MIDI & OSC の **Start mapping** で始まり、Esc で終わります。画面上のコントロールをクリックし、コントローラーのノブやキーを動かします。各ストリップのフェーダー、パン、CUT、SOLO、電源、ルーティングのキーを、SIMPLE でも PRO でもマップでき、シーン、パッド、テープもマップできます。マップ中は、マウスホイールで卓がスクロールします(Shift+ホイールで上下) |
+| **OSC** | この PC 上のプログラムから、ポート 9000、または **OSC port**(SETTINGS > MIDI & OSC)で設定したポートに送信できます(ネットワークからは一切受け付けません): `/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 で解除)。名前のスペースは `_` と書きます。すべてのアドレス: [OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語） |
 | **In-game overlay** (Ctrl+Shift+O) | 各マイクチャンネルのトーキングライト、LIVE / CUT とレベル、さらに最大 4 つのシーンキー。ゲームからフォーカスを奪いません。好きな位置にドラッグできます |
 | **MINI** | ミニミキサー: 右クリックメニューで **IN THE MINI MIXER** にチェックした各ストリップのフェーダー、メーター、**CUT** がある小さなウィンドウ(チェックしたものがなければ、各出力のもの)。**PIN** で、すべての上に固定されます。**OPEN** でメインウィンドウに戻ります |
 | **Tray** | アイコンをクリックするとミニミキサー(2 回目のクリックが続かないと分かった一瞬あとに開きます)、ダブルクリックするとウィンドウだけが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します |
@@ -979,7 +999,7 @@ Faider は、管理者のウィンドウから起動された場合でも、常�
 1. **VB-CABLE** をインストールし(PRE-FLIGHT がリンクを案内します)、本物のスピーカーとマイクを Windows の既定に戻します([ステップ 2](#step-2-install-vb-cable-optional))。
 2. マイクのチャンネルを **CABLE Input** デバイスにルーティングします。そのデバイスに出力が作られます。
 3. アプリで、マイクとして **CABLE Output** を選びます。
-4. **PRE-FLIGHT NOW...** を実行して、途中で CUT されているものがないか、ループしていないかを確認します。
+4. **Run pre-flight** を実行して、途中で CUT されているものがないか、ループしていないかを確認します。
 
 <a id="173-bring-a-program-into-the-mix"></a>
 
@@ -1047,14 +1067,14 @@ MIXER でチャンネルの**名前バー**を横にドラッグするか(NAME �
 | 問題 | 確認 |
 |---|---|
 | **オーバーレイが表示されない** | Ctrl+Shift+O は Windows 全体のホットキーです。他のアプリが使っている場合は、SETTINGS > HOTKEYS が赤で示し、イベントログにも記録されます。FIND の **SHOW OVERLAY** なら、キーなしでオーバーレイを開けます。オーバーレイは最前面に表示されるウィンドウで、ボーダーレスウィンドウのゲーム向けに作られています。ゲームをボーダーレスまたはウィンドウ表示にしてください。一覧に出るのはマイクのチャンネルだけ(インターフェースの入力と Windows のデバイス)で、1 つもないときは **NO MIC CHANNELS** と表示されます |
-| **MIDI コントローラーが何もしない** | MIDI 入力はそれぞれ、SETTINGS > CONTROL > **INPUTS AND BINDINGS** でオンにするまでオフです。Faider の起動後に接続したコントローラーは、自動では開かれません。そこで **REFRESH** を押し、その入力をオフにしてからオンにするか、Faider を再起動してください。コントロールを動かすと、その一覧の一番下の **LAST** に、届いた内容が表示されます。コントロールは、**MIDI MAP** (Ctrl+L) でマップするまで何もしません。読み取るのはコントロールチェンジとノートだけです。フェーダーとパンはノブやフェーダーに追従し、キーには追従しません。キーは CUT、SOLO などを切り替えます |
-| **OSC が何もしない** | OSC は、**OSC ON** が点灯するまでオフです(SETTINGS > CONTROL)。送信側は、そのキーに表示されているポート(変更していなければ 9000)を使い、この PC 上で動いている必要があります。Faider は `127.0.0.1` だけで待ち受けるので、スマートフォンや他の PC からは届きません。ポートを開けなかった場合(他のプログラムが使っている可能性があります)、Faider がそう知らせ、OSC はオフのままになります。**PORT...** で別のポートを選んでください。次にアドレスを確認します。ストリップの名前で、スペースは `_` にします([OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語）を参照) |
+| **MIDI コントローラーが何もしない** | MIDI 入力はそれぞれ、SETTINGS > MIDI & OSC > **Inputs and bindings** でオンにするまでオフです。Faider の起動後に接続したコントローラーは、自動では開かれません。そこで **REFRESH** を押し、その入力をオフにしてからオンにするか、Faider を再起動してください。コントロールを動かすと、その一覧の一番下の **LAST** に、届いた内容が表示されます。コントロールは、**MIDI MAP** (Ctrl+L) でマップするまで何もしません。読み取るのはコントロールチェンジとノートだけです。フェーダーとパンはノブやフェーダーに追従し、キーには追従しません。キーは CUT、SOLO などを切り替えます |
+| **OSC が何もしない** | OSC は、そのスイッチがオンになるまでオフです(SETTINGS > MIDI & OSC)。送信側は、その下に表示されているポート(変更していなければ 9000)を使い、この PC 上で動いている必要があります。Faider は `127.0.0.1` だけで待ち受けるので、スマートフォンや他の PC からは届きません。ポートを開けなかった場合(他のプログラムが使っている可能性があります)、Faider がそう知らせ、OSC はオフのままになります。**OSC port** に別のポートを入力し、**Apply** をクリックしてください。次にアドレスを確認します。ストリップの名前で、スペースは `_` にします([OSC リファレンス](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英語）を参照) |
 
 <a id="181-pre-flight"></a>
 
 ### 18.1 PRE-FLIGHT
 
-PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FIND から)に実行され、問題があるときだけ表示されます。各行には、ライト、確認結果、対処があります。
+PRE-FLIGHT は、起動の数秒後(および SETTINGS > Startup & checks の **Run pre-flight**、または FIND から)に実行され、問題があるときだけ表示されます。各行には、ライト、確認結果、対処があります。
 
 | チェック | 問題 | 対処 |
 |---|---|---|
@@ -1066,7 +1086,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 | **HEARD ONCE** | フィードバックループ、または二重に聞こえるもの | **SOUND SETTINGS** |
 | **WINDOWS AUDIO** | Windows デバイスまたはキャプチャしたアプリがミックスにあり、Windows のオーディオエンジンが Normal 優先度です。黄色は提案のみ。ブーストが再起動で元に戻ったときは赤。ASIO だけを使っているときは緑 | **BOOST** |
 
-**ZERO THE DESK**(左下。SETTINGS > GENERAL > ON START の **ZERO DESK...**、FIND の **ZERO DESK** でも出ます)は、前のセッションが残しがちな設定を確認します。ソロ、キーリッスン、12 dB を超えてずれたゲイントリム、CUT された出力です。それぞれに **FIX** があります。
+**ZERO THE DESK**(左下。SETTINGS > Startup & checks の **Zero the desk**、FIND の **ZERO DESK** でも出ます)は、前のセッションが残しがちな設定を確認します。ソロ、キーリッスン、12 dB を超えてずれたゲイントリム、CUT された出力です。それぞれに **FIX** があります。
 
 <a id="182-my-mix-is-gone-a-fresh-mix-started"></a>
 
@@ -1076,7 +1096,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 
 | 理由 | 対処 |
 |---|---|
-| 保存されたインターフェースが接続されていない | 接続してから、**SESSION TIMELINE**(SETTINGS > GENERAL、FIND、またはトレイ)> "kept:" のバージョン > **RESTORE EVERYTHING** |
+| 保存されたインターフェースが接続されていない | 接続してから、**SESSION TIMELINE**(SETTINGS > Sessions、FIND、またはトレイ)> "kept:" のバージョン > **RESTORE EVERYTHING** |
 | 保存されたインターフェースを開けなかった(他のプログラムが使用中) | 他のプログラムを閉じて、Faider を再起動します。その間、ミックスは上書き保存されません |
 | session.xml を読み込めなかった | **SESSION TIMELINE** > 最近のバージョン > **RESTORE EVERYTHING** |
 
@@ -1087,7 +1107,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 信号の通り道に沿って確認します。
 
 1. **ヘルスライト**が赤で OFF と表示: オーディオが動いていません。[18.2](#182-my-mix-is-gone-a-fresh-mix-started) と [18.4](#184-the-interface-wont-start-or-stopped) を参照してください。
-2. **チャンネルのメーター**(METER: IN): 動いていなければ、**Input**(右クリック)と、音源が再生中かを確認します。オフのストリップは何も通しません。
+2. **チャンネルのメーター**(Channel meter point: IN): 動いていなければ、**Input**(右クリック)と、音源が再生中かを確認します。オフのストリップは何も通しません。
 3. **CUT** がオフで、フェーダーが上がっていて、他にソロになっているものがない(別のストリップの **SOLO** は、他のすべてを無音にします)。
 4. **ルーティング:** ルーティングボックスが少なくとも 1 つ点灯しているか、ROUTING ページに線がある。
 5. **出力**: CUT でなく、フェーダーが上がっていて、**DEVICE** に正しいデバイスが表示されている("NO DEVICE" や "(OFF)" ではない)。
@@ -1100,8 +1120,8 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 - 他のプログラム(DAW、ドライバーのコントロールパネル)が使用中の可能性があります。閉じて、再起動してください。
 - トレイに **INTERFACE DOWN**: インターフェースが自分でリセットされ、再び開けませんでした。DEVICES でバッファサイズを変更するか、Faider を再起動してください。
 - インターフェース自身のコントロールパネルで行ったレートやバッファの変更は、自動で反映されます。
-- しばらくインターフェースなしで動かすには、**DEVICES > CLOCK** で Windows の再生デバイスか内蔵クロックを選び、**RESTART NOW** をクリックします。ミックスはそのまま引き継がれ、インターフェース用として保存されたままです。もう一度 **THE INTERFACE (ASIO)** を選ぶと元に戻ります。
-- または、次のように Faider を起動します: `"C:\Program Files\Faider\Faider.exe" --clock windows`(Windows の再生デバイス)または `--clock builtin`(内蔵クロック)。`--clock` に ASIO ドライバー名の一部(`--clock focusrite`)を付けると、そのドライバーが選ばれます。その回の起動では DEVICES > CLOCK より優先され、付けずに起動すると、選んだクロックに戻ります。
+- しばらくインターフェースなしで動かすには、**SETTINGS > Audio > Clock** で Windows の再生デバイスか内蔵クロックを選び、**RESTART NOW** をクリックします。ミックスはそのまま引き継がれ、インターフェース用として保存されたままです。もう一度 **The interface (ASIO)** を選ぶと元に戻ります。
+- または、次のように Faider を起動します: `"C:\Program Files\Faider\Faider.exe" --clock windows`(Windows の再生デバイス)または `--clock builtin`(内蔵クロック)。`--clock` に ASIO ドライバー名の一部(`--clock focusrite`)を付けると、そのドライバーが選ばれます。その回の起動では SETTINGS > Audio > Clock より優先され、付けずに起動すると、選んだクロックに戻ります。
 
 <a id="185-clicks-crackles-or-dropouts"></a>
 
@@ -1111,7 +1131,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 2. **CALLBACK LOAD** が高い、または OVERLOADS がある場合: **BUFFER** を上げるか、プラグインパネル(**HEAVY**、高い CPU)で負荷の大きいプラグインを見つけて、バイパスまたは削除します。
 3. 1 つのデバイスで **UNDER / OVER** が増え続ける: そのデバイスが苦しんでいます。別の USB ポートを試すか、それを使っている他のプログラムを閉じるか、使わないなら除外します。
 4. **DRIFT** が一定なのは正常です。クロックをそろえるための補正です。
-5. Windows デバイスやキャプチャしたアプリだけでノイズが出る: **BOOST WINDOWS AUDIO**(DEVICES > WINDOWS AUDIO、または FIND)を試してください。Windows のオーディオエンジンを、Windows の既定の Normal から High に上げます。Windows が管理者の承認を求めます。Windows オーディオや PC を再起動すると元に戻ります(Faider が知らせます)。ASIO インターフェースには影響しません。それでもノイズが出る USB ヘッドセットには、**PIN TO ONE CORE** も使えます(任意。1 つのコアに制限するだけです)。
+5. Windows デバイスやキャプチャしたアプリだけでノイズが出る: **Boost**(SETTINGS > Audio > Windows audio、または FIND の **BOOST WINDOWS AUDIO**)を試してください。Windows のオーディオエンジンを、Windows の既定の Normal から High に上げます。Windows が管理者の承認を求めます。Windows オーディオや PC を再起動すると元に戻ります(Faider が知らせます)。ASIO インターフェースには影響しません。それでもノイズが出る USB ヘッドセットには、**Pin to one core** も使えます(任意。1 つのコアに制限するだけです)。
 
 <a id="186-an-app-doesnt-appear-in-add-app"></a>
 
@@ -1150,7 +1170,7 @@ PRE-FLIGHT は、起動の数秒後(および **PRE-FLIGHT NOW...** または FI
 
 ### 18.11 プラグインが読み込まれない
 
-どのプラグインも、まずプログラムの別のコピーでテストされ、失敗の理由が報告されます。時間内に読み込みが終わらなかった(30 秒。SETTINGS > GENERAL の **PLUGIN TEST TIME** で 60 秒または 120 秒にできます)、テスト中にクラッシュした、またはファイルに VST3 プラグインがない、のいずれかです。プラグインを更新するか、再インストールしてください。ファイルが変わると、再度テストされます。
+どのプラグインも、まずプログラムの別のコピーでテストされ、失敗の理由が報告されます。時間内に読み込みが終わらなかった(30 秒。SETTINGS > Audio の **Plugin test time** で 60 秒または 120 秒にできます)、テスト中にクラッシュした、またはファイルに VST3 プラグインがない、のいずれかです。プラグインを更新するか、再インストールしてください。ファイルが変わると、再度テストされます。
 
 <a id="1812-the-program-crashed"></a>
 
@@ -1201,11 +1221,11 @@ Windows がケーブルを既定のデバイスにしています。**SET MY DEF
 
 | | |
 |---|---|
-| `--minimised` | トレイで起動(**START WITH WINDOWS** が使います) |
+| `--minimised` | トレイで起動(**Start with Windows** が使います) |
 | `--quit` | 実行中のコピーを終了(トレイの **Quit** と同じ)。実行中のコピーがなければ、何も起きません |
 | `--allow-admin` | 管理者として起動したとき、そのまま管理者として動きます。これがないと、Faider は通常の権限で自分を起動し直します([16](#16-remote-control-overlay-and-tray) を参照) |
-| `--clock windows`、`--clock builtin`、`--clock <driver>` | その回の起動でのクロック: Windows の再生デバイス、内蔵クロック、または名前に `<driver>` を含む ASIO ドライバー。DEVICES > CLOCK より優先されます([クロック](#clocking)を参照) |
-| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **BOOST WINDOWS AUDIO** と **BACK TO NORMAL** が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、またはすべてのコアで Normal に戻し、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否、7: Normal にしたがすべてのコアへの戻しを拒否 |
+| `--clock windows`、`--clock builtin`、`--clock <driver>` | その回の起動でのクロック: Windows の再生デバイス、内蔵クロック、または名前に `<driver>` を含む ASIO ドライバー。SETTINGS > Audio > Clock より優先されます([クロック](#clocking)を参照) |
+| `--boost-audiodg [--pin-core N]`、`--unboost-audiodg` | **Boost** と **Back to normal**(SETTINGS > Audio > Windows audio)が管理者として起動するもの: Windows のオーディオエンジンを High 優先度にし(N を指定したときだけコア N に固定)、またはすべてのコアで Normal に戻し、終了します。0: 完了、2: 引数が不正、3: audiodg が見つからない、4: アクセス拒否、5: 優先度の変更を拒否、6: High にしたが固定を拒否、7: Normal にしたがすべてのコアへの戻しを拒否 |
 | `--scan <plugin> --out <file>` | 内部用: プラグインを読み込む前に、Faider が別のコピーで実行するテスト([9](#9-plugins) を参照)。ウィンドウもオーディオもありません |
 | `--after <process id>` | 内部用: Faider が自分を起動し直すとき(**RESTORE EVERYTHING**、**RESTART NOW**、管理者権限を手放すとき)に付けられます。新しいコピーは、そのプロセスが終わるのを最大 1 分待ちます |
 

@@ -462,7 +462,7 @@ Bordet visar varje strip från vänster till höger: **kanaler**, sedan **bussar
 
 | Avsnitt | Innehåller |
 |---|---|
-| **HEADER** | Nivåstaplar, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret |
+| **HEADER** | Nivåmätaren, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret |
 | **INPUT** | Trim, polaritet, mikrofon-drive, ingångsomkopplaren och stereobredd |
 | **DYNAMICS** | Kompressor och gate |
 | **FILTERS** | Lågpass, högpass och NOISE-brytaren |
@@ -549,7 +549,7 @@ SPACER**. En spacer stannar kvar vid stripen den följer när den stripen flytta
 
 | Kontroll | Vad den gör |
 |---|---|
-| **Level bars** | Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet i SETTINGS > Audio > Channel meter point) |
+| **Level meter** | Kanalens nivå som en kolumn runda lysdioder (den starkare sidan), där den högsta tända hålls kvar en stund. Den läser enligt mätarstandarden som valts i SETTINGS > Audio > Meter standard: med dess egna lysdioder, färger och markeringar (en VU-kolumn läser -20 till +3, en PPM BBC-kolumn 1 till 7), vid den punkt som SETTINGS > Audio > Channel meter point anger (IN, PRE eller POST). Utgångarnas mätare läser på samma sätt |
 | **FILT** | Skickar filtren till gatens/kompressorns detektor (key-filtrering) |
 | **EQ** | EQ:n in eller ut |
 | **EXT** | Dynamiken lyssnar på en extern key (sidechain) i stället för på kanalen själv: kanalen som valts under högerklick > **KEY FROM**. Trycker du på den innan någon är vald öppnas den listan |
@@ -1080,7 +1080,7 @@ upplyst en stund.
 | | **Windows audio** | Prioriteten för Windows ljudmotor, med **Boost** och **Back to normal** (se [13](#13-devices)) |
 | | **Pin to one core** | Med Boost låses Windows-ljudet till den sista kärnan: bara mot knaster i ett USB-headset |
 | | **Channel meter point** | Var varje kanals mätare mäter: **IN** (rå källa), **PRE** (efter effekterna) eller **POST** (efter fadern, standard) |
-| | **Meter standard** | Hur mätare läser: **Peak** (standard: sample peak i dBFS med snabbt fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** och **LUFS M** (momentan loudness, EBU R128) |
+| | **Meter standard** | Hur mätare läser, samt lysdioderna, färgerna och markeringarna på bordets nivåmätare: **Peak** (standard: sample peak i dBFS med snabbt fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** och **LUFS M** (momentan loudness, EBU R128) |
 | | **Plugin test time** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
 | **Recording** | **FFmpeg** | Var `ffmpeg.exe` finns, eller **Not found**. **Pick…** väljer den (används före den i din PATH); **Use PATH** glömmer den valda och använder den i PATH |
 | **Apps** | **App rules** | En tabell: varje program, vart det går, **Change** och **Delete**. **Add rule** väljer ett program som spelar nu (eller ett med en kanal), sedan en buss eller utgång. Att ta bort ett programs kanal tar bort dess regel. **APP RULES** i FIND gör samma sak från en meny |
@@ -1194,7 +1194,7 @@ De få steg som kräver en administratör
 
 1. **ADD CHANNEL** > din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp som en ny
    kanalstrip.
-2. Prata och ställ in **IN TRIM** så att nivåstaplarna toppar kring -12 till -6 dB.
+2. Prata och ställ in **IN TRIM** så att nivåmätaren toppar kring -12 till -6 dB.
 3. Routa den: klicka på routingrutan för dina hörlurars utgång (eller använd sidan Routing).
 4. Rensa upp den: **hp** för att ta bort buller (runt 80–100 Hz), sedan gate och kompressor (**IN**
    på DYNAMICS), sedan EQ.

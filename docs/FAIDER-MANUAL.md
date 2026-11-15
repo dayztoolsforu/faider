@@ -405,7 +405,7 @@ The desk shows every strip from left to right: **channels**, then **buses** (vio
 
 | Section | Holds |
 |---|---|
-| **HEADER** | Level bars, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number |
+| **HEADER** | The level meter, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number |
 | **INPUT** | Trim, polarity, mic drive, the input switch and stereo width |
 | **DYNAMICS** | Compressor and gate |
 | **FILTERS** | Low-pass, high-pass and the NOISE switch |
@@ -478,7 +478,7 @@ SPACER**. A spacer stays with the strip it follows when that strip moves.
 
 | Control | What it does |
 |---|---|
-| **Level bars** | The channel's level, left and right (IN, PRE or POST, as chosen in SETTINGS > Audio > Channel meter point) |
+| **Level meter** | The channel's level as a column of round LEDs (the louder side), the highest lit held a moment. It reads on the meter standard chosen in SETTINGS > Audio > Meter standard: its own LEDs, colours and marks (a VU column reads -20 to +3, a PPM BBC column 1 to 7), where SETTINGS > Audio > Channel meter point says (IN, PRE or POST). Outputs' meters read the same way |
 | **FILT** | Sends the filters into the gate/compressor's detector (key filtering) |
 | **EQ** | The EQ in or out |
 | **EXT** | The dynamics listen to an external key (sidechain) instead of the channel itself: the channel picked under right-click > **KEY FROM**. Pressed before one is picked, it opens that list |
@@ -950,7 +950,7 @@ The **AUDIO** and **MIX** pages:
 | | **Windows audio** | The priority of Windows' audio engine, with **Boost** and **Back to normal** (see [13](#13-devices)) |
 | | **Pin to one core** | With Boost, Windows audio is held to the last core: only for crackle on a USB headset |
 | | **Channel meter point** | Where every channel's meter reads: **IN** (raw source), **PRE** (after effects) or **POST** (after the fader, the default) |
-| | **Meter standard** | How meters read: **Peak** (the default: sample peak in dBFS with a fast fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
+| | **Meter standard** | How meters read, and the LEDs, colours and marks of the desk's level meters: **Peak** (the default: sample peak in dBFS with a fast fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
 | | **Plugin test time** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
 | **Recording** | **FFmpeg** | Where `ffmpeg.exe` is, or **Not found**. **Pick…** chooses it (used before the one on your PATH); **Use PATH** forgets the one picked and uses the PATH's |
 | **Apps** | **App rules** | A table: each program, where it goes, **Change** and **Delete**. **Add rule** picks a program playing now (or one with a channel), then a bus or output. Removing a program's channel removes its rule. **APP RULES** in FIND does the same from a menu |
@@ -1054,7 +1054,7 @@ themselves.
 
 1. **ADD CHANNEL** > your interface input (or a Windows recording device). It appears as a new
    channel strip.
-2. Speak, and set **IN TRIM** so the level bars peak around -12 to -6 dB.
+2. Speak, and set **IN TRIM** so the level meter peaks around -12 to -6 dB.
 3. Route it: click the routing box for your headphones' output (or use the Routing page).
 4. Clean it up: **hp** to remove rumble (around 80–100 Hz), then the gate and compressor (**IN**
    on DYNAMICS), then EQ.

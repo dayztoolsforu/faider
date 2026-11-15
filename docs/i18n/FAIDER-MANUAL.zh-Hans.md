@@ -367,7 +367,7 @@ flowchart LR
 
 | 部分 | 内容 |
 |---|---|
-| **HEADER** | 电平条、FILT / EQ / EXT 键、处理顺序、路由框、通道条编号 |
+| **HEADER** | 电平表、FILT / EQ / EXT 键、处理顺序、路由框、通道条编号 |
 | **INPUT** | 输入微调、极性、麦克风驱动、输入开关和立体声宽度 |
 | **DYNAMICS** | 压缩器和门限 |
 | **FILTERS** | 低通、高通和 NOISE 开关 |
@@ -446,7 +446,7 @@ flowchart LR
 
 | 控件 | 作用 |
 |---|---|
-| **电平条** | 通道的电平，左和右(IN、PRE 或 POST，按 SETTINGS > Audio > Channel meter point 的选择) |
+| **电平表** | 以一列圆形 LED 显示通道的电平(取较响的一侧)，点亮的最高一格会保持片刻。它按 SETTINGS > Audio > Meter standard 中选择的表头标准读数：使用该标准自己的 LED、颜色和刻度(VU 列读数为 -20 到 +3，PPM BBC 列为 1 到 7)，测量位置按 SETTINGS > Audio > Channel meter point 的设置(IN、PRE 或 POST)。输出的电平表也以同样方式读数 |
 | **FILT** | 把滤波器送入门限/压缩器的检测器(键控滤波) |
 | **EQ** | 接入或旁路 EQ |
 | **EXT** | 动态处理收听外部键控信号(侧链)，而不是通道本身：即在右键 > **KEY FROM** 中选择的通道。尚未选择时按下它，会打开那个列表 |
@@ -901,7 +901,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | | **Windows audio** | Windows 音频引擎的优先级，以及 **Boost** 和 **Back to normal**(见 [13](#13-devices)) |
 | | **Pin to one core** | Boost 时，把 Windows 音频固定在最后一个核心上：仅用于 USB 耳机的爆音 |
 | | **Channel meter point** | 每个通道电平表的测量位置：**IN**(原始声源)、**PRE**(效果之后)或 **POST**(推子之后，默认) |
-| | **Meter standard** | 电平表的读数方式：**Peak**(默认：以 dBFS 表示的采样峰值，快速回落)、**Peak IEC**、**True Peak**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、Nordic)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
+| | **Meter standard** | 电平表的读数方式，以及调音台电平表的 LED、颜色和刻度：**Peak**(默认：以 dBFS 表示的采样峰值，快速回落)、**Peak IEC**、**True Peak**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、Nordic)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
 | | **Plugin test time** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
 | **Recording** | **FFmpeg** | `ffmpeg.exe` 的位置，或 **Not found**。**Pick…** 选择它(优先于 PATH 中的那个)；**Use PATH** 忘掉选好的那个，改用 PATH 中的 |
 | **Apps** | **App rules** | 一张表：每个程序、它去往哪里、**Change** 和 **Delete**。**Add rule** 先选一个正在播放的程序(或有通道的程序)，再选总线或输出。删除程序的通道会同时删除它的规则。FIND 中的 **APP RULES** 通过菜单做同样的事 |
@@ -987,7 +987,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 ### 17.1 听到自己：设置麦克风
 
 1. **ADD CHANNEL** > 你的接口输入(或 Windows 录制设备)。它会作为一个新的通道条出现。
-2. 说话，并设置 **IN TRIM**，使电平条的峰值在 -12 到 -6 dB 左右。
+2. 说话，并设置 **IN TRIM**，使电平表的峰值在 -12 到 -6 dB 左右。
 3. 设置路由：点击你耳机输出的路由框(或使用 ROUTING 页面)。
 4. 清理声音：用 **hp** 去除低频噪声(80–100 Hz 左右)，然后是门限和压缩器(DYNAMICS 上的 **IN**)，再是 EQ。
 

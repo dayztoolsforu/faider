@@ -462,7 +462,7 @@ Konsol tüm şeritleri soldan sağa gösterir: **kanallar**, sonra **bus'lar** (
 
 | Bölüm | İçeriği |
 |---|---|
-| **HEADER** | Seviye çubukları, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası |
+| **HEADER** | Seviye ölçeri, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası |
 | **INPUT** | Trim, polarite, mikrofon drive'ı, giriş anahtarı ve stereo genişlik |
 | **DYNAMICS** | Kompresör ve gate |
 | **FILTERS** | Alçak geçiren, yüksek geçiren ve NOISE anahtarı |
@@ -549,7 +549,7 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 | Kontrol | Ne yapar |
 |---|---|
-| **Seviye çubukları** | Kanalın sol ve sağ seviyesi (SETTINGS > Audio > Channel meter point içinde seçildiği gibi IN, PRE veya POST) |
+| **Seviye ölçeri** | Kanalın seviyesi, yuvarlak LED'lerden bir sütun olarak (daha yüksek olan taraf); yanan en üst LED bir an tutulur. SETTINGS > Audio > Meter standard içinde seçilen ölçüm standardına göre okur: o standardın kendi LED'leri, renkleri ve işaretleriyle (bir VU sütunu -20 ile +3 arasını, bir PPM BBC sütunu 1 ile 7 arasını okur), SETTINGS > Audio > Channel meter point'in gösterdiği yerde (IN, PRE veya POST). Çıkışların ölçerleri de aynı şekilde okur |
 | **FILT** | Filtreleri gate/kompresörün dedektörüne gönderir (key filtering) |
 | **EQ** | EQ devrede veya devre dışı |
 | **EXT** | Dinamikler kanalın kendisi yerine harici bir key'i dinler (sidechain): sağ tık > **KEY FROM** altında seçilen kanalı. Henüz biri seçilmeden basılırsa o listeyi açar |
@@ -1082,7 +1082,7 @@ yanık olarak açar.
 | | **Windows audio** | Windows'un ses motorunun önceliği, **Boost** ve **Back to normal** ile (bkz. [13](#13-devices)) |
 | | **Pin to one core** | Boost ile Windows sesi son çekirdeğe bağlanır: yalnızca bir USB kulaklıktaki çıtırtı için |
 | | **Channel meter point** | Her kanalın ölçerinin nereyi okuduğu: **IN** (ham kaynak), **PRE** (efektlerden sonra) ya da **POST** (fader'dan sonra, varsayılan) |
-| | **Meter standard** | Ölçerlerin nasıl okuduğu: **Peak** (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** ve **LUFS M** (anlık gürlük, EBU R128) |
+| | **Meter standard** | Ölçerlerin nasıl okuduğu, ayrıca konsoldaki seviye ölçerlerinin LED'leri, renkleri ve işaretleri: **Peak** (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** ve **LUFS M** (anlık gürlük, EBU R128) |
 | | **Plugin test time** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
 | **Recording** | **FFmpeg** | `ffmpeg.exe`'nin yeri ya da **Not found**. **Pick…** onu seçer (PATH'teki olandan önce kullanılır); **Use PATH** seçileni unutur ve PATH'tekini kullanır |
 | **Apps** | **App rules** | Bir tablo: her program, nereye gittiği, **Change** ve **Delete**. **Add rule** şu anda çalan bir programı (ya da kanalı olan birini), sonra bir bus'ı veya çıkışı seçer. Bir programın kanalını kaldırmak kuralını kaldırır. FIND'daki **APP RULES** aynısını bir menüden yapar |
@@ -1196,7 +1196,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.
 ### 17.1 Kendini duy: bir mikrofon kur
 
 1. **ADD CHANNEL** > arabirim girişin (veya bir Windows kayıt aygıtı). Yeni bir kanal şeridi olarak görünür.
-2. Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde **IN TRIM**'i ayarla.
+2. Konuş ve seviye ölçeri -12 ile -6 dB civarında tepe yapacak şekilde **IN TRIM**'i ayarla.
 3. Yönlendir: kulaklığının çıkışı için yönlendirme kutusuna tıkla (ya da Routing sayfasını kullan).
 4. Temizle: uğultuyu gidermek için **hp** (80–100 Hz civarı), sonra gate ve kompresör (DYNAMICS'te
    **IN**), sonra EQ.

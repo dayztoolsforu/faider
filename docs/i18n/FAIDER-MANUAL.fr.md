@@ -493,7 +493,7 @@ en bas :
 
 | Section | Contient |
 |---|---|
-| **HEADER** | Les barres de niveau, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche |
+| **HEADER** | Le vumètre, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche |
 | **INPUT** | Trim, polarité, drive du micro, le commutateur d'entrée et largeur stéréo |
 | **DYNAMICS** | Compresseur et gate |
 | **FILTERS** | Passe-bas, passe-haut et l'interrupteur NOISE |
@@ -584,7 +584,7 @@ quand cette tranche bouge.
 
 | Commande | Ce qu'elle fait |
 |---|---|
-| **Barres de niveau** | Le niveau du canal, gauche et droite (IN, PRE ou POST, selon le choix dans SETTINGS > Audio > Channel meter point) |
+| **Vumètre** | Le niveau du canal sous forme d'une colonne de LED rondes (le côté le plus fort), la plus haute allumée restant figée un instant. Il lit selon la norme de mesure choisie dans SETTINGS > Audio > Meter standard : ses propres LED, couleurs et repères (une colonne VU lit de -20 à +3, une colonne PPM BBC de 1 à 7), au point indiqué par SETTINGS > Audio > Channel meter point (IN, PRE ou POST). Les vumètres des sorties lisent de la même façon |
 | **FILT** | Envoie les filtres dans le détecteur du gate/compresseur (filtrage de la clé) |
 | **EQ** | L'égaliseur activé ou désactivé |
 | **EXT** | La dynamique écoute une clé externe (sidechain) au lieu du canal lui-même : le canal choisi sous clic droit > **KEY FROM**. Pressé avant qu'un canal soit choisi, il ouvre cette liste |
@@ -1147,7 +1147,7 @@ Les pages **AUDIO** et **MIX** :
 | | **Windows audio** | La priorité du moteur audio de Windows, avec **Boost** et **Back to normal** (voir [13](#13-devices)) |
 | | **Pin to one core** | Avec Boost, l'audio de Windows est fixé sur le dernier cœur : seulement pour des craquements sur un casque USB |
 | | **Channel meter point** | Où mesure le vumètre de chaque canal : **IN** (source brute), **PRE** (après les effets) ou **POST** (après le fader, par défaut) |
-| | **Meter standard** | Comment les vumètres lisent le niveau : **Peak** (par défaut : crête d'échantillon en dBFS avec une chute rapide), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** et **LUFS M** (sonie momentanée, EBU R128) |
+| | **Meter standard** | Comment les vumètres lisent le niveau, ainsi que les LED, couleurs et repères des vumètres du pupitre : **Peak** (par défaut : crête d'échantillon en dBFS avec une chute rapide), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** et **LUFS M** (sonie momentanée, EBU R128) |
 | | **Plugin test time** | **30 S** (par défaut), **60 S** ou **120 S** : le temps qu'a un nouveau plugin pour se charger pendant son test avant d'échouer |
 | **Recording** | **FFmpeg** | L'emplacement de `ffmpeg.exe`, ou **Not found**. **Pick…** le choisit (utilisé avant celui du PATH) ; **Use PATH** oublie celui qui a été choisi et utilise celui du PATH |
 | **Apps** | **App rules** | Un tableau : chaque programme, où il va, **Change** et **Delete**. **Add rule** choisit un programme qui joue en ce moment (ou un qui a un canal), puis un bus ou une sortie. Retirer le canal d'un programme retire sa règle. **APP RULES** dans FIND fait la même chose depuis un menu |
@@ -1265,7 +1265,7 @@ désactivé) demandent elles-mêmes la permission.
 
 1. **ADD CHANNEL** > l'entrée de votre interface (ou un périphérique d'enregistrement Windows). Il
    apparaît comme une nouvelle tranche de canal.
-2. Parlez, et réglez **IN TRIM** pour que les barres de niveau culminent vers -12 à -6 dB.
+2. Parlez, et réglez **IN TRIM** pour que le vumètre culmine vers -12 à -6 dB.
 3. Routez-le : cliquez sur la case de routage de la sortie de votre casque (ou utilisez la page
    Routing).
 4. Nettoyez-le : **hp** pour retirer les grondements (vers 80–100 Hz), puis le gate et le

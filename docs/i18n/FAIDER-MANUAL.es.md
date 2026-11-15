@@ -479,7 +479,7 @@ secciones, de arriba abajo:
 
 | Sección | Contiene |
 |---|---|
-| **HEADER** | Las barras de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip |
+| **HEADER** | El medidor de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip |
 | **INPUT** | Trim, polaridad, drive del micro, el conmutador de entrada y anchura estéreo |
 | **DYNAMICS** | Compresor y gate |
 | **FILTERS** | Paso bajo, paso alto y el interruptor NOISE |
@@ -570,7 +570,7 @@ mueve.
 
 | Control | Qué hace |
 |---|---|
-| **Barras de nivel** | El nivel del canal, izquierda y derecha (IN, PRE o POST, según lo elegido en SETTINGS > Audio > Channel meter point) |
+| **Medidor de nivel** | El nivel del canal como una columna de LEDs redondos (el lado más fuerte), con el más alto encendido retenido un momento. Lee según el estándar de medición elegido en SETTINGS > Audio > Meter standard: con sus propios LEDs, colores y marcas (una columna VU lee de -20 a +3, una PPM BBC de 1 a 7), en el punto que indica SETTINGS > Audio > Channel meter point (IN, PRE o POST). Los medidores de las salidas leen igual |
 | **FILT** | Envía los filtros al detector del gate/compresor (filtrado de la señal de control) |
 | **EQ** | El EQ dentro o fuera |
 | **EXT** | La dinámica escucha una señal de control externa (sidechain) en lugar del propio canal: el canal elegido en clic derecho > **KEY FROM**. Si lo pulsas antes de elegir uno, abre esa lista |
@@ -1121,7 +1121,7 @@ Las páginas de **AUDIO** y **MIX**:
 | | **Windows audio** | La prioridad del motor de audio de Windows, con **Boost** y **Back to normal** (consulta [13](#13-devices)) |
 | | **Pin to one core** | Con Boost, el audio de Windows se fija al último núcleo: solo para crepitaciones en un auricular USB |
 | | **Channel meter point** | Dónde lee el medidor de cada canal: **IN** (fuente en bruto), **PRE** (tras los efectos) o **POST** (tras el fader, lo predeterminado) |
-| | **Meter standard** | Cómo leen los medidores: **Peak** (lo predeterminado: pico de muestra en dBFS con caída rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobremuestreo 4x, así que también muestra los picos entre las muestras; su escala llega a +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** y **LUFS M** (sonoridad momentánea, EBU R128) |
+| | **Meter standard** | Cómo leen los medidores, y los LEDs, colores y marcas de los medidores de nivel de la mesa: **Peak** (lo predeterminado: pico de muestra en dBFS con caída rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobremuestreo 4x, así que también muestra los picos entre las muestras; su escala llega a +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** y **LUFS M** (sonoridad momentánea, EBU R128) |
 | | **Plugin test time** | **30 S** (predeterminado), **60 S** o **120 S**: cuánto tiempo tiene un plugin nuevo para cargarse en su prueba antes de fallar |
 | **Recording** | **FFmpeg** | Dónde está `ffmpeg.exe`, o **Not found**. **Pick…** lo elige (se usa antes que el de tu PATH); **Use PATH** olvida el elegido y usa el del PATH |
 | **Apps** | **App rules** | Una tabla: cada programa, adónde va, **Change** y **Delete**. **Add rule** elige un programa que suena ahora (o uno con canal) y luego un bus o una salida. Quitar el canal de un programa quita su regla. **APP RULES** en FIND hace lo mismo desde un menú |
@@ -1239,7 +1239,7 @@ apagado) piden permiso por sí mismos.
 
 1. **ADD CHANNEL** > la entrada de tu interfaz (o un dispositivo de grabación de Windows). Aparece
    como un nuevo strip de canal.
-2. Habla, y ajusta **IN TRIM** para que las barras de nivel lleguen a unos -12 a -6 dB.
+2. Habla, y ajusta **IN TRIM** para que el medidor de nivel llegue a unos -12 a -6 dB.
 3. Enrútalo: haz clic en la casilla de enrutamiento de la salida de tus auriculares (o usa la página
    Routing).
 4. Límpialo: **hp** para quitar los retumbos (hacia 80–100 Hz), luego el gate y el compresor

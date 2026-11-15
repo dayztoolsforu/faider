@@ -463,7 +463,7 @@ Das Pult zeigt alle Strips von links nach rechts: **Kanäle**, dann **Busse** (v
 
 | Bereich | Enthält |
 |---|---|
-| **HEADER** | Pegelbalken, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer |
+| **HEADER** | Die Pegelanzeige, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer |
 | **INPUT** | Trim, Polarität, Mikrofon-Drive, der Eingangsschalter und Stereobreite |
 | **DYNAMICS** | Kompressor und Gate |
 | **FILTERS** | Tiefpass, Hochpass und der NOISE-Schalter |
@@ -550,7 +550,7 @@ SPACER**. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Strip versc
 
 | Bedienelement | Was es tut |
 |---|---|
-| **Level bars** | Der Pegel des Kanals, links und rechts (IN, PRE oder POST, je nach Wahl unter SETTINGS > Audio > Channel meter point) |
+| **Level meter** | Der Pegel des Kanals als Säule runder LEDs (die lautere Seite), die höchste leuchtende bleibt einen Moment stehen. Sie zeigt nach dem Messstandard, der unter SETTINGS > Audio > Meter standard gewählt ist: mit dessen eigenen LEDs, Farben und Markierungen (eine VU-Säule zeigt -20 bis +3, eine PPM-BBC-Säule 1 bis 7), an der Stelle, die SETTINGS > Audio > Channel meter point vorgibt (IN, PRE oder POST). Die Pegelanzeigen der Ausgänge zeigen genauso |
 | **FILT** | Schickt die Filter in den Detektor von Gate/Kompressor (Key-Filterung) |
 | **EQ** | Den EQ ein oder aus |
 | **EXT** | Die Dynamik hört auf einen externen Key (Sidechain) statt auf den Kanal selbst: den Kanal, der unter Rechtsklick > **KEY FROM** gewählt ist. Gedrückt, bevor einer gewählt ist, öffnet es diese Liste |
@@ -1081,7 +1081,7 @@ Die Seiten unter **AUDIO** und **MIX**:
 | | **Windows audio** | Die Priorität der Audio-Engine von Windows, mit **Boost** und **Back to normal** (siehe [13](#13-devices)) |
 | | **Pin to one core** | Mit Boost wird das Windows-Audio an den letzten Kern gebunden: nur bei Knistern an einem USB-Headset |
 | | **Channel meter point** | Wo der Pegelmesser jedes Kanals misst: **IN** (rohe Quelle), **PRE** (nach den Effekten) oder **POST** (nach dem Fader, der Standard) |
-| | **Meter standard** | Wie Pegelmesser anzeigen: **Peak** (der Standard: Sample Peak in dBFS mit schnellem Abfall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4-fach überabgetastet, zeigt also auch Spitzen zwischen den Samples; seine Skala reicht bis +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** und **LUFS M** (momentane Lautheit, EBU R128) |
+| | **Meter standard** | Wie Pegelmesser anzeigen, sowie die LEDs, Farben und Markierungen der Pegelanzeigen des Pults: **Peak** (der Standard: Sample Peak in dBFS mit schnellem Abfall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4-fach überabgetastet, zeigt also auch Spitzen zwischen den Samples; seine Skala reicht bis +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** und **LUFS M** (momentane Lautheit, EBU R128) |
 | | **Plugin test time** | **30 S** (Standard), **60 S** oder **120 S**: wie lange ein neues Plugin in seinem Test zum Laden hat, bevor es als fehlgeschlagen gilt |
 | **Recording** | **FFmpeg** | Wo `ffmpeg.exe` liegt, oder **Not found**. **Pick…** wählt es (wird vor der im PATH genutzt); **Use PATH** vergisst die gewählte und nutzt die im PATH |
 | **Apps** | **App rules** | Eine Tabelle: jedes Programm, wohin es geht, **Change** und **Delete**. **Add rule** wählt ein Programm, das gerade spielt (oder eines mit Kanal), dann einen Bus oder Ausgang. Das Entfernen des Kanals eines Programms entfernt seine Regel. **APP RULES** in FIND tut dasselbe über ein Menü |
@@ -1198,7 +1198,7 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 
 1. **ADD CHANNEL** > dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint als neuer
    Kanalzug.
-2. Sprich und stelle **IN TRIM** so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.
+2. Sprich und stelle **IN TRIM** so ein, dass die Pegelanzeige bei etwa -12 bis -6 dB ihre Spitzen hat.
 3. Route ihn: Klicke auf die Routing-Box für den Ausgang deiner Kopfhörer (oder nutze die Seite Routing).
 4. Mach ihn sauber: **hp**, um Rumpeln zu entfernen (etwa 80–100 Hz), dann Gate und Kompressor (**IN**
    an DYNAMICS), dann EQ.

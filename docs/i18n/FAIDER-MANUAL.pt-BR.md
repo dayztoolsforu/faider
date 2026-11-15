@@ -477,7 +477,7 @@ para baixo:
 
 | Seção | Contém |
 |---|---|
-| **HEADER** | As barras de nível, as teclas FILT / EQ / EXT, a ordem de processamento, as caixas de roteamento, o número do strip |
+| **HEADER** | O medidor de nível, as teclas FILT / EQ / EXT, a ordem de processamento, as caixas de roteamento, o número do strip |
 | **INPUT** | Trim, polaridade, drive do mic, a chave de entrada e largura estéreo |
 | **DYNAMICS** | Compressor e gate |
 | **FILTERS** | Passa-baixa, passa-alta e a chave NOISE |
@@ -567,7 +567,7 @@ move.
 
 | Controle | O que faz |
 |---|---|
-| **Barras de nível** | O nível do canal, esquerdo e direito (IN, PRE ou POST, conforme a escolha em SETTINGS > Audio > Channel meter point) |
+| **Medidor de nível** | O nível do canal como uma coluna de LEDs redondos (o lado mais forte), com o mais alto aceso retido por um momento. Ele lê conforme o padrão de medição escolhido em SETTINGS > Audio > Meter standard: com seus próprios LEDs, cores e marcas (uma coluna VU lê de -20 a +3, uma PPM BBC de 1 a 7), no ponto indicado por SETTINGS > Audio > Channel meter point (IN, PRE ou POST). Os medidores das saídas leem do mesmo jeito |
 | **FILT** | Envia os filtros ao detector do gate/compressor (filtragem da chave) |
 | **EQ** | O EQ ligado ou desligado |
 | **EXT** | A dinâmica escuta uma chave externa (sidechain) em vez do próprio canal: o canal escolhido em botão direito > **KEY FROM**. Se for pressionado antes de escolher um, abre essa lista |
@@ -1107,7 +1107,7 @@ As páginas de **AUDIO** e **MIX**:
 | | **Windows audio** | A prioridade do mecanismo de áudio do Windows, com **Boost** e **Back to normal** (veja [13](#13-devices)) |
 | | **Pin to one core** | Com o Boost, o áudio do Windows fica preso ao último núcleo: só para estalos em um headset USB |
 | | **Channel meter point** | Onde o medidor de cada canal lê: **IN** (fonte bruta), **PRE** (depois dos efeitos) ou **POST** (depois do fader, o padrão) |
-| | **Meter standard** | Como os medidores leem: **Peak** (o padrão: pico de amostra em dBFS com queda rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobreamostragem de 4x, então também mostra os picos entre as amostras; a escala dele vai até +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** e **LUFS M** (loudness momentâneo, EBU R128) |
+| | **Meter standard** | Como os medidores leem, e os LEDs, cores e marcas dos medidores de nível da mesa: **Peak** (o padrão: pico de amostra em dBFS com queda rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobreamostragem de 4x, então também mostra os picos entre as amostras; a escala dele vai até +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** e **LUFS M** (loudness momentâneo, EBU R128) |
 | | **Plugin test time** | **30 S** (padrão), **60 S** ou **120 S**: quanto tempo um plugin novo tem para carregar no teste antes de falhar |
 | **Recording** | **FFmpeg** | Onde está o `ffmpeg.exe`, ou **Not found**. **Pick…** o escolhe (usado antes do que está no seu PATH); **Use PATH** esquece o escolhido e usa o do PATH |
 | **Apps** | **App rules** | Uma tabela: cada programa, para onde ele vai, **Change** e **Delete**. **Add rule** escolhe um programa tocando agora (ou um que tenha canal) e depois um bus ou uma saída. Remover o canal de um programa remove a regra dele. **APP RULES** no FIND faz o mesmo a partir de um menu |
@@ -1223,7 +1223,7 @@ permissão por conta própria.
 
 1. **ADD CHANNEL** > a entrada da sua interface (ou um dispositivo de gravação do Windows). Ele
    aparece como um novo strip de canal.
-2. Fale e ajuste o **IN TRIM** para que as barras de nível cheguem a uns -12 a -6 dB.
+2. Fale e ajuste o **IN TRIM** para que o medidor de nível chegue a uns -12 a -6 dB.
 3. Roteie: clique na caixa de roteamento da saída dos seus fones (ou use a página Routing).
 4. Limpe o som: **hp** para tirar o ruído grave (por volta de 80–100 Hz), depois o gate e o
    compressor (**IN** em DYNAMICS), depois o EQ.

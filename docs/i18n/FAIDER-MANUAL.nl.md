@@ -462,7 +462,7 @@ De tafel toont alle strips van links naar rechts: **kanalen**, dan **bussen** (v
 
 | Sectie | Bevat |
 |---|---|
-| **HEADER** | Niveaubalken, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer |
+| **HEADER** | De niveaumeter, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer |
 | **INPUT** | Trim, polariteit, microfoon-drive, de ingangsschakelaar en stereobreedte |
 | **DYNAMICS** | Compressor en gate |
 | **FILTERS** | Low-pass, high-pass en de NOISE-schakelaar |
@@ -549,7 +549,7 @@ SPACER**. Een spacer blijft bij de strip die hij volgt wanneer die strip verhuis
 
 | Bediening | Wat het doet |
 |---|---|
-| **Level bars** | Het niveau van het kanaal, links en rechts (IN, PRE of POST, zoals gekozen in SETTINGS > Audio > Channel meter point) |
+| **Level meter** | Het niveau van het kanaal als een kolom ronde leds (de luidste kant), waarbij de hoogste brandende even blijft staan. Hij leest volgens de meterstandaard die in SETTINGS > Audio > Meter standard is gekozen: met diens eigen leds, kleuren en markeringen (een VU-kolom leest -20 tot +3, een PPM BBC-kolom 1 tot 7), op het punt dat SETTINGS > Audio > Channel meter point aangeeft (IN, PRE of POST). De meters van uitgangen lezen op dezelfde manier |
 | **FILT** | Stuurt de filters naar de detector van de gate/compressor (key-filtering) |
 | **EQ** | De EQ in of uit |
 | **EXT** | De dynamiek luistert naar een externe key (sidechain) in plaats van naar het kanaal zelf: het kanaal dat onder rechtsklik > **KEY FROM** is gekozen. Druk je erop voordat er een is gekozen, dan opent het die lijst |
@@ -1081,7 +1081,7 @@ De **AUDIO**- en **MIX**-pagina's:
 | | **Windows audio** | De prioriteit van de audio-engine van Windows, met **Boost** en **Back to normal** (zie [13](#13-devices)) |
 | | **Pin to one core** | Met Boost wordt Windows-audio vastgehouden aan de laatste kern: alleen bij gekraak op een USB-headset |
 | | **Channel meter point** | Waar de meter van elk kanaal meet: **IN** (ruwe bron), **PRE** (na de effecten) of **POST** (na de fader, de standaard) |
-| | **Meter standard** | Hoe meters aflezen: **Peak** (de standaard: sample peak in dBFS met snelle terugval), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** en **LUFS M** (momentane luidheid, EBU R128) |
+| | **Meter standard** | Hoe meters aflezen, en de leds, kleuren en markeringen van de niveaumeters van de tafel: **Peak** (de standaard: sample peak in dBFS met snelle terugval), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** en **LUFS M** (momentane luidheid, EBU R128) |
 | | **Plugin test time** | **30 S** (standaard), **60 S** of **120 S**: hoe lang een nieuwe plugin in zijn test heeft om te laden voordat hij mislukt |
 | **Recording** | **FFmpeg** | Waar `ffmpeg.exe` staat, of **Not found**. **Pick…** kiest hem (gebruikt vóór die in je PATH); **Use PATH** vergeet de gekozen en gebruikt die van de PATH |
 | **Apps** | **App rules** | Een tabel: elk programma, waar het naartoe gaat, **Change** en **Delete**. **Add rule** kiest een programma dat nu speelt (of een met een kanaal), dan een bus of uitgang. Het kanaal van een programma verwijderen verwijdert zijn regel. **APP RULES** in FIND doet hetzelfde vanuit een menu |
@@ -1197,7 +1197,7 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 
 1. **ADD CHANNEL** > je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt als een nieuwe
    kanaalstrip.
-2. Spreek en stel **IN TRIM** zo in dat de niveaubalken pieken rond -12 tot -6 dB.
+2. Spreek en stel **IN TRIM** zo in dat de niveaumeter piekt rond -12 tot -6 dB.
 3. Routeer hem: klik op het routeringsvakje voor de uitgang van je koptelefoon (of gebruik de pagina Routing).
 4. Maak hem schoon: **hp** om gerommel weg te halen (rond 80–100 Hz), dan de gate en compressor (**IN**
    op DYNAMICS), dan EQ.

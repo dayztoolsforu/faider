@@ -931,7 +931,7 @@ over from it.</p>
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Level bars, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number</td>
+<td>The level meter, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -1095,8 +1095,8 @@ SPACER</strong>. A spacer stays with the strip it follows when that strip moves.
 </thead>
 <tbody>
 <tr>
-<td><strong>Level bars</strong></td>
-<td>The channel's level, left and right (IN, PRE or POST, as chosen in SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Level meter</strong></td>
+<td>The channel's level as a column of round LEDs (the louder side), the highest lit held a moment. It reads on the meter standard chosen in SETTINGS &gt; Audio &gt; Meter standard: its own LEDs, colours and marks (a VU column reads -20 to +3, a PPM BBC column 1 to 7), where SETTINGS &gt; Audio &gt; Channel meter point says (IN, PRE or POST). Outputs' meters read the same way</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -1929,7 +1929,7 @@ row lit for a moment.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>How meters read: <strong>Peak</strong> (the default: sample peak in dBFS with a fast fall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> and <span class="key">LUFS M</span> (momentary loudness, EBU R128)</td>
+<td>How meters read, and the LEDs, colours and marks of the desk's level meters: <strong>Peak</strong> (the default: sample peak in dBFS with a fast fall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> and <span class="key">LUFS M</span> (momentary loudness, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -2108,7 +2108,7 @@ themselves.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; your interface input (or a Windows recording device). It appears as a new
    channel strip.</li>
-<li>Speak, and set <span class="key">IN TRIM</span> so the level bars peak around -12 to -6 dB.</li>
+<li>Speak, and set <span class="key">IN TRIM</span> so the level meter peaks around -12 to -6 dB.</li>
 <li>Route it: click the routing box for your headphones' output (or use the Routing page).</li>
 <li>Clean it up: <strong>hp</strong> to remove rumble (around 80–100 Hz), then the gate and compressor (<span class="key">IN</span>
    on DYNAMICS), then EQ.</li>
@@ -3124,7 +3124,7 @@ secciones, de arriba abajo:</p>
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Las barras de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip</td>
+<td>El medidor de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -3292,8 +3292,8 @@ mueve.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Barras de nivel</strong></td>
-<td>El nivel del canal, izquierda y derecha (IN, PRE o POST, según lo elegido en SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Medidor de nivel</strong></td>
+<td>El nivel del canal como una columna de LEDs redondos (el lado más fuerte), con el más alto encendido retenido un momento. Lee según el estándar de medición elegido en SETTINGS &gt; Audio &gt; Meter standard: con sus propios LEDs, colores y marcas (una columna VU lee de -20 a +3, una PPM BBC de 1 a 7), en el punto que indica SETTINGS &gt; Audio &gt; Channel meter point (IN, PRE o POST). Los medidores de las salidas leen igual</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -4143,7 +4143,7 @@ nombre, y abre su página con su fila iluminada un momento.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Cómo leen los medidores: <strong>Peak</strong> (lo predeterminado: pico de muestra en dBFS con caída rápida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sobremuestreo 4x, así que también muestra los picos entre las muestras; su escala llega a +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> y <span class="key">LUFS M</span> (sonoridad momentánea, EBU R128)</td>
+<td>Cómo leen los medidores, y los LEDs, colores y marcas de los medidores de nivel de la mesa: <strong>Peak</strong> (lo predeterminado: pico de muestra en dBFS con caída rápida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sobremuestreo 4x, así que también muestra los picos entre las muestras; su escala llega a +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> y <span class="key">LUFS M</span> (sonoridad momentánea, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -4324,7 +4324,7 @@ apagado) piden permiso por sí mismos.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; la entrada de tu interfaz (o un dispositivo de grabación de Windows). Aparece
    como un nuevo strip de canal.</li>
-<li>Habla, y ajusta <span class="key">IN TRIM</span> para que las barras de nivel lleguen a unos -12 a -6 dB.</li>
+<li>Habla, y ajusta <span class="key">IN TRIM</span> para que el medidor de nivel llegue a unos -12 a -6 dB.</li>
 <li>Enrútalo: haz clic en la casilla de enrutamiento de la salida de tus auriculares (o usa la página
    Routing).</li>
 <li>Límpialo: <strong>hp</strong> para quitar los retumbos (hacia 80–100 Hz), luego el gate y el compresor
@@ -5365,7 +5365,7 @@ en bas :</p>
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Les barres de niveau, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche</td>
+<td>Le vumètre, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -5533,8 +5533,8 @@ quand cette tranche bouge.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Barres de niveau</strong></td>
-<td>Le niveau du canal, gauche et droite (IN, PRE ou POST, selon le choix dans SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Vumètre</strong></td>
+<td>Le niveau du canal sous forme d'une colonne de LED rondes (le côté le plus fort), la plus haute allumée restant figée un instant. Il lit selon la norme de mesure choisie dans SETTINGS &gt; Audio &gt; Meter standard : ses propres LED, couleurs et repères (une colonne VU lit de -20 à +3, une colonne PPM BBC de 1 à 7), au point indiqué par SETTINGS &gt; Audio &gt; Channel meter point (IN, PRE ou POST). Les vumètres des sorties lisent de la même façon</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -6396,7 +6396,7 @@ et ouvre sa page avec sa ligne allumée un instant.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Comment les vumètres lisent le niveau : <strong>Peak</strong> (par défaut : crête d'échantillon en dBFS avec une chute rapide), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> et <span class="key">LUFS M</span> (sonie momentanée, EBU R128)</td>
+<td>Comment les vumètres lisent le niveau, ainsi que les LED, couleurs et repères des vumètres du pupitre : <strong>Peak</strong> (par défaut : crête d'échantillon en dBFS avec une chute rapide), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> et <span class="key">LUFS M</span> (sonie momentanée, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -6577,7 +6577,7 @@ désactivé) demandent elles-mêmes la permission.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; l'entrée de votre interface (ou un périphérique d'enregistrement Windows). Il
    apparaît comme une nouvelle tranche de canal.</li>
-<li>Parlez, et réglez <span class="key">IN TRIM</span> pour que les barres de niveau culminent vers -12 à -6 dB.</li>
+<li>Parlez, et réglez <span class="key">IN TRIM</span> pour que le vumètre culmine vers -12 à -6 dB.</li>
 <li>Routez-le : cliquez sur la case de routage de la sortie de votre casque (ou utilisez la page
    Routing).</li>
 <li>Nettoyez-le : <strong>hp</strong> pour retirer les grondements (vers 80–100 Hz), puis le gate et le
@@ -7596,7 +7596,7 @@ und bleibt für dein Interface gespeichert. Wählst du den eingebauten Takt, üb
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Pegelbalken, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer</td>
+<td>Die Pegelanzeige, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -7760,8 +7760,8 @@ SPACER</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 </thead>
 <tbody>
 <tr>
-<td><strong>Level bars</strong></td>
-<td>Der Pegel des Kanals, links und rechts (IN, PRE oder POST, je nach Wahl unter SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Level meter</strong></td>
+<td>Der Pegel des Kanals als Säule runder LEDs (die lautere Seite), die höchste leuchtende bleibt einen Moment stehen. Sie zeigt nach dem Messstandard, der unter SETTINGS &gt; Audio &gt; Meter standard gewählt ist: mit dessen eigenen LEDs, Farben und Markierungen (eine VU-Säule zeigt -20 bis +3, eine PPM-BBC-Säule 1 bis 7), an der Stelle, die SETTINGS &gt; Audio &gt; Channel meter point vorgibt (IN, PRE oder POST). Die Pegelanzeigen der Ausgänge zeigen genauso</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -8591,7 +8591,7 @@ ihre Zeile kurz aufleuchtet.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Wie Pegelmesser anzeigen: <strong>Peak</strong> (der Standard: Sample Peak in dBFS mit schnellem Abfall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4-fach überabgetastet, zeigt also auch Spitzen zwischen den Samples; seine Skala reicht bis +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> und <span class="key">LUFS M</span> (momentane Lautheit, EBU R128)</td>
+<td>Wie Pegelmesser anzeigen, sowie die LEDs, Farben und Markierungen der Pegelanzeigen des Pults: <strong>Peak</strong> (der Standard: Sample Peak in dBFS mit schnellem Abfall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4-fach überabgetastet, zeigt also auch Spitzen zwischen den Samples; seine Skala reicht bis +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> und <span class="key">LUFS M</span> (momentane Lautheit, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -8771,7 +8771,7 @@ nicht erreichen kann. Die wenigen Schritte, die einen Administrator brauchen
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; dein Interface-Eingang (oder ein Windows-Aufnahmegerät). Er erscheint als neuer
    Kanalzug.</li>
-<li>Sprich und stelle <span class="key">IN TRIM</span> so ein, dass die Pegelbalken bei etwa -12 bis -6 dB ihre Spitzen haben.</li>
+<li>Sprich und stelle <span class="key">IN TRIM</span> so ein, dass die Pegelanzeige bei etwa -12 bis -6 dB ihre Spitzen hat.</li>
 <li>Route ihn: Klicke auf die Routing-Box für den Ausgang deiner Kopfhörer (oder nutze die Seite Routing).</li>
 <li>Mach ihn sauber: <strong>hp</strong>, um Rumpeln zu entfernen (etwa 80–100 Hz), dann Gate und Kompressor (<span class="key">IN</span>
    an DYNAMICS), dann EQ.</li>
@@ -9782,7 +9782,7 @@ viola), poi <strong>uscite</strong> (barra del nome ambra). Ogni strip ha sette 
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Barre di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip</td>
+<td>Il meter di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -9948,8 +9948,8 @@ SPACER BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Clic destro 
 </thead>
 <tbody>
 <tr>
-<td><strong>Barre di livello</strong></td>
-<td>Il livello del canale, sinistra e destra (IN, PRE o POST, come scelto in SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Meter di livello</strong></td>
+<td>Il livello del canale come una colonna di LED tondi (il lato più forte), con il più alto acceso tenuto per un momento. Legge secondo lo standard di misura scelto in SETTINGS &gt; Audio &gt; Meter standard: con i suoi LED, colori e tacche (una colonna VU legge da -20 a +3, una PPM BBC da 1 a 7), nel punto indicato da SETTINGS &gt; Audio &gt; Channel meter point (IN, PRE o POST). I meter delle uscite leggono allo stesso modo</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -10788,7 +10788,7 @@ impostazione per nome, e apre la sua pagina con la sua riga illuminata per un mo
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Come leggono i meter: <strong>Peak</strong> (l'impostazione predefinita: picco di campione in dBFS con caduta rapida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sovracampionato 4 volte, quindi mostra anche i picchi tra i campioni; la sua scala arriva a +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> e <span class="key">LUFS M</span> (loudness momentanea, EBU R128)</td>
+<td>Come leggono i meter, e i LED, i colori e le tacche dei meter di livello della console: <strong>Peak</strong> (l'impostazione predefinita: picco di campione in dBFS con caduta rapida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sovracampionato 4 volte, quindi mostra anche i picchi tra i campioni; la sua scala arriva a +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> e <span class="key">LUFS M</span> (loudness momentanea, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -10967,7 +10967,7 @@ spento) chiedono da soli il permesso.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; l'ingresso della tua interfaccia (o un dispositivo di registrazione di Windows).
    Compare come una nuova strip di canale.</li>
-<li>Parla e regola <span class="key">IN TRIM</span> in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.</li>
+<li>Parla e regola <span class="key">IN TRIM</span> in modo che il meter di livello arrivi a picco attorno a -12 / -6 dB.</li>
 <li>Instradalo: fai clic sulla casella di instradamento per l'uscita delle tue cuffie (o usa la pagina Routing).</li>
 <li>Puliscilo: <strong>hp</strong> per togliere il rumble (attorno a 80–100 Hz), poi gate e compressore (<span class="key">IN</span>
    su DYNAMICS), poi EQ.</li>
@@ -11988,7 +11988,7 @@ para baixo:</p>
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>As barras de nível, as teclas FILT / EQ / EXT, a ordem de processamento, as caixas de roteamento, o número do strip</td>
+<td>O medidor de nível, as teclas FILT / EQ / EXT, a ordem de processamento, as caixas de roteamento, o número do strip</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -12155,8 +12155,8 @@ move.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Barras de nível</strong></td>
-<td>O nível do canal, esquerdo e direito (IN, PRE ou POST, conforme a escolha em SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Medidor de nível</strong></td>
+<td>O nível do canal como uma coluna de LEDs redondos (o lado mais forte), com o mais alto aceso retido por um momento. Ele lê conforme o padrão de medição escolhido em SETTINGS &gt; Audio &gt; Meter standard: com seus próprios LEDs, cores e marcas (uma coluna VU lê de -20 a +3, uma PPM BBC de 1 a 7), no ponto indicado por SETTINGS &gt; Audio &gt; Channel meter point (IN, PRE ou POST). Os medidores das saídas leem do mesmo jeito</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -12995,7 +12995,7 @@ página dela com a linha acesa por um instante.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Como os medidores leem: <strong>Peak</strong> (o padrão: pico de amostra em dBFS com queda rápida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sobreamostragem de 4x, então também mostra os picos entre as amostras; a escala dele vai até +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> e <span class="key">LUFS M</span> (loudness momentâneo, EBU R128)</td>
+<td>Como os medidores leem, e os LEDs, cores e marcas dos medidores de nível da mesa: <strong>Peak</strong> (o padrão: pico de amostra em dBFS com queda rápida), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: sobreamostragem de 4x, então também mostra os picos entre as amostras; a escala dele vai até +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> e <span class="key">LUFS M</span> (loudness momentâneo, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -13174,7 +13174,7 @@ permissão por conta própria.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; a entrada da sua interface (ou um dispositivo de gravação do Windows). Ele
    aparece como um novo strip de canal.</li>
-<li>Fale e ajuste o <span class="key">IN TRIM</span> para que as barras de nível cheguem a uns -12 a -6 dB.</li>
+<li>Fale e ajuste o <span class="key">IN TRIM</span> para que o medidor de nível chegue a uns -12 a -6 dB.</li>
 <li>Roteie: clique na caixa de roteamento da saída dos seus fones (ou use a página Routing).</li>
 <li>Limpe o som: <strong>hp</strong> para tirar o ruído grave (por volta de 80–100 Hz), depois o gate e o
    compressor (<span class="key">IN</span> em DYNAMICS), depois o EQ.</li>
@@ -14177,7 +14177,7 @@ opgeslagen voor je interface. Kies je de ingebouwde klok, dan neemt geen apparaa
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Niveaubalken, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer</td>
+<td>De niveaumeter, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -14341,8 +14341,8 @@ SPACER</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 </thead>
 <tbody>
 <tr>
-<td><strong>Level bars</strong></td>
-<td>Het niveau van het kanaal, links en rechts (IN, PRE of POST, zoals gekozen in SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Level meter</strong></td>
+<td>Het niveau van het kanaal als een kolom ronde leds (de luidste kant), waarbij de hoogste brandende even blijft staan. Hij leest volgens de meterstandaard die in SETTINGS &gt; Audio &gt; Meter standard is gekozen: met diens eigen leds, kleuren en markeringen (een VU-kolom leest -20 tot +3, een PPM BBC-kolom 1 tot 7), op het punt dat SETTINGS &gt; Audio &gt; Channel meter point aangeeft (IN, PRE of POST). De meters van uitgangen lezen op dezelfde manier</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -15173,7 +15173,7 @@ even opgelicht.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Hoe meters aflezen: <strong>Peak</strong> (de standaard: sample peak in dBFS met snelle terugval), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> en <span class="key">LUFS M</span> (momentane luidheid, EBU R128)</td>
+<td>Hoe meters aflezen, en de leds, kleuren en markeringen van de niveaumeters van de tafel: <strong>Peak</strong> (de standaard: sample peak in dBFS met snelle terugval), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> en <span class="key">LUFS M</span> (momentane luidheid, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -15352,7 +15352,7 @@ niet kan bereiken. De paar stappen die een beheerder nodig hebben
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; je interface-ingang (of een Windows-opnameapparaat). Hij verschijnt als een nieuwe
    kanaalstrip.</li>
-<li>Spreek en stel <span class="key">IN TRIM</span> zo in dat de niveaubalken pieken rond -12 tot -6 dB.</li>
+<li>Spreek en stel <span class="key">IN TRIM</span> zo in dat de niveaumeter piekt rond -12 tot -6 dB.</li>
 <li>Routeer hem: klik op het routeringsvakje voor de uitgang van je koptelefoon (of gebruik de pagina Routing).</li>
 <li>Maak hem schoon: <strong>hp</strong> om gerommel weg te halen (rond 80–100 Hz), dan de gate en compressor (<span class="key">IN</span>
    op DYNAMICS), dan EQ.</li>
@@ -16351,7 +16351,7 @@ nazwy), potem <strong>wyjścia</strong> (bursztynowy pasek nazwy). Każdy pasek 
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Słupki poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska</td>
+<td>Miernik poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -16515,8 +16515,8 @@ BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Prawy przycisk na o
 </thead>
 <tbody>
 <tr>
-<td><strong>Słupki poziomu</strong></td>
-<td>Poziom kanału, lewy i prawy (IN, PRE lub POST, zgodnie z wyborem w SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Miernik poziomu</strong></td>
+<td>Poziom kanału jako kolumna okrągłych diod LED (głośniejsza strona), z najwyższą zapaloną przytrzymaną przez chwilę. Odczytuje według standardu pomiaru wybranego w SETTINGS &gt; Audio &gt; Meter standard: z jego własnymi diodami, kolorami i oznaczeniami (kolumna VU odczytuje od -20 do +3, kolumna PPM BBC od 1 do 7), w miejscu wskazanym przez SETTINGS &gt; Audio &gt; Channel meter point (IN, PRE lub POST). Mierniki wyjść odczytują tak samo</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -17349,7 +17349,7 @@ jego stronę, na chwilę podświetlając jego wiersz.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Jak odczytują mierniki: <strong>Peak</strong> (domyślnie: szczyt próbki w dBFS z szybkim opadaniem), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4-krotny oversampling, więc pokazuje też szczyty między próbkami; jego skala sięga +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> i <span class="key">LUFS M</span> (głośność chwilowa, EBU R128)</td>
+<td>Jak odczytują mierniki, a także diody LED, kolory i oznaczenia mierników poziomu konsoli: <strong>Peak</strong> (domyślnie: szczyt próbki w dBFS z szybkim opadaniem), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4-krotny oversampling, więc pokazuje też szczyty między próbkami; jego skala sięga +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> i <span class="key">LUFS M</span> (głośność chwilowa, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -17526,7 +17526,7 @@ proszą o zgodę.</p>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się jako
    nowy pasek kanału.</li>
-<li>Mów i ustaw <span class="key">IN TRIM</span> tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.</li>
+<li>Mów i ustaw <span class="key">IN TRIM</span> tak, żeby miernik poziomu dochodził do szczytu około -12 do -6 dB.</li>
 <li>Skieruj go: kliknij pole routingu dla wyjścia słuchawek (albo użyj strony Routing).</li>
 <li>Oczyść go: <strong>hp</strong>, żeby usunąć dudnienie (około 80–100 Hz), potem bramka i kompresor (<span class="key">IN</span>
    w DYNAMICS), potem EQ.</li>
@@ -18522,7 +18522,7 @@ gränssnitt. När du väljer den inbyggda klockan tar ingen enhet över från de
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Nivåstaplar, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret</td>
+<td>Nivåmätaren, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -18686,8 +18686,8 @@ SPACER</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 </thead>
 <tbody>
 <tr>
-<td><strong>Level bars</strong></td>
-<td>Kanalens nivå, vänster och höger (IN, PRE eller POST, enligt valet i SETTINGS &gt; Audio &gt; Channel meter point)</td>
+<td><strong>Level meter</strong></td>
+<td>Kanalens nivå som en kolumn runda lysdioder (den starkare sidan), där den högsta tända hålls kvar en stund. Den läser enligt mätarstandarden som valts i SETTINGS &gt; Audio &gt; Meter standard: med dess egna lysdioder, färger och markeringar (en VU-kolumn läser -20 till +3, en PPM BBC-kolumn 1 till 7), vid den punkt som SETTINGS &gt; Audio &gt; Channel meter point anger (IN, PRE eller POST). Utgångarnas mätare läser på samma sätt</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -19517,7 +19517,7 @@ upplyst en stund.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Hur mätare läser: <strong>Peak</strong> (standard: sample peak i dBFS med snabbt fall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> och <span class="key">LUFS M</span> (momentan loudness, EBU R128)</td>
+<td>Hur mätare läser, samt lysdioderna, färgerna och markeringarna på bordets nivåmätare: <strong>Peak</strong> (standard: sample peak i dBFS med snabbt fall), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> och <span class="key">LUFS M</span> (momentan loudness, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -19694,7 +19694,7 @@ De få steg som kräver en administratör
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; din gränssnittsingång (eller en Windows-inspelningsenhet). Den dyker upp som en ny
    kanalstrip.</li>
-<li>Prata och ställ in <span class="key">IN TRIM</span> så att nivåstaplarna toppar kring -12 till -6 dB.</li>
+<li>Prata och ställ in <span class="key">IN TRIM</span> så att nivåmätaren toppar kring -12 till -6 dB.</li>
 <li>Routa den: klicka på routingrutan för dina hörlurars utgång (eller använd sidan Routing).</li>
 <li>Rensa upp den: <strong>hp</strong> för att ta bort buller (runt 80–100 Hz), sedan gate och kompressor (<span class="key">IN</span>
    på DYNAMICS), sedan EQ.</li>
@@ -20690,7 +20690,7 @@ arabirimin için kayıtlı kalır. Yerleşik saati seçtiğinde hiçbir aygıt s
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>Seviye çubukları, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası</td>
+<td>Seviye ölçeri, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -20854,8 +20854,8 @@ getirmek için güç simgesine yeniden tıkla.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Seviye çubukları</strong></td>
-<td>Kanalın sol ve sağ seviyesi (SETTINGS &gt; Audio &gt; Channel meter point içinde seçildiği gibi IN, PRE veya POST)</td>
+<td><strong>Seviye ölçeri</strong></td>
+<td>Kanalın seviyesi, yuvarlak LED'lerden bir sütun olarak (daha yüksek olan taraf); yanan en üst LED bir an tutulur. SETTINGS &gt; Audio &gt; Meter standard içinde seçilen ölçüm standardına göre okur: o standardın kendi LED'leri, renkleri ve işaretleriyle (bir VU sütunu -20 ile +3 arasını, bir PPM BBC sütunu 1 ile 7 arasını okur), SETTINGS &gt; Audio &gt; Channel meter point'in gösterdiği yerde (IN, PRE veya POST). Çıkışların ölçerleri de aynı şekilde okur</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -21687,7 +21687,7 @@ yanık olarak açar.</p>
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>Ölçerlerin nasıl okuduğu: <strong>Peak</strong> (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> ve <span class="key">LUFS M</span> (anlık gürlük, EBU R128)</td>
+<td>Ölçerlerin nasıl okuduğu, ayrıca konsoldaki seviye ölçerlerinin LED'leri, renkleri ve işaretleri: <strong>Peak</strong> (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), <strong>Peak IEC</strong>, <strong>True Peak</strong> (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span> (EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span> ve <span class="key">LUFS M</span> (anlık gürlük, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -21864,7 +21864,7 @@ kapattığı bir aygıtı yeniden etkinleştirmek) izni kendileri ister.</p>
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 Kendini duy: bir mikrofon kur</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; arabirim girişin (veya bir Windows kayıt aygıtı). Yeni bir kanal şeridi olarak görünür.</li>
-<li>Konuş ve seviye çubukları -12 ile -6 dB civarında tepe yapacak şekilde <span class="key">IN TRIM</span>'i ayarla.</li>
+<li>Konuş ve seviye ölçeri -12 ile -6 dB civarında tepe yapacak şekilde <span class="key">IN TRIM</span>'i ayarla.</li>
 <li>Yönlendir: kulaklığının çıkışı için yönlendirme kutusuna tıkla (ya da Routing sayfasını kullan).</li>
 <li>Temizle: uğultuyu gidermek için <strong>hp</strong> (80–100 Hz civarı), sonra gate ve kompresör (DYNAMICS'te
    <span class="key">IN</span>), sonra EQ.</li>
@@ -22771,7 +22771,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>レベルバー、FILT / EQ / EXT キー、処理順、ルーティングボックス、ストリップ番号</td>
+<td>レベルメーター、FILT / EQ / EXT キー、処理順、ルーティングボックス、ストリップ番号</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -22927,8 +22927,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </thead>
 <tbody>
 <tr>
-<td><strong>レベルバー</strong></td>
-<td>チャンネルのレベル。左右別(SETTINGS &gt; Audio &gt; Channel meter point の選択に応じて IN、PRE または POST)</td>
+<td><strong>レベルメーター</strong></td>
+<td>チャンネルのレベルを丸い LED の列で表示します(大きいほうの側)。点灯した最も高い LED は少しの間保持されます。SETTINGS &gt; Audio &gt; Meter standard で選んだメーター規格で読み、その規格独自の LED、色、目盛りを使います(VU の列は -20〜+3、PPM BBC の列は 1〜7)。測る位置は SETTINGS &gt; Audio &gt; Channel meter point の指定どおりです(IN、PRE または POST)。出力のメーターも同じように読みます</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -23683,7 +23683,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>メーターの表示方式: <strong>Peak</strong>(既定。dBFS のサンプルピークで、速く落ちます)、<strong>Peak IEC</strong>、<strong>True Peak</strong>(dBTP、ITU-R BS.1770。4 倍オーバーサンプリングなので、サンプル間のピークも表示します。目盛りは +3 まで)、<span class="key">RMS</span>、<span class="key">VU</span>、<span class="key">PPM</span>(EBU、BBC、DIN、Nordic)、<span class="key">K-20</span>、<span class="key">K-14</span>、<span class="key">K-12</span>、<span class="key">LUFS M</span>(モーメンタリーラウドネス、EBU R128)</td>
+<td>メーターの表示方式と、卓のレベルメーターの LED、色、目盛り: <strong>Peak</strong>(既定。dBFS のサンプルピークで、速く落ちます)、<strong>Peak IEC</strong>、<strong>True Peak</strong>(dBTP、ITU-R BS.1770。4 倍オーバーサンプリングなので、サンプル間のピークも表示します。目盛りは +3 まで)、<span class="key">RMS</span>、<span class="key">VU</span>、<span class="key">PPM</span>(EBU、BBC、DIN、Nordic)、<span class="key">K-20</span>、<span class="key">K-14</span>、<span class="key">K-12</span>、<span class="key">LUFS M</span>(モーメンタリーラウドネス、EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -23832,7 +23832,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 自分の声を聞く: マイクを設定する</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; インターフェースの入力(または Windows の録音デバイス)。新しいチャンネルストリップとして現れます。</li>
-<li>話して、レベルバーのピークが -12〜-6 dB あたりになるように <span class="key">IN TRIM</span> を設定します。</li>
+<li>話して、レベルメーターのピークが -12〜-6 dB あたりになるように <span class="key">IN TRIM</span> を設定します。</li>
 <li>ルーティングします。ヘッドホンの出力のルーティングボックスをクリックします(または ROUTING ページを使います)。</li>
 <li>音を整えます。<strong>hp</strong> で低いノイズを除き(80〜100 Hz あたり)、次にゲートとコンプレッサー(DYNAMICS の <span class="key">IN</span>)、そして EQ。</li>
 </ol>
@@ -24685,7 +24685,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>레벨 바, FILT / EQ / EXT 키, 처리 순서, 라우팅 상자, 스트립 번호</td>
+<td>레벨 미터, FILT / EQ / EXT 키, 처리 순서, 라우팅 상자, 스트립 번호</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -24841,8 +24841,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </thead>
 <tbody>
 <tr>
-<td><strong>레벨 바</strong></td>
-<td>채널의 레벨, 왼쪽과 오른쪽(SETTINGS &gt; Audio &gt; Channel meter point에서 고른 대로 IN, PRE 또는 POST)</td>
+<td><strong>레벨 미터</strong></td>
+<td>채널의 레벨을 둥근 LED 한 줄로 보여 줍니다(더 큰 쪽). 켜진 가장 높은 LED는 잠시 유지됩니다. SETTINGS &gt; Audio &gt; Meter standard에서 고른 미터 표준으로 읽으며, 그 표준만의 LED, 색, 눈금을 씁니다(VU 줄은 -20~+3, PPM BBC 줄은 1~7). 읽는 위치는 SETTINGS &gt; Audio &gt; Channel meter point에서 정한 대로입니다(IN, PRE 또는 POST). 출력의 미터도 같은 방식으로 읽습니다</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -25597,7 +25597,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>미터의 표시 방식: <strong>Peak</strong>(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), <strong>Peak IEC</strong>, <strong>True Peak</strong>(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span>(EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span>, <span class="key">LUFS M</span>(모멘터리 라우드니스, EBU R128)</td>
+<td>미터의 표시 방식과 데스크 레벨 미터의 LED, 색, 눈금: <strong>Peak</strong>(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), <strong>Peak IEC</strong>, <strong>True Peak</strong>(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), <span class="key">RMS</span>, <span class="key">VU</span>, <span class="key">PPM</span>(EBU, BBC, DIN, Nordic), <span class="key">K-20</span>, <span class="key">K-14</span>, <span class="key">K-12</span>, <span class="key">LUFS M</span>(모멘터리 라우드니스, EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -25746,7 +25746,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 내 소리 듣기: 마이크 설정하기</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; 인터페이스 입력(또는 Windows 녹음 장치). 새 채널 스트립으로 나타납니다.</li>
-<li>말을 하면서, 레벨 바의 피크가 -12~-6 dB 정도가 되도록 <span class="key">IN TRIM</span>을 설정합니다.</li>
+<li>말을 하면서, 레벨 미터의 피크가 -12~-6 dB 정도가 되도록 <span class="key">IN TRIM</span>을 설정합니다.</li>
 <li>라우팅합니다. 헤드폰 출력의 라우팅 상자를 누릅니다(또는 ROUTING 페이지를 사용).</li>
 <li>소리를 다듬습니다. <strong>hp</strong>로 낮은 잡음 제거(80~100 Hz 정도), 그다음 게이트와 컴프레서(DYNAMICS의 <span class="key">IN</span>), 그다음 EQ.</li>
 </ol>
@@ -26599,7 +26599,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><span class="key">HEADER</span></td>
-<td>电平条、FILT / EQ / EXT 键、处理顺序、路由框、通道条编号</td>
+<td>电平表、FILT / EQ / EXT 键、处理顺序、路由框、通道条编号</td>
 </tr>
 <tr>
 <td><span class="key">INPUT</span></td>
@@ -26755,8 +26755,8 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </thead>
 <tbody>
 <tr>
-<td><strong>电平条</strong></td>
-<td>通道的电平，左和右(IN、PRE 或 POST，按 SETTINGS &gt; Audio &gt; Channel meter point 的选择)</td>
+<td><strong>电平表</strong></td>
+<td>以一列圆形 LED 显示通道的电平(取较响的一侧)，点亮的最高一格会保持片刻。它按 SETTINGS &gt; Audio &gt; Meter standard 中选择的表头标准读数：使用该标准自己的 LED、颜色和刻度(VU 列读数为 -20 到 +3，PPM BBC 列为 1 到 7)，测量位置按 SETTINGS &gt; Audio &gt; Channel meter point 的设置(IN、PRE 或 POST)。输出的电平表也以同样方式读数</td>
 </tr>
 <tr>
 <td><span class="key">FILT</span></td>
@@ -27510,7 +27510,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td></td>
 <td><strong>Meter standard</strong></td>
-<td>电平表的读数方式：<strong>Peak</strong>(默认：以 dBFS 表示的采样峰值，快速回落)、<strong>Peak IEC</strong>、<strong>True Peak</strong>(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、<span class="key">RMS</span>、<span class="key">VU</span>、<span class="key">PPM</span>(EBU、BBC、DIN、Nordic)、<span class="key">K-20</span>、<span class="key">K-14</span>、<span class="key">K-12</span> 和 <span class="key">LUFS M</span>(瞬时响度，EBU R128)</td>
+<td>电平表的读数方式，以及调音台电平表的 LED、颜色和刻度：<strong>Peak</strong>(默认：以 dBFS 表示的采样峰值，快速回落)、<strong>Peak IEC</strong>、<strong>True Peak</strong>(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、<span class="key">RMS</span>、<span class="key">VU</span>、<span class="key">PPM</span>(EBU、BBC、DIN、Nordic)、<span class="key">K-20</span>、<span class="key">K-14</span>、<span class="key">K-12</span> 和 <span class="key">LUFS M</span>(瞬时响度，EBU R128)</td>
 </tr>
 <tr>
 <td></td>
@@ -27659,7 +27659,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <h3 id="171-hear-yourself-set-up-a-microphone">17.1 听到自己：设置麦克风</h3>
 <ol>
 <li><span class="key">ADD CHANNEL</span> &gt; 你的接口输入(或 Windows 录制设备)。它会作为一个新的通道条出现。</li>
-<li>说话，并设置 <span class="key">IN TRIM</span>，使电平条的峰值在 -12 到 -6 dB 左右。</li>
+<li>说话，并设置 <span class="key">IN TRIM</span>，使电平表的峰值在 -12 到 -6 dB 左右。</li>
 <li>设置路由：点击你耳机输出的路由框(或使用 ROUTING 页面)。</li>
 <li>清理声音：用 <strong>hp</strong> 去除低频噪声(80–100 Hz 左右)，然后是门限和压缩器(DYNAMICS 上的 <span class="key">IN</span>)，再是 EQ。</li>
 </ol>

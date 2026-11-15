@@ -476,7 +476,7 @@ viola), poi **uscite** (barra del nome ambra). Ogni strip ha sette sezioni, dall
 
 | Sezione | Contiene |
 |---|---|
-| **HEADER** | Barre di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip |
+| **HEADER** | Il meter di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip |
 | **INPUT** | Trim, polarità, drive del microfono, interruttore d'ingresso e larghezza stereo |
 | **DYNAMICS** | Compressore e gate |
 | **FILTERS** | Passa-basso, passa-alto e l'interruttore NOISE |
@@ -565,7 +565,7 @@ SPACER BEFORE** / **ADD SPACER AFTER**. Clic destro su uno spacer per **NARROW**
 
 | Controllo | Cosa fa |
 |---|---|
-| **Barre di livello** | Il livello del canale, sinistra e destra (IN, PRE o POST, come scelto in SETTINGS > Audio > Channel meter point) |
+| **Meter di livello** | Il livello del canale come una colonna di LED tondi (il lato più forte), con il più alto acceso tenuto per un momento. Legge secondo lo standard di misura scelto in SETTINGS > Audio > Meter standard: con i suoi LED, colori e tacche (una colonna VU legge da -20 a +3, una PPM BBC da 1 a 7), nel punto indicato da SETTINGS > Audio > Channel meter point (IN, PRE o POST). I meter delle uscite leggono allo stesso modo |
 | **FILT** | Manda i filtri al detector del gate/compressore (key filtering) |
 | **EQ** | EQ inserito o escluso |
 | **EXT** | La dinamica ascolta una key esterna (sidechain) invece del canale stesso: il canale scelto in clic destro > **KEY FROM**. Premuto prima di averne scelto uno, apre quell'elenco |
@@ -1105,7 +1105,7 @@ Le pagine **AUDIO** e **MIX**:
 | | **Windows audio** | La priorità del motore audio di Windows, con **Boost** e **Back to normal** (vedi [13](#13-devices)) |
 | | **Pin to one core** | Con Boost, l'audio di Windows viene legato all'ultimo core: solo per i crepitii su un headset USB |
 | | **Channel meter point** | Dove legge il meter di ogni canale: **IN** (sorgente grezza), **PRE** (dopo gli effetti) o **POST** (dopo il fader, il predefinito) |
-| | **Meter standard** | Come leggono i meter: **Peak** (l'impostazione predefinita: picco di campione in dBFS con caduta rapida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sovracampionato 4 volte, quindi mostra anche i picchi tra i campioni; la sua scala arriva a +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** e **LUFS M** (loudness momentanea, EBU R128) |
+| | **Meter standard** | Come leggono i meter, e i LED, i colori e le tacche dei meter di livello della console: **Peak** (l'impostazione predefinita: picco di campione in dBFS con caduta rapida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sovracampionato 4 volte, quindi mostra anche i picchi tra i campioni; la sua scala arriva a +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** e **LUFS M** (loudness momentanea, EBU R128) |
 | | **Plugin test time** | **30 S** (predefinito), **60 S** o **120 S**: quanto tempo ha un nuovo plugin per caricarsi nella sua prova prima di fallire |
 | **Recording** | **FFmpeg** | Dove si trova `ffmpeg.exe`, oppure **Not found**. **Pick…** lo sceglie (usato prima di quello nel PATH); **Use PATH** dimentica quello scelto e usa quello del PATH |
 | **Apps** | **App rules** | Una tabella: ogni programma, dove va, **Change** e **Delete**. **Add rule** sceglie un programma che sta suonando ora (o uno con un canale), poi un bus o un'uscita. Rimuovere il canale di un programma ne rimuove la regola. **APP RULES** in FIND fa lo stesso da un menu |
@@ -1221,7 +1221,7 @@ spento) chiedono da soli il permesso.
 
 1. **ADD CHANNEL** > l'ingresso della tua interfaccia (o un dispositivo di registrazione di Windows).
    Compare come una nuova strip di canale.
-2. Parla e regola **IN TRIM** in modo che le barre di livello arrivino a picco attorno a -12 / -6 dB.
+2. Parla e regola **IN TRIM** in modo che il meter di livello arrivi a picco attorno a -12 / -6 dB.
 3. Instradalo: fai clic sulla casella di instradamento per l'uscita delle tue cuffie (o usa la pagina Routing).
 4. Puliscilo: **hp** per togliere il rumble (attorno a 80–100 Hz), poi gate e compressore (**IN**
    su DYNAMICS), poi EQ.

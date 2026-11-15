@@ -465,7 +465,7 @@ nazwy), potem **wyjścia** (bursztynowy pasek nazwy). Każdy pasek ma siedem sek
 
 | Sekcja | Zawiera |
 |---|---|
-| **HEADER** | Słupki poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska |
+| **HEADER** | Miernik poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska |
 | **INPUT** | Trim, polaryzacja, drive mikrofonu, przełącznik wejścia i szerokość stereo |
 | **DYNAMICS** | Kompresor i bramka |
 | **FILTERS** | Filtr dolnoprzepustowy, górnoprzepustowy i przełącznik NOISE |
@@ -552,7 +552,7 @@ BEFORE** / **ADD SPACER AFTER**. Prawy przycisk na odstępie daje **NARROW**, **
 
 | Element | Co robi |
 |---|---|
-| **Słupki poziomu** | Poziom kanału, lewy i prawy (IN, PRE lub POST, zgodnie z wyborem w SETTINGS > Audio > Channel meter point) |
+| **Miernik poziomu** | Poziom kanału jako kolumna okrągłych diod LED (głośniejsza strona), z najwyższą zapaloną przytrzymaną przez chwilę. Odczytuje według standardu pomiaru wybranego w SETTINGS > Audio > Meter standard: z jego własnymi diodami, kolorami i oznaczeniami (kolumna VU odczytuje od -20 do +3, kolumna PPM BBC od 1 do 7), w miejscu wskazanym przez SETTINGS > Audio > Channel meter point (IN, PRE lub POST). Mierniki wyjść odczytują tak samo |
 | **FILT** | Wysyła filtry do detektora bramki/kompresora (key filtering) |
 | **EQ** | EQ włączony lub wyłączony |
 | **EXT** | Dynamika słucha zewnętrznego klucza (sidechain) zamiast samego kanału: kanału wybranego w prawy przycisk > **KEY FROM**. Naciśnięty, zanim jakiś wybierzesz, otwiera tę listę |
@@ -1086,7 +1086,7 @@ Strony **AUDIO** i **MIX**:
 | | **Windows audio** | Priorytet silnika audio Windows, z **Boost** i **Back to normal** (zobacz [13](#13-devices)) |
 | | **Pin to one core** | Przy Boost audio Windows jest trzymane na ostatnim rdzeniu: tylko przy trzaskach na zestawie słuchawkowym USB |
 | | **Channel meter point** | Gdzie mierzy miernik każdego kanału: **IN** (surowe źródło), **PRE** (po efektach) albo **POST** (po faderze, domyślnie) |
-| | **Meter standard** | Jak odczytują mierniki: **Peak** (domyślnie: szczyt próbki w dBFS z szybkim opadaniem), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4-krotny oversampling, więc pokazuje też szczyty między próbkami; jego skala sięga +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** i **LUFS M** (głośność chwilowa, EBU R128) |
+| | **Meter standard** | Jak odczytują mierniki, a także diody LED, kolory i oznaczenia mierników poziomu konsoli: **Peak** (domyślnie: szczyt próbki w dBFS z szybkim opadaniem), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4-krotny oversampling, więc pokazuje też szczyty między próbkami; jego skala sięga +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** i **LUFS M** (głośność chwilowa, EBU R128) |
 | | **Plugin test time** | **30 S** (domyślnie), **60 S** lub **120 S**: ile czasu nowa wtyczka ma na załadowanie w teście, zanim zostanie uznana za nieudaną |
 | **Recording** | **FFmpeg** | Gdzie jest `ffmpeg.exe`, albo **Not found**. **Pick…** go wybiera (używany przed tym z PATH); **Use PATH** zapomina wybrany i używa tego z PATH |
 | **Apps** | **App rules** | Tabela: każdy program, dokąd trafia, **Change** i **Delete**. **Add rule** wybiera program, który teraz gra (albo taki, który ma kanał), a potem bus lub wyjście. Usunięcie kanału programu usuwa jego regułę. **APP RULES** w FIND robi to samo z menu |
@@ -1200,7 +1200,7 @@ proszą o zgodę.
 
 1. **ADD CHANNEL** > wejście twojego interfejsu (albo urządzenie nagrywające Windows). Pojawia się jako
    nowy pasek kanału.
-2. Mów i ustaw **IN TRIM** tak, żeby słupki poziomu dochodziły do szczytu około -12 do -6 dB.
+2. Mów i ustaw **IN TRIM** tak, żeby miernik poziomu dochodził do szczytu około -12 do -6 dB.
 3. Skieruj go: kliknij pole routingu dla wyjścia słuchawek (albo użyj strony Routing).
 4. Oczyść go: **hp**, żeby usunąć dudnienie (około 80–100 Hz), potem bramka i kompresor (**IN**
    w DYNAMICS), potem EQ.

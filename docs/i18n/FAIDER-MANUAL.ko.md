@@ -367,7 +367,7 @@ flowchart LR
 
 | 섹션 | 내용 |
 |---|---|
-| **HEADER** | 레벨 바, FILT / EQ / EXT 키, 처리 순서, 라우팅 상자, 스트립 번호 |
+| **HEADER** | 레벨 미터, FILT / EQ / EXT 키, 처리 순서, 라우팅 상자, 스트립 번호 |
 | **INPUT** | 트림, 극성, 마이크 드라이브, 입력 스위치, 스테레오 폭 |
 | **DYNAMICS** | 컴프레서와 게이트 |
 | **FILTERS** | 로우패스, 하이패스, NOISE 스위치 |
@@ -446,7 +446,7 @@ flowchart LR
 
 | 컨트롤 | 기능 |
 |---|---|
-| **레벨 바** | 채널의 레벨, 왼쪽과 오른쪽(SETTINGS > Audio > Channel meter point에서 고른 대로 IN, PRE 또는 POST) |
+| **레벨 미터** | 채널의 레벨을 둥근 LED 한 줄로 보여 줍니다(더 큰 쪽). 켜진 가장 높은 LED는 잠시 유지됩니다. SETTINGS > Audio > Meter standard에서 고른 미터 표준으로 읽으며, 그 표준만의 LED, 색, 눈금을 씁니다(VU 줄은 -20~+3, PPM BBC 줄은 1~7). 읽는 위치는 SETTINGS > Audio > Channel meter point에서 정한 대로입니다(IN, PRE 또는 POST). 출력의 미터도 같은 방식으로 읽습니다 |
 | **FILT** | 필터를 게이트/컴프레서의 디텍터로 보냅니다(키 필터링) |
 | **EQ** | EQ 켜기/끄기 |
 | **EXT** | 다이내믹스가 채널 자신이 아니라 외부 키(사이드체인)를 듣습니다. 그 키는 마우스 오른쪽 단추 > **KEY FROM**에서 고른 채널입니다. 아직 고르지 않았을 때 누르면 그 목록이 열립니다 |
@@ -902,7 +902,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | | **Windows audio** | Windows 오디오 엔진의 우선순위와 **Boost**, **Back to normal**([13](#13-devices) 참조) |
 | | **Pin to one core** | Boost할 때 Windows 오디오를 마지막 코어에 고정합니다. USB 헤드셋의 지직거림에만 쓰세요 |
 | | **Channel meter point** | 모든 채널 미터가 읽는 위치: **IN**(원래 소스), **PRE**(이펙트 뒤) 또는 **POST**(페이더 뒤, 기본값) |
-| | **Meter standard** | 미터의 표시 방식: **Peak**(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), **Peak IEC**, **True Peak**(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), **RMS**, **VU**, **PPM**(EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12**, **LUFS M**(모멘터리 라우드니스, EBU R128) |
+| | **Meter standard** | 미터의 표시 방식과 데스크 레벨 미터의 LED, 색, 눈금: **Peak**(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), **Peak IEC**, **True Peak**(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), **RMS**, **VU**, **PPM**(EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12**, **LUFS M**(모멘터리 라우드니스, EBU R128) |
 | | **Plugin test time** | **30 S**(기본값), **60 S** 또는 **120 S**: 새 플러그인이 테스트에서 로드를 끝내야 하는 시간. 넘기면 실패합니다 |
 | **Recording** | **FFmpeg** | `ffmpeg.exe`의 위치 또는 **Not found**. **Pick…**으로 고릅니다(PATH에 있는 것보다 먼저 쓰임). **Use PATH**는 고른 것을 잊고 PATH의 것을 씁니다 |
 | **Apps** | **App rules** | 표: 프로그램마다 가는 곳, **Change**, **Delete**. **Add rule**은 지금 재생 중인(또는 채널이 있는) 프로그램을 고른 다음 버스나 출력을 고릅니다. 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다. FIND의 **APP RULES**로 메뉴에서 같은 일을 할 수 있습니다 |
@@ -988,7 +988,7 @@ Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 
 ### 17.1 내 소리 듣기: 마이크 설정하기
 
 1. **ADD CHANNEL** > 인터페이스 입력(또는 Windows 녹음 장치). 새 채널 스트립으로 나타납니다.
-2. 말을 하면서, 레벨 바의 피크가 -12~-6 dB 정도가 되도록 **IN TRIM**을 설정합니다.
+2. 말을 하면서, 레벨 미터의 피크가 -12~-6 dB 정도가 되도록 **IN TRIM**을 설정합니다.
 3. 라우팅합니다. 헤드폰 출력의 라우팅 상자를 누릅니다(또는 ROUTING 페이지를 사용).
 4. 소리를 다듬습니다. **hp**로 낮은 잡음 제거(80~100 Hz 정도), 그다음 게이트와 컴프레서(DYNAMICS의 **IN**), 그다음 EQ.
 

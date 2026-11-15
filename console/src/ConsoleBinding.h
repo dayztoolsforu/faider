@@ -440,6 +440,18 @@ public:
         return m != nullptr && m->masterChain != nullptr ? m->masterChain->busReduction.load() : -4.0f;
     }
 
+    // The level meter's value on the selected standard (SETTINGS > Audio > Meter standard), in dB on
+    // its own axis, measured by the engine where the meter point says. (Without an engine: a level
+    // a little under the scale's 0, to draw by.)
+    float meterDb (int ch, int side) const
+    {
+        if (auto* m = master (ch))
+            return Metering::toDb (side == 0 ? m->levels.meterL.load() : m->levels.meterR.load());
+        if (auto* s = strip (ch))
+            return Metering::toDb (side == 0 ? s->levels.meterL.load() : s->levels.meterR.load());
+        return Metering::standard().zeroDb - (side == 0 ? 3.0f : 6.0f);
+    }
+
     // (a strip's meter reads where the engine's meter point says: AudioEngine::meterPoint)
     float levelDb (int ch, int side) const
     {

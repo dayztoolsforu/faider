@@ -350,9 +350,9 @@ namespace
         // The fader beside its meter, the level under them.
         // Left to right: the scale (its figures right-aligned against their ticks), the fader's slot with
         // the cap centred on it, the two meter bars; all three share one top and bottom.
-        void faderAndMeter (juce::Graphics& g, juce::Rectangle<float> r, float gain, float peakL, float peakR, Hit hit)
+        void faderAndMeter (juce::Graphics& g, juce::Rectangle<float> r, float gain, float meterL, float meterR, Hit hit)
         {
-            auto meter = r.removeFromRight (18.0f);
+            auto meter = r.removeFromRight (34.0f);   // (two LED columns, the standard's marks at their right)
             r.removeFromRight (6.0f);
             const auto scale = r.removeFromLeft (28.0f).reduced (0.0f, 14.0f);
             const auto travel = r.reduced (0.0f, 14.0f);
@@ -384,23 +384,27 @@ namespace
                 g.setColour (Console::Colours::accent().withAlpha (moving ? 0.95f : 0.6f));
                 g.drawRoundedRectangle (cap.expanded (1.5f), 3.5f, 1.6f);
             }
-            // The meter: two bars, -48 dB up, 3 dB a segment.
-            const auto& t = Theme::get();
-            const int count = 24;
+            // The meter: round LEDs, left and right, on the selected meter standard (its own LEDs,
+            // colour zones and marks), as the console's; the column shares the scale's top and bottom.
+            const auto& st = Metering::standard();
+            const int count = (int) st.leds.size();
+            const auto column = meter.reduced (0.0f, 14.0f);
+            const float pitch = column.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (8.0f, pitch * 0.72f);
             for (int side = 0; side < 2; ++side)
             {
-                const auto bar = meter.withWidth (8.0f).translated ((float) side * 10.0f, 0.0f).reduced (0.0f, 14.0f);   // (as the scale and slot)
-                const float pitch = bar.getHeight() / (float) count;
-                const float db = juce::Decibels::gainToDecibels (side == 0 ? peakL : peakR, -100.0f);
-                const int on = juce::jlimit (0, count, (int) ((db + 48.0f) / 2.0f) + (db > -100.0f ? 1 : 0));
+                const int on = Metering::ledsLit (st, Metering::toDb (side == 0 ? meterL : meterR));
                 const int hold = heldPeak (hit.kind * 10000 + hit.index * 2 + side, on);   // PEAK HOLD, as the console's
+                const float cx = column.getX() + 5.0f + (float) side * 10.0f;
                 for (int i = 0; i < count; ++i)
-                {
-                    const auto colour = i >= count - 2 ? t.ledRed : (i >= count - 5 ? t.ledYellow : t.ledGreen);
-                    g.setColour (i < on || i == hold - 1 ? colour : colour.withMultipliedBrightness (0.22f).withMultipliedSaturation (0.6f));
-                    g.fillRect (bar.getX(), bar.getBottom() - pitch * (float) (i + 1) + 1.0f, bar.getWidth(), pitch - 2.0f);
-                }
+                    LargeFormat::led (g, { cx, column.getBottom() - pitch * ((float) i + 0.5f) }, i < on || i == hold - 1,
+                                      Metering::ledColour (st, st.leds[(size_t) i]), d);
             }
+            g.setColour (DeskSettings::text().withAlpha (0.8f));
+            g.setFont (LargeFormat::print (7.5f, false));
+            for (int i = 0; i < count; ++i)
+                if (const auto mark = Metering::markAt (st, st.leds[(size_t) i]); mark.isNotEmpty())
+                    g.drawFittedText (mark, juce::Rectangle<float> (column.getX() + 21.0f, column.getBottom() - pitch * ((float) i + 1.0f), 13.0f, pitch).toNearestInt(),
+                                      juce::Justification::centredLeft, 1, 0.6f);
         }
 
         // PEAK HOLD: the highest segment a meter reached stays lit 1.5 s, then follows the level down.
@@ -450,7 +454,7 @@ namespace
             foot.removeFromLeft (6.0f);
             key (g, foot, "SOLO", s.solo.load() ? 1.0f : 0.0f, juce::Colour (0xfff2c14e), { {}, Hit::solo, i });
             readout (g, r.removeFromBottom (26.0f).reduced (10.0f, 2.0f), s.gain.load());
-            faderAndMeter (g, r.reduced (12.0f, 4.0f), s.gain.load(), s.peakL.load(), s.peakR.load(), { {}, Hit::fader, i });
+            faderAndMeter (g, r.reduced (12.0f, 4.0f), s.gain.load(), s.levels.meterL.load(), s.levels.meterR.load(), { {}, Hit::fader, i });
             if (! s.enabled.load())   // OFF: dimmed, still readable, its power switch still lit to switch it back
             {
                 g.setColour (Console::Colours::bayDark().withAlpha (0.5f));
@@ -472,7 +476,7 @@ namespace
             auto foot = r.removeFromBottom (44.0f).reduced (8.0f, 6.0f);
             key (g, foot, "CUT", m.mute.load() ? 1.0f : 0.0f, Console::Colours::stopLamp(), { {}, Hit::outCut, i });
             readout (g, r.removeFromBottom (26.0f).reduced (10.0f, 2.0f), m.gain.load());
-            faderAndMeter (g, r.reduced (12.0f, 4.0f), m.gain.load(), m.peakL.load(), m.peakR.load(), { {}, Hit::outFader, i });
+            faderAndMeter (g, r.reduced (12.0f, 4.0f), m.gain.load(), m.levels.meterL.load(), m.levels.meterR.load(), { {}, Hit::outFader, i });
             if (! m.enabled.load())
             {
                 g.setColour (Console::Colours::bayDark().withAlpha (0.5f));

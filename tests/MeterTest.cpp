@@ -52,6 +52,22 @@ int main()
                      st.shortName.toRawUTF8(), onTone, expected, ok ? "ok  " : "FAIL", afterOneSecond);
     }
 
+    // The desk's LED meters: every standard has LEDs, bottom up, within its own scale, its 0 one of
+    // them (so the column reads as that meter), and a level at an LED's step lights it.
+    for (auto& st : list)
+    {
+        bool ok = st.leds.size() >= 5;
+        for (size_t i = 1; i < st.leds.size(); ++i)
+            ok = ok && st.leds[i] > st.leds[i - 1];
+        ok = ok && ! st.leds.empty() && st.leds.front() >= st.floorDb - 0.05f && st.leds.back() <= st.topDb + 0.05f;
+        ok = ok && std::any_of (st.leds.begin(), st.leds.end(), [&st] (float at) { return std::abs (at - st.zeroDb) < 0.05f; });
+        ok = ok && Metering::ledsLit (st, st.zeroDb) >= 1 && Metering::ledsLit (st, st.floorDb - 10.0f) == 0
+                && Metering::ledsLit (st, st.topDb + 10.0f) == (int) st.leds.size();
+        failures += ok ? 0 : 1;
+        std::printf ("%-12s %2d LEDs %+6.1f to %+5.1f %s\n", st.shortName.toRawUTF8(), (int) st.leds.size(),
+                     st.leds.empty() ? 0.0f : st.leds.front(), st.leds.empty() ? 0.0f : st.leds.back(), ok ? "ok" : "FAIL");
+    }
+
     std::printf ("%d failure(s)\n", failures);
     return failures;
 }

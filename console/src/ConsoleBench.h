@@ -2209,23 +2209,30 @@ private:
         }
         else if (item.kind == "bars")
         {
-            for (int side = 0; side < (item.single ? 1 : 2); ++side)
+            // The level as round LEDs on the selected meter standard (SETTINGS > Audio > Meter
+            // standard): its own LEDs, colour zones and printed marks (in the room at the column's
+            // left), the highest lit held a moment (PEAK HOLD). One column: the louder side.
+            const auto& st = Metering::standard();
+            const int count = (int) st.leds.size(), columns = item.single ? 1 : 2;
+            const float pitch = r.getHeight() / (float) juce::jmax (1, count), colW = r.getWidth() / (float) columns;
+            const float d = juce::jmax (3.0f, juce::jmin (colW - 3.0f * zoom, pitch * 0.72f));
+            for (int side = 0; side < columns; ++side)
             {
-                const auto bar = item.single ? r : r.withWidth (r.getWidth() * 0.44f).translated ((float) side * r.getWidth() * 0.56f, 0.0f);
-                const float pitch = bar.getHeight() / (float) item.count;
-                const int on = juce::jlimit (0, item.count, (int) ((bind.levelDb (ch, side) + 48.0f) / 3.0f) + 1);   // (from -48 dB, 3 dB a segment)
-                const int hold = heldPeak (ch * 2 + side, on);   // PEAK HOLD: the highest lit a moment longer
-                for (int i = 0; i < item.count; ++i)
-                {
-                    const auto colour = item.colour.isNotEmpty() ? named (item.colour).interpolatedWith (t.ledRed, (float) i / (float) item.count)
-                                                                 : (i >= item.count - 2 ? t.ledRed : (i >= item.count - 5 ? t.ledYellow : t.ledGreen));
-                    const auto seg = juce::Rectangle<float> (bar.getX(), bar.getBottom() - pitch * (float) (i + 1) + 1.0f, bar.getWidth(), pitch - 2.0f);
-                    if (i < on || i == hold - 1)
-                        LargeFormat::bloom (g, seg, colour, 0.8f, 1.0f, 2.0f);
-                    g.setColour (i < on ? colour : colour.withMultipliedBrightness (0.22f).withMultipliedSaturation (0.6f));
-                    g.fillRect (seg);
-                }
+                const float db = item.single ? juce::jmax (bind.meterDb (ch, 0), bind.meterDb (ch, 1)) : bind.meterDb (ch, side);
+                const int on = Metering::ledsLit (st, db);
+                const int hold = heldPeak (ch * 2 + side, on);
+                const float cx = r.getX() + colW * ((float) side + 0.5f);
+                for (int i = 0; i < count; ++i)
+                    LargeFormat::led (g, { cx, r.getBottom() - pitch * ((float) i + 0.5f) }, i < on || i == hold - 1,
+                                      Metering::ledColour (st, st.leds[(size_t) i]), d);
             }
+            g.setColour (ink());
+            g.setFont (LargeFormat::print (7.5f * zoom, false));
+            const float markX = r.getX() - 13.5f * zoom, markW = 12.5f * zoom;
+            for (int i = 0; i < count; ++i)
+                if (const auto mark = Metering::markAt (st, st.leds[(size_t) i]); mark.isNotEmpty())
+                    g.drawFittedText (mark, juce::Rectangle<float> (markX, r.getBottom() - pitch * ((float) i + 1.0f), markW, pitch).toNearestInt(),
+                                      juce::Justification::centredRight, 1, 0.6f);
         }
         else if (item.kind == "label")
         {

@@ -32,6 +32,7 @@ namespace Metering
         float floorDb, topDb, zeroDb;       // scale bottom and top, and the value that reads "0"
         std::vector<Mark> marks;            // printed scale, most important first
         std::vector<Zone> zones;            // colours, ascending
+        std::vector<float> leds = {};       // the desk's round LEDs, bottom up: each lights at this level (dB on its axis)
     };
 
     inline juce::Colour green()  { return juce::Colour (0xff3fcf4a); }
@@ -111,6 +112,40 @@ namespace Metering
             s.push_back ({ "lufs-m", "LUFS M", "Loudness, momentary  (EBU R128, LU, 0 LU = -23 LUFS)", "LU", Kind::loudness, 0, 0, 0.4f,
                            -41.0f, -14.0f, -23.0f, relativeMarks (-23.0f, { 0, 9, -18, -9, 3, -3, 6, -6, -12, -15 }),
                            { { -1000, juce::Colour (0xff3fa7cf) }, { -26, green() }, { -20, yellow() }, { -17, red() } } });
+
+            // The desk's LEDs for each: the steps its own scale is read in, so a VU column reads as a VU
+            // meter and a PPM as a PPM (each mark on its scale is one of them).
+            auto relative = [] (float zero, std::initializer_list<float> steps)
+            {
+                std::vector<float> v;
+                for (float step : steps)
+                    v.push_back (zero + step);
+                return v;
+            };
+            for (auto& st : s)
+            {
+                if (st.id == "peak" || st.id == "peak-iec" || st.id == "rms")
+                    st.leds = { -60, -50, -40, -30, -24, -20, -15, -12, -9, -6, -4, -3, -2, -1, 0 };
+                else if (st.id == "truepeak")
+                    st.leds = { -60, -40, -30, -20, -15, -12, -9, -6, -3, -2, -1, 0, 1, 2, 3 };
+                else if (st.id == "vu")
+                    st.leds = relative (-18.0f, { -20, -10, -7, -5, -3, -2, -1, 0, 1, 2, 3 });
+                else if (st.id == "ppm-ebu")
+                    st.leds = { -30, -26, -22, -18, -14, -10, -9, -6 };
+                else if (st.id == "ppm-bbc")
+                    st.leds = { -30, -26, -22, -18, -14, -10, -6 };
+                else if (st.id == "ppm-din")
+                    st.leds = relative (-9.0f, { -50, -40, -30, -20, -10, -5, -3, 0, 5 });
+                else if (st.id == "ppm-nordic")
+                    st.leds = { -54, -42, -30, -24, -18, -12, -9, -6 };
+                else if (st.id == "lufs-m")
+                    st.leds = relative (-23.0f, { -18, -15, -12, -9, -6, -3, 0, 3, 6, 9 });
+                else if (st.id.startsWith ("k"))
+                {
+                    const float k = -st.zeroDb;   // (K-20: 0 = -20 dBFS; its top, +20, is 0 dBFS)
+                    st.leds = relative (-k, { -40, -30, -20, -10, -6, -3, 0, 4, 8, k });
+                }
+            }
             return s;
         }();
         return list;
@@ -137,4 +172,35 @@ namespace Metering
 
     // What a readout shows: the value relative to the scale's zero (VU, LU, PPM dB...).
     inline float readout (float value) { return toDb (value) - standard().zeroDb; }
+
+    // The desk's LED meters: how many of a standard's LEDs a level lights (bottom up), each LED's
+    // colour (its zone), and the printed mark beside it, if its scale has one there.
+    inline int ledsLit (const Standard& s, float db)
+    {
+        int n = 0;
+        for (float at : s.leds)
+        {
+            if (db < at - 0.05f)
+                break;
+            ++n;
+        }
+        return n;
+    }
+
+    inline juce::Colour ledColour (const Standard& s, float db)
+    {
+        auto c = s.zones.empty() ? green() : s.zones.front().colour;
+        for (auto& z : s.zones)
+            if (db >= z.fromDb - 0.05f)
+                c = z.colour;
+        return c;
+    }
+
+    inline juce::String markAt (const Standard& s, float db)
+    {
+        for (auto& m : s.marks)
+            if (std::abs (m.db - db) < 0.05f)
+                return m.label;
+        return {};
+    }
 }

@@ -3,7 +3,7 @@
 #include "MainComponent.h"
 #include "ui/WindowsDefaults.h"
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
-#include "../console/src/Simple.h"     // (SIMPLE and SETUP)
+#include "../console/src/Setup.h"      // (SETUP)
 
 void MainComponent::addBoostItems (juce::PopupMenu& menu)
 {
@@ -239,7 +239,7 @@ void MainComponent::showSetup ()
         return;
     }
 
-    auto panel = Simple::makeSetup (engine, [this]
+    auto panel = MixSetup::make (engine, [this]
     {
         settings.setValue ("deskMode", "simple");
         settings.saveIfNeeded();

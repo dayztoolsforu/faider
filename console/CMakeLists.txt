@@ -7,6 +7,7 @@ set(_src "${CMAKE_SOURCE_DIR}/src")
 target_sources(Faider PRIVATE
     src/Console.cpp
     src/Simple.cpp
+    src/Setup.cpp
     ${_src}/Main.cpp
     ${_src}/MainComponent.cpp
     ${_src}/MainComponentSettings.cpp

@@ -235,7 +235,7 @@ private:
     std::unique_ptr<juce::Component> consoleDesk;   // (the Mixer page)
     std::unique_ptr<juce::Component> consoleSidebar;   // (and its pages as cards down the left)
     std::unique_ptr<juce::Component> consoleRouting;   // (its Routing page: the desk's strips as blocks)
-    juce::Component::SafePointer<juce::DialogWindow> setupWindow;   // (SETUP, shown in its own window: Simple.h)
+    juce::Component::SafePointer<juce::DialogWindow> setupWindow;   // (SETUP, shown in its own window: Setup.h)
     std::unique_ptr<PadsPanel> pads;
     std::unique_ptr<TapePanel> tape;
     std::unique_ptr<ToolsTab> tools;      // the TOOLS tab: PADS and TAPE on tabs of their own

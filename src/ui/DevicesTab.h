@@ -6,7 +6,7 @@
 #include "../AudioBoost.h"
 #include "Console.h"
 
-// The Devices tab: what sets the clock, Windows audio's priority (BOOST WINDOWS AUDIO), VB-CABLE's settings (while it's installed) and the device tools at the top,
+// The Devices tab: VB-CABLE's settings (while it's installed) and the device tools at the top,
 // every audio device in fixed columns, then the stream diagnostics (latency, dropouts) and the
 // event log at the bottom.
 namespace DevicesTab
@@ -105,72 +105,6 @@ namespace DevicesTab
         int savedRate = 0, savedLatency = 0, checks = 0;
     };
 
-    // CLOCK: what sets the clock: the interface (ASIO, Faider's own pick, as without a choice), a
-    // Windows playback device, or the built-in clock. Kept by the app (`choice`, `choose`) and
-    // used from the next start, as --clock is; --clock on the command line still wins.
-    class ClockBar : public juce::Component,
-                     private juce::Timer
-    {
-    public:
-        ClockBar (AudioEngine& e, const juce::Array<EndpointInfo>& all);
-
-        std::function<juce::String()> choice;             // "" (the interface), "builtin" or "windows:NAME"
-        std::function<void (const juce::String&)> choose;
-        std::function<juce::String()> note;               // after the state now: a choice waiting for the next start, --clock
-
-        void lookAndFeelChanged() override { status.setColour (juce::Label::textColourId, Console::Colours::legendDim()); }
-
-        void resized() override;
-
-        void paint (juce::Graphics& g) override;
-
-    private:
-        static juce::String keyText (const juce::String& c);
-
-        void timerCallback() override;
-
-        void showMenu();
-
-        AudioEngine& engine;
-        const juce::Array<EndpointInfo>& endpoints;
-        juce::Label title, status;
-        juce::TextButton pick;
-    };
-
-    // WINDOWS AUDIO: Windows' audio engine (audiodg.exe) and its priority now, and BOOST WINDOWS
-    // AUDIO (AudioBoost.h), which the app runs (`boost`: Windows asks first) and keeps (`wanted`,
-    // `pinned`). ASIO interfaces go around it.
-    class WindowsAudioBar : public juce::Component,
-                            private juce::Timer
-    {
-    public:
-        WindowsAudioBar();
-
-        std::function<AudioBoost::State()> state;   // as the app last read it
-        std::function<bool()> wanted, pinned;       // BOOST asked for; PIN TO ONE CORE with it
-        std::function<void()> boost;                // BOOST now (Windows asks first)
-        std::function<void()> stopBoosting;         // no longer wanted (audiodg stays as it is until it restarts)
-        std::function<void()> backToNormal;         // BACK TO NORMAL now: Normal, every core (Windows asks first)
-        std::function<void (bool)> setPinned;
-        std::function<juce::String()> note;         // what came of the last BOOST, or one under way
-
-        void lookAndFeelChanged() override { status.setColour (juce::Label::textColourId, Console::Colours::legendDim()); }
-
-        void resized() override;
-
-        void paint (juce::Graphics& g) override;
-
-    private:
-        AudioBoost::State now() const { return state ? state() : AudioBoost::State(); }
-
-        void timerCallback() override;
-
-        void showMenu();
-
-        juce::Label title, status;
-        juce::TextButton key { "BOOST WINDOWS AUDIO" };
-    };
-
     // Diagnostics: every open stream with the latency it adds and every dropout so far, plus
     // the master callback's load. Refreshed twice a second; anything that dropped audio is red.
     class Streams : public juce::Component,
@@ -261,15 +195,14 @@ namespace DevicesTab
                          disableInWindows { "DISABLE IN WINDOWS" }, enableInWindows { "ENABLE IN WINDOWS" }, rename { "RENAME" };
     };
 
-    // The whole tab: settings, device tools, header and list, and the stream diagnostics.
+    // The whole tab: VB-CABLE's settings, device tools, header and list, and the stream diagnostics.
+    // (What sets the clock and Windows audio's priority are in SETTINGS > AUDIO.)
     class Panel : public juce::Component
     {
     public:
         Panel (juce::ListBox& deviceList, const juce::Array<EndpointInfo>& endpoints, AudioEngine& engine);
 
         DeviceTools& getTools() { return tools; }
-        ClockBar& getClock() { return clock; }
-        WindowsAudioBar& getWindowsAudio() { return windowsAudio; }
         Header& getHeader() { return header; }
 
         // The app's event log, along the bottom of this tab.
@@ -279,8 +212,6 @@ namespace DevicesTab
 
     private:
         juce::ListBox& list;
-        ClockBar clock;
-        WindowsAudioBar windowsAudio;
         CableSettings cable;
         DeviceTools tools;
         Header header;

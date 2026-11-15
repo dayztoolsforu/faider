@@ -1313,8 +1313,8 @@ public:
     float deskRight() const { return deskWidth; }
     Binding& binding() { return bind; }
 
-    // THE SIDEBAR's SELECT cards (kept in console.xml), and its SECTIONS. (Its METER cards are the
-    // engine's meter point, SETTINGS' CHANNEL METER POINT: AudioEngine::meterPoint.)
+    // THE SIDEBAR's SELECT cards (kept in console.xml), and its SECTIONS. (Where a strip's meter reads
+    // is SETTINGS > AUDIO > CHANNEL METER POINT: AudioEngine::meterPoint.)
     bool autoSelect = true, followSelect = true;
     void setAutoSelect (bool on) { autoSelect = on; saveSpacers(); }
     void setFollowSelect (bool on) { followSelect = on; saveSpacers(); followFaider(); }

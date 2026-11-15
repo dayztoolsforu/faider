@@ -12,7 +12,8 @@
 namespace ConsoleDesk
 {
     // THE SIDEBAR down the left: the pages as cards (an icon and a name, the
-    // one showing lit with a blue edge), then the desk's own cards (+ CHANNEL, + BUS).
+    // one showing lit with a blue edge), then the desk's own cards (+ CHANNEL, + BUS), SELECT and
+    // SECTIONS. (Where the channel meters read is SETTINGS > AUDIO > CHANNEL METER POINT.)
     class Sidebar : public juce::Component, private juce::Timer
     {
     public:
@@ -49,9 +50,6 @@ namespace ConsoleDesk
             heading (g, "SELECT", selectTitle());
             pill (g, pairArea (selectTitle(), 0), "AUTO", b.autoSelect, hovered == 110, pushed == 110);
             pill (g, pairArea (selectTitle(), 1), "FOLLOW", b.followSelect, hovered == 111, pushed == 111);
-            heading (g, "METER", meterTitle());   // (SETTINGS' CHANNEL METER POINT: the source, before the fader, after it)
-            for (int i = 0; i < 3; ++i)
-                pill (g, tripleArea (meterTitle(), i), i == 0 ? "IN" : i == 1 ? "PRE" : "POST", AudioEngine::meterPoint.load() == i, hovered == 120 + i, pushed == 120 + i);
             heading (g, "SECTIONS", sectionsTitle());
             for (int i = 0; i < b.sectionCount(); ++i)
                 sectionRow (g, sectionArea (i), b.sectionName (i), (visibleSections() >> i) & 1, hovered == 200 + i);
@@ -87,8 +85,6 @@ namespace ConsoleDesk
                 view->bench->setAutoSelect (! view->bench->autoSelect);
             else if (i == 111 && view != nullptr)
                 view->bench->setFollowSelect (! view->bench->followSelect);
-            else if (i >= 120 && i <= 122)
-                AudioEngine::meterPoint = i - 120;   // (MainComponent saves it with the settings)
             else if (i >= 200 && view != nullptr)   // a section: the view glides to it
                 view->bench->glideTo (-1.0f, view->bench->sectionSpan (i - 200).getStart() - 40.0f);
             repaint();
@@ -111,8 +107,6 @@ namespace ConsoleDesk
             {
                 for (int i = 0; i < 2; ++i)
                     if (pairArea (selectTitle(), i).contains (p)) return 110 + i;
-                for (int i = 0; i < 3; ++i)
-                    if (tripleArea (meterTitle(), i).contains (p)) return 120 + i;
                 for (int i = 0; i < view->bench->sectionCount(); ++i)
                     if (sectionArea (i).contains (p))
                         return 200 + i;
@@ -128,13 +122,7 @@ namespace ConsoleDesk
             const int w = (getWidth() - 20) / 2;
             return { 8 + i * (w + 4), title.getBottom() + 6, w, 30 };
         }
-        juce::Rectangle<int> tripleArea (juce::Rectangle<int> title, int i) const   // (as pairArea, three across)
-        {
-            const int w = (getWidth() - 24) / 3;
-            return { 8 + i * (w + 4), title.getBottom() + 6, w, 30 };
-        }
-        juce::Rectangle<int> meterTitle() const { return titleBelow (pairArea (selectTitle(), 0)); }
-        juce::Rectangle<int> sectionsTitle() const { return titleBelow (pairArea (meterTitle(), 0)); }
+        juce::Rectangle<int> sectionsTitle() const { return titleBelow (pairArea (selectTitle(), 0)); }
         juce::Rectangle<int> sectionArea (int i) const { return { 8, sectionsTitle().getBottom() + 4 + i * 24, getWidth() - 16, 22 }; }
         // The sections in view now (a bit each), under the top bar.
         int visibleSections() const
@@ -297,16 +285,11 @@ namespace ConsoleDesk
                 shownSimple = simpleNow();
                 repaint();
             }
-            if (const int now = AudioEngine::meterPoint.load(); now != shownMeter)   // (changed in SETTINGS too)
-            {
-                shownMeter = now;
-                repaint();
-            }
         }
 
         juce::TabbedComponent& tabs;
         View* view;
         bool shownSimple = false;
-        int hovered = -1, pushed = -1, shown = -1, shownSections = -1, shownMeter = -1;
+        int hovered = -1, pushed = -1, shown = -1, shownSections = -1;
     };
 }

@@ -244,154 +244,6 @@ namespace DevicesTab
         }
     }
 
-    ClockBar::ClockBar (AudioEngine& e, const juce::Array<EndpointInfo>& all) : engine (e), endpoints (all)
-    {
-        title.setText ("CLOCK", juce::dontSendNotification);
-        title.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
-        addAndMakeVisible (title);
-        pick.setTooltip ("What sets the clock, from the next start");
-        pick.onClick = [this] { showMenu(); };
-        addAndMakeVisible (pick);
-        status.setFont (juce::FontOptions (Console::Type::body));
-        status.setColour (juce::Label::textColourId, Console::Colours::legendDim());
-        addAndMakeVisible (status);
-        startTimerHz (2);
-    }
-
-    void ClockBar::resized()
-    {
-        Console::KeyRow row (getLocalBounds().reduced (Console::Space::pad, 0));
-        row.leftWidth (title, labelWidth).left (pick, 4);
-        const auto rest = row.rest().withTrimmedLeft (Console::Space::pad);
-        status.setBounds (rest.withSizeKeepingCentre (rest.getWidth(), Console::Space::key));
-    }
-
-    void ClockBar::paint (juce::Graphics& g)
-    {
-        g.fillAll (Console::Colours::panel());
-        g.setColour (juce::Colours::black.withAlpha (0.5f));
-        g.fillRect (0, getHeight() - 1, getWidth(), 1);
-    }
-
-    juce::String ClockBar::keyText (const juce::String& c)
-    {
-        if (c == "builtin")
-            return "SET BY: THE BUILT-IN CLOCK";
-        if (c.startsWith (AudioEngine::windowsClockPrefix))
-            return "SET BY: " + c.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false).toUpperCase();
-        return "SET BY: THE INTERFACE";
-    }
-
-    void ClockBar::timerCallback()
-    {
-        const auto c = choice ? choice() : juce::String();
-        if (const auto text = keyText (c); text != pick.getButtonText())
-            pick.setButtonText (text);
-        const auto device = engine.getClock() == AudioEngine::Clock::asio ? engine.getInterfaceAdapter() : engine.getClockDevice();
-        auto text = "Now: " + engine.getClockName() + (device.isNotEmpty() ? " (" + device + ")" : juce::String());
-        if (note)
-            if (const auto more = note(); more.isNotEmpty())
-                text << ". " << more;
-        if (text != status.getText())
-            status.setText (text, juce::dontSendNotification);
-    }
-
-    void ClockBar::showMenu()
-    {
-        const auto c = choice ? choice() : juce::String();
-        auto set = [this] (const juce::String& to) { if (choose) choose (to); timerCallback(); };
-        juce::PopupMenu menu, devices;
-        menu.addSectionHeader ("WHAT SETS THE CLOCK (FROM THE NEXT START)");
-        menu.addItem ("THE INTERFACE (ASIO)", true, c.isEmpty(), [set] { set ({}); });
-        for (auto& e : endpoints)
-            if (e.api == "WASAPI" && e.isOutput && e.isActive() && ! engine.isDeviceDisabled (e.name))
-            {
-                const auto key = AudioEngine::windowsClockPrefix + e.name;
-                devices.addItem (endpointDisplayName (e).toUpperCase(), true, c == key, [set, key] { set (key); });
-            }
-        if (const auto name = c.fromFirstOccurrenceOf (AudioEngine::windowsClockPrefix, false, false);
-            name.isNotEmpty() && std::none_of (endpoints.begin(), endpoints.end(), [&name] (const EndpointInfo& e) { return e.isOutput && e.isActive() && e.name == name; }))
-            devices.addItem (name.toUpperCase() + " (NOT CONNECTED)", true, true, [set, c] { set (c); });   // (the one chosen, while it's away)
-        menu.addSubMenu ("A WINDOWS PLAYBACK DEVICE", devices, devices.getNumItems() > 0, juce::Image(), c.startsWith (AudioEngine::windowsClockPrefix));
-        menu.addItem ("THE BUILT-IN CLOCK", true, c == "builtin", [set] { set ("builtin"); });
-        menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (pick));
-    }
-
-    WindowsAudioBar::WindowsAudioBar()
-    {
-        title.setText ("WINDOWS AUDIO", juce::dontSendNotification);
-        title.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
-        addAndMakeVisible (title);
-        key.setTooltip ("Windows' audio engine (audiodg.exe) at High priority instead of Normal, Windows' default: it can stop crackle "
-                        "on Windows devices and captured apps. ASIO interfaces don't go through it. Windows asks for an administrator's "
-                        "approval each time, and a restart of Windows audio (or the PC) undoes it: you're told when. BACK TO NORMAL undoes it now. "
-                        "PIN TO ONE CORE (off unless you pick it) holds it to the last core: only for crackle on a USB headset.");
-        key.onClick = [this] { showMenu(); };
-        addAndMakeVisible (key);
-        status.setFont (juce::FontOptions (Console::Type::body));
-        status.setColour (juce::Label::textColourId, Console::Colours::legendDim());
-        addAndMakeVisible (status);
-        startTimerHz (2);
-    }
-
-    void WindowsAudioBar::resized()
-    {
-        Console::KeyRow row (getLocalBounds().reduced (Console::Space::pad, 0));
-        row.leftWidth (title, labelWidth).left (key, 4);
-        const auto rest = row.rest().withTrimmedLeft (Console::Space::pad);
-        status.setBounds (rest.withSizeKeepingCentre (rest.getWidth(), Console::Space::key));
-    }
-
-    void WindowsAudioBar::paint (juce::Graphics& g)
-    {
-        g.fillAll (Console::Colours::panel());
-        g.setColour (juce::Colours::black.withAlpha (0.5f));
-        g.fillRect (0, getHeight() - 1, getWidth(), 1);
-    }
-
-    void WindowsAudioBar::timerCallback()
-    {
-        const auto s = now();
-        const juce::String keyText (AudioBoost::isBoosted (s.priority) ? "BOOSTED" : "BOOST WINDOWS AUDIO");
-        if (keyText != key.getButtonText())
-            key.setButtonText (keyText);
-
-        juce::String text;
-        if (s.pid == 0)
-            text = "Now: not running (it starts with the first sound)";
-        else if (s.priority == AudioBoost::Priority::unknown)
-            text = "Now: UNKNOWN (its priority couldn't be read)";
-        else
-            text = "Now: " + AudioBoost::priorityName (s.priority) + " priority"
-                 + (s.priority == AudioBoost::Priority::normal ? juce::String (", Windows' default") : juce::String())
-                 + (s.pinnedCore >= 0 ? ", on core " + juce::String (s.pinnedCore) + " only" : juce::String());
-        const auto more = note ? note() : juce::String();
-        text << ". " << (more.isNotEmpty() ? more : juce::String ("ASIO interfaces aren't affected"));
-        if (text != status.getText())
-            status.setText (text, juce::dontSendNotification);
-    }
-
-    void WindowsAudioBar::showMenu()
-    {
-        const auto s = now();
-        const bool want = wanted && wanted(), pin = pinned && pinned();
-        juce::PopupMenu menu;
-        menu.addSectionHeader ("WINDOWS AUDIO (AUDIODG.EXE): " + AudioBoost::priorityName (s.priority));
-        menu.addItem ("BOOST (HIGH PRIORITY)", true, want, [this, want, boosted = AudioBoost::isBoosted (s.priority)]
-        {
-            if (want && boosted) { if (stopBoosting) stopBoosting(); }
-            else if (boost) boost();
-        });
-        menu.addItem ("PIN TO ONE CORE (ONLY FOR USB-HEADSET CRACKLE)", true, pin, [this, pin] { if (setPinned) setPinned (! pin); });
-        menu.addItem ("BACK TO NORMAL", s.pid != 0 && (s.priority != AudioBoost::Priority::normal || s.pinnedCore >= 0), false,
-                      [this] { if (backToNormal) backToNormal(); });
-        menu.addSeparator();
-        menu.addItem ("WINDOWS ASKS FOR AN ADMINISTRATOR EACH TIME", false, false, nullptr);
-        menu.addItem ("IT DOESN'T AFFECT ASIO INTERFACES", false, false, nullptr);
-        menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (key));
-        timerCallback();
-    }
-
     Streams::Streams (AudioEngine& e) : engine (e)
     {
         reset.setTooltip ("Reset stats");
@@ -692,10 +544,8 @@ namespace DevicesTab
     }
 
     Panel::Panel (juce::ListBox& deviceList, const juce::Array<EndpointInfo>& endpoints, AudioEngine& engine)
-        : list (deviceList), clock (engine, endpoints), tools (deviceList, endpoints, engine), streams (engine)
+        : list (deviceList), tools (deviceList, endpoints, engine), streams (engine)
     {
-        addAndMakeVisible (clock);
-        addAndMakeVisible (windowsAudio);
         addAndMakeVisible (cable);
         addAndMakeVisible (tools);
         addAndMakeVisible (header);
@@ -717,8 +567,6 @@ namespace DevicesTab
         auto r = getLocalBounds();
         if (eventLog != nullptr)
             eventLog->setBounds (r.removeFromBottom (juce::jmin (160, r.getHeight() / 3)));
-        clock.setBounds (r.removeFromTop (barHeight));
-        windowsAudio.setBounds (r.removeFromTop (barHeight));
         if (cable.isInstalled())
             cable.setBounds (r.removeFromTop (barHeight));
         tools.setBounds (r.removeFromTop (barHeight));

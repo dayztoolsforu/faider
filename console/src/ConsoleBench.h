@@ -34,6 +34,8 @@ public:
             for (auto& s : layoutFor (ch).sections)
                 for (auto& item : s.items)
                 {
+                    if (! shows (s) || ! shows (item))
+                        continue;   // (folded away: nothing there to bind)
                     const auto r = itemArea (item, ch);
                     if (item.kind == "fader")                        list.push_back ({ r.toNearestInt(), "fader:" + key });
                     else if (item.kind == "knob" && item.id == "pan") list.push_back ({ r.toNearestInt(), "pan:" + key });
@@ -87,14 +89,15 @@ public:
         {
             if (col.x > clip.getRight() || col.x + col.w < clip.getX())
                 continue;
-            float y0 = 40.0f, total = 0.0f;
-            for (auto& sec : layout.sections)
-                total += sec.height * zoom;
+            float y0 = 40.0f;
+            const float total = stripHeight();
             const auto area = juce::Rectangle<float> (col.x, y0, col.w - 2.0f * zoom, total);
             g.setColour (juce::Colour (0xff111214));
             g.fillRect (area);
             for (auto& sec : layout.sections)   // (the sections' seams carried across, so the desk reads as one)
             {
+                if (! shows (sec))
+                    continue;
                 g.setColour (Console::Colours::recess());
                 g.fillRect (area.withY (y0).withHeight (juce::jmax (1.0f, 1.5f * zoom)));
                 y0 += sec.height * zoom;
@@ -107,9 +110,7 @@ public:
                 paintStrip (g, ch, drawX (ch), clip);
         if (dragging >= 0 && dragMoved)   // DRAGGING A CHANNEL: its place left dark, where it'll land marked, the strip lifted under the mouse
         {
-            float h = 0.0f;
-            for (auto& sec : layout.sections)
-                h += sec.height * zoom;
+            const float h = stripHeight();
             const float w = (layout.width + 2.0f) * zoom;
             g.setColour (juce::Colour (0xff111214));
             g.fillRect (juce::Rectangle<float> (stripX (dragging), 40.0f, w, h));
@@ -133,6 +134,8 @@ public:
         light = ! darkPanel (ch);   // (the light strip, or an output's or combinator's dark one)
         for (auto& s : layoutFor (ch).sections)
         {
+            if (! shows (s))
+                continue;   // (COMPACT: folded away)
             const auto at = juce::AffineTransform::scale (zoom).translated (x0, y0);
             const auto area = juce::Rectangle<float> (layout.width, s.height).transformedBy (at);
             g.setColour (s.panel == "dark" ? Console::Colours::stripDark() : s.panel == "name" ? (ch == selected ? Console::Colours::accent().withMultipliedBrightness (0.60f) : bind.isMaster (ch) ? Console::Colours::kindOutput().withMultipliedBrightness (0.36f) : bind.isBus (ch) ? Console::Colours::kindBus().withMultipliedBrightness (0.37f) : Console::Colours::stripBody())
@@ -149,6 +152,8 @@ public:
             g.fillRect (area.withHeight (juce::jmax (1.0f, 1.5f * zoom)));
             for (auto& item : s.items)
             {
+                if (! shows (item))
+                    continue;
                 // (a part away from the area being drawn: skipped; a line can reach past its box)
                 if (item.kind != "line" && ! clip.intersects ((item.r * zoom).translated (x0, y0).expanded (24.0f * zoom)))
                     continue;
@@ -167,6 +172,8 @@ public:
             float nameTop = 40.0f, nameH = 0.0f;
             for (auto& sec : layoutFor (ch).sections)
             {
+                if (! shows (sec))
+                    continue;
                 if (sec.panel == "name") { nameH = sec.height * zoom; break; }
                 nameTop += sec.height * zoom;
             }
@@ -645,6 +652,12 @@ private:
     {
         return live() && (bind.isMaster (ch) || isCombinator (ch));
     }
+    // COMPACT: a section shows if the desk is whole or it's kept for COMPACT (the name bar, the
+    // fader); a part marked compactOnly (the meter beside the fader) only while it's compact. Every
+    // walk down a strip (drawing, clicks, MIDI MAP, sizes, the sidebar's SECTIONS) asks these.
+    bool shows (const Section& s) const { return ! compact || s.compact; }
+    bool shows (const Item& item) const { return compact || ! item.compactOnly; }
+
     const Layout& layoutFor (int ch) const
     {
         if (bind.isMaster (ch)) return masterLayout;
@@ -798,6 +811,7 @@ private:
         {
             autoSelect = xml->getBoolAttribute ("autoSelect", true);
             followSelect = xml->getBoolAttribute ("followSelect", true);
+            compact = xml->getBoolAttribute ("compact", false);   // (a file from before COMPACT: the whole desk)
             // (the meterIn earlier versions kept is ignored: METER is the engine's meter point now,
             // saved with the settings, and the next save leaves it out)
             for (auto* e : xml->getChildWithTagNameIterator ("Spacer"))
@@ -811,6 +825,7 @@ private:
         juce::XmlElement xml ("Console");
         xml.setAttribute ("autoSelect", autoSelect);
         xml.setAttribute ("followSelect", followSelect);
+        xml.setAttribute ("compact", compact);
         for (auto& sp : spacers)
         {
             auto* e = xml.createNewChildElement ("Spacer");
@@ -986,11 +1001,13 @@ private:
             {
                 if (n == drawn.size())
                     drawn.push_back (-1);
-                if (const auto now = partState (item, ch); std::exchange (drawn[n], now) != now && ! all)
-                    repaint ((item.r * zoom).translated (x0, y0).expanded (16.0f * zoom).getSmallestIntegerContainer());
+                if (shows (s) && shows (item))   // (folded away: not drawn, so not watched; each part keeps its slot)
+                    if (const auto now = partState (item, ch); std::exchange (drawn[n], now) != now && ! all)
+                        repaint ((item.r * zoom).translated (x0, y0).expanded (16.0f * zoom).getSmallestIntegerContainer());
                 ++n;
             }
-            y0 += s.height * zoom;
+            if (shows (s))
+                y0 += s.height * zoom;
         }
     }
     juce::Rectangle<int> stripArea (int ch) const
@@ -1168,12 +1185,14 @@ private:
         float y0 = 40.0f;
         for (auto& s : layoutFor (ch).sections)
         {
+            if (! shows (s))
+                continue;
             for (auto& it : s.items)
                 if (&it == &item)
-                    return (item.r * zoom).translated (x0, y0);
+                    return shows (item) ? (item.r * zoom).translated (x0, y0) : juce::Rectangle<float>();
             y0 += s.height * zoom;
         }
-        return {};
+        return {};   // (not on this strip, or folded away)
     }
     juce::Rectangle<float> orderChip (juce::Rectangle<float> r, int i) const
     {
@@ -1320,12 +1339,35 @@ public:
     void setFollowSelect (bool on) { followSelect = on; saveSpacers(); followFaider(); }
     int sectionCount() const { return (int) layout.sections.size(); }
     juce::String sectionName (int i) const { return layout.sections[(size_t) i].name.toUpperCase(); }
-    juce::Range<float> sectionSpan (int i) const
+    bool sectionShown (int i) const { return shows (layout.sections[(size_t) i]); }
+    juce::Range<float> sectionSpan (int i) const   // (folded away: empty, where it would be)
     {
         float y = 40.0f;
         for (int k = 0; k < i; ++k)
-            y += layout.sections[(size_t) k].height * zoom;
-        return { y, y + layout.sections[(size_t) i].height * zoom };
+            if (shows (layout.sections[(size_t) k]))
+                y += layout.sections[(size_t) k].height * zoom;
+        return { y, y + (sectionShown (i) ? layout.sections[(size_t) i].height * zoom : 0.0f) };
+    }
+
+    // COMPACT (the sidebar's card, FIND, kept in console.xml): every strip folds to its name bar and
+    // fader, with its level meter beside the fader; the desk shrinks to them and the view goes to
+    // the top. Off again: the whole strips.
+    bool isCompact() const { return compact; }
+    void setCompact (bool on)
+    {
+        if (on == compact)
+            return;
+        compact = on;
+        saveSpacers();
+        held = {};
+        hovered = {};
+        shownParts.clear();   // (every part's place moved: all drawn again)
+        shownStrips.clear();
+        resizeToFit();
+        gliding = false;
+        if (auto* view = findParentComponentOfClass<juce::Viewport>())
+            view->setViewPosition (view->getViewPositionX(), 0);
+        repaint();
     }
 
     // The view gliding to a place (negative: that way it stays).
@@ -1846,8 +1888,12 @@ private:
             float y0 = 40.0f;
             for (auto& s : layoutFor (ch).sections)
             {
+                if (! shows (s))
+                    continue;
                 for (auto& item : s.items)
                 {
+                    if (! shows (item))
+                        continue;
                     const auto area = (item.r * zoom).translated (x0, y0);
                     if (item.id.isNotEmpty() && area.contains (p))
                         return { &item, ch };
@@ -2322,11 +2368,17 @@ private:
 
     void resizeToFit()
     {
+        layoutColumns();
+        setSize (juce::roundToInt (deskWidth + 20.0f), juce::roundToInt (60.0f + stripHeight()));
+    }
+    // A strip's height on screen: its sections shown (COMPACT: the name bar and the fader).
+    float stripHeight() const
+    {
         float h = 0.0f;
         for (auto& s : layout.sections)
-            h += s.height;
-        layoutColumns();
-        setSize (juce::roundToInt (deskWidth + 20.0f), juce::roundToInt (60.0f + h * zoom));
+            if (shows (s))
+                h += s.height;
+        return h * zoom;
     }
 
     void timerCallback() override
@@ -2364,6 +2416,7 @@ private:
     float zoom = 0.68f;   // (the layout's pixels are the plugin's at about 150%: this is its 100%)
     int channels = 8;
     bool outlines = false;
+    bool compact = false;   // (COMPACT: setCompact)
     AudioEngine* engine;
     MixerComponent* mixer;   // (Faider's: its plugin picker and rack)
     Binding bind;

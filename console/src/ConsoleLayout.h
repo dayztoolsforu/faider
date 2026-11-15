@@ -91,6 +91,7 @@ namespace
     {
         juce::String kind, id, text, name, colour, lamp, align, ink;
         bool lit = false, single = false;
+        bool compactOnly = false;   // (drawn only while the desk is COMPACT: the level meter beside the fader)
         int litCount = -1;
         juce::StringArray marks;
         juce::Rectangle<float> r;
@@ -99,7 +100,8 @@ namespace
         juce::StringArray colours;
         juce::Path line;
     };
-    struct Section { juce::String name; float height = 0; juce::String panel; std::vector<Item> items; };
+    // `compact`: it stays when the desk is COMPACT (the name bar and the fader); the rest fold away.
+    struct Section { juce::String name; float height = 0; juce::String panel; std::vector<Item> items; bool compact = false; };
     struct Layout { float width = 214.0f; std::vector<Section> sections; juce::String error; };
 
     Layout load (const juce::File& file)
@@ -115,7 +117,7 @@ namespace
         auto num = [] (const juce::var& v, const char* key, double fallback = 0.0) { return (float) (double) v.getProperty (key, fallback); };
         for (auto& s : *json["sections"].getArray())
         {
-            Section section { s["name"].toString(), num (s, "height"), s["panel"].toString(), {} };
+            Section section { s["name"].toString(), num (s, "height"), s["panel"].toString(), {}, (bool) s.getProperty ("compact", false) };
             for (auto& v : *s["items"].getArray())
             {
                 Item item;
@@ -130,6 +132,7 @@ namespace
                 item.lit = (bool) v.getProperty ("lit", false) && ! v["lit"].isInt();
                 item.litCount = v["lit"].isInt() ? (int) v["lit"] : -1;
                 item.single = (bool) v.getProperty ("single", false);
+                item.compactOnly = (bool) v.getProperty ("compactOnly", false);
                 if (auto* list = v["marks"].getArray())
                     for (auto& m : *list)
                         item.marks.add (m.toString());

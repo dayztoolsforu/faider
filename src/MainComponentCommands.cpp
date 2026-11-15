@@ -104,6 +104,9 @@ void MainComponent::openCommandPalette()
         settings.setValue ("warnMutedTalk", warnMutedTalk);
         settings.saveIfNeeded();
     });
+    add (ConsoleDesk::isCompact (*consoleDesk) ? "FULL DESK" : "COMPACT DESK",
+         ConsoleDesk::isCompact (*consoleDesk) ? "Mixer - the whole strips again" : "Mixer - each strip only its name bar and fader, with its meter beside it",
+         [this] { tabs.setCurrentTabIndex (0); ConsoleDesk::setCompact (*consoleDesk, ! ConsoleDesk::isCompact (*consoleDesk)); }, "compact full strips fold");
     add ("ZOOM IN", "Ctrl +", [this] { stepZoom (1); });
     add ("ZOOM OUT", "Ctrl -", [this] { stepZoom (-1); });
     add ("ZOOM 100%", "Ctrl 0", [this] { setZoom (1.0f); });

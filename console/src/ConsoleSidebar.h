@@ -12,8 +12,9 @@
 namespace ConsoleDesk
 {
     // THE SIDEBAR down the left: the pages as cards (an icon and a name, the
-    // one showing lit with a blue edge), then the desk's own cards (+ CHANNEL, + BUS), SELECT and
-    // SECTIONS. (Where the channel meters read is SETTINGS > AUDIO > CHANNEL METER POINT.)
+    // one showing lit with a blue edge), then the desk's own cards (+ CHANNEL, + BUS, PLUGINS,
+    // COMPACT), SELECT and SECTIONS (while COMPACT, only the sections it keeps). (Where the channel
+    // meters read is SETTINGS > AUDIO > CHANNEL METER POINT.)
     class Sidebar : public juce::Component, private juce::Timer
     {
     public:
@@ -47,12 +48,14 @@ namespace ConsoleDesk
             if (view == nullptr)
                 return;
             auto& b = *view->bench;
+            card (g, actionArea (4), "COMPACT", "compact", b.isCompact(), hovered == 104, pushed == 104);   // (lit while the strips are folded)
             heading (g, "SELECT", selectTitle());
             pill (g, pairArea (selectTitle(), 0), "AUTO", b.autoSelect, hovered == 110, pushed == 110);
             pill (g, pairArea (selectTitle(), 1), "FOLLOW", b.followSelect, hovered == 111, pushed == 111);
             heading (g, "SECTIONS", sectionsTitle());
-            for (int i = 0; i < b.sectionCount(); ++i)
-                sectionRow (g, sectionArea (i), b.sectionName (i), (visibleSections() >> i) & 1, hovered == 200 + i);
+            const auto rows = listed();
+            for (int row = 0; row < (int) rows.size(); ++row)
+                sectionRow (g, sectionArea (row), b.sectionName (rows[(size_t) row]), (visibleSections() >> rows[(size_t) row]) & 1, hovered == 200 + rows[(size_t) row]);
         }
 
         void mouseMove (const juce::MouseEvent& e) override { setHovered (at (e.getPosition())); }
@@ -81,6 +84,8 @@ namespace ConsoleDesk
             }
             else if (i == 102 && view != nullptr)
                 view->showPlugins (! view->pluginsOpen());
+            else if (i == 104 && view != nullptr)
+                view->bench->setCompact (! view->bench->isCompact());
             else if (i == 110 && view != nullptr)
                 view->bench->setAutoSelect (! view->bench->autoSelect);
             else if (i == 111 && view != nullptr)
@@ -99,24 +104,34 @@ namespace ConsoleDesk
             for (int i = 0; i < tabs.getNumTabs(); ++i)
                 if (cardArea (i).contains (p))
                     return i;
-            static const int actions[] = { 100, 103, 101, 102 };   // (ADD CHANNEL, ADD APP, ADD BUS, PLUGINS)
-            for (int i = 0; i < (simpleNow() ? 2 : 4) && onMixer(); ++i)
+            static const int actions[] = { 100, 103, 101, 102, 104 };   // (ADD CHANNEL, ADD APP, ADD BUS, PLUGINS, COMPACT)
+            for (int i = 0; i < (simpleNow() ? 2 : 5) && onMixer(); ++i)
                 if (actionArea (i).contains (p))
                     return actions[i];
             if (onMixer() && view != nullptr && ! simpleNow())
             {
                 for (int i = 0; i < 2; ++i)
                     if (pairArea (selectTitle(), i).contains (p)) return 110 + i;
-                for (int i = 0; i < view->bench->sectionCount(); ++i)
-                    if (sectionArea (i).contains (p))
-                        return 200 + i;
+                const auto rows = listed();
+                for (int row = 0; row < (int) rows.size(); ++row)
+                    if (sectionArea (row).contains (p))
+                        return 200 + rows[(size_t) row];
             }
             return -1;
+        }
+        // The sections SECTIONS lists: all of them, or while COMPACT only those it keeps.
+        std::vector<int> listed() const
+        {
+            std::vector<int> rows;
+            for (int i = 0; view != nullptr && i < view->bench->sectionCount(); ++i)
+                if (view->bench->sectionShown (i))
+                    rows.push_back (i);
+            return rows;
         }
         bool onMixer() const { return tabs.getCurrentTabIndex() == 0; }
         bool simpleNow() const { return view != nullptr && view->isSimple(); }
         juce::Rectangle<int> titleBelow (juce::Rectangle<int> above) const { return { 14, above.getBottom() + 14, getWidth() - 20, 20 }; }
-        juce::Rectangle<int> selectTitle() const { return titleBelow (actionArea (3)); }
+        juce::Rectangle<int> selectTitle() const { return titleBelow (actionArea (4)); }
         juce::Rectangle<int> pairArea (juce::Rectangle<int> title, int i) const
         {
             const int w = (getWidth() - 20) / 2;
@@ -132,7 +147,7 @@ namespace ConsoleDesk
             const auto seen = view->viewArea().toFloat().withTrimmedTop (40.0f);
             int mask = 0;
             for (int i = 0; i < view->bench->sectionCount(); ++i)
-                if (const auto span = view->bench->sectionSpan (i); span.getEnd() > seen.getY() && span.getStart() < seen.getBottom())
+                if (const auto span = view->bench->sectionSpan (i); ! span.isEmpty() && span.getEnd() > seen.getY() && span.getStart() < seen.getBottom())
                     mask |= 1 << i;
             return mask;
         }
@@ -259,6 +274,12 @@ namespace ConsoleDesk
                     g.fillEllipse (juce::Rectangle<float> (w * 0.22f, w * 0.22f).withCentre ({ r.getX() + w * 0.12f, y }));
                     g.fillRect (r.getX() + w * 0.34f, y - 0.8f, w * 0.66f, 1.6f);
                 }
+            else if (icon == "compact")   // a name bar over one fader: what a folded strip keeps
+            {
+                g.fillRoundedRectangle (r.withHeight (h * 0.2f), 1.0f);
+                g.fillRect (r.getCentreX() - 0.6f, r.getY() + h * 0.32f, 1.2f, h * 0.68f);
+                g.fillRoundedRectangle (r.getCentreX() - w * 0.16f, r.getY() + h * 0.55f, w * 0.32f, h * 0.2f, 1.0f);
+            }
             else if (icon == "plus")
             {
                 g.fillRect (juce::Rectangle<float> (w, 1.6f).withCentre (r.getCentre()).reduced (w * 0.15f, 0.0f));
@@ -285,11 +306,16 @@ namespace ConsoleDesk
                 shownSimple = simpleNow();
                 repaint();
             }
+            if (const bool now = view != nullptr && view->bench->isCompact(); now != shownCompact)   // (COMPACT from FIND: its card and SECTIONS)
+            {
+                shownCompact = now;
+                repaint();
+            }
         }
 
         juce::TabbedComponent& tabs;
         View* view;
-        bool shownSimple = false;
+        bool shownSimple = false, shownCompact = false;
         int hovered = -1, pushed = -1, shown = -1, shownSections = -1;
     };
 }

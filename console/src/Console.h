@@ -13,6 +13,11 @@ namespace ConsoleDesk
     std::unique_ptr<juce::Component> make (AudioEngine&, MixerComponent&, bool simple, std::function<void (bool simple)> modeChanged, std::function<void()> openSetup);
     void setSimple (juce::Component& console, bool simple);
 
+    // COMPACT: the PRO desk's strips folded to their name bars and faders (a meter beside each), or
+    // whole again; remembered. Switching it from SIMPLE opens the PRO desk.
+    bool isCompact (juce::Component& console);
+    void setCompact (juce::Component& console, bool compact);
+
     // The sidebar down the app's left: the pages as cards, then the desk's
     // own (+ CHANNEL, + APP, + BUS). `console` is what make() returned.
     std::unique_ptr<juce::Component> makeSidebar (juce::TabbedComponent&, juce::Component& console);

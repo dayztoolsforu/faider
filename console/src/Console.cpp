@@ -28,6 +28,22 @@ namespace ConsoleDesk
             view->setSimple (simple);
     }
 
+    bool isCompact (juce::Component& console)
+    {
+        auto* view = dynamic_cast<View*> (&console);
+        return view != nullptr && view->bench->isCompact();
+    }
+
+    void setCompact (juce::Component& console, bool compact)
+    {
+        if (auto* view = dynamic_cast<View*> (&console))
+        {
+            if (view->isSimple())
+                view->switchTo (false);   // (COMPACT is the PRO desk's: it opens on it)
+            view->bench->setCompact (compact);
+        }
+    }
+
     std::unique_ptr<juce::Component> makeRouting (juce::Component& console)
     {
         return std::make_unique<RoutingView> (dynamic_cast<View&> (console));

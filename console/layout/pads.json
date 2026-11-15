@@ -140,6 +140,7 @@
   {
    "name": "NAME",
    "height": 48.1,
+   "compact": true,
    "items": [
     {
      "kind": "name",
@@ -155,7 +156,17 @@
   {
    "name": "FADER",
    "height": 628.2,
+   "compact": true,
    "items": [
+    {
+     "kind": "bars",
+     "x": 198.0,
+     "y": 146.7,
+     "w": 14.0,
+     "h": 401.2,
+     "single": true,
+     "compactOnly": true
+    },
     {
      "kind": "knob",
      "id": "pan",

@@ -7,7 +7,7 @@
 // plugged in or gone, a channel clipping, a scene or macro, an undo). Each slides in from the right
 // with a little overshoot, settles into the stack (newest at the bottom, the others gliding up to
 // make room), stays about four seconds and fades away; click one to dismiss it. The full record
-// stays in the event log. A kind can be switched off (SETTINGS > GENERAL: `enabled`).
+// stays in the event log. A kind can be switched off (SETTINGS > NOTIFICATIONS: `enabled`).
 class Toasts : public juce::Component, private juce::Timer
 {
 public:

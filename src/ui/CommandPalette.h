@@ -20,6 +20,7 @@ public:
         juce::String name;      // what it does: "CUT MICROPHONE"
         juce::String detail;    // what it is, dimmer: "Input"
         std::function<void()> run;
+        juce::String keywords = {};   // more words it's found by, not shown (a setting's description)
     };
 
     CommandPalette (std::vector<Command> commands, std::function<void()> closeIt)
@@ -123,7 +124,7 @@ private:
     {
         if (words.isEmpty())
             return 1;
-        const auto name = c.name.toLowerCase(), text = name + " " + c.detail.toLowerCase();
+        const auto name = c.name.toLowerCase(), text = name + " " + c.detail.toLowerCase() + " " + c.keywords.toLowerCase();
         int total = 0;
         for (auto& w : words)
         {

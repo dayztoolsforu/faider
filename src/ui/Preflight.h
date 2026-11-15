@@ -6,8 +6,8 @@
 // PRE-FLIGHT: before going live, the setup at a glance. A row per check, a light (green: fine,
 // red: not, yellow: only a suggestion), what it found, and a FIX key where one click can put it right
 // (the mic output's row, while it's fine, has HEAR WHAT THEY HEAR instead). Shown a few seconds
-// after Faider starts if anything's wrong (SETTINGS > GENERAL can stop that), and from FIND.
-// ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, SETTINGS > GENERAL, or FIND).
+// after Faider starts if anything's wrong (SETTINGS > STARTUP & CHECKS can stop that), and from FIND.
+// ZERO DESK is the same panel with its own checks (from PRE-FLIGHT's ZERO THE DESK, SETTINGS > STARTUP & CHECKS, or FIND).
 // While it shows, the checks are looked at again every 1.5 s and the rows follow: a fix that ends
 // later than its key (SET MY DEFAULTS' menu, BOOST once Windows has asked), ZERO THE DESK's own
 // panel, or the mix changing behind it.

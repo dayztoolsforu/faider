@@ -7,7 +7,7 @@
 // MIDI MAP: tying a MIDI controller to the desk. Every control that can be played from MIDI is
 // outlined on screen; click one, then move a knob or fader or press a key on the controller, and
 // it's bound. Bound controls show what they're bound to; right-click one to clear it. The tabs and
-// CONTROL key keep working, so any page can be mapped. Ctrl+L, Esc or CONTROL > MIDI MAP leaves it.
+// MIDI MAP key in SETTINGS > MIDI & OSC keep working, so any page can be mapped. Ctrl+L, Esc or that key leaves it.
 namespace MidiMap
 {
     // Marks a control as bindable.
@@ -48,7 +48,7 @@ class MidiMapOverlay : public juce::Component,
 {
 public:
     // root: the window's content (whose controls are mapped); passThrough: keys that keep working
-    // under the overlay (the tabs' bar, CONTROL).
+    // under the overlay (the tabs' bar, SETTINGS' MIDI MAP key).
     MidiMapOverlay (RemoteControl& r, juce::Component& rootComponent, std::function<bool (juce::Point<int>)> passThroughAt)
         : remote (r), root (rootComponent), passThrough (std::move (passThroughAt))
     {

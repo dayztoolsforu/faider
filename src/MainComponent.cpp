@@ -37,9 +37,9 @@ MainComponent::MainComponent()
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
     tooltips.setOpaque (false);   // the look draws a rounded card with a drop shadow round it
     Metering::setStandard (settings.getValue ("meterStandard", "peak"));
-    if (const auto exe = settings.getValue ("ffmpegPath"); exe.isNotEmpty())   // (SETTINGS > GENERAL > FFMPEG)
+    if (const auto exe = settings.getValue ("ffmpegPath"); exe.isNotEmpty())   // (SETTINGS > RECORDING > FFMPEG)
         Recorder::setFfmpeg (juce::File (exe));
-    PluginScan::setTestTime (settings.getIntValue ("pluginTestSeconds", 30));   // (SETTINGS > GENERAL > PLUGIN TEST TIME)
+    PluginScan::setTestTime (settings.getIntValue ("pluginTestSeconds", 30));   // (SETTINGS > AUDIO > PLUGIN TEST TIME)
     AudioEngine::meterPoint = juce::jlimit (0, 2, settings.getIntValue ("meterPoint", 2));
 
     eventLog.setMultiLine (true);
@@ -91,7 +91,7 @@ MainComponent::MainComponent()
     };
 
     // --clock builtin | windows | <ASIO driver>: starts on that clock, with the saved mix. Without
-    // it, DEVICES > CLOCK's choice does the same ("builtin", or "windows:" and a playback device).
+    // it, SETTINGS > AUDIO > CLOCK's choice does the same ("builtin", or "windows:" and a playback device).
     const auto args = juce::JUCEApplicationBase::getCommandLineParameterArray();
     juce::String wanted;
     if (const int i = args.indexOf ("--clock"); i >= 0 && i + 1 < args.size())
@@ -131,7 +131,7 @@ MainComponent::MainComponent()
     if (wanted.isNotEmpty())
     {
         savedMaster = savedName;   // (a run on a chosen clock leaves the mix's own interface as it was)
-        logEvent ("master: " + interfaceName + (clockFromCommandLine ? " (--clock)" : " (DEVICES > CLOCK)"));
+        logEvent ("master: " + interfaceName + (clockFromCommandLine ? " (--clock)" : " (SETTINGS > AUDIO > CLOCK)"));
         clockForced = true;
     }
     else if (! savedInterfacePresent)
@@ -233,32 +233,8 @@ MainComponent::MainComponent()
     tabs.addTab ("Tools", juce::Colours::transparentBlack, tools.get(), false);
     tabs.addTab ("Devices", juce::Colours::transparentBlack, &devicesPanel, false);
     devicesPanel.getTools().onDevicesChanged = [this] { sortDevices(); };
-    auto& clockBar = devicesPanel.getClock();
-    clockBar.choice = [this] { return settings.getValue ("clock"); };
-    clockBar.choose = [this] (const juce::String& c) { chooseClock (c); };
-    clockBar.note = [this]
-    {
-        if (clockFromCommandLine)
-            return juce::String ("--clock on the command line sets it for this run");
-        return settings.getValue ("clock") != clockChosenAtStart ? juce::String ("The new choice takes effect when ") + Product::name + " starts again" : juce::String();
-    };
-    // WINDOWS AUDIO: audiodg's priority, read now and every 5 s (timerCallback), and BOOST.
+    // WINDOWS AUDIO (SETTINGS > AUDIO): audiodg's priority, read now and every 5 s (timerCallback).
     windowsAudio = AudioBoost::read();
-    auto& windowsAudioBar = devicesPanel.getWindowsAudio();
-    windowsAudioBar.state = [this] { return windowsAudio; };
-    windowsAudioBar.wanted = [this] { return settings.getBoolValue ("boostAudiodg"); };
-    windowsAudioBar.pinned = [this] { return settings.getBoolValue ("boostPinCore"); };
-    windowsAudioBar.boost = [this] { boostWindowsAudio(); };
-    windowsAudioBar.stopBoosting = [this] { stopBoostingWindowsAudio(); };
-    windowsAudioBar.backToNormal = [this] { unboostWindowsAudio(); };
-    windowsAudioBar.setPinned = [this] (bool pin)
-    {
-        settings.setValue ("boostPinCore", pin);
-        settings.saveIfNeeded();
-        boostNote = pin ? "It's pinned to the last core from the next BOOST"
-                        : "From the next BOOST it isn't pinned (a pin already made stays until Windows audio restarts)";
-    };
-    windowsAudioBar.note = [this] { return boostNote; };
 
     // Devices list order: a column (DevicesTab::columns), "-" in front for descending; remembered.
     if (const auto sort = settings.getValue ("deviceSort"); sort.isNotEmpty())
@@ -829,7 +805,7 @@ void MainComponent::showHistory (juce::PopupMenu::Options where)
     menu.showMenuAsync (where);
 }
 
-// MIDI MAP mode (MidiMap.h): an overlay over the whole window; the tabs and SETTINGS > CONTROL still work.
+// MIDI MAP mode (MidiMap.h): an overlay over the whole window; the tabs and SETTINGS > MIDI & OSC's MIDI MAP key still work.
 void MainComponent::toggleMidiMap()
 {
     if (midiMap != nullptr)
@@ -844,8 +820,8 @@ void MainComponent::toggleMidiMap()
         for (int i = 0; i < bar.getNumTabs(); ++i)
             if (auto* b = bar.getTabButton (i); b != nullptr && b->getScreenBounds().contains (screen))
                 return true;
-        // and SETTINGS > CONTROL (its MIDI MAP key turns the mode off)
-        return controlPanel != nullptr && controlPanel->isShowing() && controlPanel->getScreenBounds().contains (screen);
+        // and SETTINGS > MIDI & OSC's FINISH MAPPING (it turns the mode off)
+        return settingsTab != nullptr && settingsTab->passesThrough (screen);
     });
     midiMap->onClose = [this] { juce::MessageManager::callAsync ([self = juce::Component::SafePointer<MainComponent> (this)] { if (self != nullptr) self->midiMap = nullptr; }); };
     addAndMakeVisible (*midiMap);
@@ -876,8 +852,7 @@ MainComponent::~MainComponent()
     mini = nullptr;          // (its mixer reads the engine)
     overlay = nullptr;
     settingsTab = nullptr;
-    controlPanel = nullptr;    // it reads the remote
-    hotkeysPage = nullptr;     // (its list reads the pads, macros and scenes)
+    hotkeysPage = nullptr;     // (its list reads the pads, macros and scenes; the tab's rows read the remote)
     midiMap = nullptr;
     engine.getRemote().appTarget = nullptr;
     engine.onAdded = nullptr;

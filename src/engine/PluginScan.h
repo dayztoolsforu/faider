@@ -30,7 +30,7 @@ namespace PluginScan
     // its child closed and nothing recorded.
     juce::String test (const juce::String& path, int timeoutMs = 0, const std::atomic<bool>* stop = nullptr);
 
-    // How long a plugin has to load before its test fails (SETTINGS > GENERAL: 30, 60 or 120 s).
+    // How long a plugin has to load before its test fails (SETTINGS > AUDIO: 30, 60 or 120 s).
     void setTestTime (int seconds);
     int testTime();
 

@@ -108,7 +108,7 @@ Recorder::Format Recorder::formatFor (const juce::String& id)
 namespace
 {
     juce::CriticalSection chosenLock;
-    juce::File chosenFfmpeg;   // SETTINGS > GENERAL > FFMPEG
+    juce::File chosenFfmpeg;   // SETTINGS > RECORDING > FFMPEG
 }
 
 void Recorder::setFfmpeg (const juce::File& exe)

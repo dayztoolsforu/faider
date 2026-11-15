@@ -28,7 +28,7 @@ void MainComponent::watchWindowsAudio()
     boostNote = "The boost is off: BOOST WINDOWS AUDIO again";
     if (onNotify)
         onNotify (title, "To boost it again: right-click the tray icon > Boost Windows audio again... (Windows asks first)");
-    toasts.show ("device", title, "FIND: BOOST WINDOWS AUDIO, or DEVICES > WINDOWS AUDIO");
+    toasts.show ("device", title, "FIND: BOOST WINDOWS AUDIO, or SETTINGS > AUDIO > WINDOWS AUDIO");
 }
 
 // BOOST: the helper started elevated (Windows asks first), its answer said in plain words. Done

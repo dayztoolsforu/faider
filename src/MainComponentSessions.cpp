@@ -78,7 +78,7 @@ void MainComponent::addSessionItems (juce::PopupMenu& menu)
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix
 // (Faider restarts), or one channel just as it was then (its level, pan, mute and rack). From
-// SETTINGS > GENERAL, FIND, or the tray menu (where the window may be hidden: at the mouse).
+// SETTINGS > SESSIONS, FIND, or the tray menu (where the window may be hidden: at the mouse).
 void MainComponent::showTimeline (juce::PopupMenu::Options where)
 {
     juce::PopupMenu menu;
@@ -178,6 +178,20 @@ void MainComponent::exportSession()
         const auto file = fc.getResult().withFileExtension ("xml");
         if (fc.getResult() != juce::File() && file.replaceWithText (Session::save (engine, masterToSave())->toString()))
             logEvent ("sessions: exported to " + file.getFullPathName());
+    });
+}
+
+// A saved session (SETTINGS > SESSIONS' EXPORT), copied to a file.
+void MainComponent::exportSessionFile (const juce::File& saved)
+{
+    sessionChooser = std::make_unique<juce::FileChooser> ("Export the session", juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
+                                                                                    .getChildFile (saved.getFileName()), "*.xml");
+    sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
+                                 [this, saved] (const juce::FileChooser& fc)
+    {
+        const auto file = fc.getResult().withFileExtension ("xml");
+        if (fc.getResult() != juce::File() && file != saved && saved.copyFileTo (file))
+            logEvent ("sessions: " + saved.getFileNameWithoutExtension() + " exported to " + file.getFullPathName());
     });
 }
 

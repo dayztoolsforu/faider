@@ -6,7 +6,7 @@
 #include "DotMatrix.h"
 #include "MidiMap.h"
 
-// The MIDI page (CONTROL > MIDI...): the MIDI inputs to listen to, every binding (controller
+// The MIDI page (SETTINGS > MIDI & OSC > INPUTS AND BINDINGS): the MIDI inputs to listen to, every binding (controller
 // control and what it works, with a key to clear each), the last control the controllers sent,
 // and MIDI MAP to bind more by clicking them on screen.
 class MidiPanel : public juce::Component,

@@ -13,9 +13,9 @@ void MainComponent::openCommandPalette()
         return palette->grabFocus();
 
     std::vector<CommandPalette::Command> commands;
-    auto add = [&commands] (juce::String name, juce::String detail, std::function<void()> run)
+    auto add = [&commands] (juce::String name, juce::String detail, std::function<void()> run, juce::String keywords = {})
     {
-        commands.push_back ({ std::move (name), std::move (detail), std::move (run) });
+        commands.push_back ({ std::move (name), std::move (detail), std::move (run), std::move (keywords) });
     };
 
     const auto pages = tabs.getTabNames();
@@ -87,9 +87,12 @@ void MainComponent::openCommandPalette()
     add (mini != nullptr ? "HIDE MINI MIXER" : "MINI MIXER", "The outputs' faders in a small window, PIN keeps it on top", [this] { toggleMini(); });
     add ("HISTORY", "Ctrl+H - every undo step, go back to any",[this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); });
     add ("MIDI MAP", "Ctrl+L - link controls to MIDI", [this] { toggleMidiMap(); });
-    for (auto [section, detail] : { std::pair ("General", "Start with Windows, zoom, meters"), std::pair ("Macros", "Macros and their triggers"),
-                                    std::pair ("Hotkeys", "Every global hotkey"), std::pair ("Control", "MIDI and OSC") })
-        add ("SETTINGS: " + juce::String (section).toUpperCase(), detail, [this, section = juce::String (section)] { openSettings (section); });
+    // SETTINGS: each page, and each setting by its name (the same list the tab's rows come from).
+    for (auto& p : settingsTab->getPages())
+        add ("SETTINGS: " + p.name.toUpperCase(), "Settings page", [this, name = p.name] { openSettings (name); }, p.intro + " " + p.keywords);
+    for (auto& s : settingsTab->getSettings())
+        add (s.name.toUpperCase(), "Settings > " + s.page, [this, page = s.page, name = s.name] { openSetting (page, name); },
+             s.description + " " + s.keywords + " " + s.section);
     add ("ADD CHANNEL", "Mic, device or app", [this]
     {
         tabs.setCurrentTabIndex (0);

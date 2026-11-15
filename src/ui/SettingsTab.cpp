@@ -1,178 +1,45 @@
 #include "SettingsTab.h"
 
-//==============================================================================
-void OptionsPage::heading (const juce::String& text)
-{
-    auto* l = labels.add (new juce::Label ({}, text));
-    l->setFont (Console::legendFont (Console::Type::name));   // section headings
-    l->setColour (juce::Label::textColourId, Console::Colours::legendDim());
-    l->setFont (LargeFormat::print (12.5f));   // (the console's print)
-    l->setColour (juce::Label::textColourId, DeskSettings::print());
-    addAndMakeVisible (l);
-    rows.push_back ({ l, true });
-}
-
-void OptionsPage::toggle (const juce::String& text, const juce::String& tip, std::function<bool()> get, std::function<void (bool)> set)
-{
-    auto* sw = switches.add (new DeskSettings::Switch (text));
-    sw->setTooltip (tip);
-    addAndMakeVisible (sw);
-    rows.push_back ({ sw, false });
-    sw->onClick = [this, get, set] { set (! get()); refresh(); };
-    refreshers.push_back ([sw, get] { sw->setToggleState (get(), juce::dontSendNotification); });
-}
-
-void OptionsPage::choice (const juce::StringArray& names, std::function<int()> get, std::function<void (int)> set, bool oneRow)
-{
-    for (int i = 0; i < names.size(); ++i)
-    {
-        auto& b = key (names[i], {}, oneRow && i > 0);
-        b.onClick = [this, i, set] { set (i); refresh(); };
-        refreshers.push_back ([&b, i, get] { b.setToggleState (get() == i, juce::dontSendNotification); });
-    }
-}
-
-void OptionsPage::action (const juce::String& text, const juce::String& tip, std::function<void()> run)
-{
-    auto& b = key (text, tip);
-    b.setClickingTogglesState (false);
-    b.onClick = std::move (run);
-}
-
-void OptionsPage::actionShowing (std::function<juce::String()> text, const juce::String& tip, std::function<void()> run)
-{
-    auto& b = key (text(), tip);
-    b.setClickingTogglesState (false);
-    b.onClick = std::move (run);
-    refreshers.push_back ([&b, text] { if (const auto now = text(); now != b.getButtonText()) b.setButtonText (now); });
-}
-
-void OptionsPage::finish()
-{
-    refresh();
-    setSize (juce::jmax (getWidth(), width), heightFor (juce::jmax (getWidth(), width)));
-}
-
-void OptionsPage::paint (juce::Graphics& g)
-{
-    g.fillAll (DeskSettings::desk());
-    for (auto& c : cards)
-        DeskSettings::card (g, c.toFloat());
-}
-
-int OptionsPage::arrange (int w, bool apply)
-{
-    constexpr int pad = 14, gap = 12, cardW = 300, head = 30, rowH = 28, rowGap = 4, inner = 12;
-    const int columns = juce::jmax (1, (w - 2 * pad + gap) / (cardW + gap));
-    const int colW = (w - 2 * pad - (columns - 1) * gap) / columns;
-    std::vector<int> bottom ((size_t) columns, pad);
-    if (apply)
-        cards.clear();
-    for (size_t i = 0; i < rows.size();)
-    {
-        size_t end = i + 1;   // (a heading and the rows after it)
-        while (end < rows.size() && ! rows[end].heading)
-            ++end;
-        const int h = (rows[i].heading ? head : inner) + (int) (end - i - (rows[i].heading ? 1 : 0)) * (rowH + rowGap) + inner;
-        const auto c = (size_t) (std::min_element (bottom.begin(), bottom.end()) - bottom.begin());
-        const juce::Rectangle<int> box (pad + (int) c * (colW + gap), bottom[c], colW, h);
-        bottom[c] += h + gap;
-        if (apply)
-        {
-            cards.push_back (box);
-            auto r = box.reduced (inner, 0);
-            size_t k = i;
-            if (rows[i].heading)
-            {
-                rows[i].c->setBounds (r.withHeight (head).withTrimmedTop (4));
-                r.removeFromTop (head);
-                ++k;
-            }
-            else
-                r.removeFromTop (inner);
-            for (; k < end; ++k)
-            {
-                auto line = r.removeFromTop (rowH);
-                r.removeFromTop (rowGap);
-                const int n = (int) rows[k].more.size() + 1;
-                const int kw = (line.getWidth() - (n - 1) * 4) / n;
-                rows[k].c->setBounds (line.removeFromLeft (n == 1 ? line.getWidth() : kw));
-                for (auto* m : rows[k].more)
-                {
-                    line.removeFromLeft (4);
-                    m->setBounds (m == rows[k].more.back() ? line : line.removeFromLeft (kw));
-                }
-            }
-        }
-        i = end;
-    }
-    return *std::max_element (bottom.begin(), bottom.end()) + pad;
-}
-
-juce::TextButton& OptionsPage::key (const juce::String& text, const juce::String& tip, bool besideLast)
-{
-    auto* b = keys.add (new juce::TextButton (text));
-    b->setClickingTogglesState (true);   // (lights it; refresh then shows what it set really did)
-    b->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
-    b->setTooltip (tip);
-    addAndMakeVisible (b);
-    if (besideLast && ! rows.empty() && ! rows.back().heading)
-        rows.back().more.push_back (b);
-    else
-        rows.push_back ({ b, false });
-    return *b;
-}
-
-void OptionsPage::refresh()
-{
-    for (auto& r : refreshers)
-        r();
-}
-
-void OptionsPage::lookAndFeelChanged()
-{
-    for (auto* l : labels)
-        l->setColour (juce::Label::textColourId, Console::Colours::legendDim());
-    for (auto* b : keys)
-        b->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
-    repaint();
-}
+using namespace SettingsUi;
 
 //==============================================================================
 HotkeysPage::HotkeysPage (std::function<std::vector<Entry>()> listFn) : list (std::move (listFn))
 {
-    note.setFont (juce::FontOptions (Console::Type::body));
-    note.setColour (juce::Label::textColourId, Console::Colours::legendDim());
-    DeskSettings::styleHeading (note);
-    addAndMakeVisible (note);
+    addAndMakeVisible (assigned);
+    addAndMakeVisible (fixed);
     rebuild();
     startTimerHz (1);
 }
 
-void HotkeysPage::paint (juce::Graphics& g)
+juce::String HotkeysPage::keyText (const juce::String& description)
 {
-    g.fillAll (DeskSettings::desk());
-    for (auto& c : cards)
-        DeskSettings::card (g, c.toFloat());
+    auto words = juce::StringArray::fromTokens (description, " ", {});
+    for (auto& w : words)
+        w = w.substring (0, 1).toUpperCase() + w.substring (1);
+    return words.joinIntoString (" ");
 }
 
-int HotkeysPage::arrangeCards (int w, bool apply)
+int HotkeysPage::heightFor (int width) const
 {
-    if (apply)
-        note.setBounds (14, 10, w - 28, 24);
-    std::vector<DeskSettings::Group> groups;
-    for (auto& row : rows)
-    {
-        if (row.heading != nullptr)
-            groups.push_back ({ row.heading.get(), {} });
-        else if (groups.empty())
-            continue;
-        else if (row.keyButton == nullptr)   // (a line of its own: the group's note, a warning)
-            groups.back().rows.push_back ({ { row.name.get() }, 0 });
-        else
-            groups.back().rows.push_back ({ { row.name.get(), row.keyButton.get() }, 160 });
-    }
-    return DeskSettings::arrange (groups, w, apply, cards, 400, 42);
+    return textHeight (note, font (13.0f), width) + 4 + headingHeight + assigned.heightFor (width) + headingHeight + fixed.heightFor (width);
+}
+
+void HotkeysPage::resized()
+{
+    int y = textHeight (note, font (13.0f), getWidth()) + 4 + headingHeight;
+    assigned.setBounds (0, y, getWidth(), assigned.heightFor (getWidth()));
+    y = assigned.getBottom() + headingHeight;
+    fixed.setBounds (0, y, getWidth(), fixed.heightFor (getWidth()));
+}
+
+void HotkeysPage::paint (juce::Graphics& g)
+{
+    const int noteH = textHeight (note, font (13.0f), getWidth());
+    drawText (g, note, font (13.0f, problem.isNotEmpty()), problem.isNotEmpty() ? Ink::warning() : Ink::dim(), { 0, 0, getWidth(), noteH });
+    g.setColour (Ink::dim());
+    g.setFont (font (13.0f, true));
+    g.drawText ("Assigned", juce::Rectangle<int> (2, noteH + 4, getWidth(), headingHeight - 8), juce::Justification::bottomLeft, true);
+    g.drawText ("Fixed", juce::Rectangle<int> (2, assigned.getBottom(), getWidth(), headingHeight - 8), juce::Justification::bottomLeft, true);
 }
 
 bool HotkeysPage::keyPressed (const juce::KeyPress& key)
@@ -182,17 +49,20 @@ bool HotkeysPage::keyPressed (const juce::KeyPress& key)
     if (key == juce::KeyPress::escapeKey)
         stopCapturing ({});
     else if (key == juce::KeyPress::deleteKey || key == juce::KeyPress::backspaceKey)
-        stopCapturing (entries[(size_t) capturing].set ({}) ? juce::String() : "COULDN'T CLEAR IT");
+        stopCapturing (entries[(size_t) capturing].set ({}) ? juce::String() : "Couldn't clear it");
     else if (! GlobalHotkeys::usable (key))
-        note.setText ("NEEDS CTRL, ALT OR AN F KEY", juce::dontSendNotification);
+    {
+        note = "Needs Ctrl, Alt or an F key";
+        repaint();
+    }
     else
     {
         // Refused: what has the key here keeps it (it isn't even tried); or Windows won't give it, so another app has it.
-        const auto text = key.getTextDescription().toUpperCase();
+        const auto text = keyText (key.getTextDescription());
         if (const int holder = holderOf (key.getTextDescription(), capturing); holder >= 0)
-            stopCapturing (text + " IS ALREADY THE KEY FOR " + entries[(size_t) holder].name);
+            stopCapturing (text + " is already the key for " + entries[(size_t) holder].name);
         else
-            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : text + " IS TAKEN BY ANOTHER APP");
+            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : text + " is taken by another app");
     }
     return true;
 }
@@ -231,94 +101,64 @@ int HotkeysPage::holderOf (const juce::String& key, int except) const
     return -1;
 }
 
-void HotkeysPage::addLine (const juce::String& text, juce::Colour colour)
-{
-    Row r;
-    r.name = std::make_unique<juce::Label> (juce::String(), text);
-    DeskSettings::styleText (*r.name);
-    r.name->setColour (juce::Label::textColourId, colour);
-    r.name->setMinimumHorizontalScale (0.7f);
-    r.name->setTooltip (text);
-    addAndMakeVisible (*r.name);
-    rows.push_back (std::move (r));
-}
-
 void HotkeysPage::rebuild()
 {
     entries = list();
     shown = signature (entries);
-    rows.clear();
     clashes = 0;
-    juce::String group;
-    for (size_t i = 0; i < entries.size(); ++i)
+    std::vector<Table::Line> settable, always;
+    for (int i = 0; i < (int) entries.size(); ++i)
     {
-        auto& e = entries[i];
-        if (e.group != group)
-        {
-            group = e.group;
-            Row r;
-            r.heading = std::make_unique<juce::Label> (juce::String(), group);
-            r.heading->setFont (Console::legendFont (Console::Type::name));
-            r.heading->setColour (juce::Label::textColourId, Console::Colours::legendDim());
-            DeskSettings::styleHeading (*r.heading);
-            addAndMakeVisible (*r.heading);
-            rows.push_back (std::move (r));
-            if (e.where.isNotEmpty())
-                addLine (e.where, Console::Colours::legendDim());
-        }
-        Row r;
-        r.name = std::make_unique<juce::Label> (juce::String(), e.name);
-        r.name->setFont (juce::FontOptions (Console::Type::body));
-        r.name->setColour (juce::Label::textColourId, Console::Colours::legend());
-        DeskSettings::styleText (*r.name);
-        addAndMakeVisible (*r.name);
-        r.keyButton = std::make_unique<juce::TextButton> (e.key.isEmpty() ? juce::String ("NONE") : e.key.toUpperCase());
-        r.keyButton->setEnabled (e.set != nullptr);
-        r.keyButton->setTooltip (e.set != nullptr ? "Click, then press the new key" : "Fixed");
-        r.keyButton->onClick = [this, i] { startCapturing ((int) i); };
-        addAndMakeVisible (*r.keyButton);
-        rows.push_back (std::move (r));
+        auto& e = entries[(size_t) i];
 
         // The same key twice (in a mix from before a second one was refused: only one of them gets
         // it), or a key Windows wouldn't give. A fixed key that isn't working: who has it here.
+        juce::String red;
         int other = -1;
         if (e.key.isNotEmpty() && e.set != nullptr)
-            other = holderOf (e.key, (int) i);
+            other = holderOf (e.key, i);
         else if (e.key.isNotEmpty() && ! e.working)
             for (auto& k : e.keys)
                 if (other < 0)
-                    other = holderOf (k, (int) i);
+                    other = holderOf (k, i);
         if (other >= 0 && (e.working || entries[(size_t) other].working))
         {
             ++clashes;
-            addLine (e.working ? "SAME KEY AS " + entries[(size_t) other].name + ": ONLY THIS ONE WORKS"
-                               : "NOT WORKING: " + entries[(size_t) other].name + " HAS THIS KEY", Console::Colours::danger());
+            red = e.working ? "Same key as " + entries[(size_t) other].name + ": only this one works"
+                            : "Not working: " + entries[(size_t) other].name + " has this key";
         }
         else if (e.key.isNotEmpty() && ! e.working)
-            addLine ("NOT WORKING: WINDOWS REFUSED THE KEY (ANOTHER APP MAY HAVE IT)", Console::Colours::danger());
-    }
-    note.setText (problem.isNotEmpty() ? problem : usualNote(), juce::dontSendNotification);
+            red = "Not working: Windows refused the key (another app may have it)";
 
-    const int w = juce::jmax (getWidth(), 560);
-    setSize (w, heightFor (w));
+        if (e.set != nullptr)
+        {
+            const auto shownKey = capturing == i ? juce::String (juce::CharPointer_UTF8 ("Press a key\xe2\x80\xa6"))
+                                                 : e.key.isEmpty() ? juce::String ("None") : keyText (e.key);
+            settable.push_back ({ { e.name, e.where, juce::String() }, { { shownKey, [this, i] (juce::Component&) { startCapturing (i); }, capturing == i } }, red });
+        }
+        else
+            always.push_back ({ { e.name, e.where, keyText (e.key) }, {}, red, true });
+    }
+    assigned.setLines (std::move (settable));
+    fixed.setLines (std::move (always));
+    note = problem.isNotEmpty() ? problem : usualNote();
     resized();
+    repaint();
+    if (onHeightChanged)
+        onHeightChanged();
 }
 
 juce::String HotkeysPage::usualNote() const
 {
-    return "CLICK A KEY, THEN PRESS THE NEW ONE.  ESC: CANCEL.  DELETE: NONE."
-         + (clashes > 0 ? "   " + juce::String (clashes) + " SHARE A KEY (IN RED)." : juce::String());
+    return "Click a key, then press the new one. Esc: cancel. Delete: none. A hotkey needs Ctrl, Alt or an F key, and works while a game has focus."
+         + (clashes > 0 ? "  " + juce::String (clashes) + (clashes == 1 ? " shares a key (in red)." : " share a key (in red).") : juce::String());
 }
 
 void HotkeysPage::startCapturing (int index)
 {
     capturing = index;
     problem.clear();
-    note.setText (usualNote(), juce::dontSendNotification);
-    size_t n = 0;
-    for (auto& r : rows)
-        if (r.keyButton != nullptr && (int) n++ == index)
-            r.keyButton->setButtonText ("PRESS A KEY...");
+    rebuild();
     setWantsKeyboardFocus (true);
     grabKeyboardFocus();
 }
@@ -338,83 +178,327 @@ void HotkeysPage::timerCallback()
 }
 
 //==============================================================================
-SettingsTab::SettingsTab()
+void SettingsTab::Column::paint (juce::Graphics& g)
 {
+    g.fillAll (Ink::page());
+    g.setColour (Ink::name());
+    g.setFont (font (22.0f, true));
+    g.drawText (title, titleArea, juce::Justification::centredLeft, true);
+    drawText (g, intro, font (13.0f), Ink::dim(), introArea);
+}
+
+SettingsTab::SettingsTab (std::vector<SettingsRegistry::Page> p, std::vector<SettingsRegistry::Setting> s)
+    : pages (std::move (p)), settings (std::move (s))
+{
+    search.setTextToShowWhenEmpty ("Search settings", Ink::dim());
+    search.setIndents (12, 0);
+    search.setJustification (juce::Justification::centredLeft);
+    search.onTextChange = [this] { build(); };
+    search.onEscapeKey = [this] { search.clear(); build(); };
+    addAndMakeVisible (search);
+    styleSearch();
+
     view.setScrollBarsShown (true, false);
+    view.setViewedComponent (&column, false);
     addAndMakeVisible (view);
+    showPage (0);
+    startTimerHz (4);
 }
 
-void SettingsTab::addSection (const juce::String& name, juce::Component& page, bool fill)
+SettingsTab::~SettingsTab()
 {
-    auto* b = keys.add (new juce::TextButton (name.toUpperCase()));
-    b->setClickingTogglesState (true);
-    b->setRadioGroupId (1);
-    b->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
-    b->onClick = [this, i = keys.size() - 1] { show (i); };
-    addAndMakeVisible (b);
-    b->setVisible (false);   // (drawn as cards instead: paint)
-    sections.push_back ({ name, &page, fill });
-    if (fill)
-        addChildComponent (page);
-    if (sections.size() == 1)
-        show (0);
+    if (ownShown != nullptr && ownShown->getParentComponent() != nullptr)
+        ownShown->getParentComponent()->removeChildComponent (ownShown);   // (its owner keeps it)
+    view.setViewedComponent (nullptr, false);
 }
 
-void SettingsTab::show (const juce::String& name)
+void SettingsTab::styleSearch()
 {
-    for (size_t i = 0; i < sections.size(); ++i)
-        if (sections[i].name.equalsIgnoreCase (name))
-            show ((int) i);
+    lookShown = Theme::generation();
+    search.setFont (font (13.5f));
+    search.setColour (juce::TextEditor::backgroundColourId, Ink::field());
+    search.setColour (juce::TextEditor::outlineColourId, Ink::edge());
+    search.setColour (juce::TextEditor::focusedOutlineColourId, Theme::get().accent);
+    search.setColour (juce::TextEditor::textColourId, Ink::name());
+    search.setTextToShowWhenEmpty ("Search settings", Ink::dim());
+    search.applyFontToAllText (font (13.5f));
+    search.applyColourToAllText (Ink::name(), true);
+    view.getVerticalScrollBar().setColour (juce::ScrollBar::thumbColourId, Theme::get().chromeHover);
 }
 
-void SettingsTab::paint (juce::Graphics& g)
+void SettingsTab::show (const juce::String& pageName)
 {
-    g.fillAll (DeskSettings::desk());
-    for (int i = 0; i < (int) sections.size(); ++i)
+    for (int i = 0; i < (int) pages.size(); ++i)
+        if (pages[(size_t) i].name.equalsIgnoreCase (pageName))
+        {
+            if (search.getText().isNotEmpty())
+                search.clear();
+            showPage (i);
+            return;
+        }
+}
+
+void SettingsTab::showSetting (const juce::String& pageName, const juce::String& settingName)
+{
+    show (pageName);
+    for (auto* r : rows)
+        if (r->setting.name == settingName)
+        {
+            view.setViewPosition (0, juce::jmax (0, r->getY() - 24));
+            r->flash();
+        }
+}
+
+bool SettingsTab::passesThrough (juce::Point<int> screen) const
+{
+    for (auto* r : rows)
+        if (r->passesThrough (screen))
+            return true;
+    return false;
+}
+
+void SettingsTab::showPage (int index)
+{
+    current = juce::jlimit (0, (int) pages.size() - 1, index);
+    build();
+    repaint();
+    Console::riseIn (pages[(size_t) current].fill && ownShown != nullptr ? *ownShown : (juce::Component&) view);   // the page rises into place
+}
+
+void SettingsTab::build()
+{
+    rows.clear();
+    headings.clear();
+    if (ownShown != nullptr && ownShown->getParentComponent() != nullptr)
+        ownShown->getParentComponent()->removeChildComponent (ownShown);
+    ownShown = nullptr;
+
+    const auto query = search.getText().trim();
+    if (query.isNotEmpty())
     {
-        const auto r = sectionCard (i).toFloat();
-        DeskSettings::card (g, r, i == shown, i == hovered);
-        g.setColour (i == shown ? juce::Colours::white : DeskSettings::text());
-        g.setFont (LargeFormat::print (12.0f));
-        g.drawText (sections[(size_t) i].name.toUpperCase(), r.withTrimmedLeft (16.0f), juce::Justification::centredLeft, false);
+        // Every page's rows that match, each under its page's name.
+        int found = 0;
+        for (auto& s : settings)
+            if (s.matches (query))
+            {
+                column.addAndMakeVisible (rows.add (new Row (s, s.page)));
+                ++found;
+            }
+        column.title = "Search";
+        column.intro = found > 0 ? juce::String (found) + (found == 1 ? " setting matches." : " settings match.")
+                                 : juce::String ("Nothing matches \"") + query + "\". Try another word.";
     }
+    else
+    {
+        const auto& page = pages[(size_t) current];
+        column.title = page.name;
+        column.intro = page.intro;
+        juce::String section;
+        for (auto& s : settings)
+        {
+            if (s.page != page.name)
+                continue;
+            if (s.section != section)
+            {
+                section = s.section;
+                if (section.isNotEmpty())
+                    column.addAndMakeVisible (headings.add (new Heading (section)));
+            }
+            column.addAndMakeVisible (rows.add (new Row (s)));
+        }
+        if (page.own != nullptr)
+        {
+            ownShown = page.own;
+            if (page.fill)
+                addAndMakeVisible (ownShown);
+            else
+            {
+                column.addAndMakeVisible (ownShown);
+                if (auto* hotkeys = dynamic_cast<HotkeysPage*> (ownShown))
+                    hotkeys->onHeightChanged = [this] { layoutColumn(); };
+            }
+        }
+    }
+    view.setViewPosition (0, 0);
+    resized();
+    repaint();
+}
+
+void SettingsTab::layoutColumn()
+{
+    const bool fill = search.getText().trim().isEmpty() && pages[(size_t) current].fill;
+    const int viewW = view.getWidth() - (fill ? 0 : view.getScrollBarThickness());
+    const int w = juce::jmin (columnWidth, viewW - 2 * 32);
+    const int x = 32;
+    int y = 28;
+    column.titleArea = { x, y, w, 32 };
+    y += 36;
+    const int introH = textHeight (column.intro, font (13.0f), w);
+    column.introArea = { x, y, w, introH };
+    y += introH + 16;
+
+    // The headings and rows in the settings' order (a heading before its section's first row).
+    int h = 0;
+    juce::String section;
+    const bool searching = search.getText().trim().isNotEmpty();
+    for (auto* r : rows)
+    {
+        if (! searching && r->setting.section != section)
+        {
+            section = r->setting.section;
+            if (section.isNotEmpty() && h < headings.size())
+            {
+                headings[h++]->setBounds (x, y, w, Heading::height);
+                y += Heading::height;
+            }
+        }
+        const int rh = r->heightFor (w);
+        r->setBounds (x, y, w, rh);
+        y += rh + (searching ? 14 : 8);
+    }
+    if (ownShown != nullptr && ! fill)
+    {
+        y += 8;
+        int ownH = 200;
+        if (auto* hotkeys = dynamic_cast<HotkeysPage*> (ownShown))
+            ownH = hotkeys->heightFor (w);
+        ownShown->setBounds (x, y, w, ownH);
+        y += ownH;
+    }
+    column.setSize (juce::jmax (0, viewW), fill ? y : y + 32);
+    column.repaint();
 }
 
 void SettingsTab::resized()
 {
-    auto r = getLocalBounds();
-    r.removeFromLeft (sectionCard (0).getRight() + 6);
-    view.setBounds (r);
-    const int w = r.getWidth() - view.getScrollBarThickness();
-    for (auto& s : sections)
+    search.setBounds (16, 16, sidebarWidth - 32, 34);
+    const auto area = pageArea();
+    const bool fill = search.getText().trim().isEmpty() && pages[(size_t) current].fill && ownShown != nullptr;
+    if (fill)
     {
-        if (s.fill)
-            s.page->setBounds (r);
-        else if (auto* fills = dynamic_cast<DeskSettings::WidthFill*> (s.page))
-            s.page->setSize (w, fills->heightFor (w));   // (its cards fill the width)
+        // The title and intro in the view's place, the page under them, filling the rest.
+        view.setBounds (area);
+        layoutColumn();
+        view.setBounds (area.withHeight (column.getHeight()));
+        ownShown->setBounds (area.withTrimmedTop (column.getHeight()));
+    }
+    else
+    {
+        view.setBounds (area);
+        layoutColumn();
     }
 }
 
-int SettingsTab::sectionAt (juce::Point<int> p) const
+juce::Rectangle<int> SettingsTab::linkArea (int page) const
 {
-    for (int i = 0; i < (int) sections.size(); ++i)
-        if (sectionCard (i).contains (p))
+    int y = 66;
+    juce::String group;
+    for (int i = 0; i < (int) pages.size(); ++i)
+    {
+        if (pages[(size_t) i].group != group)
+        {
+            group = pages[(size_t) i].group;
+            y += (i > 0 ? 10 : 0) + 28;
+        }
+        if (i == page)
+            return { 10, y, sidebarWidth - 20, 34 };
+        y += 36;
+    }
+    return {};
+}
+
+juce::Rectangle<int> SettingsTab::groupArea (const juce::String& group) const
+{
+    for (int i = 0; i < (int) pages.size(); ++i)
+        if (pages[(size_t) i].group == group)
+            return linkArea (i).withHeight (28).translated (8, -28);
+    return {};
+}
+
+int SettingsTab::linkAt (juce::Point<int> p) const
+{
+    for (int i = 0; i < (int) pages.size(); ++i)
+        if (linkArea (i).contains (p))
             return i;
     return -1;
 }
 
-void SettingsTab::show (int index)
+void SettingsTab::paint (juce::Graphics& g)
 {
-    shown = index;
-    for (int i = 0; i < keys.size(); ++i)
-        keys[i]->setToggleState (i == index, juce::dontSendNotification);
-    auto& s = sections[(size_t) index];
-    for (auto& other : sections)
-        if (other.fill)
-            other.page->setVisible (other.page == s.page);
-    view.setViewedComponent (s.fill ? nullptr : s.page, false);
-    view.setVisible (! s.fill);
-    resized();
-    repaint();
-    Console::riseIn (s.fill ? *s.page : (juce::Component&) view);   // the section rises into place
+    g.fillAll (Ink::page());
+    auto side = getLocalBounds().removeFromLeft (sidebarWidth);
+    g.setColour (Ink::sidebar());
+    g.fillRect (side);
+    g.setColour (Ink::edge());
+    g.fillRect (side.removeFromRight (1));
+
+    const bool searching = search.getText().trim().isNotEmpty();
+    juce::String group;
+    for (int i = 0; i < (int) pages.size(); ++i)
+    {
+        const auto& p = pages[(size_t) i];
+        if (p.group != group)
+        {
+            group = p.group;
+            g.setColour (Ink::dim());
+            g.setFont (font (11.5f, true));
+            g.drawText (group.toUpperCase(), groupArea (group), juce::Justification::centredLeft, false);
+        }
+        const auto r = linkArea (i).toFloat();
+        const bool on = i == current && ! searching;
+        if (on || i == hovered)
+        {
+            g.setColour (on ? Theme::get().chromeOn : Theme::get().chromeHover);
+            g.fillRoundedRectangle (r, 6.0f);
+        }
+        if (on)
+        {
+            g.setColour (Theme::get().accent);
+            g.fillRoundedRectangle (r.withWidth (3.0f).reduced (0.0f, 7.0f), 1.5f);
+        }
+        g.setColour (on ? Ink::name() : Ink::text());
+        g.setFont (font (13.5f, on));
+        g.drawText (p.name, r.withTrimmedLeft (14.0f), juce::Justification::centredLeft, true);
+    }
+}
+
+void SettingsTab::mouseMove (const juce::MouseEvent& e)
+{
+    if (const int i = linkAt (e.getPosition()); i != hovered)
+    {
+        hovered = i;
+        repaint (0, 0, sidebarWidth, getHeight());
+    }
+}
+
+void SettingsTab::mouseExit (const juce::MouseEvent&)
+{
+    hovered = -1;
+    repaint (0, 0, sidebarWidth, getHeight());
+}
+
+void SettingsTab::mouseDown (const juce::MouseEvent& e)
+{
+    if (const int i = linkAt (e.getPosition()); i >= 0)
+    {
+        if (search.getText().isNotEmpty())
+            search.setText ({}, false);
+        showPage (i);
+    }
+}
+
+void SettingsTab::timerCallback()
+{
+    if (! isShowing())
+        return;
+    if (lookShown != Theme::generation())
+    {
+        styleSearch();
+        repaint();
+    }
+    bool moved = false;
+    for (auto* r : rows)
+        moved = r->refresh() || moved;
+    if (moved)
+        layoutColumn();
 }

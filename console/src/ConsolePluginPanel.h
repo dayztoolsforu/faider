@@ -6,7 +6,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "../../src/ui/LargeFormat.h"
 #include "../../src/engine/AudioEngine.h"
-#include "../../src/ui/SettingsTab.h"   // (DeskSettings: the cards)
+#include "../../src/ui/DeskSettings.h"   // (the cards)
 #include "../../src/ui/Console.h"
 #include "ConsoleBench.h"
 

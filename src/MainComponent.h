@@ -17,7 +17,6 @@
 #include "engine/MixHistory.h"
 #include "ui/TrayMixer.h"
 #include "ui/Console.h"
-#include "ui/ControlWindow.h"
 #include "ui/SettingsTab.h"
 #include "ui/Toasts.h"
 #include "ui/HealthLight.h"
@@ -79,7 +78,7 @@ private:
     AudioBoost::State windowsAudio;
     AudioBoost::Watch windowsAudioWatch;
     bool boostingWindowsAudio = false;
-    juce::String boostNote;                        // DEVICES > WINDOWS AUDIO: what came of the last BOOST
+    juce::String boostNote;                        // SETTINGS > AUDIO > WINDOWS AUDIO: what came of the last BOOST
     void watchWindowsAudio();
     void boostWindowsAudio();
     void stopBoostingWindowsAudio();
@@ -102,9 +101,9 @@ private:
     void checkClock();
     bool clockForced = false;   // started with --clock: the built-in clock stays (no device takes over)
     bool clockWindowsWanted = false;   // the clock asked for is a Windows device: one that goes is followed by another, not by an interface
-    bool clockFromCommandLine = false;   // --clock given (it wins over DEVICES > CLOCK)
-    juce::String clockChosenAtStart;     // DEVICES > CLOCK's choice as this run started ("" the interface, "builtin", "windows:NAME")
-    void chooseClock (const juce::String& choice);   // DEVICES > CLOCK: kept, for the next start (RESTART NOW offered)
+    bool clockFromCommandLine = false;   // --clock given (it wins over SETTINGS > AUDIO > CLOCK)
+    juce::String clockChosenAtStart;     // SETTINGS > AUDIO > CLOCK's choice as this run started ("" the interface, "builtin", "windows:NAME")
+    void chooseClock (const juce::String& choice);   // SETTINGS > AUDIO > CLOCK: kept, for the next start (RESTART NOW offered)
     void restartFaider();                // quits, and a new copy starts once this one has gone
     juce::String savedMaster;   // started with --clock: the mix's own interface, saved instead of the chosen clock
     juce::String masterToSave() const { return clockForced && savedMaster.isNotEmpty() ? savedMaster : interfaceName; }
@@ -119,15 +118,19 @@ private:
     juce::File sessionsDir() const;
     void saveSessionAs();
     void showSessions (juce::PopupMenu::Options where);
-    void showAppRules (juce::PopupMenu::Options where);   // APP RULES: where each app goes when it starts playing
+    void showAppRules (juce::PopupMenu::Options where);   // APP RULES (FIND): where each app goes when it starts playing
+    juce::PopupMenu appDestinations (const juce::String& current, std::function<void (const juce::String&)> pick);   // the buses and outputs
+    juce::PopupMenu addAppRuleMenu();                      // a new rule: the apps playing, each with appDestinations
     void showLooks (juce::PopupMenu::Options where);      // LOOK: the console's colours and typeface
     void saveLookAs();
     void repaintEverything();                              // a new look: every view drawn again
     void exportSession();
     void importSession();
+    void exportSessionFile (const juce::File& saved);   // a saved session, copied to a file
     std::unique_ptr<juce::FileChooser> sessionChooser;
     std::unique_ptr<juce::FileChooser> chooser;   // FFMPEG's and the problem report's
-    void pickFfmpeg();                            // SETTINGS > GENERAL > FFMPEG
+    void pickFfmpeg();                            // SETTINGS > RECORDING > FFMPEG: PICK...
+    void useFfmpegOnPath();                       // and USE PATH
     juce::Time lastHistory;
     void setZoom (float);
     void stepZoom (int direction);   // the next stage up (1) or down (-1)
@@ -240,13 +243,12 @@ private:
 
     std::unique_ptr<MixHistory> history;  // Ctrl+Z / Ctrl+Y
     std::unique_ptr<MidiMapOverlay> midiMap;        // MIDI MAP mode, while on
-    // SETTINGS (SettingsTab.h): GENERAL, MACROS, HOTKEYS and CONTROL.
+    // SETTINGS (SettingsTab.h): its pages, built from one list of settings (makeSettings).
+    std::unique_ptr<HotkeysPage> hotkeysPage;   // (shown on its HOTKEYS page)
     std::unique_ptr<SettingsTab> settingsTab;
-    std::unique_ptr<OptionsPage> generalPage;
-    std::unique_ptr<HotkeysPage> hotkeysPage;
-    std::unique_ptr<ControlPanel> controlPanel;
     void makeSettings();
-    void openSettings (const juce::String& section);
+    void openSettings (const juce::String& page);                          // a page (GENERAL, MACROS, HOTKEYS, CONTROL: as before)
+    void openSetting (const juce::String& page, const juce::String& name); // FIND: a setting's row, lit
     int lastShortcut = 0;                           // keyPressed: the last Ctrl shortcut, and when
     juce::uint32 lastShortcutAt = 0;
     juce::ListBox deviceList { "Devices", this };

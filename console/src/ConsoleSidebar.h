@@ -41,8 +41,6 @@ namespace ConsoleDesk
             g.drawText ("DESK", deskTitle(), juce::Justification::centredLeft, false);
             card (g, actionArea (0), "ADD CHANNEL", "plus", false, hovered == 100, pushed == 100);
             card (g, actionArea (1), "ADD APP", "plus", false, hovered == 103, pushed == 103);
-            if (simpleNow())   // (SIMPLE: no buses, plugins or strip sections to show)
-                return;
             card (g, actionArea (2), "ADD BUS", "plus", false, hovered == 101, pushed == 101);
             card (g, actionArea (3), "PLUGINS", "pads", view != nullptr && view->pluginsOpen(), hovered == 102, pushed == 102);
             if (view == nullptr)
@@ -105,10 +103,10 @@ namespace ConsoleDesk
                 if (cardArea (i).contains (p))
                     return i;
             static const int actions[] = { 100, 103, 101, 102, 104 };   // (ADD CHANNEL, ADD APP, ADD BUS, PLUGINS, COMPACT)
-            for (int i = 0; i < (simpleNow() ? 2 : 5) && onMixer(); ++i)
+            for (int i = 0; i < 5 && onMixer(); ++i)
                 if (actionArea (i).contains (p))
                     return actions[i];
-            if (onMixer() && view != nullptr && ! simpleNow())
+            if (onMixer() && view != nullptr)
             {
                 for (int i = 0; i < 2; ++i)
                     if (pairArea (selectTitle(), i).contains (p)) return 110 + i;
@@ -129,7 +127,6 @@ namespace ConsoleDesk
             return rows;
         }
         bool onMixer() const { return tabs.getCurrentTabIndex() == 0; }
-        bool simpleNow() const { return view != nullptr && view->isSimple(); }
         juce::Rectangle<int> titleBelow (juce::Rectangle<int> above) const { return { 14, above.getBottom() + 14, getWidth() - 20, 20 }; }
         juce::Rectangle<int> selectTitle() const { return titleBelow (actionArea (4)); }
         juce::Rectangle<int> pairArea (juce::Rectangle<int> title, int i) const
@@ -301,11 +298,6 @@ namespace ConsoleDesk
                 shownSections = now;
                 repaint();
             }
-            if (simpleNow() != shownSimple)   // (SIMPLE / PRO flipped: the desk's cards change)
-            {
-                shownSimple = simpleNow();
-                repaint();
-            }
             if (const bool now = view != nullptr && view->bench->isCompact(); now != shownCompact)   // (COMPACT from FIND: its card and SECTIONS)
             {
                 shownCompact = now;
@@ -315,7 +307,7 @@ namespace ConsoleDesk
 
         juce::TabbedComponent& tabs;
         View* view;
-        bool shownSimple = false, shownCompact = false;
+        bool shownCompact = false;
         int hovered = -1, pushed = -1, shown = -1, shownSections = -1;
     };
 }

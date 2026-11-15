@@ -9,6 +9,7 @@ What changed in each version of Faider, newest first. Downloads are on the
 - **COMPACT** in the Mixer's sidebar (and **COMPACT DESK** / **FULL DESK** in FIND) folds every
   strip to its name bar and fader, so the desk fits on a
   short screen. It is remembered.
+- **COLOUR** on an output's right-click menu, shown along its name bar and on its Routing block.
 - ADD APP, ADD CHANNEL and SETUP also offer programs that are running but **NOT PLAYING YET**. The
   channel is made at once and hears the program from the moment it plays.
 - **MIX-MINUS AND STEMS...** is on an output's right-click menu, **HEAR WHAT THEY HEAR** on
@@ -48,6 +49,11 @@ What changed in each version of Faider, newest first. Downloads are on the
 - PRE-FLIGHT's rows follow what changes while it is open.
 - Uninstalling asks Faider to quit only once the uninstall is confirmed, and waits up to 15 seconds
   for it to close before ending it.
+
+**Removed**
+- The SIMPLE desk and the SIMPLE / PRO switch: the Mixer is always the whole console, and
+  **COMPACT** is its small view. SETUP stays (a first start, and **SETUP: BUILD A MIX** in FIND). A
+  mix or settings left on SIMPLE open on the whole console.
 
 **Fixed**
 - BOOST WINDOWS AUDIO works from Windows' prompt.

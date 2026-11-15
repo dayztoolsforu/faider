@@ -17,15 +17,9 @@
 // The console as Faider's Mixer page: the strips in a scrolling view.
 namespace ConsoleDesk
 {
-    std::unique_ptr<juce::Component> make (AudioEngine& engine, MixerComponent& mixer, bool simple, std::function<void (bool)> modeChanged, std::function<void()> openSetup)
+    std::unique_ptr<juce::Component> make (AudioEngine& engine, MixerComponent& mixer)
     {
-        return std::make_unique<View> (engine, mixer, simple, std::move (modeChanged), std::move (openSetup));
-    }
-
-    void setSimple (juce::Component& console, bool simple)
-    {
-        if (auto* view = dynamic_cast<View*> (&console))
-            view->setSimple (simple);
+        return std::make_unique<View> (engine, mixer);
     }
 
     bool isCompact (juce::Component& console)
@@ -37,11 +31,7 @@ namespace ConsoleDesk
     void setCompact (juce::Component& console, bool compact)
     {
         if (auto* view = dynamic_cast<View*> (&console))
-        {
-            if (view->isSimple())
-                view->switchTo (false);   // (COMPACT is the PRO desk's: it opens on it)
             view->bench->setCompact (compact);
-        }
     }
 
     std::unique_ptr<juce::Component> makeRouting (juce::Component& console)
@@ -57,15 +47,13 @@ namespace ConsoleDesk
     bool handleKey (juce::Component& console, const juce::KeyPress& key)
     {
         auto* view = dynamic_cast<View*> (&console);
-        return view != nullptr && ! view->isSimple() && view->bench->keyPressed (key);   // (SIMPLE: the PRO desk's keys would reach strips not shown)
+        return view != nullptr && view->bench->keyPressed (key);
     }
 
     void select (juce::Component& console, const juce::String& key, bool plugins)
     {
         if (auto* view = dynamic_cast<View*> (&console))
         {
-            if (plugins && view->isSimple())
-                view->switchTo (false);   // (plugins are PRO's: it opens on them)
             view->bench->selectKey (key);
             if (plugins)
                 view->showPlugins (true);

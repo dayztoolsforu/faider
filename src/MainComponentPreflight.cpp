@@ -241,9 +241,6 @@ void MainComponent::showSetup ()
 
     auto panel = MixSetup::make (engine, [this]
     {
-        settings.setValue ("deskMode", "simple");
-        settings.saveIfNeeded();
-        ConsoleDesk::setSimple (*consoleDesk, true);
         tabs.setCurrentTabIndex (0);
         closeSetup();
     });

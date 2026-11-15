@@ -8,13 +8,10 @@ class MixerComponent;
 // FAIDER: the console (Console.cpp), as the Mixer page.
 namespace ConsoleDesk
 {
-    // `simple`: SIMPLE (Simple.h) to start with, else the whole console; the top bar's switch
-    // changes it and says so (`modeChanged`). `openSetup`: the SETUP window shown (it is not a page).
-    std::unique_ptr<juce::Component> make (AudioEngine&, MixerComponent&, bool simple, std::function<void (bool simple)> modeChanged, std::function<void()> openSetup);
-    void setSimple (juce::Component& console, bool simple);
+    // The whole console: the strips, the top bar and the plugin panel.
+    std::unique_ptr<juce::Component> make (AudioEngine&, MixerComponent&);
 
-    // COMPACT: the PRO desk's strips folded to their name bars and faders (a meter beside each), or
-    // whole again; remembered. Switching it from SIMPLE opens the PRO desk.
+    // COMPACT: the desk's strips folded to their name bars and faders, or whole again; remembered.
     bool isCompact (juce::Component& console);
     void setCompact (juce::Component& console, bool compact);
 

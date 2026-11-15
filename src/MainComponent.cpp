@@ -11,7 +11,6 @@
 #include "engine/PluginScan.h"
 #include "StartWithWindows.h"
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
-#include "../console/src/Simple.h"     // (SIMPLE and SETUP)
 #include "../console/src/DeskOrder.h"  // (a renamed bus or output keeps its place)
 
 namespace
@@ -31,7 +30,7 @@ MainComponent::MainComponent()
       statusFile (dataDir.getChildFile ("status.txt")),
       sessionFile (dataDir.getChildFile ("session.xml"))
 {
-    for (auto* gone : { "coaching", "proMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff", "vrDashboard", "controlPort", "phoneControl", "phoneKey" })   // (LIVE COACHING, earlier desks and looks, the SteamVR page, the control API)
+    for (auto* gone : { "coaching", "proMode", "deskMode", "deskWear", "themeBeforePro", "theme", "flowWhyOff", "vrDashboard", "controlPort", "phoneControl", "phoneKey" })   // (LIVE COACHING, earlier desks (SIMPLE too) and looks, the SteamVR page, the control API)
         settings.removeValue (gone);
     look->applyTheme();
     juce::LookAndFeel::setDefaultLookAndFeel (&look.get());
@@ -194,11 +193,6 @@ MainComponent::MainComponent()
                   " (free the interface and restart " + juce::String (Product::name) + ", or the SESSION TIMELINE)");
     }
 
-    // SIMPLE or PRO, as it was left. The first time: SIMPLE, unless the mix has buses or
-    // combinators (SIMPLE doesn't show them), then PRO.
-    if (! settings.containsKey ("deskMode"))
-        settings.setValue ("deskMode", engine.getBuses().empty() ? "simple" : "pro");
-
     // The look, as it was left (the built-in one the first time). A look file that has gone or
     // is broken leaves the built-in alone.
     {
@@ -211,9 +205,7 @@ MainComponent::MainComponent()
     }
 
     mixer = std::make_unique<MixerComponent> (engine);
-    consoleDesk = ConsoleDesk::make (engine, *mixer, settings.getValue ("deskMode") == "simple",
-                                     [this] (bool simple) { settings.setValue ("deskMode", simple ? "simple" : "pro"); settings.saveIfNeeded(); },
-                                     [this] { showSetup(); });   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
+    consoleDesk = ConsoleDesk::make (engine, *mixer);   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
     tabs.addTab ("Mixer", juce::Colours::transparentBlack, consoleDesk.get(), false);
     consoleSidebar = ConsoleDesk::makeSidebar (tabs, *consoleDesk);   // (the pages as cards down the left; the tab caps hide)
     addAndMakeVisible (*consoleSidebar);
@@ -225,7 +217,7 @@ MainComponent::MainComponent()
     consoleRouting = ConsoleDesk::makeRouting (*consoleDesk);
     tabs.addTab ("Routing", juce::Colours::transparentBlack, consoleRouting.get(), false);
     // SETUP is not a page: it asks its questions in its own window (showSetup), from a first start,
-    // from FIND, and from the SETUP key on the SIMPLE desk. The pages are the desk, routing and work.
+    // and from FIND. The pages are the desk, routing and work.
     pads = std::make_unique<PadsPanel> (engine, *mixer);
     tape = std::make_unique<TapePanel> (engine, *mixer);
 
@@ -1499,7 +1491,7 @@ void MainComponent::writeLogLine (const LogQueue::Line& logged)
 void MainComponent::showTip (const juce::String& page)
 {
     static const std::pair<const char*, const char*> tips[] {
-        { "Mixer",    "SIMPLE / PRO above the strips shows the same mix either way. Left/right selects a channel, M cuts it, S solos it, up/down moves its fader." },
+        { "Mixer",    "COMPACT in the sidebar folds the strips to their name bars and faders. Left/right selects a channel, M cuts it, S solos it, up/down moves its fader." },
         { "Routing",  "Click one block, then another, to route between them. Click again, or Esc, to let go." },
         { "Tools",    "Pads play into the PADS channel. Give pads, macros and scenes hotkeys in SETTINGS > HOTKEYS." },
         { "Devices",  "Each device's latency and drops are listed under STREAMS; the light in the top bar sums them up." },

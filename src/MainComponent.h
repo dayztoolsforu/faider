@@ -143,7 +143,7 @@ private:
     void showTip (const juce::String& page);             // a page's first-run tip (once)
     void showPreflight (bool onlyIfWrong);
     void showWindowsDefaults (juce::PopupMenu::Options where);   // SET MY DEFAULTS: real devices as Windows' defaults
-    void showSetup ();                   // SETUP in its own window: not a page (first start, FIND, SIMPLE's key)
+    void showSetup ();                   // SETUP in its own window: not a page (first start, FIND)
     void closeSetup ();
     std::vector<PreflightPanel::Check> zeroChecks();   // ZERO DESK: things left set (solos, DIM, the oscillator, KEY LISTEN...)
     void showZero();               // PRE-FLIGHT (on start: only if something's wrong)

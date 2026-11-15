@@ -1242,9 +1242,11 @@ public:
     // THE ROUTING PAGE's view of the desk: where each strip is across, and the strips themselves.
     int stripCount() const { return channels; }
     float stripLeft (int ch) const { return drawX (ch); }
-    // A channel's own colour (Faider's; transparent: none).
+    // A strip's own colour (Faider's; transparent: none): a channel's, a bus's or an output's.
     juce::Colour channelColour (int ch) const
     {
+        if (auto* m = bind.master (ch))
+            return m->colour;
         auto* s = bind.strip (ch);
         return s != nullptr && ! bind.isMaster (ch) ? s->colour : juce::Colours::transparentBlack;
     }
@@ -1346,7 +1348,7 @@ public:
     }
 
     // COMPACT (the sidebar's card, FIND, kept in console.xml): every strip folds to its name bar and
-    // fader, with its level meter beside the fader; the desk shrinks to them and the view goes to
+    // fader; the desk shrinks to them and the view goes to
     // the top. Off again: the whole strips.
     bool isCompact() const { return compact; }
     void setCompact (bool on)
@@ -1491,7 +1493,7 @@ private:
     }
 
     // A strip's menu: what it takes in (a channel), where it goes, mono or stereo, its name, removing it.
-    // AN OUTPUT's menu: the device it plays on, its headphone correction, its alerts, renaming it, removing it.
+    // AN OUTPUT's menu: the device it plays on, its headphone correction, its alerts, its colour, renaming it, removing it.
     void showDeviceMenu (int ch)
     {
         auto* m = bind.master (ch);
@@ -1596,6 +1598,13 @@ private:
         menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
         menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
         menu.addSeparator();
+        MixerComponent::addColourMenu (menu, m->colour, [this, index] (juce::Colour c)   // (along its name bar and on its Routing block, as a channel's)
+        {
+            auto& masters = engine->getMasters();
+            if (juce::isPositiveAndBelow (index, (int) masters.size()))
+                masters[(size_t) index]->colour = c;
+            repaint();
+        });
         menu.addItem ("RENAME...", [this, index]
         {
             auto& masters = engine->getMasters();

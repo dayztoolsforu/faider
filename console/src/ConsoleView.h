@@ -5,7 +5,6 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "../../src/engine/AudioEngine.h"
-#include "Simple.h"
 #include "../../src/ui/MixerComponent.h"
 #include "../../src/ui/Console.h"
 #include "ConsoleBench.h"
@@ -24,48 +23,25 @@ namespace ConsoleDesk
     class View : public juce::Component, private juce::Timer
     {
     public:
-        View (AudioEngine& engine, MixerComponent& mixer, bool simpleMode, std::function<void (bool)> modeChanged, std::function<void()> openSetup)
-            : bench (new Bench (layoutFile(), &engine, &mixer)), plugins (*bench), top (engine),
-              simpleDesk (Simple::makeDesk (engine, mixer, std::move (openSetup))), onMode (std::move (modeChanged))
+        View (AudioEngine& engine, MixerComponent& mixer)
+            : bench (new Bench (layoutFile(), &engine, &mixer)), plugins (*bench), top (engine)
         {
             strips.setViewedComponent (bench, true);
             strips.setScrollBarsShown (true, true);
             addAndMakeVisible (strips);
-            addChildComponent (*simpleDesk);
             addAndMakeVisible (top);   // (over the strips' top edge: they pass under it)
             addChildComponent (plugins);
             bench->onShowPlugins = [this] { showPlugins (true); };
-            top.isSimple = [this] { return simple; };
-            top.setSimple = [this] (bool s) { switchTo (s); };
-            setSimple (simpleMode, false);
-        }
-
-        // SIMPLE (Simple.h) or the whole console (PRO): the same mix either way.
-        bool isSimple() const { return simple; }
-        void switchTo (bool s) { setSimple (s); if (onMode) onMode (s); }   // (as the top bar's switch: remembered)
-        void setSimple (bool s, bool animate = true)
-        {
-            simple = s;
-            strips.setVisible (! s);
-            simpleDesk->setVisible (s);
-            if (s)
-                showPlugins (false);
-            resized();
-            if (animate)
-                Console::riseIn (s ? *simpleDesk : (juce::Component&) strips);
-            if (auto* p = getParentComponent())
-                p->repaint();
         }
 
         void resized() override
         {
             auto r = getLocalBounds();
-            const int h = simple ? 0 : juce::roundToInt (shown * (float) panelHeight);   // (SIMPLE has no plugin panel)
+            const int h = juce::roundToInt (shown * (float) panelHeight);
             plugins.setVisible (h > 0);
             plugins.setBounds (r.removeFromBottom (h).withHeight (panelHeight));
             strips.setBounds (r);
-            simpleDesk->setBounds (r.withTrimmedTop (40));
-            top.setBounds (r.getX(), r.getY(), simple ? r.getWidth() : strips.getMaximumVisibleWidth(), 40);
+            top.setBounds (r.getX(), r.getY(), strips.getMaximumVisibleWidth(), 40);
         }
         juce::Rectangle<int> viewArea() const { return strips.getViewArea(); }
         juce::Viewport& stripsView() { return strips; }
@@ -96,9 +72,6 @@ namespace ConsoleDesk
         juce::Viewport strips;
         PluginPanel plugins;
         TopBar top;
-        std::unique_ptr<juce::Component> simpleDesk;
-        std::function<void (bool)> onMode;
-        bool simple = false;
         bool open = false;
         float shown = 0.0f;
     };

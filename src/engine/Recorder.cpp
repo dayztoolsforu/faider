@@ -158,7 +158,7 @@ std::unique_ptr<juce::AudioFormatWriter> Recorder::createWriter (const juce::Str
                                                                      .withQualityOptionIndex (id == "ogg128" ? 4 : id == "ogg256" ? 8 : id == "ogg320" ? 9 : 6));
     else                     w = juce::WavAudioFormat().createWriterFor (stream, options.withBitsPerSample (24));   // wav24, and the FFmpeg formats' WAV
     if (w == nullptr)
-        error = "Can't make a " + formatFor (id).name + " writer at " + juce::String (sampleRate, 0) + " Hz";
+        error = TRANS ("Can't make a %1 writer at %2 Hz").replace ("%2", juce::String (sampleRate, 0)).replace ("%1", formatFor (id).name);   // (the recorder's errors: shown only)
     return w;
 }
 
@@ -205,12 +205,12 @@ juce::File Recorder::start (Kind k, int index, const juce::String& sourceName, c
 
     if (! into.createDirectory())
     {
-        error = "Can't make the folder " + into.getFullPathName();
+        error = TRANS ("Can't make the folder %1").replace ("%1", into.getFullPathName());
         return {};
     }
     if (freeSpace() < diskReserve)
     {
-        error = "Less than 1 GB is free on the drive of " + into.getFullPathName();
+        error = TRANS ("Less than 1 GB is free on the drive of %1").replace ("%1", into.getFullPathName());
         return {};
     }
 
@@ -221,7 +221,7 @@ juce::File Recorder::start (Kind k, int index, const juce::String& sourceName, c
     auto out = std::make_unique<juce::FileOutputStream> (target);
     if (! out->openedOk())
     {
-        error = "Can't write " + target.getFullPathName();
+        error = TRANS ("Can't write %1").replace ("%1", target.getFullPathName());
         return {};
     }
 
@@ -258,12 +258,12 @@ juce::File Recorder::startMultitrack (const std::vector<TrackSource>& sources, c
     const auto takeFolder = into.getNonexistentChildFile (fileNameFor ("MULTITRACK"), {}, false);
     if (freeSpace() < diskReserve)
     {
-        error = "Less than 1 GB is free on the drive of " + into.getFullPathName();
+        error = TRANS ("Less than 1 GB is free on the drive of %1").replace ("%1", into.getFullPathName());
         return {};
     }
     if (sources.empty() || ! takeFolder.createDirectory())
     {
-        error = sources.empty() ? juce::String ("Nothing to record.") : "Can't make the takeFolder " + takeFolder.getFullPathName();
+        error = sources.empty() ? TRANS ("Nothing to record.") : TRANS ("Can't make the folder %1").replace ("%1", takeFolder.getFullPathName());
         return {};
     }
 
@@ -280,7 +280,7 @@ juce::File Recorder::startMultitrack (const std::vector<TrackSource>& sources, c
         if (w == nullptr)
         {
             if (error.isEmpty())
-                error = "Can't write " + target.getFullPathName();
+                error = TRANS ("Can't write %1").replace ("%1", target.getFullPathName());
             stream = nullptr;
             fresh.clear();   // closes the ones already made
             takeFolder.deleteRecursively();
@@ -384,7 +384,7 @@ std::shared_ptr<juce::AudioBuffer<float>> Recorder::copyReplay (juce::String& er
     const int length = ring.getNumSamples();
     if (length == 0 || ringWritten.load() == 0)
     {
-        error = "Nothing buffered yet.";
+        error = TRANS ("Nothing buffered yet.");
         return {};
     }
 
@@ -414,7 +414,7 @@ juce::File Recorder::saveReplayNow (const juce::String& name, juce::String& erro
         return {};
     if (! folder.createDirectory())
     {
-        error = "Can't make the folder " + folder.getFullPathName();
+        error = TRANS ("Can't make the folder %1").replace ("%1", folder.getFullPathName());
         return {};
     }
     const auto target = folder.getNonexistentChildFile (fileNameFor (name), ".wav", false);
@@ -423,7 +423,7 @@ juce::File Recorder::saveReplayNow (const juce::String& name, juce::String& erro
     if (w == nullptr || ! w->writeFromAudioSampleBuffer (*audio, 0, audio->getNumSamples()))
     {
         if (error.isEmpty())
-            error = "Can't write " + target.getFullPathName();
+            error = TRANS ("Can't write %1").replace ("%1", target.getFullPathName());
         return {};
     }
     return target;   // finished when the writer goes, here
@@ -437,7 +437,7 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
 
     if (! folder.createDirectory())
     {
-        error = "Can't make the folder " + folder.getFullPathName();
+        error = TRANS ("Can't make the folder %1").replace ("%1", folder.getFullPathName());
         return {};
     }
     const auto picked = formatFor (format);
@@ -451,7 +451,7 @@ juce::File Recorder::saveReplay (const juce::String& sourceName, juce::String& e
         target = folder.getChildFile (base + " (" + juce::String (n) + ")" + extension);
     if (! target.create())
     {
-        error = "Can't write " + target.getFullPathName();
+        error = TRANS ("Can't write %1").replace ("%1", target.getFullPathName());
         return {};
     }
 

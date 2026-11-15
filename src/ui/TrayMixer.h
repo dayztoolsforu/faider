@@ -19,10 +19,10 @@ public:
     {
         title.setFont (Console::legendFont (Console::Type::body));
         addAndMakeVisible (title);
-        openKey.setTooltip (juce::String ("Open ") + Product::name);
+        openKey.setTooltip (TRANS ("Open %1").replace ("%1", Product::name));
         openKey.onClick = [this] { if (open) open(); };
         addAndMakeVisible (openKey);
-        pinKey.setTooltip ("On: the mini mixer stays on top of everything");
+        pinKey.setTooltip (TRANS ("On: the mini mixer stays on top of everything"));
         pinKey.setClickingTogglesState (true);
         pinKey.setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
         pinKey.setToggleState (pinned, juce::dontSendNotification);
@@ -204,7 +204,7 @@ private:
     std::function<void()> open;
     std::function<void (bool)> pin;
     juce::Label title { {}, Product::nameUpper };
-    juce::TextButton openKey { "OPEN" }, pinKey { "PIN" };
+    juce::TextButton openKey { TRANS ("OPEN") }, pinKey { TRANS ("PIN") };
     juce::OwnedArray<Column> columns;
     juce::StringArray shown;   // the keys `columns` were made for
 };

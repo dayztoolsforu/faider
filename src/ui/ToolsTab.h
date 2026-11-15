@@ -10,7 +10,7 @@ class ToolsTab : public juce::Component
 public:
     ToolsTab (std::initializer_list<std::pair<juce::String, juce::Component*>> pages)
     {
-        for (auto& [name, page] : pages)
+        for (auto& [name, page] : pages)   // (English names, NEEDS_TRANS where they're given: KeyTabs translates them when drawn)
             tabs.addTab (name, juce::Colours::transparentBlack, page, false);
         addAndMakeVisible (tabs);
     }

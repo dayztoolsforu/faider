@@ -26,7 +26,7 @@ namespace
         juce::String error;
         if (engine.getPads().load (index, file, engine.getSampleRate(), error))
             return true;
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "SAMPLE NOT LOADED", error);
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("SAMPLE NOT LOADED"), Pads::translateError (error));
         return false;
     }
 
@@ -103,11 +103,11 @@ public:
         if (has)
         {
             juce::StringArray tags;
-            if (p.mode == Pads::Mode::hold) tags.add ("HOLD");
-            if (p.mode == Pads::Mode::loop) tags.add ("LOOP");
+            if (p.mode == Pads::Mode::hold) tags.add (TRANS ("HOLD"));
+            if (p.mode == Pads::Mode::loop) tags.add (TRANS ("LOOP"));
             if (p.choke > 0) tags.add ("C" + juce::String (p.choke));
             tags.add ((p.seconds() < 10.0 ? juce::String (p.seconds(), 1) : juce::String (juce::roundToInt (p.seconds()))) + "s");
-            g.drawText (tags.joinIntoString ("  "), top, juce::Justification::centredRight, false);
+            g.drawFittedText (tags.joinIntoString ("  "), top.toNearestInt(), juce::Justification::centredRight, 1, 0.7f);
         }
 
         // Bottom: its hotkey.
@@ -128,7 +128,7 @@ public:
         {
             g.setColour (ink.withMultipliedAlpha (0.75f));   // (empty: quieter than a loaded pad, still readable)
             g.setFont (juce::FontOptions (Console::Type::body));
-            g.drawFittedText (p.file.isNotEmpty() ? "MISSING: " + juce::File (p.file).getFileName().toUpperCase() : juce::String ("EMPTY"),
+            g.drawFittedText (p.file.isNotEmpty() ? TRANS ("MISSING: %1").replace ("%1", juce::File (p.file).getFileName().toUpperCase()) : TRANS ("EMPTY"),
                               inner.toNearestInt(), juce::Justification::centred, 2, 0.8f);
         }
 
@@ -224,7 +224,7 @@ public:
     std::function<Pads::Pad*()> pad;
     std::function<void()> onTrimmed;   // let go after dragging a line
 
-    PadWave() { setTooltip ("Drag the ends to trim. Double-click: whole file"); }
+    PadWave() { setTooltip (TRANS ("Drag the ends to trim. Double-click: whole file")); }
 
     void paint (juce::Graphics& g) override
     {
@@ -355,7 +355,7 @@ public:
 
         name.setFont (juce::FontOptions (Console::Type::display, juce::Font::bold));
         name.setEditable (false, true);
-        name.setTooltip ("Double-click: rename");
+        name.setTooltip (TRANS ("Double-click: rename"));
         name.setColour (juce::Label::backgroundColourId, Console::Colours::slot());
         Console::capitalsOnly (name);
         name.onTextChange = [this] { pad().name = name.getText(); owner.edited(); };
@@ -370,20 +370,20 @@ public:
 
         // REPLAY: what instant replay holds now becomes this pad's sound (a WAV beside the
         // recordings), to trim to the moment.
-        replay.setTooltip ("Load the instant replay");
+        replay.setTooltip (TRANS ("Load the instant replay"));
         replay.onClick = [this]
         {
             juce::String error;
             const auto saved = engine.getRecorder().replayArmed() ? engine.getRecorder().saveReplayNow ("REPLAY PAD " + padLabel (index), error) : juce::File();
             if (saved == juce::File())
             {
-                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::InfoIcon, "NO REPLAY",
-                                                        engine.getRecorder().replayArmed() ? error : "Arm instant replay in TOOLS > TAPE first.");
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::InfoIcon, TRANS ("NO REPLAY"),
+                                                        engine.getRecorder().replayArmed() ? error : TRANS ("Arm instant replay in TOOLS > TAPE first."));
                 return;
             }
             pad().name = "REPLAY " + juce::Time::getCurrentTime().formatted ("%H:%M:%S");
             if (! engine.getPads().load (index, saved, engine.getSampleRate(), error))
-                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "NO REPLAY", error);
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("NO REPLAY"), Pads::translateError (error));
             owner.edited();
         };
 
@@ -411,11 +411,11 @@ public:
         for (auto* b : { &load, &replay, &clear, &colour })
             addAndMakeVisible (b);
 
-        mode.setTooltip ("One-shot: plays out. Hold: while held. Loop: toggles");
+        mode.setTooltip (TRANS ("One-shot: plays out. Hold: while held. Loop: toggles"));
         mode.onChange = [this] (int m) { pad().mode = (Pads::Mode) m; owner.edited(); };
         addAndMakeVisible (mode);
 
-        choke.setTooltip ("Pads in one group stop each other");
+        choke.setTooltip (TRANS ("Pads in one group stop each other"));
         choke.onChange = [this] (int c) { pad().choke = c; owner.edited(); };
         addAndMakeVisible (choke);
 
@@ -427,14 +427,14 @@ public:
         addAndMakeVisible (level);
 
         // Hotkey: click, then press the keys (Esc: cancel, Delete: none).
-        hotkey.setTooltip ("Global hotkey");
-        hotkey.onClick = [this] { capturing = true; hotkey.setButtonText ("LEARN..."); setWantsKeyboardFocus (true); grabKeyboardFocus(); };
+        hotkey.setTooltip (TRANS ("Global hotkey"));
+        hotkey.onClick = [this] { capturing = true; hotkey.setButtonText (TRANS ("LEARN...")); setWantsKeyboardFocus (true); grabKeyboardFocus(); };
         addAndMakeVisible (hotkey);
         hotkeyNote.setFont (juce::FontOptions (Console::Type::body));
         addAndMakeVisible (hotkeyNote);
 
         // A macro the pad runs as well (or on its own, with no sound).
-        macro.setTooltip ("Macro to run with this pad");
+        macro.setTooltip (TRANS ("Macro to run with this pad"));
         macro.onChange = [this]
         {
             const int i = macro.getSelectedId() - 2;
@@ -464,7 +464,7 @@ public:
             stopCapturing ({});
         }
         else if (! GlobalHotkeys::usable (key))
-            { hotkeyNote.setText ("Needs Ctrl, Alt or an F key", juce::dontSendNotification); resized(); }
+            { hotkeyNote.setText (TRANS ("Needs Ctrl, Alt or an F key"), juce::dontSendNotification); resized(); }
         else
             stopCapturing (owner.setHotkey (index, key) ? juce::String() : owner.hotkeyRefusal());
         return true;
@@ -480,9 +480,10 @@ public:
     {
         index = i;
         const auto& p = pad();
-        title.setText ("PAD " + padLabel (i), juce::dontSendNotification);
+        title.setText (TRANS ("PAD %1").replace ("%1", padLabel (i)), juce::dontSendNotification);
         name.setText (p.name, juce::dontSendNotification);
-        file.setText (p.file.isEmpty() ? juce::String ("NO SAMPLE") : juce::File (p.file).getFileName() + (p.sound == nullptr ? "  (offline)" : ""),
+        file.setText (p.file.isEmpty() ? TRANS ("NO SAMPLE")
+                                       : p.sound == nullptr ? TRANS ("%1  (offline)").replace ("%1", juce::File (p.file).getFileName()) : juce::File (p.file).getFileName(),
                       juce::dontSendNotification);
         mode.setSelected ((int) p.mode);
         choke.setIndex (p.choke);
@@ -491,7 +492,7 @@ public:
         fadeOut.setValue (p.fadeOut * 1000.0);
         wave.repaint();
         if (! capturing)
-            hotkey.setButtonText (p.hotkey.isEmpty() ? juce::String ("NONE") : p.hotkey.toUpperCase());
+            hotkey.setButtonText (p.hotkey.isEmpty() ? TRANS ("NONE") : p.hotkey.toUpperCase());
         for (auto* c : std::initializer_list<juce::Component*> { &mode, &choke, &level, &clear, &fadeIn, &fadeOut, &wave })
             c->setEnabled (p.file.isNotEmpty());
         const bool used = p.file.isNotEmpty() || p.macro.isNotEmpty();   // a macro-only pad needs no sound
@@ -500,7 +501,7 @@ public:
         hotkey.setEnabled (used);
 
         macro.clear (juce::dontSendNotification);
-        macro.addItem ("NONE", 1);
+        macro.addItem (TRANS ("NONE"), 1);
         const auto& list = engine.getMacros().list;
         for (int m = 0; m < (int) list.size(); ++m)
             macro.addItem (list[(size_t) m].name, m + 2);
@@ -593,12 +594,12 @@ private:
     AudioEngine& engine;
     int index = 0;
     bool capturing = false;
-    juce::Label title, name, file, modeLabel { {}, "MODE" }, chokeLabel { {}, "CHOKE" }, levelLabel { {}, "LEVEL" },
-                hotkeyLabel { {}, "HOTKEY" }, hotkeyNote, macroLabel { {}, "MACRO" },
-                trimLabel { {}, "TRIM" }, fadeInLabel { {}, "FADE IN" }, fadeOutLabel { {}, "FADE OUT" };
-    juce::TextButton load { "LOAD" }, replay { "REPLAY" }, clear { "CLEAR" }, colour { "COLOUR" }, hotkey { "NONE" };
-    ConsoleControls::KeyRow mode { { "ONE-SHOT", "HOLD", "LOOP" } };
-    ConsoleControls::Stepper choke { { "OFF", "1", "2", "3", "4", "5", "6", "7", "8" } };
+    juce::Label title, name, file, modeLabel { {}, TRANS ("MODE") }, chokeLabel { {}, TRANS ("CHOKE") }, levelLabel { {}, TRANS ("LEVEL") },
+                hotkeyLabel { {}, TRANS ("HOTKEY") }, hotkeyNote, macroLabel { {}, TRANS ("MACRO") },
+                trimLabel { {}, TRANS ("TRIM") }, fadeInLabel { {}, TRANS ("FADE IN") }, fadeOutLabel { {}, TRANS ("FADE OUT") };
+    juce::TextButton load { TRANS ("LOAD") }, replay { TRANS ("REPLAY") }, clear { TRANS ("CLEAR") }, colour { TRANS ("COLOUR") }, hotkey { TRANS ("NONE") };
+    ConsoleControls::KeyRow mode { { TRANS ("ONE-SHOT"), TRANS ("HOLD"), TRANS ("LOOP") } };
+    ConsoleControls::Stepper choke { { TRANS ("OFF"), "1", "2", "3", "4", "5", "6", "7", "8" } };
     ConsoleControls::ValueKnob level, fadeIn, fadeOut;
     PadWave wave;
     juce::ComboBox macro;
@@ -617,7 +618,7 @@ public:
 
         name.setFont (juce::FontOptions (Console::Type::display, juce::Font::bold));
         name.setEditable (false, true);
-        name.setTooltip ("Double-click: rename");
+        name.setTooltip (TRANS ("Double-click: rename"));
         Console::capitalsOnly (name);
         name.onTextChange = [this]
         {
@@ -633,17 +634,17 @@ public:
             owner.macrosChanged();
         };
 
-        run.setTooltip ("Fire");
+        run.setTooltip (TRANS ("Fire"));
         Console::setIcon (run, Console::Icon::play);
         run.onClick = [this] { if (macro() != nullptr) macros().run (current); };
 
         undo.setClickingTogglesState (true);
         undo.setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
-        undo.setTooltip ("On: undo the actions when released");
+        undo.setTooltip (TRANS ("On: undo the actions when released"));
         undo.onClick = [this] { if (auto* m = macro()) m->undoOnRelease = undo.getToggleState(); };
 
-        hotkey.setTooltip ("Global hotkey");
-        hotkey.onClick = [this] { capturing = true; hotkey.setButtonText ("LEARN..."); setWantsKeyboardFocus (true); grabKeyboardFocus(); };
+        hotkey.setTooltip (TRANS ("Global hotkey"));
+        hotkey.onClick = [this] { capturing = true; hotkey.setButtonText (TRANS ("LEARN...")); setWantsKeyboardFocus (true); grabKeyboardFocus(); };
         hotkeyNote.setFont (juce::FontOptions (Console::Type::body));
 
         addStep.onClick = [this]
@@ -656,7 +657,7 @@ public:
             }
         };
 
-        addTrigger.setTooltip ("Run this macro automatically");
+        addTrigger.setTooltip (TRANS ("Run this macro automatically"));
         addTrigger.onClick = [this]
         {
             if (auto* m = macro())
@@ -721,11 +722,11 @@ public:
         name.setText (m != nullptr ? m->name : juce::String(), juce::dontSendNotification);
         undo.setToggleState (m != nullptr && m->undoOnRelease, juce::dontSendNotification);
         if (! capturing)
-            hotkey.setButtonText (m == nullptr || m->hotkey.isEmpty() ? juce::String ("NONE") : m->hotkey.toUpperCase());
+            hotkey.setButtonText (m == nullptr || m->hotkey.isEmpty() ? TRANS ("NONE") : m->hotkey.toUpperCase());
         for (auto* c : std::initializer_list<juce::Component*> { &name, &run, &undo, &addStep, &addTrigger })
             c->setEnabled (m != nullptr);
         hotkey.setEnabled (m != nullptr);
-        title.setText (m != nullptr ? juce::String ("MACRO") : juce::String ("NO MACROS: CLICK + NEW"), juce::dontSendNotification);
+        title.setText (m != nullptr ? TRANS ("MACRO") : TRANS ("NO MACROS: CLICK + NEW"), juce::dontSendNotification);
 
         rows.clear();
         if (m != nullptr)
@@ -754,7 +755,7 @@ public:
             stopCapturing ({});
         }
         else if (! GlobalHotkeys::usable (key))
-            hotkeyNote.setText ("Needs Ctrl, Alt or an F key", juce::dontSendNotification);
+            hotkeyNote.setText (TRANS ("Needs Ctrl, Alt or an F key"), juce::dontSendNotification);
         else
             stopCapturing (owner.setMacroHotkey (current, key) ? juce::String() : owner.hotkeyRefusal());
         return true;
@@ -816,7 +817,7 @@ private:
         {
             using A = Macros::Action;
             for (int a = 0; a <= (int) A::pluginSet; ++a)
-                action.addItem (Macros::actionName ((A) a), a + 1);
+                action.addItem (juce::translate (Macros::actionName ((A) a)), a + 1);   // (English names, NEEDS_TRANS in Macros.cpp)
             action.setSelectedId ((int) step().action + 1, juce::dontSendNotification);
             action.onChange = [this]
             {
@@ -839,7 +840,7 @@ private:
                 value.knob.setRange (0.0, 100.0, 0.1);
                 value.knob.setDoubleClickReturnValue (true, 50.0);
                 value.format = [] (double v) { return juce::String (v, 1) + " %"; };
-                value.setTooltip ("Control position (0-100 %)");
+                value.setTooltip (TRANS ("Control position (0-100 %)"));
             }
             else
             {
@@ -847,7 +848,7 @@ private:
                 value.knob.setSkewFactorFromMidPoint (-12.0);
                 value.knob.setDoubleClickReturnValue (true, 0.0);
                 value.format = [] (double db) { return db <= -60.0 ? juce::String ("-INF dB") : juce::String (db, 1) + " dB"; };
-                value.setTooltip ("Fader level");
+                value.setTooltip (TRANS ("Fader level"));
             }
             value.setValue (step().value);
             value.onChange = [this] (double v) { step().value = (float) v; };
@@ -858,9 +859,9 @@ private:
             ms.format = [] (double t) { return t >= 1000.0 ? juce::String (t / 1000.0, 2) + " s" : juce::String ((int) t) + " ms"; };
             ms.setValue (step().ms);
             ms.onChange = [this] (double t) { step().ms = (int) t; };
-            ms.setTooltip (step().action == Macros::Action::wait ? "Wait" : "Fade");
+            ms.setTooltip (step().action == Macros::Action::wait ? TRANS ("Wait") : TRANS ("Fade"));
 
-            remove.setTooltip ("Delete action");
+            remove.setTooltip (TRANS ("Delete action"));
             remove.onClick = [this]
             {
                 auto& s = editor.macro()->steps;
@@ -997,20 +998,20 @@ private:
             {
                 if (! destinations)
                 {
-                    box.addSectionHeading ("Channels");
+                    box.addSectionHeading (TRANS ("Channels"));
                     for (auto& s : eng.getStrips()) item ("input:" + s->name, s->name);
                 }
-                box.addSectionHeading ("Buses");
+                box.addSectionHeading (TRANS ("Buses"));
                 for (auto& s : eng.getBuses()) item ("bus:" + s->name, s->name);
-                box.addSectionHeading ("Outputs");
+                box.addSectionHeading (TRANS ("Outputs"));
                 for (auto& b : eng.getMasters()) item ("output:" + b->name, b->name);
             }
             if (chosen.isNotEmpty() && ! keys.contains (chosen))
-                item (chosen, chosen.fromFirstOccurrenceOf (":", false, false) + "  (missing)");
+                item (chosen, TRANS ("%1  (missing)").replace ("%1", chosen.fromFirstOccurrenceOf (":", false, false)));
             box.setSelectedId (keys.indexOf (chosen) + 1, juce::dontSendNotification);
             box.setTextWhenNothingSelected (&box == &target2 && (a == Macros::Action::fxOn || a == Macros::Action::fxOff || a == Macros::Action::fxToggle)
-                                                ? "FX..." : &box == &target2 && a == Macros::Action::pluginSet ? "PLUGIN CONTROL..." : destinations ? "TO..." : pads ? "PAD..." : &box == &target && editorStep().action == Macros::Action::scene ? "SCENE..."
-                                                : a == Macros::Action::defaultOutput || a == Macros::Action::defaultInput ? "DEVICE..." : "TARGET...");
+                                                ? TRANS ("FX...") : &box == &target2 && a == Macros::Action::pluginSet ? TRANS ("PLUGIN CONTROL...") : destinations ? TRANS ("TO...") : pads ? TRANS ("PAD...") : &box == &target && editorStep().action == Macros::Action::scene ? TRANS ("SCENE...")
+                                                : a == Macros::Action::defaultOutput || a == Macros::Action::defaultInput ? TRANS ("DEVICE...") : TRANS ("TARGET..."));
         }
 
         void pick (juce::ComboBox& box, const juce::StringArray& keys, juce::String& into)
@@ -1038,9 +1039,10 @@ private:
         TriggerRow (MacroEditor& e, int i) : editor (e), index (i)
         {
             using W = Macros::Trigger::When;
-            const char* names[] = { "APP STARTS", "APP STOPS", "DEVICE CONNECTED", "DEVICE DISCONNECTED", "OUTPUT SILENT", "OUTPUT HAS SOUND", "TIME" };
+            const char* names[] = { NEEDS_TRANS ("APP STARTS"), NEEDS_TRANS ("APP STOPS"), NEEDS_TRANS ("DEVICE CONNECTED"), NEEDS_TRANS ("DEVICE DISCONNECTED"),
+                                    NEEDS_TRANS ("OUTPUT SILENT"), NEEDS_TRANS ("OUTPUT HAS SOUND"), NEEDS_TRANS ("TIME") };
             for (int w = 0; w <= (int) W::time; ++w)
-                when.addItem (names[w], w + 1);
+                when.addItem (juce::translate (names[w]), w + 1);
             when.setSelectedId ((int) trigger().when + 1, juce::dontSendNotification);
             when.onChange = [this] { trigger().when = (Macros::Trigger::When) (when.getSelectedId() - 1); fill(); resized(); };
 
@@ -1050,11 +1052,11 @@ private:
 
             seconds.setInputRestrictions (4, "0123456789");
             seconds.setJustification (juce::Justification::centred);
-            seconds.setTooltip ("Seconds silent");
+            seconds.setTooltip (TRANS ("Seconds silent"));
             seconds.setText (juce::String (trigger().seconds), false);
             seconds.onTextChange = [this] { trigger().seconds = juce::jmax (1, seconds.getText().getIntValue()); };
 
-            remove.setTooltip ("Delete trigger");
+            remove.setTooltip (TRANS ("Delete trigger"));
             remove.onClick = [this]   // after this click returns: the refresh deletes this row
             {
                 juce::MessageManager::callAsync ([safe = juce::Component::SafePointer<MacroEditor> (&editor), i = index]
@@ -1120,8 +1122,8 @@ private:
             what.clear (juce::dontSendNotification);
             what.addItemList (choices, 1);
             what.setText (trigger().what, juce::dontSendNotification);
-            what.setTooltip (trigger().when == W::time ? "Time, HH:MM (24-hour)" : trigger().when == W::deviceOn || trigger().when == W::deviceOff
-                             ? "A device, or part of its name" : "Pick or type");
+            what.setTooltip (trigger().when == W::time ? TRANS ("Time, HH:MM (24-hour)") : trigger().when == W::deviceOn || trigger().when == W::deviceOff
+                             ? TRANS ("A device, or part of its name") : TRANS ("Pick or type"));
         }
 
         MacroEditor& editor;
@@ -1159,8 +1161,8 @@ private:
     AudioEngine& engine;
     int current = 0;
     bool capturing = false;
-    juce::Label title { {}, "MACRO" }, name, hotkeyLabel { {}, "HOTKEY" }, hotkeyNote, stepsLabel { {}, "ACTIONS" }, triggersLabel { {}, "TRIGGERS" };
-    juce::TextButton run { "FIRE" }, undo { "MOMENTARY" }, hotkey { "NONE" }, addStep { "+ ACTION" }, addTrigger { "+ TRIGGER" };
+    juce::Label title { {}, TRANS ("MACRO") }, name, hotkeyLabel { {}, TRANS ("HOTKEY") }, hotkeyNote, stepsLabel { {}, TRANS ("ACTIONS") }, triggersLabel { {}, TRANS ("TRIGGERS") };
+    juce::TextButton run { TRANS ("FIRE") }, undo { TRANS ("MOMENTARY") }, hotkey { TRANS ("NONE") }, addStep { TRANS ("+ ACTION") }, addTrigger { TRANS ("+ TRIGGER") };
     juce::Viewport steps;
     juce::Component holder;
     juce::OwnedArray<StepRow> rows;
@@ -1191,16 +1193,16 @@ public:
         list.setOutlineThickness (0);
         addAndMakeVisible (list);
 
-        newKey.setTooltip ("New macro");
+        newKey.setTooltip (TRANS ("New macro"));
         newKey.onClick = [this] { editor.newMacro(); };
-        deleteKey.setTooltip ("Delete macro");
+        deleteKey.setTooltip (TRANS ("Delete macro"));
         deleteKey.onClick = [this]
         {
             const int i = editor.shown();
             if (! juce::isPositiveAndBelow (i, (int) engine.getMacros().list.size()))
                 return;
-            juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::QuestionIcon, "DELETE MACRO",
-                                                "Delete " + engine.getMacros().list[(size_t) i].name + "?", "DELETE", "CANCEL", this,
+            juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::QuestionIcon, TRANS ("DELETE MACRO"),
+                                                TRANS ("Delete %1?").replace ("%1", engine.getMacros().list[(size_t) i].name), TRANS ("DELETE"), TRANS ("CANCEL"), this,
                                                 juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MacrosPage> (this)] (int ok)
                                                 {
                                                     if (ok != 0 && safe != nullptr)
@@ -1287,16 +1289,17 @@ private:
         g.drawText (m.name, r.removeFromTop (r.getHeight() / 2), juce::Justification::bottomLeft, true);
 
         juce::StringArray detail;
-        detail.add (juce::String ((int) m.steps.size()) + ((int) m.steps.size() == 1 ? " ACTION" : " ACTIONS"));
-        if (! m.triggers.empty())
-            detail.add (juce::String ((int) m.triggers.size()) + ((int) m.triggers.size() == 1 ? " TRIGGER" : " TRIGGERS"));
+        const int stepCount = (int) m.steps.size(), triggerCount = (int) m.triggers.size();
+        detail.add ((stepCount == 1 ? TRANS ("%1 ACTION") : TRANS ("%1 ACTIONS")).replace ("%1", juce::String (stepCount)));
+        if (triggerCount > 0)
+            detail.add ((triggerCount == 1 ? TRANS ("%1 TRIGGER") : TRANS ("%1 TRIGGERS")).replace ("%1", juce::String (triggerCount)));
         if (m.hotkey.isNotEmpty())
             detail.add (m.hotkey.toUpperCase());
         if (m.undoOnRelease)
-            detail.add ("MOMENTARY");
+            detail.add (TRANS ("MOMENTARY"));
         g.setColour (Console::Colours::legendDim());
         g.setFont (Console::legendFont (Console::Type::legend));
-        g.drawText (detail.joinIntoString ("  /  "), r, juce::Justification::topLeft, true);
+        g.drawFittedText (detail.joinIntoString ("  /  "), r, juce::Justification::topLeft, 1, 0.7f);
     }
 
     void selectedRowsChanged (int row) override
@@ -1312,7 +1315,7 @@ private:
         list.selectRow (editor.shown(), true, true);
         list.repaint();
         deleteKey.setEnabled (editor.shown() >= 0);
-        count.setText (juce::String (n) + (n == 1 ? " MACRO" : " MACROS"), juce::dontSendNotification);
+        count.setText ((n == 1 ? TRANS ("%1 MACRO") : TRANS ("%1 MACROS")).replace ("%1", juce::String (n)), juce::dontSendNotification);
     }
 
     void timerCallback() override
@@ -1329,9 +1332,9 @@ private:
 
     MacroEditor& editor;
     AudioEngine& engine;
-    juce::Label listTitle { {}, "MACROS" }, count;
+    juce::Label listTitle { {}, TRANS ("MACROS") }, count;
     juce::ListBox list { "Macros" };
-    juce::TextButton newKey { "+ NEW" }, deleteKey { "DELETE" };
+    juce::TextButton newKey { TRANS ("+ NEW") }, deleteKey { TRANS ("DELETE") };
     juce::Rectangle<int> listPanel;
     juce::String shownRunning;
 };
@@ -1343,7 +1346,7 @@ PadsPanel::PadsPanel (AudioEngine& e, MixerComponent& m) : engine (e), mixer (m)
 {
     for (int b = 0; b < Pads::banks; ++b)
     {
-        auto* button = bankButtons.add (new juce::TextButton ("BANK " + juce::String::charToString ((juce::juce_wchar) ('A' + b))));
+        auto* button = bankButtons.add (new juce::TextButton (TRANS ("BANK %1").replace ("%1", juce::String::charToString ((juce::juce_wchar) ('A' + b)))));
         button->setClickingTogglesState (true);
         button->setRadioGroupId (1);
         button->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
@@ -1351,12 +1354,12 @@ PadsPanel::PadsPanel (AudioEngine& e, MixerComponent& m) : engine (e), mixer (m)
         addAndMakeVisible (button);
     }
 
-    stopAll.setTooltip ("Fade out all pads");
+    stopAll.setTooltip (TRANS ("Fade out all pads"));
     Console::setIcon (stopAll, Console::Icon::stop);
     stopAll.onClick = [this] { engine.getPads().stopAll(); };
     addAndMakeVisible (stopAll);
 
-    addStrip.setTooltip ("Create the PADS channel");
+    addStrip.setTooltip (TRANS ("Create the PADS channel"));
     addStrip.onClick = [this]
     {
         engine.addStrip ("PADS", { AudioEngine::Source::pads, 0, {}, true });
@@ -1366,7 +1369,7 @@ PadsPanel::PadsPanel (AudioEngine& e, MixerComponent& m) : engine (e), mixer (m)
     playIntoLabel.setFont (Console::legendFont (Console::Type::body));
     playIntoLabel.setJustificationType (juce::Justification::centredRight);
     addAndMakeVisible (playIntoLabel);
-    playInto.setTooltip ("Where the pads play");
+    playInto.setTooltip (TRANS ("Where the pads play"));
     playInto.onChange = [this] { engine.setPadsTarget (playInto.getSelectedId() - 2); };   // 1: the PADS strip
     addAndMakeVisible (playInto);
     fillPlayInto();
@@ -1415,7 +1418,7 @@ void PadsPanel::select (int index)
 
 void PadsPanel::chooseSound (int index)
 {
-    chooser = std::make_unique<juce::FileChooser> ("Load sample: pad " + padLabel (index), juce::File(), soundFiles);
+    chooser = std::make_unique<juce::FileChooser> (TRANS ("Load sample: pad %1").replace ("%1", padLabel (index)), juce::File(), soundFiles);
     chooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles, [this, index] (const juce::FileChooser& fc)
     {
         if (fc.getResult().existsAsFile() && loadSound (engine, index, fc.getResult()))
@@ -1436,50 +1439,69 @@ void PadsPanel::swapPads (int a, int b)
 
 const std::vector<PadsPanel::FixedKey>& PadsPanel::fixedKeys()
 {
-    static const std::vector<FixedKey> keys {
-        { "FIND (COMMAND PALETTE)", "ctrl + K", { "ctrl + K" } },
-        { "MIDI MAP", "ctrl + L", { "ctrl + L" } },
-        { "UNDO / REDO", "ctrl + Z  /  ctrl + Y", { "ctrl + Z", "ctrl + Y", "ctrl + shift + Z" } },
-        { "UNDO HISTORY", "ctrl + H", { "ctrl + H" } },
-        { "ZOOM IN / OUT / 100%", "ctrl + plus / minus / 0", { "ctrl + =", "ctrl + -", "ctrl + 0" } } };
+    static const std::vector<FixedKey> keys {   // (names English: translated where shown)
+        { NEEDS_TRANS ("FIND (COMMAND PALETTE)"), "ctrl + K", { "ctrl + K" } },
+        { NEEDS_TRANS ("MIDI MAP"), "ctrl + L", { "ctrl + L" } },
+        { NEEDS_TRANS ("UNDO / REDO"), "ctrl + Z  /  ctrl + Y", { "ctrl + Z", "ctrl + Y", "ctrl + shift + Z" } },
+        { NEEDS_TRANS ("UNDO HISTORY"), "ctrl + H", { "ctrl + H" } },
+        { NEEDS_TRANS ("ZOOM IN / OUT / 100%"), "ctrl + plus / minus / 0", { "ctrl + =", "ctrl + -", "ctrl + 0" } } };
     return keys;
 }
 
 juce::String PadsPanel::hotkeyHolder (const juce::KeyPress& key, int exceptId) const
 {
+    return holderOf (key, exceptId, false);
+}
+
+// The holder's name in English (the log) or translated (the screen). User names stay as they are.
+juce::String PadsPanel::holderOf (const juce::KeyPress& key, int exceptId, bool translated) const
+{
     if (! key.isValid())
         return {};
     auto has = [&key] (const juce::String& text) { return text.isNotEmpty() && juce::KeyPress::createFromDescription (text) == key; };
+    auto shown = [translated] (const char* english) { return translated ? juce::translate (english) : juce::String (english); };
 
     auto& p = engine.getPads();
     for (int i = 0; i < Pads::count; ++i)
         if (i != exceptId && has (p.pad (i).hotkey))
-            return "PAD " + juce::String (i + 1) + (p.pad (i).name.isNotEmpty() ? ": " + p.pad (i).name.toUpperCase() : juce::String());
+            return p.pad (i).name.isNotEmpty()
+                       ? shown (NEEDS_TRANS ("PAD %1: %2")).replace ("%1", juce::String (i + 1)).replace ("%2", p.pad (i).name.toUpperCase())
+                       : shown (NEEDS_TRANS ("PAD %1")).replace ("%1", juce::String (i + 1));
     const auto& macros = engine.getMacros().list;
     for (int i = 0; i < (int) macros.size(); ++i)
         if (macroHotkeyBase + i != exceptId && has (macros[(size_t) i].hotkey))
-            return "MACRO " + macros[(size_t) i].name.toUpperCase();
+            return shown (NEEDS_TRANS ("MACRO %1")).replace ("%1", macros[(size_t) i].name.toUpperCase());
     const auto& scenes = engine.getScenes().list;
     for (int i = 0; i < (int) scenes.size(); ++i)
         if (sceneHotkeyBase + i != exceptId && has (scenes[(size_t) i].hotkey))
-            return "SCENE " + scenes[(size_t) i].name.toUpperCase();
+            return shown (NEEDS_TRANS ("SCENE %1")).replace ("%1", scenes[(size_t) i].name.toUpperCase());
     for (auto& [id, extra] : extras)
         if (id != exceptId && has (extra.key))
-            return extra.name;
+            return translated ? juce::translate (extra.name) : extra.name;   // (English names from MainComponent, NEEDS_TRANS there)
     for (auto& fixed : fixedKeys())
         for (auto& k : fixed.keys)
             if (has (k))
-                return fixed.name;
+                return shown (fixed.name);
     return {};
 }
 
 bool PadsPanel::heldHere (const juce::KeyPress& key, int exceptId)
 {
     refusal.clear();
+    refusalLog.clear();
     const auto holder = hotkeyHolder (key, exceptId);
     if (holder.isNotEmpty())
-        refusal = key.getTextDescription() + " is already the key for " + holder;
+    {
+        refusalLog = key.getTextDescription() + " is already the key for " + holder;
+        refusal = TRANS ("%1 is already the key for %2").replace ("%1", key.getTextDescription()).replace ("%2", holderOf (key, exceptId, true));
+    }
     return holder.isNotEmpty();
+}
+
+void PadsPanel::refuse (const juce::String& key)
+{
+    refusalLog = key + " is taken by another app";
+    refusal = TRANS ("%1 is taken by another app").replace ("%1", key);
 }
 
 bool PadsPanel::setHotkey (int index, const juce::KeyPress& key)
@@ -1495,7 +1517,7 @@ bool PadsPanel::setHotkey (int index, const juce::KeyPress& key)
     {
         pad.hotkey = before;   // Windows refused it (another app has it): keep what it had
         registerHotkeys();
-        refusal = key.getTextDescription() + " is taken by another app";
+        refuse (key.getTextDescription());
     }
     edited();
     return ok;
@@ -1539,7 +1561,7 @@ bool PadsPanel::setMacroHotkey (int macro, const juce::KeyPress& key)
     {
         list[(size_t) macro].hotkey = before;   // Windows refused it (another app has it): keep what it had
         registerHotkeys();
-        refusal = key.getTextDescription() + " is taken by another app";
+        refuse (key.getTextDescription());
     }
     return ok;
 }
@@ -1601,7 +1623,7 @@ bool PadsPanel::setExtraHotkey (int id, const juce::String& name, const juce::St
     {
         if (before) extras[id] = *before; else extras.erase (id);   // refused: keep what it had
         registerHotkeys();
-        refusal = key + " is taken by another app";
+        refuse (key);
     }
     return ok;
 }
@@ -1619,7 +1641,7 @@ bool PadsPanel::setSceneHotkey (int scene, const juce::KeyPress& key)
     {
         list[(size_t) scene].hotkey = before;   // Windows refused it (another app has it): keep what it had
         registerHotkeys();
-        refusal = key.getTextDescription() + " is taken by another app";
+        refuse (key.getTextDescription());
     }
     return ok;
 }
@@ -1650,7 +1672,7 @@ void PadsPanel::fillPlayInto()
     playIntoShown = shown;
 
     playInto.clear (juce::dontSendNotification);
-    playInto.addItem ("PADS CHANNEL", 1);
+    playInto.addItem (TRANS ("PADS CHANNEL"), 1);
     auto& strips = engine.getStrips();
     for (int i = 0; i < (int) strips.size(); ++i)
         if (strips[(size_t) i]->source.kind != AudioEngine::Source::pads)
@@ -1675,7 +1697,7 @@ void PadsPanel::timerCallback()
     if (addStrip.isEnabled() == hasPadsStrip())   // says when it's there
     {
         addStrip.setEnabled (! hasPadsStrip());
-        addStrip.setButtonText (hasPadsStrip() ? "PADS CHANNEL ACTIVE" : "CREATE PADS CHANNEL");
+        addStrip.setButtonText (hasPadsStrip() ? TRANS ("PADS CHANNEL ACTIVE") : TRANS ("CREATE PADS CHANNEL"));
     }
 }
 
@@ -1688,7 +1710,7 @@ void PadsPanel::resized()
         for (auto* b : bankButtons)
             bar.left (*b, KeyRow::columnsFor (b->getButtonText()));
         bar.group().left (stopAll, KeyRow::columnsFor (stopAll.getButtonText()));
-        bar.right (addStrip, juce::jmax (KeyRow::columnsFor ("CREATE PADS CHANNEL"), KeyRow::columnsFor ("PADS CHANNEL ACTIVE"))).groupRight()
+        bar.right (addStrip, juce::jmax (KeyRow::columnsFor (TRANS ("CREATE PADS CHANNEL")), KeyRow::columnsFor (TRANS ("PADS CHANNEL ACTIVE")))).groupRight()
            .right (playInto, 3).rightWidth (playIntoLabel, Space::column);
     }
     r.removeFromTop (Space::pad);

@@ -457,8 +457,8 @@ namespace Console
             int getBestTabLength (int) override
             {
                 int columns = 1;
-                for (auto& name : getTabbedButtonBar().getTabNames())
-                    columns = juce::jmax (columns, KeyRow::columnsFor (name.toUpperCase(), Type::name));
+                for (auto& name : getTabbedButtonBar().getTabNames())   // (names are English identifiers, shown translated)
+                    columns = juce::jmax (columns, KeyRow::columnsFor (juce::translate (name).toUpperCase(), Type::name));
                 return Space::columns (columns) + 2 * capInsetX;
             }
 
@@ -479,7 +479,7 @@ namespace Console
                 }
                 g.setColour (on ? juce::Colours::white : Colours::ink());
                 g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-                g.drawText (getButtonText().toUpperCase(), r, juce::Justification::centred, false);
+                g.drawFittedText (juce::translate (getButtonText()).toUpperCase(), r.toNearestInt(), juce::Justification::centred, 1, 0.8f);
             }
         };
 
@@ -903,12 +903,12 @@ namespace Console
             const float lamp = lamps->level (tab);
             const auto area = drawCap (g, tab.getLocalBounds().toFloat().reduced (2.0f, 3.0f), true, light, lamp, motion->of (tab));
             g.setColour (lamp > 0.5f && light.getPerceivedBrightness() < 0.6f ? juce::Colours::white : juce::Colour (0xff141414));
-            LargeFormat::legend (g, tab.getButtonText(), area, 12.0f);   // (the one key's legend: dark, or white on a dark lamp)
+            LargeFormat::legend (g, juce::translate (tab.getButtonText()), area, 12.0f);   // (the one key's legend: dark, or white on a dark lamp; the tab's name is an English identifier, shown translated)
         }
 
         int getTabButtonBestWidth (juce::TabBarButton& tab, int depth) override
         {
-            return juce::GlyphArrangement::getStringWidthInt (legendFont (Type::name), tab.getButtonText().toUpperCase()) + depth + 22;
+            return juce::GlyphArrangement::getStringWidthInt (legendFont (Type::name), juce::translate (tab.getButtonText()).toUpperCase()) + depth + 22;
         }
 
         void drawTabAreaBehindFrontButton (juce::TabbedButtonBar&, juce::Graphics&, int, int) override {}
@@ -934,7 +934,7 @@ namespace Console
             const auto r = area.reduced (juce::roundToInt (10.0f * menuScale()), 0);
             g.setFont (legendFont (Type::name * menuScale()));
             g.setColour (Colours::legendDim());
-            g.drawText (text.toUpperCase(), r.withTrimmedTop (4), juce::Justification::centredLeft, true);
+            g.drawFittedText (text.toUpperCase(), r.withTrimmedTop (4), juce::Justification::centredLeft, 1, 0.8f);
             g.setColour (Colours::legendDim().withAlpha (0.35f));
             g.fillRect (r.getX(), r.getBottom() - 2, r.getWidth(), 1);
         }

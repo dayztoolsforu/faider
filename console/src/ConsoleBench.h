@@ -186,7 +186,7 @@ public:
             g.fillRoundedRectangle (tag, 3.0f * zoom);
             g.setColour (Console::Colours::ink().withAlpha (off));
             g.setFont (LargeFormat::print (juce::jmax (9.0f, 11.0f * zoom)));
-            g.drawText ("OFF", tag, juce::Justification::centred, false);
+            g.drawFittedText (TRANS ("OFF"), tag.toNearestInt(), juce::Justification::centred, 1, 0.7f);
         }
         g.setColour (Console::Colours::recess());   // (the seam between strips)
         g.fillRect (juce::Rectangle<float> (x0 + layout.width * zoom, 40.0f, 2.0f * zoom, y0 - 40.0f));
@@ -297,7 +297,7 @@ public:
             else if (tapeArea (r, "SHUFFLE").contains (e.position)) tape.setShuffle (! tape.getShuffle());
             else if (tapeArea (r, "ADD").contains (e.position))
             {
-                chooser = std::make_unique<juce::FileChooser> ("Add to the tape", juce::File(), "*.wav;*.mp3;*.flac;*.aiff;*.aif;*.ogg");
+                chooser = std::make_unique<juce::FileChooser> (TRANS ("Add to the tape"), juce::File(), "*.wav;*.mp3;*.flac;*.aiff;*.aif;*.ogg");
                 chooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles | juce::FileBrowserComponent::canSelectDirectories
                                       | juce::FileBrowserComponent::canSelectMultipleItems,
                                       [this] (const juce::FileChooser& fc) { for (auto& f : fc.getResults()) engine->getTape().add (f); repaint(); });
@@ -789,10 +789,10 @@ private:
         if (! juce::isPositiveAndBelow (index, (int) spacers.size()))
             return;
         juce::PopupMenu menu;
-        menu.addSectionHeader ("SPACER");
-        menu.addItem ("NARROW", true, spacers[(size_t) index].narrow, [this, index] { spacers[(size_t) index].narrow = ! spacers[(size_t) index].narrow; saveSpacers(); resizeToFit(); repaint(); });
-        menu.addItem ("ADD ANOTHER", [this, index] { spacers.insert (spacers.begin() + index + 1, spacers[(size_t) index]); saveSpacers(); resizeToFit(); repaint(); });
-        menu.addItem ("REMOVE SPACER", [this, index] { spacers.erase (spacers.begin() + index); saveSpacers(); resizeToFit(); repaint(); });
+        menu.addSectionHeader (TRANS ("SPACER"));
+        menu.addItem (TRANS ("NARROW"), true, spacers[(size_t) index].narrow, [this, index] { spacers[(size_t) index].narrow = ! spacers[(size_t) index].narrow; saveSpacers(); resizeToFit(); repaint(); });
+        menu.addItem (TRANS ("ADD ANOTHER"), [this, index] { spacers.insert (spacers.begin() + index + 1, spacers[(size_t) index]); saveSpacers(); resizeToFit(); repaint(); });
+        menu.addItem (TRANS ("REMOVE SPACER"), [this, index] { spacers.erase (spacers.begin() + index); saveSpacers(); resizeToFit(); repaint(); });
         menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
     }
 
@@ -1060,7 +1060,11 @@ private:
         for (int p = 0; p < (int) bus->paths.size(); ++p)
         {
             auto& path = *bus->paths[(size_t) p];
-            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, "PATH " + juce::String (p + 1) + (path.name.isNotEmpty() ? ": " + path.name.toUpperCase() : juce::String()) + (path.mute.load() ? "  (CUT)" : ""), 0 });
+            auto heading = path.name.isNotEmpty() ? TRANS ("PATH %1: %2").replace ("%1", juce::String (p + 1)).replace ("%2", path.name.toUpperCase())
+                                                  : TRANS ("PATH %1").replace ("%1", juce::String (p + 1));
+            if (path.mute.load())
+                heading = TRANS ("%1  (CUT)").replace ("%1", heading);   // (CUT: the strip's key, kept as printed)
+            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, heading, 0 });
             y += rowH + gap;
             std::vector<std::pair<juce::String, std::pair<int, juce::AudioPluginInstance*>>> from, plugins;
             auto feeds = [busIndex, p] (const AudioEngine::Strip& s)
@@ -1078,13 +1082,13 @@ private:
                     from.push_back ({ buses[(size_t) i]->name.toUpperCase(), { bind.busStrip (i), nullptr } });
             for (auto& pl : path.inserts)
                 plugins.push_back ({ pl->getName().toUpperCase(), { -1, pl.get() } });
-            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH * 0.8f }, "FROM", 3 });
+            parts.push_back ({ { r.getX(), y, r.getWidth(), rowH * 0.8f }, TRANS ("FROM"), 3 });
             y += rowH * 0.8f;
-            if (from.empty()) { parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, "NONE", 3 }); y += rowH + gap * 2.0f; }
+            if (from.empty()) { parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, TRANS ("NONE"), 3 }); y += rowH + gap * 2.0f; }
             else chips (from, 1);
             parts.push_back ({ { r.getX(), y, r.getWidth(), rowH * 0.8f }, "PLUGINS", 3 });
             y += rowH * 0.8f;
-            if (plugins.empty()) { parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, "NONE", 3 }); y += rowH + gap * 2.0f; }
+            if (plugins.empty()) { parts.push_back ({ { r.getX(), y, r.getWidth(), rowH }, TRANS ("NONE"), 3 }); y += rowH + gap * 2.0f; }
             else chips (plugins, 2);
             y += gap * 2.0f;
         }
@@ -1423,10 +1427,10 @@ public:
         auto& buses = engine->getBuses();
         if (! juce::isPositiveAndBelow (busIndex, (int) buses.size()) || ! juce::isPositiveAndBelow (p, (int) buses[(size_t) busIndex]->paths.size()))
             return;
-        auto w = std::make_unique<juce::AlertWindow> ("RENAME PATH", juce::String(), juce::MessageBoxIconType::NoIcon);
+        auto w = std::make_unique<juce::AlertWindow> (TRANS ("RENAME PATH"), juce::String(), juce::MessageBoxIconType::NoIcon);
         w->addTextEditor ("name", buses[(size_t) busIndex]->paths[(size_t) p]->name);
-        w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
-        w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+        w->addButton (TRANS ("RENAME"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+        w->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
         showRenameBox (std::move (w), [busIndex, p] (Bench& bench, const juce::String& typed)
         {
             auto& all = bench.engine->getBuses();
@@ -1457,8 +1461,8 @@ public:
         if (! live())
             return;
         juce::PopupMenu menu;
-        menu.addItem ("BUS", [this] { addBus(); });
-        menu.addItem ("COMBINATOR", [this]
+        menu.addItem (TRANS ("BUS"), [this] { addBus(); });
+        menu.addItem (TRANS ("COMBINATOR"), [this]
         {
             engine->addCombinator ("COMBINATOR " + juce::String ((int) engine->getBuses().size() + 1), 2);
             engine->refreshDucking();
@@ -1514,7 +1518,7 @@ private:
             });
         }
         devices.addSeparator();
-        devices.addItem ("NO DEVICE", true, places.empty() || places[0].candidate.isEmpty(), [this, index]
+        devices.addItem (TRANS ("NO DEVICE"), true, places.empty() || places[0].candidate.isEmpty(), [this, index]
         {
             auto& masters = engine->getMasters();
             if (juce::isPositiveAndBelow (index, (int) masters.size()))
@@ -1528,11 +1532,11 @@ private:
     void showLockedMenu (int ch)
     {
         juce::PopupMenu menu;
-        menu.addSectionHeader (bind.text (ch, "name", {}).toUpperCase() + " (OFF)");
-        menu.addItem ("TURN ON", [this, ch] { bind.toggle (ch, "power", true); repaint(); });
+        menu.addSectionHeader (TRANS ("%1 (OFF)").replace ("%1", bind.text (ch, "name", {}).toUpperCase()));
+        menu.addItem (TRANS ("TURN ON"), [this, ch] { bind.toggle (ch, "power", true); repaint(); });
         menu.addSeparator();
-        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
+        menu.addItem (TRANS ("ADD SPACER BEFORE"), [this, ch] { addSpacer (ch, true); });
+        menu.addItem (TRANS ("ADD SPACER AFTER"), [this, ch] { addSpacer (ch, false); });
         menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
     }
 
@@ -1560,8 +1564,8 @@ private:
             return;
         const int index = bind.indexOf (ch);
         juce::PopupMenu menu;
-        menu.addSectionHeader ("OUTPUT: " + m->name);
-        menu.addItem ("DEVICE...", [this, ch] { showDeviceMenu (ch); });
+        menu.addSectionHeader (TRANS ("OUTPUT: %1").replace ("%1", m->name));
+        menu.addItem (TRANS ("DEVICE..."), [this, ch] { showDeviceMenu (ch); });
         MixerComponent::addHeadphoneMenu (menu, *engine, index);   // (correction for the headphones it plays on)
         menu.addSeparator();
         // ALERTS: the tray icon and the event log say when it goes silent or clips (MainComponent::checkAlerts).
@@ -1572,18 +1576,18 @@ private:
                 change (*masters[(size_t) index]);
         };
         juce::PopupMenu silent;   // (how long it's quiet first; a session's other time shows as its own)
-        auto silentLabel = [] (int s) { return s % 60 == 0 ? juce::String (s / 60) + " MIN" : juce::String (s) + " S"; };
+        auto silentLabel = [] (int s) { return s % 60 == 0 ? TRANS ("%1 MIN").replace ("%1", juce::String (s / 60)) : juce::String (s) + " S"; };   // (S: the unit, as printed)
         std::vector<int> times { 0, 10, 30, 60, 300 };
         if (m->silenceAlert > 0 && std::find (times.begin(), times.end(), m->silenceAlert) == times.end())
             times.insert (std::upper_bound (times.begin(), times.end(), m->silenceAlert), m->silenceAlert);
         for (int t : times)
-            silent.addItem (t == 0 ? juce::String ("OFF") : silentLabel (t), true, m->silenceAlert == t || (t == 0 && m->silenceAlert < 0),
+            silent.addItem (t == 0 ? TRANS ("OFF") : silentLabel (t), true, m->silenceAlert == t || (t == 0 && m->silenceAlert < 0),
                             [alert, t] { alert ([t] (AudioEngine::Master& mm) { mm.silenceAlert = t; }); });
-        menu.addSubMenu ("ALERT IF SILENT", silent, true, nullptr, m->silenceAlert > 0);
-        menu.addItem ("ALERT IF CLIPPING", true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
+        menu.addSubMenu (TRANS ("ALERT IF SILENT"), silent, true, nullptr, m->silenceAlert > 0);
+        menu.addItem (TRANS ("ALERT IF CLIPPING"), true, m->clipAlert, [alert, on = m->clipAlert] { alert ([on] (AudioEngine::Master& mm) { mm.clipAlert = ! on; }); });   // (with LIMIT off)
         MixerComponent::addMiniMixerItem (menu, *engine, stripKey (ch));
         // (more outputs made from this desk: a feed per guest without themselves, and stems)
-        menu.addItem ("MIX-MINUS AND STEMS...", [this]
+        menu.addItem (TRANS ("MIX-MINUS AND STEMS..."), [this]
         {
             MixMinusBuilder::showBuilder (*engine, [desk = juce::Component::SafePointer<Bench> (this)]
             {
@@ -1595,8 +1599,8 @@ private:
             }, getTopLevelComponent());
         });
         menu.addSeparator();
-        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
+        menu.addItem (TRANS ("ADD SPACER BEFORE"), [this, ch] { addSpacer (ch, true); });
+        menu.addItem (TRANS ("ADD SPACER AFTER"), [this, ch] { addSpacer (ch, false); });
         menu.addSeparator();
         MixerComponent::addColourMenu (menu, m->colour, [this, index] (juce::Colour c)   // (along its name bar and on its Routing block, as a channel's)
         {
@@ -1605,15 +1609,15 @@ private:
                 masters[(size_t) index]->colour = c;
             repaint();
         });
-        menu.addItem ("RENAME...", [this, index]
+        menu.addItem (TRANS ("RENAME..."), [this, index]
         {
             auto& masters = engine->getMasters();
             if (! juce::isPositiveAndBelow (index, (int) masters.size()))
                 return;
-            auto w = std::make_unique<juce::AlertWindow> ("RENAME", juce::String(), juce::MessageBoxIconType::NoIcon);
+            auto w = std::make_unique<juce::AlertWindow> (TRANS ("RENAME"), juce::String(), juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", masters[(size_t) index]->name);
-            w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
-            w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+            w->addButton (TRANS ("RENAME"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+            w->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
             showRenameBox (std::move (w), [index] (Bench& bench, const juce::String& typed)
             {
                 auto& list = bench.engine->getMasters();
@@ -1627,7 +1631,7 @@ private:
                 }
             });
         });
-        menu.addItem ("REMOVE", [this, index, ch]
+        menu.addItem (TRANS ("REMOVE"), [this, index, ch]
         {
             for (auto& sp : spacers)
                 if (sp.after == stripKey (ch))
@@ -1662,7 +1666,7 @@ private:
                     p->setValueNotifyingHost (1.0f);
             repaint();
         };
-        menu.addItem ("NONE", true, s->keyFrom.isEmpty(), [pick] { pick ({}); });
+        menu.addItem (TRANS ("NONE"), true, s->keyFrom.isEmpty(), [pick] { pick ({}); });
         menu.addSeparator();
         for (auto& other : engine->getStrips())
             if (other.get() != s)
@@ -1688,7 +1692,7 @@ private:
             return juce::isPositiveAndBelow (index, (int) list.size()) ? list[(size_t) index].get() : nullptr;
         };
         juce::PopupMenu menu, input, route;
-        menu.addSectionHeader ((bus ? "BUS: " : "") + s->name);
+        menu.addSectionHeader (bus ? TRANS ("BUS: %1").replace ("%1", s->name) : s->name);
 
         if (! bus)
         {
@@ -1712,29 +1716,29 @@ private:
                 interfaceMenu.addItem ("IN " + juce::String (i + 1) + (now.stereo && i + 1 < ins.size() ? "-" + juce::String (i + 2) : juce::String()) + "  " + ins[i],
                                        true, on, [source, i, stereo = now.stereo] { source ({ AudioEngine::Source::interfaceInputs, stereo ? i - i % 2 : i, {}, stereo }); });
             }
-            input.addSubMenu ("INTERFACE", interfaceMenu, ins.size() > 0);
+            input.addSubMenu (TRANS ("INTERFACE"), interfaceMenu, ins.size() > 0);
             juce::PopupMenu windowsMenu;
-            windowsMenu.addItem ("WINDOWS DEFAULT", true, now.kind == AudioEngine::Source::device && now.deviceName == AudioEngine::windowsDefault,
+            windowsMenu.addItem (TRANS ("WINDOWS DEFAULT"), true, now.kind == AudioEngine::Source::device && now.deviceName == AudioEngine::windowsDefault,
                                  [source, stereo = now.stereo] { source ({ AudioEngine::Source::device, 0, AudioEngine::windowsDefault, stereo }); });
             for (auto& ep : e.getEndpoints())
                 if (ep.api == "WASAPI" && ! ep.isOutput && ep.isActive() && ! e.isDeviceDisabled (ep.name))
                     windowsMenu.addItem (ep.name, true, now.kind == AudioEngine::Source::device && now.deviceName == ep.name,
                                          [source, name = ep.name, stereo = now.stereo] { source ({ AudioEngine::Source::device, 0, name, stereo }); });
-            input.addSubMenu ("WINDOWS DEVICES", windowsMenu);
+            input.addSubMenu (TRANS ("WINDOWS DEVICES"), windowsMenu);
             juce::PopupMenu hearMenu;   // (what an output plays, back in: loopback)
             for (int b = 0; b < (int) e.getMasters().size(); ++b)
                 hearMenu.addItem (e.getMasters()[(size_t) b]->name, true, now.kind == AudioEngine::Source::loopback && now.masterIndex == b,
                                   [source, b] { AudioEngine::Source next { AudioEngine::Source::loopback, 0, {}, true }; next.masterIndex = b; source (next); });
-            input.addSubMenu ("WHAT AN OUTPUT PLAYS", hearMenu, ! e.getMasters().empty());
-            input.addItem ("TEST TONE", true, now.kind == AudioEngine::Source::tone, [source] { source ({ AudioEngine::Source::tone, 0, {}, true }); });
-            input.addItem ("NOTHING", true, now.kind == AudioEngine::Source::none, [source] { source ({ AudioEngine::Source::none, 0, {}, true }); });
-            menu.addSubMenu ("INPUT", input);
+            input.addSubMenu (TRANS ("WHAT AN OUTPUT PLAYS"), hearMenu, ! e.getMasters().empty());
+            input.addItem (TRANS ("TEST TONE"), true, now.kind == AudioEngine::Source::tone, [source] { source ({ AudioEngine::Source::tone, 0, {}, true }); });
+            input.addItem (TRANS ("NOTHING"), true, now.kind == AudioEngine::Source::none, [source] { source ({ AudioEngine::Source::none, 0, {}, true }); });
+            menu.addSubMenu (TRANS ("INPUT"), input);
         }
 
         // Where it goes (as the header's boxes).
         for (auto& r : bind.routes (ch))
             route.addItem (r.label, true, r.on, [this, toggle = r.toggle] { toggle(); repaint(); });
-        menu.addSubMenu ("ROUTE TO", route);
+        menu.addSubMenu (TRANS ("ROUTE TO"), route);
 
         // Its plugins: each opens; ADD puts one on; REMOVE takes one off.
         if (mixer != nullptr)
@@ -1750,13 +1754,13 @@ private:
             if (! s->inserts.empty())
             {
                 plugins.addSeparator();
-                plugins.addSubMenu ("REMOVE", removes);
+                plugins.addSubMenu (TRANS ("REMOVE"), removes);
             }
-            plugins.addItem ("ADD PLUGIN...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
-            menu.addSubMenu ("PLUGINS", plugins);
+            plugins.addItem (TRANS ("ADD PLUGIN..."), [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
+            menu.addSubMenu (TRANS ("PLUGINS"), plugins);
         }
         if (! bus)
-            menu.addItem (s->source.stereo ? "MAKE MONO" : "MAKE STEREO", [this, index]
+            menu.addItem (s->source.stereo ? TRANS ("MAKE MONO") : TRANS ("MAKE STEREO"), [this, index]
             {
                 auto& en = (*engine);
                 if (index >= (int) en.getStrips().size())
@@ -1781,17 +1785,17 @@ private:
             const float depth = params.getRawParameterValue ("nrDepth")->load();
             juce::PopupMenu noise;
             const bool on = params.getRawParameterValue ("nrOn")->load() > 0.5f;
-            noise.addItem ("ON", true, on, [this, set, on] { set ("nrOn", on ? 0.0f : 1.0f); repaint(); });
+            noise.addItem (TRANS ("ON"), true, on, [this, set, on] { set ("nrOn", on ? 0.0f : 1.0f); repaint(); });
             noise.addSeparator();
-            noise.addItem ("NEURAL", true, neural, [set] { set ("nrType", 0.0f); });   // (at 48 kHz; at other rates it runs SPECTRAL)
-            noise.addItem ("SPECTRAL", true, ! neural, [set] { set ("nrType", 1.0f); });
-            noise.addSectionHeader ("DEPTH");
+            noise.addItem (TRANS ("NEURAL"), true, neural, [set] { set ("nrType", 0.0f); });   // (at 48 kHz; at other rates it runs SPECTRAL)
+            noise.addItem (TRANS ("SPECTRAL"), true, ! neural, [set] { set ("nrType", 1.0f); });
+            noise.addSectionHeader (TRANS ("DEPTH"));
             for (float db : { -6.0f, -12.0f, -18.0f, -24.0f, -30.0f })
                 noise.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (depth - db) < 0.5f, [set, db] { set ("nrDepth", db); });
             menu.addSubMenu ("NOISE", noise);
         }
         if (s->channel != nullptr && ! isApp (ch) && ! isCombinator (ch))   // KEY FROM: what EXT's dynamics hear
-            menu.addSubMenu ("KEY FROM", keyFromMenu (ch, false), true, nullptr, s->keyFrom.isNotEmpty());
+            menu.addSubMenu (TRANS ("KEY FROM"), keyFromMenu (ch, false), true, nullptr, s->keyFrom.isNotEmpty());
         {   // DUCK UNDER: dips while another input is heard (an app too: music under a mic)
             auto duck = [this, again] (std::function<void (AudioEngine::Strip&)> change)
             {
@@ -1803,16 +1807,16 @@ private:
                 repaint();
             };
             juce::PopupMenu under;
-            under.addItem ("NONE", true, s->duckBy.isEmpty(), [duck] { duck ([] (AudioEngine::Strip& st) { st.duckBy = {}; }); });
+            under.addItem (TRANS ("NONE"), true, s->duckBy.isEmpty(), [duck] { duck ([] (AudioEngine::Strip& st) { st.duckBy = {}; }); });
             under.addSeparator();
             for (auto& other : e.getStrips())
                 if (other.get() != s)
                     under.addItem (other->name, true, other->name == s->duckBy, [duck, name = other->name] { duck ([name] (AudioEngine::Strip& st) { st.duckBy = name; }); });
-            under.addSectionHeader ("DEPTH");
+            under.addSectionHeader (TRANS ("DEPTH"));
             for (float db : { -6.0f, -12.0f, -18.0f, -24.0f })
                 under.addItem (juce::String (juce::roundToInt (db)) + " dB", true, std::abs (s->duckDepth.load() - db) < 0.5f,
                                [duck, db] { duck ([db] (AudioEngine::Strip& st) { st.duckDepth = db; }); });
-            menu.addSubMenu ("DUCK UNDER", under, true, nullptr, s->duckBy.isNotEmpty());
+            menu.addSubMenu (TRANS ("DUCK UNDER"), under, true, nullptr, s->duckBy.isNotEmpty());
         }
         menu.addSeparator();
         MixerComponent::addColourMenu (menu, s->colour, [this, again] (juce::Colour c) { if (auto* st = again()) st->colour = c; repaint(); });   // (Faider's palette: it follows the channel everywhere)
@@ -1833,27 +1837,28 @@ private:
                 }
                 if (! path.inserts.empty())
                 {
-                    one.addSubMenu ("REMOVE PLUGIN", removes);
+                    one.addSubMenu (TRANS ("REMOVE PLUGIN"), removes);
                     one.addSeparator();
                 }
-                one.addItem ("ADD PLUGIN...", [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
-                one.addItem ("RENAME...", [this, index, p] { renamePath (index, p); });
-                one.addItem ("REMOVE PATH", (int) s->paths.size() > 1, false, [this, index, p] { engine->removePath (index, p); repaint(); });
-                paths.addSubMenu ("PATH " + juce::String (p + 1) + (path.name.isNotEmpty() ? ": " + path.name.toUpperCase() : juce::String()), one);
+                one.addItem (TRANS ("ADD PLUGIN..."), [this, target] { mixer->showAddInsertMenu (target, juce::PopupMenu::Options().withMousePosition()); });
+                one.addItem (TRANS ("RENAME..."), [this, index, p] { renamePath (index, p); });
+                one.addItem (TRANS ("REMOVE PATH"), (int) s->paths.size() > 1, false, [this, index, p] { engine->removePath (index, p); repaint(); });
+                paths.addSubMenu (path.name.isNotEmpty() ? TRANS ("PATH %1: %2").replace ("%1", juce::String (p + 1)).replace ("%2", path.name.toUpperCase())
+                                                    : TRANS ("PATH %1").replace ("%1", juce::String (p + 1)), one);
             }
             paths.addSeparator();
-            paths.addItem ("ADD PATH", [this, index, n = (int) s->paths.size()] { engine->addPath (index, "PATH " + juce::String (n + 1)); repaint(); });
-            menu.addSubMenu ("PATHS", paths);
+            paths.addItem (TRANS ("ADD PATH"), [this, index, n = (int) s->paths.size()] { engine->addPath (index, "PATH " + juce::String (n + 1)); repaint(); });
+            menu.addSubMenu (TRANS ("PATHS"), paths);
         }
-        menu.addItem ("ADD SPACER BEFORE", [this, ch] { addSpacer (ch, true); });
-        menu.addItem ("ADD SPACER AFTER", [this, ch] { addSpacer (ch, false); });
+        menu.addItem (TRANS ("ADD SPACER BEFORE"), [this, ch] { addSpacer (ch, true); });
+        menu.addItem (TRANS ("ADD SPACER AFTER"), [this, ch] { addSpacer (ch, false); });
         menu.addSeparator();
-        menu.addItem ("RENAME...", [this, again, bus]
+        menu.addItem (TRANS ("RENAME..."), [this, again, bus]
         {
-            auto w = std::make_unique<juce::AlertWindow> ("RENAME", juce::String(), juce::MessageBoxIconType::NoIcon);
+            auto w = std::make_unique<juce::AlertWindow> (TRANS ("RENAME"), juce::String(), juce::MessageBoxIconType::NoIcon);
             w->addTextEditor ("name", again() != nullptr ? again()->name : juce::String());
-            w->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
-            w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+            w->addButton (TRANS ("RENAME"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+            w->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
             showRenameBox (std::move (w), [again, bus] (Bench& bench, const juce::String& typed)
             {
                 auto* st = again();
@@ -1866,7 +1871,7 @@ private:
                 }
             });
         });
-        menu.addItem ("REMOVE", [this, bus, index, ch]
+        menu.addItem (TRANS ("REMOVE"), [this, bus, index, ch]
         {
             auto& en = (*engine);
             if (mixer != nullptr)
@@ -2051,7 +2056,7 @@ private:
                 g.drawFittedText (loaded && pad.name.isNotEmpty() ? pad.name.toUpperCase() : juce::String (index + 1), cell.reduced (3.0f).toNearestInt(), juce::Justification::centred, 2, 0.8f);
             }
             const auto stopTouch = touch (ch, "stopall", padStopKey (r));
-            LargeFormat::key (g, padStopKey (r), "STOP ALL", 0.0f, Console::Colours::stopLamp(), true, stopTouch.press * 1.5f, stopTouch.hover);
+            LargeFormat::key (g, padStopKey (r), TRANS ("STOP ALL"), 0.0f, Console::Colours::stopLamp(), true, stopTouch.press * 1.5f, stopTouch.hover);
         }
         else if (item.kind == "tape")
         {
@@ -2066,7 +2071,7 @@ private:
             auto clock = [] (double t) { const int s = juce::jmax (0, (int) t); return juce::String (s / 60) + ":" + juce::String (s % 60).paddedLeft ('0', 2); };
             g.setColour (Console::Colours::tapeInk());
             g.setFont (LargeFormat::print (juce::jmax (9.0f, 11.0f * zoom)));
-            const auto title = juce::isPositiveAndBelow (tape.current(), tape.size()) ? tape.file (tape.current()).getFileNameWithoutExtension().toUpperCase() : juce::String ("NO TRACK");
+            const auto title = juce::isPositiveAndBelow (tape.current(), tape.size()) ? tape.file (tape.current()).getFileNameWithoutExtension().toUpperCase() : TRANS ("NO TRACK");
             g.drawFittedText (title, screen.reduced (6.0f * zoom, 0.0f).withTrimmedBottom (screen.getHeight() * 0.45f).toNearestInt(), juce::Justification::centredLeft, 1, 0.8f);
             g.drawText (clock (tape.position()) + " / " + clock (tape.length()), screen.reduced (6.0f * zoom, 0.0f).withTrimmedTop (screen.getHeight() * 0.5f), juce::Justification::centredLeft, false);
             const auto bar = tapeArea (r, "bar");
@@ -2083,8 +2088,8 @@ private:
                 LargeFormat::key (g, keyArea, {}, lit ? 1.0f : 0.0f, k == "PAUSE" ? Console::Colours::palette ("orange") : Console::Colours::runLamp(), true, touched.press * 1.5f, touched.hover);
                 drawTransport (g, k, keyArea.translated (0.0f, touched.press * 1.5f).reduced (keyArea.getWidth() * 0.26f, keyArea.getHeight() * 0.28f), lit ? Console::Colours::litInk() : juce::Colour (0xff26282b));
             }
-            for (auto [k, text, lit, lamp] : { std::tuple (juce::String ("SHUFFLE"), juce::String ("SHUFFLE"), tape.getShuffle(), Console::Colours::palette ("orange")),
-                                               std::tuple (juce::String ("ADD"), juce::String ("ADD..."), false, Console::Colours::powerLamp()) })
+            for (auto [k, text, lit, lamp] : { std::tuple (juce::String ("SHUFFLE"), TRANS ("SHUFFLE"), tape.getShuffle(), Console::Colours::palette ("orange")),
+                                               std::tuple (juce::String ("ADD"), TRANS ("ADD..."), false, Console::Colours::powerLamp()) })
             {
                 const auto touched = touch (ch, "tape" + k, tapeArea (r, k));
                 LargeFormat::key (g, tapeArea (r, k), text, lit ? 1.0f : 0.0f, lamp, true, touched.press * 1.5f, touched.hover);
@@ -2109,7 +2114,7 @@ private:
             if (tape.size() == 0)
             {
                 g.setColour (ink());
-                g.drawText ("NO TRACKS", list.withHeight (rowH), juce::Justification::centredLeft, false);
+                g.drawFittedText (TRANS ("NO TRACKS"), list.withHeight (rowH).toNearestInt(), juce::Justification::centredLeft, 1, 0.7f);
             }
         }
         else if (item.kind == "paths")
@@ -2138,7 +2143,7 @@ private:
             if (s == nullptr || s->inserts.empty())
             {
                 g.setColour (ink());
-                g.drawText ("NO PLUGINS", r.withHeight (rowH), juce::Justification::centredLeft, false);
+                g.drawFittedText (TRANS ("NO PLUGINS"), r.withHeight (rowH).toNearestInt(), juce::Justification::centredLeft, 1, 0.7f);
             }
             else
                 for (int i = 0; i < (int) s->inserts.size() && (float) (i + 1) * rowH <= r.getHeight(); ++i)

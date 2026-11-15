@@ -29,7 +29,15 @@ namespace LargeFormat
             h = juce::jlimit (readable, maxH, area.getHeight() * 0.72f);
             while (h > readable && widthAt (h) > area.getWidth())
                 h -= 0.5f;
-            if (widthAt (h) > area.getWidth() && s.containsChar (' ') && area.getHeight() >= readable * 2.0f + 1.0f)
+            // (two lines only if every word fits a line: a word too long for the cap would be broken mid-word)
+            auto wordsFit = [&]
+            {
+                for (auto& word : juce::StringArray::fromTokens (s, " ", {}))
+                    if (juce::GlyphArrangement::getStringWidth (print (readable), word) > area.getWidth())
+                        return false;
+                return true;
+            };
+            if (widthAt (h) > area.getWidth() && s.containsChar (' ') && area.getHeight() >= readable * 2.0f + 1.0f && wordsFit())
                 h = -readable;   // (two lines at the readable size)
             else
                 while (h > 8.0f && widthAt (h) > area.getWidth())

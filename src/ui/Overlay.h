@@ -71,7 +71,7 @@ public:
             g.fillRoundedRectangle (state.toFloat(), 3.0f);
             g.setColour (juce::Colours::black);
             g.setFont (Console::legendFont (Console::Type::legend));
-            g.drawText (live ? "LIVE" : "CUT", state, juce::Justification::centred);
+            g.drawFittedText (live ? TRANS ("LIVE") : juce::String ("CUT"), state, juce::Justification::centred, 1, 0.7f);   // (CUT: the desk's key)
             row.removeFromRight (Console::Space::gap);
             auto meter = row.removeFromBottom (4);
             g.setColour (Console::Colours::legend());
@@ -87,7 +87,7 @@ public:
         {
             g.setColour (Console::Colours::legendDim());
             g.setFont (Console::legendFont (Console::Type::legend));
-            g.drawText ("NO MIC CHANNELS", juce::Rectangle<int> (pad, pad, getWidth() - 2 * pad, rowH), juce::Justification::centredLeft);
+            g.drawFittedText (TRANS ("NO MIC CHANNELS"), juce::Rectangle<int> (pad, pad, getWidth() - 2 * pad, rowH), juce::Justification::centredLeft, 1, 0.7f);
         }
     }
 

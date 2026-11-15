@@ -25,7 +25,7 @@ namespace
         std::map<juce::String, juce::Array<EndpointInfo>> groups;
         for (auto& e : engine.getEndpoints())
             if (e.api == "WASAPI" && e.isOutput == outputs && (e.isActive() || ! activeOnly) && ! engine.isDeviceDisabled (e.name))
-                groups[e.adapter.isEmpty() ? juce::String ("Other") : e.adapter].add (e);
+                groups[e.adapter.isEmpty() ? TRANS ("Other") : e.adapter].add (e);
 
         std::vector<std::pair<juce::String, juce::Array<EndpointInfo>>> sorted (groups.begin(), groups.end());
         std::sort (sorted.begin(), sorted.end(), [] (auto& a, auto& b) { return alphabetical (a.first, b.first); });
@@ -79,7 +79,7 @@ namespace
     {
         const auto inputs = eng.getInterfaceInputNames();
         if (! inputs.isEmpty())
-            heading ((eng.getInterfaceAdapter().isNotEmpty() ? eng.getInterfaceAdapter() : juce::String ("Master")) + " (" + eng.getClockName() + ")");
+            heading ((eng.getInterfaceAdapter().isNotEmpty() ? eng.getInterfaceAdapter() : TRANS ("Master")) + " (" + juce::translate (eng.getClockName()) + ")");
 
         for (int ch = 0; ch < inputs.size(); ch += (masterStereo ? 2 : 1))
         {
@@ -90,14 +90,14 @@ namespace
         }
 
         heading ("Windows");
-        item ("Windows default input", "Windows input", { AudioEngine::Source::device, 0, AudioEngine::windowsDefault, otherStereo });
+        item (TRANS ("Windows default input"), "Windows input", { AudioEngine::Source::device, 0, AudioEngine::windowsDefault, otherStereo });
 
         for (auto& [adapter, devices] : byAdapter (eng, false, true))
         {
             heading (adapter);
             for (auto& e : devices)
             {
-                const auto label = endpointDisplayName (e) + (e.isDefault ? "  (default)" : "");
+                const auto label = endpointDisplayName (e) + (e.isDefault ? "  " + TRANS ("(default)") : juce::String());
                 if (e.channels <= 2)
                 {
                     item (label, endpointDisplayName (e), { AudioEngine::Source::device, 0, e.name, otherStereo });
@@ -107,17 +107,17 @@ namespace
                 for (int ch = 0; ch + (otherStereo ? 1 : 0) < e.channels; ch += (otherStereo ? 2 : 1))
                 {
                     const auto channels = juce::String (ch + 1) + (otherStereo ? "-" + juce::String (ch + 2) : juce::String());
-                    item (label + "  ch " + channels, endpointDisplayName (e) + " " + channels, { AudioEngine::Source::device, ch, e.name, otherStereo });
+                    item (label + "  " + TRANS ("ch %1").replace ("%1", channels), endpointDisplayName (e) + " " + channels, { AudioEngine::Source::device, ch, e.name, otherStereo });
                 }
             }
         }
 
         // Apps playing sound right now, captured directly (no virtual device needed).
         constexpr auto app = AudioEngine::Source::app;
-        heading ("Apps");
+        heading (TRANS ("Apps"));
         const auto programs = eng.appChoices (windows);
         if (std::none_of (programs.begin(), programs.end(), [] (auto& p) { return p.playing; }))
-            item ("(no apps playing audio)", {}, { AudioEngine::Source::none });
+            item (TRANS ("(no apps playing audio)"), {}, { AudioEngine::Source::none });
 
         for (auto& p : programs)
             if (p.playing)
@@ -137,7 +137,7 @@ namespace
             if (! p.playing && ! isBrowser (p.exe))
             {
                 if (! std::exchange (programsShown, true))
-                    heading ("Not playing yet");
+                    heading (TRANS ("Not playing yet"));
                 item (p.label() + (p.title.isNotEmpty() ? ": " + shortTitle (p.title) : juce::String()), p.label(), { app, 0, p.exe, otherStereo });
             }
 
@@ -149,11 +149,11 @@ namespace
                 // (the whole browser once: listing its tabs here read as a choice of tab, and every one
                 // captured all of them)
                 heading (w.product);
-                item (w.product + ": whole browser", w.product, { app, 0, w.exeName(), otherStereo });
+                item (TRANS ("%1: whole browser").replace ("%1", w.product), w.product, { app, 0, w.exeName(), otherStereo });
 
-                heading ("Isolate a " + w.product + " tab");
+                heading (TRANS ("Isolate a %1 tab").replace ("%1", w.product));
                 for (auto& t : w.tabs)
-                    item ("Isolate: " + shortTitle (t.title), shortTitle (t.title),
+                    item (TRANS ("Isolate: %1").replace ("%1", shortTitle (t.title)), shortTitle (t.title),
                           { app, 0, "isolate?" + juce::String ((juce::int64) w.handle) + "|" + t.title, otherStereo });
             }
 
@@ -163,17 +163,17 @@ namespace
             if (s->source.kind == app && WindowDiscovery::isIsolated (s->source.deviceName))
                 isolated.addIfNotAlreadyThere (s->source.deviceName);
         if (! isolated.isEmpty())
-            heading ("Isolated tabs");
+            heading (TRANS ("Isolated tabs"));
         for (auto& n : isolated)
-            item (WindowDiscovery::appLabel (n) + (WindowDiscovery::findIsolatedProcess (n) == 0 ? "  (closed: reopens)" : ""),
+            item (WindowDiscovery::appLabel (n, true) + (WindowDiscovery::findIsolatedProcess (n) == 0 ? "  " + TRANS ("(closed: reopens)") : juce::String()),
                   WindowDiscovery::appLabel (n), { app, 0, n, otherStereo });
 
         // Outputs aren't offered: a loopback is a MASTER strip (an output's LOOPBACK key), which
         // goes to devices only, never back into the mix.
         // (the pads' and the tape deck's channels are made on their own pages, TOOLS > PADS / TAPE,
         // which also say when one is there)
-        heading ("Other");
-        item ("Test tone", "Test tone", { AudioEngine::Source::tone, 0, {}, otherStereo });
+        heading (TRANS ("Other"));
+        item (TRANS ("Test tone"), "Test tone", { AudioEngine::Source::tone, 0, {}, otherStereo });
     }
 }
 //==============================================================================
@@ -223,7 +223,7 @@ private:
             {
                 midiLearn.setClickingTogglesState (true);
                 midiLearn.setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
-                midiLearn.setTooltip ("MIDI learn: touch a plugin control, then a MIDI one");
+                midiLearn.setTooltip (TRANS ("MIDI learn: touch a plugin control, then a MIDI one"));
                 midiLearn.onClick = [this]
                 {
                     if (! midiLearn.getToggleState())
@@ -231,7 +231,7 @@ private:
                     else
                     {
                         plugin.addListener (this);
-                        midiLearn.setButtonText ("TOUCH ONE");
+                        midiLearn.setButtonText (TRANS ("TOUCH ONE"));
                     }
                 };
                 addAndMakeVisible (midiLearn);
@@ -242,7 +242,7 @@ private:
                 bypass.setClickingTogglesState (true);
                 bypass.setColour (juce::TextButton::buttonOnColourId, Console::monoLight());   // amber: something's taken out
                 bypass.setToggleState (options->bypassed.load(), juce::dontSendNotification);
-                bypass.setTooltip ("Bypass this plugin");
+                bypass.setTooltip (TRANS ("Bypass this plugin"));
                 bypass.onClick = [this] { options->bypassed = bypass.getToggleState(); };
                 addAndMakeVisible (bypass);
 
@@ -264,20 +264,20 @@ private:
                     addAndMakeVisible (s);
                 };
                 box (mix, "MIX", 0.0, 100.0, options->mix.load() * 100.0, 100.0, true,
-                     "Wet/dry mix", [this] (double v) { options->mix = (float) (v * 0.01); });
+                     TRANS ("Wet/dry mix"), [this] (double v) { options->mix = (float) (v * 0.01); });
                 box (inGain, "IN", -24.0, 24.0, juce::Decibels::gainToDecibels (options->inGain.load()), 0.0, false,
-                     "Level into the plugin", [this] (double v) { options->inGain = juce::Decibels::decibelsToGain ((float) v); });
+                     TRANS ("Level into the plugin"), [this] (double v) { options->inGain = juce::Decibels::decibelsToGain ((float) v); });
                 box (outGain, "OUT", -24.0, 24.0, juce::Decibels::gainToDecibels (options->outGain.load()), 0.0, false,
-                     "Level out of the plugin", [this] (double v) { options->outGain = juce::Decibels::decibelsToGain ((float) v); });
+                     TRANS ("Level out of the plugin"), [this] (double v) { options->outGain = juce::Decibels::decibelsToGain ((float) v); });
 
-                cpu.setTooltip ("CPU used by this plugin");
+                cpu.setTooltip (TRANS ("CPU used by this plugin"));
                 cpu.setJustificationType (juce::Justification::centredRight);
                 cpu.setFont (Console::legendFont (Console::Type::legend));
                 addAndMakeVisible (cpu);
                 startTimerHz (4);
             }
 
-            preset.setTooltip ("Presets for " + p.getName());
+            preset.setTooltip (TRANS ("Presets for %1").replace ("%1", p.getName()));
             preset.onClick = [this] { showPresetMenu(); };
             for (auto* k : { &a, &b })
             {
@@ -286,8 +286,8 @@ private:
                 k->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
             }
             a.setToggleState (true, juce::dontSendNotification);
-            a.setTooltip ("Settings A");
-            b.setTooltip ("Settings B");
+            a.setTooltip (TRANS ("Settings A"));
+            b.setTooltip (TRANS ("Settings B"));
             a.onClick = [this] { switchTo (0); };
             b.onClick = [this] { switchTo (1); };
             copy.onClick = [this]
@@ -321,9 +321,9 @@ private:
                 safe->plugin.removeListener (safe.getComponent());
                 safe->learningTarget = "plug:" + safe->owner + ":" + safe->plugin.getName() + ":" + juce::String (index);
                 safe->remote.learn (safe->learningTarget);
-                safe->midiLearn.setButtonText ("MOVE MIDI");
+                safe->midiLearn.setButtonText (TRANS ("MOVE MIDI"));
                 if (auto* p = safe->plugin.getParameters()[index])
-                    safe->midiLearn.setTooltip ("Now move a MIDI control for " + p->getName (40));
+                    safe->midiLearn.setTooltip (TRANS ("Now move a MIDI control for %1").replace ("%1", p->getName (40)));
             });
         }
         void audioProcessorChanged (juce::AudioProcessor*, const ChangeDetails&) override {}
@@ -406,25 +406,25 @@ private:
         void showCopy()
         {
             copy.setButtonText (active == 0 ? "A > B" : "B > A");
-            copy.setTooltip ("Copy settings " + juce::String (active == 0 ? "A onto B" : "B onto A"));
+            copy.setTooltip (active == 0 ? TRANS ("Copy settings A onto B") : TRANS ("Copy settings B onto A"));
         }
 
         void showPresetMenu()
         {
             juce::PopupMenu menu, remove;
-            menu.addItem ("SAVE AS...", [this]
+            menu.addItem (TRANS ("SAVE AS..."), [this]
             {
-                auto* w = new juce::AlertWindow ("SAVE PRESET", "Preset name:", juce::MessageBoxIconType::NoIcon);
+                auto* w = new juce::AlertWindow (TRANS ("SAVE PRESET"), TRANS ("Preset name:"), juce::MessageBoxIconType::NoIcon);
                 w->addTextEditor ("name", {});
-                w->addButton ("SAVE", 1, juce::KeyPress (juce::KeyPress::returnKey));
-                w->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+                w->addButton (TRANS ("SAVE"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+                w->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
                 w->enterModalState (true, juce::ModalCallbackFunction::create ([self = juce::Component::SafePointer<WithPresets> (this), w] (int result)
                 {
                     if (self == nullptr)   // the plugin's window closed (the plugin removed) while this was open
                         return;
                     const auto name = w->getTextEditorContents ("name");
                     if (result == 1 && ! PluginPresets::save (self->plugin, name))
-                        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "NOT SAVED", "Couldn't save \"" + name + "\".");
+                        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("NOT SAVED"), TRANS ("Couldn't save \"%1\".").replace ("%1", name));
                 }), true);
             });
             const auto names = PluginPresets::list (plugin);
@@ -437,17 +437,17 @@ private:
                     remove.addItem (n, [this, n] { PluginPresets::remove (plugin, n); });
                 }
                 menu.addSeparator();
-                menu.addSubMenu ("DELETE", remove);
+                menu.addSubMenu (TRANS ("DELETE"), remove);
             }
             menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (preset));
         }
 
         juce::AudioProcessor& plugin;
         std::unique_ptr<juce::AudioProcessorEditor> editor;
-        juce::TextButton preset { "PRESET" }, a { "A" }, b { "B" }, copy;
+        juce::TextButton preset { TRANS ("PRESET") }, a { "A" }, b { "B" }, copy;
         AudioEngine::InsertOptions* options;   // the engine keeps it while the plugin lives (longer than this window)
         const double rate;
-        juce::TextButton bypass { "BYPASS" };
+        juce::TextButton bypass { TRANS ("BYPASS") };
         juce::Slider mix, inGain, outGain;
         juce::Label cpu;
         RemoteControl& remote;
@@ -481,13 +481,13 @@ void MixerComponent::renamed (const juce::String& kind, const juce::String& oldN
 void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current, std::function<void (juce::Colour)> onPick)
 {
     static const std::pair<const char*, juce::uint32> palette[] = {
-        { "Red", 0xffe0524f },    { "Orange", 0xffe08a3c }, { "Amber", 0xffe0b040 }, { "Lime", 0xff8fc74a },
-        { "Green", 0xff3fb37a },  { "Teal", 0xff3fb3a8 },   { "Blue", 0xff3d8fd1 },  { "Indigo", 0xff5b6be0 },
-        { "Purple", 0xff9a6ad1 }, { "Pink", 0xffd166a8 },   { "Grey", 0xff8a929b }
+        { NEEDS_TRANS ("Red"), 0xffe0524f },    { NEEDS_TRANS ("Orange"), 0xffe08a3c }, { NEEDS_TRANS ("Amber"), 0xffe0b040 }, { NEEDS_TRANS ("Lime"), 0xff8fc74a },
+        { NEEDS_TRANS ("Green"), 0xff3fb37a },  { NEEDS_TRANS ("Teal"), 0xff3fb3a8 },   { NEEDS_TRANS ("Blue"), 0xff3d8fd1 },  { NEEDS_TRANS ("Indigo"), 0xff5b6be0 },
+        { NEEDS_TRANS ("Purple"), 0xff9a6ad1 }, { NEEDS_TRANS ("Pink"), 0xffd166a8 },   { NEEDS_TRANS ("Grey"), 0xff8a929b }
     };
 
     juce::PopupMenu colours;
-    colours.addItem ("DEFAULT", true, current.isTransparent(), [onPick] { onPick ({}); });
+    colours.addItem (TRANS ("DEFAULT"), true, current.isTransparent(), [onPick] { onPick ({}); });
     colours.addSeparator();
 
     for (auto& [name, argb] : palette)
@@ -503,14 +503,14 @@ void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current,
         swatch->setStrokeFill (juce::Colours::black.withAlpha (0.35f));
         swatch->setStrokeThickness (1.0f);
 
-        juce::PopupMenu::Item item (juce::String (name).toUpperCase());
+        juce::PopupMenu::Item item (juce::translate (name).toUpperCase());   // (the palette's names are English: shown translated)
         item.setImage (std::move (swatch));
         item.setTicked (c == current);
         item.setAction ([onPick, c] { onPick (c); });
         colours.addItem (std::move (item));
     }
 
-    menu.addSubMenu ("COLOUR", colours);
+    menu.addSubMenu (TRANS ("COLOUR"), colours);
 }
 
 // HEADPHONE EQ: NONE, then the bundled profiles by brand (mostly the name's first word), A-Z.
@@ -537,7 +537,7 @@ void MixerComponent::addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine& engin
     order.sortNatural();
 
     juce::PopupMenu eq;
-    eq.addItem ("NONE", true, current.isEmpty(), [pick] { pick ({}); });
+    eq.addItem (TRANS ("NONE"), true, current.isEmpty(), [pick] { pick ({}); });
     eq.addSeparator();
     for (auto& brand : order)
     {
@@ -548,7 +548,7 @@ void MixerComponent::addHeadphoneMenu (juce::PopupMenu& menu, AudioEngine& engin
             models.addItem (name.toUpperCase(), true, name == current, [pick, name] { pick (name); });
         eq.addSubMenu (brand, models, true, nullptr, std::find (names.begin(), names.end(), current) != names.end());
     }
-    menu.addSubMenu ("HEADPHONE EQ", eq, true, nullptr, current.isNotEmpty());
+    menu.addSubMenu (TRANS ("HEADPHONE EQ"), eq, true, nullptr, current.isNotEmpty());
 }
 
 // The first tick starts the list from what the mini mixer shows (the outputs), so they stay in it.
@@ -556,7 +556,7 @@ void MixerComponent::addMiniMixerItem (juce::PopupMenu& menu, AudioEngine& engin
 {
     auto& list = engine.trayStrips;
     const bool shown = list.isEmpty() ? key.startsWith ("output:") : list.contains (key);
-    menu.addItem ("IN THE MINI MIXER", true, shown, [&engine, key, shown]
+    menu.addItem (TRANS ("IN THE MINI MIXER"), true, shown, [&engine, key, shown]
     {
         auto& keys = engine.trayStrips;
         if (keys.isEmpty())
@@ -658,14 +658,14 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
             if (p.playing)
                 offer (p);
         if (! anyPlaying)
-            toMic.addItem ("(no apps playing audio)", false, false, [] {});
+            toMic.addItem (TRANS ("(no apps playing audio)"), false, false, [] {});
         if (std::any_of (programs.begin(), programs.end(), [] (auto& p) { return ! p.playing; }))
-            toMic.addSectionHeader ("Not playing yet");
+            toMic.addSectionHeader (TRANS ("Not playing yet"));
         for (auto& p : programs)
             if (! p.playing)
                 offer (p);
-        menu.addSubMenu (route.index >= 0 ? "SEND AN APP TO THE MIC  (via " + route.name + ")"
-                                          : juce::String ("SEND AN APP TO THE MIC  (no mic cable output yet)"),
+        menu.addSubMenu (route.index >= 0 ? TRANS ("SEND AN APP TO THE MIC  (via %1)").replace ("%1", route.name)
+                                          : TRANS ("SEND AN APP TO THE MIC  (no mic cable output yet)"),
                          toMic, route.index >= 0);
         menu.addSeparator();
     }
@@ -678,7 +678,7 @@ void MixerComponent::showAddInputMenu (juce::PopupMenu::Options where)
                        const bool taken = sourceTaken (engine, s, -1);
                        sources.add (s);
                        names.add (stripName);
-                       menu.addItem (sources.size(), label + (taken ? "  (in use)" : ""), ! taken && s.kind != AudioEngine::Source::none);
+                       menu.addItem (sources.size(), label + (taken ? "  " + TRANS ("(in use)") : juce::String()), ! taken && s.kind != AudioEngine::Source::none);
                    });
 
     menu.showMenuAsync (where,
@@ -724,10 +724,10 @@ void MixerComponent::showAddAppMenu (juce::PopupMenu::Options where, std::functi
         const bool any = std::any_of (programs.begin(), programs.end(), [playing] (auto& p) { return p.playing == playing; });
         if (! playing && ! any)
             break;
-        menu.addSectionHeader (playing ? "APPS PLAYING" : "NOT PLAYING YET");
+        menu.addSectionHeader (playing ? TRANS ("APPS PLAYING") : TRANS ("NOT PLAYING YET"));
         for (auto& p : programs)
             if (p.playing == playing)
-                menu.addItem (p.label().toUpperCase() + (p.onDesk ? "  (ON THE DESK)" : ""), ! p.onDesk, false,
+                menu.addItem (p.label().toUpperCase() + (p.onDesk ? "  " + TRANS ("(ON THE DESK)") : juce::String()), ! p.onDesk, false,
                               [safe = juce::Component::SafePointer<MixerComponent> (this), exe = p.exe, playing, added]
                 {
                     if (safe == nullptr)
@@ -740,7 +740,7 @@ void MixerComponent::showAddAppMenu (juce::PopupMenu::Options where, std::functi
                         added();
                 });
         if (! any)
-            menu.addItem ("NO APPS PLAYING", false, false, [] {});
+            menu.addItem (TRANS ("NO APPS PLAYING"), false, false, [] {});
     }
     menu.showMenuAsync (where);
 }
@@ -766,7 +766,7 @@ bool MixerComponent::resolveSource (AudioEngine::Source& s, juce::String& stripN
 
     const auto handle = s.deviceName.fromFirstOccurrenceOf ("?", false, false).upToFirstOccurrenceOf ("|", false, false).getLargeIntValue();
     const auto title = s.deviceName.fromFirstOccurrenceOf ("|", false, false);
-    juce::String error = "That browser window has closed.";
+    juce::String error = TRANS ("That browser window has closed.");
 
     for (auto& w : windows->snapshot())
         if ((juce::int64) w.handle == handle)
@@ -784,7 +784,8 @@ bool MixerComponent::resolveSource (AudioEngine::Source& s, juce::String& stripN
             break;
         }
 
-    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "COULDN'T ISOLATE THE TAB", error);
+    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("COULDN'T ISOLATE THE TAB"),
+                                            juce::translate (error));   // (WindowDiscovery's own messages: translated where they're keys)
     return false;
 }
 
@@ -806,7 +807,7 @@ void MixerComponent::showAddInsertMenu (InsertTarget target, juce::PopupMenu::Op
     };
     auto loadFile = [this, pick]
     {
-        chooser = std::make_unique<juce::FileChooser> ("Choose a VST3 plugin", juce::File(), "*.vst3");
+        chooser = std::make_unique<juce::FileChooser> (TRANS ("Choose a VST3 plugin"), juce::File(), "*.vst3");
         chooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles,
                               [pick] (const juce::FileChooser& fc)
                               {
@@ -887,8 +888,9 @@ void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path
         const auto name = juce::File (path).getFileNameWithoutExtension();
         if (known && ! known->passed)
         {
-            juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::WarningIcon, "PLUGIN FAILED ITS TEST",
-                                                name + " wasn't loaded: " + known->reason + ".\n\nTest it again?", "TEST AGAIN", "CANCEL", nullptr,
+            juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::WarningIcon, TRANS ("PLUGIN FAILED ITS TEST"),
+                                                TRANS ("%1 wasn't loaded: %2.\n\nTest it again?").replace ("%2", PluginScan::translateReason (known->reason)).replace ("%1", name),
+                                                TRANS ("TEST AGAIN"), TRANS ("CANCEL"), nullptr,
                                                 juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MixerComponent> (this), target, path, again] (int ok)
                                                 {
                                                     if (ok != 0 && safe != nullptr)
@@ -914,8 +916,8 @@ void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path
                     if (failed.isEmpty())
                         return again (*safe, target, path);
                     safe->engine.logEvent ("plugins: " + name + " failed its test: " + failed);
-                    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "PLUGIN FAILED ITS TEST",
-                                                            name + " wasn't loaded: " + failed + ".");
+                    juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("PLUGIN FAILED ITS TEST"),
+                                                            TRANS ("%1 wasn't loaded: %2.").replace ("%2", PluginScan::translateReason (failed)).replace ("%1", name));
                 });
             });
             return;
@@ -927,7 +929,7 @@ void MixerComponent::insertPlugin (InsertTarget target, const juce::String& path
                                                          : engine.addInsert (target.index, path);
 
     if (error.isNotEmpty())
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "PLUGIN NOT LOADED", error);
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("PLUGIN NOT LOADED"), AudioEngine::translateInsertError (error));
 
 }
 
@@ -938,14 +940,18 @@ void MixerComponent::checkSetupSoon (AudioEngine& engine)
     juce::Timer::callAfterDelay (1500, [&engine]
     {
         auto problems = engine.findDoubling();
+        auto shown = engine.findDoubling (true);   // (the log's in English, the message translated)
         if (const auto loop = engine.findFeedbackLoop(); loop.isNotEmpty())
+        {
             problems.insert (0, "Feedback loop: " + loop);
+            shown.insert (0, TRANS ("Feedback loop: %1").replace ("%1", loop));
+        }
         if (problems.isEmpty())
             return;
         for (auto& p : problems)
             engine.logEvent ("setup: " + p);
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HEARD TWICE",
-                                                "Some sound would play twice or echo:\n\n- " + problems.joinIntoString ("\n- "));
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("HEARD TWICE"),
+                                                TRANS ("Some sound would play twice or echo:") + "\n\n- " + shown.joinIntoString ("\n- "));
     });
 }
 

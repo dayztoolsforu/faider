@@ -131,7 +131,7 @@ namespace SettingsUi
             }
             g.setColour (i == chosen ? Theme::get().litInk : Ink::text());
             g.setFont (font (13.0f, true));
-            g.drawText (options[i], seg, juce::Justification::centred, true);
+            g.drawFittedText (options[i], seg.toNearestInt(), juce::Justification::centred, 1, 0.7f);   // (squeezed: shrinks, not cut)
         }
     }
 
@@ -151,7 +151,7 @@ namespace SettingsUi
         g.drawRoundedRectangle (r, 6.0f, 1.0f);
         g.setColour ((primary ? Theme::get().litInk : Ink::name()).withMultipliedAlpha (alpha));
         g.setFont (font (13.0f, true));
-        g.drawText (getButtonText(), getLocalBounds().reduced (8, 0), juce::Justification::centred, true);
+        g.drawFittedText (getButtonText(), getLocalBounds().reduced (8, 0), juce::Justification::centred, 1, 0.7f);
     }
 
     //==========================================================================
@@ -172,7 +172,7 @@ namespace SettingsUi
         g.strokePath (chevron, juce::PathStrokeType (1.5f));
         g.setColour (Ink::name());
         g.setFont (font (13.0f));
-        g.drawText (getButtonText(), inner.withTrimmedRight (8), juce::Justification::centredLeft, true);
+        g.drawFittedText (getButtonText(), inner.withTrimmedRight (8), juce::Justification::centredLeft, 1, 0.7f);
     }
 
     //==========================================================================
@@ -187,7 +187,7 @@ namespace SettingsUi
         g.fillEllipse (juce::Rectangle<float> (6.0f, 6.0f).withCentre ({ r.getX() + 13.0f, r.getCentreY() }));
         g.setColour (Ink::name());
         g.setFont (font (12.5f, true));
-        g.drawText (text, getLocalBounds().withTrimmedLeft (22).withTrimmedRight (10), juce::Justification::centredLeft, true);
+        g.drawFittedText (text, getLocalBounds().withTrimmedLeft (22).withTrimmedRight (10), juce::Justification::centredLeft, 1, 0.7f);
     }
 
     //==========================================================================
@@ -368,7 +368,7 @@ namespace SettingsUi
         g.setFont (font (12.0f, true));
         g.setColour (Ink::dim());
         for (size_t i = 0; i < columns.size(); ++i)
-            g.drawText (columns[i].title, header[i], i + 1 == columns.size() && columns.size() > 1 ? juce::Justification::centredRight : juce::Justification::centredLeft, true);
+            g.drawFittedText (columns[i].title, header[i], i + 1 == columns.size() && columns.size() > 1 ? juce::Justification::centredRight : juce::Justification::centredLeft, 1, 0.7f);
 
         int y = headerHeight;
         if (lines.empty())
@@ -377,7 +377,7 @@ namespace SettingsUi
             g.fillRect (1, y, getWidth() - 2, 1);
             g.setColour (Ink::dim());
             g.setFont (font (13.0f));
-            g.drawText (empty, juce::Rectangle<int> (14, y, getWidth() - 28, lineHeight), juce::Justification::centredLeft, true);
+            g.drawFittedText (empty, juce::Rectangle<int> (14, y, getWidth() - 28, lineHeight), juce::Justification::centredLeft, 2, 0.8f);
             return;
         }
         for (auto& l : lines)
@@ -391,14 +391,14 @@ namespace SettingsUi
                 const bool keyColumn = i + 1 == (int) columns.size() && columns.size() > 1;
                 g.setColour (i == 0 && ! l.dim ? Ink::name() : Ink::dim());
                 g.setFont (font (13.0f, i == 0));
-                g.drawText (l.cells[i], areas[(size_t) i].withTrimmedRight (8), keyColumn ? juce::Justification::centredRight : juce::Justification::centredLeft, true);
+                g.drawFittedText (l.cells[i], areas[(size_t) i].withTrimmedRight (8), keyColumn ? juce::Justification::centredRight : juce::Justification::centredLeft, 1, 0.7f);
             }
             y += lineHeight;
             if (l.note.isNotEmpty())
             {
                 g.setColour (Ink::danger());
                 g.setFont (font (12.0f, true));
-                g.drawText (l.note, juce::Rectangle<int> (14, y - 6, getWidth() - 28, noteHeight), juce::Justification::centredLeft, true);
+                g.drawFittedText (l.note, juce::Rectangle<int> (14, y - 6, getWidth() - 28, noteHeight), juce::Justification::centredLeft, 1, 0.7f);
                 y += noteHeight;
             }
         }
@@ -411,7 +411,7 @@ namespace SettingsUi
         if (s.kind == Kind::toggle)
         {
             toggle = std::make_unique<Switch>();
-            toggle->setTitle (s.name);
+            toggle->setTitle (SettingsRegistry::shown (s.name));
             toggle->onClick = [this] { if (setting.set && setting.get) setting.set (! setting.get()); refresh(); };
             addAndMakeVisible (*toggle);
         }
@@ -622,7 +622,7 @@ namespace SettingsUi
         {
             g.setColour (Ink::dim());
             g.setFont (font (12.0f, true));
-            g.drawText (above, aboveArea, juce::Justification::bottomLeft, true);
+            g.drawFittedText (SettingsRegistry::shown (above), aboveArea, juce::Justification::bottomLeft, 1, 0.7f);   // (the page's name, translated)
         }
         const auto r = box.toFloat().reduced (0.5f);
         g.setColour (Ink::box());
@@ -639,7 +639,7 @@ namespace SettingsUi
 
         g.setColour (Ink::name());
         g.setFont (font (14.0f, true));
-        g.drawText (setting.name, nameArea, juce::Justification::centredLeft, true);
+        g.drawFittedText (SettingsRegistry::shown (setting.name), nameArea, juce::Justification::centredLeft, 1, 0.7f);   // (its name is English, an identifier: translated here)
         drawText (g, setting.description, font (13.0f), Ink::dim(), descArea);
         drawText (g, noteText, font (13.0f), Ink::text(), noteArea);
         drawText (g, warningText, font (13.0f, true), Ink::warning(), warnArea);
@@ -650,6 +650,6 @@ namespace SettingsUi
     {
         g.setColour (Ink::dim());
         g.setFont (font (13.0f, true));
-        g.drawText (text, getLocalBounds().withTrimmedLeft (2).withTrimmedBottom (8), juce::Justification::bottomLeft, true);
+        g.drawFittedText (SettingsRegistry::shown (text), getLocalBounds().withTrimmedLeft (2).withTrimmedBottom (8), juce::Justification::bottomLeft, 1, 0.7f);   // (a section's name: translated here)
     }
 }

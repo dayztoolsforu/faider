@@ -57,8 +57,9 @@ private:
     std::function<std::vector<Entry>()> list;
     std::vector<Entry> entries;
     juce::String shown;
-    SettingsUi::Table assigned { { { "What", 0.42f }, { "Set also in", 0.36f }, { "Key", 0.22f } }, "Nothing to give a key yet: add pads, macros or scenes" };
-    SettingsUi::Table fixed { { { "What", 0.42f }, { "Where", 0.30f }, { "Key", 0.28f } }, {} };
+    // (made with the page, after the language is loaded: not static)
+    SettingsUi::Table assigned { { { TRANS ("What"), 0.42f }, { TRANS ("Set also in"), 0.36f }, { TRANS ("Key"), 0.22f } }, TRANS ("Nothing to give a key yet: add pads, macros or scenes") };
+    SettingsUi::Table fixed { { { TRANS ("What"), 0.42f }, { TRANS ("Where"), 0.30f }, { TRANS ("Key"), 0.28f } }, {} };
     juce::String note;
     juce::String problem;   // why the last key wasn't taken, if it wasn't
     int capturing = -1, clashes = 0;

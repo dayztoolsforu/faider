@@ -423,30 +423,30 @@ juce::String Macros::actionName (Action a)
 {
     switch (a)
     {
-        case Action::muteOn:        return "CUT";
-        case Action::muteOff:       return "UNCUT";
-        case Action::muteToggle:    return "CUT TOGGLE";
-        case Action::level:         return "SET FADER";
-        case Action::sendOn:        return "ASSIGN ON";
-        case Action::sendOff:       return "ASSIGN OFF";
-        case Action::sendToggle:    return "ASSIGN TOGGLE";
-        case Action::powerOn:       return "CHANNEL ON";
-        case Action::powerOff:      return "CHANNEL OFF";
-        case Action::playPad:       return "TRIGGER PAD";
-        case Action::stopPad:       return "STOP PAD";
-        case Action::stopAllPads:   return "ALL NOTES OFF";
-        case Action::tapePlayPause: return "TRANSPORT PLAY/PAUSE";
-        case Action::tapeNext:      return "TRANSPORT NEXT";
-        case Action::recordStart:   return "RECORD START";
-        case Action::recordStop:    return "RECORD STOP";
-        case Action::wait:          return "WAIT";
-        case Action::scene:         return "SCENE RECALL";
-        case Action::fxOn:          return "FX ON";
-        case Action::fxOff:         return "FX OFF";
-        case Action::fxToggle:      return "FX TOGGLE";
-        case Action::defaultOutput: return "WINDOWS DEFAULT OUTPUT";
-        case Action::defaultInput:  return "WINDOWS DEFAULT INPUT";
-        case Action::pluginSet:     return "PLUGIN SETTING";
+        case Action::muteOn:        return NEEDS_TRANS ("CUT");
+        case Action::muteOff:       return NEEDS_TRANS ("UNCUT");
+        case Action::muteToggle:    return NEEDS_TRANS ("CUT TOGGLE");
+        case Action::level:         return NEEDS_TRANS ("SET FADER");
+        case Action::sendOn:        return NEEDS_TRANS ("ASSIGN ON");
+        case Action::sendOff:       return NEEDS_TRANS ("ASSIGN OFF");
+        case Action::sendToggle:    return NEEDS_TRANS ("ASSIGN TOGGLE");
+        case Action::powerOn:       return NEEDS_TRANS ("CHANNEL ON");
+        case Action::powerOff:      return NEEDS_TRANS ("CHANNEL OFF");
+        case Action::playPad:       return NEEDS_TRANS ("TRIGGER PAD");
+        case Action::stopPad:       return NEEDS_TRANS ("STOP PAD");
+        case Action::stopAllPads:   return NEEDS_TRANS ("ALL NOTES OFF");
+        case Action::tapePlayPause: return NEEDS_TRANS ("TRANSPORT PLAY/PAUSE");
+        case Action::tapeNext:      return NEEDS_TRANS ("TRANSPORT NEXT");
+        case Action::recordStart:   return NEEDS_TRANS ("RECORD START");
+        case Action::recordStop:    return NEEDS_TRANS ("RECORD STOP");
+        case Action::wait:          return NEEDS_TRANS ("WAIT");
+        case Action::scene:         return NEEDS_TRANS ("SCENE RECALL");
+        case Action::fxOn:          return NEEDS_TRANS ("FX ON");
+        case Action::fxOff:         return NEEDS_TRANS ("FX OFF");
+        case Action::fxToggle:      return NEEDS_TRANS ("FX TOGGLE");
+        case Action::defaultOutput: return NEEDS_TRANS ("WINDOWS DEFAULT OUTPUT");
+        case Action::defaultInput:  return NEEDS_TRANS ("WINDOWS DEFAULT INPUT");
+        case Action::pluginSet:     return NEEDS_TRANS ("PLUGIN SETTING");
     }
     return {};
 }

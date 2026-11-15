@@ -73,7 +73,7 @@ juce::Array<juce::File> MainComponent::setAsideFiles() const
 
 void MainComponent::addSessionItems (juce::PopupMenu& menu)
 {
-    menu.addItem ("Session timeline...", [this] { showTimeline (juce::PopupMenu::Options().withMousePosition()); });
+    menu.addItem (TRANS ("Session timeline..."), [this] { showTimeline (juce::PopupMenu::Options().withMousePosition()); });
 }
 
 // SESSION TIMELINE: every kept copy of the session, newest first. Each brings back the whole mix
@@ -82,7 +82,7 @@ void MainComponent::addSessionItems (juce::PopupMenu& menu)
 void MainComponent::showTimeline (juce::PopupMenu::Options where)
 {
     juce::PopupMenu menu;
-    menu.addSectionHeader ("SESSION TIMELINE");
+    menu.addSectionHeader (TRANS ("SESSION TIMELINE"));
     const auto now = juce::Time::getCurrentTime();
     auto files = historyFiles();
     const int historyCount = files.size();
@@ -92,13 +92,14 @@ void MainComponent::showTimeline (juce::PopupMenu::Options where)
         const auto& f = files.getReference (i);
         const auto when = f.getLastModificationTime();
         const auto ago = now - when;
-        const auto label = juce::String (i >= historyCount ? "kept: " : "")
-                         + when.formatted ("%H:%M  %a %d %b") + "   (" + (ago.inMinutes() < 60 ? juce::String ((int) ago.inMinutes()) + " min ago"
-                                                                                                   : juce::String (ago.inHours(), 1) + " h ago") + ")";
+        const auto agoText = ago.inMinutes() < 60 ? TRANS ("%1 min ago").replace ("%1", juce::String ((int) ago.inMinutes()))
+                                                  : TRANS ("%1 h ago").replace ("%1", juce::String (ago.inHours(), 1));
+        const auto stamp = when.formatted ("%H:%M  %a %d %b") + "   (" + agoText + ")";
+        const auto label = i >= historyCount ? TRANS ("kept: %1").replace ("%1", stamp) : stamp;
         juce::PopupMenu version;
-        version.addItem ("RESTORE EVERYTHING (RESTARTS)", [this, f] { restoreSession (f); });
+        version.addItem (TRANS ("RESTORE EVERYTHING (RESTARTS)"), [this, f] { restoreSession (f); });
         version.addSeparator();
-        version.addSectionHeader ("PUT ONE CHANNEL BACK");
+        version.addSectionHeader (TRANS ("PUT ONE CHANNEL BACK"));
         if (const auto xml = juce::XmlDocument::parse (f))
         {
             for (auto* tag : { "Strip", "Pair" })
@@ -117,7 +118,7 @@ void MainComponent::showTimeline (juce::PopupMenu::Options where)
         menu.addSubMenu (label, version);
     }
     if (menu.getNumItems() <= 1)
-        menu.addItem ("NOTHING KEPT YET", false, false, [] {});
+        menu.addItem (TRANS ("NOTHING KEPT YET"), false, false, [] {});
     menu.showMenuAsync (where);
 }
 
@@ -130,10 +131,10 @@ void MainComponent::saveSessionAs()
 {
     if (interfaceName.isEmpty() || ! sessionLoaded)
         return logEvent ("sessions: nothing to save yet (no mix loaded)");
-    auto* box = new juce::AlertWindow ("SAVE SESSION AS", "A name for this mix:", juce::MessageBoxIconType::NoIcon);
+    auto* box = new juce::AlertWindow (TRANS ("SAVE SESSION AS"), TRANS ("A name for this mix:"), juce::MessageBoxIconType::NoIcon);
     box->addTextEditor ("name", "");
-    box->addButton ("SAVE", 1, juce::KeyPress (juce::KeyPress::returnKey));
-    box->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+    box->addButton (TRANS ("SAVE"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+    box->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
     box->enterModalState (true, juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this), box] (int result)
     {
         const auto name = juce::File::createLegalFileName (box->getTextEditorContents ("name").trim());
@@ -144,7 +145,7 @@ void MainComponent::saveSessionAs()
         if (file.replaceWithText (Session::save (safe->engine, safe->masterToSave())->toString()))
         {
             safe->logEvent ("sessions: saved as " + name);
-            safe->toasts.show ("scene", "Session saved", name);
+            safe->toasts.show ("scene", TRANS ("Session saved"), name);
         }
     }), true);
 }
@@ -152,17 +153,17 @@ void MainComponent::saveSessionAs()
 void MainComponent::showSessions (juce::PopupMenu::Options where)
 {
     juce::PopupMenu menu;
-    menu.addItem ("SAVE AS...", [this] { saveSessionAs(); });
-    menu.addSectionHeader (juce::String ("OPEN (") + Product::nameUpper + " RESTARTS)");
+    menu.addItem (TRANS ("SAVE AS..."), [this] { saveSessionAs(); });
+    menu.addSectionHeader (TRANS ("OPEN (%1 RESTARTS)").replace ("%1", Product::nameUpper));
     auto files = sessionsDir().findChildFiles (juce::File::findFiles, false, "*.xml");
     std::sort (files.begin(), files.end(), [] (const juce::File& a, const juce::File& b) { return a.getFileName().compareNatural (b.getFileName()) < 0; });
     for (auto& f : files)
         menu.addItem (f.getFileNameWithoutExtension(), [this, f] { restoreSession (f, f.getFileNameWithoutExtension()); });
     if (files.isEmpty())
-        menu.addItem ("NO SAVED SESSIONS YET", false, false, [] {});
+        menu.addItem (TRANS ("NO SAVED SESSIONS YET"), false, false, [] {});
     menu.addSeparator();
-    menu.addItem ("EXPORT TO A FILE...", [this] { exportSession(); });
-    menu.addItem ("IMPORT FROM A FILE...", [this] { importSession(); });
+    menu.addItem (TRANS ("EXPORT TO A FILE..."), [this] { exportSession(); });
+    menu.addItem (TRANS ("IMPORT FROM A FILE..."), [this] { importSession(); });
     menu.showMenuAsync (where);
 }
 
@@ -170,7 +171,7 @@ void MainComponent::exportSession()
 {
     if (interfaceName.isEmpty() || ! sessionLoaded)
         return;
-    sessionChooser = std::make_unique<juce::FileChooser> ("Export the session", juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
+    sessionChooser = std::make_unique<juce::FileChooser> (TRANS ("Export the session"), juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
                                                                                     .getChildFile ("Faider session.xml"), "*.xml");
     sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
                                  [this] (const juce::FileChooser& fc)
@@ -184,7 +185,7 @@ void MainComponent::exportSession()
 // A saved session (SETTINGS > SESSIONS' EXPORT), copied to a file.
 void MainComponent::exportSessionFile (const juce::File& saved)
 {
-    sessionChooser = std::make_unique<juce::FileChooser> ("Export the session", juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
+    sessionChooser = std::make_unique<juce::FileChooser> (TRANS ("Export the session"), juce::File::getSpecialLocation (juce::File::userDocumentsDirectory)
                                                                                     .getChildFile (saved.getFileName()), "*.xml");
     sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
                                  [this, saved] (const juce::FileChooser& fc)
@@ -197,7 +198,7 @@ void MainComponent::exportSessionFile (const juce::File& saved)
 
 void MainComponent::importSession()
 {
-    sessionChooser = std::make_unique<juce::FileChooser> ("Import a session", juce::File::getSpecialLocation (juce::File::userDocumentsDirectory), "*.xml");
+    sessionChooser = std::make_unique<juce::FileChooser> (TRANS ("Import a session"), juce::File::getSpecialLocation (juce::File::userDocumentsDirectory), "*.xml");
     sessionChooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles, [this] (const juce::FileChooser& fc)
     {
         const auto file = fc.getResult();
@@ -216,9 +217,10 @@ void MainComponent::importSession()
 void MainComponent::restoreSession (const juce::File& version, const juce::String& named)
 {
     const auto when = version.getLastModificationTime().formatted ("%a %d %b %H:%M");
-    juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, named.isNotEmpty() ? "OPEN SESSION" : "RESTORE SESSION",
-                                        (named.isNotEmpty() ? "Open the session \"" + named + "\"?" : "Restore the mix from " + when + "?") + "\nFaider restarts.",
-                                        named.isNotEmpty() ? "OPEN" : "RESTORE", "CANCEL", nullptr,
+    juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, named.isNotEmpty() ? TRANS ("OPEN SESSION") : TRANS ("RESTORE SESSION"),
+                                        (named.isNotEmpty() ? TRANS ("Open the session \"%1\"?").replace ("%1", named)
+                                                            : TRANS ("Restore the mix from %1?").replace ("%1", when)) + "\n" + TRANS ("Faider restarts."),
+                                        named.isNotEmpty() ? TRANS ("OPEN") : TRANS ("RESTORE"), TRANS ("CANCEL"), nullptr,
                                         juce::ModalCallbackFunction::create ([this, version] (int result)
     {
         if (result != 1 || ! version.existsAsFile())

@@ -148,7 +148,7 @@ private:
     std::vector<PreflightPanel::Check> zeroChecks();   // ZERO DESK: things left set (solos, DIM, the oscillator, KEY LISTEN...)
     void showZero();               // PRE-FLIGHT (on start: only if something's wrong)
     std::unique_ptr<juce::DocumentWindow> mini;
-    juce::TextButton miniButton { "MINI" };
+    juce::TextButton miniButton { TRANS ("MINI") };   // (made with the window: the language is loaded by then)
     Toasts toasts;                    // notices in the window's corner
     const juce::uint32 openedAt = juce::Time::getMillisecondCounter();   // (devices found at start-up aren't news)
     void styleEventLog();             // the event log in the theme's colours
@@ -263,6 +263,6 @@ private:
     int sortColumn = -1;        // Devices list order (-1: as Windows lists them)
     bool sortAscending = true;
     juce::TextButton zoomOut { "-" }, zoomReset { "100%" }, zoomIn { "+" };
-    juce::TextButton findButton { "FIND" }, historyButton { "HISTORY" };
+    juce::TextButton findButton { TRANS ("FIND") }, historyButton { TRANS ("HISTORY") };
     HealthLight health { engine };   // the top bar's audio health light
 };

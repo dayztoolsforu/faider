@@ -58,7 +58,7 @@ namespace ConsoleDesk
             g.setFont (LargeFormat::print (11.0f));
             g.setColour (Console::Colours::inkDim());
             for (int row = 0; row < 3; ++row)   // (each row's name, at its left)
-                g.drawText (row == 0 ? "INPUTS" : row == 1 ? "BUSES" : "OUTPUTS", juce::Rectangle<float> (12.0f, rowTop[row] + 4.0f, 120.0f, 14.0f), juce::Justification::centredLeft, false);
+                g.drawFittedText (row == 0 ? TRANS ("INPUTS") : row == 1 ? TRANS ("BUSES") : TRANS ("OUTPUTS"), juce::Rectangle<float> (12.0f, rowTop[row] + 4.0f, 120.0f, 14.0f).toNearestInt(), juce::Justification::centredLeft, 1, 0.7f);
         }
 
         void mouseDown (const juce::MouseEvent& e) override

@@ -64,10 +64,10 @@ private:
     Tape& tape;
     MixerComponent& mixer;
 
-    juce::TextButton prev { "PREV" }, rew { "REW" }, play { "PLAY" }, pause { "PAUSE" }, stop { "STOP" }, ff { "FF" }, next { "NEXT" };
-    juce::TextButton shuffle { "SHUFFLE" }, repeat { "REPEAT ALL" };
-    juce::TextButton addFilesButton { "ADD FILES" }, addFolderButton { "ADD FOLDER" }, eject { "EJECT" }, addStrip { "CREATE TAPE CHANNEL" };
-    juce::Label levelLabel { {}, "LEVEL" }, playlistLabel { {}, "PLAYLIST" };
+    juce::TextButton prev { TRANS ("PREV") }, rew { TRANS ("REW") }, play { TRANS ("PLAY") }, pause { TRANS ("PAUSE") }, stop { TRANS ("STOP") }, ff { TRANS ("FF") }, next { TRANS ("NEXT") };
+    juce::TextButton shuffle { TRANS ("SHUFFLE") }, repeat { TRANS ("REPEAT ALL") };
+    juce::TextButton addFilesButton { TRANS ("ADD FILES") }, addFolderButton { TRANS ("ADD FOLDER") }, eject { TRANS ("EJECT") }, addStrip { TRANS ("CREATE TAPE CHANNEL") };
+    juce::Label levelLabel { {}, TRANS ("LEVEL") }, playlistLabel { {}, TRANS ("PLAYLIST") };
     juce::Slider position, level;
     juce::ListBox list { "Playlist", this };
     std::unique_ptr<juce::FileChooser> chooser;
@@ -90,12 +90,12 @@ private:
     // file size, and where the files go.
     struct RecordSource { Recorder::Kind kind; int index; juce::String name, key; };
     void fillRecordSources();
-    juce::Label recorderLabel { {}, "RECORDER" };
+    juce::Label recorderLabel { {}, TRANS ("RECORDER") };
     juce::ComboBox recordSource, recordFormat;
     std::vector<RecordSource> recordSources;   // the first: multitrack (key multitrackKey)
     static inline const juce::String multitrackKey { "multitrack" };
     juce::String recordSourcesShown;
-    juce::TextButton rec { "REC" }, recordFolder { "PATH" }, openFolder { "REVEAL" };
+    juce::TextButton rec { TRANS ("REC") }, recordFolder { TRANS ("PATH") }, openFolder { TRANS ("REVEAL") };
     juce::Rectangle<float> recordScreen;
     juce::String shownRecord;
     juce::int64 recordBytes = 0;
@@ -106,7 +106,7 @@ private:
     // (right-click: hotkey) writes it out.
     struct SaveKey : juce::TextButton
     {
-        SaveKey() : TextButton ("SAVE") {}
+        SaveKey() : TextButton (TRANS ("SAVE")) {}
         std::function<void (bool menu)> onPress;
         void clicked() override { if (onPress) onPress (false); }
         void mouseDown (const juce::MouseEvent& e) override
@@ -119,8 +119,8 @@ private:
     };
     void keepReplayArmed();   // follows the record source and length (re-arms if they change)
     static constexpr double replayLengths[] = { 30.0, 60.0, 120.0, 300.0 };
-    juce::Label replayLabel { {}, "REPLAY" };
-    juce::TextButton replayArm { "ARM" };
+    juce::Label replayLabel { {}, TRANS ("REPLAY") };
+    juce::TextButton replayArm { TRANS ("ARM") };
     ConsoleControls::Stepper replayLength { { "30 S", "1 MIN", "2 MIN", "5 MIN" } };
     SaveKey replaySave;
     int replayLengthIndex = 1;

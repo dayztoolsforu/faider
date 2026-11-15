@@ -226,7 +226,7 @@ namespace Theme
 
     juce::StringArray lookNames()
     {
-        juce::StringArray names { "Default" };
+        juce::StringArray names { NEEDS_TRANS ("Default") };   // (an identifier: useLook and settings.xml "look"; translate where shown)
         const auto folder = looksFolder();
         if (folder.isDirectory())
             for (const auto& entry : juce::RangedDirectoryIterator (folder, false, "*.json"))

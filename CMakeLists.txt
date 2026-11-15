@@ -44,9 +44,22 @@ if(NOT EXISTS "${_bundled_asio}/common/iasiodrv.h")
 endif()
 set(ASIO_SDK_DIR "${_bundled_asio}" CACHE PATH "Path to the extracted Steinberg ASIO SDK (folder containing 'common')")
 
-# Built into the program: the headphone correction profiles (assets/autoeq, MIT: see assets/LICENSES.md).
+# Built into the program: the headphone correction profiles (assets/autoeq, MIT: see assets/LICENSES.md)
+# and the interface's translations (assets/i18n, one a language: src/Language.h).
 juce_add_binary_data(FaiderAssets HEADER_NAME FaiderAssets.h NAMESPACE FaiderAssets SOURCES
-    assets/autoeq/profiles.txt)
+    assets/autoeq/profiles.txt
+    assets/i18n/de.txt
+    assets/i18n/es.txt
+    assets/i18n/fr.txt
+    assets/i18n/it.txt
+    assets/i18n/ja.txt
+    assets/i18n/ko.txt
+    assets/i18n/nl.txt
+    assets/i18n/pl.txt
+    assets/i18n/pt-BR.txt
+    assets/i18n/sv.txt
+    assets/i18n/tr.txt
+    assets/i18n/zh-Hans.txt)
 
 # faider_core: the engine and the session (src/engine, src/devices, src/Session.cpp), built once for
 # Faider and SessionTest. JUCE's modules are compiled into each program that links it (that's how

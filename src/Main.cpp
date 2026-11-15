@@ -5,6 +5,7 @@
 #include "MainComponent.h"
 #include "StartWithWindows.h"
 #include "AudioBoost.h"
+#include "Language.h"
 #include "engine/PluginScan.h"
 #include "engine/AppCapture.h"
 #include "ui/AboutBox.h"
@@ -269,6 +270,12 @@ public:
         Product::moveEarlierFolder();   // (before anything opens a file in it)
         StartWithWindows::moveEarlierEntry();
         CrashLog::install();
+        {
+            // The interface's language, before any window is made (Language.h).
+            Product::dataFolder().createDirectory();   // (the first start: it isn't there yet)
+            juce::PropertiesFile settings (Product::dataFolder().getChildFile ("settings.xml"), juce::PropertiesFile::Options());
+            Language::start (settings);
+        }
         mainWindow = std::make_unique<MainWindow> (getApplicationName());
         tray = std::make_unique<TrayIcon> (*mainWindow);
         if (auto* content = dynamic_cast<MainComponent*> (mainWindow->getContentComponent()))
@@ -277,8 +284,8 @@ public:
         // Closing the window doesn't stop the audio, so say so.
         mainWindow->onHidden = [this]
         {
-            tray->showInfoBubble (juce::String (Product::name) + " is still running",
-                                  "Audio keeps playing. To stop, right-click the tray icon and Quit.");
+            tray->showInfoBubble (TRANS ("%1 is still running").replace ("%1", Product::name),
+                                  TRANS ("Audio keeps playing. To stop, right-click the tray icon and Quit."));
         };
 
         // Started by Windows at login: stay in the tray. Otherwise in front: a copy that an elevated
@@ -461,7 +468,7 @@ private:
             shownAlert = alert;
             const auto icon = drawIcon (flashOn);
             setIconImage (icon, icon);
-            setIconTooltip (alert.isNotEmpty() ? juce::String (Product::name) + " - ALERT: " + alert : juce::String (Product::name));
+            setIconTooltip (alert.isNotEmpty() ? TRANS ("%1 - ALERT: %2").replace ("%1", Product::name).replace ("%2", alert) : juce::String (Product::name));   // (%2 last: an output's name may hold anything)
         }
 
         // Click: the mini mixer comes up. Double-click: the window, and not the mini mixer too: a
@@ -488,7 +495,7 @@ private:
             }
 
             juce::PopupMenu menu;
-            menu.addItem ("Show " + juce::String (Product::name), [this] { window.bringBack(); });
+            menu.addItem (TRANS ("Show %1").replace ("%1", Product::name), [this] { window.bringBack(); });
             menu.addSeparator();
             if (auto* content = dynamic_cast<MainComponent*> (window.getContentComponent()))
             {
@@ -498,12 +505,12 @@ private:
                 content->addBoostItems (menu);
                 menu.addSeparator();
             }
-            menu.addItem ("Start with Windows", true, StartWithWindows::isOn(), [] { StartWithWindows::set (! StartWithWindows::isOn()); });
+            menu.addItem (TRANS ("Start with Windows"), true, StartWithWindows::isOn(), [] { StartWithWindows::set (! StartWithWindows::isOn()); });
             if (auto* content = dynamic_cast<MainComponent*> (window.getContentComponent()))
-                menu.addItem ("Save a problem report...", [content] { content->saveProblemReport(); });
-            menu.addItem ("About " + juce::String (Product::name) + "...", [] { AboutBox::show(); });
+                menu.addItem (TRANS ("Save a problem report..."), [content] { content->saveProblemReport(); });
+            menu.addItem (TRANS ("About %1...").replace ("%1", Product::name), [] { AboutBox::show(); });
             menu.addSeparator();
-            menu.addItem ("Quit " + juce::String (Product::name), [] { JUCEApplication::getInstance()->systemRequestedQuit(); });
+            menu.addItem (TRANS ("Quit %1").replace ("%1", Product::name), [] { JUCEApplication::getInstance()->systemRequestedQuit(); });
             menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
         }
 

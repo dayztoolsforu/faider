@@ -39,7 +39,7 @@ namespace ConsoleDesk
             g.drawText (clock (tape.isLoaded() ? tape.length() : 0.0), text.removeFromLeft (46.0f), juce::Justification::centredLeft, false);
             const int now = tape.current();
             g.setColour (green.withAlpha (0.85f));
-            g.drawFittedText (juce::isPositiveAndBelow (now, tape.size()) ? tape.file (now).getFileNameWithoutExtension().toUpperCase() : juce::String ("NO TRACK"),
+            g.drawFittedText (juce::isPositiveAndBelow (now, tape.size()) ? tape.file (now).getFileNameWithoutExtension().toUpperCase() : TRANS ("NO TRACK"),
                               text.toNearestInt(), juce::Justification::centredLeft, 1, 0.85f);
             for (int i = 0; i < keys().size(); ++i)
             {
@@ -101,7 +101,7 @@ namespace ConsoleDesk
                 return engine.stopRecording();
             juce::String error;
             if (engine.startChosenRecording (error) == juce::File())
-                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "RECORD FAILED", error);
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("RECORD FAILED"), error);
         }
 
         void timerCallback() override

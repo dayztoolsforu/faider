@@ -28,8 +28,10 @@ namespace DevicesTab
     bool nodeDisabled (const juce::String& instanceId);
 
     // Column x positions and widths, shared by the header and the rows. The last runs to the edge.
+    // (titles in English, translated where drawn)
     struct Column { const char* title; int width; };
-    inline constexpr Column columns[] = { { "I/O", 52 }, { "Device", 250 }, { "Hardware", 290 }, { "Format", 130 }, { "State", 100 }, { "Tags", 0 } };
+    inline constexpr Column columns[] = { { NEEDS_TRANS ("I/O"), 52 }, { NEEDS_TRANS ("Device"), 250 }, { NEEDS_TRANS ("Hardware"), 290 },
+                                          { NEEDS_TRANS ("Format"), 130 }, { NEEDS_TRANS ("State"), 100 }, { NEEDS_TRANS ("Tags"), 0 } };
 
     // The settings and tools bars: a bar of keys with a unit above and below, the keys after a
     // label column of this width so they line up from bar to bar.
@@ -100,7 +102,7 @@ namespace DevicesTab
 
         juce::Label title, status;
         juce::ComboBox sampleRate, latency;
-        juce::TextButton apply { "APPLY" };
+        juce::TextButton apply { TRANS ("APPLY") };
         bool installed = false;
         int savedRate = 0, savedLatency = 0, checks = 0;
     };
@@ -134,7 +136,7 @@ namespace DevicesTab
 
         AudioEngine& engine;
         AudioEngine::Stats stats;
-        juce::TextButton reset { "RESET STATS" };
+        juce::TextButton reset { TRANS ("RESET STATS") };
         juce::Label bufferLabel;
         juce::ComboBox buffer;
     };
@@ -191,8 +193,8 @@ namespace DevicesTab
         int waitingFor = 0, checks = 0;
         bool windowsLogKept = true;       // pnputil's words went to windowsLog (not when its path isn't safe on a command line)
         juce::StringArray waitingNodes;   // the device nodes being switched back on (setInWindows)
-        juce::TextButton offInFaider { "EXCLUDE" }, onInFaider { "INCLUDE" },
-                         disableInWindows { "DISABLE IN WINDOWS" }, enableInWindows { "ENABLE IN WINDOWS" }, rename { "RENAME" };
+        juce::TextButton offInFaider { TRANS ("EXCLUDE") }, onInFaider { TRANS ("INCLUDE") },
+                         disableInWindows { TRANS ("DISABLE IN WINDOWS") }, enableInWindows { TRANS ("ENABLE IN WINDOWS") }, rename { TRANS ("RENAME") };
     };
 
     // The whole tab: VB-CABLE's settings, device tools, header and list, and the stream diagnostics.

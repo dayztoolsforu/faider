@@ -1,0 +1,2 @@
+language: 한국어
+countries: kr

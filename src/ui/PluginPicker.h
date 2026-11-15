@@ -15,7 +15,7 @@ public:
     PluginPicker (juce::StringArray installed, std::function<void (const juce::String& path)> pick, std::function<void()> loadFile)
         : plugins (std::move (installed)), onPick (std::move (pick)), onLoadFile (std::move (loadFile))
     {
-        search.setTextToShowWhenEmpty ("SEARCH PLUGINS", Console::Colours::legendDim());
+        search.setTextToShowWhenEmpty (TRANS ("SEARCH PLUGINS"), Console::Colours::legendDim());
         search.setFont (juce::FontOptions (Console::Type::body));
         search.onTextChange = [this] { refill(); };
         search.onReturnKey = [this] { pickRow (juce::jmax (0, list.getSelectedRow())); };
@@ -137,12 +137,12 @@ private:
                     rows.push_back ({ false, nameOf (p), p, makerOf (p) });
                 }
         };
-        section (juce::String (juce::CharPointer_UTF8 ("\xe2\x98\x85 FAVOURITES")), favourites);
+        section (TRANS (juce::CharPointer_UTF8 ("\xe2\x98\x85 FAVOURITES")), favourites);
         if (query.isEmpty())
-            section ("RECENT", load ("recent"));
-        section (query.isEmpty() ? "ALL PLUGINS" : "MATCHES", plugins);
+            section (TRANS ("RECENT"), load ("recent"));
+        section (query.isEmpty() ? TRANS ("ALL PLUGINS") : TRANS ("MATCHES"), plugins);
         if (plugins.isEmpty())
-            rows.push_back ({ true, "NO VST3 PLUGINS FOUND", {}, {} });
+            rows.push_back ({ true, TRANS ("NO VST3 PLUGINS FOUND"), {}, {} });
         list.updateContent();
         list.repaint();
         for (size_t i = 0; i < rows.size(); ++i)   // the top match picked, ready for Enter
@@ -166,7 +166,7 @@ private:
         {
             g.setColour (Colours::legendDim());
             g.setFont (legendFont (Type::legend));
-            g.drawText (r.text, area.withTrimmedTop (6), juce::Justification::bottomLeft);
+            g.drawFittedText (r.text, area.withTrimmedTop (6), juce::Justification::bottomLeft, 1, 0.7f);
             return;
         }
         if (selected)
@@ -185,9 +185,10 @@ private:
         g.setColour (Colours::legend());
         g.setFont (juce::FontOptions (Type::body, juce::Font::bold));
         g.drawFittedText (r.text, area.removeFromLeft (area.getWidth() * 3 / 5), juce::Justification::centredLeft, 1, 0.8f);
-        g.setColour (r.maker == "FAILED TEST" ? Colours::danger() : Colours::legendDim());
+        const bool failed = r.maker == "FAILED TEST";   // (makerOf's marker, English; shown translated)
+        g.setColour (failed ? Colours::danger() : Colours::legendDim());
         g.setFont (juce::FontOptions (Type::legend));
-        g.drawFittedText (r.maker.toUpperCase(), area, juce::Justification::centredRight, 1, 0.8f);
+        g.drawFittedText (failed ? TRANS ("FAILED TEST") : r.maker.toUpperCase(), area, juce::Justification::centredRight, 1, 0.8f);
     }
 
     void listBoxItemClicked (int row, const juce::MouseEvent& e) override
@@ -227,5 +228,5 @@ private:
     std::function<void()> onLoadFile;
     juce::TextEditor search;
     juce::ListBox list;
-    juce::TextButton loadFileKey { "LOAD VST3 FILE..." };
+    juce::TextButton loadFileKey { TRANS ("LOAD VST3 FILE...") };
 };

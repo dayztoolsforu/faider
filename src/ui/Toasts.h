@@ -82,12 +82,12 @@ private:
             g.setColour (Colours::capText());
             g.setFont (legendFont (Type::name));
             g.drawFittedText (title.toUpperCase(), inside.removeFromTop (text.isEmpty() ? inside.getHeight() : 20.0f).toNearestInt(),
-                              juce::Justification::centredLeft, 1, 0.8f);
+                              juce::Justification::centredLeft, 1, 0.7f);   // (a translated title may run longer)
             if (text.isNotEmpty())
             {
                 g.setColour (Colours::capText().withAlpha (0.75f));
                 g.setFont (juce::FontOptions (Type::body));
-                g.drawFittedText (text, inside.toNearestInt(), juce::Justification::topLeft, kind == "tip" ? 2 : 1, 0.8f);
+                g.drawFittedText (text, inside.toNearestInt(), juce::Justification::topLeft, kind == "tip" ? 2 : 1, 0.7f);
             }
         }
 

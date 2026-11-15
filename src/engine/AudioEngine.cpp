@@ -417,7 +417,7 @@ juce::String AudioEngine::findFeedbackLoop (const Strip* changing, const Source*
     return {};
 }
 
-juce::StringArray AudioEngine::findDoubling() const
+juce::StringArray AudioEngine::findDoubling (bool translated, bool withDefaultSpeaker) const
 {
     juce::StringArray found;
 
@@ -432,9 +432,11 @@ juce::StringArray AudioEngine::findDoubling() const
             for (auto& place : b->places())
                 if (feeder.isEmpty() && (place.target == e.name || place.candidate == e.name))
                     feeder = b->name;
-        if (feeder.isNotEmpty())
-            found.add ("Windows' default speaker is " + endpointDisplayName (e) + " (fed by " + feeder
-                       + "), so every app goes into the mic. Make your headphones or speakers the default.");
+        if (feeder.isNotEmpty() && withDefaultSpeaker)
+            found.add (translated ? TRANS ("Windows' default speaker is %1 (fed by %2), so every app goes into the mic. Make your headphones or speakers the default.")
+                                        .replace ("%2", feeder).replace ("%1", endpointDisplayName (e))
+                                  : "Windows' default speaker is " + endpointDisplayName (e) + " (fed by " + feeder
+                                        + "), so every app goes into the mic. Make your headphones or speakers the default.");
     }
 
     // An app on a channel of its own still plays on its own device, so its channel belongs only
@@ -454,8 +456,10 @@ juce::StringArray AudioEngine::findDoubling() const
                 continue;
             const auto places = masters[(size_t) b]->places();
             if (std::any_of (places.begin(), places.end(), [&] (auto& place) { return ! isMicCable (place.target.isNotEmpty() ? place.target : place.candidate); }))
-                found.add (s->name + " reaches " + masters[(size_t) b]->name + " and also plays on its own, so you hear it twice. "
-                           "Send apps only to the mic.");
+                found.add (translated ? TRANS ("%1 reaches %2 and also plays on its own, so you hear it twice. Send apps only to the mic.")
+                                            .replace ("%2", masters[(size_t) b]->name).replace ("%1", s->name)
+                                      : s->name + " reaches " + masters[(size_t) b]->name + " and also plays on its own, so you hear it twice. "
+                                            "Send apps only to the mic.");
         }
     }
     return found;
@@ -477,7 +481,7 @@ AudioEngine::Stats AudioEngine::getStats() const
         for (const bool out : { false, true })
         {
             StreamStats s;
-            s.name = master->getName() + " (clock, " + getClockName() + ")";
+            s.name = TRANS ("%1 (clock, %2)").replace ("%2", juce::translate (getClockName())).replace ("%1", master->getName());   // (shown only: DEVICES, the health light)
             s.direction = out ? "out" : "in";
             s.rate = interfaceRate;
             s.block = interfaceBlock;
@@ -514,7 +518,7 @@ AudioEngine::Stats AudioEngine::getStats() const
     for (auto& [exe, cap] : appCaptures)
     {
         StreamStats s;
-        s.name = juce::File (exe).getFileNameWithoutExtension() + " (app capture)";
+        s.name = TRANS ("%1 (app capture)").replace ("%1", juce::File (exe).getFileNameWithoutExtension());
         s.direction = "app";
         s.rate = interfaceRate;
         s.bufferedMs = ms (cap->fifo.getFill(), interfaceRate);

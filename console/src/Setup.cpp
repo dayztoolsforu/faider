@@ -48,7 +48,7 @@ namespace
             // On the cable's page, while Windows' default speaker or mic is the cable (as installing it leaves them).
             addChildComponent (defaults);
             defaults.setWantsKeyboardFocus (false);
-            defaults.setTooltip ("Windows plays or records on the cable: pick your real speakers and mic as its defaults, for calls too");
+            defaults.setTooltip (TRANS ("Windows plays or records on the cable: pick your real speakers and mic as its defaults, for calls too"));
             defaults.onClick = [this]
             {
                 WindowsDefaults::showMenu (engine.getEndpoints(), juce::PopupMenu::Options().withTargetComponent (defaults),
@@ -73,7 +73,7 @@ namespace
         void paint (juce::Graphics& g) override
         {
             g.fillAll (DeskSettings::desk());
-            static const char* names[] = { "WHERE YOU LISTEN", "MICROPHONES", "APPS HEAR YOU", "PROGRAMS", "DONE" };
+            static const char* names[] = { NEEDS_TRANS ("WHERE YOU LISTEN"), NEEDS_TRANS ("MICROPHONES"), NEEDS_TRANS ("APPS HEAR YOU"), NEEDS_TRANS ("PROGRAMS"), NEEDS_TRANS ("DONE") };   // (translated where drawn)
             for (int i = 0; i <= ready; ++i)
             {
                 const auto r = stepCard (i).toFloat();
@@ -82,13 +82,13 @@ namespace
                 g.fillEllipse (juce::Rectangle<float> (9.0f, 9.0f).withCentre ({ r.getX() + 18.0f, r.getCentreY() }));
                 g.setColour (i == step ? juce::Colours::white : DeskSettings::text());
                 g.setFont (LargeFormat::print (12.0f));
-                g.drawText (names[i], r.withTrimmedLeft (32.0f), juce::Justification::centredLeft, false);
+                g.drawFittedText (juce::translate (names[i]), r.withTrimmedLeft (32.0f).withTrimmedRight (6.0f).toNearestInt(), juce::Justification::centredLeft, 2, 0.7f);
             }
             const auto pane = paneArea();
             DeskSettings::card (g, pane.toFloat());
             g.setColour (juce::Colours::white);
             g.setFont (LargeFormat::print (17.0f));
-            g.drawText (question(), pane.reduced (20).removeFromTop (30), juce::Justification::centredLeft, false);
+            g.drawFittedText (question(), pane.reduced (20).removeFromTop (30), juce::Justification::centredLeft, 1, 0.7f);
             if (step == ready)
                 return paintSummary (g, pane.reduced (20).withTrimmedTop (44));
             for (int i = 0; i < (int) choices.size(); ++i)
@@ -111,7 +111,7 @@ namespace
             {
                 g.setColour (DeskSettings::text());
                 g.setFont (LargeFormat::print (12.5f));
-                g.drawText (step == apps ? "NO APPS PLAYING" : "NONE FOUND", pane.reduced (20).withTrimmedTop (50).removeFromTop (24), juce::Justification::centredLeft, false);
+                g.drawFittedText (step == apps ? TRANS ("NO APPS PLAYING") : TRANS ("NONE FOUND"), pane.reduced (20).withTrimmedTop (50).removeFromTop (24), juce::Justification::centredLeft, 1, 0.7f);
             }
         }
 
@@ -153,12 +153,13 @@ namespace
         AudioEngine& engine;
         juce::SharedResourcePointer<WindowDiscovery::Scanner> windows;   // (the one the input menus use)
         std::function<void()> finished;
-        juce::TextButton back { "BACK" }, next { "NEXT" }, defaults { "SET MY DEFAULTS" };
+        juce::TextButton back { TRANS ("BACK") }, next { TRANS ("NEXT") }, defaults { TRANS ("SET MY DEFAULTS") };
         int step = 0;
         std::vector<Choice> choices;
         std::map<int, juce::StringArray> picked;   // each step's answers, by key
         std::map<int, bool> asked;                 // (a step's defaults are only chosen the first time)
-        juce::StringArray built;                   // what the last build made, for DONE
+        juce::StringArray built;                   // what the last build made, for the log
+        juce::StringArray builtShown;              // (the same, translated, for DONE)
         juce::Point<float> over { -1.0e6f, -1.0e6f };
 
         bool multiple() const { return step != cable; }
@@ -166,11 +167,11 @@ namespace
         {
             switch (step)
             {
-                case listen: return "Where do you listen?";
-                case mics:   return "Which microphones do you speak into?";
-                case cable:  return "How do Discord, games and OBS hear your mix?";
-                case apps:   return "Which programs get a channel of their own?";
-                default:     return "Your mix is ready";
+                case listen: return TRANS ("Where do you listen?");
+                case mics:   return TRANS ("Which microphones do you speak into?");
+                case cable:  return TRANS ("How do Discord, games and OBS hear your mix?");
+                case apps:   return TRANS ("Which programs get a channel of their own?");
+                default:     return TRANS ("Your mix is ready");
             }
         }
 
@@ -213,7 +214,7 @@ namespace
                     const auto* ep = std::find_if (endpoints.begin(), endpoints.end(), [&out] (const EndpointInfo& e) { return e.name == out.candidate; });
                     if (ep != endpoints.end() && isCable (*ep, endpoints))
                         continue;
-                    Choice c { out.label.upToFirstOccurrenceOf (" (", false, false).toUpperCase(), ep != endpoints.end() ? adapterText (*ep, "Windows playback device") : juce::String ("Interface outputs"),
+                    Choice c { out.label.upToFirstOccurrenceOf (" (", false, false).toUpperCase(), ep != endpoints.end() ? adapterText (*ep, TRANS ("Windows playback device")) : TRANS ("Interface outputs"),
                                out.candidate + "|" + juce::String (out.firstChannel) };
                     c.out = out;
                     c.on = ! asked[step] ? (out.candidate == def || (def.isEmpty() && choices.empty())) : picked[step].contains (c.key);
@@ -239,7 +240,7 @@ namespace
                         continue;
                     if (engine.getClock() == AudioEngine::Clock::asio && e.adapter == engine.getInterfaceAdapter())
                         continue;   // (the interface's inputs are listed as IN 1, IN 2 above)
-                    Choice c { endpointDisplayName (e).toUpperCase(), adapterText (e, "Windows recording device"), e.name };
+                    Choice c { endpointDisplayName (e).toUpperCase(), adapterText (e, TRANS ("Windows recording device")), e.name };
                     c.source = { AudioEngine::Source::device, 0, e.name, false };
                     c.on = ! asked[step] ? e.isDefault : picked[step].contains (c.key);
                     choices.push_back (c);
@@ -255,11 +256,11 @@ namespace
                 for (auto& e : endpoints)
                     if (e.api == "WASAPI" && e.isOutput && e.isActive() && virtualMicPartner (e, endpoints).isNotEmpty())
                     {
-                        Choice c { endpointDisplayName (e).toUpperCase(), "Apps pick \"" + virtualMicPartner (e, endpoints) + "\" as their mic", e.name };
+                        Choice c { endpointDisplayName (e).toUpperCase(), TRANS ("Apps pick \"%1\" as their mic").replace ("%1", virtualMicPartner (e, endpoints)), e.name };
                         c.out = { e.name, e.name, 0 };
                         choices.push_back (c);
                     }
-                choices.push_back ({ "NOT NOW", "Add it later from SETUP", "none" });
+                choices.push_back ({ TRANS ("NOT NOW"), TRANS ("Add it later from SETUP"), "none" });
                 // First time: the plain stereo cable (VB-CABLE's 16-channel way in is the same cable,
                 // and only one of the two plays at a time).
                 const auto& was = picked[step];
@@ -286,7 +287,7 @@ namespace
                 {
                     if (! p.playing && ! p.onDesk && (int) choices.size() >= choiceRoom())
                         break;   // (the page doesn't scroll: the rest are in ADD APP)
-                    Choice c { p.label().toUpperCase(), p.onDesk ? "On the desk" : p.playing ? "Playing now" : "Not playing yet: captured when it plays", p.exe };
+                    Choice c { p.label().toUpperCase(), p.onDesk ? TRANS ("On the desk") : p.playing ? TRANS ("Playing now") : TRANS ("Not playing yet: captured when it plays"), p.exe };
                     c.on = p.onDesk || (asked[step] && picked[step].contains (p.exe));
                     c.fixed = p.onDesk;
                     choices.push_back (c);
@@ -299,7 +300,7 @@ namespace
             }
             back.setVisible (step > 0 && step < ready);
             defaults.setVisible (step == cable && WindowsDefaults::onCable (endpoints).isNotEmpty());
-            next.setButtonText (step == apps ? "BUILD THE MIX" : step == ready ? "OPEN THE MIXER" : "NEXT");
+            next.setButtonText (step == apps ? TRANS ("BUILD THE MIX") : step == ready ? TRANS ("OPEN THE MIXER") : TRANS ("NEXT"));
             resized();
             repaint();
             Console::riseIn (*this);
@@ -332,6 +333,7 @@ namespace
         void build()
         {
             built.clear();
+            builtShown.clear();
             juce::StringArray taken;
             for (auto& m : engine.getMasters()) taken.add (m->name);
 
@@ -344,6 +346,7 @@ namespace
                     return -1;   // (eight outputs already)
                 taken.add (name);
                 built.add ("OUTPUT " + name);
+                builtShown.add (TRANS ("OUTPUT %1").replace ("%1", name));
                 return (int) engine.getMasters().size() - 1;
             };
 
@@ -380,6 +383,7 @@ namespace
                 if (forApps >= 0)
                     strip.sends[(size_t) forApps] = true;   // (not in your headphones: no echo of your own voice)
                 built.add ("CHANNEL " + name);
+                builtShown.add (TRANS ("CHANNEL %1").replace ("%1", name));
             }
 
             for (auto& exe : picked[apps])
@@ -391,6 +395,7 @@ namespace
                     for (int m : listening)
                         strip.sends[(size_t) m] = true;
                     built.add ("CHANNEL " + strip.name);
+                    builtShown.add (TRANS ("CHANNEL %1").replace ("%1", strip.name));
                     // (a rule only for a channel made here: one already on the desk is routed as the user left it)
                     if (! listening.empty() && std::none_of (engine.appRules.begin(), engine.appRules.end(), [&exe] (auto& r) { return r.exe.equalsIgnoreCase (exe); }))
                         engine.appRules.push_back ({ exe, "output:" + engine.getMasters()[(size_t) listening.front()]->name });
@@ -404,13 +409,13 @@ namespace
         void paintSummary (juce::Graphics& g, juce::Rectangle<int> r)
         {
             g.setFont (LargeFormat::print (12.5f));
-            if (built.isEmpty())
+            if (builtShown.isEmpty())
             {
                 g.setColour (DeskSettings::text());
-                g.drawText ("EVERYTHING WAS ALREADY THERE", r.removeFromTop (24), juce::Justification::centredLeft, false);
+                g.drawFittedText (TRANS ("EVERYTHING WAS ALREADY THERE"), r.removeFromTop (24), juce::Justification::centredLeft, 1, 0.7f);
                 return;
             }
-            for (auto& line : built)
+            for (auto& line : builtShown)
             {
                 g.setColour (Theme::get().ledGreen);
                 g.fillEllipse (juce::Rectangle<float> (8.0f, 8.0f).withCentre ({ (float) r.getX() + 6.0f, (float) r.getY() + 12.0f }));

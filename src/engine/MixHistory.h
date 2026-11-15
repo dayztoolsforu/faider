@@ -23,17 +23,19 @@ public:
     bool redo() { return step (false); }
 
     // What each step did, in words ("MICROPHONE fader", "paste EQ onto MIC"), oldest first: the
-    // steps undo would take back, and those redo would do again (the next redo last).
-    juce::StringArray undoLabels() const { return labels (undoSteps); }
-    juce::StringArray redoLabels() const { return labels (redoSteps); }
+    // steps undo would take back, and those redo would do again (the next redo last). English
+    // (the event log) unless `translated` (a notice, the HISTORY menu).
+    juce::StringArray undoLabels (bool translated = false) const { return labels (undoSteps, translated); }
+    juce::StringArray redoLabels (bool translated = false) const { return labels (redoSteps, translated); }
 
     // A strip or plugin is being added or removed (right now): how to take it back and do it
-    // again, and what to call it.
-    void addStep (std::function<void()> undoIt, std::function<void()> redoIt, const juce::String& label = {})
+    // again, and what to call it (`shown`: the same in the interface's language; none: `label`).
+    void addStep (std::function<void()> undoIt, std::function<void()> redoIt, const juce::String& label = {}, const juce::String& shown = {})
     {
         if (pending)
             settle();
-        undoSteps.push_back ({ {}, std::move (undoIt), std::move (redoIt), label.isNotEmpty() ? label : juce::String ("a change to the channels") });
+        undoSteps.push_back ({ {}, std::move (undoIt), std::move (redoIt), label.isNotEmpty() ? label : juce::String ("a change to the channels"),
+                               shown.isNotEmpty() ? shown : label.isNotEmpty() ? label : TRANS ("a change to the channels") });
         trim();
         redoSteps.clear();
         rebaseline = true;
@@ -50,21 +52,23 @@ private:
     {
         Scenes::Scene mix;
         std::function<void()> undo, redo;
-        juce::String label;
+        juce::String label, shown;   // English (the log), and in the interface's language
         bool structural() const { return undo != nullptr; }
     };
 
-    static juce::StringArray labels (const std::vector<Step>& steps)
+    static juce::StringArray labels (const std::vector<Step>& steps, bool translated)
     {
         juce::StringArray list;
         for (auto& s : steps)
-            list.add (s.label);
+            list.add (translated ? s.shown : s.label);
         return list;
     }
 
-    // What changed from one mix to the next, in words: the channel and what of it, or how many.
-    static juce::String describe (const Scenes::Scene& from, const Scenes::Scene& to)
+    // What changed from one mix to the next, in words: the channel and what of it, or how many
+    // (English, or `translated`).
+    static juce::String describe (const Scenes::Scene& from, const Scenes::Scene& to, bool translated)
     {
+        auto word = [translated] (const char* english) { return translated ? juce::translate (english) : juce::String (english); };
         juce::StringArray what;
         juce::String channel;
         int channels = 0;
@@ -74,21 +78,21 @@ private:
             if (y == to.settings.end())
                 continue;
             juce::StringArray here;
-            if (std::abs (juce::Decibels::gainToDecibels (x.gain, -100.0f) - juce::Decibels::gainToDecibels (y->gain, -100.0f)) > 0.05f) here.add ("fader");
-            if (std::abs (x.pan - y->pan) > 0.005f) here.add ("pan");
-            if (x.mute != y->mute) here.add (y->mute ? "cut" : "uncut");
-            if (x.solo != y->solo) here.add ("solo");
-            if (x.on != y->on) here.add (y->on ? "on" : "off");
-            if (x.insertsOn != y->insertsOn) here.add ("inserts");
-            if (x.sends != y->sends) here.add ("routing");
+            if (std::abs (juce::Decibels::gainToDecibels (x.gain, -100.0f) - juce::Decibels::gainToDecibels (y->gain, -100.0f)) > 0.05f) here.add (word (NEEDS_TRANS ("fader")));
+            if (std::abs (x.pan - y->pan) > 0.005f) here.add (word (NEEDS_TRANS ("pan")));
+            if (x.mute != y->mute) here.add (word (y->mute ? NEEDS_TRANS ("cut") : NEEDS_TRANS ("uncut")));
+            if (x.solo != y->solo) here.add (word (NEEDS_TRANS ("solo")));
+            if (x.on != y->on) here.add (word (y->on ? NEEDS_TRANS ("on") : NEEDS_TRANS ("off")));
+            if (x.insertsOn != y->insertsOn) here.add (word (NEEDS_TRANS ("inserts")));
+            if (x.sends != y->sends) here.add (word (NEEDS_TRANS ("routing")));
             if (here.isEmpty())
                 continue;
             ++channels;
             channel = x.target.fromFirstOccurrenceOf (":", false, false);
             what = here;
         }
-        if (channels == 0) return "a mix change";
-        if (channels > 1)  return juce::String (channels) + " channels";
+        if (channels == 0) return word (NEEDS_TRANS ("a mix change"));
+        if (channels > 1)  return translated ? TRANS ("%1 channels").replace ("%1", juce::String (channels)) : juce::String (channels) + " channels";
         return channel + " " + what.joinIntoString (", ");
     }
 
@@ -170,8 +174,8 @@ private:
     void settle()
     {
         pending = false;
-        auto label = describe (before, last);
-        undoSteps.push_back ({ std::move (before), {}, {}, std::move (label) });
+        auto label = describe (before, last, false), shown = describe (before, last, true);
+        undoSteps.push_back ({ std::move (before), {}, {}, std::move (label), std::move (shown) });
         trim();
         redoSteps.clear();
     }
@@ -206,7 +210,7 @@ private:
         }
 
         // Mid-glide the mix is half way there: the opposite step is where it was going.
-        to.push_back ({ gliding ? glideTarget : engine.getScenes().capture ({}), {}, {}, s.label });
+        to.push_back ({ gliding ? glideTarget : engine.getScenes().capture ({}), {}, {}, s.label, s.shown });
         engine.getScenes().apply (s.mix);
         ignoreUntil = juce::Time::getMillisecondCounterHiRes() + Scenes::glideMs + 300.0;
         glideTarget = s.mix;

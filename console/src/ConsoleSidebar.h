@@ -33,24 +33,24 @@ namespace ConsoleDesk
             g.drawText ("FAIDER", juce::Rectangle<int> (14, 10, getWidth() - 20, 20), juce::Justification::centredLeft, false);
             const auto names = tabs.getTabNames();
             for (int i = 0; i < names.size(); ++i)
-                card (g, cardArea (i), names[i].toUpperCase(), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);
+                card (g, cardArea (i), juce::translate (names[i]).toUpperCase(), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);
             if (! onMixer())   // (the desk's own cards only while the channels show)
                 return;
             g.setColour (Console::Colours::inkDim());
             g.setFont (LargeFormat::print (textSize));
-            g.drawText ("DESK", deskTitle(), juce::Justification::centredLeft, false);
-            card (g, actionArea (0), "ADD CHANNEL", "plus", false, hovered == 100, pushed == 100);
-            card (g, actionArea (1), "ADD APP", "plus", false, hovered == 103, pushed == 103);
-            card (g, actionArea (2), "ADD BUS", "plus", false, hovered == 101, pushed == 101);
-            card (g, actionArea (3), "PLUGINS", "pads", view != nullptr && view->pluginsOpen(), hovered == 102, pushed == 102);
+            g.drawFittedText (TRANS ("DESK"), deskTitle(), juce::Justification::centredLeft, 1, 0.7f);
+            card (g, actionArea (0), TRANS ("ADD CHANNEL"), "plus", false, hovered == 100, pushed == 100);
+            card (g, actionArea (1), TRANS ("ADD APP"), "plus", false, hovered == 103, pushed == 103);
+            card (g, actionArea (2), TRANS ("ADD BUS"), "plus", false, hovered == 101, pushed == 101);
+            card (g, actionArea (3), TRANS ("PLUGINS"), "pads", view != nullptr && view->pluginsOpen(), hovered == 102, pushed == 102);
             if (view == nullptr)
                 return;
             auto& b = *view->bench;
-            card (g, actionArea (4), "COMPACT", "compact", b.isCompact(), hovered == 104, pushed == 104);   // (lit while the strips are folded)
-            heading (g, "SELECT", selectTitle());
-            pill (g, pairArea (selectTitle(), 0), "AUTO", b.autoSelect, hovered == 110, pushed == 110);
-            pill (g, pairArea (selectTitle(), 1), "FOLLOW", b.followSelect, hovered == 111, pushed == 111);
-            heading (g, "SECTIONS", sectionsTitle());
+            card (g, actionArea (4), TRANS ("COMPACT"), "compact", b.isCompact(), hovered == 104, pushed == 104);   // (lit while the strips are folded)
+            heading (g, TRANS ("SELECT"), selectTitle());
+            pill (g, pairArea (selectTitle(), 0), TRANS ("AUTO"), b.autoSelect, hovered == 110, pushed == 110);
+            pill (g, pairArea (selectTitle(), 1), TRANS ("FOLLOW"), b.followSelect, hovered == 111, pushed == 111);
+            heading (g, TRANS ("SECTIONS"), sectionsTitle());
             const auto rows = listed();
             for (int row = 0; row < (int) rows.size(); ++row)
                 sectionRow (g, sectionArea (row), b.sectionName (rows[(size_t) row]), (visibleSections() >> rows[(size_t) row]) & 1, hovered == 200 + rows[(size_t) row]);
@@ -152,7 +152,7 @@ namespace ConsoleDesk
         {
             g.setColour (Console::Colours::inkDim());
             g.setFont (LargeFormat::print (textSize));
-            g.drawText (text, r, juce::Justification::centredLeft, false);
+            g.drawFittedText (text, r, juce::Justification::centredLeft, 1, 0.7f);
         }
         // A half-width card that's on or off (lit grey with a blue edge while on).
         static void pill (juce::Graphics& g, juce::Rectangle<int> r, const juce::String& text, bool on, bool hover, bool press = false)
@@ -169,7 +169,7 @@ namespace ConsoleDesk
             }
             g.setColour (on || hover ? juce::Colours::white : Console::Colours::ink());
             g.setFont (LargeFormat::print (textSize));
-            g.drawFittedText (text, rf.toNearestInt().reduced (4, 0), juce::Justification::centred, 1, 0.8f);
+            g.drawFittedText (text, rf.toNearestInt().reduced (4, 0), juce::Justification::centred, 2, 0.7f);   // (a long translation: smaller, then two lines)
         }
         // A section of the strip: lit while it's in view.
         static void sectionRow (juce::Graphics& g, juce::Rectangle<int> r, const juce::String& text, bool inView, bool hover)
@@ -217,7 +217,7 @@ namespace ConsoleDesk
             drawIcon (g, icon, rf.withWidth (rf.getHeight()).reduced (9.0f).translated (4.0f, 0.0f), ink);
             g.setColour (ink);
             g.setFont (LargeFormat::print (textSize));
-            g.drawText (text.toUpperCase(), rf.withTrimmedLeft (rf.getHeight() + 4.0f), juce::Justification::centredLeft, false);
+            g.drawFittedText (text.toUpperCase(), rf.withTrimmedLeft (rf.getHeight() + 4.0f).reduced (0.0f, 2.0f).toNearestInt(), juce::Justification::centredLeft, 2, 0.7f);   // (a long translation: smaller, then two lines)
         }
 
         static void drawIcon (juce::Graphics& g, const juce::String& icon, juce::Rectangle<float> r, juce::Colour ink)

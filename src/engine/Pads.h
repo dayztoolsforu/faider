@@ -55,6 +55,7 @@ public:
     Pad& pad (int index) { return pads[(size_t) index]; }
     const Pad& pad (int index) const { return pads[(size_t) index]; }
     bool load (int index, const juce::File&, double rate, juce::String& error);   // decodes it at `rate`
+    static juce::String translateError (const juce::String& error);   // load's error (English: the session's log) for the screen
     void applyEdits (int index);   // the pad's trim and fades changed: what plays is made again (it stops if playing)
     void clear (int index);
     void swap (int a, int b);   // two pads trade places (sounds and settings)

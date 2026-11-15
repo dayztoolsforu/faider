@@ -17,13 +17,14 @@ namespace WindowsDefaults
             || e.adapter.containsIgnoreCase ("Virtual Cable") || e.adapter.containsIgnoreCase ("VB-Audio");
     }
 
-    // Which of Windows' defaults are on a cable ("default speaker: CABLE Input"), or empty.
+    // Which of Windows' defaults are on a cable ("default speaker: CABLE Input"), or empty. (Shown: translated.)
     inline juce::String onCable (const juce::Array<EndpointInfo>& all)
     {
         juce::StringArray found;
         for (auto& e : all)
             if (e.api == "WASAPI" && e.isActive() && (e.isDefault || e.isDefaultComms) && isVirtual (e, all))
-                found.add (juce::String ("default ") + (e.isOutput ? "speaker" : "mic") + (e.isDefault ? "" : " for calls") + ": " + e.name);
+                found.add ((e.isOutput ? (e.isDefault ? TRANS ("default speaker: %1") : TRANS ("default speaker for calls: %1"))
+                                       : (e.isDefault ? TRANS ("default mic: %1") : TRANS ("default mic for calls: %1"))).replace ("%1", e.name));
         return found.joinIntoString ("; ");
     }
 
@@ -34,7 +35,7 @@ namespace WindowsDefaults
         juce::PopupMenu menu;
         for (const bool output : { true, false })
         {
-            menu.addSectionHeader (output ? "SPEAKERS (WINDOWS PLAYS HERE)" : "MICROPHONES (APPS HEAR THIS)");
+            menu.addSectionHeader (output ? TRANS ("SPEAKERS (WINDOWS PLAYS HERE)") : TRANS ("MICROPHONES (APPS HEAR THIS)"));
             int listed = 0;
             for (auto& e : all)
             {
@@ -51,7 +52,7 @@ namespace WindowsDefaults
                 });
             }
             if (listed == 0)
-                menu.addItem (output ? "NO SPEAKERS FOUND" : "NO MICROPHONES FOUND", false, false, nullptr);
+                menu.addItem (output ? TRANS ("NO SPEAKERS FOUND") : TRANS ("NO MICROPHONES FOUND"), false, false, nullptr);
         }
         menu.showMenuAsync (where);
     }

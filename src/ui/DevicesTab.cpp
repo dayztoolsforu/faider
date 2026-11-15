@@ -108,10 +108,10 @@ namespace DevicesTab
         g.setFont (font);
         forEachColumn (getWidth(), [&] (int i, juce::Rectangle<int> r)
         {
-            const auto title = juce::String (columns[(size_t) i].title);
+            const auto title = juce::translate (columns[(size_t) i].title);
             const bool sorted = i == sortColumn;
             g.setColour (sorted ? Console::Colours::legend() : Console::Colours::legendDim());
-            g.drawText (title.toUpperCase(), r.withHeight (getHeight()), juce::Justification::centredLeft, true);
+            g.drawFittedText (title.toUpperCase(), r.withHeight (getHeight()), juce::Justification::centredLeft, 1, 0.7f);
 
             if (sorted)   // a small arrow after the title
             {
@@ -127,23 +127,23 @@ namespace DevicesTab
 
     CableSettings::CableSettings()
     {
-        title.setText ("VB-CABLE  (Mic for apps)", juce::dontSendNotification);
+        title.setText (TRANS ("VB-CABLE  (Mic for apps)"), juce::dontSendNotification);
         title.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
         addAndMakeVisible (title);
 
         for (int rate : { 44100, 48000, 88200, 96000, 176400, 192000 })
             sampleRate.addItem (juce::String (rate) + " Hz", rate);
         for (int smp : { 512, 1024, 2048, 3072, 4096, 5120, 6144, 7168 })
-            latency.addItem (juce::String (smp) + " samples max", smp);
-        sampleRate.setTooltip ("Cable sample rate");
-        latency.setTooltip ("Cable max latency");
+            latency.addItem (TRANS ("%1 samples max").replace ("%1", juce::String (smp)), smp);
+        sampleRate.setTooltip (TRANS ("Cable sample rate"));
+        latency.setTooltip (TRANS ("Cable max latency"));
         for (auto* c : { &sampleRate, &latency })
         {
             c->onChange = [this] { updateApply(); };
             addAndMakeVisible (c);
         }
 
-        apply.setTooltip ("Apply and restart the cable");
+        apply.setTooltip (TRANS ("Apply and restart the cable"));
         apply.onClick = [this] { applySettings(); };
         addAndMakeVisible (apply);
 
@@ -185,13 +185,13 @@ namespace DevicesTab
 
         if (! installed)
         {
-            status.setText ("VB-CABLE isn't installed.", juce::dontSendNotification);
+            status.setText (TRANS ("VB-CABLE isn't installed."), juce::dontSendNotification);
             apply.setEnabled (false);
             return;
         }
 
         if (sampleRate.indexOfItemId (savedRate) < 0) sampleRate.addItem (juce::String (savedRate) + " Hz", savedRate);
-        if (latency.indexOfItemId (savedLatency) < 0) latency.addItem (juce::String (savedLatency) + " samples max", savedLatency);
+        if (latency.indexOfItemId (savedLatency) < 0) latency.addItem (TRANS ("%1 samples max").replace ("%1", juce::String (savedLatency)), savedLatency);
         sampleRate.setSelectedId (savedRate, juce::dontSendNotification);
         latency.setSelectedId (savedLatency, juce::dontSendNotification);
         updateApply();
@@ -201,7 +201,8 @@ namespace DevicesTab
     {
         const bool changed = sampleRate.getSelectedId() != savedRate || latency.getSelectedId() != savedLatency;
         apply.setEnabled (installed && changed);
-        status.setText (changed ? "Not applied yet." : "Current: " + juce::String (savedRate) + " Hz, " + juce::String (savedLatency) + " samples max.",
+        status.setText (changed ? TRANS ("Not applied yet.")
+                                : TRANS ("Current: %1 Hz, %2 samples max.").replace ("%1", juce::String (savedRate)).replace ("%2", juce::String (savedLatency)),
                         juce::dontSendNotification);
     }
 
@@ -220,11 +221,11 @@ namespace DevicesTab
         // One elevated cmd: Windows shows its UAC prompt; nothing changes unless it's approved.
         if (! runElevated (command))
         {
-            status.setText ("Cancelled. Nothing changed.", juce::dontSendNotification);
+            status.setText (TRANS ("Cancelled. Nothing changed."), juce::dontSendNotification);
             return;
         }
 
-        status.setText ("Applying..." + juce::String (id.isEmpty() ? "  Restart Windows to finish." : ""), juce::dontSendNotification);
+        status.setText (id.isEmpty() ? TRANS ("Applying...  Restart Windows to finish.") : TRANS ("Applying..."), juce::dontSendNotification);
         apply.setEnabled (false);
         checks = 0;
         startTimer (1000);   // see when the values land
@@ -239,21 +240,21 @@ namespace DevicesTab
             stopTimer();
             load();
             if (landed)
-                status.setText ("Applied: " + juce::String (savedRate) + " Hz, " + juce::String (savedLatency) + " samples max.",
+                status.setText (TRANS ("Applied: %1 Hz, %2 samples max.").replace ("%1", juce::String (savedRate)).replace ("%2", juce::String (savedLatency)),
                                 juce::dontSendNotification);
         }
     }
 
     Streams::Streams (AudioEngine& e) : engine (e)
     {
-        reset.setTooltip ("Reset stats");
+        reset.setTooltip (TRANS ("Reset stats"));
         reset.onClick = [this] { engine.resetStats(); refresh(); };
         addAndMakeVisible (reset);
 
-        bufferLabel.setText ("Buffer", juce::dontSendNotification);
+        bufferLabel.setText (TRANS ("Buffer"), juce::dontSendNotification);
         bufferLabel.setJustificationType (juce::Justification::centredRight);
         addAndMakeVisible (bufferLabel);
-        buffer.setTooltip ("Buffer size");
+        buffer.setTooltip (TRANS ("Buffer size"));
         buffer.onChange = [this]
         {
             if (const int size = buffer.getSelectedId(); size > 0 && size != engine.getInterfaceBufferSize())
@@ -286,17 +287,20 @@ namespace DevicesTab
         g.setFont (juce::FontOptions (Console::Type::name, juce::Font::bold));
         g.setColour (Console::Colours::legend());
         auto bar = titleBar().withRight (bufferLabel.getX() - Console::Space::pad);
-        g.drawText ("STREAMS", bar.removeFromLeft (Console::Space::column), juce::Justification::centredLeft);
+        g.drawFittedText (TRANS ("STREAMS"), bar.removeFromLeft (Console::Space::column), juce::Justification::centredLeft, 1, 0.7f);
         g.setFont (juce::FontOptions (Console::Type::body));
         const bool hurt = stats.overloads > 0 || stats.skippedBlocks > 0;
         g.setColour (hurt ? Console::Colours::warning() : Console::Colours::legendDim());
-        g.drawText ("CALLBACK LOAD " + juce::String (juce::roundToInt (stats.loadPercent)) + "% (PEAK " + juce::String (juce::roundToInt (stats.peakLoadPercent)) + "%)   "
-                    + "OVERLOADS " + juce::String (stats.overloads) + "   BLOCKS SKIPPED " + juce::String (stats.skippedBlocks),
-                    bar.withTrimmedLeft (Console::Space::unit), juce::Justification::centredLeft, true);
+        g.drawFittedText (TRANS ("CALLBACK LOAD %1% (PEAK %2%)   OVERLOADS %3   BLOCKS SKIPPED %4")
+                              .replace ("%1", juce::String (juce::roundToInt (stats.loadPercent))).replace ("%2", juce::String (juce::roundToInt (stats.peakLoadPercent)))
+                              .replace ("%3", juce::String (stats.overloads)).replace ("%4", juce::String (stats.skippedBlocks)),
+                          bar.withTrimmedLeft (Console::Space::unit), juce::Justification::centredLeft, 1, 0.7f);
 
         // Table.
-        static constexpr std::pair<const char*, int> cols[] = { { "Stream", 300 }, { "Dir", 44 }, { "Format", 130 }, { "Driver", 80 },
-                                                                 { "Buffered", 80 }, { "Total", 80 }, { "Drift", 80 }, { "Under / over / resync", 160 }, { "Xruns", 0 } };
+        // (titles in English, translated where drawn)
+        static constexpr std::pair<const char*, int> cols[] = { { NEEDS_TRANS ("Stream"), 300 }, { NEEDS_TRANS ("Dir"), 44 }, { NEEDS_TRANS ("Format"), 130 },
+                                                                 { NEEDS_TRANS ("Driver"), 80 }, { NEEDS_TRANS ("Buffered"), 80 }, { NEEDS_TRANS ("Total"), 80 },
+                                                                 { NEEDS_TRANS ("Drift"), 80 }, { NEEDS_TRANS ("Under / over / resync"), 160 }, { NEEDS_TRANS ("Xruns"), 0 } };
         auto cell = [&] (int row, auto&& draw)
         {
             int x = Console::Space::pad;
@@ -310,10 +314,10 @@ namespace DevicesTab
 
         g.setFont (juce::FontOptions (Console::Type::body, juce::Font::bold));
         g.setColour (Console::Colours::legendDim());
-        cell (0, [&] (int i, juce::Rectangle<int> r) { g.drawText (juce::String (cols[(size_t) i].first).toUpperCase(), r, juce::Justification::centredLeft, true); });
+        cell (0, [&] (int i, juce::Rectangle<int> r) { g.drawFittedText (juce::translate (cols[(size_t) i].first).toUpperCase(), r, juce::Justification::centredLeft, 1, 0.7f); });
 
         g.setFont (juce::FontOptions (Console::Type::body));
-        auto msText = [] (double v) { return v < 0.0 ? juce::String ("n/a") : juce::String (v, 1) + " ms"; };
+        auto msText = [] (double v) { return v < 0.0 ? TRANS ("n/a") : juce::String (v, 1) + " ms"; };
 
         for (size_t row = 0; row < stats.streams.size(); ++row)
         {
@@ -325,7 +329,7 @@ namespace DevicesTab
                 msText (s.driverMs), s.direction == "out" || s.direction == "in" || s.direction == "app" ? msText (s.bufferedMs) : juce::String(),
                 msText (s.totalMs), juce::String (s.driftPpm, 1) + " ppm",
                 juce::String (s.underruns) + " / " + juce::String (s.overruns) + " / " + juce::String (s.resyncs),
-                s.xruns < 0 ? juce::String ("n/a") : juce::String (s.xruns) };
+                s.xruns < 0 ? TRANS ("n/a") : juce::String (s.xruns) };
 
             g.setColour (dropped ? Console::Colours::warning() : Console::Colours::legend());
             cell ((int) row + 1, [&] (int i, juce::Rectangle<int> r) { g.drawText (values[i].toUpperCase(), r, juce::Justification::centredLeft, true); });
@@ -360,11 +364,11 @@ namespace DevicesTab
     DeviceTools::DeviceTools (juce::ListBox& deviceList, const juce::Array<EndpointInfo>& all, AudioEngine& e)
         : list (deviceList), endpoints (all), engine (e)
     {
-        offInFaider.setTooltip (juce::String ("Don't use in ") + Product::name);
-        onInFaider.setTooltip (juce::String ("Use in ") + Product::name);
-        disableInWindows.setTooltip ("Turn off in Windows");
-        enableInWindows.setTooltip ("Turn on in Windows");
-        rename.setTooltip (juce::String ("Rename in ") + Product::name);
+        offInFaider.setTooltip (TRANS ("Don't use in %1").replace ("%1", Product::name));
+        onInFaider.setTooltip (TRANS ("Use in %1").replace ("%1", Product::name));
+        disableInWindows.setTooltip (TRANS ("Turn off in Windows"));
+        enableInWindows.setTooltip (TRANS ("Turn on in Windows"));
+        rename.setTooltip (TRANS ("Rename in %1").replace ("%1", Product::name));
 
         offInFaider.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), true); changed(); };
         onInFaider.onClick = [this] { engine.setDeviceDisabled (selectedNames (false), false); changed(); };
@@ -388,7 +392,7 @@ namespace DevicesTab
     void DeviceTools::selectionChanged()
     {
         const int n = list.getNumSelectedRows();
-        count.setText (n == 0 ? juce::String ("Select devices (Ctrl/Shift-click for several)") : juce::String (n) + " selected",
+        count.setText (n == 0 ? TRANS ("Select devices (Ctrl/Shift-click for several)") : TRANS ("%1 selected").replace ("%1", juce::String (n)),
                        juce::dontSendNotification);
         const bool any = ! selectedNames (false).isEmpty(), anyWindows = ! selectedNames (true).isEmpty();
         offInFaider.setEnabled (any);
@@ -471,7 +475,8 @@ namespace DevicesTab
 
         if (total == 0)
             return;
-        status.setText (juce::String (changed) + " of " + juce::String (total) + (enable ? " enabled" : " disabled") + " in Windows.",
+        status.setText ((enable ? TRANS ("%1 of %2 enabled in Windows.") : TRANS ("%1 of %2 disabled in Windows."))
+                            .replace ("%1", juce::String (changed)).replace ("%2", juce::String (total)),
                         juce::dontSendNotification);
         if (commands.isEmpty())
             return;
@@ -484,11 +489,11 @@ namespace DevicesTab
                                             : commands.joinIntoString (" & ");
         if (! runElevated (command))
         {
-            status.setText ("Cancelled. Nothing changed.", juce::dontSendNotification);
+            status.setText (TRANS ("Cancelled. Nothing changed."), juce::dontSendNotification);
             return;
         }
 
-        status.setText ("Turning " + juce::String (commands.size()) + " device(s) back on...", juce::dontSendNotification);
+        status.setText (TRANS ("Turning %1 device(s) back on...").replace ("%1", juce::String (commands.size())), juce::dontSendNotification);
         waitingFor = commands.size();
         waitingNodes = nodes;
         checks = 0;
@@ -507,7 +512,7 @@ namespace DevicesTab
             return;   // still running
 
         stopTimer();
-        juce::String text = juce::String (succeeded) + " of " + juce::String (waitingFor) + " changed in Windows.";
+        juce::String text = TRANS ("%1 of %2 changed in Windows.").replace ("%1", juce::String (succeeded)).replace ("%2", juce::String (waitingFor));
         for (auto& line : juce::StringArray::fromLines (report))
             if (line.containsIgnoreCase ("failed") || line.containsIgnoreCase ("denied") || line.containsIgnoreCase ("not "))
             {
@@ -515,7 +520,7 @@ namespace DevicesTab
                 break;
             }
         if (windowsLogKept && report.trim().isEmpty())
-            text = "Windows didn't report back (see " + windowsLog.getFullPathName() + ").";
+            text = TRANS ("Windows didn't report back (see %1).").replace ("%1", windowsLog.getFullPathName());
         status.setText (text, juce::dontSendNotification);
     }
 
@@ -526,13 +531,13 @@ namespace DevicesTab
             return;
 
         const auto device = rows[0].name;
-        auto* window = new juce::AlertWindow ("RENAME DEVICE", device + "\nLeave empty to use the Windows name",
+        auto* window = new juce::AlertWindow (TRANS ("RENAME DEVICE"), device + "\n" + TRANS ("Leave empty to use the Windows name"),
                                               juce::MessageBoxIconType::NoIcon);
         window->addTextEditor ("name", deviceAlias (device));
         if (auto* editor = window->getTextEditor ("name"))
             editor->setInputFilter (new Console::CapitalsFilter(), true);   // names are in capitals
-        window->addButton ("RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
-        window->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+        window->addButton (TRANS ("RENAME"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+        window->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
         window->enterModalState (true, juce::ModalCallbackFunction::create ([this, window, device] (int result)
         {
             if (result == 1)

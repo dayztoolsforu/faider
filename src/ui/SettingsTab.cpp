@@ -38,8 +38,8 @@ void HotkeysPage::paint (juce::Graphics& g)
     drawText (g, note, font (13.0f, problem.isNotEmpty()), problem.isNotEmpty() ? Ink::warning() : Ink::dim(), { 0, 0, getWidth(), noteH });
     g.setColour (Ink::dim());
     g.setFont (font (13.0f, true));
-    g.drawText ("Assigned", juce::Rectangle<int> (2, noteH + 4, getWidth(), headingHeight - 8), juce::Justification::bottomLeft, true);
-    g.drawText ("Fixed", juce::Rectangle<int> (2, assigned.getBottom(), getWidth(), headingHeight - 8), juce::Justification::bottomLeft, true);
+    g.drawFittedText (TRANS ("Assigned"), juce::Rectangle<int> (2, noteH + 4, getWidth(), headingHeight - 8), juce::Justification::bottomLeft, 1, 0.7f);
+    g.drawFittedText (TRANS ("Fixed"), juce::Rectangle<int> (2, assigned.getBottom(), getWidth(), headingHeight - 8), juce::Justification::bottomLeft, 1, 0.7f);
 }
 
 bool HotkeysPage::keyPressed (const juce::KeyPress& key)
@@ -49,10 +49,10 @@ bool HotkeysPage::keyPressed (const juce::KeyPress& key)
     if (key == juce::KeyPress::escapeKey)
         stopCapturing ({});
     else if (key == juce::KeyPress::deleteKey || key == juce::KeyPress::backspaceKey)
-        stopCapturing (entries[(size_t) capturing].set ({}) ? juce::String() : "Couldn't clear it");
+        stopCapturing (entries[(size_t) capturing].set ({}) ? juce::String() : TRANS ("Couldn't clear it"));
     else if (! GlobalHotkeys::usable (key))
     {
-        note = "Needs Ctrl, Alt or an F key";
+        note = TRANS ("Needs Ctrl, Alt or an F key");
         repaint();
     }
     else
@@ -60,9 +60,9 @@ bool HotkeysPage::keyPressed (const juce::KeyPress& key)
         // Refused: what has the key here keeps it (it isn't even tried); or Windows won't give it, so another app has it.
         const auto text = keyText (key.getTextDescription());
         if (const int holder = holderOf (key.getTextDescription(), capturing); holder >= 0)
-            stopCapturing (text + " is already the key for " + entries[(size_t) holder].name);
+            stopCapturing (TRANS ("%1 is already the key for %2").replace ("%1", text).replace ("%2", entries[(size_t) holder].name));
         else
-            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : text + " is taken by another app");
+            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : TRANS ("%1 is taken by another app").replace ("%1", text));
     }
     return true;
 }
@@ -124,16 +124,15 @@ void HotkeysPage::rebuild()
         if (other >= 0 && (e.working || entries[(size_t) other].working))
         {
             ++clashes;
-            red = e.working ? "Same key as " + entries[(size_t) other].name + ": only this one works"
-                            : "Not working: " + entries[(size_t) other].name + " has this key";
+            red = (e.working ? TRANS ("Same key as %1: only this one works") : TRANS ("Not working: %1 has this key")).replace ("%1", entries[(size_t) other].name);
         }
         else if (e.key.isNotEmpty() && ! e.working)
-            red = "Not working: Windows refused the key (another app may have it)";
+            red = TRANS ("Not working: Windows refused the key (another app may have it)");
 
         if (e.set != nullptr)
         {
-            const auto shownKey = capturing == i ? juce::String (juce::CharPointer_UTF8 ("Press a key\xe2\x80\xa6"))
-                                                 : e.key.isEmpty() ? juce::String ("None") : keyText (e.key);
+            const auto shownKey = capturing == i ? TRANS (juce::CharPointer_UTF8 ("Press a key\xe2\x80\xa6"))
+                                                 : e.key.isEmpty() ? TRANS ("None") : keyText (e.key);
             settable.push_back ({ { e.name, e.where, juce::String() }, { { shownKey, [this, i] (juce::Component&) { startCapturing (i); }, capturing == i } }, red });
         }
         else
@@ -150,8 +149,10 @@ void HotkeysPage::rebuild()
 
 juce::String HotkeysPage::usualNote() const
 {
-    return "Click a key, then press the new one. Esc: cancel. Delete: none. A hotkey needs Ctrl, Alt or an F key, and works while a game has focus."
-         + (clashes > 0 ? "  " + juce::String (clashes) + (clashes == 1 ? " shares a key (in red)." : " share a key (in red).") : juce::String());
+    const auto usual = TRANS ("Click a key, then press the new one. Esc: cancel. Delete: none. A hotkey needs Ctrl, Alt or an F key, and works while a game has focus.");
+    if (clashes == 0)
+        return usual;
+    return usual + "  " + (clashes == 1 ? TRANS ("%1 shares a key (in red).") : TRANS ("%1 share a key (in red).")).replace ("%1", juce::String (clashes));
 }
 
 void HotkeysPage::startCapturing (int index)
@@ -183,14 +184,14 @@ void SettingsTab::Column::paint (juce::Graphics& g)
     g.fillAll (Ink::page());
     g.setColour (Ink::name());
     g.setFont (font (22.0f, true));
-    g.drawText (title, titleArea, juce::Justification::centredLeft, true);
+    g.drawFittedText (title, titleArea, juce::Justification::centredLeft, 1, 0.7f);
     drawText (g, intro, font (13.0f), Ink::dim(), introArea);
 }
 
 SettingsTab::SettingsTab (std::vector<SettingsRegistry::Page> p, std::vector<SettingsRegistry::Setting> s)
     : pages (std::move (p)), settings (std::move (s))
 {
-    search.setTextToShowWhenEmpty ("Search settings", Ink::dim());
+    search.setTextToShowWhenEmpty (TRANS ("Search settings"), Ink::dim());
     search.setIndents (12, 0);
     search.setJustification (juce::Justification::centredLeft);
     search.onTextChange = [this] { build(); };
@@ -220,7 +221,7 @@ void SettingsTab::styleSearch()
     search.setColour (juce::TextEditor::outlineColourId, Ink::edge());
     search.setColour (juce::TextEditor::focusedOutlineColourId, Theme::get().accent);
     search.setColour (juce::TextEditor::textColourId, Ink::name());
-    search.setTextToShowWhenEmpty ("Search settings", Ink::dim());
+    search.setTextToShowWhenEmpty (TRANS ("Search settings"), Ink::dim());
     search.applyFontToAllText (font (13.5f));
     search.applyColourToAllText (Ink::name(), true);
     view.getVerticalScrollBar().setColour (juce::ScrollBar::thumbColourId, Theme::get().chromeHover);
@@ -284,14 +285,14 @@ void SettingsTab::build()
                 column.addAndMakeVisible (rows.add (new Row (s, s.page)));
                 ++found;
             }
-        column.title = "Search";
-        column.intro = found > 0 ? juce::String (found) + (found == 1 ? " setting matches." : " settings match.")
-                                 : juce::String ("Nothing matches \"") + query + "\". Try another word.";
+        column.title = TRANS ("Search");
+        column.intro = found > 0 ? (found == 1 ? TRANS ("%1 setting matches.") : TRANS ("%1 settings match.")).replace ("%1", juce::String (found))
+                                 : TRANS ("Nothing matches \"%1\". Try another word.").replace ("%1", query);
     }
     else
     {
         const auto& page = pages[(size_t) current];
-        column.title = page.name;
+        column.title = SettingsRegistry::shown (page.name);   // (an identifier: translated to show)
         column.intro = page.intro;
         juce::String section;
         for (auto& s : settings)
@@ -442,7 +443,7 @@ void SettingsTab::paint (juce::Graphics& g)
             group = p.group;
             g.setColour (Ink::dim());
             g.setFont (font (11.5f, true));
-            g.drawText (group.toUpperCase(), groupArea (group), juce::Justification::centredLeft, false);
+            g.drawFittedText (SettingsRegistry::shown (group).toUpperCase(), groupArea (group), juce::Justification::centredLeft, 1, 0.7f);
         }
         const auto r = linkArea (i).toFloat();
         const bool on = i == current && ! searching;
@@ -458,7 +459,7 @@ void SettingsTab::paint (juce::Graphics& g)
         }
         g.setColour (on ? Ink::name() : Ink::text());
         g.setFont (font (13.5f, on));
-        g.drawText (p.name, r.withTrimmedLeft (14.0f), juce::Justification::centredLeft, true);
+        g.drawFittedText (SettingsRegistry::shown (p.name), r.withTrimmedLeft (14.0f).toNearestInt(), juce::Justification::centredLeft, 1, 0.7f);   // (an identifier: translated to show)
     }
 }
 

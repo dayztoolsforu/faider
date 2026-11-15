@@ -16,7 +16,7 @@ namespace
             title.setFont (Console::legendFont (Console::Type::display));
             addAndMakeVisible (title);
             presets.onChange = [this] (int p) { chain.loadPreset (p); };
-            presets.setTooltip ("Preset");
+            presets.setTooltip (TRANS ("Preset"));
             addAndMakeVisible (presets);
 
             stage ("HPF",    "hpfOn",   { knob ("hpf", hzText) }, nullptr);
@@ -88,6 +88,14 @@ namespace
         static juce::String hzText (double v)    { return v >= 1000.0 ? juce::String (v / 1000.0, 1) + " kHz" : juce::String ((int) v) + " Hz"; }
         static juce::String ratioText (double v) { return juce::String (v, 1) + ":1"; }
 
+        // The presets' names (English in VoiceChain, the indexes are what's loaded), shown translated.
+        static juce::StringArray translated (juce::StringArray names)
+        {
+            for (auto& n : names)
+                n = juce::translate (n);
+            return names;
+        }
+
         Knob* knob (const char* id, std::function<juce::String (double)> format)
         {
             auto* k = new Knob();
@@ -110,7 +118,7 @@ namespace
             s->key = std::make_unique<juce::TextButton> (name);
             s->key->setClickingTogglesState (true);
             s->key->setColour (juce::TextButton::buttonOnColourId, Console::Colours::on());   // a stage in
-            s->key->setTooltip (name + " in/out");
+            s->key->setTooltip (TRANS ("%1 in/out").replace ("%1", name));
             s->attachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (chain.params, onId, *s->key);
             addAndMakeVisible (*s->key);
             for (auto* k : knobs)
@@ -119,7 +127,7 @@ namespace
             if (meter != nullptr)
             {
                 DotMatrix::markReadout (s->screen);
-                s->screen.setTooltip (meter == &chain.gateOpen ? "Gate: open / closed" : "Gain reduction");
+                s->screen.setTooltip (meter == &chain.gateOpen ? TRANS ("Gate: open / closed") : TRANS ("Gain reduction"));
                 addAndMakeVisible (s->screen);
             }
             stages.push_back (std::move (s));
@@ -138,8 +146,8 @@ namespace
         }
 
         VoiceChain& chain;
-        juce::Label title { {}, "VOICE CHAIN" };
-        ConsoleControls::KeyRow presets { VoiceChain::presetNames() };
+        juce::Label title { {}, TRANS ("VOICE CHAIN") };
+        ConsoleControls::KeyRow presets { translated (VoiceChain::presetNames()) };
         std::vector<std::unique_ptr<Stage>> stages;
     };
 }

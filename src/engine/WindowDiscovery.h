@@ -56,8 +56,9 @@ namespace WindowDiscovery
     bool isIsolated (const juce::String& sourceName);
     juce::String isolatedFolder (const juce::String& sourceName);   // its --user-data-dir
 
-    // "Isolated tab 2" for an isolated source, else the app's name ("chrome").
-    juce::String appLabel (const juce::String& sourceName);
+    // "Isolated tab 2" for an isolated source, else the app's name ("chrome"). English (a strip's
+    // name) unless `translated` (a menu's text).
+    juce::String appLabel (const juce::String& sourceName, bool translated = false);
 
     // Brings the tab to the front of its window (to read its full address), then opens that
     // address in a new isolated instance, in a slot no source in `inUse` has. Returns the new

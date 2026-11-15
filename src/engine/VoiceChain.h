@@ -18,7 +18,7 @@ public:
     VoiceChain();
 
     // Presets: BROADCAST, CALLS, CLEAN.
-    static juce::StringArray presetNames() { return { "BROADCAST", "CALLS", "CLEAN" }; }
+    static juce::StringArray presetNames() { return { NEEDS_TRANS ("BROADCAST"), NEEDS_TRANS ("CALLS"), NEEDS_TRANS ("CLEAN") }; }
 
     // Voice FX, each with its own IN key ("robotOn"...): what macros switch (FX ON / OFF / TOGGLE).
     static juce::StringArray fxNames() { return { "ROBOT", "ECHO", "RADIO", "PITCH" }; }

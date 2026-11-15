@@ -27,7 +27,7 @@ public:
     };
 
     // `recheck` gives the checks as they are now (after a fix, the list follows).
-    explicit PreflightPanel (std::function<std::vector<Check>()> recheckFn, juce::String headingText = "PRE-FLIGHT")
+    explicit PreflightPanel (std::function<std::vector<Check>()> recheckFn, juce::String headingText = TRANS ("PRE-FLIGHT"))
         : heading (std::move (headingText)), recheck (std::move (recheckFn))
     {
         again.onClick = [this] { refresh(); };
@@ -53,10 +53,10 @@ public:
                 r.removeFromRight (fixes[(int) i]->getWidth() + Space::pad);
             g.setColour (Colours::legend());
             g.setFont (legendFont (Type::name));
-            g.drawText (c.title.toUpperCase(), r.removeFromTop (20), juce::Justification::centredLeft, true);
+            g.drawFittedText (c.title.toUpperCase(), r.removeFromTop (20), juce::Justification::centredLeft, 1, 0.7f);   // (squeezed, not cut, when long)
             g.setColour (Colours::legendDim());
             g.setFont (juce::FontOptions (Type::body));
-            g.drawFittedText (c.detail, r, juce::Justification::topLeft, 2, 0.9f);
+            g.drawFittedText (c.detail, r, juce::Justification::topLeft, 2, 0.8f);
         }
     }
 
@@ -67,12 +67,13 @@ public:
             if (fixes[(int) i] != nullptr)
             {
                 const auto r = rowArea ((int) i);
-                const int w = fixes[(int) i]->getButtonText().length() > 15 ? 190 : 130;   // (a long name gets a wider key)
+                const int w = keyWidth (*fixes[(int) i], fixes[(int) i]->getButtonText().length() > 15 ? 190 : 130, 240);   // (a long name gets a wider key)
                 fixes[(int) i]->setBounds (r.getRight() - w, r.getY() + 4, w, Space::key);
             }
         auto bottom = getLocalBounds().reduced (Space::pad).removeFromBottom (Space::key);
-        again.setBounds (bottom.removeFromRight (160));
-        other.setBounds (bottom.removeFromLeft (160));
+        const int half = bottom.getWidth() / 2 - Space::pad;
+        again.setBounds (bottom.removeFromRight (keyWidth (again, 160, half)));
+        other.setBounds (bottom.removeFromLeft (keyWidth (other, 160, half)));
     }
 
     bool allClear() const { return std::all_of (checks.begin(), checks.end(), [] (const Check& c) { return c.ok || c.advisory; }); }
@@ -89,6 +90,13 @@ public:
 
 private:
     static constexpr int rowH = 58;
+
+    // A key's width: `usual`, or wider (up to `most`) when its (translated) text needs it.
+    static int keyWidth (juce::TextButton& key, int usual, int most)
+    {
+        const int needed = juce::GlyphArrangement::getStringWidthInt (Console::legendFont (12.5f), key.getButtonText()) + 24;
+        return juce::jmax (usual, juce::jmin (most, needed));
+    }
 
     juce::Rectangle<int> rowArea (int i) const
     {
@@ -121,7 +129,7 @@ private:
         for (auto& c : checks)
         {
             const bool wrong = ! c.ok && c.fix != nullptr, canTry = c.ok && c.tryIt != nullptr;
-            auto* key = fixes.add (wrong   ? new juce::TextButton (c.fixLabel.isNotEmpty() ? c.fixLabel : juce::String ("FIX"))
+            auto* key = fixes.add (wrong   ? new juce::TextButton (c.fixLabel.isNotEmpty() ? c.fixLabel : TRANS ("FIX"))
                                  : canTry ? new juce::TextButton (c.tryLabel) : nullptr);
             if (key != nullptr)
             {
@@ -142,5 +150,5 @@ private:
     std::function<std::vector<Check>()> recheck;
     std::vector<Check> checks;
     juce::OwnedArray<juce::TextButton> fixes;   // per check (null where there's none)
-    juce::TextButton again { "CHECK AGAIN" }, other;
+    juce::TextButton again { TRANS ("CHECK AGAIN") }, other;
 };

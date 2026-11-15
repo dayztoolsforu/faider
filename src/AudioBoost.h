@@ -45,19 +45,20 @@ namespace AudioBoost
     // The priority classes Windows has, in order (unknown: it couldn't be read).
     enum class Priority { unknown, idle, belowNormal, normal, aboveNormal, high, realtime };
 
+    // (English, as the log has it: juce::translate it where it's shown)
     inline juce::String priorityName (Priority p)
     {
         switch (p)
         {
-            case Priority::idle:        return "IDLE";
-            case Priority::belowNormal: return "BELOW NORMAL";
-            case Priority::normal:      return "NORMAL";
-            case Priority::aboveNormal: return "ABOVE NORMAL";
-            case Priority::high:        return "HIGH";
-            case Priority::realtime:    return "REALTIME";
+            case Priority::idle:        return NEEDS_TRANS ("IDLE");
+            case Priority::belowNormal: return NEEDS_TRANS ("BELOW NORMAL");
+            case Priority::normal:      return NEEDS_TRANS ("NORMAL");
+            case Priority::aboveNormal: return NEEDS_TRANS ("ABOVE NORMAL");
+            case Priority::high:        return NEEDS_TRANS ("HIGH");
+            case Priority::realtime:    return NEEDS_TRANS ("REALTIME");
             case Priority::unknown:     break;
         }
-        return "UNKNOWN";
+        return NEEDS_TRANS ("UNKNOWN");
     }
 
     inline bool isBoosted (Priority p) { return p == Priority::high || p == Priority::realtime; }
@@ -111,35 +112,38 @@ namespace AudioBoost
     }
     inline juce::String backCommandLine() { return backFlag; }
 
-    // What came of BOOST (or, `back`, of BACK TO NORMAL), in plain words.
-    inline juce::String describe (int code, bool back = false)
+    // What came of BOOST (or, `back`, of BACK TO NORMAL), in plain words: the English text with %1
+    // for the code (describe: English, for the log; describeShown: translated, for the screen).
+    inline juce::String describeKey (int code, bool back = false)
     {
         if (back)
             switch (code)
             {
-                case ok:          return "Windows audio is back at Normal priority, on every core.";
-                case badArgs:     return "Nothing changed: the helper didn't understand the request.";
-                case notSet:      return "Nothing changed: Windows refused Normal priority.";
-                case notUnpinned: return "Windows audio is back at Normal priority, but Windows wouldn't let it use every core again.";
-                case notStarted:  return "Nothing changed: the change back couldn't be started.";
-                case timedOut:    return "The change back didn't answer in time. Look again in a moment.";
+                case ok:          return NEEDS_TRANS ("Windows audio is back at Normal priority, on every core.");
+                case badArgs:     return NEEDS_TRANS ("Nothing changed: the helper didn't understand the request.");
+                case notSet:      return NEEDS_TRANS ("Nothing changed: Windows refused Normal priority.");
+                case notUnpinned: return NEEDS_TRANS ("Windows audio is back at Normal priority, but Windows wouldn't let it use every core again.");
+                case notStarted:  return NEEDS_TRANS ("Nothing changed: the change back couldn't be started.");
+                case timedOut:    return NEEDS_TRANS ("The change back didn't answer in time. Look again in a moment.");
                 default:          break;   // (the rest as for BOOST)
             }
         switch (code)
         {
-            case ok:           return "Windows audio is at High priority.";
-            case badArgs:      return "Nothing changed: the core to pin to isn't one this PC has.";
-            case notFound:     return "Nothing changed: Windows audio (audiodg.exe) isn't running. Play a sound and try again.";
-            case accessDenied: return "Nothing changed: Windows wouldn't let it be changed.";
-            case notSet:       return "Nothing changed: Windows refused the new priority.";
-            case notPinned:    return "Windows audio is at High priority, but Windows wouldn't pin it to one core.";            case declined:     return "Nothing changed: Windows' prompt was declined.";
-            case notStarted:   return "Nothing changed: the boost couldn't be started.";
-            case timedOut:     return "The boost didn't answer in time. Look again in a moment.";
-            case needsAllUsers: return "Nothing changed: BOOST needs Faider installed for all users (Program Files).";
+            case ok:           return NEEDS_TRANS ("Windows audio is at High priority.");
+            case badArgs:      return NEEDS_TRANS ("Nothing changed: the core to pin to isn't one this PC has.");
+            case notFound:     return NEEDS_TRANS ("Nothing changed: Windows audio (audiodg.exe) isn't running. Play a sound and try again.");
+            case accessDenied: return NEEDS_TRANS ("Nothing changed: Windows wouldn't let it be changed.");
+            case notSet:       return NEEDS_TRANS ("Nothing changed: Windows refused the new priority.");
+            case notPinned:    return NEEDS_TRANS ("Windows audio is at High priority, but Windows wouldn't pin it to one core.");            case declined:     return NEEDS_TRANS ("Nothing changed: Windows' prompt was declined.");
+            case notStarted:   return NEEDS_TRANS ("Nothing changed: the boost couldn't be started.");
+            case timedOut:     return NEEDS_TRANS ("The boost didn't answer in time. Look again in a moment.");
+            case needsAllUsers: return NEEDS_TRANS ("Nothing changed: BOOST needs Faider installed for all users (Program Files).");
             default:           break;
         }
-        return "The boost ended unexpectedly (code " + juce::String (code) + ").";
+        return NEEDS_TRANS ("The boost ended unexpectedly (code %1).");
     }
+    inline juce::String describe (int code, bool back = false)      { return describeKey (code, back).replace ("%1", juce::String (code)); }
+    inline juce::String describeShown (int code, bool back = false) { return juce::translate (describeKey (code, back)).replace ("%1", juce::String (code)); }
 
     // PRE-FLIGHT's WINDOWS AUDIO check. `windowsUsed`: Windows devices or app capture in the mix
     // (only an ASIO interface: Windows audio isn't in the way). `wanted`: BOOST was asked for.
@@ -153,15 +157,16 @@ namespace AudioBoost
     inline Verdict preflight (bool windowsUsed, bool wanted, Priority p)
     {
         if (! windowsUsed)
-            return { true, false, "Not used by your interface (ASIO goes around Windows audio)" };
+            return { true, false, TRANS ("Not used by your interface (ASIO goes around Windows audio)") };
         if (isBoosted (p))
-            return { true, false, "Boosted: High priority" };
+            return { true, false, TRANS ("Boosted: High priority") };
         if (p == Priority::unknown)
-            return { false, true, "Couldn't read its priority. If Windows devices crackle, BOOST may help" };
+            return { false, true, TRANS ("Couldn't read its priority. If Windows devices crackle, BOOST may help") };
+        const auto name = juce::translate (priorityName (p));
         if (wanted)
-            return { false, false, "Back at " + priorityName (p).toLowerCase() + " (Windows audio restarted): the boost is off" };
-        return { false, true, priorityName (p).substring (0, 1) + priorityName (p).substring (1).toLowerCase()
-                              + " priority, Windows' default. If Windows devices or captured apps crackle, BOOST may help" };
+            return { false, false, TRANS ("Back at %1 (Windows audio restarted): the boost is off").replace ("%1", name.toLowerCase()) };
+        return { false, true, TRANS ("%1 priority, Windows' default. If Windows devices or captured apps crackle, BOOST may help")
+                                  .replace ("%1", name.substring (0, 1) + name.substring (1).toLowerCase()) };
     }
 
     // Watching audiodg (every few seconds): says when the boost asked for has gone (Windows audio

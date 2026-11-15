@@ -24,9 +24,9 @@ public:
         legend.setJustificationType (juce::Justification::centredRight);
         addAndMakeVisible (legend);
 
-        add.setTooltip ("Store new scene");
+        add.setTooltip (TRANS ("Store new scene"));
         add.setWantsKeyboardFocus (false);
-        add.onClick = [this] { askName ("STORE NEW SCENE", "SCENE " + juce::String ((int) scenes().list.size() + 1), -1); };
+        add.onClick = [this] { askName (TRANS ("STORE NEW SCENE"), TRANS ("SCENE %1").replace ("%1", juce::String ((int) scenes().list.size() + 1)), -1); };
         addAndMakeVisible (add);
 
         scenes().onActiveChanged = [this] { refreshLit(); };
@@ -47,8 +47,8 @@ public:
             key->setClickingTogglesState (true);
             key->setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
             key->setWantsKeyboardFocus (false);
-            key->setTooltip ("Recall" + (list[(size_t) i].hotkey.isEmpty() ? juce::String() : "  (" + list[(size_t) i].hotkey + ")")
-                             + (list[(size_t) i].device.isEmpty() ? juce::String() : "\nOn device: " + list[(size_t) i].device));
+            key->setTooltip (TRANS ("Recall") + (list[(size_t) i].hotkey.isEmpty() ? juce::String() : "  (" + list[(size_t) i].hotkey + ")")
+                             + (list[(size_t) i].device.isEmpty() ? juce::String() : "\n" + TRANS ("On device: %1").replace ("%1", list[(size_t) i].device)));
             key->onPress = [this, i] (bool menu) { if (menu) showMenu (i); else scenes().recall (i); refreshLit(); };
             MidiMap::tag (*key, "scene:" + list[(size_t) i].name);
             addAndMakeVisible (key);
@@ -63,7 +63,7 @@ public:
         {
             keys[i]->setToggleState (i == scenes().active, juce::dontSendNotification);
             if (i == capturing)
-                keys[i]->setButtonText ("LEARN...");
+                keys[i]->setButtonText (TRANS ("LEARN..."));
         }
     }
 
@@ -115,8 +115,9 @@ public:
         else if (GlobalHotkeys::usable (key))
         {
             if (! setHotkey (capturing, key))
-                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HOTKEY IN USE",
-                                                        (hotkeyRefusal ? hotkeyRefusal() : key.getTextDescription() + " is already in use") + ".");
+                juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("HOTKEY IN USE"),
+                                                        hotkeyRefusal ? hotkeyRefusal() + "."
+                                                                      : TRANS ("%1 is already in use.").replace ("%1", key.getTextDescription()));
             stopCapturing();
         }
         return true;
@@ -147,10 +148,10 @@ private:
         juce::PopupMenu menu;
         menu.addSectionHeader (scene.name);
         // Recall parts (the console's): only the mutes, or only the levels.
-        menu.addItem ("Recall cuts only", [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::mutes); refreshLit(); });
-        menu.addItem ("Recall levels only", [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::levels); refreshLit(); });
+        menu.addItem (TRANS ("Recall cuts only"), [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::mutes); refreshLit(); });
+        menu.addItem (TRANS ("Recall levels only"), [this, i] { if (juce::isPositiveAndBelow (i, (int) scenes().list.size())) scenes().recall (i, Scenes::Part::levels); refreshLit(); });
         menu.addSeparator();
-        menu.addItem ("Store to " + scene.name, [this, i]
+        menu.addItem (TRANS ("Store to %1").replace ("%1", scene.name), [this, i]
         {
             if (! juce::isPositiveAndBelow (i, (int) scenes().list.size()))
                 return;
@@ -166,7 +167,7 @@ private:
             scenes().setActive (i);
         });
         // Plugins' settings in the scene too: switched on, it keeps them as they are now.
-        menu.addItem ("Include plugin settings", true, scene.withPlugins, [this, i]
+        menu.addItem (TRANS ("Include plugin settings"), true, scene.withPlugins, [this, i]
         {
             if (! juce::isPositiveAndBelow (i, (int) scenes().list.size()))
                 return;
@@ -179,8 +180,8 @@ private:
                         setting.plugins = now.plugins;
             s.withPlugins = on;
         });
-        menu.addItem ("Rename...", [this, i, name = scene.name] { askName ("RENAME SCENE", name, i); });
-        menu.addItem (scene.hotkey.isEmpty() ? juce::String ("Assign hotkey...") : "Hotkey: " + scene.hotkey + "...", [this, i]
+        menu.addItem (TRANS ("Rename..."), [this, i, name = scene.name] { askName (TRANS ("RENAME SCENE"), name, i); });
+        menu.addItem (scene.hotkey.isEmpty() ? TRANS ("Assign hotkey...") : TRANS ("Hotkey: %1...").replace ("%1", scene.hotkey), [this, i]
         {
             capturing = i;
             setWantsKeyboardFocus (true);
@@ -190,25 +191,25 @@ private:
         });
         // Device profile: recall this scene when a device appears (a headset), and go back after.
         juce::PopupMenu devices;
-        devices.addItem ("None", true, scene.device.isEmpty(), [this, i] { setDevice (i, {}); });
+        devices.addItem (TRANS ("None"), true, scene.device.isEmpty(), [this, i] { setDevice (i, {}); });
         juce::StringArray listed;
         for (auto& e : engine.getEndpoints())
             if (e.api == "WASAPI" && e.state != 4 && ! listed.contains (e.name))   // 4: not present
             {
                 listed.add (e.name);
-                devices.addItem (endpointDisplayName (e) + (e.isOutput ? "  (out)" : "  (in)") + (e.isActive() ? juce::String() : "  (offline)"),
+                devices.addItem (endpointDisplayName (e) + "  " + (e.isOutput ? TRANS ("(out)") : TRANS ("(in)")) + (e.isActive() ? juce::String() : "  " + TRANS ("(offline)")),
                                  true, scene.device == e.name, [this, i, name = e.name] { setDevice (i, name); });
             }
         if (scene.device.isNotEmpty() && ! listed.contains (scene.device))
-            devices.addItem (scene.device + "  (missing)", true, true, [] {});
-        menu.addSubMenu ("Recall on device", devices, true, nullptr, scene.device.isNotEmpty());
+            devices.addItem (scene.device + "  " + TRANS ("(missing)"), true, true, [] {});
+        menu.addSubMenu (TRANS ("Recall on device"), devices, true, nullptr, scene.device.isNotEmpty());
 
         // AUTO: recalled by itself when an app starts, a device connects or at a time of day.
         juce::PopupMenu automatic, remove;
         for (int t = 0; t < (int) scene.triggers.size(); ++t)
         {
             const auto& trig = scene.triggers[(size_t) t];
-            const auto text = trig.when == MacroTrigger::When::time ? "At " + trig.what : trig.what + " " + MacroTrigger::whenName (trig.when).toLowerCase();
+            const auto text = triggerText (trig.when, trig.what);
             automatic.addItem (text, false, true, [] {});
             remove.addItem (text, [this, i, t]
             {
@@ -225,26 +226,26 @@ private:
             running.addIfNotAlreadyThere (a.exe, true);
         for (auto& exe : running)
             apps.addItem (exe, [this, i, exe] { addTrigger (i, MacroTrigger::When::appStarts, exe); });
-        apps.addItem ("Other app...", [this, i] { askTrigger (i, MacroTrigger::When::appStarts, "WHEN THIS APP STARTS", "game.exe"); });
-        automatic.addSubMenu ("When an app starts playing", apps);
-        automatic.addItem ("When a device connects...", [this, i] { askTrigger (i, MacroTrigger::When::deviceOn, "WHEN A DEVICE CONNECTS (part of its name)", "Headset"); });
-        automatic.addItem ("At a time of day...", [this, i] { askTrigger (i, MacroTrigger::When::time, "AT A TIME OF DAY (HH:MM, 24 hour)", "09:00"); });
+        apps.addItem (TRANS ("Other app..."), [this, i] { askTrigger (i, MacroTrigger::When::appStarts, TRANS ("WHEN THIS APP STARTS"), "game.exe"); });
+        automatic.addSubMenu (TRANS ("When an app starts playing"), apps);
+        automatic.addItem (TRANS ("When a device connects..."), [this, i] { askTrigger (i, MacroTrigger::When::deviceOn, TRANS ("WHEN A DEVICE CONNECTS (part of its name)"), TRANS ("Headset")); });
+        automatic.addItem (TRANS ("At a time of day..."), [this, i] { askTrigger (i, MacroTrigger::When::time, TRANS ("AT A TIME OF DAY (HH:MM, 24 hour)"), "09:00"); });
         automatic.addSeparator();
-        automatic.addItem ("Go back when the app stops", true, scene.goBack, [this, i]
+        automatic.addItem (TRANS ("Go back when the app stops"), true, scene.goBack, [this, i]
         {
             if (juce::isPositiveAndBelow (i, (int) scenes().list.size()))
                 scenes().list[(size_t) i].goBack = ! scenes().list[(size_t) i].goBack;
         });
-        automatic.addSubMenu ("Remove", remove, ! scene.triggers.empty());
-        menu.addSubMenu ("Auto-scene", automatic, true, nullptr, ! scene.triggers.empty());
+        automatic.addSubMenu (TRANS ("Remove"), remove, ! scene.triggers.empty());
+        menu.addSubMenu (TRANS ("Auto-scene"), automatic, true, nullptr, ! scene.triggers.empty());
         const auto bound = engine.getRemote().controlFor ("scene:" + scene.name);
-        menu.addItem ("MIDI learn" + (bound.isEmpty() ? juce::String ("...") : "   (" + bound + ")"),
+        menu.addItem (bound.isEmpty() ? TRANS ("MIDI learn...") : TRANS ("MIDI learn") + "   (" + bound + ")",
                       [this, name = scene.name] { engine.getRemote().learn ("scene:" + name); });
         menu.addSeparator();
-        menu.addItem ("Move left", i > 0, false, [this, i] { swap (i, i - 1); });
-        menu.addItem ("Move right", i < (int) scenes().list.size() - 1, false, [this, i] { swap (i, i + 1); });
+        menu.addItem (TRANS ("Move left"), i > 0, false, [this, i] { swap (i, i - 1); });
+        menu.addItem (TRANS ("Move right"), i < (int) scenes().list.size() - 1, false, [this, i] { swap (i, i + 1); });
         menu.addSeparator();
-        menu.addItem ("Delete", [this, i]
+        menu.addItem (TRANS ("Delete"), [this, i]
         {
             scenes().remove (i);
             listChanged();
@@ -262,12 +263,29 @@ private:
         rebuild();
     }
 
+    // An AUTO trigger as the menu lists it ("game.exe starts", "At 09:00"); the log keeps its own English.
+    static juce::String triggerText (MacroTrigger::When when, const juce::String& what)
+    {
+        using W = MacroTrigger::When;
+        switch (when)
+        {
+            case W::appStarts:    return TRANS ("%1 starts").replace ("%1", what);
+            case W::appStops:     return TRANS ("%1 stops").replace ("%1", what);
+            case W::deviceOn:     return TRANS ("%1 connected").replace ("%1", what);
+            case W::deviceOff:    return TRANS ("%1 disconnected").replace ("%1", what);
+            case W::outputSilent: return TRANS ("%1 silent").replace ("%1", what);
+            case W::outputSound:  return TRANS ("%1 has sound").replace ("%1", what);
+            case W::time:         return TRANS ("At %1").replace ("%1", what);
+        }
+        return what;
+    }
+
     void askTrigger (int i, MacroTrigger::When when, const juce::String& title, const juce::String& example)
     {
-        auto* window = new juce::AlertWindow (title, "For example: " + example, juce::MessageBoxIconType::NoIcon);
+        auto* window = new juce::AlertWindow (title, TRANS ("For example: %1").replace ("%1", example), juce::MessageBoxIconType::NoIcon);
         window->addTextEditor ("what", {});
-        window->addButton ("ADD", 1, juce::KeyPress (juce::KeyPress::returnKey));
-        window->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+        window->addButton (TRANS ("ADD"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+        window->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
         window->enterModalState (true, juce::ModalCallbackFunction::create ([this, window, i, when] (int result)
         {
             auto what = window->getTextEditorContents ("what").trim();
@@ -304,8 +322,8 @@ private:
         window->addTextEditor ("name", name);
         if (auto* editor = window->getTextEditor ("name"))
             editor->setInputFilter (new Console::CapitalsFilter(), true);   // names are in capitals
-        window->addButton (index < 0 ? "STORE" : "RENAME", 1, juce::KeyPress (juce::KeyPress::returnKey));
-        window->addButton ("CANCEL", 0, juce::KeyPress (juce::KeyPress::escapeKey));
+        window->addButton (index < 0 ? TRANS ("STORE") : TRANS ("RENAME"), 1, juce::KeyPress (juce::KeyPress::returnKey));
+        window->addButton (TRANS ("CANCEL"), 0, juce::KeyPress (juce::KeyPress::escapeKey));
         window->enterModalState (true, juce::ModalCallbackFunction::create ([this, window, index] (int result)
         {
             const auto newName = window->getTextEditorContents ("name").trim().toUpperCase();   // names are in capitals
@@ -341,7 +359,7 @@ private:
     }
 
     AudioEngine& engine;
-    juce::Label legend { {}, "SCENES" };
+    juce::Label legend { {}, TRANS ("SCENES") };
     juce::TextButton add { "+" };
     juce::OwnedArray<Key> keys;
     int capturing = -1;   // the scene waiting for its hotkey, or -1

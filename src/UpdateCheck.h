@@ -52,7 +52,8 @@ namespace UpdateCheck
     {
         bool ok = false;            // GitHub answered with a release
         juce::String version, url;  // its version ("0.1.6") and release page
-        juce::String error;         // why not, when not ok
+        juce::String error;         // why not, when not ok (English: the event log)
+        juce::String errorShown;    // and the same in the interface's language (a notice)
     };
 
     // GitHub's answer read: the tag and the page (only a github.com page is ever opened).
@@ -62,6 +63,7 @@ namespace UpdateCheck
         if (status != 200)
         {
             r.error = "GitHub answered " + juce::String (status);
+            r.errorShown = TRANS ("GitHub answered %1").replace ("%1", juce::String (status));
             return r;
         }
         const auto json = juce::JSON::parse (body);
@@ -70,6 +72,7 @@ namespace UpdateCheck
         if (r.version.isEmpty() || ! r.url.startsWith ("https://github.com/"))
         {
             r.error = "no release in GitHub's answer";
+            r.errorShown = TRANS ("no release in GitHub's answer");
             return r;
         }
         r.ok = true;
@@ -119,7 +122,10 @@ namespace UpdateCheck
             }
             Result result;
             if (! web.connect (nullptr))
+            {
                 result.error = "couldn't reach GitHub";
+                result.errorShown = TRANS ("couldn't reach GitHub");
+            }
             else
                 result = read (web.getStatusCode(), web.readEntireStreamAsString());
             {

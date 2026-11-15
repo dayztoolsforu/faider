@@ -109,7 +109,7 @@ namespace
         const auto json = juce::JSON::parse (file);
         if (! json.isObject())
         {
-            layout.error = "can't read " + file.getFullPathName();
+            layout.error = TRANS ("can't read %1").replace ("%1", file.getFullPathName());   // (shown on the desk; only its emptiness is checked)
             return layout;
         }
         layout.width = (float) json.getProperty ("width", 214.0);

@@ -349,11 +349,12 @@ public:
             if (id == "device")
             {
                 const auto places = m->places();
-                if (places.empty() || places[0].candidate.isEmpty()) return "NO DEVICE";
+                if (places.empty() || places[0].candidate.isEmpty()) return TRANS ("NO DEVICE");
                 for (auto& out : engine->outputChoices())
                     if (out.candidate == places[0].candidate && out.firstChannel / 2 == places[0].firstChannel / 2)
                         return out.label.upToFirstOccurrenceOf (" (", false, false).toUpperCase();
-                return places[0].candidate.upToFirstOccurrenceOf (" (", false, false).toUpperCase() + (places[0].target.isEmpty() ? " (OFF)" : "");
+                const auto device = places[0].candidate.upToFirstOccurrenceOf (" (", false, false).toUpperCase();
+                return places[0].target.isEmpty() ? TRANS ("%1 (OFF)").replace ("%1", device) : device;
             }
             return fallback;
         }
@@ -413,7 +414,7 @@ public:
         if (id == "ratio") return p->getValue() >= 0.999f ? juce::String (juce::CharPointer_UTF8 ("\xe2\x88\x9e:1")) : juce::String (v, 1) + ":1";
         if (id == "release" || id == "gateRelease" || id == "gateHold") return time (v);
         if (id == "mix") return juce::String (juce::roundToInt (v)) + "%";
-        if (id == "range") return p->getValue() <= 0.001f ? juce::String ("SILENT") : db (v, 0);
+        if (id == "range") return p->getValue() <= 0.001f ? TRANS ("SILENT") : db (v, 0);
         if (id == "drive") return juce::String (juce::roundToInt (p->getValue() * 100.0f)) + "%";
         if (id == "trim" || id.endsWith ("Gain") || id == "thresh" || id == "gateThresh") return db (v);
         return p->getCurrentValueAsText();

@@ -1,10 +1,12 @@
 #include "Pads.h"
+#include "EngineText.h"
 
 namespace
 {
     constexpr double releaseFade = 0.03;    // seconds: a hold pad let go, a loop stopped, Stop all
     constexpr double restartFade = 0.005;   // seconds: a pad pressed again, or choked
     constexpr int maxSeconds = 600;         // longest sound loaded (10 minutes)
+    constexpr const char* cantRead = NEEDS_TRANS ("Can't read %1 (WAV, FLAC, AIFF, OGG or MP3).");   // (English: Pads::translateError)
 }
 
 Pads::Pads()
@@ -12,12 +14,17 @@ Pads::Pads()
     formats.registerBasicFormats();   // WAV, AIFF, FLAC, OGG, MP3
 }
 
+juce::String Pads::translateError (const juce::String& error)
+{
+    return EngineText::translate (error, { cantRead });
+}
+
 bool Pads::load (int index, const juce::File& file, double rate, juce::String& error)
 {
     std::unique_ptr<juce::AudioFormatReader> reader (formats.createReaderFor (file));
     if (reader == nullptr)
     {
-        error = "Can't read " + file.getFileName() + " (WAV, FLAC, AIFF, OGG or MP3).";
+        error = juce::String (cantRead).replace ("%1", file.getFileName());
         return false;
     }
 

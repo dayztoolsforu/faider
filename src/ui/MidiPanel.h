@@ -24,7 +24,7 @@ public:
         DotMatrix::markReadout (last);
         addAndMakeVisible (last);
 
-        mapKey.setTooltip ("Click on-screen controls to bind them");
+        mapKey.setTooltip (TRANS ("Click on-screen controls to bind them"));
         mapKey.onClick = [this] { if (startMap) startMap(); };
         refreshKey.onClick = [this] { fillInputs(); };
         clearAll.onClick = [this] { remote.clearAll(); list.updateContent(); list.repaint(); };
@@ -99,7 +99,7 @@ private:
         }
         if (inputKeys.isEmpty())
         {
-            auto* b = inputKeys.add (new juce::TextButton ("NO MIDI INPUTS"));
+            auto* b = inputKeys.add (new juce::TextButton (TRANS ("NO MIDI INPUTS")));
             b->setEnabled (false);
             addAndMakeVisible (b);
         }
@@ -115,7 +115,7 @@ private:
         if (remote.getMappings().empty())
         {
             g.setColour (Console::Colours::legendDim());
-            g.drawText ("NOTHING BOUND YET: USE MIDI MAP", r, juce::Justification::centredLeft, true);
+            g.drawFittedText (TRANS ("NOTHING BOUND YET: USE MIDI MAP"), r, juce::Justification::centredLeft, 1, 0.7f);
             return;
         }
         if (! juce::isPositiveAndBelow (row, (int) remote.getMappings().size()))
@@ -153,7 +153,7 @@ private:
             c = new Clear();
         else
             old.release();
-        c->key.setTooltip ("Clear this binding");
+        c->key.setTooltip (TRANS ("Clear this binding"));
         c->key.onClick = [this, control = std::next (remote.getMappings().begin(), row)->first]
         {
             remote.removeMapping (control);
@@ -174,7 +174,8 @@ private:
     {
         if (remote.lastControl.isNotEmpty())
         {
-            const auto text = "LAST: " + RemoteControl::describe (remote.lastControl) + "  " + juce::String (juce::roundToInt (remote.lastControlValue * 127.0f));
+            const auto text = TRANS ("LAST: %1  %2").replace ("%2", juce::String (juce::roundToInt (remote.lastControlValue * 127.0f)))
+                                                     .replace ("%1", RemoteControl::describe (remote.lastControl));
             if (text != last.getText())
             {
                 last.setText (text, juce::dontSendNotification);
@@ -182,7 +183,7 @@ private:
             }
         }
         else if (last.getText().isEmpty())
-            last.setText ("MOVE A CONTROL ON A CONTROLLER", juce::dontSendNotification);
+            last.setText (TRANS ("MOVE A CONTROL ON A CONTROLLER"), juce::dontSendNotification);
 
         juce::String now;
         for (auto& [control, target] : remote.getMappings())
@@ -197,8 +198,8 @@ private:
 
     RemoteControl& remote;
     std::function<void()> startMap;
-    juce::Label inputsLabel { {}, "MIDI INPUTS" }, mappingsLabel { {}, "BINDINGS" }, last;
-    juce::TextButton mapKey { "MIDI MAP" }, refreshKey { "REFRESH" }, clearAll { "CLEAR ALL" };
+    juce::Label inputsLabel { {}, TRANS ("MIDI INPUTS") }, mappingsLabel { {}, TRANS ("BINDINGS") }, last;
+    juce::TextButton mapKey { TRANS ("MIDI MAP") }, refreshKey { TRANS ("REFRESH") }, clearAll { TRANS ("CLEAR ALL") };
     juce::OwnedArray<juce::TextButton> inputKeys;
     juce::ListBox list { "Bindings", this };
     juce::String shown;

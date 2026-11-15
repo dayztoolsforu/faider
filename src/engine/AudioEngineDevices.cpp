@@ -153,10 +153,10 @@ juce::String AudioEngine::getClockName() const
     {
         case Clock::asio:    return "ASIO";
         case Clock::windows: return "Windows";
-        case Clock::builtIn: return "Built-in clock";
+        case Clock::builtIn: return NEEDS_TRANS ("Built-in clock");   // (names: translated where shown)
         case Clock::none:    break;
     }
-    return "None";
+    return NEEDS_TRANS ("None");
 }
 
 bool AudioEngine::isInterfaceEndpoint (const EndpointInfo& e) const

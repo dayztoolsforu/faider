@@ -1,4 +1,5 @@
 #include "PluginScan.h"
+#include "EngineText.h"
 #ifndef FAIDER_DATA_FOLDER   // (no default: a check that forgot would write in the real %APPDATA%\Faider)
  #error "Define FAIDER_DATA_FOLDER (this program's folder in %APPDATA%) for this target in CMake"
 #endif
@@ -7,6 +8,15 @@ namespace PluginScan
 {
 namespace
 {
+    // Why a plugin failed, kept English (plugins.xml, the event log): translateReason shows them.
+    constexpr const char* wouldntLoad = NEEDS_TRANS ("it wouldn't load");
+    constexpr const char* notClosedCleanly = NEEDS_TRANS ("it passed, but the test copy didn't close cleanly");
+    constexpr const char* tooSlow = NEEDS_TRANS ("it didn't finish loading in %1 s");
+    constexpr const char* noPlugin = NEEDS_TRANS ("no VST3 plugin was found in it");
+    constexpr const char* crashed = NEEDS_TRANS ("it crashed while being tested (code %1)");
+    constexpr const char* couldntStart = NEEDS_TRANS ("Couldn't start the test.");
+    constexpr const char* stopped = NEEDS_TRANS ("The test was stopped.");
+
     juce::File storeFile()
     {
         return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory).getChildFile (FAIDER_DATA_FOLDER).getChildFile ("plugins.xml");   // (each app its own)
@@ -92,7 +102,7 @@ int runChild (const juce::String& pluginPath, const juce::File& out)
     auto plugin = vst3.createInstanceFromDescription (*types[0], 48000.0, 512, error);
     if (plugin == nullptr)
     {
-        out.replaceWithText ("error\t" + (error.isNotEmpty() ? error : juce::String ("it wouldn't load")));
+        out.replaceWithText ("error\t" + (error.isNotEmpty() ? error : juce::String (wouldntLoad)));
         return 3;
     }
 
@@ -147,7 +157,7 @@ juce::String test (const juce::String& path, int timeoutMs, const std::atomic<bo
     juce::ChildProcess child;
     Entry entry;
     if (! child.start (args, 0))
-        return "Couldn't start the test.";   // not the plugin's fault: nothing recorded
+        return couldntStart;   // not the plugin's fault: nothing recorded
 
     bool finished = false;
     for (const auto started = juce::Time::getMillisecondCounter();;)
@@ -159,7 +169,7 @@ juce::String test (const juce::String& path, int timeoutMs, const std::atomic<bo
         {
             child.kill();
             out.deleteFile();
-            return "The test was stopped.";   // not the plugin's fault: nothing recorded
+            return stopped;   // not the plugin's fault: nothing recorded
         }
         juce::Thread::sleep (2);
     }
@@ -175,17 +185,22 @@ juce::String test (const juce::String& path, int timeoutMs, const std::atomic<bo
         entry.name = result[1];
         entry.maker = result[2];
         if (! finished || code != 0)
-            entry.reason = "it passed, but the test copy didn't close cleanly";
+            entry.reason = notClosedCleanly;
     }
     else if (! finished)
-        entry.reason = "it didn't finish loading in " + juce::String (timeoutMs / 1000) + " s";
+        entry.reason = juce::String (tooSlow).replace ("%1", juce::String (timeoutMs / 1000));
     else
         entry.reason = result[0] == "error" ? result[1]
-                     : code == 2        ? juce::String ("no VST3 plugin was found in it")
-                                        : "it crashed while being tested (code " + juce::String::toHexString ((int) code) + ")";
+                     : code == 2        ? juce::String (noPlugin)
+                                        : juce::String (crashed).replace ("%1", juce::String::toHexString ((int) code));
     out.deleteFile();
     record (path, stamp, entry);
     return entry.passed ? juce::String() : entry.reason;
+}
+
+juce::String translateReason (const juce::String& reason)
+{
+    return EngineText::translate (reason, { wouldntLoad, notClosedCleanly, tooSlow, noPlugin, crashed, couldntStart, stopped });
 }
 
 void forget (const juce::String& path)

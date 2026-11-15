@@ -54,22 +54,22 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
     for (auto [key, target] : std::initializer_list<std::pair<juce::Button*, const char*>> {
              { &prev, "tape:prev" }, { &play, "tape:play" }, { &pause, "tape:pause" }, { &stop, "tape:stop" }, { &next, "tape:next" } })
         MidiMap::tag (*key, target);
-    rew.setTooltip ("Back 10 s. Hold: rewind");
-    ff.setTooltip ("Forward 10 s. Hold: fast-forward");
-    prev.setTooltip ("Previous / start of track");
-    next.setTooltip ("Next track");
-    play.setTooltip ("Play");
-    pause.setTooltip ("Pause");
-    stop.setTooltip ("Stop");
+    rew.setTooltip (TRANS ("Back 10 s. Hold: rewind"));
+    ff.setTooltip (TRANS ("Forward 10 s. Hold: fast-forward"));
+    prev.setTooltip (TRANS ("Previous / start of track"));
+    next.setTooltip (TRANS ("Next track"));
+    play.setTooltip (TRANS ("Play"));
+    pause.setTooltip (TRANS ("Pause"));
+    stop.setTooltip (TRANS ("Stop"));
     using Console::Icon;
     for (auto [b, icon] : { std::pair<juce::Button*, Icon> { &prev, Icon::prev }, { &rew, Icon::rewind }, { &play, Icon::play }, { &pause, Icon::pause },
                             { &stop, Icon::stop }, { &ff, Icon::forward }, { &next, Icon::next }, { &shuffle, Icon::shuffle },
                             { &addFilesButton, Icon::addFile }, { &addFolderButton, Icon::addFolder }, { &eject, Icon::eject },
                             { &rec, Icon::record }, { &recordFolder, Icon::folder }, { &openFolder, Icon::open } })
         Console::setIcon (*b, icon);
-    shuffle.setTooltip ("Shuffle");
-    addFilesButton.setTooltip ("Add files");
-    addFolderButton.setTooltip ("Add folder");
+    shuffle.setTooltip (TRANS ("Shuffle"));
+    addFilesButton.setTooltip (TRANS ("Add files"));
+    addFolderButton.setTooltip (TRANS ("Add folder"));
     for (auto* b : { &prev, &rew, &stop, &ff, &next })
         addAndMakeVisible (b);
 
@@ -114,9 +114,9 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
     // The playlist.
     addFilesButton.onClick = [this] { choose (false); };
     addFolderButton.onClick = [this] { choose (true); };
-    eject.setTooltip ("Clear playlist");
+    eject.setTooltip (TRANS ("Clear playlist"));
     eject.onClick = [this] { tape.clearPlaylist(); list.updateContent(); list.deselectAllRows(); };
-    addStrip.setTooltip ("Create the TAPE channel");
+    addStrip.setTooltip (TRANS ("Create the TAPE channel"));
     addStrip.onClick = [this]
     {
         engine.addStrip ("TAPE", { AudioEngine::Source::tape, 0, {}, true });
@@ -135,7 +135,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
     // The recorder.
     recorderLabel.setFont (Console::legendFont (Console::Type::body));
     addAndMakeVisible (recorderLabel);
-    recordSource.setTooltip ("Record source");
+    recordSource.setTooltip (TRANS ("Record source"));
     recordSource.onChange = [this]
     {
         const int i = recordSource.getSelectedId() - 1;
@@ -148,14 +148,14 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
     rec.setClickingTogglesState (true);
     rec.setColour (juce::TextButton::buttonOnColourId, Console::Colours::ledRed());
     Backlight::setBlinks (rec);   // pulses while recording
-    rec.setTooltip ("Record");
+    rec.setTooltip (TRANS ("Record"));
     rec.onClick = [this] { toggleRecording(); };
     MidiMap::tag (rec, "rec");
     addAndMakeVisible (rec);
 
     recordFolder.onClick = [this]
     {
-        chooser = std::make_unique<juce::FileChooser> ("Recording path", engine.getRecorder().folder);
+        chooser = std::make_unique<juce::FileChooser> (TRANS ("Recording path"), engine.getRecorder().folder);
         chooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectDirectories, [this] (const juce::FileChooser& fc)
         {
             if (fc.getResult().isDirectory())
@@ -166,7 +166,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
         });
     };
     recordFolder.setTooltip (engine.getRecorder().folder.getFullPathName());
-    openFolder.setTooltip ("Reveal in Explorer");
+    openFolder.setTooltip (TRANS ("Reveal in Explorer"));
     openFolder.onClick = [this]
     {
         auto folder = engine.getRecorder().folder;
@@ -184,7 +184,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
         }
         if (recordFormat.getSelectedId() == 0)
             recordFormat.setSelectedId (1, juce::dontSendNotification);
-        recordFormat.setTooltip ("File format, and how much time fits");
+        recordFormat.setTooltip (TRANS ("File format, and how much time fits"));
         recordFormat.onChange = [this]
         {
             const auto formats = Recorder::formats();
@@ -201,7 +201,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
         if (juce::approximatelyEqual (engine.getRecorder().replayLength, replayLengths[i]))
             replayLengthIndex = i;
     replayLength.setIndex (replayLengthIndex);
-    replayLength.setTooltip ("Replay length");
+    replayLength.setTooltip (TRANS ("Replay length"));
     replayLength.onChange = [this] (int i)
     {
         replayLengthIndex = i;
@@ -213,7 +213,7 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
     replayArm.setClickingTogglesState (true);
     replayArm.setColour (juce::TextButton::buttonOnColourId, Console::Colours::selected());
     replayArm.setToggleState (engine.getRecorder().replayLength > 0.0, juce::dontSendNotification);
-    replayArm.setTooltip ("Instant replay on/off");
+    replayArm.setTooltip (TRANS ("Instant replay on/off"));
     replayArm.onClick = [this]
     {
         engine.getRecorder().replayLength = replayArm.getToggleState() ? replayLengths[replayLengthIndex] : 0.0;
@@ -225,12 +225,12 @@ TapePanel::TapePanel (AudioEngine& e, MixerComponent& m) : engine (e), tape (e.g
         if (! menu)
             return saveReplay();
         juce::PopupMenu m;
-        m.addSectionHeader ("REPLAY");
-        m.addItem (replayHotkey.isEmpty() ? juce::String ("Assign hotkey...") : "Hotkey: " + replayHotkey + "...",
+        m.addSectionHeader (TRANS ("REPLAY"));
+        m.addItem (replayHotkey.isEmpty() ? TRANS ("Assign hotkey...") : TRANS ("Hotkey: %1...").replace ("%1", replayHotkey),
                    true, false, [this]
         {
             learningReplayKey = true;
-            replaySave.setButtonText ("LEARN...");
+            replaySave.setButtonText (TRANS ("LEARN..."));
             setWantsKeyboardFocus (true);
             grabKeyboardFocus();
         });
@@ -254,8 +254,8 @@ TapePanel::~TapePanel() = default;
 // REPEAT lights while it's on; a 1 in its arrows for repeating one track.
 void TapePanel::showRepeat()
 {
-    repeat.setButtonText (tape.repeat == Tape::Repeat::all ? "REPEAT ALL" : tape.repeat == Tape::Repeat::one ? "REPEAT ONE" : "REPEAT OFF");
-    repeat.setTooltip (repeat.getButtonText().substring (0, 1) + repeat.getButtonText().substring (1).toLowerCase());
+    repeat.setButtonText (tape.repeat == Tape::Repeat::all ? TRANS ("REPEAT ALL") : tape.repeat == Tape::Repeat::one ? TRANS ("REPEAT ONE") : TRANS ("REPEAT OFF"));
+    repeat.setTooltip (tape.repeat == Tape::Repeat::all ? TRANS ("Repeat all") : tape.repeat == Tape::Repeat::one ? TRANS ("Repeat one") : TRANS ("Repeat off"));
     Console::setIcon (repeat, tape.repeat == Tape::Repeat::one ? Console::Icon::repeatOne : Console::Icon::repeat);
     repeat.setToggleState (tape.repeat != Tape::Repeat::off, juce::dontSendNotification);
 }
@@ -278,7 +278,7 @@ void TapePanel::addFiles (const juce::Array<juce::File>& files)
 
 void TapePanel::choose (bool folders)
 {
-    chooser = std::make_unique<juce::FileChooser> (folders ? "Add folder" : "Add files", juce::File(), folders ? juce::String() : juce::String (soundFiles));
+    chooser = std::make_unique<juce::FileChooser> (folders ? TRANS ("Add folder") : TRANS ("Add files"), juce::File(), folders ? juce::String() : juce::String (soundFiles));
     const int mode = juce::FileBrowserComponent::openMode
                    | (folders ? juce::FileBrowserComponent::canSelectDirectories
                               : juce::FileBrowserComponent::canSelectFiles | juce::FileBrowserComponent::canSelectMultipleItems);
@@ -437,12 +437,12 @@ void TapePanel::fillRecordSources()
         recordSource.addItem (name, (int) recordSources.size());
     };
     // First: every input and output at once, each to its own file.
-    recordSource.addSectionHeading ("Multitrack");
-    recordSources.push_back ({ Recorder::Kind::output, -1, "ALL CHANNELS", multitrackKey });
-    recordSource.addItem ("ALL CHANNELS, ONE FILE EACH", 1);
-    for (int i = 0; i < (int) engine.getMasters().size(); ++i)  add (Recorder::Kind::output, i, engine.getMasters()[(size_t) i]->name, "output", "Outputs");
-    for (int i = 0; i < (int) engine.getBuses().size(); ++i)  add (Recorder::Kind::bus, i, engine.getBuses()[(size_t) i]->name, "bus", "Buses");
-    for (int i = 0; i < (int) engine.getStrips().size(); ++i) add (Recorder::Kind::input, i, engine.getStrips()[(size_t) i]->name, "input", "Inputs");
+    recordSource.addSectionHeading (TRANS ("Multitrack"));
+    recordSources.push_back ({ Recorder::Kind::output, -1, "ALL CHANNELS", multitrackKey });   // (its name isn't shown)
+    recordSource.addItem (TRANS ("ALL CHANNELS, ONE FILE EACH"), 1);
+    for (int i = 0; i < (int) engine.getMasters().size(); ++i)  add (Recorder::Kind::output, i, engine.getMasters()[(size_t) i]->name, "output", TRANS ("Outputs"));
+    for (int i = 0; i < (int) engine.getBuses().size(); ++i)  add (Recorder::Kind::bus, i, engine.getBuses()[(size_t) i]->name, "bus", TRANS ("Buses"));
+    for (int i = 0; i < (int) engine.getStrips().size(); ++i) add (Recorder::Kind::input, i, engine.getStrips()[(size_t) i]->name, "input", TRANS ("Inputs"));
 
     int selected = recordSources.size() > 1 ? 2 : 1;   // the first output, unless one was chosen
     for (size_t i = 0; i < recordSources.size(); ++i)
@@ -468,7 +468,7 @@ void TapePanel::toggleRecording()
     if (engine.startChosenRecording (error) == juce::File())
     {
         rec.setToggleState (false, juce::dontSendNotification);
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "RECORD FAILED", error);
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("RECORD FAILED"), error);
     }
     recordBytes = 0;
 }
@@ -494,7 +494,7 @@ void TapePanel::saveReplay()
         return;
     juce::String error;
     if (engine.getRecorder().saveReplay (recordSources[(size_t) i].name, error) == juce::File())
-        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "REPLAY NOT SAVED", error);
+        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("REPLAY NOT SAVED"), error);
     else
         replaySavedAt = juce::Time::getMillisecondCounterHiRes();
 }
@@ -518,8 +518,8 @@ bool TapePanel::keyPressed (const juce::KeyPress& key)
         if (setReplayHotkey && setReplayHotkey (text))
             replayHotkey = text;
         else
-            juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, "HOTKEY IN USE",
-                                                    (replayHotkeyRefusal ? replayHotkeyRefusal() : text + " is already in use") + ".");
+            juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::WarningIcon, TRANS ("HOTKEY IN USE"),
+                                                    replayHotkeyRefusal ? replayHotkeyRefusal() + "." : TRANS ("%1 is already in use.").replace ("%1", text));
     }
     learningReplayKey = false;
     setWantsKeyboardFocus (false);
@@ -577,7 +577,7 @@ void TapePanel::timerCallback()
     const int current = tape.current();
     const bool hasTrack = juce::isPositiveAndBelow (current, tape.size());
     const auto name = hasTrack ? trackName (tape.file (current))   // a long name scrolls
-                    : tape.size() > 0 ? juce::String (tape.size()) + " TRACKS" : juce::String ("NO MEDIA");
+                    : tape.size() > 0 ? TRANS ("%1 TRACKS").replace ("%1", juce::String (tape.size())) : TRANS ("NO MEDIA");
 
     const auto elapsed = tape.isLoaded() ? clock (at) : juce::String ("-:--");
     const auto remaining = tape.isLoaded() ? "-" + clock (juce::jmax (0.0, length - at)) : juce::String ("-:--");
@@ -639,10 +639,12 @@ void TapePanel::timerCallback()
             }
         }
     }
-    const auto record = ! recording ? "READY  " + recordRoom
-                      : recorder.isMultitracking() ? clock (recorder.seconds()) + "  " + juce::String (recorder.trackCount()) + " TRACKS  " + recordRoom + " LEFT"
-                      : clock (recorder.seconds()) + "  " + juce::String ((double) recordBytes / (1024.0 * 1024.0), 1) + " MB  " + recordRoom + " LEFT"
-                          + (recorder.droppedBlocks() > 0 ? "  DROPS " + juce::String (recorder.droppedBlocks()) : juce::String());
+    // (The screen's fields, two spaces apart, each its own key.)
+    const auto left = TRANS ("%1 LEFT").replace ("%1", recordRoom);
+    const auto record = ! recording ? TRANS ("READY  %1").replace ("%1", recordRoom)
+                      : recorder.isMultitracking() ? clock (recorder.seconds()) + "  " + TRANS ("%1 TRACKS").replace ("%1", juce::String (recorder.trackCount())) + "  " + left
+                      : clock (recorder.seconds()) + "  " + juce::String ((double) recordBytes / (1024.0 * 1024.0), 1) + " MB  " + left
+                          + (recorder.droppedBlocks() > 0 ? "  " + TRANS ("DROPS %1").replace ("%1", juce::String (recorder.droppedBlocks())) : juce::String());
     if (record != shownRecord)
     {
         shownRecord = record;
@@ -655,17 +657,18 @@ void TapePanel::timerCallback()
     {
         const auto& r = engine.getRecorder();
         const bool justSaved = juce::Time::getMillisecondCounterHiRes() - replaySavedAt < 1500.0;
-        const auto text = justSaved ? juce::String ("SAVED") : r.replayArmed() ? "SAVE " + clock (r.replayBuffered()) : juce::String ("SAVE");
-        if (replaySave.getButtonText() != text)
+        const auto text = justSaved ? TRANS ("SAVED") : r.replayArmed() ? TRANS ("SAVE %1").replace ("%1", clock (r.replayBuffered())) : TRANS ("SAVE");
+        if (replaySave.getButtonText() != text)   // (both translated, so this still only sets it when it changes)
             replaySave.setButtonText (text);
         replaySave.setEnabled (r.replayArmed());
-        replaySave.setTooltip ("Save replay" + (replayHotkey.isEmpty() ? juce::String() : "  (" + replayHotkey + ")") + ". Right-click: hotkey");
+        replaySave.setTooltip (replayHotkey.isEmpty() ? TRANS ("Save replay. Right-click: hotkey")
+                                                      : TRANS ("Save replay  (%1). Right-click: hotkey").replace ("%1", replayHotkey));
     }
 
     if (addStrip.isEnabled() == hasTapeStrip())   // says when it's there
     {
         addStrip.setEnabled (! hasTapeStrip());
-        addStrip.setButtonText (hasTapeStrip() ? "TAPE CHANNEL ACTIVE" : "CREATE TAPE CHANNEL");
+        addStrip.setButtonText (hasTapeStrip() ? TRANS ("TAPE CHANNEL ACTIVE") : TRANS ("CREATE TAPE CHANNEL"));
     }
 }
 
@@ -681,7 +684,7 @@ void TapePanel::resized()
             columns = juce::jmax (columns, KeyRow::columnsFor (b->getButtonText()));
         KeyRow bar (r.removeFromTop (Space::key));
         bar.left (addFilesButton, columns).left (addFolderButton, columns).left (eject, columns);
-        bar.right (addStrip, juce::jmax (KeyRow::columnsFor ("CREATE TAPE CHANNEL"), KeyRow::columnsFor ("TAPE CHANNEL ACTIVE")));
+        bar.right (addStrip, juce::jmax (KeyRow::columnsFor (TRANS ("CREATE TAPE CHANNEL")), KeyRow::columnsFor (TRANS ("TAPE CHANNEL ACTIVE"))));
     }
     r.removeFromTop (Space::pad);
 

@@ -17,10 +17,13 @@ class CommandPalette : public juce::Component,
 public:
     struct Command
     {
-        juce::String name;      // what it does: "CUT MICROPHONE"
-        juce::String detail;    // what it is, dimmer: "Input"
+        juce::String name;      // what it does: "CUT MICROPHONE" (shown: translated)
+        juce::String detail;    // what it is, dimmer: "Input" (shown: translated)
         std::function<void()> run;
         juce::String keywords = {};   // more words it's found by, not shown (a setting's description)
+        juce::String english = {};    // its name in English: found by too, and what RECENT keeps (the same in every language; none: the name)
+
+        const juce::String& id() const { return english.isNotEmpty() ? english : name; }
     };
 
     CommandPalette (std::vector<Command> commands, std::function<void()> closeIt)
@@ -58,8 +61,8 @@ public:
         g.drawRoundedRectangle (r.reduced (2.5f), 8.0f, 1.5f);
         g.setColour (Console::Colours::legendDim());
         g.setFont (Console::legendFont (Console::Type::tag));
-        g.drawText ("ENTER: DO IT    UP / DOWN: CHOOSE    ESC: CLOSE", getLocalBounds().removeFromBottom (Console::Space::title).reduced (Console::Space::pad, 0),
-                    juce::Justification::centredLeft, false);
+        g.drawFittedText (TRANS ("ENTER: DO IT    UP / DOWN: CHOOSE    ESC: CLOSE"), getLocalBounds().removeFromBottom (Console::Space::title).reduced (Console::Space::pad, 0),
+                          juce::Justification::centredLeft, 1, 0.7f);
     }
 
     void resized() override
@@ -89,7 +92,7 @@ private:
     // The search field's and list's colours, from the theme (at the start and on a theme change).
     void styleColours()
     {
-        query.setTextToShowWhenEmpty ("Search channels, scenes, settings...", Console::Colours::legendDim());
+        query.setTextToShowWhenEmpty (TRANS ("Search channels, scenes, settings..."), Console::Colours::legendDim());
         query.setColour (juce::TextEditor::backgroundColourId, Console::Colours::panelDark());
         query.setColour (juce::TextEditor::outlineColourId, Console::Colours::rim());
         query.setColour (juce::TextEditor::focusedOutlineColourId, Console::Colours::selected());
@@ -98,7 +101,7 @@ private:
         list.setColour (juce::ListBox::backgroundColourId, Console::Colours::panelDark());
     }
 
-    // The last commands run (by name), newest first, kept in %APPDATA%\Faider\find-recent.txt.
+    // The last commands run (by English name, id()), newest first, kept in %APPDATA%\Faider\find-recent.txt.
     static constexpr int recentCount = 8;
     static juce::File recentFile() { return Product::dataFolder().getChildFile ("find-recent.txt"); }
     static juce::StringArray loadRecent()
@@ -124,7 +127,7 @@ private:
     {
         if (words.isEmpty())
             return 1;
-        const auto name = c.name.toLowerCase(), text = name + " " + c.detail.toLowerCase() + " " + c.keywords.toLowerCase();
+        const auto name = c.name.toLowerCase() + " " + c.english.toLowerCase(), text = name + " " + c.detail.toLowerCase() + " " + c.keywords.toLowerCase();   // (as shown and in English)
         int total = 0;
         for (auto& w : words)
         {
@@ -154,7 +157,7 @@ private:
         for (auto& c : all)
             if (int s = score (c, words); s > 0)
             {
-                if (const int at = recent.indexOf (c.name); at >= 0)   // recent: first with nothing typed, a nudge up with something
+                if (const int at = recent.indexOf (c.id()); at >= 0)   // recent: first with nothing typed, a nudge up with something
                     s += words.isEmpty() ? 1000 - at : 4;
                 ranked.push_back ({ s, &c });
             }
@@ -173,7 +176,7 @@ private:
         if (! juce::isPositiveAndBelow (row, (int) shown.size()))
             return;
         auto run = shown[(size_t) row]->run;
-        remember (shown[(size_t) row]->name);
+        remember (shown[(size_t) row]->id());
         close();   // (this goes now; the command runs once it has)
         juce::MessageManager::callAsync ([run] { if (run) run(); });
     }
@@ -204,16 +207,16 @@ private:
         const auto& c = *shown[(size_t) row];
         g.setColour (Console::Colours::legendDim());
         g.setFont (Console::legendFont (Console::Type::legend));
-        g.drawText (c.detail.toUpperCase(), r.removeFromRight (160), juce::Justification::centredRight, true);
-        if (query.isEmpty() && recent.contains (c.name))
+        g.drawFittedText (c.detail.toUpperCase(), r.removeFromRight (160), juce::Justification::centredRight, 1, 0.7f);
+        if (query.isEmpty() && recent.contains (c.id()))
         {
             g.setColour (Console::Colours::selected());
             g.setFont (Console::legendFont (Console::Type::tag));
-            g.drawText ("RECENT", r.removeFromRight (60), juce::Justification::centredRight, true);
+            g.drawFittedText (TRANS ("RECENT"), r.removeFromRight (60), juce::Justification::centredRight, 1, 0.7f);
         }
         g.setColour (Console::Colours::legend());
         g.setFont (Console::legendFont (Console::Type::body));
-        g.drawText (c.name, r, juce::Justification::centredLeft, true);
+        g.drawFittedText (c.name, r, juce::Justification::centredLeft, 1, 0.7f);
     }
 
     void listBoxItemClicked (int row, const juce::MouseEvent&) override { list.selectRow (row); query.grabKeyboardFocus(); }

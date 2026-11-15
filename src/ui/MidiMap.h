@@ -112,7 +112,7 @@ public:
 
             if (bound.isNotEmpty() || item.target == learning)
             {
-                const auto text = item.target == learning ? juce::String ("MOVE A CONTROL") : bound;
+                const auto text = item.target == learning ? TRANS ("MOVE A CONTROL") : bound;
                 const auto font = Console::legendFont (Console::Type::tag);
                 const float w = (float) juce::GlyphArrangement::getStringWidthInt (font, text) + 8.0f;
                 auto tag = juce::Rectangle<float> (r.getCentreX() - w * 0.5f, r.getY() - 7.0f, w, 14.0f);
@@ -134,11 +134,12 @@ public:
         bar = bar.reduced (10, 0);
         g.setFont (Console::legendFont (Console::Type::body));
         g.setColour (Console::Colours::legend());
-        const auto status = learning.isNotEmpty() ? "MIDI MAP  -  " + MidiMap::describe (learning) + ": MOVE A CONTROL  -  ESC: CANCEL"
-                                                  : juce::String ("MIDI MAP  -  CLICK A CONTROL  -  RIGHT-CLICK: CLEAR  -  ESC: DONE");
-        g.drawText (status, bar, juce::Justification::centredLeft, true);
+        const auto status = learning.isNotEmpty() ? TRANS ("MIDI MAP  -  %1: MOVE A CONTROL  -  ESC: CANCEL").replace ("%1", MidiMap::describe (learning))
+                                                  : TRANS ("MIDI MAP  -  CLICK A CONTROL  -  RIGHT-CLICK: CLEAR  -  ESC: DONE");
+        g.drawFittedText (status, bar, juce::Justification::centredLeft, 1, 0.7f);
         if (remote.lastControl.isNotEmpty())
-            g.drawText ("LAST: " + RemoteControl::describe (remote.lastControl) + "  " + juce::String (juce::roundToInt (remote.lastControlValue * 127.0f)),
+            g.drawText (TRANS ("LAST: %1  %2").replace ("%2", juce::String (juce::roundToInt (remote.lastControlValue * 127.0f)))
+                                                .replace ("%1", RemoteControl::describe (remote.lastControl)),
                         bar, juce::Justification::centredRight, true);
     }
 
@@ -151,8 +152,8 @@ public:
         {
             juce::PopupMenu menu;
             menu.addSectionHeader (MidiMap::describe (target));
-            menu.addItem ("Learn", [this, target] { remote.learn (target); repaint(); });
-            menu.addItem ("Clear", [this, target] { remote.clearTarget (target); repaint(); });
+            menu.addItem (TRANS ("Learn"), [this, target] { remote.learn (target); repaint(); });
+            menu.addItem (TRANS ("Clear"), [this, target] { remote.clearTarget (target); repaint(); });
             menu.showMenuAsync (juce::PopupMenu::Options().withMousePosition());
             return;
         }

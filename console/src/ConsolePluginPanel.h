@@ -32,7 +32,7 @@ namespace ConsoleDesk
             g.setFont (LargeFormat::print (12.0f));
             if (s == nullptr || engine == nullptr)
             {
-                g.drawText ("NO CHANNEL SELECTED", summary.withHeight (24), juce::Justification::centredLeft, false);
+                g.drawFittedText (TRANS ("NO CHANNEL SELECTED"), summary.withHeight (24), juce::Justification::centredLeft, 1, 0.7f);
                 return;
             }
             float cpu = 0.0f;
@@ -48,12 +48,12 @@ namespace ConsoleDesk
             g.setColour (print());
             g.setFont (LargeFormat::print (12.0f));
             auto line = summary.withTrimmedTop (30);
-            for (auto text : { juce::String ((int) s->inserts.size()) + (s->inserts.size() == 1 ? " PLUGIN" : " PLUGINS"),
+            for (auto text : { (s->inserts.size() == 1 ? TRANS ("%1 PLUGIN") : TRANS ("%1 PLUGINS")).replace ("%1", juce::String ((int) s->inserts.size())),
                                "CPU " + juce::String (cpu, 1) + "%",
-                               "LATENCY " + juce::String (1000.0 * latency / juce::jmax (8000.0, engine->getSampleRate()), 1) + " MS",
-                               juce::String (s->insertsOn.load() ? "INSERT IN" : "INSERT OUT") })
+                               TRANS ("LATENCY %1 MS").replace ("%1", juce::String (1000.0 * latency / juce::jmax (8000.0, engine->getSampleRate()), 1)),
+                               s->insertsOn.load() ? TRANS ("INSERT IN") : TRANS ("INSERT OUT") })
             {
-                g.drawFittedText (text, line.removeFromTop (20), juce::Justification::centredLeft, 1, 0.9f);
+                g.drawFittedText (text, line.removeFromTop (20), juce::Justification::centredLeft, 1, 0.7f);
             }
             for (int i = 0; i < (int) s->inserts.size(); ++i)
                 drawCard (g, i, *s->inserts[(size_t) i], *engine);
@@ -61,7 +61,7 @@ namespace ConsoleDesk
             DeskSettings::card (g, add, false, hovered == addHover);
             g.setColour (Console::Colours::ink());
             g.setFont (LargeFormat::print (12.0f));
-            g.drawText ("+  ADD PLUGIN", add, juce::Justification::centred, false);
+            g.drawFittedText (TRANS ("+  ADD PLUGIN"), add.toNearestInt().reduced (8, 0), juce::Justification::centred, 1, 0.7f);
         }
 
         void mouseMove (const juce::MouseEvent& e) override { const int h = hoverAt (e.getPosition()); if (h != hovered) { hovered = h; repaint(); } }
@@ -122,7 +122,7 @@ namespace ConsoleDesk
             list.push_back ({ "<", top.removeFromRight (28) });
             auto r = card.removeFromBottom (30);
             const int w = (r.getWidth() - 8) / 3;
-            for (auto* k : { "BYPASS", "OPEN", "REMOVE" })
+            for (auto* k : { NEEDS_TRANS ("BYPASS"), NEEDS_TRANS ("OPEN"), NEEDS_TRANS ("REMOVE") })   // (identifiers: translated where drawn)
             {
                 list.push_back ({ k, r.removeFromLeft (w) });
                 r.removeFromLeft (4);
@@ -170,13 +170,13 @@ namespace ConsoleDesk
             r.removeFromTop (8);
             g.setColour (print());
             const int lat = plugin.getLatencySamples();
-            g.drawText ("LATENCY  " + (lat == 0 ? juce::String ("NONE") : juce::String (1000.0 * lat / juce::jmax (8000.0, engine.getSampleRate()), 1) + " MS"),
-                        r.removeFromTop (16), juce::Justification::centredLeft, false);
+            g.drawFittedText (lat == 0 ? TRANS ("LATENCY  NONE") : TRANS ("LATENCY  %1 MS").replace ("%1", juce::String (1000.0 * lat / juce::jmax (8000.0, engine.getSampleRate()), 1)),
+                              r.removeFromTop (16), juce::Justification::centredLeft, 1, 0.7f);
             r.removeFromTop (6);
             // Is it earning its place? Bypassed but still loaded, or heavy for one plugin.
             juce::String flag;
-            if (bypassed)        flag = "BYPASSED";
-            else if (cpu > 5.0f) flag = "HEAVY";
+            if (bypassed)        flag = TRANS ("BYPASSED");
+            else if (cpu > 5.0f) flag = TRANS ("HEAVY");
             if (flag.isNotEmpty())
             {
                 g.setColour (bypassed ? Console::Colours::palette ("orange") : Console::Colours::stopLamp());
@@ -186,7 +186,7 @@ namespace ConsoleDesk
             for (auto [key, area] : keys (i))
             {
                 const bool lit = key == "BYPASS" && bypassed;
-                LargeFormat::key (g, area.toFloat(), key, lit ? 1.0f : 0.0f, Console::Colours::palette ("orange"), true, 0.0f, 0.0f);
+                LargeFormat::key (g, area.toFloat(), juce::translate (key), lit ? 1.0f : 0.0f, Console::Colours::palette ("orange"), true, 0.0f, 0.0f);
             }
         }
 

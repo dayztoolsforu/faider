@@ -281,8 +281,10 @@ juce::String isolatedFolder (const juce::String& sourceName)
     return isolatedRoot().getChildFile (juce::String (slotOf (sourceName))).getFullPathName();
 }
 
-juce::String appLabel (const juce::String& sourceName)
+juce::String appLabel (const juce::String& sourceName, bool translated)
 {
+    if (isIsolated (sourceName) && translated)
+        return TRANS ("Isolated tab %1").replace ("%1", juce::String (slotOf (sourceName)));
     return isIsolated (sourceName) ? "Isolated tab " + juce::String (slotOf (sourceName))
                                    : juce::File (sourceName).getFileNameWithoutExtension();
 }
@@ -298,7 +300,7 @@ juce::String isolateTab (const Window& window, const juce::String& tabTitle, con
     auto uia = automation();
     if (uia == nullptr)
     {
-        error = "UI Automation isn't available.";
+        error = NEEDS_TRANS ("UI Automation isn't available.");   // (isolateTab's errors: shown only, translated there or here)
         return {};
     }
 
@@ -310,7 +312,7 @@ juce::String isolateTab (const Window& window, const juce::String& tabTitle, con
 
     if (tab == nullptr)
     {
-        error = "The tab \"" + tabTitle + "\" isn't open any more.";
+        error = TRANS ("The tab \"%1\" isn't open any more.").replace ("%1", tabTitle);
         return {};
     }
 
@@ -352,7 +354,7 @@ juce::String isolateTab (const Window& window, const juce::String& tabTitle, con
 
     if (! url.startsWithIgnoreCase ("http"))
     {
-        error = "Couldn't read the address of \"" + tabTitle + "\".";
+        error = TRANS ("Couldn't read the address of \"%1\".").replace ("%1", tabTitle);
         return {};
     }
 
@@ -367,7 +369,7 @@ juce::String isolateTab (const Window& window, const juce::String& tabTitle, con
 
     if (! launch (window.exePath, folder.getFullPathName(), url))
     {
-        error = "Couldn't start " + window.product + ".";
+        error = TRANS ("Couldn't start %1.").replace ("%1", window.product);
         return {};
     }
     return name;

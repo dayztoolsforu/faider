@@ -1,0 +1,2 @@
+language: Türkçe
+countries: tr

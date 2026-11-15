@@ -3,9 +3,19 @@
 #include "AudioEngine.h"
 #include "AudioEngineInternal.h"
 #include "VoiceChain.h"
+#include "EngineText.h"
 
 namespace
 {
+    // A plugin that wouldn't go in: said in English (the session's log keeps it so), translated
+    // where it's shown (AudioEngine::translateInsertError).
+    constexpr const char* noPluginIn = NEEDS_TRANS ("no VST3 plugin found in %1");
+    constexpr const char* pluginFailed = NEEDS_TRANS ("plugin failed to load");
+    constexpr const char* tooManyChannels = NEEDS_TRANS ("%1 needs more than %2 channels");
+    constexpr const char* noSuchInput = NEEDS_TRANS ("no such input");
+    constexpr const char* noSuchBus = NEEDS_TRANS ("no such bus");
+    constexpr const char* noSuchPath = NEEDS_TRANS ("no such path");
+
     // Where each index goes when the one at `removed` is taken out (-1: that one).
     std::function<int (int)> removedAt (int removed)
     {
@@ -529,7 +539,7 @@ std::unique_ptr<juce::AudioPluginInstance> AudioEngine::createPlugin (const juce
 
     if (types.isEmpty())
     {
-        error = "no VST3 plugin found in " + pluginPath;
+        error = juce::String (noPluginIn).replace ("%1", pluginPath);
         return nullptr;
     }
 
@@ -538,7 +548,7 @@ std::unique_ptr<juce::AudioPluginInstance> AudioEngine::createPlugin (const juce
     if (plugin == nullptr)
     {
         if (error.isEmpty())
-            error = "plugin failed to load";
+            error = pluginFailed;
         return nullptr;
     }
 
@@ -554,7 +564,7 @@ std::unique_ptr<juce::AudioPluginInstance> AudioEngine::createPlugin (const juce
 
     if (juce::jmax (plugin->getTotalNumInputChannels(), plugin->getTotalNumOutputChannels()) > pluginMaxChannels)
     {
-        error = plugin->getName() + " needs more than " + juce::String (pluginMaxChannels) + " channels";
+        error = juce::String (tooManyChannels).replace ("%2", juce::String (pluginMaxChannels)).replace ("%1", plugin->getName());
         return nullptr;
     }
 
@@ -648,10 +658,15 @@ void AudioEngine::swapInserts (std::vector<std::unique_ptr<juce::AudioPluginInst
     refreshLatency();   // (the racks follow)
 }
 
+juce::String AudioEngine::translateInsertError (const juce::String& error)
+{
+    return EngineText::translate (error, { noPluginIn, pluginFailed, tooManyChannels, noSuchInput, noSuchBus, noSuchPath });
+}
+
 juce::String AudioEngine::addInsert (int i, const juce::String& path)
 {
     if (! juce::isPositiveAndBelow (i, (int) strips.size()))
-        return "no such input";
+        return noSuchInput;
     auto& chain = strips[(size_t) i]->inserts;
     const auto error = addInsertTo (chain, "input " + strips[(size_t) i]->name, path);
     if (error.isEmpty())
@@ -670,7 +685,7 @@ void AudioEngine::removeInsert (int i, int slot)
 juce::String AudioEngine::addBusInsert (int i, const juce::String& path)
 {
     if (! juce::isPositiveAndBelow (i, (int) buses.size()))
-        return "no such bus";
+        return noSuchBus;
     auto& chain = buses[(size_t) i]->inserts;
     const auto error = addInsertTo (chain, "bus " + buses[(size_t) i]->name, path);
     if (error.isEmpty())
@@ -786,7 +801,7 @@ juce::String AudioEngine::addPathInsert (int busIndex, int pathIndex, const juce
 {
     if (! juce::isPositiveAndBelow (busIndex, (int) buses.size())
         || ! juce::isPositiveAndBelow (pathIndex, (int) buses[(size_t) busIndex]->paths.size()))
-        return "no such path";
+        return noSuchPath;
 
     auto& pair = *buses[(size_t) busIndex];
     return addInsertTo (pair.paths[(size_t) pathIndex]->inserts, "combinator " + pair.name + " / " + pair.paths[(size_t) pathIndex]->name, pluginPath);

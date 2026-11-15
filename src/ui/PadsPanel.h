@@ -44,10 +44,13 @@ public:
     juce::String hotkeyHolder (const juce::KeyPress& key, int exceptId) const;
 
     // Why the last key set wasn't taken ("ctrl + F1 is already the key for PAD 3: AIRHORN", or
-    // "... is taken by another app"); empty if it was.
+    // "... is taken by another app"); empty if it was. Translated, for the screen; ForLog: the
+    // same in English, for events.log.
     const juce::String& hotkeyRefusal() const { return refusal; }
+    const juce::String& hotkeyRefusalForLog() const { return refusalLog; }
 
     // Faider's own keys in its window (fixed): a global hotkey on one would take it from the window.
+    // (`name` is English, marked NEEDS_TRANS: translate it where it's shown.)
     struct FixedKey { const char* name; const char* shown; juce::StringArray keys; };
     static const std::vector<FixedKey>& fixedKeys();
 
@@ -80,7 +83,9 @@ private:
     void edited();   // a pad changed: redraw it and the editor
     void registerHotkeys();   // every pad's hotkey, as saved
     bool heldHere (const juce::KeyPress& key, int exceptId);   // hotkeyHolder has it: refused (and `refusal` says so)
-    juce::String refusal;
+    juce::String holderOf (const juce::KeyPress& key, int exceptId, bool translated) const;   // hotkeyHolder, in English or translated
+    void refuse (const juce::String& key);   // "... is taken by another app", both ways
+    juce::String refusal, refusalLog;
 
     GlobalHotkeys hotkeys;
     std::set<int> hotkeyWorks;   // pads (and 1000 + macros, 2000 + scenes) whose hotkey Windows accepted
@@ -91,12 +96,12 @@ private:
     MixerComponent& mixer;
     int bank = 0, selected = 0;
     juce::OwnedArray<juce::TextButton> bankButtons;
-    juce::TextButton stopAll { "ALL OFF" }, addStrip { "CREATE PADS CHANNEL" };
+    juce::TextButton stopAll { TRANS ("ALL OFF") }, addStrip { TRANS ("CREATE PADS CHANNEL") };
     std::unique_ptr<MacroEditor> macroEditor;
     std::unique_ptr<MacrosPage> macrosPage;   // holds macroEditor (goes first)
 
     // Where the pads play: the PADS strip, or into an input strip (through its plugins and sends).
-    juce::Label playIntoLabel { {}, "OUTPUT" };
+    juce::Label playIntoLabel { {}, TRANS ("OUTPUT") };
     juce::ComboBox playInto;
     juce::String playIntoShown;   // the strips it lists, to refill it when they change
     void fillPlayInto();

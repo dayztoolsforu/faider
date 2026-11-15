@@ -123,7 +123,7 @@ namespace SettingsUi
         std::function<int()> value;
         std::function<void (int)> onApply;
         juce::TextEditor editor;
-        Button applyKey { "Apply" };
+        Button applyKey { TRANS ("Apply") };   // (made with the field, after the language is loaded)
         int lookShown = -1;
     };
 

@@ -206,7 +206,7 @@ MainComponent::MainComponent()
 
     mixer = std::make_unique<MixerComponent> (engine);
     consoleDesk = ConsoleDesk::make (engine, *mixer);   // (the console on the Mixer page; Faider's mixer stays behind it for its tools)
-    tabs.addTab ("Mixer", juce::Colours::transparentBlack, consoleDesk.get(), false);
+    tabs.addTab (NEEDS_TRANS ("Mixer"), juce::Colours::transparentBlack, consoleDesk.get(), false);
     consoleSidebar = ConsoleDesk::makeSidebar (tabs, *consoleDesk);   // (the pages as cards down the left; the tab caps hide)
     addAndMakeVisible (*consoleSidebar);
     tabs.getTabbedButtonBar().setVisible (false);
@@ -215,15 +215,15 @@ MainComponent::MainComponent()
     if (const auto chosen = settings.getValue ("selectedChannel"); chosen.isNotEmpty())
         mixer->setSelected (chosen);
     consoleRouting = ConsoleDesk::makeRouting (*consoleDesk);
-    tabs.addTab ("Routing", juce::Colours::transparentBlack, consoleRouting.get(), false);
+    tabs.addTab (NEEDS_TRANS ("Routing"), juce::Colours::transparentBlack, consoleRouting.get(), false);
     // SETUP is not a page: it asks its questions in its own window (showSetup), from a first start,
     // and from FIND. The pages are the desk, routing and work.
     pads = std::make_unique<PadsPanel> (engine, *mixer);
     tape = std::make_unique<TapePanel> (engine, *mixer);
 
-    tools = std::make_unique<ToolsTab> (std::initializer_list<std::pair<juce::String, juce::Component*>> { { "Pads", pads.get() }, { "Tape", tape.get() } });
-    tabs.addTab ("Tools", juce::Colours::transparentBlack, tools.get(), false);
-    tabs.addTab ("Devices", juce::Colours::transparentBlack, &devicesPanel, false);
+    tools = std::make_unique<ToolsTab> (std::initializer_list<std::pair<juce::String, juce::Component*>> { { NEEDS_TRANS ("Pads"), pads.get() }, { NEEDS_TRANS ("Tape"), tape.get() } });
+    tabs.addTab (NEEDS_TRANS ("Tools"), juce::Colours::transparentBlack, tools.get(), false);
+    tabs.addTab (NEEDS_TRANS ("Devices"), juce::Colours::transparentBlack, &devicesPanel, false);
     devicesPanel.getTools().onDevicesChanged = [this] { sortDevices(); };
     // WINDOWS AUDIO (SETTINGS > AUDIO): audiodg's priority, read now and every 5 s (timerCallback).
     windowsAudio = AudioBoost::read();
@@ -252,17 +252,17 @@ MainComponent::MainComponent()
     zoomOut.onClick = [this] { stepZoom (-1); };
     zoomIn.onClick = [this] { stepZoom (1); };
     zoomReset.onClick = [this] { setZoom (1.0f); };
-    zoomOut.setTooltip ("Zoom out (Ctrl -)");
-    zoomIn.setTooltip ("Zoom in (Ctrl +)");
-    zoomReset.setTooltip ("Zoom 100% (Ctrl 0)");
-    findButton.setTooltip ("Search everything (Ctrl+K)");
+    zoomOut.setTooltip (TRANS ("Zoom out (Ctrl -)"));
+    zoomIn.setTooltip (TRANS ("Zoom in (Ctrl +)"));
+    zoomReset.setTooltip (TRANS ("Zoom 100% (Ctrl 0)"));
+    findButton.setTooltip (TRANS ("Search everything (Ctrl+K)"));
     findButton.onClick = [this] { openCommandPalette(); };
     health.onClick = [this] { tabs.setCurrentTabIndex (tabs.getTabNames().indexOf ("Devices")); };
     addAndMakeVisible (health);
-    miniButton.setTooltip ("Mini mixer: the outputs' faders in a small window (the tray icon opens it too)");
+    miniButton.setTooltip (TRANS ("Mini mixer: the outputs' faders in a small window (the tray icon opens it too)"));
     miniButton.onClick = [this] { toggleMini(); };
     addAndMakeVisible (miniButton);
-    historyButton.setTooltip ("Undo history (Ctrl+H)");
+    historyButton.setTooltip (TRANS ("Undo history (Ctrl+H)"));
     historyButton.onClick = [this] { showHistory (juce::PopupMenu::Options().withTargetComponent (historyButton)); };
     for (auto* b : { &zoomOut, &zoomReset, &zoomIn, &findButton, &historyButton })
     {
@@ -295,7 +295,8 @@ MainComponent::MainComponent()
                 if (strip->name == name)
                     engine.setRack (*strip, patch);
         };
-        history->addStep ([put, before] { put (before); }, [put, after = s.rack] { put (after); }, s.name + " rack");
+        history->addStep ([put, before] { put (before); }, [put, after = s.rack] { put (after); }, s.name + " rack",
+                          TRANS ("%1 rack").replace ("%1", s.name));
     };
     // Notices (Toasts.h) over everything in the window's corner: a channel clipping, a scene or a
     // macro (from whichever thread started it), and the ones added elsewhere (devices, undo).
@@ -307,7 +308,7 @@ MainComponent::MainComponent()
         juce::MessageManager::callAsync ([safe, index]
         {
             if (safe != nullptr && juce::isPositiveAndBelow (index, (int) safe->engine.getScenes().list.size()))
-                safe->toasts.show ("scene", "Scene", safe->engine.getScenes().list[(size_t) index].name);
+                safe->toasts.show ("scene", TRANS ("Scene"), safe->engine.getScenes().list[(size_t) index].name);
         });
     };
     engine.getMacros().onStarted = [safe = juce::Component::SafePointer<MainComponent> (this)] (int index)
@@ -315,7 +316,7 @@ MainComponent::MainComponent()
         juce::MessageManager::callAsync ([safe, index]
         {
             if (safe != nullptr && juce::isPositiveAndBelow (index, (int) safe->engine.getMacros().list.size()))
-                safe->toasts.show ("macro", "Macro", safe->engine.getMacros().list[(size_t) index].name);
+                safe->toasts.show ("macro", TRANS ("Macro"), safe->engine.getMacros().list[(size_t) index].name);
         });
     };
 
@@ -333,7 +334,7 @@ MainComponent::MainComponent()
     // Instant replay's hotkey, with the others; remembered in settings.
     tape->setReplayHotkey = [this] (const juce::String& key)
     {
-        const bool ok = pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 1, "SAVE INSTANT REPLAY", key, [this] { if (tape) tape->saveReplay(); }, {});
+        const bool ok = pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 1, NEEDS_TRANS ("SAVE INSTANT REPLAY"), key, [this] { if (tape) tape->saveReplay(); }, {});
         if (ok)
         {
             settings.setValue ("replayHotkey", key);
@@ -356,8 +357,8 @@ MainComponent::MainComponent()
         settings.setValue ("overlayPy", juce::roundToInt ((float) p.y * zoomNow));
         settings.saveIfNeeded();
     };
-    if (! pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 2, "SHOW / HIDE THE IN-GAME OVERLAY", "ctrl + shift + O", [this] { toggleOverlay(); }, {}))
-        logEvent ("overlay: " + pads->hotkeyRefusal() + " (open it from FIND)");
+    if (! pads->setExtraHotkey (PadsPanel::extraHotkeyBase + 2, NEEDS_TRANS ("SHOW / HIDE THE IN-GAME OVERLAY"), "ctrl + shift + O", [this] { toggleOverlay(); }, {}))
+        logEvent ("overlay: " + pads->hotkeyRefusalForLog() + " (open it from FIND)");
     if (settings.getBoolValue ("overlayShown"))
         toggleOverlay();
     // A first start: SETUP comes before anything else, a moment after the window is up.
@@ -374,7 +375,7 @@ MainComponent::MainComponent()
             if (safe->isShowing())
                 safe->showPreflight (true);
             else if (const auto checks = safe->preflightChecks(); std::any_of (checks.begin(), checks.end(), [] (auto& c) { return ! c.ok && ! c.advisory; }))
-                safe->toasts.show ("device", "Pre-flight", "Something in the setup needs a look (FIND: PRE-FLIGHT)");
+                safe->toasts.show ("device", TRANS ("Pre-flight"), TRANS ("Something in the setup needs a look (FIND: PRE-FLIGHT)"));
         });
     // First-run tips: the first time each page is shown, a tip about it in the corner (once each;
     // SETTINGS > GENERAL turns them off or shows them again). The Mixer's comes a moment after start.
@@ -447,7 +448,7 @@ void MainComponent::watchClipping()
                 continue;
             last = now;
             logEvent ("clip: " + s->name);
-            toasts.show ("clip", "Clipping", s->name);
+            toasts.show ("clip", TRANS ("Clipping"), s->name);
         }
 }
 
@@ -476,7 +477,7 @@ void MainComponent::watchMutedTalk()
             heard = 0;
             logEvent ("mic: " + s->name + " is cut, but you're talking");
             if (onNotify)
-                onNotify ("Your mic is cut", s->name + " is CUT. Press its CUT again to be heard.");
+                onNotify (TRANS ("Your mic is cut"), TRANS ("%1 is CUT. Press its CUT again to be heard.").replace ("%1", s->name));
         }
     }
 }
@@ -689,7 +690,7 @@ void MainComponent::checkClock()
         engine.switchInterface (next);
     }
     interfaceName = next;
-    toasts.show ("device", "Clock", engine.getClockName() + (engine.getClockDevice().isNotEmpty() ? ": " + engine.getClockDevice() : juce::String()));
+    toasts.show ("device", TRANS ("Clock"), juce::translate (engine.getClockName()) + (engine.getClockDevice().isNotEmpty() ? ": " + engine.getClockDevice() : juce::String()));
 }
 
 // An undo step for a strip or plugin just added (adding) or about to be removed. Undo and redo
@@ -759,7 +760,9 @@ void MainComponent::structureStep (const juce::String& kind, int index, int slot
     if (! adding)   // about to go: keep it now
         *saved = slot < 0 ? Session::saveStrip (engine, kind, index) : Session::saveInsert (engine, kind, index, slot);
     history->addStep (adding ? std::function<void()> (takeAway) : putBack, adding ? std::function<void()> (putBack) : takeAway,
-                      juce::String (adding ? "add " : "remove ") + (slot < 0 ? name : "a plugin on " + name));
+                      juce::String (adding ? "add " : "remove ") + (slot < 0 ? name : "a plugin on " + name),
+                      (adding ? (slot < 0 ? TRANS ("add %1") : TRANS ("add a plugin on %1"))
+                              : (slot < 0 ? TRANS ("remove %1") : TRANS ("remove a plugin on %1"))).replace ("%1", name));
 }
 
 // Ctrl+Z / Ctrl+Y (and the palette's UNDO, REDO): the step, logged, and a notice saying what it was.
@@ -768,11 +771,12 @@ void MainComponent::undoRedo (bool redo)
     if (history == nullptr)
         return;
     const auto labels = redo ? history->redoLabels() : history->undoLabels();
+    const auto shown = redo ? history->redoLabels (true) : history->undoLabels (true);   // (the log's in English)
     if (! (redo ? history->redo() : history->undo()))
         return;
     const auto what = labels.isEmpty() ? juce::String() : labels[labels.size() - 1];
     logEvent ((redo ? "redo: " : "undo: ") + what);
-    toasts.show ("undo", redo ? "Redo" : "Undo", what);
+    toasts.show ("undo", redo ? TRANS ("Redo") : TRANS ("Undo"), shown.isEmpty() ? juce::String() : shown[shown.size() - 1]);
 }
 
 // The HISTORY key (and Ctrl+H, and the palette): every step there is, what each did, newest at
@@ -781,17 +785,17 @@ void MainComponent::showHistory (juce::PopupMenu::Options where)
 {
     if (history == nullptr)
         return;
-    const auto undos = history->undoLabels(), redos = history->redoLabels();
+    const auto undos = history->undoLabels (true), redos = history->redoLabels (true);
     juce::PopupMenu menu;
-    menu.addSectionHeader ("REDO");
+    menu.addSectionHeader (TRANS ("REDO"));
     if (redos.isEmpty())
-        menu.addItem ("Nothing to redo", false, false, [] {});
+        menu.addItem (TRANS ("Nothing to redo"), false, false, [] {});
     for (int i = 0; i < redos.size(); ++i)   // the furthest away at the top, the next one just above NOW
         menu.addItem (redos[i], [this, steps = redos.size() - i] { for (int n = 0; n < steps; ++n) undoRedo (true); });
-    menu.addSectionHeader ("NOW");
-    menu.addSectionHeader ("UNDO");
+    menu.addSectionHeader (TRANS ("NOW"));
+    menu.addSectionHeader (TRANS ("UNDO"));
     if (undos.isEmpty())
-        menu.addItem ("Nothing to undo", false, false, [] {});
+        menu.addItem (TRANS ("Nothing to undo"), false, false, [] {});
     for (int i = undos.size(); --i >= 0;)    // the latest first
         menu.addItem (undos[i], [this, steps = undos.size() - i] { for (int n = 0; n < steps; ++n) undoRedo (false); });
     menu.showMenuAsync (where);
@@ -967,7 +971,7 @@ void MainComponent::showMini (std::optional<juce::Point<int>> near)
     struct MiniWindow : juce::DocumentWindow
     {
         MiniWindow (MainComponent& o, std::optional<juce::Point<int>> near)
-            : juce::DocumentWindow (juce::String (Product::name) + " mini", Console::Colours::panel(), juce::DocumentWindow::closeButton), owner (o)
+            : juce::DocumentWindow (TRANS ("%1 mini").replace ("%1", Product::name), Console::Colours::panel(), juce::DocumentWindow::closeButton), owner (o)
         {
             setUsingNativeTitleBar (true);
             const bool pinned = o.settings.getBoolValue ("miniPinned", true);
@@ -1016,7 +1020,7 @@ void MainComponent::addSceneItems (juce::PopupMenu& menu)
     auto& scenes = engine.getScenes();
     if (scenes.list.empty())
         return;
-    menu.addSectionHeader ("SCENE RECALL");
+    menu.addSectionHeader (TRANS ("SCENE RECALL"));
     for (int i = 0; i < (int) scenes.list.size(); ++i)
         menu.addItem (scenes.list[(size_t) i].name, true, i == scenes.active, [this, i] { engine.getScenes().recall (i); });
     menu.addSeparator();
@@ -1053,11 +1057,11 @@ void MainComponent::paintListBoxItem (int row, juce::Graphics& g, int width, int
 // A device's row in the Devices list, one string per column (DevicesTab::columns).
 juce::StringArray MainComponent::deviceCells (const EndpointInfo& e) const
 {
-    const auto kind = e.api == "ASIO" ? juce::String ("ASIO") : juce::String (e.isOutput ? "OUT" : "IN");
+    const auto kind = e.api == "ASIO" ? juce::String ("ASIO") : (e.isOutput ? TRANS ("OUT") : TRANS ("IN"));
     const auto format = e.channels > 0 ? juce::String (e.channels) + "ch  " + juce::String (e.sampleRate) + " Hz" : juce::String();
     const auto label = e.api == "ASIO" ? (deviceAlias (e.name).isNotEmpty() ? deviceAlias (e.name) : e.name) : endpointDisplayName (e);
-    const auto defaults = juce::String (e.isDefault ? "  DEFAULT" : "") + (e.isDefaultComms ? "  CALLS" : "");
-    return { kind, label, e.adapter, format, engine.isDeviceDisabled (e.name) ? juce::String ("off in ") + Product::name : endpointStateName (e.state),
+    const auto defaults = (e.isDefault ? "  " + TRANS ("DEFAULT") : juce::String()) + (e.isDefaultComms ? "  " + TRANS ("CALLS") : juce::String());
+    return { kind, label, e.adapter, format, engine.isDeviceDisabled (e.name) ? TRANS ("off in %1").replace ("%1", Product::name) : juce::translate (endpointStateName (e.state)),
              classifyEndpoint (e).joinIntoString (",") + defaults };
 }
 
@@ -1122,9 +1126,9 @@ void MainComponent::endpointsChanged (const juce::Array<EndpointInfo>& now, cons
         if (juce::Time::getMillisecondCounter() - openedAt < 8000)
             continue;
         if (event.startsWith ("added: "))
-            toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), "Connected");
+            toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), TRANS ("Connected"));
         else if (event.startsWith ("removed: "))
-            toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), "Disconnected");
+            toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), TRANS ("Disconnected"));
         else if (event.startsWith ("Windows default "))
             toasts.show ("device", event.upToFirstOccurrenceOf (": ", false, false), event.fromFirstOccurrenceOf (": ", false, false));
         else if (event.contains (" -> "))
@@ -1175,7 +1179,7 @@ void MainComponent::checkAlerts()
             else if (seconds == 0 && silentFor[name] >= bus->silenceAlert)
                 logEvent ("alert: " + name + " has sound again");
             if (seconds >= bus->silenceAlert)
-                now.add (name + " SILENT");
+                now.add (TRANS ("%1 SILENT").replace ("%1", name));   // (the tray's tooltip only: the log has its own line)
         }
 
         if (bus->clipAlert && ! bus->safeOn.load())
@@ -1189,7 +1193,7 @@ void MainComponent::checkAlerts()
             else if (clipShown[name] > 0)
                 --clipShown[name];
             if (clipShown[name] > 0)
-                now.add (name + " CLIPPING");
+                now.add (TRANS ("%1 CLIPPING").replace ("%1", name));
         }
     }
     silentFor = std::move (silent);
@@ -1204,12 +1208,12 @@ void MainComponent::checkAlerts()
     if (recordStoppedShown > 0)
     {
         --recordStoppedShown;
-        now.add ("RECORDING STOPPED, NO ROOM");
+        now.add (TRANS ("RECORDING STOPPED, NO ROOM"));
     }
 
     // The master stopped (unplugged, its driver taken or failed): nothing plays until it's back.
     if (engine.isInterfaceDown())
-        now.insert (0, "INTERFACE DOWN");
+        now.insert (0, TRANS ("INTERFACE DOWN"));
     alert = now.joinIntoString (", ");
 }
 
@@ -1279,7 +1283,7 @@ void MainComponent::timerCallback()
 void MainComponent::addUpdateItems (juce::PopupMenu& menu)
 {
     if (newVersion.isNotEmpty())
-        menu.addItem ("Get " + juce::String (Product::name) + " " + newVersion + "...", [this] { openRelease(); });
+        menu.addItem (TRANS ("Get %1 %2...").replace ("%1", Product::name).replace ("%2", newVersion), [this] { openRelease(); });
 }
 
 // The daily check, when it's due (UpdateCheck::isDue): at most once a day, while Faider runs too.
@@ -1321,29 +1325,29 @@ void MainComponent::updateChecked (const UpdateCheck::Result& r, bool asked)
     {
         logEvent ("update check: " + r.error);
         if (asked)
-            toasts.show ("update", "Couldn't check for updates", r.error);
+            toasts.show ("update", TRANS ("Couldn't check for updates"), r.errorShown);
         return;
     }
     if (! UpdateCheck::isNewer (r.version, current))
     {
         logEvent ("update check: " + current + " is the newest");
         if (asked)
-            toasts.show ("update", "Up to date", juce::String (Product::name) + " " + current + " is the newest version");
+            toasts.show ("update", TRANS ("Up to date"), TRANS ("%1 %2 is the newest version").replace ("%1", Product::name).replace ("%2", current));
         return;
     }
     newVersion = r.version;
     newVersionUrl = r.url;
-    const auto title = juce::String (Product::name) + " " + newVersion + " is out";
-    logEvent ("update check: " + title + " (" + newVersionUrl + ")");
+    logEvent ("update check: " + juce::String (Product::name) + " " + newVersion + " is out (" + newVersionUrl + ")");
+    const auto title = TRANS ("%1 %2 is out").replace ("%1", Product::name).replace ("%2", newVersion);   // (on screen; the log's is English)
     if (onNotify)
-        onNotify (title, "You have " + current + ". Right-click the tray icon > Get " + Product::name + " " + newVersion + "...");
+        onNotify (title, TRANS ("You have %1. Right-click the tray icon > Get %2 %3...").replace ("%1", current).replace ("%2", Product::name).replace ("%3", newVersion));
     if (asked)
-        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, title.toUpperCase(), "You have " + current + ". Open its release page?",
-                                            "OPEN THE PAGE", "LATER", nullptr,
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, title.toUpperCase(), TRANS ("You have %1. Open its release page?").replace ("%1", current),
+                                            TRANS ("OPEN THE PAGE"), TRANS ("LATER"), nullptr,
                                             juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
                                             { if (result == 1 && safe != nullptr) safe->openRelease(); }));
     else
-        toasts.show ("update", title, "FIND: GET " + juce::String (Product::nameUpper) + " " + newVersion);
+        toasts.show ("update", title, TRANS ("FIND: GET %1 %2").replace ("%1", Product::nameUpper).replace ("%2", newVersion));
 }
 
 void MainComponent::openRelease()
@@ -1357,7 +1361,7 @@ void MainComponent::openRelease()
 void MainComponent::saveProblemReport()
 {
     const auto name = juce::String (Product::name) + " problem report " + juce::Time::getCurrentTime().formatted ("%Y-%m-%d") + ".zip";
-    chooser = std::make_unique<juce::FileChooser> ("Save a problem report", juce::File::getSpecialLocation (juce::File::userDesktopDirectory).getChildFile (name), "*.zip");
+    chooser = std::make_unique<juce::FileChooser> (TRANS ("Save a problem report"), juce::File::getSpecialLocation (juce::File::userDesktopDirectory).getChildFile (name), "*.zip");
     chooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting, [this] (const juce::FileChooser& fc)
     {
         if (fc.getResult() == juce::File())
@@ -1386,7 +1390,7 @@ void MainComponent::saveProblemReport()
         if (! written)
         {
             logEvent ("problem report: couldn't write " + file.getFullPathName());
-            toasts.show ("device", "Problem report", "Couldn't write " + file.getFileName());
+            toasts.show ("device", TRANS ("Problem report"), TRANS ("Couldn't write %1").replace ("%1", file.getFileName()));
             return;
         }
         logEvent ("problem report: saved as " + file.getFullPathName() + " (" + (included.isEmpty() ? juce::String ("versions only") : included.joinIntoString (", ") + ", versions") + ")");
@@ -1491,18 +1495,18 @@ void MainComponent::writeLogLine (const LogQueue::Line& logged)
 void MainComponent::showTip (const juce::String& page)
 {
     static const std::pair<const char*, const char*> tips[] {
-        { "Mixer",    "COMPACT in the sidebar folds the strips to their name bars and faders. Left/right selects a channel, M cuts it, S solos it, up/down moves its fader." },
-        { "Routing",  "Click one block, then another, to route between them. Click again, or Esc, to let go." },
-        { "Tools",    "Pads play into the PADS channel. Give pads, macros and scenes hotkeys in SETTINGS > HOTKEYS." },
-        { "Devices",  "Each device's latency and drops are listed under STREAMS; the light in the top bar sums them up." },
-        { "Settings", "FIND (Ctrl+K) reaches every setting and action by name. HISTORY (Ctrl+H) goes back to any step." },
-    };
+        { "Mixer",    NEEDS_TRANS ("COMPACT in the sidebar folds the strips to their name bars and faders. Left/right selects a channel, M cuts it, S solos it, up/down moves its fader.") },
+        { "Routing",  NEEDS_TRANS ("Click one block, then another, to route between them. Click again, or Esc, to let go.") },
+        { "Tools",    NEEDS_TRANS ("Pads play into the PADS channel. Give pads, macros and scenes hotkeys in SETTINGS > HOTKEYS.") },
+        { "Devices",  NEEDS_TRANS ("Each device's latency and drops are listed under STREAMS; the light in the top bar sums them up.") },
+        { "Settings", NEEDS_TRANS ("FIND (Ctrl+K) reaches every setting and action by name. HISTORY (Ctrl+H) goes back to any step.") },
+    };   // (the page names are identifiers: tipSeen_<page>; the texts are translated when shown)
     if (! settings.getBoolValue ("tips", true) || settings.getBoolValue ("tipSeen_" + page))
         return;
     for (auto& [name, text] : tips)
         if (page == name)
         {
-            toasts.show ("tip", "Tip: " + page, text);
+            toasts.show ("tip", TRANS ("Tip: %1").replace ("%1", juce::translate (page)), juce::translate (text));
             settings.setValue ("tipSeen_" + page, true);
             settings.saveIfNeeded();
         }

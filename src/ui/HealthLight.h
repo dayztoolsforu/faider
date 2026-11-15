@@ -58,15 +58,17 @@ private:
         const bool running = engine.getSampleRate() > 0.0;
         const int next = ! running || (badAt != 0 && now - badAt < 10000) ? 2
                        : stats.loadPercent > 70.0f || (roughAt != 0 && now - roughAt < 10000) ? 1 : 0;
-        const auto nextText = running ? juce::String (juce::roundToInt (stats.loadPercent)) + "%" : juce::String ("OFF");
-        const char* tips[] { "Audio is fine", "Audio is working hard, or a device's buffer ran short or over just now",
-                             "Audio glitched just now (or isn't running)" };
+        const auto nextText = running ? juce::String (juce::roundToInt (stats.loadPercent)) + "%" : TRANS ("OFF");
+        const juce::String tips[] { TRANS ("Audio is fine"), TRANS ("Audio is working hard, or a device's buffer ran short or over just now"),
+                                    TRANS ("Audio glitched just now (or isn't running)") };
         if (next != state || nextText != text || next == 2)
         {
             state = next;
             text = nextText;
-            setTooltip (juce::String (tips[state]) + ". Load " + juce::String (juce::roundToInt (stats.loadPercent)) + "% (peak "
-                        + juce::String (juce::roundToInt (stats.peakLoadPercent)) + "%). Click for the streams.");
+            setTooltip (TRANS ("%1. Load %2% (peak %3%). Click for the streams.")
+                            .replace ("%2", juce::String (juce::roundToInt (stats.loadPercent)))
+                            .replace ("%3", juce::String (juce::roundToInt (stats.peakLoadPercent)))
+                            .replace ("%1", tips[state]));   // (%1 last: it's text)
             repaint();
         }
     }

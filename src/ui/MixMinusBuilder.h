@@ -19,7 +19,7 @@ public:
     {
         juce::DialogWindow::LaunchOptions o;
         o.content.setOwned (new MixMinusBuilder (engine, std::move (built)));
-        o.dialogTitle = "Mix-minus and stems";
+        o.dialogTitle = TRANS ("Mix-minus and stems");
         o.dialogBackgroundColour = Console::Colours::panel();
         o.useNativeTitleBar = true;
         o.resizable = false;
@@ -43,13 +43,13 @@ public:
             auto* row = rows.add (new Row());
             row->name = s->name;
             ProStrip::styleKey (row->minus);
-            row->minus.setButtonText ("MINUS");
-            row->minus.setTooltip ("Make " + s->name + " a mix-minus: the main mix without them, for their call");
+            row->minus.setButtonText (TRANS ("MINUS"));
+            row->minus.setTooltip (TRANS ("Make %1 a mix-minus: the main mix without them, for their call").replace ("%1", s->name));
             ProStrip::styleKey (row->stem);
             row->stem.setClickingTogglesState (false);
-            row->stem.onClick = [row] { row->stemKind = (row->stemKind + 1) % 4; row->stem.setButtonText (stemNames[row->stemKind]); };
-            row->stem.setButtonText (stemNames[0]);
-            row->stem.setTooltip ("Which stem it goes to (an output each, to record apart)");
+            row->stem.onClick = [row] { row->stemKind = (row->stemKind + 1) % 4; row->stem.setButtonText (juce::translate (stemNames[row->stemKind])); };
+            row->stem.setButtonText (juce::translate (stemNames[0]));
+            row->stem.setTooltip (TRANS ("Which stem it goes to (an output each, to record apart)"));
             addAndMakeVisible (row->minus);
             addAndMakeVisible (row->stem);
         }
@@ -66,10 +66,10 @@ public:
         g.fillAll (t.panel);
         g.setColour (t.legend);
         g.setFont (Console::legendFont (Console::Type::display));
-        g.drawText ("MIX-MINUS AND STEMS", getLocalBounds().reduced (12).removeFromTop (26), juce::Justification::centredLeft);
+        g.drawFittedText (TRANS ("MIX-MINUS AND STEMS"), getLocalBounds().reduced (12).removeFromTop (26), juce::Justification::centredLeft, 1, 0.7f);
         g.setFont (Console::legendFont (Console::Type::tag));
         g.setColour (t.legendDim);
-        g.drawText ("MAIN MIX", 12, 44, 80, 22, juce::Justification::centredLeft);
+        g.drawFittedText (TRANS ("MAIN MIX"), 12, 44, 80, 22, juce::Justification::centredLeft, 1, 0.7f);
         for (auto* r : rows)
         {
             g.setColour (t.legend);
@@ -99,7 +99,7 @@ private:
         int stemKind = 0;
         juce::Rectangle<int> area;
     };
-    static inline const char* stemNames[] = { "NO STEM", "VOICE", "MUSIC", "GAME" };
+    static inline const char* stemNames[] = { NEEDS_TRANS ("NO STEM"), NEEDS_TRANS ("VOICE"), NEEDS_TRANS ("MUSIC"), NEEDS_TRANS ("GAME") };   // (English: the outputs are named STEM <kind>; the keys show them translated)
 
     void buildIt()
     {
@@ -139,5 +139,5 @@ private:
     std::function<void()> built;
     juce::ComboBox mainPick;
     juce::OwnedArray<Row> rows;
-    juce::TextButton build { "BUILD" };
+    juce::TextButton build { TRANS ("BUILD") };
 };

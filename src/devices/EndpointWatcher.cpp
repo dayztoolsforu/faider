@@ -348,11 +348,11 @@ juce::String endpointStateName (int state)
 {
     switch (state)
     {
-        case 1:  return "active";
-        case 2:  return "disabled";
-        case 4:  return "not present";
-        case 8:  return "unplugged";
-        default: return "gone";
+        case 1:  return NEEDS_TRANS ("active");   // (English: the log; translated where the DEVICES list shows it)
+        case 2:  return NEEDS_TRANS ("disabled");
+        case 4:  return NEEDS_TRANS ("not present");
+        case 8:  return NEEDS_TRANS ("unplugged");
+        default: return NEEDS_TRANS ("gone");
     }
 }
 

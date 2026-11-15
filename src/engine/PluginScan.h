@@ -34,6 +34,10 @@ namespace PluginScan
     void setTestTime (int seconds);
     int testTime();
 
+    // A reason (or test's answer), English as plugins.xml and the event log keep it, in the
+    // interface's language for the screen.
+    juce::String translateReason (const juce::String& reason);
+
     // Forgets a result, so the plugin is tested again next time.
     void forget (const juce::String& path);
 }

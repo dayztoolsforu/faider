@@ -513,7 +513,7 @@ public:
             return startRecording (Recorder::Kind::input, i, name, recorder.folder, error);
         if (masters.empty())
         {
-            error = "NO OUTPUT";
+            error = TRANS ("NO OUTPUT");   // (shown only: RECORD FAILED)
             return {};
         }
         return startRecording (Recorder::Kind::output, 0, masters.front()->name, recorder.folder, error);
@@ -673,8 +673,10 @@ public:
 
     // What would make sound heard twice or put a call into its own mic: Windows' default speaker
     // being a cable Faider feeds as apps' mic, and an app channel sent to an output you listen
-    // to (the app also plays on its own device). One line each; empty if none.
-    juce::StringArray findDoubling() const;
+    // to (the app also plays on its own device). One line each; empty if none. English (the log,
+    // and PRE-FLIGHT finds the first kind by its words) unless `translated`, for the screen;
+    // `withDefaultSpeaker` false leaves the first kind out.
+    juce::StringArray findDoubling (bool translated = false, bool withDefaultSpeaker = true) const;
 
     const std::vector<std::unique_ptr<Strip>>& getStrips() const { return strips; }
     const std::vector<std::unique_ptr<Strip>>& getBuses() const  { return buses; }
@@ -682,6 +684,9 @@ public:
 
     // pluginPath: a .vst3 bundle. Returns an error message, or empty on success.
     juce::String addInsert (int strip, const juce::String& pluginPath);
+    // Those errors (and addBusInsert's, addPathInsert's) are English, as the session's log keeps
+    // them: this is one in the interface's language, for a message on screen.
+    static juce::String translateInsertError (const juce::String& error);
     void removeInsert (int strip, int slot);
     juce::String addBusInsert (int pair, const juce::String& pluginPath);
     void removeBusInsert (int pair, int slot);

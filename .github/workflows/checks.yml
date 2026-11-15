@@ -48,6 +48,13 @@ jobs:
       - name: Check the committed website is up to date
         run: git diff --exit-code docs/index.html docs/manual.html docs/CREDITS.html
 
+      # The interface's translations (assets/i18n) against the code: every TRANS text in each, none
+      # left over, each translated, its %1, %2... kept.
+      - name: Check the translations
+        run: |
+          python tools/translations.py
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
       # JUCE's source is kept between runs, keyed on the tag CMakeLists.txt asks for, so it isn't
       # cloned every time. On a miss the configure clones it as usual and it is kept for the next run.
       - name: Read the JUCE version
@@ -90,7 +97,7 @@ jobs:
       - name: Run the checks
         run: >-
           powershell -ExecutionPolicy Bypass -File tools\run-tests.ps1
-          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest,UpdateCheckTest,AudioBoostTest
+          -Tests MeterTest,PadsTest,TapeTest,NoiseReducerTest,VoiceChainTest,TriggerTest,RecorderTest,BuffersTest,ThemeTest,LookRenderTest,SessionTest,UpdateCheckTest,AudioBoostTest,TranslationTest
 
       # The installer is built here too, so a mistake in installer/Faider.iss or the script that
       # runs it shows before a release. It packs the build above, which has no ASIO: a CI check,

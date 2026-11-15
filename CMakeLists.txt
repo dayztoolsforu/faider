@@ -234,6 +234,17 @@ target_link_libraries(AudioBoostTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# The interface's translations: each built-in table loads and translates (see tests/TranslationTest.cpp).
+juce_add_console_app(TranslationTest PRODUCT_NAME "TranslationTest")
+target_sources(TranslationTest PRIVATE tests/TranslationTest.cpp)
+target_compile_definitions(TranslationTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_link_libraries(TranslationTest
+    PRIVATE
+        FaiderAssets
+        juce::juce_data_structures
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # Diagnostic: how Windows answers opening a playback device (see tests/WasapiProbe.cpp).
 add_executable(WasapiProbe tests/WasapiProbe.cpp)
 target_link_libraries(WasapiProbe PRIVATE ole32)
@@ -332,7 +343,7 @@ add_subdirectory(console)
 
 if(MSVC AND FAIDER_WARNINGS_AS_ERRORS)
     foreach(_target Faider faider_core FaiderTestDelay MeterTest PadsTest TapeTest NoiseReducerTest VoiceChainTest
-                    DefaultDeviceTest TriggerTest UpdateCheckTest AudioBoostTest WasapiProbe JuceWasapiProbe
+                    DefaultDeviceTest TriggerTest UpdateCheckTest AudioBoostTest TranslationTest WasapiProbe JuceWasapiProbe
                     PluginScanTest RecorderTest SessionTest AppCaptureTest BuffersTest ThemeTest LookRenderTest)
         target_compile_options(${_target} PRIVATE /WX)
     endforeach()

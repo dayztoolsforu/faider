@@ -301,11 +301,12 @@ diese Karten (in SIMPLE nur **ADD CHANNEL** und **ADD APP**):
 | | **ADD APP** | Listet die Programme auf, die gerade Klang abspielen, dann unter **NOT PLAYING YET** die laufenden mit einem Fenster, die still sind. Wähle eines, um ihm einen Kanal zu geben; eines, das nicht spielt, wird von dem Moment an abgegriffen, in dem es spielt |
 | | **ADD BUS** | Ein Bus oder ein Combinator (zu Beginn zwei Pfade) |
 | | **PLUGINS** | Schiebt das Plugin-Panel unter den Strips hoch (siehe [9](#9-plugins)) |
+| | **COMPACT** | Faltet jeden Strip auf seine Namensleiste und seinen Fader-Bereich zusammen (Pan, SOLO, CUT, SEL, der Fader und seine Anzeige), mit dem Pegelmesser des Strips neben der Skala des Faders; das Pult schrumpft passend und springt nach oben. Leuchtet, solange es kompakt ist; ein weiterer Klick bringt die ganzen Strips zurück. Auch **COMPACT DESK** / **FULL DESK** in FIND |
 | **SELECT** | **AUTO** | Das Berühren eines beliebigen Reglers an einem Strip wählt diesen Strip aus |
 | | **FOLLOW** | Das Pult gleitet zum gewählten Strip, auch wenn er woanders gewählt wird (FIND, ein Hotkey) |
-| **SECTIONS** | HEADER … FADER | Die Bereiche des Strips. Leuchtende sind auf dem Bildschirm. Klicke auf einen, um dorthin zu gleiten |
+| **SECTIONS** | HEADER … FADER | Die Bereiche des Strips (bei COMPACT nur NAME und FADER). Leuchtende sind auf dem Bildschirm. Klicke auf einen, um dorthin zu gleiten |
 
-Die Wahl bei SELECT wird gespeichert. Wo die Kanal-Pegelmesser messen (**IN**, **PRE** oder **POST**), stellst du unter
+Die Wahl bei SELECT und COMPACT wird gespeichert. Wo die Kanal-Pegelmesser messen (**IN**, **PRE** oder **POST**), stellst du unter
 **SETTINGS > Audio > Channel meter point** ein.
 
 <a id="the-top-bar"></a>

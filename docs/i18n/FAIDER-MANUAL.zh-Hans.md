@@ -237,11 +237,12 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 *
 | | **ADD APP** | 列出现在正在发声的程序，然后在 **NOT PLAYING YET** 下列出正在运行、带有窗口但没有发声的程序。选一个，就会给它一个通道；尚未发声的程序会从它开始发声的那一刻起被捕获 |
 | | **ADD BUS** | 一条总线，或一个组合器(起始为两条路径) |
 | | **PLUGINS** | 把插件面板从通道条下方滑出(见 [9](#9-plugins)) |
+| | **COMPACT** | 把每条通道条折叠成只剩名称栏和推子部分(声像、SOLO、CUT、SEL、推子及其读数)，并在推子刻度旁显示该通道条的电平表；调音台随之变矮并回到顶部。紧凑时亮起；再点一次恢复完整的通道条。FIND 中的 **COMPACT DESK** / **FULL DESK** 也一样 |
 | **SELECT** | **AUTO** | 触碰通道条上的任何控件都会选中该通道条 |
 | | **FOLLOW** | 调音台平滑滚动到所选通道条，在别处选中时(FIND、快捷键)也一样 |
-| **SECTIONS** | HEADER … FADER | 通道条的各个部分。亮着的就是屏幕上显示的。点击其一可滑动过去 |
+| **SECTIONS** | HEADER … FADER | 通道条的各个部分(COMPACT 时只有 NAME 和 FADER)。亮着的就是屏幕上显示的。点击其一可滑动过去 |
 
-SELECT 的选择会被记住。通道电平表的测量位置(**IN**、**PRE** 或 **POST**)在 **SETTINGS > Audio > Channel meter point** 中设置。
+SELECT 和 COMPACT 的选择会被记住。通道电平表的测量位置(**IN**、**PRE** 或 **POST**)在 **SETTINGS > Audio > Channel meter point** 中设置。
 
 <a id="the-top-bar"></a>
 

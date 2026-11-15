@@ -308,11 +308,12 @@ aparecendo, a barra lateral também tem estes cartões (no SIMPLE, só **ADD CHA
 | | **ADD APP** | Lista os programas que estão tocando som agora e depois, em **NOT PLAYING YET**, os que estão em execução com uma janela e em silêncio. Escolha um para dar um canal a ele; um que não está tocando é capturado a partir do momento em que tocar |
 | | **ADD BUS** | Um bus, ou um combinador (dois caminhos para começar) |
 | | **PLUGINS** | Sobe o painel de plugins sob os strips (veja [9](#9-plugins)) |
+| | **COMPACT** | Recolhe cada strip à sua barra de nome e à sua seção de fader (pan, SOLO, CUT, SEL, o fader e sua leitura), com o medidor de nível do strip ao lado da escala do fader; a mesa encolhe e volta ao topo. Acesa enquanto está compacta; clique de novo para os strips inteiros. Também **COMPACT DESK** / **FULL DESK** no FIND |
 | **SELECT** | **AUTO** | Tocar em qualquer controle de um strip seleciona esse strip |
 | | **FOLLOW** | A mesa desliza até o strip selecionado, também quando ele é escolhido em outro lugar (FIND, uma tecla de atalho) |
-| **SECTIONS** | HEADER … FADER | As seções do strip. As acesas estão na tela. Clique em uma para deslizar até ela |
+| **SECTIONS** | HEADER … FADER | As seções do strip (com COMPACT, só NAME e FADER). As acesas estão na tela. Clique em uma para deslizar até ela |
 
-As escolhas de SELECT são lembradas. Onde os medidores dos canais leem (**IN**, **PRE** ou **POST**) é definido em
+As escolhas de SELECT e COMPACT são lembradas. Onde os medidores dos canais leem (**IN**, **PRE** ou **POST**) é definido em
 **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

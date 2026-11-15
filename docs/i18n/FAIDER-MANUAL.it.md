@@ -311,11 +311,12 @@ Mixer, la barra laterale ha anche queste schede (in SIMPLE, solo **ADD CHANNEL**
 | | **ADD APP** | Elenca i programmi che stanno suonando adesso, poi, sotto **NOT PLAYING YET**, quelli in esecuzione con una finestra che sono in silenzio. Sceglierne uno gli dà un canale; uno che non sta suonando viene catturato dal momento in cui suona |
 | | **ADD BUS** | Un bus, o un combinatore (due percorsi per cominciare) |
 | | **PLUGINS** | Fa salire il pannello dei plugin sotto le strip (vedi [9](#9-plugins)) |
+| | **COMPACT** | Ripiega ogni strip sulla sua barra del nome e sulla sezione del fader (pan, SOLO, CUT, SEL, il fader e la sua lettura), con il meter di livello della strip accanto alla scala del fader; la console si accorcia e torna in cima. Acceso finché è compatta; fai di nuovo clic per le strip intere. Anche **COMPACT DESK** / **FULL DESK** in FIND |
 | **SELECT** | **AUTO** | Toccare un controllo qualsiasi di una strip seleziona quella strip |
 | | **FOLLOW** | La console scorre fino alla strip selezionata, anche quando viene scelta altrove (FIND, un tasto rapido) |
-| **SECTIONS** | HEADER … FADER | Le sezioni della strip. Quelle accese sono sullo schermo. Fai clic su una per scorrere fino a lei |
+| **SECTIONS** | HEADER … FADER | Le sezioni della strip (con COMPACT, solo NAME e FADER). Quelle accese sono sullo schermo. Fai clic su una per scorrere fino a lei |
 
-Le scelte di SELECT vengono ricordate. Dove leggono i meter dei canali (**IN**, **PRE** o **POST**)
+Le scelte di SELECT e COMPACT vengono ricordate. Dove leggono i meter dei canali (**IN**, **PRE** o **POST**)
 si imposta in **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

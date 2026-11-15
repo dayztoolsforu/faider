@@ -300,11 +300,12 @@ bulunur (SIMPLE'da yalnızca **ADD CHANNEL** ve **ADD APP**):
 | | **ADD APP** | Şu anda ses çalan programları, sonra **NOT PLAYING YET** altında, çalışan ve penceresi olan ama sessiz olanları listeler. Birini seçmek ona bir kanal verir; çalmayan bir program, çalmaya başladığı andan itibaren yakalanır |
 | | **ADD BUS** | Bir bus ya da bir kombinatör (başlangıçta iki yol) |
 | | **PLUGINS** | Eklenti panelini şeritlerin altından yukarı kaydırır (bkz. [9](#9-plugins)) |
+| | **COMPACT** | Her şeridi ad çubuğuna ve fader bölümüne (pan, SOLO, CUT, SEL, fader ve göstergesi) indirir; şeridin seviye ölçeri faderin ölçeğinin yanında görünür. Konsol buna göre kısalır ve en üste döner. Kompaktken yanar; tam şeritler için yeniden tıkla. FIND'da **COMPACT DESK** / **FULL DESK** de aynısını yapar |
 | **SELECT** | **AUTO** | Bir şeritteki herhangi bir kontrole dokunmak o şeridi seçer |
 | | **FOLLOW** | Konsol seçili şeride kayar, şerit başka yerden seçildiğinde de (FIND, bir kısayol) |
-| **SECTIONS** | HEADER … FADER | Şeridin bölümleri. Yanık olanlar ekrandadır. Birine kaymak için tıkla |
+| **SECTIONS** | HEADER … FADER | Şeridin bölümleri (COMPACT iken yalnızca NAME ve FADER). Yanık olanlar ekrandadır. Birine kaymak için tıkla |
 
-SELECT seçimleri hatırlanır. Kanal ölçerlerinin nereyi okuduğu (**IN**, **PRE** ya da **POST**)
+SELECT ve COMPACT seçimleri hatırlanır. Kanal ölçerlerinin nereyi okuduğu (**IN**, **PRE** ya da **POST**)
 **SETTINGS > Audio > Channel meter point** içinden ayarlanır.
 
 <a id="the-top-bar"></a>

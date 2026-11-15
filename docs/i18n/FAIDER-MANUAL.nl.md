@@ -300,11 +300,12 @@ deze kaarten (in SIMPLE alleen **ADD CHANNEL** en **ADD APP**):
 | | **ADD APP** | Toont de programma's die nu geluid afspelen, en daarna, onder **NOT PLAYING YET**, de draaiende programma's met een venster die stil zijn. Kies er een om het een kanaal te geven; een programma dat niet speelt, wordt opgevangen vanaf het moment dat het dat wel doet |
 | | **ADD BUS** | Een bus, of een combinator (om mee te beginnen twee paden) |
 | | **PLUGINS** | Schuift het pluginpaneel omhoog onder de strips (zie [9](#9-plugins)) |
+| | **COMPACT** | Vouwt elke strip op tot zijn naambalk en zijn fadersectie (pan, SOLO, CUT, SEL, de fader en zijn uitlezing), met de niveaumeter van de strip naast de schaal van de fader; de tafel krimpt mee en gaat naar boven. Licht op zolang de tafel compact is; klik nog eens voor de hele strips. Ook **COMPACT DESK** / **FULL DESK** in FIND |
 | **SELECT** | **AUTO** | Een willekeurige knop op een strip aanraken selecteert die strip |
 | | **FOLLOW** | De tafel glijdt naar de geselecteerde strip, ook als die elders is gekozen (FIND, een sneltoets) |
-| **SECTIONS** | HEADER … FADER | De secties van de strip. Oplichtende staan in beeld. Klik op een sectie om erheen te glijden |
+| **SECTIONS** | HEADER … FADER | De secties van de strip (bij COMPACT alleen NAME en FADER). Oplichtende staan in beeld. Klik op een sectie om erheen te glijden |
 
-De keuzes bij SELECT worden onthouden. Waar de kanaalmeters meten (**IN**, **PRE** of **POST**), stel je in bij
+De keuzes bij SELECT en COMPACT worden onthouden. Waar de kanaalmeters meten (**IN**, **PRE** of **POST**), stel je in bij
 **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

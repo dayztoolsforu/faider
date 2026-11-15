@@ -299,11 +299,12 @@ de här korten (i SIMPLE bara **ADD CHANNEL** och **ADD APP**):
 | | **ADD APP** | Listar programmen som spelar ljud nu, sedan, under **NOT PLAYING YET**, de som körs med ett fönster och är tysta. Välj ett för att ge det en kanal; ett som inte spelar fångas från det ögonblick det gör det |
 | | **ADD BUS** | En buss, eller en combinator (två vägar till att börja med) |
 | | **PLUGINS** | Skjuter upp pluginpanelen under strippar (se [9](#9-plugins)) |
+| | **COMPACT** | Fäller ihop varje strip till dess namnlist och fadersektion (panorering, SOLO, CUT, SEL, fadern och dess avläsning), med stripens nivåmätare bredvid faderns skala; bordet krymper och går till toppen. Tänd medan bordet är kompakt; klicka igen för hela strippar. Även **COMPACT DESK** / **FULL DESK** i FIND |
 | **SELECT** | **AUTO** | Att röra vid vilken kontroll som helst på en strip väljer den stripen |
 | | **FOLLOW** | Bordet glider till den valda stripen, även när den väljs någon annanstans (FIND, ett kortkommando) |
-| **SECTIONS** | HEADER … FADER | Stripens avsnitt. Tända är i bild. Klicka på ett för att glida dit |
+| **SECTIONS** | HEADER … FADER | Stripens avsnitt (med COMPACT bara NAME och FADER). Tända är i bild. Klicka på ett för att glida dit |
 
-Valen under SELECT kommer ihåg. Var kanalmätarna mäter (**IN**, **PRE** eller **POST**) ställer du in i
+Valen under SELECT och COMPACT kommer ihåg. Var kanalmätarna mäter (**IN**, **PRE** eller **POST**) ställer du in i
 **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

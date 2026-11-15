@@ -320,11 +320,12 @@ affiché, la barre latérale a aussi ces cartes (en SIMPLE, seulement **ADD CHAN
 | | **ADD APP** | Liste les programmes qui jouent du son en ce moment, puis, sous **NOT PLAYING YET**, ceux qui tournent avec une fenêtre et sont silencieux. Choisissez-en un pour lui donner un canal ; celui qui ne joue pas est capturé dès l'instant où il joue |
 | | **ADD BUS** | Un bus, ou un combinateur (deux chemins au départ) |
 | | **PLUGINS** | Fait monter le panneau des plugins sous les tranches (voir [9](#9-plugins)) |
+| | **COMPACT** | Replie chaque tranche sur sa barre de nom et sa section de fader (pan, SOLO, CUT, SEL, le fader et son affichage), avec le vumètre de la tranche à côté de l'échelle du fader ; le pupitre se réduit et revient en haut. Allumée tant que le pupitre est compact ; cliquez à nouveau pour retrouver les tranches entières. Aussi **COMPACT DESK** / **FULL DESK** dans FIND |
 | **SELECT** | **AUTO** | Toucher une commande d'une tranche sélectionne cette tranche |
 | | **FOLLOW** | Le pupitre glisse jusqu'à la tranche sélectionnée, y compris quand elle est choisie ailleurs (FIND, un raccourci clavier) |
-| **SECTIONS** | HEADER … FADER | Les sections de la tranche. Celles qui sont allumées sont à l'écran. Cliquez sur l'une pour y glisser |
+| **SECTIONS** | HEADER … FADER | Les sections de la tranche (en COMPACT, seulement NAME et FADER). Celles qui sont allumées sont à l'écran. Cliquez sur l'une pour y glisser |
 
-Les choix de SELECT sont mémorisés. L'endroit où mesurent les vumètres des canaux (**IN**, **PRE** ou
+Les choix de SELECT et COMPACT sont mémorisés. L'endroit où mesurent les vumètres des canaux (**IN**, **PRE** ou
 **POST**) se règle dans **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

@@ -302,11 +302,12 @@ karty (w SIMPLE tylko **ADD CHANNEL** i **ADD APP**):
 | | **ADD APP** | Wylicza programy, które teraz grają, a potem, pod **NOT PLAYING YET**, te uruchomione z oknem, które milczą. Wybranie jednego daje mu kanał; ten, który nie gra, jest przechwytywany od chwili, gdy zagra |
 | | **ADD BUS** | Bus albo kombinator (na początek dwie ścieżki) |
 | | **PLUGINS** | Wysuwa panel wtyczek pod paski (zobacz [9](#9-plugins)) |
+| | **COMPACT** | Składa każdy pasek do jego paska nazwy i sekcji suwaka (panorama, SOLO, CUT, SEL, suwak i jego odczyt), z miernikiem poziomu paska obok skali suwaka; konsola się skraca i wraca na górę. Świeci, dopóki konsola jest złożona; kliknij ponownie, żeby wróciły całe paski. Także **COMPACT DESK** / **FULL DESK** w FIND |
 | **SELECT** | **AUTO** | Dotknięcie dowolnego elementu paska zaznacza ten pasek |
 | | **FOLLOW** | Konsola płynie do zaznaczonego paska, także gdy zaznaczono go gdzie indziej (FIND, skrót klawiszowy) |
-| **SECTIONS** | HEADER … FADER | Sekcje paska. Zapalone są na ekranie. Kliknij jedną, żeby do niej popłynąć |
+| **SECTIONS** | HEADER … FADER | Sekcje paska (przy COMPACT tylko NAME i FADER). Zapalone są na ekranie. Kliknij jedną, żeby do niej popłynąć |
 
-Wybory SELECT są zapamiętywane. To, gdzie mierzą mierniki kanałów (**IN**, **PRE** albo **POST**), ustawia się w
+Wybory SELECT i COMPACT są zapamiętywane. To, gdzie mierzą mierniki kanałów (**IN**, **PRE** albo **POST**), ustawia się w
 **SETTINGS > Audio > Channel meter point**.
 
 <a id="the-top-bar"></a>

@@ -21,8 +21,9 @@ The sidebar down the left shows the pages as cards: **MIXER**, **ROUTING**, **TO
 | **ADD APP** | An app playing sound now, as a channel of its own |
 | **ADD BUS** | A new bus |
 | **PLUGINS** | The selected strip's plugins, in a panel under the strips |
+| **COMPACT** | Every strip folded to its name bar and fader, its level meter beside the fader. Again: whole strips |
 | **SELECT** | **AUTO**: touching a strip selects it. **FOLLOW**: the view follows the selection, also when it's made elsewhere |
-| **SECTIONS** | The strip's sections, lit while in view. Click one to go to it |
+| **SECTIONS** | The strip's sections, lit while in view (COMPACT: NAME and FADER). Click one to go to it |
 
 The top bar has the time display and the Tape deck's transport: rewind, stop, play / pause, wind
 on, record (the Tape page's REC: the source chosen there) and loop (all, one, off).
@@ -69,7 +70,10 @@ the console. In a Debug build, Ctrl+Shift+O draws a frame round every part to ch
 Ctrl+Shift+R reads the files again. A release build has neither key: there Ctrl+Shift+O shows and
 hides the in-game overlay.
 
-`{ "width": 214, "sections": [ { "name", "height", "panel"?, "items": [ ... ] } ] }`
+`{ "width": 214, "sections": [ { "name", "height", "panel"?, "compact"?, "items": [ ... ] } ] }`
+
+A section with `"compact": true` stays when the desk is COMPACT (NAME and FADER); the others fold
+away. An item with `"compactOnly": true` is drawn only then (the `bars` meter beside the fader).
 
 | Kind | Fields |
 |---|---|

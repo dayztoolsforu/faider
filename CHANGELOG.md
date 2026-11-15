@@ -6,6 +6,9 @@ What changed in each version of Faider, newest first. Downloads are on the
 ## Unreleased
 
 **New**
+- **COMPACT** in the Mixer's sidebar (and **COMPACT DESK** / **FULL DESK** in FIND) folds every
+  strip to its name bar and fader, with its level meter beside the fader, so the desk fits on a
+  short screen. It is remembered.
 - ADD APP, ADD CHANNEL and SETUP also offer programs that are running but **NOT PLAYING YET**. The
   channel is made at once and hears the program from the moment it plays.
 - **MIX-MINUS AND STEMS...** is on an output's right-click menu, **HEAR WHAT THEY HEAR** on

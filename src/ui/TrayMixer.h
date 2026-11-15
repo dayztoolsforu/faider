@@ -74,15 +74,24 @@ public:
     void paint (juce::Graphics& g) override
     {
         g.fillAll (Console::Colours::panel());
-        for (auto* c : columns)   // each strip's meter beside its fader
+        // Each strip's meter beside its fader: round LEDs on the selected meter standard (its own
+        // LEDs and colours, as the desk's; no room here for its marks), the highest lit held a moment.
+        const auto& st = Metering::standard();
+        const int count = (int) st.leds.size();
+        const auto now = juce::Time::getMillisecondCounter();
+        for (auto* c : columns)
         {
             const auto r = c->meter.toFloat();
-            g.setColour (Theme::get().screenGlass);
-            g.fillRoundedRectangle (r.expanded (1.5f), 2.0f);
-            const float level = juce::jlimit (0.0f, 1.0f, (juce::Decibels::gainToDecibels (c->level, -60.0f) + 60.0f) / 60.0f);
-            const auto lit = r.withTop (r.getBottom() - r.getHeight() * level);
-            g.setGradientFill (juce::ColourGradient (Console::Colours::ledGreen(), r.getBottomLeft(), Console::Colours::ledRed(), r.getTopLeft(), false));
-            g.fillRect (lit);
+            const float pitch = r.getHeight() / (float) juce::jmax (1, count), d = juce::jmin (r.getWidth() - 2.0f, pitch * 0.72f);
+            const int on = Metering::ledsLit (st, Metering::toDb (c->level));
+            if (on >= c->held || now - c->heldAt > 1500)   // (PEAK HOLD, as the desk's)
+            {
+                c->held = on;
+                c->heldAt = now;
+            }
+            for (int i = 0; i < count; ++i)
+                LargeFormat::led (g, { r.getCentreX(), r.getBottom() - pitch * ((float) i + 0.5f) }, i < on || i == c->held - 1,
+                                  Metering::ledColour (st, st.leds[(size_t) i]), d);
         }
     }
 
@@ -121,7 +130,7 @@ public:
     }
 
 private:
-    static constexpr int columnWidth = 64, meterWidth = 8;
+    static constexpr int columnWidth = 64, meterWidth = 10;
 
     struct Column
     {
@@ -131,7 +140,9 @@ private:
         juce::Slider fader;
         juce::TextButton mute { "CUT" };
         juce::Rectangle<int> meter;
-        float level = 0.0f;
+        float level = 0.0f;              // the meter standard's value (linear), the louder side
+        int held = 0;                    // PEAK HOLD: LEDs lit at the hold...
+        juce::uint32 heldAt = 0;         // ...since
     };
 
     std::atomic<float>* gainOf (const juce::String& key)
@@ -150,11 +161,12 @@ private:
         return nullptr;
     }
 
-    float peakOf (const juce::String& key)
+    // What a strip's meter reads: the engine's measure on the selected meter standard (the louder side).
+    float levelOf (const juce::String& key)
     {
         const auto kind = key.upToFirstOccurrenceOf (":", false, false), name = key.fromFirstOccurrenceOf (":", false, false);
-        if (kind == "output") { for (auto& b : engine.getMasters()) if (b->name == name) return juce::jmax (b->peakL.load(), b->peakR.load()); return 0.0f; }
-        for (auto& s : (kind == "bus" ? engine.getBuses() : engine.getStrips())) if (s->name == name) return juce::jmax (s->peakL.load(), s->peakR.load());
+        if (kind == "output") { for (auto& b : engine.getMasters()) if (b->name == name) return juce::jmax (b->levels.meterL.load(), b->levels.meterR.load()); return 0.0f; }
+        for (auto& s : (kind == "bus" ? engine.getBuses() : engine.getStrips())) if (s->name == name) return juce::jmax (s->levels.meterL.load(), s->levels.meterR.load());
         return 0.0f;
     }
 
@@ -183,7 +195,7 @@ private:
                 c->fader.setValue (juce::Decibels::gainToDecibels (gain->load(), -60.0f), juce::dontSendNotification);
             if (auto* m = muteOf (c->key))
                 c->mute.setToggleState (m->load(), juce::dontSendNotification);
-            c->level = peakOf (c->key);
+            c->level = levelOf (c->key);
         }
         repaint();
     }

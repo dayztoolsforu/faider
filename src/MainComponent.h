@@ -105,6 +105,8 @@ private:
     juce::String clockChosenAtStart;     // SETTINGS > AUDIO > CLOCK's choice as this run started ("" the interface, "builtin", "windows:NAME")
     void chooseClock (const juce::String& choice);   // SETTINGS > AUDIO > CLOCK: kept, for the next start (RESTART NOW offered)
     void restartFaider();                // quits, and a new copy starts once this one has gone
+    juce::String languageAtStart;        // SETTINGS > GENERAL > LANGUAGE's choice as this run started (Language.h)
+    void chooseLanguage (const juce::String& code);   // kept, for the next start (RESTART NOW offered)
     juce::String savedMaster;   // started with --clock: the mix's own interface, saved instead of the chosen clock
     juce::String masterToSave() const { return clockForced && savedMaster.isNotEmpty() ? savedMaster : interfaceName; }
     juce::StringArray clockRefused;   // clocks that wouldn't start, until the devices change (pickClock skips them)

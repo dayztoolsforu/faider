@@ -6,6 +6,7 @@
 #include "ui/Theme.h"
 #include "engine/PluginScan.h"
 #include "StartWithWindows.h"
+#include "Language.h"
 
 namespace
 {
@@ -33,8 +34,24 @@ void MainComponent::makeSettings()
 
     //--------------------------------------------------------------------------
     // APP > GENERAL
+    // LANGUAGE: the interface's (Language.h), each in its own name. Used from the next start.
+    languageAtStart = settings.getValue ("language", "en");
     // (a page's, section's and setting's name is English, an identifier: NEEDS_TRANS, and the tab
     // and FIND translate it where they show it, SettingsRegistry::shown)
+    add ({ .page = "General", .name = NEEDS_TRANS ("Language"),
+           .description = TRANS ("The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart."),
+           .keywords = "translation locale english deutsch", .kind = Kind::dropdown,
+           .value = [this] { return Language::nameOf (settings.getValue ("language", "en")); },
+           .menu = [this] (juce::Component& c)
+           {
+               const auto chosen = settings.getValue ("language", "en");
+               juce::PopupMenu menu;
+               for (auto& e : Language::all())
+                   menu.addItem (Language::nameOf (e.code), true, chosen == e.code, [this, code = juce::String (e.code)] { chooseLanguage (code); });
+               menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&c));
+           },
+           .note = [this] { return settings.getValue ("language", "en") != languageAtStart
+                                       ? TRANS ("The new language takes effect when %1 starts again.").replace ("%1", Product::name) : juce::String(); } });
     add ({ .page = "General", .section = NEEDS_TRANS ("Window"), .name = NEEDS_TRANS ("Start with Windows"),
            .description = TRANS ("Open %1 (in the tray) when you sign in.").replace ("%1", Product::name), .keywords = "startup login boot tray",
            .kind = Kind::toggle,
@@ -453,7 +470,7 @@ void MainComponent::makeSettings()
 
     // (the group and page names are identifiers, as the rows' .page: NEEDS_TRANS here, translated where shown)
     std::vector<Page> pages {
-        { NEEDS_TRANS ("App"), NEEDS_TRANS ("General"), TRANS ("The window, how it looks, and the tips.") },
+        { NEEDS_TRANS ("App"), NEEDS_TRANS ("General"), TRANS ("The language, the window, how it looks, and the tips.") },
         { NEEDS_TRANS ("App"), NEEDS_TRANS ("Notifications"), TRANS ("What %1 tells you about in the window's corner.").replace ("%1", Product::name) },
         { NEEDS_TRANS ("App"), NEEDS_TRANS ("Startup & checks"), TRANS ("What %1 checks when it starts, and the same checks now.").replace ("%1", Product::name) },
         { NEEDS_TRANS ("App"), NEEDS_TRANS ("Updates & about"), TRANS ("The version, the daily update check, and a report for when something goes wrong.") },
@@ -639,6 +656,24 @@ void MainComponent::chooseClock (const juce::String& choice)
         return;   // (back to what this run started on)
     juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, TRANS ("CLOCK"),
                                         TRANS ("The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds.").replace ("%1", Product::name),
+                                        TRANS ("RESTART NOW"), TRANS ("LATER"), nullptr,
+                                        juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
+                                        { if (result == 1 && safe != nullptr) safe->restartFaider(); }));
+}
+
+// SETTINGS > GENERAL > LANGUAGE: TRANS's table is set before any window is made (Main.cpp), so the
+// choice is kept for the next start, and a restart offered.
+void MainComponent::chooseLanguage (const juce::String& code)
+{
+    if (code == settings.getValue ("language", "en"))
+        return;
+    settings.setValue ("language", code);
+    settings.saveIfNeeded();
+    logEvent ("language: from the next start, " + code);
+    if (code == languageAtStart)
+        return;   // (back to what this run started in)
+    juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, TRANS ("LANGUAGE"),
+                                        TRANS ("The new language takes effect when %1 starts again. Restart now? The sound stops for a few seconds.").replace ("%1", Product::name),
                                         TRANS ("RESTART NOW"), TRANS ("LATER"), nullptr,
                                         juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
                                         { if (result == 1 && safe != nullptr) safe->restartFaider(); }));

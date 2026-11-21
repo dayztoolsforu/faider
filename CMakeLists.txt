@@ -295,6 +295,21 @@ target_link_libraries(SessionTest
     PUBLIC
         juce::juce_recommended_config_flags)
 
+# The console's layouts and what their parts drive, headless (see tests/DeskTest.cpp). Its own data
+# folder (FaiderDeskTest), so it never touches %APPDATA%\Faider; no audio device is opened.
+juce_add_console_app(DeskTest PRODUCT_NAME "DeskTest")
+target_sources(DeskTest PRIVATE tests/DeskTest.cpp src/engine/WindowDiscovery.cpp)
+target_compile_definitions(DeskTest PRIVATE FAIDER_DATA_FOLDER="FaiderDeskTest" FAIDER_LAYOUT_DIR="${CMAKE_SOURCE_DIR}/console/layout"
+    ${FAIDER_JUCE_SETTINGS})
+target_link_libraries(DeskTest
+    PRIVATE
+        faider_core
+        juce::juce_audio_utils
+        juce::juce_dsp
+        juce::juce_osc
+    PUBLIC
+        juce::juce_recommended_config_flags)
+
 # App capture as its program closes (see tests/AppCaptureTest.cpp).
 juce_add_console_app(AppCaptureTest PRODUCT_NAME "AppCaptureTest")
 target_sources(AppCaptureTest PRIVATE tests/AppCaptureTest.cpp src/engine/AppCapture.cpp src/engine/WindowDiscovery.cpp src/engine/DriftFifo.cpp)
@@ -344,7 +359,7 @@ add_subdirectory(console)
 if(MSVC AND FAIDER_WARNINGS_AS_ERRORS)
     foreach(_target Faider faider_core FaiderTestDelay MeterTest PadsTest TapeTest NoiseReducerTest VoiceChainTest
                     DefaultDeviceTest TriggerTest UpdateCheckTest AudioBoostTest TranslationTest WasapiProbe JuceWasapiProbe
-                    PluginScanTest RecorderTest SessionTest AppCaptureTest BuffersTest ThemeTest LookRenderTest)
+                    PluginScanTest RecorderTest SessionTest DeskTest AppCaptureTest BuffersTest ThemeTest LookRenderTest)
         target_compile_options(${_target} PRIVATE /WX)
     endforeach()
 endif()

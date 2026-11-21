@@ -1,6 +1,7 @@
 #pragma once
 
-// Part of the console: Console.cpp includes it, and nothing else does.
+// Part of the console: Console.cpp includes it (and tests/DeskTest.cpp, to check the layouts' parts
+// drive the engine).
 // Binding: what each part of a strip drives in the engine.
 
 #include <juce_gui_basics/juce_gui_basics.h>
@@ -416,7 +417,8 @@ public:
         if (id == "mix") return juce::String (juce::roundToInt (v)) + "%";
         if (id == "range") return p->getValue() <= 0.001f ? TRANS ("SILENT") : db (v, 0);
         if (id == "drive") return juce::String (juce::roundToInt (p->getValue() * 100.0f)) + "%";
-        if (id == "trim" || id.endsWith ("Gain") || id == "thresh" || id == "gateThresh") return db (v);
+        if (id == "levelRange") return juce::String (juce::CharPointer_UTF8 ("\xc2\xb1")) + juce::String (v, 1) + " dB";   // (at most this far up or down)
+        if (id == "trim" || id.endsWith ("Gain") || id == "thresh" || id == "gateThresh" || id == "deessThresh" || id == "levelTarget") return db (v);
         return p->getCurrentValueAsText();
     }
 
@@ -426,7 +428,9 @@ public:
         if (auto* s = strip (ch); s != nullptr && s->channel != nullptr)
         {
             s->channel->previewDetectors = true;   // (the ladders show what they'd do while they're out)
-            const float db = id == "gateGr" ? (s->channel->gatePreviewOpen.load() - 1.0f) * 20.0f : s->channel->compPreview.load();
+            const float db = id == "gateGr"  ? (s->channel->gatePreviewOpen.load() - 1.0f) * 20.0f
+                           : id == "deessGr" ? s->channel->deessReduction.load()   // (the de-esser's: only while it's in)
+                                             : s->channel->compPreview.load();
             int n = 0;
             for (float step : { 3.0f, 6.0f, 10.0f, 14.0f, 20.0f })
                 n += -db >= step ? 1 : 0;
@@ -516,6 +520,7 @@ private:
         static const std::map<juce::String, const char*> map {
             { "trim", "trim" }, { "drive", "drive" }, { "ratio", "compRatio" }, { "thresh", "compThreshold" }, { "release", "compRelease" }, { "mix", "compMix" },
             { "range", "gateRange" }, { "gateThresh", "gateThreshold" }, { "gateRelease", "gateRelease" }, { "gateHold", "gateHold" },
+            { "deessThresh", "deessThreshold" }, { "deessFreq", "deessFreq" }, { "levelTarget", "levelTarget" }, { "levelRange", "levelRange" },
             { "lpf", "lpf" }, { "hpf", "hpf" }, { "hfGain", "highGain" }, { "hfFreq", "highFreq" },
             { "hmfGain", "mid2Gain" }, { "hmfFreq", "mid2Freq" }, { "hmfQ", "mid2Q" },
             { "lmfGain", "midGain" }, { "lmfFreq", "midFreq" }, { "lmfQ", "midQ" }, { "lfGain", "lowGain" }, { "lfFreq", "lowFreq" } };
@@ -527,7 +532,8 @@ private:
         static const std::map<juce::String, const char*> map {
             { "polarity", "polarity" }, { "hfBell", "highBell" }, { "lfBell", "lowBell" }, { "eqIn", "eqOn" }, { "eqKey", "eqOn" }, { "chainEq", "eqOn" },
             { "exp", "gateExpand" }, { "filtKey", "filterToKey" }, { "extKey", "keyExternal" },
-            { "pre", "inputOn" }, { "listen", "keyListen" }, { "pk", "compPeak" }, { "noise", "nrOn" } };
+            { "pre", "inputOn" }, { "listen", "keyListen" }, { "pk", "compPeak" }, { "noise", "nrOn" },
+            { "deessIn", "deessOn" }, { "levelIn", "levelOn" } };
         const auto it = map.find (id);
         return it != map.end() ? it->second : nullptr;
     }

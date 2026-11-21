@@ -212,7 +212,7 @@
   },
   {
    "name": "DYNAMICS",
-   "height": 729.9,
+   "height": 1109.9,
    "items": [
     {
      "kind": "switch",
@@ -573,6 +573,193 @@
      "text": "FAST",
      "size": 12,
      "align": "left"
+    },
+    {
+     "kind": "line",
+     "points": [
+      [
+       9.9,
+       737.5
+      ],
+      [
+       201.0,
+       737.5
+      ]
+     ]
+    },
+    {
+     "kind": "switch",
+     "x": 15.3,
+     "y": 750.5,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "deessIn",
+     "lamp": "orange",
+     "lit": false
+    },
+    {
+     "kind": "label",
+     "x": 55.0,
+     "y": 752.1,
+     "w": 85.6,
+     "h": 27.5,
+     "text": "DE-ESS",
+     "size": 14,
+     "align": "left"
+    },
+    {
+     "kind": "leds",
+     "x": 175.0,
+     "y": 750.5,
+     "w": 21.4,
+     "h": 66.5,
+     "id": "deessGr",
+     "count": 3,
+     "colours": [
+      "red",
+      "yellow",
+      "yellow"
+     ],
+     "lit": 2
+    },
+    {
+     "kind": "label",
+     "x": 142.2,
+     "y": 750.5,
+     "w": 30.6,
+     "h": 22.2,
+     "text": "10",
+     "size": 9,
+     "align": "centre"
+    },
+    {
+     "kind": "label",
+     "x": 142.2,
+     "y": 772.7,
+     "w": 30.6,
+     "h": 22.2,
+     "text": "6",
+     "size": 9,
+     "align": "centre"
+    },
+    {
+     "kind": "label",
+     "x": 142.2,
+     "y": 794.9,
+     "w": 30.6,
+     "h": 22.2,
+     "text": "3",
+     "size": 9,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "deessThresh",
+     "x": 20.6,
+     "y": 790.0,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 864.1,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "T/HOLD",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "deessFreq",
+     "x": 124.6,
+     "y": 830.0,
+     "size": 65.7,
+     "colour": "white",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 904.1,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "FREQ",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "line",
+     "points": [
+      [
+       9.9,
+       940.0
+      ],
+      [
+       201.0,
+       940.0
+      ]
+     ]
+    },
+    {
+     "kind": "switch",
+     "x": 15.3,
+     "y": 953.0,
+     "w": 30.6,
+     "h": 30.6,
+     "id": "levelIn",
+     "lamp": "orange",
+     "lit": false
+    },
+    {
+     "kind": "label",
+     "x": 55.0,
+     "y": 954.6,
+     "w": 149.8,
+     "h": 27.5,
+     "text": "AUTO-LEVEL",
+     "size": 14,
+     "align": "left"
+    },
+    {
+     "kind": "knob",
+     "id": "levelTarget",
+     "x": 20.6,
+     "y": 995.0,
+     "size": 65.7,
+     "colour": "black",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 0.0,
+     "y": 1069.1,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "TARGET",
+     "size": 12,
+     "align": "centre"
+    },
+    {
+     "kind": "knob",
+     "id": "levelRange",
+     "x": 124.6,
+     "y": 995.0,
+     "size": 65.7,
+     "colour": "black",
+     "name": ""
+    },
+    {
+     "kind": "label",
+     "x": 103.9,
+     "y": 1069.1,
+     "w": 107.0,
+     "h": 21.4,
+     "text": "RANGE",
+     "size": 12,
+     "align": "centre"
     }
    ]
   },

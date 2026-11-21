@@ -238,18 +238,12 @@ countries: tr
 "HIDE OVERLAY" = "KAPLAMAYI GİZLE"
 "SHOW OVERLAY" = "KAPLAMAYI GÖSTER"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - oyunların üstünde mikrofon durumu"
-"SESSION TIMELINE" = "OTURUM ZAMAN ÇİZELGESİ"
-"Go back to an earlier mix, or one channel" = "Daha önceki bir karışıma ya da tek bir kanala geri dön"
 "SAVE SESSION AS..." = "OTURUMU FARKLI KAYDET..."
 "Keep this mix under a name" = "Bu karışımı bir adla sakla"
-"APP RULES" = "UYGULAMA KURALLARI"
-"Where each app goes when it starts playing" = "Her uygulamanın çalmaya başladığında nereye gittiği"
 "SESSIONS" = "OTURUMLAR"
 "Open a saved mix, export or import one" = "Kayıtlı bir karışımı aç, dışa ya da içe aktar"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT DENETİMİ"
 "Audio, the mic cable and route, cut mics, things heard twice" = "Ses, mikrofon kablosu ve yolu, susturulmuş mikrofonlar, iki kez duyulanlar"
-"SETUP: BUILD A MIX" = "KURULUM: KARIŞIM OLUŞTUR"
-"Where you listen, your microphones, how apps hear you, your programs" = "Nerede dinlediğin, mikrofonların, uygulamaların seni nasıl duyduğu, programların"
 "WINDOWS DEFAULTS" = "WINDOWS VARSAYILANLARI"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "Gerçek hoparlörlerin ve mikrofonun Windows varsayılanı olarak, görüşmeler için de (kablo değil)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "WINDOWS SESİNİ GÜÇLENDİR (GÜÇLENDİRİLDİ)"
@@ -280,8 +274,6 @@ countries: tr
 "ZOOM IN" = "YAKINLAŞTIR"
 "ZOOM OUT" = "UZAKLAŞTIR"
 "ZOOM 100%" = "YAKINLAŞTIRMA 100%"
-"ABOUT %1" = "%1 HAKKINDA"
-"Version, credits" = "Sürüm, emeği geçenler"
 "SAVE A PROBLEM REPORT" = "SORUN RAPORU KAYDET"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "Günlükler ve son çökme, gönderebileceğin bir .zip içinde (hiçbir şey kendiliğinden gönderilmez)"
 "CHECK FOR UPDATES NOW" = "GÜNCELLEMELERİ ŞİMDİ DENETLE"
@@ -345,6 +337,7 @@ countries: tr
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "Oturum zaman çizelgesi..."
+"SESSION TIMELINE" = "OTURUM ZAMAN ÇİZELGESİ"
 "%1 min ago" = "%1 dk önce"
 "%1 h ago" = "%1 sa önce"
 "kept: %1" = "saklandı: %1"
@@ -362,6 +355,8 @@ countries: tr
 "EXPORT TO A FILE..." = "DOSYAYA AKTAR..."
 "IMPORT FROM A FILE..." = "DOSYADAN AKTAR..."
 "Export the session" = "Oturumu dışa aktar"
+"%1 is already there. Replace it?" = "%1 zaten var. Değiştirilsin mi?"
+"REPLACE" = "DEĞİŞTİR"
 "Import a session" = "Oturum içe aktar"
 "OPEN SESSION" = "OTURUM AÇ"
 "RESTORE SESSION" = "OTURUMU GERİ YÜKLE"
@@ -372,6 +367,7 @@ countries: tr
 "RESTORE" = "GERİ YÜKLE"
 
 // src/MainComponentSettings.cpp
+"Default" = "Varsayılan"
 "Language" = "Dil"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "Arayüzün dili, bir sonraki başlatmadan itibaren. Konsolun tuşları İngilizce kalır. Değiştirince yeniden başlatma önerilir."
 "The new language takes effect when %1 starts again." = "Yeni dil, %1 yeniden başladığında geçerli olur."
@@ -409,6 +405,9 @@ countries: tr
 "Zero the desk" = "Konsolu sıfırla"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "Duyulanı değiştiren, açık kalmış şeyler: solo'lar, key dinleme, çok sapmış kazançlar, susturulmuş çıkışlar. Her biri düzeltmesiyle."
 "Check" = "Denetle"
+"Setup: build a mix" = "Kurulum: karışım oluştur"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "Karışımını oluşturan dört soru: nerede dinlediğin, mikrofonların, uygulamaların seni nasıl duyduğu, programların. Eksik olanı ekler, hiçbir şeyi kaldırmaz."
+"Run setup" = "Kurulumu çalıştır"
 "Check for updates" = "Güncellemeleri denetle"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "Günde en fazla bir kez, başlangıçtan yarım dakika sonra: GitHub'a uygulamanın adı ve sürümüyle tek bir istek, başka bir şey değil. Hiçbir şey indirilmez ya da kurulmaz."
 "Version" = "Sürüm"
@@ -558,8 +557,6 @@ countries: tr
 "BUSES" = "BUS'LAR"
 "OUTPUTS" = "ÇIKIŞLAR"
 "No programs playing without a rule" = "Kuralsız çalan program yok"
-"Delete rule" = "Kuralı sil"
-"No rules" = "Kural yok"
 "Pick ffmpeg.exe" = "ffmpeg.exe seç"
 "CLOCK" = "SAAT"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "Yeni saat, %1 yeniden başladığında geçerli olur. Şimdi yeniden başlatılsın mı? Ses birkaç saniye durur."
@@ -1011,9 +1008,6 @@ countries: tr
 "PATH" = "YOL"
 "REVEAL" = "GÖSTER"
 "ARM" = "HAZIRLA"
-
-// src/ui/Theme.cpp
-"Default" = "Varsayılan"
 
 // src/ui/TrayMixer.h
 "Open %1" = "%1 uygulamasını aç"

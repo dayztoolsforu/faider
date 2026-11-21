@@ -816,7 +816,7 @@ void MainComponent::toggleMidiMap()
         for (int i = 0; i < bar.getNumTabs(); ++i)
             if (auto* b = bar.getTabButton (i); b != nullptr && b->getScreenBounds().contains (screen))
                 return true;
-        // and SETTINGS > MIDI & OSC's FINISH MAPPING (it turns the mode off)
+        // and SETTINGS > MIDI & OSC's rows marked to pass (FINISH MAPPING turns the mode off)
         return settingsTab != nullptr && settingsTab->passesThrough (screen);
     });
     midiMap->onClose = [this] { juce::MessageManager::callAsync ([self = juce::Component::SafePointer<MainComponent> (this)] { if (self != nullptr) self->midiMap = nullptr; }); };

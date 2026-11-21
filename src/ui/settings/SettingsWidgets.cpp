@@ -220,8 +220,14 @@ namespace SettingsUi
         editor.setInputRestrictions (digits, "0123456789");
         editor.setJustification (juce::Justification::centredLeft);
         editor.setIndents (10, 0);
-        editor.onReturnKey = [this] { onApply (editor.getText().getIntValue()); };
-        applyKey.onClick = [this] { onApply (editor.getText().getIntValue()); };
+        editor.onTextChange = [this] { typed = true; };
+        editor.onReturnKey = [this] { applyTyped(); };
+        editor.onEscapeKey = [this]   // (dropped: the value as it is)
+        {
+            typed = false;
+            editor.setText (juce::String (value()), false);
+        };
+        applyKey.onClick = [this] { applyTyped(); };
         addAndMakeVisible (editor);
         addAndMakeVisible (applyKey);
         refresh();
@@ -242,9 +248,17 @@ namespace SettingsUi
     {
         if (std::exchange (lookShown, Theme::generation()) != Theme::generation())
             style();
-        if (! editor.hasKeyboardFocus (true))   // (not while it's being typed in)
+        if (! typed && ! editor.hasKeyboardFocus (true))   // (not while it's being typed in, nor over a number typed and not applied)
             if (const auto now = juce::String (value()); now != editor.getText())
                 editor.setText (now, false);
+    }
+
+    void NumberField::applyTyped()
+    {
+        typed = false;
+        onApply (editor.getText().getIntValue());   // (what's in the box: the number typed)
+        if (const auto now = juce::String (value()); now != editor.getText())
+            editor.setText (now, false);   // (refused: the value it keeps)
     }
 
     void NumberField::resized()
@@ -298,8 +312,10 @@ namespace SettingsUi
                         if (self == nullptr || button == nullptr || ! juce::isPositiveAndBelow (i, (int) self->lines.size()))
                             return;
                         auto& actions = self->lines[(size_t) i].actions;
-                        if (juce::isPositiveAndBelow (k, (int) actions.size()) && actions[(size_t) k].run)
-                            actions[(size_t) k].run (*button);
+                        if (! juce::isPositiveAndBelow (k, (int) actions.size()) || ! actions[(size_t) k].run)
+                            return;
+                        const auto run = actions[(size_t) k].run;   // (a copy: what it does may set the lines again, the table's own with them)
+                        run (*button);
                     });
                 };
                 addAndMakeVisible (b);
@@ -469,8 +485,8 @@ namespace SettingsUi
     {
         if (! setting.passThrough || ! isShowing())
             return false;
-        for (auto* b : buttons)
-            if (b->getScreenBounds().contains (screen))
+        for (auto* c : getChildren())   // (its controls: buttons, a switch, a field)
+            if (c->isVisible() && c->getScreenBounds().contains (screen))
                 return true;
         return false;
     }

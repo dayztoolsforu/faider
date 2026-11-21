@@ -48,7 +48,12 @@ private:
     // The note across the top: how to set a key, and how many are given twice.
     juce::String usualNote() const;
 
-    void startCapturing (int index);
+    // The entry a key is being pressed for, by what it is (its group and name, and which of the
+    // same name it is), not its place: the list is made again while it waits.
+    juce::String idOf (int index) const;
+    int capturingIndex() const;   // (-1: none, or gone from the list)
+
+    void startCapturing (const juce::String& id);
     void stopCapturing (const juce::String& whyNot);
 
     // Pads, macros and scenes come and go (or get keys elsewhere): the list follows while shown.
@@ -62,7 +67,8 @@ private:
     SettingsUi::Table fixed { { { TRANS ("What"), 0.42f }, { TRANS ("Where"), 0.30f }, { TRANS ("Key"), 0.28f } }, {} };
     juce::String note;
     juce::String problem;   // why the last key wasn't taken, if it wasn't
-    int capturing = -1, clashes = 0;
+    juce::String capturing;   // (idOf the entry, or empty)
+    int clashes = 0;
     static constexpr int headingHeight = 40;
 };
 
@@ -120,6 +126,7 @@ private:
     juce::TextEditor search;
     juce::Viewport view;
     Column column;
+    std::vector<std::unique_ptr<SettingsRegistry::Setting>> pageResults;   // the search's rows for pages (before `rows`: they outlive the rows showing them)
     juce::OwnedArray<SettingsUi::Row> rows;
     juce::OwnedArray<SettingsUi::Heading> headings;
     juce::Component* ownShown = nullptr;   // HOTKEYS' page in the column, MACROS' beside it

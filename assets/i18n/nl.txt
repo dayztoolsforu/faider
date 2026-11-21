@@ -238,18 +238,12 @@ countries: nl
 "HIDE OVERLAY" = "OVERLAY VERBERGEN"
 "SHOW OVERLAY" = "OVERLAY TONEN"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - microfoonstatus boven games"
-"SESSION TIMELINE" = "SESSIETIJDLIJN"
-"Go back to an earlier mix, or one channel" = "Terug naar een eerdere mix, of één kanaal"
 "SAVE SESSION AS..." = "SESSIE OPSLAAN ALS..."
 "Keep this mix under a name" = "Deze mix onder een naam bewaren"
-"APP RULES" = "APP-REGELS"
-"Where each app goes when it starts playing" = "Waar elke app heen gaat als hij begint te spelen"
 "SESSIONS" = "SESSIES"
 "Open a saved mix, export or import one" = "Een opgeslagen mix openen, exporteren of importeren"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT-CONTROLE"
 "Audio, the mic cable and route, cut mics, things heard twice" = "Audio, de microfoonkabel en route, microfoons op CUT, dubbel gehoord geluid"
-"SETUP: BUILD A MIX" = "SETUP: EEN MIX BOUWEN"
-"Where you listen, your microphones, how apps hear you, your programs" = "Waar je luistert, je microfoons, hoe apps je horen, je programma's"
 "WINDOWS DEFAULTS" = "WINDOWS-STANDAARDEN"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "Je echte speakers en microfoon als standaard van Windows, ook voor gesprekken (niet de kabel)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "WINDOWS-AUDIO BOOSTEN (GEBOOST)"
@@ -280,8 +274,6 @@ countries: nl
 "ZOOM IN" = "INZOOMEN"
 "ZOOM OUT" = "UITZOOMEN"
 "ZOOM 100%" = "ZOOM 100%"
-"ABOUT %1" = "OVER %1"
-"Version, credits" = "Versie, credits"
 "SAVE A PROBLEM REPORT" = "PROBLEEMRAPPORT OPSLAAN"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "De logboeken en de laatste crash in een .zip die je kunt versturen (er wordt niets vanzelf verzonden)"
 "CHECK FOR UPDATES NOW" = "NU OP UPDATES CONTROLEREN"
@@ -345,6 +337,7 @@ countries: nl
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "Sessietijdlijn..."
+"SESSION TIMELINE" = "SESSIETIJDLIJN"
 "%1 min ago" = "%1 min geleden"
 "%1 h ago" = "%1 u geleden"
 "kept: %1" = "bewaard: %1"
@@ -362,6 +355,8 @@ countries: nl
 "EXPORT TO A FILE..." = "NAAR BESTAND EXPORTEREN..."
 "IMPORT FROM A FILE..." = "UIT BESTAND IMPORTEREN..."
 "Export the session" = "Sessie exporteren"
+"%1 is already there. Replace it?" = "%1 bestaat al. Vervangen?"
+"REPLACE" = "VERVANGEN"
 "Import a session" = "Sessie importeren"
 "OPEN SESSION" = "SESSIE OPENEN"
 "RESTORE SESSION" = "SESSIE HERSTELLEN"
@@ -372,6 +367,7 @@ countries: nl
 "RESTORE" = "HERSTELLEN"
 
 // src/MainComponentSettings.cpp
+"Default" = "Standaard"
 "Language" = "Taal"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "De taal van de interface, vanaf de volgende start. De toetsen van de tafel blijven Engels. Na een wijziging wordt een herstart aangeboden."
 "The new language takes effect when %1 starts again." = "De nieuwe taal geldt zodra %1 opnieuw start."
@@ -409,6 +405,9 @@ countries: nl
 "Zero the desk" = "Tafel nullen"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "Wat is blijven staan en verandert wat je hoort: solo's, key-beluistering, gains ver verdraaid, uitgangen op CUT. Elk met een oplossing."
 "Check" = "Controleren"
+"Setup: build a mix" = "Setup: een mix bouwen"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "Vier vragen die je mix bouwen: waar je luistert, je microfoons, hoe apps je horen, je programma's. Het voegt toe wat ontbreekt en verwijdert nooit iets."
+"Run setup" = "Setup uitvoeren"
 "Check for updates" = "Op updates controleren"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "Hoogstens één keer per dag, een halve minuut na de start: één verzoek aan GitHub met naam en versie van de app, verder niets. Er wordt niets gedownload of geïnstalleerd."
 "Version" = "Versie"
@@ -558,8 +557,6 @@ countries: nl
 "BUSES" = "BUSSEN"
 "OUTPUTS" = "UITGANGEN"
 "No programs playing without a rule" = "Er speelt geen programma zonder regel"
-"Delete rule" = "Regel verwijderen"
-"No rules" = "Geen regels"
 "Pick ffmpeg.exe" = "ffmpeg.exe kiezen"
 "CLOCK" = "KLOK"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "De nieuwe klok geldt zodra %1 opnieuw start. Nu opnieuw starten? Het geluid stopt een paar seconden."
@@ -1011,9 +1008,6 @@ countries: nl
 "PATH" = "PAD"
 "REVEAL" = "TONEN"
 "ARM" = "INSCHAKELEN"
-
-// src/ui/Theme.cpp
-"Default" = "Standaard"
 
 // src/ui/TrayMixer.h
 "Open %1" = "%1 openen"

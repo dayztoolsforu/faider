@@ -62,7 +62,7 @@ namespace SettingsRegistry
 
         std::function<juce::String()> note = {};        // a dim line under the description, read again (NOW: ...)
         std::function<juce::String()> warning = {};     // an amber line, shown while it says something
-        bool passThrough = false;                       // its buttons stay usable while MIDI MAP is on
+        bool passThrough = false;                       // its controls stay usable while MIDI MAP is on
 
         // Whether every word of `query` is in its name, description, keywords, section or page, as
         // shown or in English (so a search finds it in either).
@@ -86,6 +86,18 @@ namespace SettingsRegistry
         juce::String intro;          // translated where it's made (TRANS)
         juce::Component* own = nullptr;   // shown under the intro instead of rows
         bool fill = false;                // `own` takes all the room below the intro (no scrolling)
-        juce::String keywords = {};       // more words FIND matches for the page
+        juce::String keywords = {};       // more words FIND and the search box match for the page
+
+        // Whether every word of `query` is in its name, group or keywords, as shown or in English
+        // (the search box shows the page among the rows: "hotkey", "shortcut" find HOTKEYS).
+        bool matches (const juce::String& query) const
+        {
+            const auto text = (shown (name) + " " + shown (group) + " " + english (name) + " " + english (group) + " " + keywords).toLowerCase();
+            const auto words = juce::StringArray::fromTokens (query.toLowerCase().trim(), " ", {});
+            for (auto& w : words)
+                if (! text.contains (w))
+                    return false;
+            return ! words.isEmpty();
+        }
     };
 }

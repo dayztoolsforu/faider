@@ -238,18 +238,12 @@ countries: jp
 "HIDE OVERLAY" = "オーバーレイを隠す"
 "SHOW OVERLAY" = "オーバーレイを表示"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - ゲームの上にマイクの状態を表示"
-"SESSION TIMELINE" = "セッションのタイムライン"
-"Go back to an earlier mix, or one channel" = "以前のミックス、または 1 つのチャンネルに戻します"
 "SAVE SESSION AS..." = "名前を付けてセッションを保存..."
 "Keep this mix under a name" = "このミックスに名前を付けて残します"
-"APP RULES" = "アプリルール"
-"Where each app goes when it starts playing" = "各アプリが再生を始めたときの送り先"
 "SESSIONS" = "セッション"
 "Open a saved mix, export or import one" = "保存したミックスを開く、書き出す、読み込む"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT チェック"
 "Audio, the mic cable and route, cut mics, things heard twice" = "オーディオ、マイクケーブルとルート、CUT 中のマイク、二重に聞こえる音"
-"SETUP: BUILD A MIX" = "セットアップ: ミックスを作る"
-"Where you listen, your microphones, how apps hear you, your programs" = "聞く場所、マイク、アプリへの聞かせ方、プログラム"
 "WINDOWS DEFAULTS" = "Windows の既定"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "本物のスピーカーとマイクを Windows の既定に (通話用も。ケーブルではなく)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "Windows オーディオをブースト (ブースト中)"
@@ -280,8 +274,6 @@ countries: jp
 "ZOOM IN" = "拡大"
 "ZOOM OUT" = "縮小"
 "ZOOM 100%" = "100% で表示"
-"ABOUT %1" = "%1 について"
-"Version, credits" = "バージョン、クレジット"
 "SAVE A PROBLEM REPORT" = "問題レポートを保存"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "ログと直近のクラッシュを、送れる .zip に (自動では何も送信されません)"
 "CHECK FOR UPDATES NOW" = "今すぐ更新を確認"
@@ -345,6 +337,7 @@ countries: jp
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "セッションのタイムライン..."
+"SESSION TIMELINE" = "セッションのタイムライン"
 "%1 min ago" = "%1 分前"
 "%1 h ago" = "%1 時間前"
 "kept: %1" = "保存: %1"
@@ -362,6 +355,8 @@ countries: jp
 "EXPORT TO A FILE..." = "ファイルに書き出す..."
 "IMPORT FROM A FILE..." = "ファイルから読み込む..."
 "Export the session" = "セッションを書き出す"
+"%1 is already there. Replace it?" = "%1 はすでにあります。置き換えますか?"
+"REPLACE" = "置き換える"
 "Import a session" = "セッションを読み込む"
 "OPEN SESSION" = "セッションを開く"
 "RESTORE SESSION" = "セッションを復元"
@@ -372,6 +367,7 @@ countries: jp
 "RESTORE" = "復元"
 
 // src/MainComponentSettings.cpp
+"Default" = "既定"
 "Language" = "言語"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "次回の起動からのインターフェースの言語。卓のキーは英語のままです。変更すると、再起動を提案します。"
 "The new language takes effect when %1 starts again." = "新しい言語は、%1 の次回の起動時に有効になります。"
@@ -409,6 +405,9 @@ countries: jp
 "Zero the desk" = "卓をゼロに"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "聞こえる音を変えてしまう、残ったままの設定: ソロ、キーリッスン、大きくずれたゲイン、CUT された出力。それぞれに修正ボタンがあります。"
 "Check" = "チェック"
+"Setup: build a mix" = "セットアップ: ミックスを作る"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "4 つの質問でミックスを作ります: 聞く場所、マイク、アプリへの聞かせ方、プログラム。足りないものを追加し、何も削除しません。"
+"Run setup" = "セットアップを実行"
 "Check for updates" = "更新を確認"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "多くても 1 日に 1 回、起動の 30 秒後に、アプリの名前とバージョンだけを含むリクエストを 1 つ GitHub に送ります。何もダウンロード、インストールされません。"
 "Version" = "バージョン"
@@ -558,8 +557,6 @@ countries: jp
 "BUSES" = "バス"
 "OUTPUTS" = "出力"
 "No programs playing without a rule" = "ルールなしで再生中のプログラムはありません"
-"Delete rule" = "ルールを削除"
-"No rules" = "ルールなし"
 "Pick ffmpeg.exe" = "ffmpeg.exe を選ぶ"
 "CLOCK" = "クロック"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "新しいクロックは、%1 の次回の起動時に有効になります。今すぐ再起動しますか? 音が数秒間止まります。"
@@ -1011,9 +1008,6 @@ countries: jp
 "PATH" = "フォルダー"
 "REVEAL" = "表示"
 "ARM" = "スタンバイ"
-
-// src/ui/Theme.cpp
-"Default" = "既定"
 
 // src/ui/TrayMixer.h
 "Open %1" = "%1 を開く"

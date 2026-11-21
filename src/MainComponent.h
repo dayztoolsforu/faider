@@ -118,9 +118,17 @@ private:
     void restoreSession (const juce::File&, const juce::String& named = {});   // named: a saved session's name
     // Named sessions: SAVE AS, OPEN, EXPORT and IMPORT (MainComponent.cpp).
     juce::File sessionsDir() const;
+    // SETTINGS > SESSIONS' saved sessions, by name, with when each was saved: the folder read when it
+    // may have changed (the page shown, a save, import or export: savedSessionsStale) or at most
+    // every 3 s, not each time the table reads them.
+    struct SavedSession { juce::File file; juce::Time saved; };
+    const std::vector<SavedSession>& savedSessions();
+    std::vector<SavedSession> savedSessionsList;
+    juce::uint32 savedSessionsRead = 0;
+    bool savedSessionsStale = true;
     void saveSessionAs();
+    void exportTo (const juce::File& chosen, std::function<void (const juce::File&)> write);   // EXPORT: the file chosen, asked first before another is replaced
     void showSessions (juce::PopupMenu::Options where);
-    void showAppRules (juce::PopupMenu::Options where);   // APP RULES (FIND): where each app goes when it starts playing
     juce::PopupMenu appDestinations (const juce::String& current, std::function<void (const juce::String&)> pick);   // the buses and outputs
     juce::PopupMenu addAppRuleMenu();                      // a new rule: the apps playing, each with appDestinations
     void showLooks (juce::PopupMenu::Options where);      // LOOK: the console's colours and typeface
@@ -145,7 +153,7 @@ private:
     void showTip (const juce::String& page);             // a page's first-run tip (once)
     void showPreflight (bool onlyIfWrong);
     void showWindowsDefaults (juce::PopupMenu::Options where);   // SET MY DEFAULTS: real devices as Windows' defaults
-    void showSetup ();                   // SETUP in its own window: not a page (first start, FIND)
+    void showSetup ();                   // SETUP in its own window: not a page (first start, SETTINGS > Startup & checks, FIND)
     void closeSetup ();
     std::vector<PreflightPanel::Check> zeroChecks();   // ZERO DESK: things left set (solos, DIM, the oscillator, KEY LISTEN...)
     void showZero();               // PRE-FLIGHT (on start: only if something's wrong)

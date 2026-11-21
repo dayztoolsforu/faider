@@ -22,6 +22,21 @@ namespace
             s = s.replace (juce::String (kept).toLowerCase(), kept);
         return s;
     }
+
+    // A note that ends a sentence: a full stop, unless it has one ("...", or a language's own).
+    juce::String sentenceEnd (const juce::String& note)
+    {
+        const auto last = note.getLastCharacter();
+        return juce::String (".!?").containsChar (last) || last == 0x2026 || last == 0x3002 || last == 0xff01 || last == 0xff1f ? note : note + ".";
+    }
+
+    AudioEngine::AppRule* ruleFor (std::vector<AudioEngine::AppRule>& rules, const juce::String& exe)
+    {
+        for (auto& r : rules)
+            if (r.exe.equalsIgnoreCase (exe))
+                return &r;
+        return nullptr;
+    }
 }
 
 // The SETTINGS tab, after DEVICES: the app's preferences in one place, a page each, down the left.
@@ -127,6 +142,9 @@ void MainComponent::makeSettings()
     add ({ .page = "Startup & checks", .section = NEEDS_TRANS ("Run now"), .name = NEEDS_TRANS ("Zero the desk"),
            .description = TRANS ("Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix."),
            .keywords = "zero desk reset solo", .actions = { { says (TRANS ("Check")), [this] (juce::Component&) { showZero(); } } } });
+    add ({ .page = "Startup & checks", .section = NEEDS_TRANS ("Run now"), .name = NEEDS_TRANS ("Setup: build a mix"),
+           .description = TRANS ("Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything."),
+           .keywords = "setup wizard first start build mix devices microphones", .actions = { { says (TRANS ("Run setup")), [this] (juce::Component&) { showSetup(); } } } });
 
     //--------------------------------------------------------------------------
     // APP > UPDATES & ABOUT
@@ -248,7 +266,7 @@ void MainComponent::makeSettings()
                           }, false, [this] { return ! boostingWindowsAudio; } },
                         { says (TRANS ("Back to normal")), [this] (juce::Component&) { unboostWindowsAudio(); }, false,
                           [this] { return ! boostingWindowsAudio && windowsAudio.pid != 0 && (windowsAudio.priority != AudioBoost::Priority::normal || windowsAudio.pinnedCore >= 0); } } },
-           .note = [this] { return boostNote.isNotEmpty() ? boostNote + "." : TRANS ("ASIO interfaces go around it, so they aren't affected."); },
+           .note = [this] { return boostNote.isNotEmpty() ? sentenceEnd (boostNote) : TRANS ("ASIO interfaces go around it, so they aren't affected."); },
            .warning = [canBoost] { return canBoost ? juce::String() : TRANS ("Needs %1 installed for all users").replace ("%1", Product::name); } });
     add ({ .page = "Audio", .section = NEEDS_TRANS ("Clock"), .name = NEEDS_TRANS ("Pin to one core"),
            .description = TRANS ("With Boost, Windows audio is held to the last core. Only for crackle on a USB headset; off unless you pick it. It takes effect from the next Boost."),
@@ -322,26 +340,25 @@ void MainComponent::makeSettings()
                                                            TRANS ("No rules yet"), [this]
                {
                    std::vector<SettingsUi::Table::Line> lines;
-                   for (int i = 0; i < (int) engine.appRules.size(); ++i)
+                   // (each rule by its program: the list may change while a menu is open)
+                   for (const auto& r : engine.appRules)
                    {
-                       const auto& r = engine.appRules[(size_t) i];
                        const auto where = r.to.fromFirstOccurrenceOf (":", false, false);
                        const auto to = r.to.startsWith ("bus:") ? TRANS ("%1 (bus)").replace ("%1", where) : TRANS ("%1 (output)").replace ("%1", where);
                        lines.push_back ({ { juce::File (r.exe).getFileNameWithoutExtension(), to },
-                                          { { TRANS ("Change"),[this, i] (juce::Component& c)
+                                          { { TRANS ("Change"),[this, exe = r.exe] (juce::Component& c)
                                               {
-                                                  if (! juce::isPositiveAndBelow (i, (int) engine.appRules.size()))
-                                                      return;
-                                                  appDestinations (engine.appRules[(size_t) i].to, [this, i] (const juce::String& dest)
-                                                  {
-                                                      if (juce::isPositiveAndBelow (i, (int) engine.appRules.size()))
-                                                          engine.appRules[(size_t) i].to = dest;
-                                                  }).showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&c));
+                                                  if (const auto* rule = ruleFor (engine.appRules, exe))
+                                                      appDestinations (rule->to, [this, exe] (const juce::String& dest)
+                                                      {
+                                                          if (auto* now = ruleFor (engine.appRules, exe))
+                                                              now->to = dest;
+                                                      }).showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&c));
                                               } },
-                                            { TRANS ("Delete"), [this, i] (juce::Component&)
+                                            { TRANS ("Delete"), [this, exe = r.exe] (juce::Component&)
                                               {
-                                                  if (juce::isPositiveAndBelow (i, (int) engine.appRules.size()))
-                                                      engine.appRules.erase (engine.appRules.begin() + i);
+                                                  auto& rules = engine.appRules;
+                                                  rules.erase (std::remove_if (rules.begin(), rules.end(), [&exe] (const AudioEngine::AppRule& x) { return x.exe.equalsIgnoreCase (exe); }), rules.end());
                                               } } } });
                    }
                    return lines;
@@ -361,16 +378,15 @@ void MainComponent::makeSettings()
            .actions = { { says (TRANS (juce::CharPointer_UTF8 ("Import\xe2\x80\xa6"))), [this] (juce::Component&) { importSession(); } } },
            .make = [this]
            {
+               savedSessionsStale = true;   // (the page shown: the folder read afresh)
                return std::make_unique<SettingsUi::Table> (std::vector<SettingsUi::Table::Column> { { TRANS ("Name"), 0.40f }, { TRANS ("Saved"), 0.30f }, { {}, 0.30f } },
                                                            TRANS ("No saved sessions yet"), [this]
                {
-                   auto files = sessionsDir().findChildFiles (juce::File::findFiles, false, "*.xml");
-                   std::sort (files.begin(), files.end(), [] (const juce::File& a, const juce::File& b) { return a.getFileName().compareNatural (b.getFileName()) < 0; });
                    std::vector<SettingsUi::Table::Line> lines;
-                   for (auto& f : files)
-                       lines.push_back ({ { f.getFileNameWithoutExtension(), f.getLastModificationTime().formatted ("%d %b %Y, %H:%M") },
-                                          { { TRANS ("Open"), [this, f] (juce::Component&) { restoreSession (f, f.getFileNameWithoutExtension()); } },
-                                            { TRANS ("Export"), [this, f] (juce::Component&) { exportSessionFile (f); } } } });
+                   for (auto& s : savedSessions())
+                       lines.push_back ({ { s.file.getFileNameWithoutExtension(), s.saved.formatted ("%d %b %Y, %H:%M") },
+                                          { { TRANS ("Open"), [this, f = s.file] (juce::Component&) { restoreSession (f, f.getFileNameWithoutExtension()); } },
+                                            { TRANS ("Export"), [this, f = s.file] (juce::Component&) { exportSessionFile (f); } } } });
                    return lines;
                });
            },
@@ -391,13 +407,15 @@ void MainComponent::makeSettings()
     add ({ .page = "MIDI & OSC", .section = "MIDI", .name = NEEDS_TRANS ("Inputs and bindings"),
            .description = TRANS ("Each MIDI input on or off, and what its controls are bound to."), .keywords = "midi device controller bindings",
            .actions = { { says (TRANS ("Open")), [this] (juce::Component&) { openMidiPanel(); } } },
-           .note = [remote] { return (remote->mappingCount() == 1 ? TRANS ("%1 binding.") : TRANS ("%1 bindings.")).replace ("%1", juce::String (remote->mappingCount())); } });
+           .note = [remote] { return (remote->mappingCount() == 1 ? TRANS ("%1 binding.") : TRANS ("%1 bindings.")).replace ("%1", juce::String (remote->mappingCount())); },
+           .passThrough = true });   // (MIDI & OSC's rows work while MIDI MAP is on, as the CONTROL page's did)
     add ({ .page = "MIDI & OSC", .section = "OSC", .name = "OSC",
            .description = TRANS ("Listen for OSC messages from programs on this PC (never from the network)."), .keywords = "osc remote network",
            .kind = Kind::toggle,
            .get = [remote] { return remote->getOscPort() > 0; },
            .set = [remote] (bool on) { remote->setOscPort (on ? remote->getOscPreferredPort() : 0); },
-           .note = [remote] { return remote->getOscPort() > 0 ? TRANS ("Listening on port %1.").replace ("%1", juce::String (remote->getOscPort())) : juce::String(); } });
+           .note = [remote] { return remote->getOscPort() > 0 ? TRANS ("Listening on port %1.").replace ("%1", juce::String (remote->getOscPort())) : juce::String(); },
+           .passThrough = true });
     // OSC PORT: a number from 1024 to 65535; OSC moves there if it's on, else uses it when it's switched on.
     add ({ .page = "MIDI & OSC", .section = "OSC", .name = NEEDS_TRANS ("OSC port"),
            .description = TRANS ("The port OSC listens on, 1024 to 65535. If OSC is on, it moves there at once."), .keywords = "osc port",
@@ -412,7 +430,8 @@ void MainComponent::makeSettings()
                        juce::AlertWindow::showMessageBoxAsync (juce::MessageBoxIconType::NoIcon, TRANS ("OSC port"),
                                                                TRANS ("Port %1 couldn't be opened (another program may have it). OSC is off.").replace ("%1", juce::String (wanted)));
                }, 5);
-           } });
+           },
+           .passThrough = true });
 
     //--------------------------------------------------------------------------
     // CONTROL > HOTKEYS: every global hotkey: the pads', macros' and scenes' (set through PADS, so
@@ -583,37 +602,6 @@ juce::PopupMenu MainComponent::addAppRuleMenu()
     if (add.getNumItems() == 0)
         add.addItem (TRANS ("No programs playing without a rule"), false, false, nullptr);
     return add;
-}
-
-// APP RULES (FIND's): "DISCORD goes to CALLS" (AudioEngine::AppRule). Each rule's app and where it
-// goes; a new rule for any app playing now, or one that already has a channel.
-void MainComponent::showAppRules (juce::PopupMenu::Options where)
-{
-    auto appName = [] (const juce::String& exe) { return juce::File (exe).getFileNameWithoutExtension().toUpperCase(); };
-
-    juce::PopupMenu menu;
-    menu.addSectionHeader (TRANS ("APP RULES"));
-    auto& rules = engine.appRules;
-    for (int i = 0; i < (int) rules.size(); ++i)
-    {
-        auto sub = appDestinations (rules[(size_t) i].to, [this, i] (const juce::String& to)
-        {
-            if (juce::isPositiveAndBelow (i, (int) engine.appRules.size()))
-                engine.appRules[(size_t) i].to = to;
-        });
-        sub.addSeparator();
-        sub.addItem (TRANS ("Delete rule"), [this, i]
-        {
-            if (juce::isPositiveAndBelow (i, (int) engine.appRules.size()))
-                engine.appRules.erase (engine.appRules.begin() + i);
-        });
-        menu.addSubMenu (appName (rules[(size_t) i].exe) + "  ->  " + rules[(size_t) i].to.fromFirstOccurrenceOf (":", false, false), sub);
-    }
-    if (rules.empty())
-        menu.addItem (TRANS ("No rules"), false, false, nullptr);
-    menu.addSeparator();
-    menu.addSubMenu (TRANS ("Add rule"), addAppRuleMenu());
-    menu.showMenuAsync (where);
 }
 
 // FFMPEG > PICK: ffmpeg.exe picked (it's used before the PATH's).

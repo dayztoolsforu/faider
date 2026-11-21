@@ -238,18 +238,12 @@ countries: de
 "HIDE OVERLAY" = "OVERLAY AUSBLENDEN"
 "SHOW OVERLAY" = "OVERLAY EINBLENDEN"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - Mikrofonstatus über Spielen"
-"SESSION TIMELINE" = "SITZUNGSVERLAUF"
-"Go back to an earlier mix, or one channel" = "Zu einem früheren Mix oder Kanal zurückgehen"
 "SAVE SESSION AS..." = "SITZUNG SPEICHERN UNTER..."
 "Keep this mix under a name" = "Diesen Mix unter einem Namen behalten"
-"APP RULES" = "APP-REGELN"
-"Where each app goes when it starts playing" = "Wohin jede App geht, wenn sie zu spielen beginnt"
 "SESSIONS" = "SITZUNGEN"
 "Open a saved mix, export or import one" = "Gespeicherten Mix öffnen, exportieren oder importieren"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT-CHECK"
 "Audio, the mic cable and route, cut mics, things heard twice" = "Audio, Mikrofonkabel und Route, Mikrofone auf CUT, doppelt Gehörtes"
-"SETUP: BUILD A MIX" = "SETUP: MIX ERSTELLEN"
-"Where you listen, your microphones, how apps hear you, your programs" = "Wo du hörst, deine Mikrofone, wie Apps dich hören, deine Programme"
 "WINDOWS DEFAULTS" = "WINDOWS-STANDARDS"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "Deine echten Lautsprecher und dein Mikrofon als Windows-Standard, auch für Anrufe (nicht das Kabel)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "WINDOWS-AUDIO BOOSTEN (GEBOOSTET)"
@@ -280,8 +274,6 @@ countries: de
 "ZOOM IN" = "VERGRÖSSERN"
 "ZOOM OUT" = "VERKLEINERN"
 "ZOOM 100%" = "ZOOM 100%"
-"ABOUT %1" = "ÜBER %1"
-"Version, credits" = "Version, Mitwirkende"
 "SAVE A PROBLEM REPORT" = "PROBLEMBERICHT SPEICHERN"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "Die Protokolle und der letzte Absturz in einer .zip zum Verschicken (nichts wird von selbst gesendet)"
 "CHECK FOR UPDATES NOW" = "JETZT NACH UPDATES SUCHEN"
@@ -345,6 +337,7 @@ countries: de
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "Sitzungsverlauf..."
+"SESSION TIMELINE" = "SITZUNGSVERLAUF"
 "%1 min ago" = "vor %1 min"
 "%1 h ago" = "vor %1 h"
 "kept: %1" = "behalten: %1"
@@ -362,6 +355,8 @@ countries: de
 "EXPORT TO A FILE..." = "IN DATEI EXPORTIEREN..."
 "IMPORT FROM A FILE..." = "AUS DATEI IMPORTIEREN..."
 "Export the session" = "Sitzung exportieren"
+"%1 is already there. Replace it?" = "%1 gibt es schon. Ersetzen?"
+"REPLACE" = "ERSETZEN"
 "Import a session" = "Sitzung importieren"
 "OPEN SESSION" = "SITZUNG ÖFFNEN"
 "RESTORE SESSION" = "SITZUNG WIEDERHERSTELLEN"
@@ -372,6 +367,7 @@ countries: de
 "RESTORE" = "WIEDERHERSTELLEN"
 
 // src/MainComponentSettings.cpp
+"Default" = "Standard"
 "Language" = "Sprache"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "Die Sprache der Oberfläche, ab dem nächsten Start. Die Tasten des Pults bleiben englisch. Eine Änderung bietet einen Neustart an."
 "The new language takes effect when %1 starts again." = "Die neue Sprache gilt, sobald %1 neu startet."
@@ -409,6 +405,9 @@ countries: de
 "Zero the desk" = "Pult nullen"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "Liegengebliebenes, das ändert, was zu hören ist: Solos, Key-Abhören, stark verstellte Gains, Ausgänge auf CUT. Jeweils mit Lösung."
 "Check" = "Prüfen"
+"Setup: build a mix" = "Setup: Mix erstellen"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "Vier Fragen, die deinen Mix erstellen: wo du hörst, deine Mikrofone, wie Apps dich hören, deine Programme. Es ergänzt, was fehlt, und entfernt nie etwas."
+"Run setup" = "Setup ausführen"
 "Check for updates" = "Nach Updates suchen"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "Höchstens einmal am Tag, eine halbe Minute nach dem Start: eine Anfrage an GitHub mit Name und Version der App, sonst nichts. Nichts wird heruntergeladen oder installiert."
 "Version" = "Version"
@@ -558,8 +557,6 @@ countries: de
 "BUSES" = "BUSSE"
 "OUTPUTS" = "AUSGÄNGE"
 "No programs playing without a rule" = "Kein Programm ohne Regel spielt gerade"
-"Delete rule" = "Regel löschen"
-"No rules" = "Keine Regeln"
 "Pick ffmpeg.exe" = "ffmpeg.exe wählen"
 "CLOCK" = "TAKT"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "Der neue Takt gilt, sobald %1 neu startet. Jetzt neu starten? Der Klang stoppt für ein paar Sekunden."
@@ -1011,9 +1008,6 @@ countries: de
 "PATH" = "PFAD"
 "REVEAL" = "ZEIGEN"
 "ARM" = "SCHARF"
-
-// src/ui/Theme.cpp
-"Default" = "Standard"
 
 // src/ui/TrayMixer.h
 "Open %1" = "%1 öffnen"

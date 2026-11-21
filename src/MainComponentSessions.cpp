@@ -127,6 +127,22 @@ void MainComponent::showTimeline (juce::PopupMenu::Options where)
 // to, and sessions as files to share or move (EXPORT, IMPORT). Opening one restarts Faider with it.
 juce::File MainComponent::sessionsDir() const { return dataDir.getChildFile ("sessions"); }
 
+const std::vector<MainComponent::SavedSession>& MainComponent::savedSessions()
+{
+    const auto now = juce::Time::getMillisecondCounter();
+    if (savedSessionsStale || now - savedSessionsRead > 3000)
+    {
+        auto files = sessionsDir().findChildFiles (juce::File::findFiles, false, "*.xml");
+        std::sort (files.begin(), files.end(), [] (const juce::File& a, const juce::File& b) { return a.getFileName().compareNatural (b.getFileName()) < 0; });
+        savedSessionsList.clear();
+        for (auto& f : files)
+            savedSessionsList.push_back ({ f, f.getLastModificationTime() });
+        savedSessionsRead = now;
+        savedSessionsStale = false;
+    }
+    return savedSessionsList;
+}
+
 void MainComponent::saveSessionAs()
 {
     if (interfaceName.isEmpty() || ! sessionLoaded)
@@ -144,6 +160,7 @@ void MainComponent::saveSessionAs()
         const auto file = safe->sessionsDir().getChildFile (name + ".xml");
         if (file.replaceWithText (Session::save (safe->engine, safe->masterToSave())->toString()))
         {
+            safe->savedSessionsStale = true;
             safe->logEvent ("sessions: saved as " + name);
             safe->toasts.show ("scene", TRANS ("Session saved"), name);
         }
@@ -176,10 +193,30 @@ void MainComponent::exportSession()
     sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
                                  [this] (const juce::FileChooser& fc)
     {
-        const auto file = fc.getResult().withFileExtension ("xml");
-        if (fc.getResult() != juce::File() && file.replaceWithText (Session::save (engine, masterToSave())->toString()))
-            logEvent ("sessions: exported to " + file.getFullPathName());
+        exportTo (fc.getResult(), [this] (const juce::File& file)
+        {
+            if (file.replaceWithText (Session::save (engine, masterToSave())->toString()))
+                logEvent ("sessions: exported to " + file.getFullPathName());
+        });
     });
+}
+
+// EXPORT's file: the one chosen if it ends in .xml, else that name with .xml after it. The chooser
+// asked before replacing the name chosen; if .xml makes it another file that's already there, it's
+// asked about here first.
+void MainComponent::exportTo (const juce::File& chosen, std::function<void (const juce::File&)> write)
+{
+    if (chosen == juce::File())
+        return;
+    savedSessionsStale = true;
+    const auto file = chosen.hasFileExtension ("xml") ? chosen : chosen.getSiblingFile (chosen.getFileName() + ".xml");
+    if (file == chosen || ! file.exists())
+        return write (file);
+    juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::WarningIcon, TRANS ("Export the session"),
+                                        TRANS ("%1 is already there. Replace it?").replace ("%1", file.getFullPathName()),
+                                        TRANS ("REPLACE"), TRANS ("CANCEL"), nullptr,
+                                        juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this), file, write] (int result)
+                                        { if (result == 1 && safe != nullptr) write (file); }));
 }
 
 // A saved session (SETTINGS > SESSIONS' EXPORT), copied to a file.
@@ -190,9 +227,11 @@ void MainComponent::exportSessionFile (const juce::File& saved)
     sessionChooser->launchAsync (juce::FileBrowserComponent::saveMode | juce::FileBrowserComponent::warnAboutOverwriting,
                                  [this, saved] (const juce::FileChooser& fc)
     {
-        const auto file = fc.getResult().withFileExtension ("xml");
-        if (fc.getResult() != juce::File() && file != saved && saved.copyFileTo (file))
-            logEvent ("sessions: " + saved.getFileNameWithoutExtension() + " exported to " + file.getFullPathName());
+        exportTo (fc.getResult(), [this, saved] (const juce::File& file)
+        {
+            if (file != saved && saved.copyFileTo (file))
+                logEvent ("sessions: " + saved.getFileNameWithoutExtension() + " exported to " + file.getFullPathName());
+        });
     });
 }
 
@@ -201,6 +240,7 @@ void MainComponent::importSession()
     sessionChooser = std::make_unique<juce::FileChooser> (TRANS ("Import a session"), juce::File::getSpecialLocation (juce::File::userDocumentsDirectory), "*.xml");
     sessionChooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles, [this] (const juce::FileChooser& fc)
     {
+        savedSessionsStale = true;
         const auto file = fc.getResult();
         const auto xml = juce::XmlDocument::parse (file);
         if (xml == nullptr || xml->getChildByName ("Strip") == nullptr && xml->getChildByName ("Bus") == nullptr && xml->getChildByName ("Pair") == nullptr)

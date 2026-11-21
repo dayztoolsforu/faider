@@ -238,18 +238,12 @@ countries: kr
 "HIDE OVERLAY" = "오버레이 숨기기"
 "SHOW OVERLAY" = "오버레이 표시"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - 게임 위에 마이크 상태 표시"
-"SESSION TIMELINE" = "세션 타임라인"
-"Go back to an earlier mix, or one channel" = "이전 믹스나 채널 하나로 되돌리기"
 "SAVE SESSION AS..." = "다른 이름으로 세션 저장..."
 "Keep this mix under a name" = "이 믹스를 이름을 붙여 보관"
-"APP RULES" = "앱 규칙"
-"Where each app goes when it starts playing" = "각 앱이 재생을 시작할 때 가는 곳"
 "SESSIONS" = "세션"
 "Open a saved mix, export or import one" = "저장한 믹스 열기, 내보내기, 가져오기"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT 점검"
 "Audio, the mic cable and route, cut mics, things heard twice" = "오디오, 마이크 케이블과 루트, CUT된 마이크, 두 번 들리는 소리"
-"SETUP: BUILD A MIX" = "설정 도우미: 믹스 만들기"
-"Where you listen, your microphones, how apps hear you, your programs" = "듣는 곳, 마이크, 앱이 내 소리를 듣는 방법, 프로그램"
 "WINDOWS DEFAULTS" = "Windows 기본 장치"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "실제 스피커와 마이크를 Windows 기본 장치로(통화용 포함, 케이블 말고)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "Windows 오디오 부스트(부스트됨)"
@@ -280,8 +274,6 @@ countries: kr
 "ZOOM IN" = "확대"
 "ZOOM OUT" = "축소"
 "ZOOM 100%" = "100%로 보기"
-"ABOUT %1" = "%1 정보"
-"Version, credits" = "버전, 크레딧"
 "SAVE A PROBLEM REPORT" = "문제 보고서 저장"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "로그와 마지막 충돌을 보낼 수 있는 .zip으로(저절로 보내지는 것은 없음)"
 "CHECK FOR UPDATES NOW" = "지금 업데이트 확인"
@@ -345,6 +337,7 @@ countries: kr
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "세션 타임라인..."
+"SESSION TIMELINE" = "세션 타임라인"
 "%1 min ago" = "%1분 전"
 "%1 h ago" = "%1시간 전"
 "kept: %1" = "보관: %1"
@@ -362,6 +355,8 @@ countries: kr
 "EXPORT TO A FILE..." = "파일로 내보내기..."
 "IMPORT FROM A FILE..." = "파일에서 가져오기..."
 "Export the session" = "세션 내보내기"
+"%1 is already there. Replace it?" = "%1이(가) 이미 있습니다. 바꿀까요?"
+"REPLACE" = "바꾸기"
 "Import a session" = "세션 가져오기"
 "OPEN SESSION" = "세션 열기"
 "RESTORE SESSION" = "세션 복원"
@@ -372,6 +367,7 @@ countries: kr
 "RESTORE" = "복원"
 
 // src/MainComponentSettings.cpp
+"Default" = "기본"
 "Language" = "언어"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "다음 시작부터 적용되는 인터페이스 언어. 데스크의 키는 영어로 남습니다. 바꾸면 다시 시작할지 묻습니다."
 "The new language takes effect when %1 starts again." = "새 언어는 %1이(가) 다시 시작될 때 적용됩니다."
@@ -409,6 +405,9 @@ countries: kr
 "Zero the desk" = "데스크 초기화"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "들리는 소리를 바꾸는 남은 설정: 솔로, 키 리슨, 크게 벗어난 게인, CUT된 출력. 각각 수정할 수 있습니다."
 "Check" = "점검"
+"Setup: build a mix" = "설정 도우미: 믹스 만들기"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "네 가지 질문으로 믹스를 만듭니다: 듣는 곳, 마이크, 앱이 내 소리를 듣는 방법, 프로그램. 없는 것을 추가하고 아무것도 지우지 않습니다."
+"Run setup" = "설정 도우미 실행"
 "Check for updates" = "업데이트 확인"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "하루에 많아야 한 번, 시작하고 30초 뒤에 앱 이름과 버전만 담은 요청 하나를 GitHub에 보냅니다. 아무것도 다운로드하거나 설치하지 않습니다."
 "Version" = "버전"
@@ -558,8 +557,6 @@ countries: kr
 "BUSES" = "버스"
 "OUTPUTS" = "출력"
 "No programs playing without a rule" = "규칙 없이 재생 중인 프로그램 없음"
-"Delete rule" = "규칙 삭제"
-"No rules" = "규칙 없음"
 "Pick ffmpeg.exe" = "ffmpeg.exe 고르기"
 "CLOCK" = "클럭"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "새 클럭은 %1이(가) 다시 시작될 때 적용됩니다. 지금 다시 시작할까요? 소리가 몇 초 동안 멈춥니다."
@@ -1011,9 +1008,6 @@ countries: kr
 "PATH" = "폴더"
 "REVEAL" = "보기"
 "ARM" = "준비"
-
-// src/ui/Theme.cpp
-"Default" = "기본"
 
 // src/ui/TrayMixer.h
 "Open %1" = "%1 열기"

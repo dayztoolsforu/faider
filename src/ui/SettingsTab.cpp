@@ -44,12 +44,15 @@ void HotkeysPage::paint (juce::Graphics& g)
 
 bool HotkeysPage::keyPressed (const juce::KeyPress& key)
 {
-    if (capturing < 0)
+    if (capturing.isEmpty())
         return false;
-    if (key == juce::KeyPress::escapeKey)
+    const int index = capturingIndex();
+    if (index < 0)   // (gone from the list meanwhile)
+        stopCapturing ({});
+    else if (key == juce::KeyPress::escapeKey)
         stopCapturing ({});
     else if (key == juce::KeyPress::deleteKey || key == juce::KeyPress::backspaceKey)
-        stopCapturing (entries[(size_t) capturing].set ({}) ? juce::String() : TRANS ("Couldn't clear it"));
+        stopCapturing (entries[(size_t) index].set ({}) ? juce::String() : TRANS ("Couldn't clear it"));
     else if (! GlobalHotkeys::usable (key))
     {
         note = TRANS ("Needs Ctrl, Alt or an F key");
@@ -59,18 +62,35 @@ bool HotkeysPage::keyPressed (const juce::KeyPress& key)
     {
         // Refused: what has the key here keeps it (it isn't even tried); or Windows won't give it, so another app has it.
         const auto text = keyText (key.getTextDescription());
-        if (const int holder = holderOf (key.getTextDescription(), capturing); holder >= 0)
+        if (const int holder = holderOf (key.getTextDescription(), index); holder >= 0)
             stopCapturing (TRANS ("%1 is already the key for %2").replace ("%1", text).replace ("%2", entries[(size_t) holder].name));
         else
-            stopCapturing (entries[(size_t) capturing].set (key) ? juce::String() : TRANS ("%1 is taken by another app").replace ("%1", text));
+            stopCapturing (entries[(size_t) index].set (key) ? juce::String() : TRANS ("%1 is taken by another app").replace ("%1", text));
     }
     return true;
 }
 
 void HotkeysPage::focusLost (FocusChangeType)
 {
-    if (capturing >= 0)
+    if (capturing.isNotEmpty())
         stopCapturing ({});
+}
+
+juce::String HotkeysPage::idOf (int index) const
+{
+    const auto& e = entries[(size_t) index];
+    int same = 0;
+    for (int i = 0; i < index; ++i)
+        same += entries[(size_t) i].group == e.group && entries[(size_t) i].name == e.name ? 1 : 0;
+    return e.group + "\n" + e.name + "\n" + juce::String (same);
+}
+
+int HotkeysPage::capturingIndex() const
+{
+    for (int i = 0; capturing.isNotEmpty() && i < (int) entries.size(); ++i)
+        if (entries[(size_t) i].set != nullptr && idOf (i) == capturing)
+            return i;
+    return -1;
 }
 
 juce::String HotkeysPage::signature (const std::vector<Entry>& list)
@@ -106,6 +126,12 @@ void HotkeysPage::rebuild()
     entries = list();
     shown = signature (entries);
     clashes = 0;
+    const int capturingAt = capturingIndex();
+    if (capturing.isNotEmpty() && capturingAt < 0)   // (the one waiting for a key is gone: no longer waiting)
+    {
+        capturing.clear();
+        setWantsKeyboardFocus (false);
+    }
     std::vector<Table::Line> settable, always;
     for (int i = 0; i < (int) entries.size(); ++i)
     {
@@ -131,9 +157,9 @@ void HotkeysPage::rebuild()
 
         if (e.set != nullptr)
         {
-            const auto shownKey = capturing == i ? TRANS (juce::CharPointer_UTF8 ("Press a key\xe2\x80\xa6"))
-                                                 : e.key.isEmpty() ? TRANS ("None") : keyText (e.key);
-            settable.push_back ({ { e.name, e.where, juce::String() }, { { shownKey, [this, i] (juce::Component&) { startCapturing (i); }, capturing == i } }, red });
+            const auto shownKey = capturingAt == i ? TRANS (juce::CharPointer_UTF8 ("Press a key\xe2\x80\xa6"))
+                                                   : e.key.isEmpty() ? TRANS ("None") : keyText (e.key);
+            settable.push_back ({ { e.name, e.where, juce::String() }, { { shownKey, [this, id = idOf (i)] (juce::Component&) { startCapturing (id); }, capturingAt == i } }, red });
         }
         else
             always.push_back ({ { e.name, e.where, keyText (e.key) }, {}, red, true });
@@ -155,18 +181,20 @@ juce::String HotkeysPage::usualNote() const
     return usual + "  " + (clashes == 1 ? TRANS ("%1 shares a key (in red).") : TRANS ("%1 share a key (in red).")).replace ("%1", juce::String (clashes));
 }
 
-void HotkeysPage::startCapturing (int index)
+void HotkeysPage::startCapturing (const juce::String& id)
 {
-    capturing = index;
+    capturing = id;
     problem.clear();
     rebuild();
+    if (capturing.isEmpty())   // (gone from the list as it was made again)
+        return;
     setWantsKeyboardFocus (true);
     grabKeyboardFocus();
 }
 
 void HotkeysPage::stopCapturing (const juce::String& whyNot)
 {
-    capturing = -1;
+    capturing.clear();
     setWantsKeyboardFocus (false);
     problem = whyNot;   // (shown until the next key is clicked)
     rebuild();
@@ -174,7 +202,7 @@ void HotkeysPage::stopCapturing (const juce::String& whyNot)
 
 void HotkeysPage::timerCallback()
 {
-    if (isShowing() && capturing < 0 && signature (list()) != shown)
+    if (isShowing() && capturing.isEmpty() && signature (list()) != shown)
         rebuild();
 }
 
@@ -274,11 +302,30 @@ void SettingsTab::build()
         ownShown->getParentComponent()->removeChildComponent (ownShown);
     ownShown = nullptr;
 
+    pageResults.clear();   // (after the rows that showed them)
+
     const auto query = search.getText().trim();
     if (query.isNotEmpty())
     {
-        // Every page's rows that match, each under its page's name.
+        // The pages that match by name or keywords, each a row that opens it (under its group), then
+        // every page's rows that match, each under its page's name.
         int found = 0;
+        for (auto& p : pages)
+            if (p.matches (query))
+            {
+                auto page = std::make_unique<SettingsRegistry::Setting>();
+                page->page = p.group;
+                page->name = p.name;
+                page->description = p.intro;
+                page->actions = { { [] { return TRANS ("Open"); },
+                                    [self = juce::Component::SafePointer<SettingsTab> (this), name = p.name] (juce::Component&)
+                                    {   // (once the click is over: opening it makes the rows again, this one's with them)
+                                        juce::MessageManager::callAsync ([self, name] { if (self != nullptr) self->show (name); });
+                                    } } };
+                column.addAndMakeVisible (rows.add (new Row (*page, p.group)));
+                pageResults.push_back (std::move (page));
+                ++found;
+            }
         for (auto& s : settings)
             if (s.matches (query))
             {

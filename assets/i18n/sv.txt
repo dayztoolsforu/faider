@@ -238,18 +238,12 @@ countries: se
 "HIDE OVERLAY" = "DÖLJ OVERLAY"
 "SHOW OVERLAY" = "VISA OVERLAY"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - mikrofonstatus ovanpå spel"
-"SESSION TIMELINE" = "SESSIONENS TIDSLINJE"
-"Go back to an earlier mix, or one channel" = "Gå tillbaka till en tidigare mix, eller en kanal"
 "SAVE SESSION AS..." = "SPARA SESSION SOM..."
 "Keep this mix under a name" = "Behåll den här mixen under ett namn"
-"APP RULES" = "APPREGLER"
-"Where each app goes when it starts playing" = "Vart varje app går när den börjar spela"
 "SESSIONS" = "SESSIONER"
 "Open a saved mix, export or import one" = "Öppna en sparad mix, exportera eller importera en"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT-KONTROLL"
 "Audio, the mic cable and route, cut mics, things heard twice" = "Ljud, mikrofonkabeln och rutten, mikrofoner på CUT, sådant som hörs två gånger"
-"SETUP: BUILD A MIX" = "UPPSÄTTNING: BYGG EN MIX"
-"Where you listen, your microphones, how apps hear you, your programs" = "Var du lyssnar, dina mikrofoner, hur appar hör dig, dina program"
 "WINDOWS DEFAULTS" = "WINDOWS STANDARDENHETER"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "Dina riktiga högtalare och mikrofon som Windows standard, även för samtal (inte kabeln)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "BOOSTA WINDOWS-LJUDET (BOOSTAT)"
@@ -280,8 +274,6 @@ countries: se
 "ZOOM IN" = "ZOOMA IN"
 "ZOOM OUT" = "ZOOMA UT"
 "ZOOM 100%" = "ZOOM 100%"
-"ABOUT %1" = "OM %1"
-"Version, credits" = "Version, tack"
 "SAVE A PROBLEM REPORT" = "SPARA EN PROBLEMRAPPORT"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "Loggarna och den senaste kraschen i en .zip som du kan skicka (inget skickas av sig självt)"
 "CHECK FOR UPDATES NOW" = "SÖK EFTER UPPDATERINGAR NU"
@@ -345,6 +337,7 @@ countries: se
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "Sessionens tidslinje..."
+"SESSION TIMELINE" = "SESSIONENS TIDSLINJE"
 "%1 min ago" = "för %1 min sedan"
 "%1 h ago" = "för %1 h sedan"
 "kept: %1" = "sparad: %1"
@@ -362,6 +355,8 @@ countries: se
 "EXPORT TO A FILE..." = "EXPORTERA TILL EN FIL..."
 "IMPORT FROM A FILE..." = "IMPORTERA FRÅN EN FIL..."
 "Export the session" = "Exportera sessionen"
+"%1 is already there. Replace it?" = "%1 finns redan. Ersätta den?"
+"REPLACE" = "ERSÄTT"
 "Import a session" = "Importera en session"
 "OPEN SESSION" = "ÖPPNA SESSION"
 "RESTORE SESSION" = "ÅTERSTÄLL SESSION"
@@ -372,6 +367,7 @@ countries: se
 "RESTORE" = "ÅTERSTÄLL"
 
 // src/MainComponentSettings.cpp
+"Default" = "Standard"
 "Language" = "Språk"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "Gränssnittets språk, från nästa start. Bordets tangenter förblir på engelska. Vid en ändring erbjuds en omstart."
 "The new language takes effect when %1 starts again." = "Det nya språket gäller när %1 startar igen."
@@ -409,6 +405,9 @@ countries: se
 "Zero the desk" = "Nollställ bordet"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "Kvarlämnade inställningar som ändrar vad som hörs: solon, nyckellyssning, gain långt från noll, utgångar på CUT. Var och en med sin åtgärd."
 "Check" = "Kontrollera"
+"Setup: build a mix" = "Uppsättning: bygg en mix"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "Fyra frågor som bygger din mix: var du lyssnar, dina mikrofoner, hur appar hör dig, dina program. Den lägger till det som saknas och tar aldrig bort något."
+"Run setup" = "Kör uppsättning"
 "Check for updates" = "Sök efter uppdateringar"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "Högst en gång om dagen, en halv minut efter start: en förfrågan till GitHub med appens namn och version, inget annat. Inget laddas ned eller installeras."
 "Version" = "Version"
@@ -558,8 +557,6 @@ countries: se
 "BUSES" = "BUSSAR"
 "OUTPUTS" = "UTGÅNGAR"
 "No programs playing without a rule" = "Inga program spelar utan regel"
-"Delete rule" = "Ta bort regel"
-"No rules" = "Inga regler"
 "Pick ffmpeg.exe" = "Välj ffmpeg.exe"
 "CLOCK" = "KLOCKA"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "Den nya klockan gäller när %1 startar igen. Starta om nu? Ljudet stoppar i några sekunder."
@@ -1011,9 +1008,6 @@ countries: se
 "PATH" = "MAPP"
 "REVEAL" = "VISA"
 "ARM" = "AKTIVERA"
-
-// src/ui/Theme.cpp
-"Default" = "Standard"
 
 // src/ui/TrayMixer.h
 "Open %1" = "Öppna %1"

@@ -238,18 +238,12 @@ countries: cn
 "HIDE OVERLAY" = "隐藏悬浮层"
 "SHOW OVERLAY" = "显示悬浮层"
 "Ctrl+Shift+O - mic state on top of games" = "Ctrl+Shift+O - 在游戏上方显示麦克风状态"
-"SESSION TIMELINE" = "会话时间线"
-"Go back to an earlier mix, or one channel" = "回到较早的混音，或只恢复一个通道"
 "SAVE SESSION AS..." = "会话另存为..."
 "Keep this mix under a name" = "以名称保存这个混音"
-"APP RULES" = "应用规则"
-"Where each app goes when it starts playing" = "每个应用开始播放时去往何处"
 "SESSIONS" = "会话"
 "Open a saved mix, export or import one" = "打开已保存的混音，导出或导入混音"
 "PRE-FLIGHT CHECK" = "PRE-FLIGHT 检查"
 "Audio, the mic cable and route, cut mics, things heard twice" = "音频、麦克风线缆及其路由、已静音的麦克风、被听到两次的声音"
-"SETUP: BUILD A MIX" = "设置向导：建立混音"
-"Where you listen, your microphones, how apps hear you, your programs" = "你在哪里收听、你的麦克风、应用如何听到你、你的程序"
 "WINDOWS DEFAULTS" = "WINDOWS 默认设备"
 "Your real speakers and mic as Windows' defaults, for calls too (not the cable)" = "把你真实的音箱和麦克风设为 Windows 默认设备，通话也一样 (而不是线缆)"
 "BOOST WINDOWS AUDIO (BOOSTED)" = "提升 WINDOWS 音频 (已提升)"
@@ -280,8 +274,6 @@ countries: cn
 "ZOOM IN" = "放大"
 "ZOOM OUT" = "缩小"
 "ZOOM 100%" = "缩放 100%"
-"ABOUT %1" = "关于 %1"
-"Version, credits" = "版本、致谢"
 "SAVE A PROBLEM REPORT" = "保存问题报告"
 "The logs and the last crash in a .zip you can send (nothing is sent by itself)" = "把日志和最近一次崩溃打包为可发送的 .zip (不会自动发送任何内容)"
 "CHECK FOR UPDATES NOW" = "立即检查更新"
@@ -345,6 +337,7 @@ countries: cn
 
 // src/MainComponentSessions.cpp
 "Session timeline..." = "会话时间线..."
+"SESSION TIMELINE" = "会话时间线"
 "%1 min ago" = "%1 分钟前"
 "%1 h ago" = "%1 小时前"
 "kept: %1" = "已保留：%1"
@@ -362,6 +355,8 @@ countries: cn
 "EXPORT TO A FILE..." = "导出到文件..."
 "IMPORT FROM A FILE..." = "从文件导入..."
 "Export the session" = "导出会话"
+"%1 is already there. Replace it?" = "%1 已存在。要替换吗？"
+"REPLACE" = "替换"
 "Import a session" = "导入会话"
 "OPEN SESSION" = "打开会话"
 "RESTORE SESSION" = "恢复会话"
@@ -372,6 +367,7 @@ countries: cn
 "RESTORE" = "恢复"
 
 // src/MainComponentSettings.cpp
+"Default" = "默认"
 "Language" = "语言"
 "The language of the interface, from the next start. The desk's keys stay in English. Changing it offers a restart." = "界面语言，下次启动时生效。调音台上的按键保持英文。更改后会提示重启。"
 "The new language takes effect when %1 starts again." = "新语言将在 %1 下次启动时生效。"
@@ -409,6 +405,9 @@ countries: cn
 "Zero the desk" = "调音台归零"
 "Things left set that change what's heard: solos, key listen, gains far off, outputs cut. Each with its fix." = "会改变所听内容的残留设置：独奏、旁链监听、偏离过大的增益、已静音的输出。每项都附带修复。"
 "Check" = "检查"
+"Setup: build a mix" = "设置向导：建立混音"
+"Four questions that build your mix: where you listen, your microphones, how apps hear you, your programs. It adds what's missing and never removes anything." = "四个问题建立你的混音：你在哪里收听、你的麦克风、应用如何听到你、你的程序。只添加缺少的内容，从不删除任何东西。"
+"Run setup" = "运行设置向导"
 "Check for updates" = "检查更新"
 "At most once a day, half a minute after start: one request to GitHub with the app's name and version, nothing else. Nothing is downloaded or installed." = "每天最多一次，在启动半分钟后：向 GitHub 发出一次请求，只包含应用名称和版本。不会下载或安装任何内容。"
 "Version" = "版本"
@@ -558,8 +557,6 @@ countries: cn
 "BUSES" = "总线"
 "OUTPUTS" = "输出"
 "No programs playing without a rule" = "没有无规则播放的程序"
-"Delete rule" = "删除规则"
-"No rules" = "无规则"
 "Pick ffmpeg.exe" = "选择 ffmpeg.exe"
 "CLOCK" = "时钟"
 "The new clock takes effect when %1 starts again. Restart now? The sound stops for a few seconds." = "新时钟将在 %1 下次启动时生效。现在重启吗？声音会中断几秒。"
@@ -1011,9 +1008,6 @@ countries: cn
 "PATH" = "路径"
 "REVEAL" = "显示"
 "ARM" = "准备"
-
-// src/ui/Theme.cpp
-"Default" = "默认"
 
 // src/ui/TrayMixer.h
 "Open %1" = "打开 %1"

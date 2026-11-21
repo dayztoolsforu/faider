@@ -110,7 +110,8 @@ namespace SettingsUi
         juce::String text;
     };
 
-    // A number typed in, then APPLY (the OSC port).
+    // A number typed in, then APPLY (the OSC port). What's typed stays until it's applied (Apply,
+    // Enter) or dropped (Escape): reading the value again never writes over it.
     class NumberField : public juce::Component, public Refreshing
     {
     public:
@@ -120,11 +121,13 @@ namespace SettingsUi
         void resized() override;
     private:
         void style();
+        void applyTyped();
         std::function<int()> value;
         std::function<void (int)> onApply;
         juce::TextEditor editor;
         Button applyKey { TRANS ("Apply") };   // (made with the field, after the language is loaded)
         int lookShown = -1;
+        bool typed = false;   // (an edit not applied yet)
     };
 
     // A table: a header row, then lines, each line's buttons in the last column; a line can have a

@@ -2,7 +2,7 @@
 #include "MainComponent.h"
 #include "ProductName.h"
 #include "ui/MixMinusBuilder.h"
-#include "ui/AboutBox.h"
+#include <set>
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
 
 // The command palette's commands, made fresh each time it opens: pages, every channel (mute,
@@ -88,14 +88,11 @@ void MainComponent::openCommandPalette()
 
     add (overlay != nullptr && overlay->isShowing() ? say (NEEDS_TRANS ("HIDE OVERLAY")) : say (NEEDS_TRANS ("SHOW OVERLAY")),
          say (NEEDS_TRANS ("Ctrl+Shift+O - mic state on top of games")), [this] { toggleOverlay(); });
-    add (say (NEEDS_TRANS ("SESSION TIMELINE")), say (NEEDS_TRANS ("Go back to an earlier mix, or one channel")), [this] { showTimeline (juce::PopupMenu::Options().withTargetComponent (&findButton)); });
     add (say (NEEDS_TRANS ("UNDO")), Said ("Ctrl+Z"), [this] { undoRedo (false); });
     add (say (NEEDS_TRANS ("REDO")), Said ("Ctrl+Y"), [this] { undoRedo (true); });
     add (say (NEEDS_TRANS ("SAVE SESSION AS...")), say (NEEDS_TRANS ("Keep this mix under a name")), [this] { saveSessionAs(); });
-    add (say (NEEDS_TRANS ("APP RULES")), say (NEEDS_TRANS ("Where each app goes when it starts playing")), [this] { showAppRules (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add (say (NEEDS_TRANS ("SESSIONS")), say (NEEDS_TRANS ("Open a saved mix, export or import one")), [this] { showSessions (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add (say (NEEDS_TRANS ("PRE-FLIGHT CHECK")), say (NEEDS_TRANS ("Audio, the mic cable and route, cut mics, things heard twice")), [this] { showPreflight (false); });
-    add (say (NEEDS_TRANS ("SETUP: BUILD A MIX")), say (NEEDS_TRANS ("Where you listen, your microphones, how apps hear you, your programs")), [this] { showSetup(); });
     add (say (NEEDS_TRANS ("WINDOWS DEFAULTS")), say (NEEDS_TRANS ("Your real speakers and mic as Windows' defaults, for calls too (not the cable)")),
          [this] { showWindowsDefaults (juce::PopupMenu::Options().withTargetComponent (findButton)); });
     add (AudioBoost::isBoosted (windowsAudio.priority) ? say (NEEDS_TRANS ("BOOST WINDOWS AUDIO (BOOSTED)")) : say (NEEDS_TRANS ("BOOST WINDOWS AUDIO")),
@@ -107,14 +104,20 @@ void MainComponent::openCommandPalette()
     add (say (NEEDS_TRANS ("MIDI MAP")), say (NEEDS_TRANS ("Ctrl+L - link controls to MIDI")), [this] { toggleMidiMap(); });
     // SETTINGS: each page, and each setting by its name (the same list the tab's rows come from).
     // (their names are English identifiers, SettingsRegistry::shown translates them to show)
+    // A setting named as a command above isn't listed twice: the command stays (MIDI MAP starts
+    // mapping on the page you're on). APP RULES, SESSION TIMELINE, SETUP and ABOUT are only their rows.
+    std::set<juce::String> named;
+    for (auto& c : commands)
+        named.insert (c.english.isNotEmpty() ? c.english : c.name);
     for (auto& p : settingsTab->getPages())
         add (say (NEEDS_TRANS ("SETTINGS: %1"), Said (SettingsRegistry::shown (p.name).toUpperCase(), SettingsRegistry::english (p.name).toUpperCase())),
              say (NEEDS_TRANS ("Settings page")), [this, name = p.name] { openSettings (name); }, p.intro + " " + p.keywords);
     for (auto& s : settingsTab->getSettings())
-        add (Said (SettingsRegistry::shown (s.name).toUpperCase(), SettingsRegistry::english (s.name).toUpperCase()),
-             say (NEEDS_TRANS ("Settings > %1"), Said (SettingsRegistry::shown (s.page), SettingsRegistry::english (s.page))),
-             [this, page = s.page, name = s.name] { openSetting (page, name); },
-             s.description + " " + s.keywords + " " + SettingsRegistry::shown (s.section) + " " + SettingsRegistry::english (s.section));
+        if (! named.count (SettingsRegistry::english (s.name).toUpperCase()))
+            add (Said (SettingsRegistry::shown (s.name).toUpperCase(), SettingsRegistry::english (s.name).toUpperCase()),
+                 say (NEEDS_TRANS ("Settings > %1"), Said (SettingsRegistry::shown (s.page), SettingsRegistry::english (s.page))),
+                 [this, page = s.page, name = s.name] { openSetting (page, name); },
+                 s.description + " " + s.keywords + " " + SettingsRegistry::shown (s.section) + " " + SettingsRegistry::english (s.section));
     add (say (NEEDS_TRANS ("ADD CHANNEL")), say (NEEDS_TRANS ("Mic, device or app")), [this]
     {
         tabs.setCurrentTabIndex (0);
@@ -132,7 +135,6 @@ void MainComponent::openCommandPalette()
     add (say (NEEDS_TRANS ("ZOOM IN")), Said ("Ctrl +"), [this] { stepZoom (1); });
     add (say (NEEDS_TRANS ("ZOOM OUT")), Said ("Ctrl -"), [this] { stepZoom (-1); });
     add (say (NEEDS_TRANS ("ZOOM 100%")), Said ("Ctrl 0"), [this] { setZoom (1.0f); });
-    add (say (NEEDS_TRANS ("ABOUT %1"), juce::String (Product::nameUpper)), say (NEEDS_TRANS ("Version, credits")), [] { AboutBox::show(); });
     add (say (NEEDS_TRANS ("SAVE A PROBLEM REPORT")), say (NEEDS_TRANS ("The logs and the last crash in a .zip you can send (nothing is sent by itself)")), [this] { saveProblemReport(); });
     add (say (NEEDS_TRANS ("CHECK FOR UPDATES NOW")), say (NEEDS_TRANS ("Ask GitHub for the newest version (one request: the app's name and version)")), [this] { checkForUpdates (true); });
     if (newVersion.isNotEmpty())

@@ -54,8 +54,8 @@ PORT... beside OSC in SETTINGS > CONTROL sets the port OSC listens on, 1024 to 6
 The uninstaller ends only a Faider running from its own folder, not another user's or a build's
 ```
 
-A release is its own commit, `Version 0.1.6`, with the version changed in `CMakeLists.txt`, and a
-tag, `v0.1.6`. Add the changes to [CHANGELOG.md](CHANGELOG.md).
+A release is its own commit, `Version 0.2.0`, with the version changed in `CMakeLists.txt`, and a
+tag, `v0.2.0`. Add the changes to [CHANGELOG.md](CHANGELOG.md).
 
 ## The manual and its translations
 

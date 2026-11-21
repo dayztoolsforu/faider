@@ -3,7 +3,7 @@
 What changed in each version of Faider, newest first. Downloads are on the
 [Releases](https://github.com/dayztoolsforu/faider/releases) page.
 
-## Unreleased
+## 0.2.0 (21 November 2026)
 
 **New**
 - The interface in 13 languages: **Language** in SETTINGS > General picks English, Deutsch,

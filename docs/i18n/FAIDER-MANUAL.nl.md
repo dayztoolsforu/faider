@@ -236,9 +236,9 @@ Rechtsklik op een uitgang voor **DEVICE...** (waar hij speelt) en **HEADPHONE EQ
 **COLOUR**, **IN THE MINI MIXER** en **REMOVE**. Als je het kanaal van een
 programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal niet vanzelf terugkomt.
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### Stap 7: PRO, voor de hele console
+### Stap 7: De hele console, of COMPACT
 
 De Mixer is de hele console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en
 combinators, plugins. Voor een kleinere weergave vouwt **COMPACT** in de zijbalk elke strip op tot
@@ -312,7 +312,7 @@ Van rechts:
 | Bediening | Wat het doet |
 |---|---|
 | **+ 100% -** | Zoom. Springt tussen 100, 125 en 150%. Klik op het percentage voor 100%. Ctrl + / Ctrl - / Ctrl 0 doen hetzelfde |
-| **FIND** (Ctrl+K) | Zoekt op naam door elke pagina, elk kanaal, elke scène, macro, pad en opdracht |
+| **FIND** (Ctrl+K) | Zoekt op naam door elke pagina, elke instelling, elk kanaal, elke scène, macro, pad en opdracht |
 | **HISTORY** (Ctrl+H) | Elke wijziging die je hebt gemaakt. Kies er een om ernaar terug te gaan |
 | **MINI** | De mini-mixer: een klein mixervenster (het pictogram in het systeemvak opent hem ook). Met **PIN** erop blijft hij bovenop |
 | **Gezondheidslicht** | Groen: de audio is in orde. Oranje: de audiobelasting is hoog of een apparaat kwam onlangs tekort. Rood: een hoorbare storing in de laatste 10 seconden, of er draait geen audio. Het getal is de audiobelasting. Klik erop voor DEVICES |
@@ -1052,7 +1052,7 @@ De **APP**-pagina's:
 
 | Pagina | Instelling | Wat het doet |
 |---|---|---|
-| **General** | **Language** | De taal van de interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, elk in zijn eigen naam. De eerste start volgt de weergavetaal van Windows als het daar een van is, anders Engels. Een wijziging geldt vanaf de volgende start: **RESTART NOW** start Faider meteen opnieuw, **LATER** bewaart het tot dan. De toetsen van de desk, het gebeurtenislogboek en productnamen blijven Engels |
+| **General** | **Language** | De taal van de interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, elk in zijn eigen naam. De eerste start volgt de weergavetaal van Windows als het daar een van is, anders Engels. Na een update vanaf een versie van vóór de talen blijft het Engels. Een wijziging geldt vanaf de volgende start: **RESTART NOW** start Faider meteen opnieuw, **LATER** bewaart het tot dan. De toetsen van de desk, het gebeurtenislogboek en productnamen blijven Engels |
 | | **Start with Windows** | Opent Faider in het systeemvak wanneer je je aanmeldt |
 | | **Zoom** | **100%**, **125%**, **150%**, of **Custom…** voor elke grootte van 75 tot 200%. Ctrl + en Ctrl - stappen tussen de eerste drie |
 | | **Look** | De kleuren en het lettertype van de tafel; het menu toont je LOOKS en **Save as…** (zie [LOOKS](#looks)) |
@@ -1062,7 +1062,7 @@ De **APP**-pagina's:
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT een paar seconden na het starten, alleen getoond als er iets mis is |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** en **Check** voeren ze nu uit (zie [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup** stelt de vier vragen van SETUP opnieuw (zie [2](#2-first-time-setup)): het voegt toe wat ontbreekt en verwijdert nooit iets |
-| **Updates & about** | **Check for updates** | Standaard aan: hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld `Faider/0.1.5`); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en **Get Faider x.y.z...** in het menu van het systeemvak, **GET FAIDER x.y.z** in FIND of **Get Faider x.y.z…** hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit. |
+| **Updates & about** | **Check for updates** | Standaard aan: hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld `Faider/0.2.0`); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en **Get Faider x.y.z...** in het menu van het systeemvak, **GET FAIDER x.y.z** in FIND of **Get Faider x.y.z…** hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit. |
 | | **Version** | De versie die nu draait. **Check now** (of **CHECK FOR UPDATES NOW** in FIND) vraagt het meteen en zegt wanneer je up-to-date bent |
 | | **About Faider** | Versie en dankbetuigingen |
 | | **Privacy** | **Read policy** opent het privacybeleid van Faider op GitHub |
@@ -1172,8 +1172,8 @@ De pagina **MIDI & OSC**:
 | **MIDI MAP** (Ctrl+L) | Ctrl+L, of **Start mapping** in SETTINGS > MIDI & OSC, start het; Esc beëindigt het. Klik op een bediening op het scherm en beweeg dan een knop of toets op je controller. Fader, pan, CUT, SOLO, aan/uit en routeringstoetsen van elke strip kunnen worden toegewezen, evenals scènes, pads en de tape. Het muiswiel scrolt de tafel tijdens het toewijzen (Shift+wiel omhoog en omlaag) |
 | **OSC** | Programma's op deze pc kunnen naar poort 9000 sturen, of naar de poort die is ingesteld in **OSC port** (SETTINGS > MIDI & OSC; hij luistert nooit naar het netwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 laat hem los). Schrijf spaties in namen als `_`. Elk adres: [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels) |
 | **In-game overlay** (Ctrl+Shift+O) | Het praatlampje, LIVE / CUT en niveau van elk microfoonkanaal, plus tot vier scènetoetsen. Neemt nooit de focus over van een game. Sleep hem overal heen |
-| **MINI** | De mini-mixer: een klein venster met een fader, meter en **CUT** voor elke strip die **IN THE MINI MIXER** aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
-| **Tray** | Klik op het pictogram voor de mini-mixer (hij opent een ogenblik later, als er geen tweede klik is gevolgd); dubbelklik om het venster te openen, zonder de mini-mixer. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing |
+| **MINI** | De mini-mixer: een klein venster met een fader, meter en **CUT** voor elke strip die **IN THE MINI MIXER** aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). De meters zijn kolommen ronde leds volgens SETTINGS > Audio > Meter standard, net als op de desk. **PIN** houdt hem bovenop alles. **OPEN** brengt je terug naar het hoofdvenster |
+| **Tray** | Klik op het pictogram voor de mini-mixer (hij opent een ogenblik later, als er geen tweede klik is gevolgd); dubbelklik om het venster te openen, zonder de mini-mixer. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Boost Windows audio again... (als een boost ongedaan is gemaakt), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing |
 
 Faider draait altijd met je gewone gebruikersrechten, ook als het vanuit een beheerdersvenster wordt gestart.
 Het start zichzelf opnieuw met gewone rechten, omdat de in-game overlay een programma dat als beheerder draait
@@ -1266,7 +1266,7 @@ soort, en hun routes gaan mee.
 
 ### 17.9 Een push-to-talk-toets maken
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > je microfoonkanaal.
 3. Zet **MOMENTARY** aan en stel een **HOTKEY** in. Zolang je hem ingedrukt houdt, is de microfoon live, en bij het loslaten
    staat hij weer op CUT. Begin met de microfoon op CUT.
@@ -1281,7 +1281,7 @@ Als de overlay, een MIDI-controller of OSC niet reageert:
 
 | Probleem | Controleer |
 |---|---|
-| **De overlay verschijnt niet** | Ctrl+Shift+O is een sneltoets voor heel Windows. Heeft een andere app hem, dan markeert SETTINGS > HOTKEYS hem rood en meldt het gebeurtenissenlogboek het: **SHOW OVERLAY** in FIND opent de overlay zonder de toets. De overlay is een venster dat bovenop blijft, gemaakt voor een game in een randloos venster, dus zet de game op randloos of in een venster. Hij toont alleen microfoonkanalen (interface-ingangen en Windows-apparaten), en meldt **NO MIC CHANNELS** als die er niet zijn |
+| **De overlay verschijnt niet** | Ctrl+Shift+O is een sneltoets voor heel Windows. Heeft een andere app hem, dan markeert SETTINGS > Hotkeys hem rood en meldt het gebeurtenissenlogboek het: **SHOW OVERLAY** in FIND opent de overlay zonder de toets. De overlay is een venster dat bovenop blijft, gemaakt voor een game in een randloos venster, dus zet de game op randloos of in een venster. Hij toont alleen microfoonkanalen (interface-ingangen en Windows-apparaten), en meldt **NO MIC CHANNELS** als die er niet zijn |
 | **Een MIDI-controller doet niets** | Elke MIDI-ingang staat uit tot je hem aanzet in SETTINGS > MIDI & OSC > **Inputs and bindings**. Een controller die is aangesloten nadat Faider is gestart, wordt niet vanzelf geopend: druk daar op **REFRESH** en zet zijn ingang uit en weer aan, of start Faider opnieuw. Beweeg een bediening en **LAST** onderaan die lijst toont wat er binnenkwam. Een bediening doet niets tot hij is toegewezen in **MIDI MAP** (Ctrl+L). Alleen control changes en noten worden gelezen: faders en pans volgen een knop of fader, geen toets, en toetsen schakelen CUT, SOLO en dergelijke |
 | **OSC doet niets** | OSC staat uit tot de schakelaar ervan aan staat (SETTINGS > MIDI & OSC). De afzender moet de poort gebruiken die eronder staat (9000, tenzij je hem hebt veranderd) en op deze pc draaien: Faider luistert alleen op `127.0.0.1`, dus een telefoon of een andere pc kan er niet bij. Kon de poort niet worden geopend (misschien heeft een ander programma hem), dan zegt Faider dat en blijft OSC uit: typ een andere in **OSC port** en klik op **Apply**. Controleer daarna het adres: de naam van de strip, met `_` voor spaties (zie de [OSC-referentie](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Engels)) |
 

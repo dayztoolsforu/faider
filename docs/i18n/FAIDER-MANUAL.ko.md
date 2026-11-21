@@ -185,9 +185,9 @@ SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마�
 
 사이드바의 **ADD CHANNEL**과 **ADD APP**은 채널을 추가합니다(**ADD APP**에는 실행 중이지만 **NOT PLAYING YET**인 프로그램도 나열됩니다). 출력이 없는 장치로 무언가를 라우팅하면 그 장치에 출력이 만들어집니다. 출력을 마우스 오른쪽 단추로 누르면 **DEVICE...**(재생 위치)와 **HEADPHONE EQ**를 쓸 수 있습니다. 어느 스트립이든 마우스 오른쪽 단추로 누르면 **RENAME...**, **COLOUR**, **IN THE MINI MIXER**, **REMOVE**를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### 7단계: PRO, 콘솔 전체 사용하기
+### 7단계: 콘솔 전체와 COMPACT
 
 믹서는 콘솔 전체입니다. 각 채널의 입력, 필터, 다이내믹스, EQ, 버스와 컴바이너, 플러그인을 다룹니다. 더 작게 보려면 사이드바의 **COMPACT**로 모든 스트립을 이름 막대와 페이더 섹션만 남기고 접습니다. 다시 누르면 전체 스트립으로 돌아옵니다([사이드바](#the-sidebar) 참조).
 
@@ -247,7 +247,7 @@ SELECT와 COMPACT 선택은 기억됩니다. 채널 미터가 읽는 위치(**IN
 | 컨트롤 | 기능 |
 |---|---|
 | **+ 100% -** | 확대/축소. 100, 125, 150%로 바뀝니다. 퍼센트를 누르면 100%로 돌아갑니다. Ctrl + / Ctrl - / Ctrl 0도 같습니다 |
-| **FIND** (Ctrl+K) | 모든 페이지, 채널, 씬, 매크로, 패드, 명령을 이름으로 검색합니다 |
+| **FIND** (Ctrl+K) | 모든 페이지, 설정, 채널, 씬, 매크로, 패드, 명령을 이름으로 검색합니다 |
 | **HISTORY** (Ctrl+H) | 지금까지 한 모든 변경. 하나를 고르면 그 시점으로 돌아갑니다 |
 | **MINI** | 미니 믹서: 작은 믹서 창(트레이 아이콘으로도 열립니다). 그 위의 **PIN**을 켜면 맨 위에 고정됩니다 |
 | **상태 표시등** | 녹색: 오디오 정상. 주황색: 오디오 부하가 높거나 최근에 장치에서 부족이 있었음. 빨간색: 최근 10초 안에 들리는 글리치가 있었거나 오디오가 실행 중이 아님. 숫자는 오디오 부하입니다. 누르면 DEVICES가 열립니다 |
@@ -872,7 +872,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 | 페이지 | 설정 | 하는 일 |
 |---|---|---|
-| **General** | **Language** | 인터페이스의 언어: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(각 언어의 고유 이름으로 표시). 첫 실행 때는 Windows의 표시 언어가 이 중 하나이면 그것을 따르고, 아니면 영어입니다. 변경은 다음 실행부터 적용됩니다. **RESTART NOW**는 Faider을 바로 다시 시작하고, **LATER**는 그때까지 보류합니다. 데스크의 키, 이벤트 로그, 제품 이름은 영어로 남습니다 |
+| **General** | **Language** | 인터페이스의 언어: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(각 언어의 고유 이름으로 표시). 첫 실행 때는 Windows의 표시 언어가 이 중 하나이면 그것을 따르고, 아니면 영어입니다. 언어 기능 이전 버전에서 업데이트하면 영어로 남습니다. 변경은 다음 실행부터 적용됩니다. **RESTART NOW**는 Faider을 바로 다시 시작하고, **LATER**는 그때까지 보류합니다. 데스크의 키, 이벤트 로그, 제품 이름은 영어로 남습니다 |
 | | **Start with Windows** | 로그인할 때 Faider을 트레이에서 엽니다 |
 | | **Zoom** | **100%**, **125%**, **150%**, 또는 75–200% 사이의 아무 크기로 하는 **Custom…**. Ctrl + 와 Ctrl - 로 처음 세 개 사이를 오갑니다 |
 | | **Look** | 데스크의 색과 글꼴. 메뉴에 가지고 있는 LOOK과 **Save as…**가 나열됩니다 (아래 [LOOKS](#looks)) |
@@ -882,7 +882,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | **Startup & checks** | **Pre-flight on start** | 시작하고 몇 초 뒤 PRE-FLIGHT를 실행하며, 문제가 있을 때만 보여 줍니다 |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight**와 **Check**로 지금 바로 실행합니다([18.1](#181-pre-flight) 참조) |
 | | **Setup: build a mix** | **Run setup**으로 SETUP의 네 가지 질문을 다시 합니다([2](#2-first-time-setup) 참조). 빠진 것을 추가할 뿐 아무것도 지우지 않습니다 |
-| **Updates & about** | **Check for updates** | 기본값은 켜짐: 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: `Faider/0.1.5`)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 **Get Faider x.y.z...**, FIND의 **GET FAIDER x.y.z**, 또는 여기의 **Get Faider x.y.z…**로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다. |
+| **Updates & about** | **Check for updates** | 기본값은 켜짐: 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: `Faider/0.2.0`)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 **Get Faider x.y.z...**, FIND의 **GET FAIDER x.y.z**, 또는 여기의 **Get Faider x.y.z…**로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다. |
 | | **Version** | 지금 실행 중인 버전. **Check now**(또는 FIND의 **CHECK FOR UPDATES NOW**)는 바로 묻고, 최신 버전이면 그렇다고 알려 줍니다 |
 | | **About Faider** | 버전과 크레딧 |
 | | **Privacy** | **Read policy**를 누르면 GitHub에 있는 Faider의 개인정보 처리방침이 열립니다 |
@@ -966,8 +966,8 @@ LOOK은 `%APPDATA%\Faider\looks`에 있는 JSON 파일 하나입니다. 손으�
 | **MIDI MAP** (Ctrl+L) | Ctrl+L 또는 SETTINGS > MIDI & OSC의 **Start mapping**으로 시작하고, Esc로 끝냅니다. 화면의 컨트롤을 누른 다음 컨트롤러의 노브나 키를 움직입니다. 각 스트립의 페이더, 팬, CUT, SOLO, 전원, 라우팅 키를 매핑할 수 있고, 씬, 패드, 테이프도 매핑할 수 있습니다. 매핑하는 동안 마우스 휠로 데스크가 스크롤됩니다(Shift+휠은 위아래) |
 | **OSC** | 이 PC의 프로그램은 포트 9000, 또는 **OSC port**(SETTINGS > MIDI & OSC)에서 설정한 포트로 보낼 수 있습니다(네트워크는 절대 수신하지 않음): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0이면 해제). 이름의 공백은 `_`로 씁니다. 모든 주소: [OSC 참조](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)(영어) |
 | **In-game overlay** (Ctrl+Shift+O) | 각 마이크 채널의 말하기 표시등, LIVE / CUT과 레벨, 그리고 최대 네 개의 씬 키. 게임에서 포커스를 가져가지 않습니다. 어디로든 드래그할 수 있습니다 |
-| **MINI** | 미니 믹서: 마우스 오른쪽 단추 메뉴에서 **IN THE MINI MIXER**에 체크한 각 스트립의 페이더, 미터, **CUT**이 있는 작은 창(체크한 것이 없으면 각 출력의 것). **PIN**을 켜면 모든 것 위에 고정됩니다. **OPEN**은 메인 창으로 돌아갑니다 |
-| **Tray** | 아이콘을 누르면 미니 믹서(두 번째 클릭이 이어지지 않으면 잠시 뒤에 열립니다), 더블클릭하면 미니 믹서 없이 창만 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
+| **MINI** | 미니 믹서: 마우스 오른쪽 단추 메뉴에서 **IN THE MINI MIXER**에 체크한 각 스트립의 페이더, 미터, **CUT**이 있는 작은 창(체크한 것이 없으면 각 출력의 것). 미터는 데스크와 같이 둥근 LED 줄이며 SETTINGS > Audio > Meter standard를 따릅니다. **PIN**을 켜면 모든 것 위에 고정됩니다. **OPEN**은 메인 창으로 돌아갑니다 |
+| **Tray** | 아이콘을 누르면 미니 믹서(두 번째 클릭이 이어지지 않으면 잠시 뒤에 열립니다), 더블클릭하면 미니 믹서 없이 창만 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Boost Windows audio again...(부스트가 풀렸을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다 |
 
 Faider은 관리자 창에서 시작해도 항상 일반 사용자 권한으로 실행됩니다. 스스로 일반 권한으로 다시 시작합니다. 게임 내 오버레이는 관리자 권한으로 실행되는 프로그램에 접근할 수 없기 때문입니다. 관리자 권한이 필요한 몇 가지 작업(VB-CABLE 설정 적용, Windows가 꺼 놓은 장치 다시 켜기)은 스스로 권한을 요청합니다.
 
@@ -1046,7 +1046,7 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 
 ### 17.9 푸시 투 토크 키 만들기
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > 마이크 채널.
 3. **MOMENTARY**를 켜고 **HOTKEY**를 설정합니다. 누르고 있는 동안 마이크가 켜지고, 놓으면 다시 CUT됩니다. 마이크를 CUT한 상태로 시작하세요.
 
@@ -1060,7 +1060,7 @@ Mixer에서 채널의 **이름 바**를 옆으로 드래그하거나(NAME 섹션
 
 | 문제 | 확인할 것 |
 |---|---|
-| **오버레이가 나타나지 않음** | Ctrl+Shift+O는 Windows 전체에 적용되는 단축키입니다. 다른 앱이 쓰고 있으면 SETTINGS > HOTKEYS에 빨간색으로 표시되고 이벤트 로그에도 기록됩니다. FIND의 **SHOW OVERLAY**로 키 없이 오버레이를 열 수 있습니다. 오버레이는 맨 위에 머무는 창이며 테두리 없는 창으로 실행되는 게임에 맞춰 만들어졌으므로, 게임을 테두리 없는 창 모드나 창 모드로 설정하세요. 마이크 채널(인터페이스 입력과 Windows 장치)만 나열하며, 하나도 없으면 **NO MIC CHANNELS**라고 표시됩니다 |
+| **오버레이가 나타나지 않음** | Ctrl+Shift+O는 Windows 전체에 적용되는 단축키입니다. 다른 앱이 쓰고 있으면 SETTINGS > Hotkeys에 빨간색으로 표시되고 이벤트 로그에도 기록됩니다. FIND의 **SHOW OVERLAY**로 키 없이 오버레이를 열 수 있습니다. 오버레이는 맨 위에 머무는 창이며 테두리 없는 창으로 실행되는 게임에 맞춰 만들어졌으므로, 게임을 테두리 없는 창 모드나 창 모드로 설정하세요. 마이크 채널(인터페이스 입력과 Windows 장치)만 나열하며, 하나도 없으면 **NO MIC CHANNELS**라고 표시됩니다 |
 | **MIDI 컨트롤러가 아무 동작도 하지 않음** | 각 MIDI 입력은 SETTINGS > MIDI & OSC > **Inputs and bindings**에서 켜기 전에는 꺼져 있습니다. Faider이 시작된 뒤에 연결한 컨트롤러는 저절로 열리지 않습니다. 거기서 **REFRESH**를 누르고 그 입력을 껐다 켜거나, Faider을 다시 시작하세요. 컨트롤을 움직이면 그 목록 맨 아래의 **LAST**에 들어온 것이 표시됩니다. 컨트롤은 **MIDI MAP** (Ctrl+L)에서 바인딩하기 전에는 아무 동작도 하지 않습니다. 컨트롤 체인지와 노트만 읽습니다. 페이더와 팬은 키가 아니라 노브나 페이더를 따르고, 키는 CUT, SOLO 등을 전환합니다 |
 | **OSC가 아무 동작도 하지 않음** | OSC는 그 스위치를 켤 때까지 꺼져 있습니다(SETTINGS > MIDI & OSC). 보내는 쪽은 그 아래에 표시된 포트(바꾸지 않았다면 9000)를 써야 하고 이 PC에서 실행되어야 합니다. Faider은 `127.0.0.1`에서만 수신하므로 휴대폰이나 다른 PC에서는 닿을 수 없습니다. 포트를 열 수 없으면(다른 프로그램이 쓰고 있을 수 있습니다) Faider이 그렇다고 알려 주고 OSC는 꺼진 채로 남습니다. **OSC port**에 다른 포트를 입력하고 **Apply**를 누르세요. 그다음 주소를 확인하세요. 스트립의 이름이며 공백은 `_`로 씁니다([OSC 참조](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)(영어) 참조) |
 

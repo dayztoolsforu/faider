@@ -235,9 +235,9 @@ Högerklicka på en utgång för **DEVICE...** (var den spelar) och **HEADPHONE 
 **COLOUR**, **IN THE MINI MIXER** och **REMOVE**. När du tar bort ett programs
 kanal försvinner också dess appregel, så kanalen kommer inte tillbaka av sig själv.
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### Steg 7: PRO, för hela konsolen
+### Steg 7: Hela konsolen, eller COMPACT
 
 Mixern är hela konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och
 combinators, plugins. För en mindre vy fäller **COMPACT** i sidofältet ihop varje strip till dess namnlist
@@ -311,7 +311,7 @@ Från höger:
 | Kontroll | Vad den gör |
 |---|---|
 | **+ 100% -** | Zoom. Stegar mellan 100, 125 och 150 %. Klicka på procenttalet för 100 %. Ctrl + / Ctrl - / Ctrl 0 gör detsamma |
-| **FIND** (Ctrl+K) | Söker i varje sida, kanal, scen, makro, pad och kommando efter namn |
+| **FIND** (Ctrl+K) | Söker i varje sida, inställning, kanal, scen, makro, pad och kommando efter namn |
 | **HISTORY** (Ctrl+H) | Varje ändring du har gjort. Välj en för att gå tillbaka till den |
 | **MINI** | Minimixern: ett litet mixerfönster (ikonen i aktivitetsfältet öppnar det också). **PIN** på det håller det överst |
 | **Hälsolampa** | Grön: ljudet är bra. Gul: ljudbelastningen är hög eller en enhet fick nyligen för lite. Röd: ett hörbart glapp under de senaste 10 sekunderna, eller inget ljud går. Talet är ljudbelastningen. Klicka på den för DEVICES |
@@ -1050,7 +1050,7 @@ upplyst en stund. En sida vars namn eller nyckelord matchar ("hotkey", "shortcut
 
 | Sida | Inställning | Vad den gör |
 |---|---|---|
-| **General** | **Language** | Gränssnittets språk: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, vart och ett med sitt eget namn. Första starten följer Windows visningsspråk om det är ett av dem, annars engelska. En ändring gäller från nästa start: **RESTART NOW** startar om Faider direkt, **LATER** sparar den till dess. Bordets tangenter, händelseloggen och produktnamn förblir engelska |
+| **General** | **Language** | Gränssnittets språk: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, vart och ett med sitt eget namn. Första starten följer Windows visningsspråk om det är ett av dem, annars engelska. Uppdaterad från en version före språken förblir den engelsk. En ändring gäller från nästa start: **RESTART NOW** startar om Faider direkt, **LATER** sparar den till dess. Bordets tangenter, händelseloggen och produktnamn förblir engelska |
 | | **Start with Windows** | Öppnar Faider i aktivitetsfältets notisyta när du loggar in |
 | | **Zoom** | **100%**, **125%**, **150%**, eller **Custom…** för valfri storlek från 75 till 200%. Ctrl + och Ctrl - stegar mellan de tre första |
 | | **Look** | Bordets färger och typsnitt; dess meny listar dina LOOK:ar och **Save as…** (se [LOOKS](#looks)) |
@@ -1060,7 +1060,7 @@ upplyst en stund. En sida vars namn eller nyckelord matchar ("hotkey", "shortcut
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT några sekunder efter start, visas bara om något är fel |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** och **Check** kör dem nu (se [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup** ställer SETUP:s fyra frågor igen (se [2](#2-first-time-setup)): den lägger till det som saknas och tar aldrig bort något |
-| **Updates & about** | **Check for updates** | På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller **Get Faider x.y.z…** här öppnar dess sida. Stäng av det så frågar Faider aldrig. |
+| **Updates & about** | **Check for updates** | På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.2.0`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller **Get Faider x.y.z…** här öppnar dess sida. Stäng av det så frågar Faider aldrig. |
 | | **Version** | Versionen som körs nu. **Check now** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
 | | **About Faider** | Version och tack |
 | | **Privacy** | **Read policy** öppnar Faiders integritetspolicy på GitHub |
@@ -1168,8 +1168,8 @@ Sidan **MIDI & OSC**:
 | **MIDI MAP** (Ctrl+L) | Ctrl+L, eller **Start mapping** i SETTINGS > MIDI & OSC, startar den; Esc avslutar den. Klicka på en kontroll på skärmen och rör sedan en ratt eller tangent på din kontroller. Varje strips fader, pan, CUT, SOLO, ström och routingtangenter kan mappas, liksom scener, pads och tapen. Mushjulet rullar bordet under mappningen (Shift+hjul uppåt och nedåt) |
 | **OSC** | Program på den här datorn kan skicka till port 9000, eller den port som ställts in i **OSC port** (SETTINGS > MIDI & OSC; den lyssnar aldrig på nätverket): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 släpper det). Skriv mellanslag i namn som `_`. Alla adresser: [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (på engelska) |
 | **In-game overlay** (Ctrl+Shift+O) | Varje mikrofonkanals pratlampa, LIVE / CUT och nivå, plus upp till fyra scentangenter. Tar aldrig fokus från ett spel. Dra den vart du vill |
-| **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
-| **Tray** | Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
+| **MINI** | Minimixern: ett litet fönster med en fader, mätare och **CUT** för varje strip som har **IN THE MINI MIXER** ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). Mätarna är kolumner av runda lysdioder enligt SETTINGS > Audio > Meter standard, som på bordet. **PIN** håller det ovanpå allt. **OPEN** tar dig tillbaka till huvudfönstret |
+| **Tray** | Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Boost Windows audio again... (när en boost har tagits bort), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm |
 
 Faider körs alltid med dina vanliga användarrättigheter, även när det startas från ett administratörsfönster.
 Det startar om sig själv med vanliga rättigheter, eftersom in-game overlay inte kan nå ett program som körs som administratör.
@@ -1262,7 +1262,7 @@ sort, och deras rutter följer med.
 
 ### 17.9 Gör en push-to-talk-tangent
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > din mikrofonkanal.
 3. Slå på **MOMENTARY** och ställ in ett **HOTKEY**. Medan du håller den är mikrofonen live, och när du släpper
    hamnar den på CUT igen. Börja med mikrofonen på CUT.
@@ -1277,7 +1277,7 @@ När overlayen, en MIDI-kontroller eller OSC inte svarar:
 
 | Problem | Kontrollera |
 |---|---|
-| **Overlayen visas inte** | Ctrl+Shift+O är ett kortkommando för hela Windows. Om en annan app har det markerar SETTINGS > HOTKEYS det i rött och händelseloggen säger det: **SHOW OVERLAY** i FIND öppnar overlayen utan tangenten. Overlayen är ett fönster som ligger kvar överst, gjort för ett spel i ett kantlöst fönster, så ställ in spelet på kantlöst eller fönsterläge. Den listar bara mikrofonkanaler (gränssnittets ingångar och Windows-enheter), och visar **NO MIC CHANNELS** när det inte finns några |
+| **Overlayen visas inte** | Ctrl+Shift+O är ett kortkommando för hela Windows. Om en annan app har det markerar SETTINGS > Hotkeys det i rött och händelseloggen säger det: **SHOW OVERLAY** i FIND öppnar overlayen utan tangenten. Overlayen är ett fönster som ligger kvar överst, gjort för ett spel i ett kantlöst fönster, så ställ in spelet på kantlöst eller fönsterläge. Den listar bara mikrofonkanaler (gränssnittets ingångar och Windows-enheter), och visar **NO MIC CHANNELS** när det inte finns några |
 | **En MIDI-kontroller gör ingenting** | Varje MIDI-ingång är av tills du slår på den i SETTINGS > MIDI & OSC > **Inputs and bindings**. En kontroller som ansluts efter att Faider startat öppnas inte av sig själv: tryck på **REFRESH** där och slå av och på dess ingång, eller starta om Faider. Rör en kontroll, så visar **LAST** längst ned i den listan vad som kom in. En kontroll gör ingenting förrän den är mappad i **MIDI MAP** (Ctrl+L). Bara control change och noter läses: faders och pan följer en ratt eller fader, inte en tangent, och tangenter växlar CUT, SOLO och liknande |
 | **OSC gör ingenting** | OSC är av tills dess omkopplare är på (SETTINGS > MIDI & OSC). Avsändaren måste använda porten som visas under den (9000 om du inte har ändrat den) och köras på den här datorn: Faider lyssnar bara på `127.0.0.1`, så en telefon eller en annan dator kan inte nå det. Om porten inte kunde öppnas (ett annat program kan ha den) säger Faider det och OSC förblir av: skriv en annan i **OSC port** och klicka på **Apply**. Kontrollera sedan adressen: stripens namn, med `_` för mellanslag (se [OSC-referensen](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md), på engelska) |
 

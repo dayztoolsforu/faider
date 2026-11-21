@@ -237,9 +237,9 @@ Klicke mit rechts auf einen Ausgang für **DEVICE...** (wo er spielt) und **HEAD
 **COLOUR**, **IN THE MINI MIXER** und **REMOVE**. Wenn du den Kanal eines Programms entfernst, wird auch seine App-Regel entfernt, damit der Kanal
 nicht von selbst zurückkommt.
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### Schritt 7: PRO, für das ganze Pult
+### Schritt 7: Das ganze Pult, oder COMPACT
 
 Der Mixer ist das ganze Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren,
 Plugins. Für eine kleinere Ansicht faltet **COMPACT** in der Seitenleiste jeden Strip auf seine Namensleiste und
@@ -313,7 +313,7 @@ Von rechts:
 | Bedienelement | Was es tut |
 |---|---|
 | **+ 100% -** | Zoom. Schaltet zwischen 100, 125 und 150 % um. Klicke auf die Prozentzahl für 100 %. Ctrl + / Ctrl - / Ctrl 0 tun dasselbe |
-| **FIND** (Ctrl+K) | Durchsucht jede Seite, jeden Kanal, jede Szene, jedes Makro, jedes Pad und jeden Befehl nach Namen |
+| **FIND** (Ctrl+K) | Durchsucht jede Seite, jede Einstellung, jeden Kanal, jede Szene, jedes Makro, jedes Pad und jeden Befehl nach Namen |
 | **HISTORY** (Ctrl+H) | Jede Änderung, die du gemacht hast. Wähle eine, um zu ihr zurückzugehen |
 | **MINI** | Der Mini-Mixer: ein kleines Mixer-Fenster (auch das Tray-Symbol öffnet ihn). **PIN** darauf hält ihn im Vordergrund |
 | **Gesundheitslicht** | Grün: Das Audio ist in Ordnung. Gelb: Die Audiolast ist hoch oder ein Gerät kam zuletzt zu kurz. Rot: ein hörbarer Aussetzer in den letzten 10 Sekunden, oder es läuft kein Audio. Die Zahl ist die Audiolast. Klicke darauf, um zu DEVICES zu gelangen |
@@ -1052,7 +1052,7 @@ Die Seiten unter **APP**:
 
 | Seite | Einstellung | Was sie tut |
 |---|---|---|
-| **General** | **Language** | Die Sprache der Oberfläche: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, jede in ihrem eigenen Namen. Beim ersten Start folgt sie der Anzeigesprache von Windows, wenn es eine davon ist, sonst Englisch. Eine Änderung gilt ab dem nächsten Start: **RESTART NOW** startet Faider sofort neu, **LATER** hebt sie bis dahin auf. Die Tasten des Pults, das Ereignisprotokoll und Produktnamen bleiben Englisch |
+| **General** | **Language** | Die Sprache der Oberfläche: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, jede in ihrem eigenen Namen. Beim ersten Start folgt sie der Anzeigesprache von Windows, wenn es eine davon ist, sonst Englisch. Nach einem Update von einer Version vor den Sprachen bleibt sie Englisch. Eine Änderung gilt ab dem nächsten Start: **RESTART NOW** startet Faider sofort neu, **LATER** hebt sie bis dahin auf. Die Tasten des Pults, das Ereignisprotokoll und Produktnamen bleiben Englisch |
 | | **Start with Windows** | Öffnet Faider im Tray, wenn du dich anmeldest |
 | | **Zoom** | **100%**, **125%**, **150%** oder **Custom…** für jede Größe von 75 bis 200%. Ctrl + und Ctrl - wechseln zwischen den ersten dreien |
 | | **Look** | Die Farben und die Schrift des Pults; sein Menü listet deine LOOKS und **Save as…** (siehe [LOOKS](#looks)) |
@@ -1062,7 +1062,7 @@ Die Seiten unter **APP**:
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT wenige Sekunden nach dem Start, nur angezeigt, wenn etwas nicht stimmt |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** und **Check** führen sie sofort aus (siehe [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup** stellt die vier Fragen von SETUP erneut (siehe [2](#2-first-time-setup)): Es ergänzt, was fehlt, und entfernt nie etwas |
-| **Updates & about** | **Check for updates** | Standardmäßig an: höchstens einmal am Tag (eine halbe Minute nach dem Start, oder wenn ein Tag vergangen ist, während es weiterläuft) sendet Faider eine einzige Anfrage an GitHub nach seiner neuesten Version. Die Anfrage enthält nur Namen und Version der App (zum Beispiel `Faider/0.1.5`); nichts wird heruntergeladen oder installiert. Gibt es eine neuere Version, sagt das Tray es dir, und **Get Faider x.y.z...** im Tray-Menü, **GET FAIDER x.y.z** in FIND oder **Get Faider x.y.z…** hier öffnet ihre Seite. Schaltest du es aus, fragt Faider nie. |
+| **Updates & about** | **Check for updates** | Standardmäßig an: höchstens einmal am Tag (eine halbe Minute nach dem Start, oder wenn ein Tag vergangen ist, während es weiterläuft) sendet Faider eine einzige Anfrage an GitHub nach seiner neuesten Version. Die Anfrage enthält nur Namen und Version der App (zum Beispiel `Faider/0.2.0`); nichts wird heruntergeladen oder installiert. Gibt es eine neuere Version, sagt das Tray es dir, und **Get Faider x.y.z...** im Tray-Menü, **GET FAIDER x.y.z** in FIND oder **Get Faider x.y.z…** hier öffnet ihre Seite. Schaltest du es aus, fragt Faider nie. |
 | | **Version** | Die Version, die gerade läuft. **Check now** (oder **CHECK FOR UPDATES NOW** in FIND) fragt sofort und sagt dir, wenn du auf dem neuesten Stand bist |
 | | **About Faider** | Version und Danksagung |
 | | **Privacy** | **Read policy** öffnet die Datenschutzerklärung von Faider auf GitHub |
@@ -1173,8 +1173,8 @@ Die Seite **MIDI & OSC**:
 | **MIDI MAP** (Ctrl+L) | Ctrl+L oder **Start mapping** unter SETTINGS > MIDI & OSC startet es; Esc beendet es. Klicke ein Bedienelement auf dem Bildschirm an und bewege dann einen Regler oder eine Taste deines Controllers. Fader, Pan, CUT, SOLO, Ein/Aus und Routing-Tasten jedes Strips lassen sich zuordnen, ebenso Szenen, Pads und das Tape. Das Mausrad scrollt das Pult während der Zuordnung (Shift+Rad nach oben und unten) |
 | **OSC** | Programme auf diesem PC können an Port 9000 senden, oder an den unter **OSC port** eingestellten Port (SETTINGS > MIDI & OSC; er hört nie auf das Netzwerk): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 lässt es wieder los). Leerzeichen in Namen schreibst du als `_`. Alle Adressen: [OSC-Referenz](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Englisch) |
 | **In-game overlay** (Ctrl+Shift+O) | Talking-Licht, LIVE / CUT und Pegel jedes Mikrofonkanals, plus bis zu vier Szenen-Tasten. Nimmt einem Spiel nie den Fokus. Ziehe es an eine beliebige Stelle |
-| **MINI** | Der Mini-Mixer: ein kleines Fenster mit Fader, Pegelmesser und **CUT** für jeden Strip, der in seinem Rechtsklick-Menü bei **IN THE MINI MIXER** abgehakt ist (für jeden Ausgang, solange keiner es ist). **PIN** hält ihn über allem. **OPEN** führt zurück zum Hauptfenster |
-| **Tray** | Klick auf das Symbol für den Mini-Mixer (er öffnet sich einen Moment später, wenn kein zweiter Klick gefolgt ist); Doppelklick öffnet das Fenster, ohne den Mini-Mixer. Rechtsklick: Show, Szenen-Abruf, Session timeline, Get Faider x.y.z... (wenn eine neuere Version da ist), Start with Windows, Save a problem report..., About, Quit. Das Symbol blinkt bei einem Alarm gelb |
+| **MINI** | Der Mini-Mixer: ein kleines Fenster mit Fader, Pegelmesser und **CUT** für jeden Strip, der in seinem Rechtsklick-Menü bei **IN THE MINI MIXER** abgehakt ist (für jeden Ausgang, solange keiner es ist). Seine Pegelmesser sind Säulen runder LEDs nach SETTINGS > Audio > Meter standard, wie auf dem Pult. **PIN** hält ihn über allem. **OPEN** führt zurück zum Hauptfenster |
+| **Tray** | Klick auf das Symbol für den Mini-Mixer (er öffnet sich einen Moment später, wenn kein zweiter Klick gefolgt ist); Doppelklick öffnet das Fenster, ohne den Mini-Mixer. Rechtsklick: Show, Szenen-Abruf, Session timeline, Get Faider x.y.z... (wenn eine neuere Version da ist), Boost Windows audio again... (wenn ein Boost rückgängig gemacht wurde), Start with Windows, Save a problem report..., About, Quit. Das Symbol blinkt bei einem Alarm gelb |
 
 Faider läuft immer mit deinen normalen Benutzerrechten, auch wenn es aus einem Administratorfenster gestartet wird.
 Es startet sich selbst mit normalen Rechten neu, weil das In-Game-Overlay ein Programm, das als Administrator läuft,
@@ -1267,7 +1267,7 @@ und ihre Routen gehen mit.
 
 ### 17.9 Eine Push-to-Talk-Taste machen
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > dein Mikrofonkanal.
 3. Schalte **MOMENTARY** ein und setze einen **HOTKEY**. Solange du ihn hältst, ist das Mikrofon live, und beim Loslassen
    steht es wieder auf CUT. Beginne mit dem Mikrofon auf CUT.
@@ -1282,7 +1282,7 @@ Wenn das Overlay, ein MIDI-Controller oder OSC nicht reagiert:
 
 | Problem | Prüfen |
 |---|---|
-| **Das Overlay erscheint nicht** | Ctrl+Shift+O ist ein Hotkey für ganz Windows. Hat eine andere App ihn, markiert SETTINGS > HOTKEYS ihn rot, und das Ereignisprotokoll meldet es: **SHOW OVERLAY** in FIND öffnet das Overlay ohne die Taste. Das Overlay ist ein Fenster, das im Vordergrund bleibt, gemacht für ein Spiel im randlosen Fenster; stelle das Spiel also auf randlos oder Fenstermodus. Es listet nur Mikrofonkanäle auf (Interface-Eingänge und Windows-Geräte) und zeigt **NO MIC CHANNELS**, wenn es keine gibt |
+| **Das Overlay erscheint nicht** | Ctrl+Shift+O ist ein Hotkey für ganz Windows. Hat eine andere App ihn, markiert SETTINGS > Hotkeys ihn rot, und das Ereignisprotokoll meldet es: **SHOW OVERLAY** in FIND öffnet das Overlay ohne die Taste. Das Overlay ist ein Fenster, das im Vordergrund bleibt, gemacht für ein Spiel im randlosen Fenster; stelle das Spiel also auf randlos oder Fenstermodus. Es listet nur Mikrofonkanäle auf (Interface-Eingänge und Windows-Geräte) und zeigt **NO MIC CHANNELS**, wenn es keine gibt |
 | **Ein MIDI-Controller tut nichts** | Jeder MIDI-Eingang ist aus, bis du ihn unter SETTINGS > MIDI & OSC > **Inputs and bindings** einschaltest. Ein Controller, der nach dem Start von Faider eingesteckt wurde, wird nicht von selbst geöffnet: Drücke dort **REFRESH** und schalte seinen Eingang aus und wieder ein, oder starte Faider neu. Bewege ein Bedienelement, und **LAST** unten in dieser Liste zeigt, was angekommen ist. Ein Bedienelement tut nichts, bis es in **MIDI MAP** (Ctrl+L) zugeordnet ist. Nur Control Changes und Noten werden gelesen: Fader und Pans folgen einem Regler oder Fader, nicht einer Taste, und Tasten schalten CUT, SOLO und Ähnliches |
 | **OSC tut nichts** | OSC ist aus, bis sein Schalter an ist (SETTINGS > MIDI & OSC). Der Absender muss den Port verwenden, der darunter steht (9000, sofern du ihn nicht geändert hast), und auf diesem PC laufen: Faider hört nur auf `127.0.0.1`, ein Handy oder ein anderer PC kann es also nicht erreichen. Ließ sich der Port nicht öffnen (vielleicht hat ein anderes Programm ihn), sagt Faider das, und OSC bleibt aus: Gib unter **OSC port** einen anderen ein und klicke auf **Apply**. Prüfe dann die Adresse: den Namen des Strips, mit `_` für Leerzeichen (siehe die [OSC-Referenz](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (Englisch)) |
 

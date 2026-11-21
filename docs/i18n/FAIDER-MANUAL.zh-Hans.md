@@ -185,9 +185,9 @@ SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 S
 
 侧边栏中的 **ADD CHANNEL** 和 **ADD APP** 添加通道(**ADD APP** 还会列出正在运行但 **NOT PLAYING YET** 的程序)。把某个声音路由到还没有输出的设备，就会在该设备上建立输出。右键点击输出可使用 **DEVICE...**(它在哪里播放)和 **HEADPHONE EQ**。右键点击任何通道条可使用 **RENAME...**、**COLOUR**、**IN THE MINI MIXER** 和 **REMOVE**。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### 步骤 7：PRO，整个调音台
+### 步骤 7：整个调音台，或 COMPACT
 
 调音台就是整个控制台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。想要更小的视图，侧边栏中的 **COMPACT** 会把每条通道条折叠成只剩名称栏和推子部分。再点一次恢复完整的通道条(见[侧边栏](#the-sidebar))。
 
@@ -247,7 +247,7 @@ SELECT 和 COMPACT 的选择会被记住。通道电平表的测量位置(**IN**
 | 控件 | 作用 |
 |---|---|
 | **+ 100% -** | 缩放。在 100%、125% 和 150% 之间切换。点击百分比回到 100%。Ctrl + / Ctrl - / Ctrl 0 效果相同 |
-| **FIND** (Ctrl+K) | 按名称搜索每个页面、通道、场景、宏、打击垫和命令 |
+| **FIND** (Ctrl+K) | 按名称搜索每个页面、设置、通道、场景、宏、打击垫和命令 |
 | **HISTORY** (Ctrl+H) | 你做过的每一次更改。选一个就能回到那一刻 |
 | **MINI** | 迷你调音台：一个小调音台窗口(点击托盘图标也能打开)。它上面的 **PIN** 让它保持置顶 |
 | **状态灯** | 绿色：音频正常。琥珀色：音频负载很高，或最近有设备数据不足。红色：最近 10 秒内有可听见的故障，或没有音频在运行。数字是音频负载。点击它进入 DEVICES |
@@ -871,7 +871,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 | 页面 | 设置 | 作用 |
 |---|---|---|
-| **General** | **Language** | 界面的语言：English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文，各以其本身的名称显示。首次启动时，如果 Windows 的显示语言是其中之一就跟随它，否则为英语。更改从下次启动起生效：**RESTART NOW** 立即重启 Faider，**LATER** 留到那时。调音台的按键、事件日志和产品名称保持英文 |
+| **General** | **Language** | 界面的语言：English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文，各以其本身的名称显示。首次启动时，如果 Windows 的显示语言是其中之一就跟随它，否则为英语。从支持多语言之前的版本更新时，保持英语。更改从下次启动起生效：**RESTART NOW** 立即重启 Faider，**LATER** 留到那时。调音台的按键、事件日志和产品名称保持英文 |
 | | **Start with Windows** | 你登录时在托盘中打开 Faider |
 | | **Zoom** | **100%**、**125%**、**150%**，或用 **Custom…** 设为 75 到 200% 之间的任意大小。Ctrl + 和 Ctrl - 在前三个之间切换 |
 | | **Look** | 调音台的颜色与字体；它的菜单列出你的 LOOK 和 **Save as…**（见 [LOOKS](#looks)） |
@@ -881,7 +881,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **Startup & checks** | **Pre-flight on start** | 启动几秒后运行 PRE-FLIGHT，只在有问题时才显示 |
 | | **Pre-flight**、**Zero the desk** | **Run pre-flight** 和 **Check** 立即运行它们(见 [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup** 再次提出 SETUP 的四个问题(见 [2](#2-first-time-setup))：只补上缺少的内容，不会删除任何东西 |
-| **Updates & about** | **Check for updates** | 默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的 **Get Faider x.y.z…** 会打开它的页面。关闭后，Faider 从不询问。 |
+| **Updates & about** | **Check for updates** | 默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.2.0`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的 **Get Faider x.y.z…** 会打开它的页面。关闭后，Faider 从不询问。 |
 | | **Version** | 当前运行的版本。**Check now**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
 | | **About Faider** | 版本和致谢 |
 | | **Privacy** | **Read policy** 打开 GitHub 上 Faider 的隐私政策 |
@@ -965,8 +965,8 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | **MIDI MAP** (Ctrl+L) | Ctrl+L 或 SETTINGS > MIDI & OSC 中的 **Start mapping** 启动它；Esc 结束它。点击屏幕上的一个控件，然后转动控制器上的旋钮或按键。每个通道条的推子、声像、CUT、SOLO、电源和路由键都可以映射，场景、打击垫和磁带也可以。映射时鼠标滚轮滚动调音台(Shift+滚轮为上下) |
 | **OSC** | 这台电脑上的程序可以发送到端口 9000，或在 **OSC port**(SETTINGS > MIDI & OSC)中设置的端口(它从不监听网络)：`/faider/input/NAME/fader -12` (dB)、`/faider/output/NAME/mute 1`、`/faider/bus/NAME/pan -0.5`、`/faider/input/NAME/solo 1`、`/faider/scene NAME`、`/faider/macro/NAME 1` (0 表示松开)。名称中的空格写成 `_`。所有地址：[OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文） |
 | **In-game overlay** (Ctrl+Shift+O) | 每个麦克风通道的说话指示灯、LIVE / CUT 和电平，另外最多四个场景键。绝不会从游戏抢走焦点。可拖到任何位置 |
-| **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
-| **Tray** | 点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
+| **MINI** | 迷你调音台：一个小窗口，为右键菜单中勾选了 **IN THE MINI MIXER** 的每个通道条提供推子、电平表和 **CUT**(都没勾选时为每个输出提供)。其电平表与调音台上一样是一列列圆形 LED，按 SETTINGS > Audio > Meter standard 显示。**PIN** 让它保持在所有窗口之上。**OPEN** 返回主窗口 |
+| **Tray** | 点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Boost Windows audio again...(提升被撤销时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色 |
 
 Faider 始终以你的普通用户权限运行，即使是从管理员窗口启动的。它会自己以普通权限重新启动，因为游戏内悬浮层无法访问以管理员身份运行的程序。少数需要管理员权限的操作(应用 VB-CABLE 设置、重新启用被 Windows 关闭的设备)会自行请求许可。
 
@@ -1045,7 +1045,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 ### 17.9 制作按键通话键
 
-1. SETTINGS > MACROS > **+ NEW**。
+1. SETTINGS > **Macros** > **+ NEW**。
 2. **+ ACTION** > **UNCUT** > 你的麦克风通道。
 3. 打开 **MOMENTARY** 并设置一个 **HOTKEY**。按住它时麦克风是开着的，松开后又会被 CUT。请从麦克风被 CUT 的状态开始。
 
@@ -1059,7 +1059,7 @@ Faider 始终以你的普通用户权限运行，即使是从管理员窗口启�
 
 | 问题 | 检查 |
 |---|---|
-| **悬浮层不显示** | Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS > HOTKEYS 会把它标为红色，事件日志也会说明：FIND 中的 **SHOW OVERLAY** 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 **NO MIC CHANNELS** |
+| **悬浮层不显示** | Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS > Hotkeys 会把它标为红色，事件日志也会说明：FIND 中的 **SHOW OVERLAY** 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 **NO MIC CHANNELS** |
 | **MIDI 控制器没有反应** | 每个 MIDI 输入在你于 SETTINGS > MIDI & OSC > **Inputs and bindings** 中打开之前都是关闭的。Faider 启动后才插入的控制器不会自动打开：在那里按 **REFRESH**，把它的输入关闭再打开，或重新启动 Faider。动一下某个控件，该列表底部的 **LAST** 会显示收到了什么。控件在 **MIDI MAP** (Ctrl+L) 中映射之前不起任何作用。只读取控制变更和音符：推子和声像跟随旋钮或推子，而不是按键；按键用于切换 CUT、SOLO 等 |
 | **OSC 没有反应** | 在它的开关打开之前，OSC 是关闭的(SETTINGS > MIDI & OSC)。发送方必须使用开关下方显示的端口(除非你改过，否则是 9000)，并在这台电脑上运行：Faider 只监听 `127.0.0.1`，所以手机或另一台电脑无法连到它。如果端口无法打开(可能被其他程序占用)，Faider 会提示，OSC 保持关闭：在 **OSC port** 中输入另一个并点击 **Apply**。然后检查地址：通道条的名称，空格写成 `_`(见 [OSC 参考](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)（英文）) |
 

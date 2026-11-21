@@ -237,9 +237,9 @@ listeler). Çıkışı olmayan bir aygıta bir şey yönlendirirsen o aygıtta b
 **IN THE MINI MIXER** ve **REMOVE** için herhangi bir şeride sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.
 
-<a id="step-7-pro-for-the-whole-console"></a>
+<a id="step-7-the-whole-console-or-compact"></a>
 
-### Adım 7: PRO, konsolun tamamı için
+### Adım 7: Konsolun tamamı ya da COMPACT
 
 Mixer konsolun tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve
 kombinatörler, eklentiler. Daha küçük bir görünüm için kenar çubuğundaki **COMPACT** her şeridi ad
@@ -313,7 +313,7 @@ Sağdan başlayarak:
 | Kontrol | Ne yapar |
 |---|---|
 | **+ 100% -** | Yakınlaştırma. 100, 125 ve 150% arasında geçer. %100 için yüzdeye tıkla. Ctrl + / Ctrl - / Ctrl 0 aynısını yapar |
-| **FIND** (Ctrl+K) | Her sayfayı, kanalı, sahneyi, makroyu, pad'i ve komutu ada göre arar |
+| **FIND** (Ctrl+K) | Her sayfayı, ayarı, kanalı, sahneyi, makroyu, pad'i ve komutu ada göre arar |
 | **HISTORY** (Ctrl+H) | Yaptığın her değişiklik. Birini seçip ona geri dön |
 | **MINI** | Mini mikser: küçük bir mikser penceresi (tepsi simgesi de onu açar). Üzerindeki **PIN** onu üstte tutar |
 | **Durum ışığı** | Yeşil: ses iyi. Kehribar: ses yükü yüksek ya da bir aygıtın verisi yakın zamanda yetmedi. Kırmızı: son 10 saniyede duyulur bir aksama ya da çalışan ses yok. Sayı ses yüküdür. DEVICES için tıkla |
@@ -1054,7 +1054,7 @@ yanık olarak açar. Adı ya da anahtar sözcükleri eşleşen bir sayfa ("hotke
 
 | Sayfa | Ayar | Ne yapar |
 |---|---|---|
-| **General** | **Language** | Arayüzün dili: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, her biri kendi adıyla. İlk açılışta, bunlardan biriyse Windows'un görüntüleme dili, değilse İngilizce kullanılır. Değişiklik bir sonraki açılışta geçerli olur: **RESTART NOW** Faider'i hemen yeniden başlatır, **LATER** o zamana bırakır. Masanın tuşları, olay günlüğü ve ürün adları İngilizce kalır |
+| **General** | **Language** | Arayüzün dili: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, her biri kendi adıyla. İlk açılışta, bunlardan biriyse Windows'un görüntüleme dili, değilse İngilizce kullanılır. Diller gelmeden önceki bir sürümden güncellenince İngilizce kalır. Değişiklik bir sonraki açılışta geçerli olur: **RESTART NOW** Faider'i hemen yeniden başlatır, **LATER** o zamana bırakır. Masanın tuşları, olay günlüğü ve ürün adları İngilizce kalır |
 | | **Start with Windows** | Oturum açtığında Faider'i tepside açar |
 | | **Zoom** | **100%**, **125%**, **150%** ya da 75 ile 200% arasında herhangi bir boyut için **Custom…**. Ctrl + ve Ctrl - ilk üçü arasında geçiş yapar |
 | | **Look** | Konsolun renkleri ve yazı tipi; menüsü LOOK'larını ve **Save as…**'i listeler (bkz. [LOOKS](#looks)) |
@@ -1064,7 +1064,7 @@ yanık olarak açar. Adı ya da anahtar sözcükleri eşleşen bir sayfa ("hotke
 | **Startup & checks** | **Pre-flight on start** | Başlangıçtan birkaç saniye sonra PRE-FLIGHT; yalnızca bir şey ters olduğunda gösterilir |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** ve **Check** bunları şimdi çalıştırır (bkz. [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup**, SETUP'ın dört sorusunu yeniden sorar (bkz. [2](#2-first-time-setup)): eksik olanı ekler, hiçbir şeyi kaldırmaz |
-| **Updates & about** | **Check for updates** | Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki **Get Faider x.y.z…** sayfasını açar. Kapatırsan Faider asla sormaz. |
+| **Updates & about** | **Check for updates** | Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.2.0`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki **Get Faider x.y.z…** sayfasını açar. Kapatırsan Faider asla sormaz. |
 | | **Version** | Şu anda çalışan sürüm. **Check now** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
 | | **About Faider** | Sürüm ve emeği geçenler |
 | | **Privacy** | **Read policy**, Faider'ın gizlilik politikasını GitHub'da açar |
@@ -1173,8 +1173,8 @@ olan tuşları ve nerede çalıştıklarını listeler ([19.1](#191-keyboard-sho
 | **MIDI MAP** (Ctrl+L) | Ctrl+L ya da SETTINGS > MIDI & OSC içindeki **Start mapping** onu başlatır; Esc bitirir. Ekrandaki bir kontrole tıkla, sonra kontrol cihazındaki bir düğmeyi veya tuşu oynat. Her şeridin fader'ı, pan'ı, CUT, SOLO, güç ve yönlendirme tuşları, ayrıca sahneler, pad'ler ve tape atanabilir. Atama sırasında fare tekerleği konsolu kaydırır (Shift+tekerlek yukarı ve aşağı) |
 | **OSC** | Bu bilgisayardaki programlar 9000 numaralı porta ya da **OSC port** ile ayarlanan porta gönderebilir (SETTINGS > MIDI & OSC; ağı asla dinlemez): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 bırakır). Adlardaki boşlukları `_` olarak yaz. Her adres: [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce) |
 | **Oyun içi kaplama** (Ctrl+Shift+O) | Her mikrofon kanalının konuşma ışığı, LIVE / CUT ve seviye, artı dört sahne tuşuna kadar. Bir oyundan odağı asla almaz. İstediğin yere sürükle |
-| **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
-| **Tepsi** | Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
+| **MINI** | Mini mikser: sağ tık menüsünde **IN THE MINI MIXER** işaretli her şerit için bir fader, ölçer ve **CUT** olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). Ölçerleri, masadaki gibi SETTINGS > Audio > Meter standard'a göre yuvarlak LED sütunlarıdır. **PIN** onu her şeyin üstünde tutar. **OPEN** ana pencereye döner |
+| **Tepsi** | Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Boost Windows audio again... (bir boost geri alındığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner |
 
 Faider, bir yönetici penceresinden başlatılsa bile her zaman sıradan kullanıcı haklarınla çalışır.
 Oyun içi kaplama yönetici olarak çalışan bir programa erişemediği için kendini sıradan haklarla
@@ -1265,7 +1265,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider.
 
 ### 17.9 Bir bas-konuş tuşu yap
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > mikrofon kanalın.
 3. **MOMENTARY**'yi aç ve bir **HOTKEY** ata. Basılı tuttuğun sürece mikrofon açıktır, bırakınca
    yeniden CUT olur. Mikrofon CUT durumundayken başla.
@@ -1280,7 +1280,7 @@ Kaplama, bir MIDI kontrol cihazı ya da OSC yanıt vermediğinde:
 
 | Sorun | Kontrol et |
 |---|---|
-| **Kaplama görünmüyor** | Ctrl+Shift+O, Windows'un tamamı için geçerli bir kısayoldur. Başka bir uygulama onu tutuyorsa SETTINGS > HOTKEYS onu kırmızıyla işaretler ve olay günlüğü bunu söyler: FIND'daki **SHOW OVERLAY** kaplamayı tuş olmadan açar. Kaplama, üstte kalan bir penceredir ve kenarlıksız pencerede çalışan bir oyun için yapılmıştır; bu yüzden oyunu kenarlıksız ya da pencereli moda al. Yalnızca mikrofon kanallarını listeler (arabirim girişleri ve Windows aygıtları) ve hiç yoksa **NO MIC CHANNELS** yazar |
+| **Kaplama görünmüyor** | Ctrl+Shift+O, Windows'un tamamı için geçerli bir kısayoldur. Başka bir uygulama onu tutuyorsa SETTINGS > Hotkeys onu kırmızıyla işaretler ve olay günlüğü bunu söyler: FIND'daki **SHOW OVERLAY** kaplamayı tuş olmadan açar. Kaplama, üstte kalan bir penceredir ve kenarlıksız pencerede çalışan bir oyun için yapılmıştır; bu yüzden oyunu kenarlıksız ya da pencereli moda al. Yalnızca mikrofon kanallarını listeler (arabirim girişleri ve Windows aygıtları) ve hiç yoksa **NO MIC CHANNELS** yazar |
 | **Bir MIDI kontrol cihazı hiçbir şey yapmıyor** | Her MIDI girişi, sen onu SETTINGS > MIDI & OSC > **Inputs and bindings** içinde açana kadar kapalıdır. Faider başladıktan sonra takılan bir kontrol cihazı kendiliğinden açılmaz: orada **REFRESH**'e bas ve girişini kapatıp aç ya da Faider'i yeniden başlat. Bir kontrolü oynat; o listenin altındaki **LAST** neyin geldiğini gösterir. Bir kontrol, **MIDI MAP**'te (Ctrl+L) atanana kadar hiçbir şey yapmaz. Yalnızca control change'ler ve notalar okunur: fader'lar ve pan'lar bir tuşu değil, bir düğmeyi ya da fader'ı izler; tuşlar ise CUT, SOLO ve benzerlerini açıp kapatır |
 | **OSC hiçbir şey yapmıyor** | OSC, anahtarı açılana kadar kapalıdır (SETTINGS > MIDI & OSC). Gönderen, onun altında gösterilen portu kullanmalı (değiştirmediysen 9000) ve bu bilgisayarda çalışmalıdır: Faider yalnızca `127.0.0.1` üzerinde dinler, bu yüzden bir telefon ya da başka bir bilgisayar ona ulaşamaz. Port açılamadıysa (başka bir program tutuyor olabilir) Faider bunu söyler ve OSC kapalı kalır: **OSC port**'a başka birini yaz ve **Apply**'a tıkla. Sonra adresi kontrol et: şeridin adı, boşluklar yerine `_` ile (bkz. [OSC başvurusu](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) (İngilizce)) |
 

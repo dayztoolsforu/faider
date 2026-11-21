@@ -54,8 +54,8 @@ The desk's LED meters redraw as the chosen meter standard moves them and PEAK HO
 The uninstaller ends only a Faider running from its own folder, not another user's or a build's
 ```
 
-A release is its own commit, `Version 0.2.0`, with the version changed in `CMakeLists.txt`, and a
-tag, `v0.2.0`. Add the changes to [CHANGELOG.md](CHANGELOG.md).
+A release is its own commit, `Version 0.2.1`, with the version changed in `CMakeLists.txt`, and a
+tag, `v0.2.1`. Add the changes to [CHANGELOG.md](CHANGELOG.md).
 
 ## The manual and its translations
 

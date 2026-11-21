@@ -3,7 +3,7 @@
 What changed in each version of Faider, newest first. Downloads are on the
 [Releases](https://github.com/dayztoolsforu/faider/releases) page.
 
-## Unreleased
+## 0.2.1 (21 November 2026)
 
 **New**
 - Every channel strip's DYNAMICS has **DE-ESS** (its switch, threshold, frequency and reduction

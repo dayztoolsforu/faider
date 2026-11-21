@@ -185,6 +185,8 @@ countries: tr
 "off in %1" = "%1 içinde kapalı"
 "Connected" = "Bağlandı"
 "Disconnected" = "Bağlantı kesildi"
+"Windows default playback" = "Windows varsayılan oynatma"
+"Windows default recording" = "Windows varsayılan kayıt"
 "%1 SILENT" = "%1 SESSİZ"
 "%1 CLIPPING" = "%1 KIRPILIYOR"
 "RECORDING STOPPED, NO ROOM" = "KAYIT DURDU, YER YOK"

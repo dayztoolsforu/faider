@@ -185,6 +185,8 @@ countries: pl
 "off in %1" = "wyłączone w %1"
 "Connected" = "Podłączono"
 "Disconnected" = "Odłączono"
+"Windows default playback" = "Domyślne odtwarzanie Windows"
+"Windows default recording" = "Domyślne nagrywanie Windows"
 "%1 SILENT" = "%1 MILCZY"
 "%1 CLIPPING" = "%1 PRZESTERUJE"
 "RECORDING STOPPED, NO ROOM" = "NAGRYWANIE ZATRZYMANE, BRAK MIEJSCA"

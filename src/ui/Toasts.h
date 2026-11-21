@@ -81,7 +81,7 @@ private:
             auto inside = r.reduced (14.0f, 6.0f).withTrimmedLeft (2.0f);
             g.setColour (Colours::capText());
             g.setFont (legendFont (Type::name));
-            g.drawFittedText (title.toUpperCase(), inside.removeFromTop (text.isEmpty() ? inside.getHeight() : 20.0f).toNearestInt(),
+            g.drawFittedText (Language::upper (title), inside.removeFromTop (text.isEmpty() ? inside.getHeight() : 20.0f).toNearestInt(),
                               juce::Justification::centredLeft, 1, 0.7f);   // (a translated title may run longer)
             if (text.isNotEmpty())
             {

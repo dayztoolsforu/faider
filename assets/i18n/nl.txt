@@ -185,6 +185,8 @@ countries: nl
 "off in %1" = "uit in %1"
 "Connected" = "Verbonden"
 "Disconnected" = "Losgekoppeld"
+"Windows default playback" = "Windows-standaardweergave"
+"Windows default recording" = "Windows-standaardopname"
 "%1 SILENT" = "%1 STIL"
 "%1 CLIPPING" = "%1 OVERSTUURT"
 "RECORDING STOPPED, NO ROOM" = "OPNAME GESTOPT, GEEN RUIMTE"

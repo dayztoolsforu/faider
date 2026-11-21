@@ -483,6 +483,7 @@ AudioEngine::Stats AudioEngine::getStats() const
             StreamStats s;
             s.name = TRANS ("%1 (clock, %2)").replace ("%2", juce::translate (getClockName())).replace ("%1", master->getName());   // (shown only: DEVICES, the health light)
             s.direction = out ? "out" : "in";
+            s.clock = true;
             s.rate = interfaceRate;
             s.block = interfaceBlock;
             s.driverMs = ms (out ? master->getOutputLatencyInSamples() : master->getInputLatencyInSamples(), interfaceRate);

@@ -53,7 +53,7 @@ public:
                 r.removeFromRight (fixes[(int) i]->getWidth() + Space::pad);
             g.setColour (Colours::legend());
             g.setFont (legendFont (Type::name));
-            g.drawFittedText (c.title.toUpperCase(), r.removeFromTop (20), juce::Justification::centredLeft, 1, 0.7f);   // (squeezed, not cut, when long)
+            g.drawFittedText (Language::upper (c.title), r.removeFromTop (20), juce::Justification::centredLeft, 1, 0.7f);   // (squeezed, not cut, when long)
             g.setColour (Colours::legendDim());
             g.setFont (juce::FontOptions (Type::body));
             g.drawFittedText (c.detail, r, juce::Justification::topLeft, 2, 0.8f);

@@ -226,7 +226,7 @@ target_link_libraries(UpdateCheckTest
 # BOOST WINDOWS AUDIO: the helper's command line, PRE-FLIGHT's verdict and the watch, without
 # touching Windows audio (see tests/AudioBoostTest.cpp).
 juce_add_console_app(AudioBoostTest PRODUCT_NAME "AudioBoostTest")
-target_sources(AudioBoostTest PRIVATE tests/AudioBoostTest.cpp)
+target_sources(AudioBoostTest PRIVATE tests/AudioBoostTest.cpp src/LanguageCase.cpp)
 target_compile_definitions(AudioBoostTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 target_link_libraries(AudioBoostTest
     PRIVATE
@@ -236,7 +236,7 @@ target_link_libraries(AudioBoostTest
 
 # The interface's translations: each built-in table loads and translates (see tests/TranslationTest.cpp).
 juce_add_console_app(TranslationTest PRODUCT_NAME "TranslationTest")
-target_sources(TranslationTest PRIVATE tests/TranslationTest.cpp)
+target_sources(TranslationTest PRIVATE tests/TranslationTest.cpp src/LanguageCase.cpp)
 target_compile_definitions(TranslationTest PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 target_link_libraries(TranslationTest
     PRIVATE

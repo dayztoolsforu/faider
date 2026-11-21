@@ -14,6 +14,7 @@ target_sources(Faider PRIVATE
     ${_src}/MainComponentPreflight.cpp
     ${_src}/MainComponentSessions.cpp
     ${_src}/AudioBoost.cpp
+    ${_src}/LanguageCase.cpp
     ${_src}/engine/WindowDiscovery.cpp
     ${_src}/engine/PluginScan.cpp
     ${_src}/ui/VoiceChainEditor.cpp

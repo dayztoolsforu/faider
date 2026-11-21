@@ -111,7 +111,7 @@ namespace DevicesTab
             const auto title = juce::translate (columns[(size_t) i].title);
             const bool sorted = i == sortColumn;
             g.setColour (sorted ? Console::Colours::legend() : Console::Colours::legendDim());
-            g.drawFittedText (title.toUpperCase(), r.withHeight (getHeight()), juce::Justification::centredLeft, 1, 0.7f);
+            g.drawFittedText (Language::upper (title), r.withHeight (getHeight()), juce::Justification::centredLeft, 1, 0.7f);
 
             if (sorted)   // a small arrow after the title
             {
@@ -314,7 +314,7 @@ namespace DevicesTab
 
         g.setFont (juce::FontOptions (Console::Type::body, juce::Font::bold));
         g.setColour (Console::Colours::legendDim());
-        cell (0, [&] (int i, juce::Rectangle<int> r) { g.drawFittedText (juce::translate (cols[(size_t) i].first).toUpperCase(), r, juce::Justification::centredLeft, 1, 0.7f); });
+        cell (0, [&] (int i, juce::Rectangle<int> r) { g.drawFittedText (Language::upper (juce::translate (cols[(size_t) i].first)), r, juce::Justification::centredLeft, 1, 0.7f); });
 
         g.setFont (juce::FontOptions (Console::Type::body));
         auto msText = [] (double v) { return v < 0.0 ? TRANS ("n/a") : juce::String (v, 1) + " ms"; };
@@ -332,7 +332,7 @@ namespace DevicesTab
                 s.xruns < 0 ? TRANS ("n/a") : juce::String (s.xruns) };
 
             g.setColour (dropped ? Console::Colours::warning() : Console::Colours::legend());
-            cell ((int) row + 1, [&] (int i, juce::Rectangle<int> r) { g.drawText (values[i].toUpperCase(), r, juce::Justification::centredLeft, true); });
+            cell ((int) row + 1, [&] (int i, juce::Rectangle<int> r) { g.drawText (Language::upper (values[i]), r, juce::Justification::centredLeft, true); });
         }
     }
 
@@ -352,7 +352,7 @@ namespace DevicesTab
         const auto sizes = engine.getInterfaceBufferSizes();
         double rate = 48000.0;
         for (auto& s : stats.streams)
-            if (s.name.contains ("(interface"))
+            if (s.clock)   // (the master's own rate, the buffer's)
                 rate = s.rate;
 
         buffer.clear (juce::dontSendNotification);

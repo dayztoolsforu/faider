@@ -2,6 +2,7 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "Theme.h"
+#include "../LanguageCase.h"   // (a translated legend in capitals as its language writes them)
 #include <unordered_map>
 
 // LARGE FORMAT: the classic console's parts as its operator's manual draws them: the one key
@@ -15,7 +16,7 @@ namespace LargeFormat
     // squashed sideways).
     inline void legend (juce::Graphics& g, const juce::String& text, juce::Rectangle<float> area, float maxH)
     {
-        const auto s = text.toUpperCase();
+        const auto s = Language::upper (text);
         // (the size fitted to this text in this space, worked out once: keys repaint as their lamps fade)
         static std::unordered_map<juce::String, float> fitted;   // message thread
         const auto key = s + "|" + juce::String (juce::roundToInt (area.getWidth())) + "|" + juce::String (juce::roundToInt (area.getHeight())) + "|" + juce::String (maxH);

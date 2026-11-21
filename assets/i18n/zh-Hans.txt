@@ -185,6 +185,8 @@ countries: cn
 "off in %1" = "已在 %1 中关闭"
 "Connected" = "已连接"
 "Disconnected" = "已断开"
+"Windows default playback" = "Windows 默认播放"
+"Windows default recording" = "Windows 默认录音"
 "%1 SILENT" = "%1 无声"
 "%1 CLIPPING" = "%1 削波"
 "RECORDING STOPPED, NO ROOM" = "录音已停止，空间不足"

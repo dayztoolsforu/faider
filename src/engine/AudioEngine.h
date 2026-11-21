@@ -712,6 +712,7 @@ public:
     struct StreamStats
     {
         juce::String name, direction;    // direction: "in", "out" or "app"
+        bool clock = false;              // the master (the clock): its rate is the buffer's
         double rate = 0.0;               // the stream's own sample rate
         int block = 0;                   // its buffer, samples
         double driverMs = -1.0;          // latency the driver reports (-1: unknown)

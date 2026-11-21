@@ -207,7 +207,7 @@ private:
         const auto& c = *shown[(size_t) row];
         g.setColour (Console::Colours::legendDim());
         g.setFont (Console::legendFont (Console::Type::legend));
-        g.drawFittedText (c.detail.toUpperCase(), r.removeFromRight (160), juce::Justification::centredRight, 1, 0.7f);
+        g.drawFittedText (Language::upper (c.detail), r.removeFromRight (160), juce::Justification::centredRight, 1, 0.7f);
         if (query.isEmpty() && recent.contains (c.id()))
         {
             g.setColour (Console::Colours::selected());

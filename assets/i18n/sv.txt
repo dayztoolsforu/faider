@@ -185,6 +185,8 @@ countries: se
 "off in %1" = "av i %1"
 "Connected" = "Ansluten"
 "Disconnected" = "Frånkopplad"
+"Windows default playback" = "Windows standarduppspelning"
+"Windows default recording" = "Windows standardinspelning"
 "%1 SILENT" = "%1 TYST"
 "%1 CLIPPING" = "%1 KLIPPER"
 "RECORDING STOPPED, NO ROOM" = "INSPELNINGEN STOPPAD, INGET UTRYMME"

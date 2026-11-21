@@ -503,7 +503,7 @@ void MixerComponent::addColourMenu (juce::PopupMenu& menu, juce::Colour current,
         swatch->setStrokeFill (juce::Colours::black.withAlpha (0.35f));
         swatch->setStrokeThickness (1.0f);
 
-        juce::PopupMenu::Item item (juce::translate (name).toUpperCase());   // (the palette's names are English: shown translated)
+        juce::PopupMenu::Item item (Language::upper (juce::translate (name)));   // (the palette's names are English: shown translated)
         item.setImage (std::move (swatch));
         item.setTicked (c == current);
         item.setAction ([onPick, c] { onPick (c); });

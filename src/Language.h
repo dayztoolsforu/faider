@@ -4,6 +4,7 @@
 #include <juce_data_structures/juce_data_structures.h>   // (PropertiesFile: settings.xml)
 #include <vector>
 #include "FaiderAssets.h"
+#include "LanguageCase.h"   // (upper, lower: a translated text's case, as its language has it)
 
 // THE INTERFACE'S LANGUAGE (SETTINGS > General > Language): English, the text in the code, or one
 // of the translations in assets/i18n (built into the program: FaiderAssets). JUCE's TRANS looks
@@ -89,20 +90,30 @@ namespace Language
     {
         const auto text = code == "en" ? juce::String() : table (code);
         juce::LocalisedStrings::setCurrentMappings (text.isNotEmpty() ? new juce::LocalisedStrings (text, false) : nullptr);
+        setCaseLanguage (text.isNotEmpty() ? code : juce::String ("en"));
         return code == "en" || text.isNotEmpty();
     }
 
-    // At start, before any window: settings.xml's "language". The first start has none: Windows'
-    // display language if there's a translation for it, else English, kept there so later starts
-    // keep it (whatever Windows' becomes).
+    // The language to start in: the one kept (`stored`), else on the very first start (no
+    // settings.xml, nothing kept yet) Windows' display language if there's a translation for it,
+    // else English. Someone who had Faider before languages came has settings but no language:
+    // English, as they had it, not Windows' unasked.
+    inline juce::String startCode (const juce::String& stored, bool firstStart, const juce::String& windowsLanguage)
+    {
+        if (isKnown (stored))
+            return stored;
+        const auto windows = firstStart ? forDisplayLanguage (windowsLanguage) : juce::String();
+        return windows.isNotEmpty() ? windows : juce::String ("en");
+    }
+
+    // At start, before any window: settings.xml's "language" (startCode), kept there so later
+    // starts keep it (whatever Windows' becomes).
     inline juce::String start (juce::PropertiesFile& settings)
     {
-        auto code = settings.getValue ("language");
-        if (! isKnown (code))
+        const auto stored = settings.getValue ("language");
+        const auto code = startCode (stored, settings.getAllProperties().size() == 0, juce::SystemStats::getDisplayLanguage());
+        if (code != stored)
         {
-            code = forDisplayLanguage (juce::SystemStats::getDisplayLanguage());
-            if (code.isEmpty())
-                code = "en";
             settings.setValue ("language", code);
             settings.saveIfNeeded();
         }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <juce_core/juce_core.h>
+#include "LanguageCase.h"
 #include <functional>
 
 // BOOST WINDOWS AUDIO: Windows' audio engine (audiodg.exe, "Windows Audio Device Graph
@@ -164,9 +165,9 @@ namespace AudioBoost
             return { false, true, TRANS ("Couldn't read its priority. If Windows devices crackle, BOOST may help") };
         const auto name = juce::translate (priorityName (p));
         if (wanted)
-            return { false, false, TRANS ("Back at %1 (Windows audio restarted): the boost is off").replace ("%1", name.toLowerCase()) };
+            return { false, false, TRANS ("Back at %1 (Windows audio restarted): the boost is off").replace ("%1", Language::lower (name)) };
         return { false, true, TRANS ("%1 priority, Windows' default. If Windows devices or captured apps crackle, BOOST may help")
-                                  .replace ("%1", name.substring (0, 1) + name.substring (1).toLowerCase()) };
+                                  .replace ("%1", name.substring (0, 1) + Language::lower (name.substring (1))) };
     }
 
     // Watching audiodg (every few seconds): says when the boost asked for has gone (Windows audio

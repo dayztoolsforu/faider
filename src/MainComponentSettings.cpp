@@ -23,6 +23,9 @@ namespace
         return s;
     }
 
+    // A look's name as shown: the built-in "Default" translated; a look file's name as its owner wrote it.
+    juce::String lookShown (const juce::String& name) { return name == "Default" ? TRANS ("Default") : name; }
+
     // A note that ends a sentence: a full stop, unless it has one ("...", or a language's own).
     juce::String sentenceEnd (const juce::String& note)
     {
@@ -98,7 +101,7 @@ void MainComponent::makeSettings()
     add ({ .page = "General", .section = NEEDS_TRANS ("Window"), .name = NEEDS_TRANS ("Look"),
            .description = TRANS ("The console's colours and typeface. A look is a file in %APPDATA%\\Faider\\looks; Save as writes the one in force to a new file."),
            .keywords = "theme colour color typeface font skin", .kind = Kind::dropdown,
-           .value = [] { return juce::translate (Theme::currentLookName()); },   // (the built-in "Default" translated; a look file's name has no key, so it shows as it is)
+           .value = [] { return lookShown (Theme::currentLookName()); },
            .menu = [this] (juce::Component& c) { showLooks (juce::PopupMenu::Options().withTargetComponent (&c)); } });
     add ({ .page = "General", .section = NEEDS_TRANS ("Help"), .name = NEEDS_TRANS ("Tips"),
            .description = TRANS ("A tip about each page, the first time it's shown. Show again shows each page's tip once more."),
@@ -542,7 +545,7 @@ void MainComponent::showLooks (juce::PopupMenu::Options where)
     juce::PopupMenu menu;
     const auto current = Theme::currentLookName();
     for (const auto& name : Theme::lookNames())
-        menu.addItem (juce::translate (name), true, name == current, [this, name]   // (shown translated: the built-in "Default"; `name` stays English for useLook)
+        menu.addItem (lookShown (name), true, name == current, [this, name]   // (`name` as it is for useLook)
         {
             if (! Theme::useLook (name))
                 return;

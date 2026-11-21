@@ -1,4 +1,5 @@
 #include "SettingsTab.h"
+#include "../LanguageCase.h"
 
 using namespace SettingsUi;
 
@@ -490,7 +491,7 @@ void SettingsTab::paint (juce::Graphics& g)
             group = p.group;
             g.setColour (Ink::dim());
             g.setFont (font (11.5f, true));
-            g.drawFittedText (SettingsRegistry::shown (group).toUpperCase(), groupArea (group), juce::Justification::centredLeft, 1, 0.7f);
+            g.drawFittedText (Language::upper (SettingsRegistry::shown (group)), groupArea (group), juce::Justification::centredLeft, 1, 0.7f);
         }
         const auto r = linkArea (i).toFloat();
         const bool on = i == current && ! searching;

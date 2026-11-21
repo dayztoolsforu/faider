@@ -185,6 +185,8 @@ countries: jp
 "off in %1" = "%1 でオフ"
 "Connected" = "接続されました"
 "Disconnected" = "切断されました"
+"Windows default playback" = "Windows の既定の再生"
+"Windows default recording" = "Windows の既定の録音"
 "%1 SILENT" = "%1 無音"
 "%1 CLIPPING" = "%1 クリップ"
 "RECORDING STOPPED, NO ROOM" = "空き容量不足のため録音停止"

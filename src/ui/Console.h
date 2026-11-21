@@ -456,11 +456,21 @@ namespace Console
 
             int getBestTabLength (int) override
             {
-                int columns = 1;
-                for (auto& name : getTabbedButtonBar().getTabNames())   // (names are English identifiers, shown translated)
-                    columns = juce::jmax (columns, KeyRow::columnsFor (juce::translate (name).toUpperCase(), Type::name));
+                // (names are English identifiers, shown translated: worked out again only when the
+                // tabs or the language change, not at each layout)
+                const auto names = getTabbedButtonBar().getTabNames();
+                const auto key = names.joinIntoString ("|") + "|" + Language::caseLanguage();
+                if (key != columnsKey)
+                {
+                    columnsKey = key;
+                    columns = 1;
+                    for (auto& name : names)
+                        columns = juce::jmax (columns, KeyRow::columnsFor (Language::upper (juce::translate (name)), Type::name));
+                }
                 return Space::columns (columns) + 2 * capInsetX;
             }
+            juce::String columnsKey;   // (the names and language `columns` was worked out for)
+            int columns = 1;
 
             // A card, lit grey with a blue edge while its page shows, as the
             // sidebar's pages and the settings' sections.
@@ -479,7 +489,7 @@ namespace Console
                 }
                 g.setColour (on ? juce::Colours::white : Colours::ink());
                 g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-                g.drawFittedText (juce::translate (getButtonText()).toUpperCase(), r.toNearestInt(), juce::Justification::centred, 1, 0.8f);
+                g.drawFittedText (Language::upper (juce::translate (getButtonText())), r.toNearestInt(), juce::Justification::centred, 1, 0.8f);
             }
         };
 
@@ -706,7 +716,7 @@ namespace Console
             const auto head = r.removeFromTop (juce::jmin (14.0f, r.getHeight() * 0.4f));
             g.setColour (Colours::legendDim().withMultipliedAlpha (fade));
             g.setFont (legendFont (Type::legend));
-            g.drawFittedText (title.toUpperCase(), head.toNearestInt(), juce::Justification::centred, 1, 0.8f);
+            g.drawFittedText (Language::upper (title), head.toNearestInt(), juce::Justification::centred, 1, 0.8f);
         }
         g.setColour (DotMatrix::glass().withMultipliedAlpha (fade));
         g.fillRoundedRectangle (r.reduced (0.5f), 3.0f);
@@ -879,7 +889,7 @@ namespace Console
             if (! label.isBeingEdited())
             {
                 const auto font = getLabelFont (label);
-                const auto text = label.getProperties()["keepCase"] ? label.getText() : label.getText().toUpperCase();
+                const auto text = label.getProperties()["keepCase"] ? label.getText() : Language::upper (label.getText());
                 const auto area = getLabelBorderSize (label).subtractedFrom (label.getLocalBounds());
                 g.setColour (label.findColour (juce::Label::textColourId).withMultipliedAlpha (alpha));
                 g.setFont (font);
@@ -908,7 +918,7 @@ namespace Console
 
         int getTabButtonBestWidth (juce::TabBarButton& tab, int depth) override
         {
-            return juce::GlyphArrangement::getStringWidthInt (legendFont (Type::name), juce::translate (tab.getButtonText()).toUpperCase()) + depth + 22;
+            return juce::GlyphArrangement::getStringWidthInt (legendFont (Type::name), Language::upper (juce::translate (tab.getButtonText()))) + depth + 22;
         }
 
         void drawTabAreaBehindFrontButton (juce::TabbedButtonBar&, juce::Graphics&, int, int) override {}
@@ -934,7 +944,7 @@ namespace Console
             const auto r = area.reduced (juce::roundToInt (10.0f * menuScale()), 0);
             g.setFont (legendFont (Type::name * menuScale()));
             g.setColour (Colours::legendDim());
-            g.drawFittedText (text.toUpperCase(), r.withTrimmedTop (4), juce::Justification::centredLeft, 1, 0.8f);
+            g.drawFittedText (Language::upper (text), r.withTrimmedTop (4), juce::Justification::centredLeft, 1, 0.8f);
             g.setColour (Colours::legendDim().withAlpha (0.35f));
             g.fillRect (r.getX(), r.getBottom() - 2, r.getWidth(), 1);
         }
@@ -951,12 +961,12 @@ namespace Console
                 g.setColour (Colours::ledGreen());
                 g.fillRect (r.withWidth (2.5f));
             }
-            LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive, false, isTicked, hasSubMenu, text.toUpperCase(), shortcutKeyText, icon, textColour);
+            LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive, false, isTicked, hasSubMenu, Language::upper (text), shortcutKeyText, icon, textColour);
         }
 
         void getIdealPopupMenuItemSize (const juce::String& text, bool isSeparator, int standardHeight, int& width, int& height) override
         {
-            LookAndFeel_V4::getIdealPopupMenuItemSize (text.toUpperCase(), isSeparator, standardHeight, width, height);
+            LookAndFeel_V4::getIdealPopupMenuItemSize (Language::upper (text), isSeparator, standardHeight, width, height);
             height = juce::roundToInt ((isSeparator ? 9.0f : menuRow) * menuScale());
         }
 
@@ -1021,7 +1031,7 @@ namespace Console
         static juce::TextLayout tooltipLayout (const juce::String& text)
         {
             juce::AttributedString s;
-            s.append (text.toUpperCase(), juce::Font (juce::FontOptions (Type::body)), Colours::capText());
+            s.append (Language::upper (text), juce::Font (juce::FontOptions (Type::body)), Colours::capText());
             s.setJustification (juce::Justification::centredLeft);
             juce::TextLayout layout;
             layout.createLayout (s, 380.0f);

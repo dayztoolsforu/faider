@@ -185,6 +185,8 @@ countries: kr
 "off in %1" = "%1에서 꺼짐"
 "Connected" = "연결됨"
 "Disconnected" = "연결 끊김"
+"Windows default playback" = "Windows 기본 재생"
+"Windows default recording" = "Windows 기본 녹음"
 "%1 SILENT" = "%1 무음"
 "%1 CLIPPING" = "%1 클리핑"
 "RECORDING STOPPED, NO ROOM" = "공간 부족으로 녹음 중지"

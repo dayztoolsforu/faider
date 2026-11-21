@@ -1050,7 +1050,7 @@ void MainComponent::paintListBoxItem (int row, juce::Graphics& g, int width, int
     g.setFont (juce::FontOptions (15.0f));
     DevicesTab::forEachColumn (width, [&] (int i, juce::Rectangle<int> r)
     {
-        g.drawText (cells[i].toUpperCase(), r.withHeight (height), juce::Justification::centredLeft, true);
+        g.drawText (Language::upper (cells[i]), r.withHeight (height), juce::Justification::centredLeft, true);
     });
 }
 
@@ -1085,14 +1085,23 @@ juce::StringArray MainComponent::selectedDeviceIds() const
 void MainComponent::sortDevices (const juce::StringArray& chosen)
 {
     if (sortColumn >= 0)
-        std::stable_sort (endpoints.begin(), endpoints.end(), [this] (const EndpointInfo& a, const EndpointInfo& b)
+    {
+        // Each row's cells made once (they're translated), not again at each comparison.
+        std::vector<std::pair<juce::StringArray, EndpointInfo>> rows;
+        rows.reserve ((size_t) endpoints.size());
+        for (auto& e : endpoints)
+            rows.push_back ({ deviceCells (e), e });
+        std::stable_sort (rows.begin(), rows.end(), [this] (const auto& a, const auto& b)
         {
-            const auto ca = deviceCells (a), cb = deviceCells (b);
-            int order = ca[sortColumn].compareNatural (cb[sortColumn]);
+            int order = a.first[sortColumn].compareNatural (b.first[sortColumn]);
             if (order == 0)
-                order = ca[1].compareNatural (cb[1]);
+                order = a.first[1].compareNatural (b.first[1]);
             return sortAscending ? order < 0 : order > 0;
         });
+        endpoints.clearQuick();
+        for (auto& row : rows)
+            endpoints.add (row.second);
+    }
 
     deviceList.updateContent();
     deviceList.deselectAllRows();
@@ -1129,11 +1138,14 @@ void MainComponent::endpointsChanged (const juce::Array<EndpointInfo>& now, cons
             toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), TRANS ("Connected"));
         else if (event.startsWith ("removed: "))
             toasts.show ("device", event.fromFirstOccurrenceOf (": ", false, false), TRANS ("Disconnected"));
-        else if (event.startsWith ("Windows default "))
-            toasts.show ("device", event.upToFirstOccurrenceOf (": ", false, false), event.fromFirstOccurrenceOf (": ", false, false));
-        else if (event.contains (" -> "))
+        else if (event.startsWith ("Windows default "))   // (the log's English: the title translated to show)
+            toasts.show ("device", event.startsWith ("Windows default playback") ? TRANS ("Windows default playback") : TRANS ("Windows default recording"),
+                         event.fromFirstOccurrenceOf (": ", false, false));
+        else if (event.contains (" -> "))   // "NAME: unplugged -> active", its states translated to show
             toasts.show ("device", event.upToLastOccurrenceOf (": ", false, false),
-                         event.fromLastOccurrenceOf (": ", false, false).replace (" -> ", juce::String (juce::CharPointer_UTF8 (" \xe2\x86\x92 "))));
+                         juce::translate (event.fromLastOccurrenceOf (": ", false, false).upToFirstOccurrenceOf (" -> ", false, false))
+                         + juce::String (juce::CharPointer_UTF8 (" \xe2\x86\x92 "))
+                         + juce::translate (event.fromLastOccurrenceOf (" -> ", false, false)));
     }
 
     engine.updateEndpoints (now);
@@ -1342,7 +1354,7 @@ void MainComponent::updateChecked (const UpdateCheck::Result& r, bool asked)
     if (onNotify)
         onNotify (title, TRANS ("You have %1. Right-click the tray icon > Get %2 %3...").replace ("%1", current).replace ("%2", Product::name).replace ("%3", newVersion));
     if (asked)
-        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, title.toUpperCase(), TRANS ("You have %1. Open its release page?").replace ("%1", current),
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, Language::upper (title), TRANS ("You have %1. Open its release page?").replace ("%1", current),
                                             TRANS ("OPEN THE PAGE"), TRANS ("LATER"), nullptr,
                                             juce::ModalCallbackFunction::create ([safe = juce::Component::SafePointer<MainComponent> (this)] (int result)
                                             { if (result == 1 && safe != nullptr) safe->openRelease(); }));

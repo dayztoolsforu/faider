@@ -33,7 +33,7 @@ namespace ConsoleDesk
             g.drawText ("FAIDER", juce::Rectangle<int> (14, 10, getWidth() - 20, 20), juce::Justification::centredLeft, false);
             const auto names = tabs.getTabNames();
             for (int i = 0; i < names.size(); ++i)
-                card (g, cardArea (i), juce::translate (names[i]).toUpperCase(), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);
+                card (g, cardArea (i), juce::translate (names[i]), iconFor (names[i]), i == tabs.getCurrentTabIndex(), i == hovered, i == pushed);
             if (! onMixer())   // (the desk's own cards only while the channels show)
                 return;
             g.setColour (Console::Colours::inkDim());
@@ -217,7 +217,7 @@ namespace ConsoleDesk
             drawIcon (g, icon, rf.withWidth (rf.getHeight()).reduced (9.0f).translated (4.0f, 0.0f), ink);
             g.setColour (ink);
             g.setFont (LargeFormat::print (textSize));
-            g.drawFittedText (text.toUpperCase(), rf.withTrimmedLeft (rf.getHeight() + 4.0f).reduced (0.0f, 2.0f).toNearestInt(), juce::Justification::centredLeft, 2, 0.7f);   // (a long translation: smaller, then two lines)
+            g.drawFittedText (Language::upper (text), rf.withTrimmedLeft (rf.getHeight() + 4.0f).reduced (0.0f, 2.0f).toNearestInt(), juce::Justification::centredLeft, 2, 0.7f);   // (a long translation: smaller, then two lines)
         }
 
         static void drawIcon (juce::Graphics& g, const juce::String& icon, juce::Rectangle<float> r, juce::Colour ink)

@@ -185,6 +185,8 @@ countries: de
 "off in %1" = "aus in %1"
 "Connected" = "Verbunden"
 "Disconnected" = "Getrennt"
+"Windows default playback" = "Windows-Standardwiedergabe"
+"Windows default recording" = "Windows-Standardaufnahme"
 "%1 SILENT" = "%1 STUMM"
 "%1 CLIPPING" = "%1 ÜBERSTEUERT"
 "RECORDING STOPPED, NO ROOM" = "AUFNAHME GESTOPPT, KEIN PLATZ"

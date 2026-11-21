@@ -2,6 +2,7 @@
 #include "MainComponent.h"
 #include "ProductName.h"
 #include "ui/MixMinusBuilder.h"
+#include "LanguageCase.h"
 #include <set>
 #include "../console/src/Console.h"   // (the console: the Mixer and Routing pages)
 
@@ -36,7 +37,7 @@ void MainComponent::openCommandPalette()
     // (the tabs' names are English identifiers: translated to show)
     const auto pages = tabs.getTabNames();
     for (int i = 0; i < pages.size(); ++i)
-        add (say (NEEDS_TRANS ("GO TO %1"), Said (juce::translate (pages[i]).toUpperCase(), pages[i].toUpperCase())), say (NEEDS_TRANS ("Page")),
+        add (say (NEEDS_TRANS ("GO TO %1"), Said (Language::upper (juce::translate (pages[i])), pages[i].toUpperCase())), say (NEEDS_TRANS ("Page")),
              [this, i] { tabs.setCurrentTabIndex (i); });
 
     // Channels, by name (so a command still finds its channel if the list changed meanwhile).
@@ -110,11 +111,11 @@ void MainComponent::openCommandPalette()
     for (auto& c : commands)
         named.insert (c.english.isNotEmpty() ? c.english : c.name);
     for (auto& p : settingsTab->getPages())
-        add (say (NEEDS_TRANS ("SETTINGS: %1"), Said (SettingsRegistry::shown (p.name).toUpperCase(), SettingsRegistry::english (p.name).toUpperCase())),
+        add (say (NEEDS_TRANS ("SETTINGS: %1"), Said (Language::upper (SettingsRegistry::shown (p.name)), SettingsRegistry::english (p.name).toUpperCase())),
              say (NEEDS_TRANS ("Settings page")), [this, name = p.name] { openSettings (name); }, p.intro + " " + p.keywords);
     for (auto& s : settingsTab->getSettings())
         if (! named.count (SettingsRegistry::english (s.name).toUpperCase()))
-            add (Said (SettingsRegistry::shown (s.name).toUpperCase(), SettingsRegistry::english (s.name).toUpperCase()),
+            add (Said (Language::upper (SettingsRegistry::shown (s.name)), SettingsRegistry::english (s.name).toUpperCase()),
                  say (NEEDS_TRANS ("Settings > %1"), Said (SettingsRegistry::shown (s.page), SettingsRegistry::english (s.page))),
                  [this, page = s.page, name = s.name] { openSetting (page, name); },
                  s.description + " " + s.keywords + " " + SettingsRegistry::shown (s.section) + " " + SettingsRegistry::english (s.section));

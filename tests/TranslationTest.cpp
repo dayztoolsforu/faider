@@ -1,7 +1,8 @@
 // Checks the interface's translations (src/Language.h, assets/i18n) as the program loads them: each
 // built-in table is there, reads as JUCE reads it, and translates known texts with their placeholders
 // kept; English sets no table; Windows' display language picks the right one. (Every key against the
-// code: tools/translations.py.) Prints PASS/FAIL per check; exits non-zero on failure.
+// code: tools/translations.py.) Also the language a start picks, and capitals as each language
+// writes them (Language::upper / lower). Prints PASS/FAIL per check; exits non-zero on failure.
 #include "../src/Language.h"
 #include <iostream>
 
@@ -79,6 +80,30 @@ int main()
            "zh-CN is zh-Hans; zh-TW (Traditional) has none");
     check (Language::forDisplayLanguage ("en-US").isEmpty() && Language::forDisplayLanguage ("ru-RU").isEmpty() && Language::forDisplayLanguage ("").isEmpty(),
            "English, a language with no translation, or none: empty (English)");
+
+    // The language to start in: Windows' only on the very first start; an existing user without
+    // the setting (from before languages) stays English.
+    check (Language::startCode ({}, true, "de-DE") == "de" && Language::startCode ({}, true, "ru-RU") == "en",
+           "first start: Windows' display language, English if there's no translation for it");
+    check (Language::startCode ({}, false, "de-DE") == "en", "settings from before languages, no language kept: English, not Windows'");
+    check (Language::startCode ("fr", false, "de-DE") == "fr" && Language::startCode ("fr", true, "de-DE") == "fr", "a language kept: that one");
+    check (Language::startCode ("xx", false, "de-DE") == "en", "a language kept that isn't one: English");
+
+    // Capitals and small letters as the language writes them (Language::upper / lower).
+    auto u = [] (const char* utf8) { return juce::String (juce::CharPointer_UTF8 (utf8)); };
+    Language::use ("tr");
+    check (Language::upper ("mikser") == u ("M\xc4\xb0KSER"), "Turkish: mikser in capitals has a dotted capital I");
+    check (Language::lower ("IRMAK") == u ("\xc4\xb1rmak"), "Turkish: IRMAK in small letters has a dotless i");
+    Language::use ("de");
+    check (Language::upper (u ("ger\xc3\xa4te")) == u ("GER\xc3\x84TE"), "German: geraete (a umlaut) in capitals has a capital A umlaut");
+    Language::use ("fr");
+    check (Language::upper (u ("r\xc3\xa9glages")) == u ("R\xc3\x89GLAGES"), "French: reglages (e acute) in capitals has a capital E acute");
+    check (Language::lower (u ("R\xc3\x89GLAGES")) == u ("r\xc3\xa9glages"), "French: and back in small letters");
+    Language::use ("pl");
+    check (Language::upper (u ("narz\xc4\x99" "dzia")) == u ("NARZ\xc4\x98" "DZIA"), "Polish: narzedzia (e ogonek) in capitals has a capital E ogonek");
+    Language::use ("en");
+    check (Language::upper ("mixer") == "MIXER" && Language::upper (u ("caf\xc3\xa9")) == u ("CAF\xc3\x89"), "English: plain capitals (an accented letter too)");
+    std::cout << "(JUCE's own toUpperCase of German geraete, a umlaut: " << u ("ger\xc3\xa4te").toUpperCase().toStdString() << ")\n";
 
     return failures;
 }

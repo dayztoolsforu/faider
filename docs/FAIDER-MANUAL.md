@@ -176,7 +176,7 @@ What each answer makes:
 Your microphones aren't routed to your own headphones, so you don't hear a delayed echo of your
 voice. To hear yourself, route the mic to your headphones (step 6).
 
-SETUP is not a page: run it again from **FIND** (**SETUP: BUILD A MIX**) whenever you add a
+SETUP is not a page: run it again from **Run setup** in SETTINGS > Startup & checks, or **FIND** (**SETUP: BUILD A MIX**), whenever you add a
 device or a program. It adds what's missing and never removes anything.
 
 ### Step 5: Check the audio is running
@@ -913,7 +913,7 @@ one chosen in cream; a value with a menu opens it when you click it.
 
 Type in the search box to see the settings that match from every page, each under its page's name
 (Esc clears it). **FIND** (Ctrl+K) finds every setting by its name too, and opens its page with its
-row lit for a moment.
+row lit for a moment. A page whose name or keywords match ("hotkey", "shortcut", "macro") is listed first, with **Open**.
 
 ### GENERAL
 
@@ -930,6 +930,7 @@ The **APP** pages:
 | | Corner notices | A switch each: devices connected or gone, a channel clipping (its source or its output at full scale), scenes recalled, macros run, undo and redo. The event log has everything either way |
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT a few seconds after start, shown only if something's wrong |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** and **Check** run them now (see [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** asks SETUP's four questions again (see [2](#2-first-time-setup)): it adds what's missing and never removes anything |
 | **Updates & about** | **Check for updates** | On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or **Get Faider x.y.z…** here opens its page. Switch it off and Faider never asks. |
 | | **Version** | The version running now. **Check now** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
 | | **About Faider** | Version and credits |
@@ -947,7 +948,7 @@ The **AUDIO** and **MIX** pages:
 | | **Meter standard** | How meters read, and the LEDs, colours and marks of the desk's level meters: **Peak** (the default: sample peak in dBFS with a fast fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, so it also shows peaks between the samples; its scale runs to +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** and **LUFS M** (momentary loudness, EBU R128) |
 | | **Plugin test time** | **30 S** (default), **60 S** or **120 S**: how long a new plugin has to load in its test before it fails |
 | **Recording** | **FFmpeg** | Where `ffmpeg.exe` is, or **Not found**. **Pick…** chooses it (used before the one on your PATH); **Use PATH** forgets the one picked and uses the PATH's |
-| **Apps** | **App rules** | A table: each program, where it goes, **Change** and **Delete**. **Add rule** picks a program playing now (or one with a channel), then a bus or output. Removing a program's channel removes its rule. **APP RULES** in FIND does the same from a menu |
+| **Apps** | **App rules** | A table: each program, where it goes, **Change** and **Delete**. **Add rule** picks a program playing now (or one with a channel), then a bus or output. Removing a program's channel removes its rule. **APP RULES** in FIND brings you to this table |
 | **Sessions** | **This mix** | **Save as…** keeps the mix under a name; **Export…** saves it to a file |
 | | **Saved sessions** | The mixes kept under a name, with when each was saved: **Open** (Faider restarts with it) or **Export** to a file. **Import…** opens a session from a file |
 | | **Session timeline** | **Open timeline**: every kept version by date (see [14.3](#143-sessions)) |

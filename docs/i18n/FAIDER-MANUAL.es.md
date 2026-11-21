@@ -202,7 +202,7 @@ Lo que crea cada respuesta:
 Tus micrófonos no se enrutan a tus propios auriculares, así que no oyes un eco retardado de tu voz.
 Para oírte, enruta el micro a tus auriculares (paso 6).
 
-SETUP no es una página: vuelve a ejecutarlo desde **FIND** (**SETUP: BUILD A MIX**) cada vez que
+SETUP no es una página: vuelve a ejecutarlo desde **Run setup** en SETTINGS > Startup & checks, o **FIND** (**SETUP: BUILD A MIX**), cada vez que
 añadas un dispositivo o un programa. Añade lo que falta y nunca quita nada.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1079,7 +1079,7 @@ con la elegida en crema; un valor con menú lo abre al hacer clic en él.
 
 Escribe en el cuadro de búsqueda para ver los ajustes que coinciden de todas las páginas, cada uno
 bajo el nombre de su página (Esc lo borra). **FIND** (Ctrl+K) también encuentra cada ajuste por su
-nombre, y abre su página con su fila iluminada un momento.
+nombre, y abre su página con su fila iluminada un momento. Una página cuyo nombre o palabras clave coinciden («hotkey», «shortcut», «macro») aparece primero, con **Open**.
 
 <a id="general"></a>
 
@@ -1098,6 +1098,7 @@ Las páginas de **APP**:
 | | Avisos en la esquina | Un conmutador para cada uno: dispositivos conectados o desaparecidos, un canal saturando (su fuente o su salida a fondo de escala), escenas recuperadas, macros ejecutadas, deshacer y rehacer. El registro de eventos lo tiene todo en cualquier caso |
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT unos segundos después del inicio, que solo se muestra si algo va mal |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** y **Check** los ejecutan ahora (consulta [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** vuelve a hacer las cuatro preguntas de SETUP (consulta [2](#2-first-time-setup)): añade lo que falta y nunca quita nada |
 | **Updates & about** | **Check for updates** | Activado de forma predeterminada: como mucho una vez al día (medio minuto después de iniciarse, o cuando ha pasado un día mientras sigue abierto), Faider envía una única petición a GitHub para preguntar por su versión más reciente. La petición solo lleva el nombre y la versión de la aplicación (por ejemplo `Faider/0.1.5`); no se descarga ni se instala nada. Si hay una versión más nueva, la bandeja lo indica, y **Get Faider x.y.z...** en el menú de la bandeja, **GET FAIDER x.y.z** en FIND o **Get Faider x.y.z…** aquí abre su página. Desactívalo y Faider nunca pregunta. |
 | | **Version** | La versión que se está ejecutando. **Check now** (o **CHECK FOR UPDATES NOW** en FIND) pregunta en el acto y te dice si estás al día |
 | | **About Faider** | Versión y créditos |
@@ -1115,7 +1116,7 @@ Las páginas de **AUDIO** y **MIX**:
 | | **Meter standard** | Cómo leen los medidores, y los LEDs, colores y marcas de los medidores de nivel de la mesa: **Peak** (lo predeterminado: pico de muestra en dBFS con caída rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobremuestreo 4x, así que también muestra los picos entre las muestras; su escala llega a +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** y **LUFS M** (sonoridad momentánea, EBU R128) |
 | | **Plugin test time** | **30 S** (predeterminado), **60 S** o **120 S**: cuánto tiempo tiene un plugin nuevo para cargarse en su prueba antes de fallar |
 | **Recording** | **FFmpeg** | Dónde está `ffmpeg.exe`, o **Not found**. **Pick…** lo elige (se usa antes que el de tu PATH); **Use PATH** olvida el elegido y usa el del PATH |
-| **Apps** | **App rules** | Una tabla: cada programa, adónde va, **Change** y **Delete**. **Add rule** elige un programa que suena ahora (o uno con canal) y luego un bus o una salida. Quitar el canal de un programa quita su regla. **APP RULES** en FIND hace lo mismo desde un menú |
+| **Apps** | **App rules** | Una tabla: cada programa, adónde va, **Change** y **Delete**. **Add rule** elige un programa que suena ahora (o uno con canal) y luego un bus o una salida. Quitar el canal de un programa quita su regla. **APP RULES** en FIND lleva a esta tabla |
 | **Sessions** | **This mix** | **Save as…** conserva la mezcla con un nombre; **Export…** la guarda en un archivo |
 | | **Saved sessions** | Las mezclas conservadas con un nombre, con cuándo se guardó cada una: **Open** (Faider se reinicia con ella) o **Export** a un archivo. **Import…** abre una sesión desde un archivo |
 | | **Session timeline** | **Open timeline**: cada versión conservada, por fecha (consulta [14.3](#143-sessions)) |

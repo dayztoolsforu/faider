@@ -197,7 +197,7 @@ Wat elk antwoord maakt:
 Je microfoons worden niet naar je eigen koptelefoon gerouteerd, zodat je geen vertraagde echo van je
 stem hoort. Om jezelf te horen, routeer je de microfoon naar je koptelefoon (stap 6).
 
-SETUP is geen pagina: start het opnieuw via **FIND** (**SETUP: BUILD A MIX**) als je een apparaat
+SETUP is geen pagina: start het opnieuw via **Run setup** in SETTINGS > Startup & checks, of **FIND** (**SETUP: BUILD A MIX**), als je een apparaat
 of programma toevoegt. Het voegt toe wat ontbreekt en verwijdert nooit iets.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1042,7 +1042,7 @@ toont ze naast elkaar, de gekozen in crème; een waarde met een menu opent dat a
 
 Typ in het zoekvak om de instellingen te zien die overeenkomen, van elke pagina, elk onder de naam van zijn
 pagina (Esc wist het). **FIND** (Ctrl+K) vindt ook elke instelling op naam, en opent de pagina ervan met de rij
-even opgelicht.
+even opgelicht. Een pagina waarvan de naam of trefwoorden overeenkomen ("hotkey", "shortcut", "macro") staat bovenaan, met **Open**.
 
 <a id="general"></a>
 
@@ -1061,6 +1061,7 @@ De **APP**-pagina's:
 | | Meldingen in de hoek | Elk een schakelaar: apparaten verbonden of weg, een kanaal dat clipt (zijn bron of zijn uitgang op volle schaal), scènes opgeroepen, macro's uitgevoerd, ongedaan maken en opnieuw. Het gebeurtenissenlogboek heeft hoe dan ook alles |
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT een paar seconden na het starten, alleen getoond als er iets mis is |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** en **Check** voeren ze nu uit (zie [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** stelt de vier vragen van SETUP opnieuw (zie [2](#2-first-time-setup)): het voegt toe wat ontbreekt en verwijdert nooit iets |
 | **Updates & about** | **Check for updates** | Standaard aan: hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld `Faider/0.1.5`); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en **Get Faider x.y.z...** in het menu van het systeemvak, **GET FAIDER x.y.z** in FIND of **Get Faider x.y.z…** hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit. |
 | | **Version** | De versie die nu draait. **Check now** (of **CHECK FOR UPDATES NOW** in FIND) vraagt het meteen en zegt wanneer je up-to-date bent |
 | | **About Faider** | Versie en dankbetuigingen |
@@ -1078,7 +1079,7 @@ De **AUDIO**- en **MIX**-pagina's:
 | | **Meter standard** | Hoe meters aflezen, en de leds, kleuren en markeringen van de niveaumeters van de tafel: **Peak** (de standaard: sample peak in dBFS met snelle terugval), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x oversampled, dus hij toont ook pieken tussen de samples; zijn schaal loopt tot +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** en **LUFS M** (momentane luidheid, EBU R128) |
 | | **Plugin test time** | **30 S** (standaard), **60 S** of **120 S**: hoe lang een nieuwe plugin in zijn test heeft om te laden voordat hij mislukt |
 | **Recording** | **FFmpeg** | Waar `ffmpeg.exe` staat, of **Not found**. **Pick…** kiest hem (gebruikt vóór die in je PATH); **Use PATH** vergeet de gekozen en gebruikt die van de PATH |
-| **Apps** | **App rules** | Een tabel: elk programma, waar het naartoe gaat, **Change** en **Delete**. **Add rule** kiest een programma dat nu speelt (of een met een kanaal), dan een bus of uitgang. Het kanaal van een programma verwijderen verwijdert zijn regel. **APP RULES** in FIND doet hetzelfde vanuit een menu |
+| **Apps** | **App rules** | Een tabel: elk programma, waar het naartoe gaat, **Change** en **Delete**. **Add rule** kiest een programma dat nu speelt (of een met een kanaal), dan een bus of uitgang. Het kanaal van een programma verwijderen verwijdert zijn regel. **APP RULES** in FIND brengt je naar deze tabel |
 | **Sessions** | **This mix** | **Save as…** bewaart de mix onder een naam; **Export…** slaat hem op in een bestand |
 | | **Saved sessions** | De mixen die onder een naam bewaard zijn, met wanneer elk is opgeslagen: **Open** (Faider start ermee opnieuw) of **Export** naar een bestand. **Import…** opent een sessie uit een bestand |
 | | **Session timeline** | **Open timeline**: elke bewaarde versie op datum (zie [14.3](#143-sessions)) |

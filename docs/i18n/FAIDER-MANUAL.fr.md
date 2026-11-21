@@ -209,7 +209,7 @@ Ce que crée chaque réponse :
 Vos microphones ne sont pas routés vers votre propre casque, donc vous n'entendez pas d'écho
 retardé de votre voix. Pour vous entendre, routez le micro vers votre casque (étape 6).
 
-SETUP n'est pas une page : relancez-le depuis **FIND** (**SETUP: BUILD A MIX**) chaque fois que vous
+SETUP n'est pas une page : relancez-le depuis **Run setup** dans SETTINGS > Startup & checks, ou **FIND** (**SETUP: BUILD A MIX**), chaque fois que vous
 ajoutez un périphérique ou un programme. Il ajoute ce qui manque et n'enlève jamais rien.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1106,7 +1106,7 @@ crème ; une valeur avec un menu l'ouvre quand vous cliquez dessus.
 
 Tapez dans le champ de recherche pour voir les réglages correspondants de toutes les pages, chacun
 sous le nom de sa page (Échap l'efface). **FIND** (Ctrl+K) trouve aussi chaque réglage par son nom,
-et ouvre sa page avec sa ligne allumée un instant.
+et ouvre sa page avec sa ligne allumée un instant. Une page dont le nom ou les mots-clés correspondent (« hotkey », « shortcut », « macro ») apparaît en premier, avec **Open**.
 
 <a id="general"></a>
 
@@ -1125,6 +1125,7 @@ Les pages **APP** :
 | | Avis dans le coin | Un commutateur pour chacun : périphériques connectés ou disparus, un canal qui sature (sa source ou sa sortie à pleine échelle), scènes rappelées, macros lancées, annuler et rétablir. Le journal des événements a tout, dans tous les cas |
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT quelques secondes après le démarrage, affiché seulement si quelque chose ne va pas |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** et **Check** les lancent maintenant (voir [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** repose les quatre questions de SETUP (voir [2](#2-first-time-setup)) : il ajoute ce qui manque et ne retire jamais rien |
 | **Updates & about** | **Check for updates** | Activé par défaut : au plus une fois par jour (une demi-minute après le démarrage, ou quand un jour a passé alors qu'il reste ouvert), Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple `Faider/0.1.5`) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et **Get Faider x.y.z...** dans le menu de la zone de notification, **GET FAIDER x.y.z** dans FIND ou **Get Faider x.y.z…** ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien. |
 | | **Version** | La version qui tourne en ce moment. **Check now** (ou **CHECK FOR UPDATES NOW** dans FIND) demande tout de suite et vous dit quand vous êtes à jour |
 | | **About Faider** | Version et crédits |
@@ -1142,7 +1143,7 @@ Les pages **AUDIO** et **MIX** :
 | | **Meter standard** | Comment les vumètres lisent le niveau, ainsi que les LED, couleurs et repères des vumètres du pupitre : **Peak** (par défaut : crête d'échantillon en dBFS avec une chute rapide), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770 : suréchantillonné 4 fois, il montre donc aussi les crêtes entre les échantillons ; son échelle va jusqu'à +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** et **LUFS M** (sonie momentanée, EBU R128) |
 | | **Plugin test time** | **30 S** (par défaut), **60 S** ou **120 S** : le temps qu'a un nouveau plugin pour se charger pendant son test avant d'échouer |
 | **Recording** | **FFmpeg** | L'emplacement de `ffmpeg.exe`, ou **Not found**. **Pick…** le choisit (utilisé avant celui du PATH) ; **Use PATH** oublie celui qui a été choisi et utilise celui du PATH |
-| **Apps** | **App rules** | Un tableau : chaque programme, où il va, **Change** et **Delete**. **Add rule** choisit un programme qui joue en ce moment (ou un qui a un canal), puis un bus ou une sortie. Retirer le canal d'un programme retire sa règle. **APP RULES** dans FIND fait la même chose depuis un menu |
+| **Apps** | **App rules** | Un tableau : chaque programme, où il va, **Change** et **Delete**. **Add rule** choisit un programme qui joue en ce moment (ou un qui a un canal), puis un bus ou une sortie. Retirer le canal d'un programme retire sa règle. **APP RULES** dans FIND mène à ce tableau |
 | **Sessions** | **This mix** | **Save as…** garde le mix sous un nom ; **Export…** l'enregistre dans un fichier |
 | | **Saved sessions** | Les mix gardés sous un nom, avec la date de leur enregistrement : **Open** (Faider redémarre avec) ou **Export** vers un fichier. **Import…** ouvre une session depuis un fichier |
 | | **Session timeline** | **Open timeline** : chaque version conservée, par date (voir [14.3](#143-sessions)) |

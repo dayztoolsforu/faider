@@ -71,6 +71,19 @@ What changed in each version of Faider, newest first. Downloads are on the
 - Conversions, replay files and plugin tests still running in the background are waited for as
   Faider closes.
 - The audio lock is held for less time when the mix's structure changes.
+- The desk's LED meters redraw as the chosen meter standard moves them (VU, RMS, K and loudness, the
+  quietest LEDs, true peak's top three) and PEAK HOLD drops on time; COMPACT ends a knob or fader
+  turn cleanly and the Mixer's top bar keeps the view's width; a strip layout whose sections differ
+  from mixer.json's is not used.
+- SETTINGS: **Setup: build a mix** in Startup & checks runs SETUP; a typed OSC port is kept until
+  **Apply**; HOTKEYS takes a key for the line clicked even as the list changes; MIDI & OSC's rows
+  work during MIDI MAP; the search finds pages by name or keyword (hotkey, shortcut, macro); the
+  saved sessions list reads the folder less often; Export asks before replacing another file; APP
+  RULES' **Change** and **Delete** act on the rule shown; FIND lists each name once; the Windows
+  audio note no longer ends in four dots.
+- Translations: text in capitals is written as its language writes it (Turkish İ, German Ä, French
+  É), device notices are translated, a look you named shows its own name, the buffer menu's
+  milliseconds use the clock's rate, and someone updating from before languages stays in English.
 
 ## 0.1.6 (8 November 2026)
 

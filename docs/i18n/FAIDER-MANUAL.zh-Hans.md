@@ -157,7 +157,7 @@ SETUP 每页问一个问题，共四个，并根据你的回答建立混音。�
 
 你的麦克风不会路由到你自己的耳机，所以你不会听到自己声音的延迟回声。想听到自己，请把麦克风路由到你的耳机(步骤 6)。
 
-SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 **FIND**(**SETUP: BUILD A MIX**) 再次运行它。它会补上缺少的内容，不会删除任何东西。
+SETUP 不再是一个页面：每当你添加设备或程序时，都可以从 SETTINGS > Startup & checks 中的 **Run setup** 或 **FIND**(**SETUP: BUILD A MIX**) 再次运行它。它会补上缺少的内容，不会删除任何东西。
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -861,7 +861,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 
 **SETTINGS** 的左侧有一个侧边栏：顶部是搜索框，下面是分成四组的页面。**APP**：**General**、**Notifications**、**Startup & checks**、**Updates & about**。**AUDIO**：**Audio**、**Recording**。**MIX**：**Apps**、**Sessions**。**CONTROL**：**MIDI & OSC**、**Hotkeys**、**Macros**。你选中的页面以一列填满其余部分：它的标题、一行说明它的用途，然后每个设置一行，包括名称、名称下方说明它做什么，以及右侧的控件。开/关设置是开关，开启时发出奶油色的光；只有几个选项时会并排显示，选中的那个为奶油色；带菜单的值在点击时打开菜单。
 
-在搜索框中输入，即可看到所有页面中匹配的设置，每个都列在其页面名称下(Esc 清除)。**FIND** (Ctrl+K) 也能按名称找到每个设置，并打开它的页面，让它那一行短暂亮起。
+在搜索框中输入，即可看到所有页面中匹配的设置，每个都列在其页面名称下(Esc 清除)。**FIND** (Ctrl+K) 也能按名称找到每个设置，并打开它的页面，让它那一行短暂亮起。名称或关键词匹配的页面(如“hotkey”“shortcut”“macro”)会带着 **Open** 列在最前面。
 
 <a id="general"></a>
 
@@ -880,6 +880,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | | 角落通知 | 每项一个开关：设备连接或消失、通道削波(其声源或输出达到满刻度)、场景被调用、宏被运行、撤销和重做。无论开关如何，事件日志都会记录全部内容 |
 | **Startup & checks** | **Pre-flight on start** | 启动几秒后运行 PRE-FLIGHT，只在有问题时才显示 |
 | | **Pre-flight**、**Zero the desk** | **Run pre-flight** 和 **Check** 立即运行它们(见 [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** 再次提出 SETUP 的四个问题(见 [2](#2-first-time-setup))：只补上缺少的内容，不会删除任何东西 |
 | **Updates & about** | **Check for updates** | 默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 `Faider/0.1.5`)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 **Get Faider x.y.z...**、FIND 中的 **GET FAIDER x.y.z** 或这里的 **Get Faider x.y.z…** 会打开它的页面。关闭后，Faider 从不询问。 |
 | | **Version** | 当前运行的版本。**Check now**(或 FIND 中的 **CHECK FOR UPDATES NOW**)会立即询问，并在你已是最新版本时告诉你 |
 | | **About Faider** | 版本和致谢 |
@@ -897,7 +898,7 @@ ROUTING 页面把整个混音显示为一张地图：每个通道条是一个方
 | | **Meter standard** | 电平表的读数方式，以及调音台电平表的 LED、颜色和刻度：**Peak**(默认：以 dBFS 表示的采样峰值，快速回落)、**Peak IEC**、**True Peak**(dBTP，ITU-R BS.1770：4 倍过采样，所以也能显示采样点之间的峰值；其刻度到 +3)、**RMS**、**VU**、**PPM**(EBU、BBC、DIN、Nordic)、**K-20**、**K-14**、**K-12** 和 **LUFS M**(瞬时响度，EBU R128) |
 | | **Plugin test time** | **30 S**(默认)、**60 S** 或 **120 S**：新插件在测试中完成加载的时限，超时即失败 |
 | **Recording** | **FFmpeg** | `ffmpeg.exe` 的位置，或 **Not found**。**Pick…** 选择它(优先于 PATH 中的那个)；**Use PATH** 忘掉选好的那个，改用 PATH 中的 |
-| **Apps** | **App rules** | 一张表：每个程序、它去往哪里、**Change** 和 **Delete**。**Add rule** 先选一个正在播放的程序(或有通道的程序)，再选总线或输出。删除程序的通道会同时删除它的规则。FIND 中的 **APP RULES** 通过菜单做同样的事 |
+| **Apps** | **App rules** | 一张表：每个程序、它去往哪里、**Change** 和 **Delete**。**Add rule** 先选一个正在播放的程序(或有通道的程序)，再选总线或输出。删除程序的通道会同时删除它的规则。FIND 中的 **APP RULES** 会带你来到这张表 |
 | **Sessions** | **This mix** | **Save as…** 以名称保留混音；**Export…** 把它保存为文件 |
 | | **Saved sessions** | 以名称保留的混音，以及各自的保存时间：**Open**(Faider 会以它重新启动)或 **Export** 为文件。**Import…** 从文件打开一个会话 |
 | | **Session timeline** | **Open timeline**：按日期列出保留的每个版本(见 [14.3](#143-sessions)) |

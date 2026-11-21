@@ -196,7 +196,7 @@ Vad varje svar skapar:
 Dina mikrofoner routas inte till dina egna hörlurar, så du hör inget fördröjt eko av din
 röst. För att höra dig själv routar du mikrofonen till dina hörlurar (steg 6).
 
-SETUP är ingen sida: kör den igen från **FIND** (**SETUP: BUILD A MIX**)
+SETUP är ingen sida: kör den igen från **Run setup** i SETTINGS > Startup & checks, eller från **FIND** (**SETUP: BUILD A MIX**),
 när du lägger till en enhet eller ett program. Den lägger till det som saknas och tar aldrig bort något.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1040,7 +1040,7 @@ vid sida, det valda i creme; ett värde med en meny öppnar den när du klickar 
 
 Skriv i sökrutan för att se de inställningar som matchar från alla sidor, var och en under sin sidas namn
 (Esc rensar den). **FIND** (Ctrl+K) hittar också varje inställning efter namn, och öppnar dess sida med raden
-upplyst en stund.
+upplyst en stund. En sida vars namn eller nyckelord matchar ("hotkey", "shortcut", "macro") visas först, med **Open**.
 
 <a id="general"></a>
 
@@ -1059,6 +1059,7 @@ upplyst en stund.
 | | Notiser i hörnet | En omkopplare var: enheter anslutna eller borta, en kanal som klipper (dess källa eller dess utgång på full skala), scener återkallade, makron körda, ångra och gör om. Händelseloggen har allt i vilket fall som helst |
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT några sekunder efter start, visas bara om något är fel |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** och **Check** kör dem nu (se [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** ställer SETUP:s fyra frågor igen (se [2](#2-first-time-setup)): den lägger till det som saknas och tar aldrig bort något |
 | **Updates & about** | **Check for updates** | På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel `Faider/0.1.5`); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och **Get Faider x.y.z...** i menyn i aktivitetsfältet, **GET FAIDER x.y.z** i FIND eller **Get Faider x.y.z…** här öppnar dess sida. Stäng av det så frågar Faider aldrig. |
 | | **Version** | Versionen som körs nu. **Check now** (eller **CHECK FOR UPDATES NOW** i FIND) frågar direkt och säger till när du är uppdaterad |
 | | **About Faider** | Version och tack |
@@ -1076,7 +1077,7 @@ upplyst en stund.
 | | **Meter standard** | Hur mätare läser, samt lysdioderna, färgerna och markeringarna på bordets nivåmätare: **Peak** (standard: sample peak i dBFS med snabbt fall), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4x översamplad, så den visar också toppar mellan samplen; dess skala går till +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** och **LUFS M** (momentan loudness, EBU R128) |
 | | **Plugin test time** | **30 S** (standard), **60 S** eller **120 S**: hur lång tid ett nytt plugin har på sig att läsas in i sitt test innan det misslyckas |
 | **Recording** | **FFmpeg** | Var `ffmpeg.exe` finns, eller **Not found**. **Pick…** väljer den (används före den i din PATH); **Use PATH** glömmer den valda och använder den i PATH |
-| **Apps** | **App rules** | En tabell: varje program, vart det går, **Change** och **Delete**. **Add rule** väljer ett program som spelar nu (eller ett med en kanal), sedan en buss eller utgång. Att ta bort ett programs kanal tar bort dess regel. **APP RULES** i FIND gör samma sak från en meny |
+| **Apps** | **App rules** | En tabell: varje program, vart det går, **Change** och **Delete**. **Add rule** väljer ett program som spelar nu (eller ett med en kanal), sedan en buss eller utgång. Att ta bort ett programs kanal tar bort dess regel. **APP RULES** i FIND tar dig till den här tabellen |
 | **Sessions** | **This mix** | **Save as…** behåller mixen under ett namn; **Export…** sparar den till en fil |
 | | **Saved sessions** | Mixarna som sparats under ett namn, med när var och en sparades: **Open** (Faider startar om med den) eller **Export** till en fil. **Import…** öppnar en session från en fil |
 | | **Session timeline** | **Open timeline**: varje sparad version efter datum (se [14.3](#143-sessions)) |

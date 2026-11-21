@@ -197,7 +197,7 @@ Her yanıtın yaptığı şey:
 Mikrofonların kendi kulaklığına yönlendirilmez, böylece sesinin gecikmeli bir yankısını duymazsın.
 Kendini duymak için mikrofonu kulaklığına yönlendir (adım 6).
 
-SETUP bir sayfa değil: bir aygıt ya da program eklediğinde **FIND** (**SETUP: BUILD A MIX**) üzerinden
+SETUP bir sayfa değil: bir aygıt ya da program eklediğinde SETTINGS > Startup & checks içindeki **Run setup** ya da **FIND** (**SETUP: BUILD A MIX**) üzerinden
 yeniden çalıştır. Eksik olanı ekler, hiçbir şeyi silmez.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1044,7 +1044,7 @@ seçenekler yan yana gösterilir, seçili olan krem renktedir; menülü bir değ
 
 Her sayfadan eşleşen ayarları görmek için arama kutusuna yaz; her biri kendi sayfasının adı altında
 gösterilir (Esc temizler). **FIND** (Ctrl+K) de her ayarı adıyla bulur ve sayfasını, satırı bir an
-yanık olarak açar.
+yanık olarak açar. Adı ya da anahtar sözcükleri eşleşen bir sayfa ("hotkey", "shortcut", "macro") en başta, **Open** ile gösterilir.
 
 <a id="general"></a>
 
@@ -1063,6 +1063,7 @@ yanık olarak açar.
 | | Köşe bildirimleri | Her biri için bir anahtar: bağlanan veya giden aygıtlar, clip yapan bir kanal (kaynağı veya çıkışı tam ölçekte), geri çağrılan sahneler, çalışan makrolar, geri alma ve yineleme. Olay günlüğünde her durumda hepsi vardır |
 | **Startup & checks** | **Pre-flight on start** | Başlangıçtan birkaç saniye sonra PRE-FLIGHT; yalnızca bir şey ters olduğunda gösterilir |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** ve **Check** bunları şimdi çalıştırır (bkz. [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup**, SETUP'ın dört sorusunu yeniden sorar (bkz. [2](#2-first-time-setup)): eksik olanı ekler, hiçbir şeyi kaldırmaz |
 | **Updates & about** | **Check for updates** | Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin `Faider/0.1.5`); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki **Get Faider x.y.z...**, FIND'daki **GET FAIDER x.y.z** ya da buradaki **Get Faider x.y.z…** sayfasını açar. Kapatırsan Faider asla sormaz. |
 | | **Version** | Şu anda çalışan sürüm. **Check now** (ya da FIND'daki **CHECK FOR UPDATES NOW**) hemen sorar ve güncelsen bunu söyler |
 | | **About Faider** | Sürüm ve emeği geçenler |
@@ -1080,7 +1081,7 @@ yanık olarak açar.
 | | **Meter standard** | Ölçerlerin nasıl okuduğu, ayrıca konsoldaki seviye ölçerlerinin LED'leri, renkleri ve işaretleri: **Peak** (varsayılan: dBFS olarak hızlı düşüşlü örnek tepesi), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: 4 kat aşırı örneklenir, böylece örnekler arasındaki tepeleri de gösterir; ölçeği +3'e kadar uzanır), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** ve **LUFS M** (anlık gürlük, EBU R128) |
 | | **Plugin test time** | **30 S** (varsayılan), **60 S** ya da **120 S**: yeni bir eklentinin sınamada başarısız sayılmadan önce yüklenmek için ne kadar süresi olduğu |
 | **Recording** | **FFmpeg** | `ffmpeg.exe`'nin yeri ya da **Not found**. **Pick…** onu seçer (PATH'teki olandan önce kullanılır); **Use PATH** seçileni unutur ve PATH'tekini kullanır |
-| **Apps** | **App rules** | Bir tablo: her program, nereye gittiği, **Change** ve **Delete**. **Add rule** şu anda çalan bir programı (ya da kanalı olan birini), sonra bir bus'ı veya çıkışı seçer. Bir programın kanalını kaldırmak kuralını kaldırır. FIND'daki **APP RULES** aynısını bir menüden yapar |
+| **Apps** | **App rules** | Bir tablo: her program, nereye gittiği, **Change** ve **Delete**. **Add rule** şu anda çalan bir programı (ya da kanalı olan birini), sonra bir bus'ı veya çıkışı seçer. Bir programın kanalını kaldırmak kuralını kaldırır. FIND'daki **APP RULES** bu tabloya götürür |
 | **Sessions** | **This mix** | **Save as…** karışımı bir adla saklar; **Export…** onu bir dosyaya kaydeder |
 | | **Saved sessions** | Bir adla saklanan karışımlar, her birinin ne zaman kaydedildiğiyle: **Open** (Faider onunla yeniden başlar) ya da bir dosyaya **Export**. **Import…** bir dosyadan oturum açar |
 | | **Session timeline** | **Open timeline**: tarihe göre saklanan her sürüm (bkz. [14.3](#143-sessions)) |

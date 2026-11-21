@@ -201,7 +201,7 @@ O que cada resposta cria:
 Seus microfones não são roteados para os seus próprios fones, então você não ouve um eco atrasado da
 sua voz. Para se ouvir, roteie o mic para os seus fones (passo 6).
 
-O SETUP não é uma página: execute-o de novo pelo **FIND** (**SETUP: BUILD A MIX**) sempre que
+O SETUP não é uma página: execute-o de novo pelo **Run setup** em SETTINGS > Startup & checks, ou pelo **FIND** (**SETUP: BUILD A MIX**), sempre que
 adicionar um dispositivo ou um programa. Ele adiciona o que falta e nunca remove nada.
 
 <a id="step-5-check-the-audio-is-running"></a>
@@ -1067,7 +1067,7 @@ um valor com menu abre o menu quando você clica nele.
 
 Digite na caixa de busca para ver as configurações que combinam, de todas as páginas, cada uma sob o
 nome da sua página (Esc limpa). O **FIND** (Ctrl+K) também encontra cada configuração pelo nome e abre a
-página dela com a linha acesa por um instante.
+página dela com a linha acesa por um instante. Uma página cujo nome ou palavras-chave combinam ("hotkey", "shortcut", "macro") aparece primeiro, com **Open**.
 
 <a id="general"></a>
 
@@ -1086,6 +1086,7 @@ As páginas de **APP**:
 | | Avisos no canto | Uma chave para cada: dispositivos conectados ou sumidos, um canal saturando (a fonte ou a saída dele em escala máxima), cenas recuperadas, macros executadas, desfazer e refazer. O log de eventos tem tudo de qualquer forma |
 | **Startup & checks** | **Pre-flight on start** | O PRE-FLIGHT alguns segundos depois de iniciar, mostrado só se algo estiver errado |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** e **Check** os executam agora (veja [18.1](#181-pre-flight)) |
+| | **Setup: build a mix** | **Run setup** faz de novo as quatro perguntas do SETUP (veja [2](#2-first-time-setup)): acrescenta o que falta e nunca remove nada |
 | **Updates & about** | **Check for updates** | Ligado por padrão: no máximo uma vez por dia (meio minuto depois de iniciar, ou quando passa um dia com ele aberto), o Faider envia uma requisição ao GitHub perguntando pela versão mais nova dele. A requisição leva só o nome e a versão do app (por exemplo `Faider/0.1.5`); nada é baixado ou instalado. Se houver uma versão mais nova, a bandeja avisa, e **Get Faider x.y.z...** no menu da bandeja, **GET FAIDER x.y.z** no FIND ou **Get Faider x.y.z…** aqui abre a página dela. Desligue e o Faider nunca pergunta. |
 | | **Version** | A versão que está rodando agora. **Check now** (ou **CHECK FOR UPDATES NOW** no FIND) pergunta na hora e avisa quando você está em dia |
 | | **About Faider** | Versão e créditos |
@@ -1103,7 +1104,7 @@ As páginas de **AUDIO** e **MIX**:
 | | **Meter standard** | Como os medidores leem, e os LEDs, cores e marcas dos medidores de nível da mesa: **Peak** (o padrão: pico de amostra em dBFS com queda rápida), **Peak IEC**, **True Peak** (dBTP, ITU-R BS.1770: sobreamostragem de 4x, então também mostra os picos entre as amostras; a escala dele vai até +3), **RMS**, **VU**, **PPM** (EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12** e **LUFS M** (loudness momentâneo, EBU R128) |
 | | **Plugin test time** | **30 S** (padrão), **60 S** ou **120 S**: quanto tempo um plugin novo tem para carregar no teste antes de falhar |
 | **Recording** | **FFmpeg** | Onde está o `ffmpeg.exe`, ou **Not found**. **Pick…** o escolhe (usado antes do que está no seu PATH); **Use PATH** esquece o escolhido e usa o do PATH |
-| **Apps** | **App rules** | Uma tabela: cada programa, para onde ele vai, **Change** e **Delete**. **Add rule** escolhe um programa tocando agora (ou um que tenha canal) e depois um bus ou uma saída. Remover o canal de um programa remove a regra dele. **APP RULES** no FIND faz o mesmo a partir de um menu |
+| **Apps** | **App rules** | Uma tabela: cada programa, para onde ele vai, **Change** e **Delete**. **Add rule** escolhe um programa tocando agora (ou um que tenha canal) e depois um bus ou uma saída. Remover o canal de um programa remove a regra dele. **APP RULES** no FIND leva a esta tabela |
 | **Sessions** | **This mix** | **Save as…** guarda a mixagem com um nome; **Export…** a salva em um arquivo |
 | | **Saved sessions** | As mixagens guardadas com nome, com a data em que cada uma foi salva: **Open** (o Faider reinicia com ela) ou **Export** para um arquivo. **Import…** abre uma sessão de um arquivo |
 | | **Session timeline** | **Open timeline**: cada versão guardada, por data (veja [14.3](#143-sessions)) |

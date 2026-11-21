@@ -157,7 +157,7 @@ SETUP은 페이지마다 하나씩 네 가지 질문을 하고, 답에 맞춰 �
 
 마이크는 자신의 헤드폰으로는 라우팅되지 않으므로, 지연된 내 목소리의 에코가 들리지 않습니다. 자신의 소리를 듣고 싶으면 마이크를 헤드폰으로 라우팅하세요(6단계).
 
-SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 **FIND**(**SETUP: BUILD A MIX**)에서 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.
+SETUP은 페이지가 아닙니다. 장치나 프로그램을 추가할 때마다 SETTINGS > Startup & checks의 **Run setup**이나 **FIND**(**SETUP: BUILD A MIX**)에서 다시 실행하세요. 빠진 것을 추가할 뿐 아무것도 지우지 않습니다.
 
 <a id="step-5-check-the-audio-is-running"></a>
 
@@ -862,7 +862,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 
 **SETTINGS**의 왼쪽에는 사이드바가 있습니다. 맨 위에 검색 상자가 있고, 그 아래에 페이지가 네 그룹으로 놓입니다. **APP**: **General**, **Notifications**, **Startup & checks**, **Updates & about**. **AUDIO**: **Audio**, **Recording**. **MIX**: **Apps**, **Sessions**. **CONTROL**: **MIDI & OSC**, **Hotkeys**, **Macros**. 고른 페이지가 나머지 부분을 한 열로 채웁니다. 제목, 무엇을 위한 페이지인지 알려 주는 한 줄, 그리고 설정마다 한 행이 있으며, 각 행에는 이름, 이름 아래에 하는 일, 오른쪽에 컨트롤이 있습니다. 켜기/끄기 설정은 스위치이며, 켜져 있으면 크림색으로 빛납니다. 선택지가 몇 개뿐이면 나란히 보여 주고, 고른 것은 크림색입니다. 메뉴가 있는 값은 누르면 메뉴가 열립니다.
 
-검색 상자에 입력하면 모든 페이지에서 일치하는 설정이 각 페이지 이름 아래에 나타납니다(Esc로 지우기). **FIND** (Ctrl+K)로도 모든 설정을 이름으로 찾을 수 있으며, 그 페이지가 열리고 해당 행이 잠시 밝게 표시됩니다.
+검색 상자에 입력하면 모든 페이지에서 일치하는 설정이 각 페이지 이름 아래에 나타납니다(Esc로 지우기). **FIND** (Ctrl+K)로도 모든 설정을 이름으로 찾을 수 있으며, 그 페이지가 열리고 해당 행이 잠시 밝게 표시됩니다. 이름이나 키워드가 일치하는 페이지("hotkey", "shortcut", "macro" 등)도 **Open**과 함께 맨 위에 나옵니다.
 
 <a id="general"></a>
 
@@ -881,6 +881,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | | 구석 알림 | 각각 스위치 하나: 장치 연결/제거, 채널 클리핑(소스나 출력이 풀 스케일), 씬 불러오기, 매크로 실행, 실행 취소와 다시 실행. 어느 쪽이든 이벤트 로그에는 모두 남습니다 |
 | **Startup & checks** | **Pre-flight on start** | 시작하고 몇 초 뒤 PRE-FLIGHT를 실행하며, 문제가 있을 때만 보여 줍니다 |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight**와 **Check**로 지금 바로 실행합니다([18.1](#181-pre-flight) 참조) |
+| | **Setup: build a mix** | **Run setup**으로 SETUP의 네 가지 질문을 다시 합니다([2](#2-first-time-setup) 참조). 빠진 것을 추가할 뿐 아무것도 지우지 않습니다 |
 | **Updates & about** | **Check for updates** | 기본값은 켜짐: 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: `Faider/0.1.5`)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 **Get Faider x.y.z...**, FIND의 **GET FAIDER x.y.z**, 또는 여기의 **Get Faider x.y.z…**로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다. |
 | | **Version** | 지금 실행 중인 버전. **Check now**(또는 FIND의 **CHECK FOR UPDATES NOW**)는 바로 묻고, 최신 버전이면 그렇다고 알려 줍니다 |
 | | **About Faider** | 버전과 크레딧 |
@@ -898,7 +899,7 @@ VB-CABLE이 설치되어 있으면 맨 위의 바에서 **샘플 레이트**와 
 | | **Meter standard** | 미터의 표시 방식과 데스크 레벨 미터의 LED, 색, 눈금: **Peak**(기본값. dBFS 단위의 샘플 피크이며 빠르게 떨어집니다), **Peak IEC**, **True Peak**(dBTP, ITU-R BS.1770. 4배 오버샘플링하므로 샘플 사이의 피크도 보여 주며, 눈금은 +3까지 있습니다), **RMS**, **VU**, **PPM**(EBU, BBC, DIN, Nordic), **K-20**, **K-14**, **K-12**, **LUFS M**(모멘터리 라우드니스, EBU R128) |
 | | **Plugin test time** | **30 S**(기본값), **60 S** 또는 **120 S**: 새 플러그인이 테스트에서 로드를 끝내야 하는 시간. 넘기면 실패합니다 |
 | **Recording** | **FFmpeg** | `ffmpeg.exe`의 위치 또는 **Not found**. **Pick…**으로 고릅니다(PATH에 있는 것보다 먼저 쓰임). **Use PATH**는 고른 것을 잊고 PATH의 것을 씁니다 |
-| **Apps** | **App rules** | 표: 프로그램마다 가는 곳, **Change**, **Delete**. **Add rule**은 지금 재생 중인(또는 채널이 있는) 프로그램을 고른 다음 버스나 출력을 고릅니다. 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다. FIND의 **APP RULES**로 메뉴에서 같은 일을 할 수 있습니다 |
+| **Apps** | **App rules** | 표: 프로그램마다 가는 곳, **Change**, **Delete**. **Add rule**은 지금 재생 중인(또는 채널이 있는) 프로그램을 고른 다음 버스나 출력을 고릅니다. 프로그램의 채널을 삭제하면 그 규칙도 삭제됩니다. FIND의 **APP RULES**는 이 표로 이동합니다 |
 | **Sessions** | **This mix** | **Save as…**는 믹스를 이름을 붙여 보관하고, **Export…**는 파일로 저장합니다 |
 | | **Saved sessions** | 이름을 붙여 보관한 믹스와 각각 저장한 때: **Open**(Faider이 그 믹스로 다시 시작됩니다) 또는 파일로 **Export**. **Import…**는 파일에서 세션을 엽니다 |
 | | **Session timeline** | **Open timeline**: 보관된 모든 버전을 날짜별로([14.3](#143-sessions) 참조) |

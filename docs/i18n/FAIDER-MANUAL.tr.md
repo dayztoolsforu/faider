@@ -457,7 +457,7 @@ Konsol tüm şeritleri soldan sağa gösterir: **kanallar**, sonra **bus'lar** (
 |---|---|
 | **HEADER** | Seviye ölçeri, FILT / EQ / EXT tuşları, işleme sırası, yönlendirme kutuları, şerit numarası |
 | **INPUT** | Trim, polarite, mikrofon drive'ı, giriş anahtarı ve stereo genişlik |
-| **DYNAMICS** | Kompresör ve gate |
+| **DYNAMICS** | Kompresör, gate, de-esser ve otomatik seviye |
 | **FILTERS** | Alçak geçiren, yüksek geçiren ve NOISE anahtarı |
 | **EQ** | Dört bant |
 | **NAME** | Ad çubuğu ve güç anahtarı |
@@ -593,6 +593,23 @@ Boşluklar, gruplar arasında yer açan boş şeritlerdir. Bir şeride sağ tık
 
 LED'ler, kompresör ve gate devre dışıyken bile ne *yapacaklarını* gösterir, böylece onları devreye
 almadan önce ayarlayabilirsin.
+
+**De-esser**
+
+| Kontrol | |
+|---|---|
+| **DE-ESS** | De-esser'ı devreye alır veya devreden çıkarır. Kendi anahtarı var: yukarıdaki **IN** anahtarı ona dokunmaz |
+| **thresh** | Çalışmaya başladığı yer, -50 ile 0 dB arası. Bunu aşan yüksek "s" sesleri kısılır, sesin geri kalanı kısılmaz |
+| **freq** | "s" seslerini dinlediği yer, 3 ile 10 kHz arası. Yalnızca biraz altından yukarısındaki tizler kısılır |
+| **De-esser LED'leri** | 3, 6 ve 10 dB azaltma (en fazla 12 dB kısar). Yalnızca devredeyken yanarlar |
+
+**Otomatik seviye**
+
+| Kontrol | |
+|---|---|
+| **AUTO-LEVEL** | Otomatik seviyeyi devreye alır veya devreden çıkarır (bunun da kendi anahtarı var). Kanalın seviyesini yavaşça hedefe doğru götürür ve duraklamalarda yerinde durur, böylece odanın gürültüsünü yükseltmez |
+| **target** | Hedeflediği seviye, -30 ile -10 dB arası |
+| **range** | Kanalı en fazla ne kadar yükseltip alçaltabileceği, 0 ile 24 dB arası |
 
 <a id="filters"></a>
 

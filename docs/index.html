@@ -920,7 +920,7 @@ over from it.</p>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compressor and gate</td>
+<td>Compressor, gate, de-esser and auto-level</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -1200,6 +1200,56 @@ SPACER</strong>. A spacer stays with the strip it follows when that strip moves.
 </table></div>
 <p>The LEDs show what the compressor and gate <em>would</em> do even while they're switched out, so you can
 set them before putting them in.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>The de-esser in or out. It has its own switch: the <span class="key">IN</span> switch above doesn't touch it</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Where it starts to work, -50 to 0 dB. Loud "s" sounds over it are taken down, the rest of the voice isn't</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Where it listens for the "s" sounds, 3 to 10 kHz. Only the highs, from a little under it up, are turned down</td>
+</tr>
+<tr>
+<td><strong>De-ess LEDs</strong></td>
+<td>3, 6 and 10 dB of reduction (it takes off 12 dB at most). They light only while it's in</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Auto-level</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Auto-level in or out (its own switch too). It slowly rides the channel's level toward the target, and holds still through pauses so it doesn't bring up the room</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>The level it aims for, -30 to -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>How far it may turn the channel up or down, 0 to 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: low-pass and high-pass"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: low-pass and high-pass" loading="lazy"></button><figcaption>FILTERS: low-pass and high-pass</figcaption></figure></div>
 <p><strong>lp</strong> (low-pass) and <strong>hp</strong> (high-pass). Turned all the way down, the high-pass is out. Turned all
@@ -3106,7 +3156,7 @@ secciones, de arriba abajo:</p>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compresor y gate</td>
+<td>Compresor, gate, de-esser y nivel automático</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -3390,6 +3440,56 @@ mueve.</p>
 </table></div>
 <p>Los LED muestran lo que el compresor y el gate <em>harían</em> incluso mientras están desactivados, para
 que puedas ajustarlos antes de activarlos.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Activa o desactiva el de-esser. Tiene su propio conmutador: el conmutador <span class="key">IN</span> de arriba no lo toca</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Dónde empieza a actuar, de -50 a 0 dB. Las "s" fuertes que lo superan se bajan; el resto de la voz no</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Dónde escucha las "s", de 3 a 10 kHz. Solo se bajan los agudos, desde un poco por debajo hacia arriba</td>
+</tr>
+<tr>
+<td><strong>LED del de-esser</strong></td>
+<td>3, 6 y 10 dB de reducción (quita 12 dB como máximo). Solo se encienden mientras está activado</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Nivel automático</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Activa o desactiva el nivel automático (también con su propio conmutador). Lleva poco a poco el nivel del canal hacia el objetivo y se queda quieto en las pausas, para no subir el ruido de la sala</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>El nivel al que apunta, de -30 a -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Cuánto puede subir o bajar el canal como máximo, de 0 a 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: paso bajo y paso alto"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: paso bajo y paso alto" loading="lazy"></button><figcaption>FILTERS: paso bajo y paso alto</figcaption></figure></div>
 <p><strong>lp</strong> (paso bajo) y <strong>hp</strong> (paso alto). Girado del todo hacia abajo, el paso alto queda fuera.
@@ -5340,7 +5440,7 @@ en bas :</p>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compresseur et gate</td>
+<td>Compresseur, gate, de-esser et niveau automatique</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -5625,6 +5725,56 @@ et le gate.</p>
 </table></div>
 <p>Les LED montrent ce que le compresseur et le gate <em>feraient</em>, même quand ils sont désactivés, pour
 que vous puissiez les régler avant de les activer.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Commande</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Active ou désactive le de-esser. Il a son propre commutateur : le commutateur <span class="key">IN</span> ci-dessus ne le touche pas</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Où il commence à agir, de -50 à 0 dB. Les "s" forts qui le dépassent sont atténués, le reste de la voix non</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Où il écoute les "s", de 3 à 10 kHz. Seuls les aigus, à partir d'un peu en dessous, sont atténués</td>
+</tr>
+<tr>
+<td><strong>LED du de-esser</strong></td>
+<td>3, 6 et 10 dB de réduction (il retire 12 dB au plus). Elles ne s'allument que lorsqu'il est activé</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Niveau automatique</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Commande</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Active ou désactive le niveau automatique (lui aussi avec son propre commutateur). Il amène lentement le niveau du canal vers la cible et reste immobile pendant les pauses, pour ne pas faire monter le bruit de la pièce</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Le niveau visé, de -30 à -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>De combien il peut monter ou baisser le canal au plus, de 0 à 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS : passe-bas et passe-haut"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS : passe-bas et passe-haut" loading="lazy"></button><figcaption>FILTERS : passe-bas et passe-haut</figcaption></figure></div>
 <p><strong>lp</strong> (passe-bas) et <strong>hp</strong> (passe-haut). Tourné à fond vers le bas, le passe-haut est désactivé.
@@ -7560,7 +7710,7 @@ und bleibt für dein Interface gespeichert. Wählst du den eingebauten Takt, üb
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Kompressor und Gate</td>
+<td>Kompressor, Gate, De-Esser und Auto-Level</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -7840,6 +7990,56 @@ SPACER</strong>. Ein Spacer bleibt bei dem Strip, dem er folgt, wenn dieser Stri
 </table></div>
 <p>Die LEDs zeigen, was Kompressor und Gate tun <em>würden</em>, auch wenn sie ausgeschaltet sind, sodass du sie einstellen kannst,
 bevor du sie einschaltest.</p>
+<p><strong>De-Esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bedienelement</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Der De-Esser ein oder aus. Er hat einen eigenen Schalter: der Schalter <span class="key">IN</span> oben schaltet ihn nicht</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Ab wo er arbeitet, -50 bis 0 dB. Laute S-Laute darüber werden abgesenkt, der Rest der Stimme nicht</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Wo er auf S-Laute hört, 3 bis 10 kHz. Nur die Höhen, ab knapp darunter, werden abgesenkt</td>
+</tr>
+<tr>
+<td><strong>De-Ess-LEDs</strong></td>
+<td>3, 6 und 10 dB Reduktion (er nimmt höchstens 12 dB weg). Sie leuchten nur, solange er eingeschaltet ist</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Auto-Level</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bedienelement</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Auto-Level ein oder aus (auch mit eigenem Schalter). Es führt den Pegel des Kanals langsam zum Ziel und hält in Pausen still, damit es den Raum nicht hochzieht</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Der Pegel, den es anstrebt, -30 bis -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Wie weit es den Kanal höchstens anheben oder absenken darf, 0 bis 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: Tiefpass und Hochpass"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: Tiefpass und Hochpass" loading="lazy"></button><figcaption>FILTERS: Tiefpass und Hochpass</figcaption></figure></div>
 <p><strong>lp</strong> (Tiefpass) und <strong>hp</strong> (Hochpass). Ganz heruntergedreht ist der Hochpass aus. Ganz hochgedreht
@@ -9735,7 +9935,7 @@ viola), poi <strong>uscite</strong> (barra del nome ambra). Ogni strip ha sette 
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compressore e gate</td>
+<td>Compressore, gate, de-esser e livello automatico</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -10017,6 +10217,56 @@ SPACER BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Clic destro 
 </table></div>
 <p>I LED mostrano cosa <em>farebbero</em> compressore e gate anche quando sono esclusi, così puoi impostarli
 prima di inserirli.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Controllo</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Inserisce o esclude il de-esser. Ha un interruttore suo: l'interruttore <span class="key">IN</span> sopra non lo tocca</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Dove comincia a lavorare, da -50 a 0 dB. Le "s" forti che lo superano vengono abbassate, il resto della voce no</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Dove ascolta le "s", da 3 a 10 kHz. Vengono abbassati solo gli acuti, da poco sotto in su</td>
+</tr>
+<tr>
+<td><strong>LED del de-esser</strong></td>
+<td>3, 6 e 10 dB di riduzione (toglie al massimo 12 dB). Si accendono solo mentre è inserito</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Livello automatico</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Controllo</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Inserisce o esclude il livello automatico (anche questo con un interruttore suo). Porta piano il livello del canale verso l'obiettivo e resta fermo nelle pause, così non alza il rumore della stanza</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Il livello a cui punta, da -30 a -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Di quanto può alzare o abbassare il canale al massimo, da 0 a 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: passa-basso e passa-alto"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: passa-basso e passa-alto" loading="lazy"></button><figcaption>FILTERS: passa-basso e passa-alto</figcaption></figure></div>
 <p><strong>lp</strong> (passa-basso) e <strong>hp</strong> (passa-alto). Girato tutto giù, il passa-alto è escluso. Girato tutto
@@ -11935,7 +12185,7 @@ para baixo:</p>
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compressor e gate</td>
+<td>Compressor, gate, de-esser e nível automático</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -12218,6 +12468,56 @@ move.</p>
 </table></div>
 <p>Os LEDs mostram o que o compressor e o gate <em>fariam</em> mesmo enquanto estão desligados, para que você
 possa ajustá-los antes de ligá-los.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Controle</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Liga ou desliga o de-esser. Ele tem a própria chave: a chave <span class="key">IN</span> acima não mexe nele</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Onde ele começa a agir, de -50 a 0 dB. Os "s" fortes acima dele são abaixados, o resto da voz não</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Onde ele escuta os "s", de 3 a 10 kHz. Só os agudos, de um pouco abaixo para cima, são abaixados</td>
+</tr>
+<tr>
+<td><strong>LEDs do de-esser</strong></td>
+<td>3, 6 e 10 dB de redução (ele tira no máximo 12 dB). Só acendem enquanto ele está ligado</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Nível automático</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Controle</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Liga ou desliga o nível automático (também com a própria chave). Ele leva aos poucos o nível do canal até o alvo e fica parado nas pausas, para não subir o ruído da sala</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>O nível que ele busca, de -30 a -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Quanto ele pode subir ou abaixar o canal no máximo, de 0 a 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: passa-baixa e passa-alta"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: passa-baixa e passa-alta" loading="lazy"></button><figcaption>FILTERS: passa-baixa e passa-alta</figcaption></figure></div>
 <p><strong>lp</strong> (passa-baixa) e <strong>hp</strong> (passa-alta). Girado todo para baixo, o passa-alta fica de fora. Girado
@@ -14112,7 +14412,7 @@ opgeslagen voor je interface. Kies je de ingebouwde klok, dan neemt geen apparaa
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Compressor en gate</td>
+<td>Compressor, gate, de-esser en auto-level</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -14392,6 +14692,56 @@ SPACER</strong>. Een spacer blijft bij de strip die hij volgt wanneer die strip 
 </table></div>
 <p>De LED's tonen wat de compressor en gate <em>zouden</em> doen, ook als ze uit staan, zodat je ze kunt instellen
 voordat je ze inschakelt.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bediening</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>De de-esser in of uit. Hij heeft een eigen schakelaar: de schakelaar <span class="key">IN</span> hierboven raakt hem niet</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Waar hij begint te werken, -50 tot 0 dB. Luide "s"-klanken erboven worden omlaag gehaald, de rest van de stem niet</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Waar hij naar de "s"-klanken luistert, 3 tot 10 kHz. Alleen de hoge tonen, van net eronder af, gaan omlaag</td>
+</tr>
+<tr>
+<td><strong>De-ess LEDs</strong></td>
+<td>3, 6 en 10 dB reductie (hij haalt er hooguit 12 dB af). Ze branden alleen als hij in staat</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Auto-level</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bediening</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Auto-level in of uit (ook met een eigen schakelaar). Het brengt het niveau van het kanaal langzaam naar het doel en houdt zich stil in pauzes, zodat het de ruimte niet omhoog haalt</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Het niveau waar het naar streeft, -30 tot -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Hoe ver het het kanaal hooguit omhoog of omlaag mag zetten, 0 tot 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: low-pass en high-pass"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: low-pass en high-pass" loading="lazy"></button><figcaption>FILTERS: low-pass en high-pass</figcaption></figure></div>
 <p><strong>lp</strong> (low-pass) en <strong>hp</strong> (high-pass). Helemaal omlaag gedraaid is de high-pass uit. Helemaal omhoog gedraaid
@@ -16275,7 +16625,7 @@ nazwy), potem <strong>wyjścia</strong> (bursztynowy pasek nazwy). Każdy pasek 
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Kompresor i bramka</td>
+<td>Kompresor, bramka, de-esser i automatyczny poziom</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -16555,6 +16905,56 @@ BEFORE</strong> / <span class="key">ADD SPACER AFTER</span>. Prawy przycisk na o
 </table></div>
 <p>Diody pokazują, co kompresor i bramka <em>zrobiłyby</em>, nawet gdy są wyłączone, więc możesz je ustawić
 przed włączeniem.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>Włącza lub wyłącza de-esser. Ma własny przełącznik: przełącznik <span class="key">IN</span> powyżej go nie dotyczy</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Gdzie zaczyna działać, od -50 do 0 dB. Głośne głoski "s" powyżej są ściszane, reszta głosu nie</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Gdzie nasłuchuje głosek "s", od 3 do 10 kHz. Ściszane są tylko wysokie tony, od nieco poniżej w górę</td>
+</tr>
+<tr>
+<td><strong>Diody de-essera</strong></td>
+<td>3, 6 i 10 dB redukcji (zdejmuje najwyżej 12 dB). Świecą tylko, gdy jest włączony</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Automatyczny poziom</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Element</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Włącza lub wyłącza automatyczny poziom (też ma własny przełącznik). Powoli prowadzi poziom kanału do celu i nie rusza się w przerwach, więc nie podbija szumu pomieszczenia</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Poziom, do którego dąży, od -30 do -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>O ile najwyżej może podgłośnić lub ściszyć kanał, od 0 do 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: filtr dolnoprzepustowy i górnoprzepustowy"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: filtr dolnoprzepustowy i górnoprzepustowy" loading="lazy"></button><figcaption>FILTERS: filtr dolnoprzepustowy i górnoprzepustowy</figcaption></figure></div>
 <p><strong>lp</strong> (dolnoprzepustowy) i <strong>hp</strong> (górnoprzepustowy). Przekręcony do końca w dół, filtr
@@ -18439,7 +18839,7 @@ gränssnitt. När du väljer den inbyggda klockan tar ingen enhet över från de
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Kompressor och gate</td>
+<td>Kompressor, gate, de-esser och auto-level</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -18719,6 +19119,56 @@ SPACER</strong>. En spacer stannar kvar vid stripen den följer när den stripen
 </table></div>
 <p>LED:erna visar vad kompressorn och gaten <em>skulle</em> göra även när de är frånkopplade, så att du kan ställa in dem
 innan du kopplar in dem.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kontroll</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>De-essern på eller av. Den har en egen omkopplare: omkopplaren <span class="key">IN</span> ovanför rör den inte</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Var den börjar arbeta, -50 till 0 dB. Starka "s"-ljud över den sänks, resten av rösten inte</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>Var den lyssnar efter "s"-ljuden, 3 till 10 kHz. Bara diskanten, från en bit under och uppåt, sänks</td>
+</tr>
+<tr>
+<td><strong>De-ess-LED:er</strong></td>
+<td>3, 6 och 10 dB reduktion (den tar bort högst 12 dB). De lyser bara när den är inkopplad</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Auto-level</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kontroll</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Auto-level på eller av (också med egen omkopplare). Den för långsamt kanalens nivå mot målet och står still i pauser, så att den inte drar upp rummet</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Nivån den siktar på, -30 till -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Hur långt den högst får höja eller sänka kanalen, 0 till 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: lågpass och högpass"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: lågpass och högpass" loading="lazy"></button><figcaption>FILTERS: lågpass och högpass</figcaption></figure></div>
 <p><strong>lp</strong> (lågpass) och <strong>hp</strong> (högpass). Helt nedvriden är högpasset ur. Helt uppvriden
@@ -20600,7 +21050,7 @@ arabirimin için kayıtlı kalır. Yerleşik saati seçtiğinde hiçbir aygıt s
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>Kompresör ve gate</td>
+<td>Kompresör, gate, de-esser ve otomatik seviye</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -20880,6 +21330,56 @@ getirmek için güç simgesine yeniden tıkla.</p>
 </table></div>
 <p>LED'ler, kompresör ve gate devre dışıyken bile ne <em>yapacaklarını</em> gösterir, böylece onları devreye
 almadan önce ayarlayabilirsin.</p>
+<p><strong>De-esser</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kontrol</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>De-esser'ı devreye alır veya devreden çıkarır. Kendi anahtarı var: yukarıdaki <span class="key">IN</span> anahtarı ona dokunmaz</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>Çalışmaya başladığı yer, -50 ile 0 dB arası. Bunu aşan yüksek "s" sesleri kısılır, sesin geri kalanı kısılmaz</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>"s" seslerini dinlediği yer, 3 ile 10 kHz arası. Yalnızca biraz altından yukarısındaki tizler kısılır</td>
+</tr>
+<tr>
+<td><strong>De-esser LED'leri</strong></td>
+<td>3, 6 ve 10 dB azaltma (en fazla 12 dB kısar). Yalnızca devredeyken yanarlar</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Otomatik seviye</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kontrol</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>Otomatik seviyeyi devreye alır veya devreden çıkarır (bunun da kendi anahtarı var). Kanalın seviyesini yavaşça hedefe doğru götürür ve duraklamalarda yerinde durur, böylece odanın gürültüsünü yükseltmez</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>Hedeflediği seviye, -30 ile -10 dB arası</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>Kanalı en fazla ne kadar yükseltip alçaltabileceği, 0 ile 24 dB arası</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: alçak geçiren ve yüksek geçiren"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: alçak geçiren ve yüksek geçiren" loading="lazy"></button><figcaption>FILTERS: alçak geçiren ve yüksek geçiren</figcaption></figure></div>
 <p><strong>lp</strong> (alçak geçiren) ve <strong>hp</strong> (yüksek geçiren). Sonuna kadar aşağı çevrilince yüksek geçiren
@@ -22670,7 +23170,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>コンプレッサーとゲート</td>
+<td>コンプレッサー、ゲート、ディエッサー、オートレベル</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -22941,6 +23441,56 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tbody>
 </table></div>
 <p>LED は、コンプレッサーとゲートがオフの間も、オンなら<em>どう動くか</em>を示します。オンにする前に設定を決められます。</p>
+<p><strong>ディエッサー</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>コントロール</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>ディエッサーのオン / オフ。専用のスイッチがあり、上の <span class="key">IN</span> スイッチでは切り替わりません</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>働き始めるところ(-50〜0 dB)。これを超える強い「s」の音だけを下げ、声のほかの部分はそのままです</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>「s」の音を聞き取る周波数(3〜10 kHz)。そのすこし下から上の高域だけを下げます</td>
+</tr>
+<tr>
+<td><span class="key">ディエッサー LED</span></td>
+<td>3、6、10 dB のリダクション(下げるのは最大 12 dB)。オンの間だけ点灯します</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>オートレベル</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>コントロール</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>オートレベルのオン / オフ(これも専用のスイッチ)。チャンネルのレベルをゆっくり目標に近づけ、話が途切れている間は動かないので、部屋のノイズを持ち上げません</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>目標のレベル(-30〜-10 dB)</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>チャンネルを上げ下げできる最大の幅(0〜24 dB)</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: ローパスとハイパス"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: ローパスとハイパス" loading="lazy"></button><figcaption>FILTERS: ローパスとハイパス</figcaption></figure></div>
 <p><strong>lp</strong>(ローパス)と <strong>hp</strong>(ハイパス)。ハイパスは、いちばん下まで回すとオフになります。ローパスは、いちばん上まで回すとオフになります。</p>
@@ -24572,7 +25122,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>컴프레서와 게이트</td>
+<td>컴프레서, 게이트, 디에서, 오토 레벨</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -24843,6 +25393,56 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tbody>
 </table></div>
 <p>LED는 컴프레서와 게이트가 꺼져 있는 동안에도 켜면 <em>어떻게 동작할지</em>를 보여 주므로, 켜기 전에 설정할 수 있습니다.</p>
+<p><strong>디에서</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>컨트롤</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>디에서를 켜고 끕니다. 전용 스위치가 있어 위의 <span class="key">IN</span> 스위치로는 바뀌지 않습니다</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>작동을 시작하는 지점(-50~0 dB). 이를 넘는 큰 "s" 소리만 줄이고 나머지 목소리는 그대로 둡니다</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>"s" 소리를 듣는 주파수(3~10 kHz). 그보다 조금 아래부터 위의 고역만 줄입니다</td>
+</tr>
+<tr>
+<td><span class="key">디에서 LED</span></td>
+<td>3, 6, 10 dB 감소(최대 12 dB까지 줄입니다). 디에서가 켜져 있을 때만 불이 들어옵니다</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>오토 레벨</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>컨트롤</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>오토 레벨을 켜고 끕니다(이것도 전용 스위치). 채널 레벨을 천천히 목표 쪽으로 맞추고, 말이 멈춘 동안에는 그대로 있어 방 소음을 끌어올리지 않습니다</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>목표 레벨(-30~-10 dB)</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>채널을 올리거나 내릴 수 있는 최대 폭(0~24 dB)</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS: 로우패스와 하이패스"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS: 로우패스와 하이패스" loading="lazy"></button><figcaption>FILTERS: 로우패스와 하이패스</figcaption></figure></div>
 <p><strong>lp</strong>(로우패스)와 <strong>hp</strong>(하이패스). 하이패스는 끝까지 내리면 꺼집니다. 로우패스는 끝까지 올리면 꺼집니다.</p>
@@ -26474,7 +27074,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">DYNAMICS</span></td>
-<td>压缩器和门限</td>
+<td>压缩器、门限、齿音消除器和自动电平</td>
 </tr>
 <tr>
 <td><span class="key">FILTERS</span></td>
@@ -26745,6 +27345,56 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tbody>
 </table></div>
 <p>即使压缩器和门限被旁路，LED 也会显示它们<em>将会</em>怎么做，所以你可以在接入之前先设置好。</p>
+<p><strong>齿音消除器</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>控件</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">DE-ESS</span></td>
+<td>接入或旁路齿音消除器。它有自己的开关：上面的 <span class="key">IN</span> 开关不管它</td>
+</tr>
+<tr>
+<td><strong>thresh</strong></td>
+<td>开始工作的位置，-50 到 0 dB。超过它的响亮 "s" 音会被压低，声音的其余部分不受影响</td>
+</tr>
+<tr>
+<td><strong>freq</strong></td>
+<td>它监听 "s" 音的频率，3 到 10 kHz。只压低从略低于它开始往上的高频</td>
+</tr>
+<tr>
+<td><span class="key">齿音消除 LED</span></td>
+<td>衰减 3、6 和 10 dB(最多衰减 12 dB)。只在它接入时亮起</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>自动电平</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>控件</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="key">AUTO-LEVEL</span></td>
+<td>接入或旁路自动电平(它也有自己的开关)。它把通道的电平慢慢推向目标，并在停顿时保持不动，所以不会把房间噪声抬上来</td>
+</tr>
+<tr>
+<td><strong>target</strong></td>
+<td>它追求的电平，-30 到 -10 dB</td>
+</tr>
+<tr>
+<td><strong>range</strong></td>
+<td>它最多能把通道调高或调低多少，0 到 24 dB</td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="filters">FILTERS</h3>
 <div class="shots"><figure class="shot"><button type="button" class="shot-open" aria-label="FILTERS：低通和高通"><img data-shot="images/console/strip-filters.jpg" alt="FILTERS：低通和高通" loading="lazy"></button><figcaption>FILTERS：低通和高通</figcaption></figure></div>
 <p><strong>lp</strong>(低通)和 <strong>hp</strong>(高通)。完全拧到最小时，高通关闭。完全拧到最大时，低通关闭。</p>

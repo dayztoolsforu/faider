@@ -457,7 +457,7 @@ De tafel toont alle strips van links naar rechts: **kanalen**, dan **bussen** (v
 |---|---|
 | **HEADER** | De niveaumeter, de toetsen FILT / EQ / EXT, de bewerkingsvolgorde, de routeringsvakjes, het stripnummer |
 | **INPUT** | Trim, polariteit, microfoon-drive, de ingangsschakelaar en stereobreedte |
-| **DYNAMICS** | Compressor en gate |
+| **DYNAMICS** | Compressor, gate, de-esser en auto-level |
 | **FILTERS** | Low-pass, high-pass en de NOISE-schakelaar |
 | **EQ** | Vier banden |
 | **NAME** | De naambalk en de aan/uit-schakelaar |
@@ -593,6 +593,23 @@ De schakelaar **IN** (met het aan/uit-symbool) zet de compressor en gate samen i
 
 De LED's tonen wat de compressor en gate *zouden* doen, ook als ze uit staan, zodat je ze kunt instellen
 voordat je ze inschakelt.
+
+**De-esser**
+
+| Bediening | |
+|---|---|
+| **DE-ESS** | De de-esser in of uit. Hij heeft een eigen schakelaar: de schakelaar **IN** hierboven raakt hem niet |
+| **thresh** | Waar hij begint te werken, -50 tot 0 dB. Luide "s"-klanken erboven worden omlaag gehaald, de rest van de stem niet |
+| **freq** | Waar hij naar de "s"-klanken luistert, 3 tot 10 kHz. Alleen de hoge tonen, van net eronder af, gaan omlaag |
+| **De-ess LEDs** | 3, 6 en 10 dB reductie (hij haalt er hooguit 12 dB af). Ze branden alleen als hij in staat |
+
+**Auto-level**
+
+| Bediening | |
+|---|---|
+| **AUTO-LEVEL** | Auto-level in of uit (ook met een eigen schakelaar). Het brengt het niveau van het kanaal langzaam naar het doel en houdt zich stil in pauzes, zodat het de ruimte niet omhoog haalt |
+| **target** | Het niveau waar het naar streeft, -30 tot -10 dB |
+| **range** | Hoe ver het het kanaal hooguit omhoog of omlaag mag zetten, 0 tot 24 dB |
 
 <a id="filters"></a>
 

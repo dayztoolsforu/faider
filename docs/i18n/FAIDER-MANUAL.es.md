@@ -471,7 +471,7 @@ secciones, de arriba abajo:
 |---|---|
 | **HEADER** | El medidor de nivel, las teclas FILT / EQ / EXT, el orden de procesamiento, las casillas de enrutamiento, el número del strip |
 | **INPUT** | Trim, polaridad, drive del micro, el conmutador de entrada y anchura estéreo |
-| **DYNAMICS** | Compresor y gate |
+| **DYNAMICS** | Compresor, gate, de-esser y nivel automático |
 | **FILTERS** | Paso bajo, paso alto y el interruptor NOISE |
 | **EQ** | Cuatro bandas |
 | **NAME** | La barra de nombre y el conmutador de encendido |
@@ -611,6 +611,23 @@ El conmutador **IN** (con el símbolo de encendido) activa o desactiva juntos el
 
 Los LED muestran lo que el compresor y el gate *harían* incluso mientras están desactivados, para
 que puedas ajustarlos antes de activarlos.
+
+**De-esser**
+
+| Control | |
+|---|---|
+| **DE-ESS** | Activa o desactiva el de-esser. Tiene su propio conmutador: el conmutador **IN** de arriba no lo toca |
+| **thresh** | Dónde empieza a actuar, de -50 a 0 dB. Las "s" fuertes que lo superan se bajan; el resto de la voz no |
+| **freq** | Dónde escucha las "s", de 3 a 10 kHz. Solo se bajan los agudos, desde un poco por debajo hacia arriba |
+| **LED del de-esser** | 3, 6 y 10 dB de reducción (quita 12 dB como máximo). Solo se encienden mientras está activado |
+
+**Nivel automático**
+
+| Control | |
+|---|---|
+| **AUTO-LEVEL** | Activa o desactiva el nivel automático (también con su propio conmutador). Lleva poco a poco el nivel del canal hacia el objetivo y se queda quieto en las pausas, para no subir el ruido de la sala |
+| **target** | El nivel al que apunta, de -30 a -10 dB |
+| **range** | Cuánto puede subir o bajar el canal como máximo, de 0 a 24 dB |
 
 <a id="filters"></a>
 

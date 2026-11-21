@@ -486,7 +486,7 @@ en bas :
 |---|---|
 | **HEADER** | Le vumètre, les touches FILT / EQ / EXT, l'ordre de traitement, les cases de routage, le numéro de la tranche |
 | **INPUT** | Trim, polarité, drive du micro, le commutateur d'entrée et largeur stéréo |
-| **DYNAMICS** | Compresseur et gate |
+| **DYNAMICS** | Compresseur, gate, de-esser et niveau automatique |
 | **FILTERS** | Passe-bas, passe-haut et l'interrupteur NOISE |
 | **EQ** | Quatre bandes |
 | **NAME** | La barre de nom et le commutateur d'alimentation |
@@ -627,6 +627,23 @@ et le gate.
 
 Les LED montrent ce que le compresseur et le gate *feraient*, même quand ils sont désactivés, pour
 que vous puissiez les régler avant de les activer.
+
+**De-esser**
+
+| Commande | |
+|---|---|
+| **DE-ESS** | Active ou désactive le de-esser. Il a son propre commutateur : le commutateur **IN** ci-dessus ne le touche pas |
+| **thresh** | Où il commence à agir, de -50 à 0 dB. Les "s" forts qui le dépassent sont atténués, le reste de la voix non |
+| **freq** | Où il écoute les "s", de 3 à 10 kHz. Seuls les aigus, à partir d'un peu en dessous, sont atténués |
+| **LED du de-esser** | 3, 6 et 10 dB de réduction (il retire 12 dB au plus). Elles ne s'allument que lorsqu'il est activé |
+
+**Niveau automatique**
+
+| Commande | |
+|---|---|
+| **AUTO-LEVEL** | Active ou désactive le niveau automatique (lui aussi avec son propre commutateur). Il amène lentement le niveau du canal vers la cible et reste immobile pendant les pauses, pour ne pas faire monter le bruit de la pièce |
+| **target** | Le niveau visé, de -30 à -10 dB |
+| **range** | De combien il peut monter ou baisser le canal au plus, de 0 à 24 dB |
 
 <a id="filters"></a>
 

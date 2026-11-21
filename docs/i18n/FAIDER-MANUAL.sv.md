@@ -456,7 +456,7 @@ Bordet visar varje strip från vänster till höger: **kanaler**, sedan **bussar
 |---|---|
 | **HEADER** | Nivåmätaren, tangenterna FILT / EQ / EXT, bearbetningsordningen, routingrutorna, stripnumret |
 | **INPUT** | Trim, polaritet, mikrofon-drive, ingångsomkopplaren och stereobredd |
-| **DYNAMICS** | Kompressor och gate |
+| **DYNAMICS** | Kompressor, gate, de-esser och auto-level |
 | **FILTERS** | Lågpass, högpass och NOISE-brytaren |
 | **EQ** | Fyra band |
 | **NAME** | Namnlisten och strömbrytaren |
@@ -592,6 +592,23 @@ Omkopplaren **IN** (med strömsymbolen) slår på eller av kompressorn och gaten
 
 LED:erna visar vad kompressorn och gaten *skulle* göra även när de är frånkopplade, så att du kan ställa in dem
 innan du kopplar in dem.
+
+**De-esser**
+
+| Kontroll | |
+|---|---|
+| **DE-ESS** | De-essern på eller av. Den har en egen omkopplare: omkopplaren **IN** ovanför rör den inte |
+| **thresh** | Var den börjar arbeta, -50 till 0 dB. Starka "s"-ljud över den sänks, resten av rösten inte |
+| **freq** | Var den lyssnar efter "s"-ljuden, 3 till 10 kHz. Bara diskanten, från en bit under och uppåt, sänks |
+| **De-ess-LED:er** | 3, 6 och 10 dB reduktion (den tar bort högst 12 dB). De lyser bara när den är inkopplad |
+
+**Auto-level**
+
+| Kontroll | |
+|---|---|
+| **AUTO-LEVEL** | Auto-level på eller av (också med egen omkopplare). Den för långsamt kanalens nivå mot målet och står still i pauser, så att den inte drar upp rummet |
+| **target** | Nivån den siktar på, -30 till -10 dB |
+| **range** | Hur långt den högst får höja eller sänka kanalen, 0 till 24 dB |
 
 <a id="filters"></a>
 

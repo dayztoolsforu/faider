@@ -460,7 +460,7 @@ nazwy), potem **wyjścia** (bursztynowy pasek nazwy). Każdy pasek ma siedem sek
 |---|---|
 | **HEADER** | Miernik poziomu, klawisze FILT / EQ / EXT, kolejność przetwarzania, pola routingu, numer paska |
 | **INPUT** | Trim, polaryzacja, drive mikrofonu, przełącznik wejścia i szerokość stereo |
-| **DYNAMICS** | Kompresor i bramka |
+| **DYNAMICS** | Kompresor, bramka, de-esser i automatyczny poziom |
 | **FILTERS** | Filtr dolnoprzepustowy, górnoprzepustowy i przełącznik NOISE |
 | **EQ** | Cztery pasma |
 | **NAME** | Pasek nazwy i przełącznik zasilania |
@@ -596,6 +596,23 @@ Przełącznik **IN** (z symbolem zasilania) włącza lub wyłącza razem kompres
 
 Diody pokazują, co kompresor i bramka *zrobiłyby*, nawet gdy są wyłączone, więc możesz je ustawić
 przed włączeniem.
+
+**De-esser**
+
+| Element | |
+|---|---|
+| **DE-ESS** | Włącza lub wyłącza de-esser. Ma własny przełącznik: przełącznik **IN** powyżej go nie dotyczy |
+| **thresh** | Gdzie zaczyna działać, od -50 do 0 dB. Głośne głoski "s" powyżej są ściszane, reszta głosu nie |
+| **freq** | Gdzie nasłuchuje głosek "s", od 3 do 10 kHz. Ściszane są tylko wysokie tony, od nieco poniżej w górę |
+| **Diody de-essera** | 3, 6 i 10 dB redukcji (zdejmuje najwyżej 12 dB). Świecą tylko, gdy jest włączony |
+
+**Automatyczny poziom**
+
+| Element | |
+|---|---|
+| **AUTO-LEVEL** | Włącza lub wyłącza automatyczny poziom (też ma własny przełącznik). Powoli prowadzi poziom kanału do celu i nie rusza się w przerwach, więc nie podbija szumu pomieszczenia |
+| **target** | Poziom, do którego dąży, od -30 do -10 dB |
+| **range** | O ile najwyżej może podgłośnić lub ściszyć kanał, od 0 do 24 dB |
 
 <a id="filters"></a>
 

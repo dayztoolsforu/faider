@@ -458,7 +458,7 @@ Das Pult zeigt alle Strips von links nach rechts: **Kanäle**, dann **Busse** (v
 |---|---|
 | **HEADER** | Die Pegelanzeige, die Tasten FILT / EQ / EXT, die Bearbeitungsreihenfolge, die Routing-Boxen, die Strip-Nummer |
 | **INPUT** | Trim, Polarität, Mikrofon-Drive, der Eingangsschalter und Stereobreite |
-| **DYNAMICS** | Kompressor und Gate |
+| **DYNAMICS** | Kompressor, Gate, De-Esser und Auto-Level |
 | **FILTERS** | Tiefpass, Hochpass und der NOISE-Schalter |
 | **EQ** | Vier Bänder |
 | **NAME** | Die Namensleiste und der Ein/Aus-Schalter |
@@ -594,6 +594,23 @@ Der Schalter **IN** (mit dem Ein-Symbol) schaltet Kompressor und Gate gemeinsam 
 
 Die LEDs zeigen, was Kompressor und Gate tun *würden*, auch wenn sie ausgeschaltet sind, sodass du sie einstellen kannst,
 bevor du sie einschaltest.
+
+**De-Esser**
+
+| Bedienelement | |
+|---|---|
+| **DE-ESS** | Der De-Esser ein oder aus. Er hat einen eigenen Schalter: der Schalter **IN** oben schaltet ihn nicht |
+| **thresh** | Ab wo er arbeitet, -50 bis 0 dB. Laute S-Laute darüber werden abgesenkt, der Rest der Stimme nicht |
+| **freq** | Wo er auf S-Laute hört, 3 bis 10 kHz. Nur die Höhen, ab knapp darunter, werden abgesenkt |
+| **De-Ess-LEDs** | 3, 6 und 10 dB Reduktion (er nimmt höchstens 12 dB weg). Sie leuchten nur, solange er eingeschaltet ist |
+
+**Auto-Level**
+
+| Bedienelement | |
+|---|---|
+| **AUTO-LEVEL** | Auto-Level ein oder aus (auch mit eigenem Schalter). Es führt den Pegel des Kanals langsam zum Ziel und hält in Pausen still, damit es den Raum nicht hochzieht |
+| **target** | Der Pegel, den es anstrebt, -30 bis -10 dB |
+| **range** | Wie weit es den Kanal höchstens anheben oder absenken darf, 0 bis 24 dB |
 
 <a id="filters"></a>
 

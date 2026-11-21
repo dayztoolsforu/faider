@@ -5,6 +5,10 @@ What changed in each version of Faider, newest first. Downloads are on the
 
 ## Unreleased
 
+**New**
+- Every channel strip's DYNAMICS has **DE-ESS** (its switch, threshold, frequency and reduction
+  LEDs) and **AUTO-LEVEL** (its switch, target and range) under the gate.
+
 **Fixed**
 - The de-esser takes the sibilance down by as much as it says: it splits the sound with a crossover
   whose bands stay in phase, so 12 dB of reduction on its screen is about 9 dB off a loud "s" at 7 kHz

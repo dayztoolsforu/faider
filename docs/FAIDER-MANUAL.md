@@ -400,7 +400,7 @@ The desk shows every strip from left to right: **channels**, then **buses** (vio
 |---|---|
 | **HEADER** | The level meter, the FILT / EQ / EXT keys, the processing order, the routing boxes, the strip number |
 | **INPUT** | Trim, polarity, mic drive, the input switch and stereo width |
-| **DYNAMICS** | Compressor and gate |
+| **DYNAMICS** | Compressor, gate, de-esser and auto-level |
 | **FILTERS** | Low-pass, high-pass and the NOISE switch |
 | **EQ** | Four bands |
 | **NAME** | The name bar and power switch |
@@ -518,6 +518,23 @@ The **IN** switch (with the power symbol) puts the compressor and gate in or out
 
 The LEDs show what the compressor and gate *would* do even while they're switched out, so you can
 set them before putting them in.
+
+**De-esser**
+
+| Control | |
+|---|---|
+| **DE-ESS** | The de-esser in or out. It has its own switch: the **IN** switch above doesn't touch it |
+| **thresh** | Where it starts to work, -50 to 0 dB. Loud "s" sounds over it are taken down, the rest of the voice isn't |
+| **freq** | Where it listens for the "s" sounds, 3 to 10 kHz. Only the highs, from a little under it up, are turned down |
+| **De-ess LEDs** | 3, 6 and 10 dB of reduction (it takes off 12 dB at most). They light only while it's in |
+
+**Auto-level**
+
+| Control | |
+|---|---|
+| **AUTO-LEVEL** | Auto-level in or out (its own switch too). It slowly rides the channel's level toward the target, and holds still through pauses so it doesn't bring up the room |
+| **target** | The level it aims for, -30 to -10 dB |
+| **range** | How far it may turn the channel up or down, 0 to 24 dB |
 
 ### FILTERS
 

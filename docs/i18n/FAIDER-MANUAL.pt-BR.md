@@ -471,7 +471,7 @@ para baixo:
 |---|---|
 | **HEADER** | O medidor de nível, as teclas FILT / EQ / EXT, a ordem de processamento, as caixas de roteamento, o número do strip |
 | **INPUT** | Trim, polaridade, drive do mic, a chave de entrada e largura estéreo |
-| **DYNAMICS** | Compressor e gate |
+| **DYNAMICS** | Compressor, gate, de-esser e nível automático |
 | **FILTERS** | Passa-baixa, passa-alta e a chave NOISE |
 | **EQ** | Quatro bandas |
 | **NAME** | A barra de nome e a chave de energia |
@@ -610,6 +610,23 @@ A chave **IN** (com o símbolo de energia) liga ou desliga o compressor e o gate
 
 Os LEDs mostram o que o compressor e o gate *fariam* mesmo enquanto estão desligados, para que você
 possa ajustá-los antes de ligá-los.
+
+**De-esser**
+
+| Controle | |
+|---|---|
+| **DE-ESS** | Liga ou desliga o de-esser. Ele tem a própria chave: a chave **IN** acima não mexe nele |
+| **thresh** | Onde ele começa a agir, de -50 a 0 dB. Os "s" fortes acima dele são abaixados, o resto da voz não |
+| **freq** | Onde ele escuta os "s", de 3 a 10 kHz. Só os agudos, de um pouco abaixo para cima, são abaixados |
+| **LEDs do de-esser** | 3, 6 e 10 dB de redução (ele tira no máximo 12 dB). Só acendem enquanto ele está ligado |
+
+**Nível automático**
+
+| Controle | |
+|---|---|
+| **AUTO-LEVEL** | Liga ou desliga o nível automático (também com a própria chave). Ele leva aos poucos o nível do canal até o alvo e fica parado nas pausas, para não subir o ruído da sala |
+| **target** | O nível que ele busca, de -30 a -10 dB |
+| **range** | Quanto ele pode subir ou abaixar o canal no máximo, de 0 a 24 dB |
 
 <a id="filters"></a>
 

@@ -471,7 +471,7 @@ viola), poi **uscite** (barra del nome ambra). Ogni strip ha sette sezioni, dall
 |---|---|
 | **HEADER** | Il meter di livello, i tasti FILT / EQ / EXT, l'ordine di elaborazione, le caselle di instradamento, il numero della strip |
 | **INPUT** | Trim, polarità, drive del microfono, interruttore d'ingresso e larghezza stereo |
-| **DYNAMICS** | Compressore e gate |
+| **DYNAMICS** | Compressore, gate, de-esser e livello automatico |
 | **FILTERS** | Passa-basso, passa-alto e l'interruttore NOISE |
 | **EQ** | Quattro bande |
 | **NAME** | La barra del nome e l'interruttore di accensione |
@@ -609,6 +609,23 @@ L'interruttore **IN** (con il simbolo di accensione) inserisce o esclude insieme
 
 I LED mostrano cosa *farebbero* compressore e gate anche quando sono esclusi, così puoi impostarli
 prima di inserirli.
+
+**De-esser**
+
+| Controllo | |
+|---|---|
+| **DE-ESS** | Inserisce o esclude il de-esser. Ha un interruttore suo: l'interruttore **IN** sopra non lo tocca |
+| **thresh** | Dove comincia a lavorare, da -50 a 0 dB. Le "s" forti che lo superano vengono abbassate, il resto della voce no |
+| **freq** | Dove ascolta le "s", da 3 a 10 kHz. Vengono abbassati solo gli acuti, da poco sotto in su |
+| **LED del de-esser** | 3, 6 e 10 dB di riduzione (toglie al massimo 12 dB). Si accendono solo mentre è inserito |
+
+**Livello automatico**
+
+| Controllo | |
+|---|---|
+| **AUTO-LEVEL** | Inserisce o esclude il livello automatico (anche questo con un interruttore suo). Porta piano il livello del canale verso l'obiettivo e resta fermo nelle pause, così non alza il rumore della stanza |
+| **target** | Il livello a cui punta, da -30 a -10 dB |
+| **range** | Di quanto può alzare o abbassare il canale al massimo, da 0 a 24 dB |
 
 <a id="filters"></a>
 

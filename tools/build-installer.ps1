@@ -110,7 +110,8 @@ if ($linker) {
     $vcRoot = ($linker.Matches[0].Groups[1].Value -replace '/', '\') -replace '\\Tools\\MSVC\\.*$', ''
     $crt = Get-ChildItem (Join-Path $vcRoot 'Redist\MSVC\*\x64\Microsoft.VC*.CRT') -Directory -ErrorAction SilentlyContinue |
         Where-Object { Test-Path (Join-Path $_.FullName 'vcruntime140_1.dll') } |
-        Sort-Object { [version](Get-Item (Join-Path $_.FullName 'vcruntime140.dll')).VersionInfo.FileVersion } -Descending | Select-Object -First 1
+        Sort-Object { $v = (Get-Item (Join-Path $_.FullName 'vcruntime140.dll')).VersionInfo   # (its numbers: the text can say more, "14.29.30157.0 built by: cloudtest")
+                      [version]::new($v.FileMajorPart, $v.FileMinorPart, $v.FileBuildPart, $v.FilePrivatePart) } -Descending | Select-Object -First 1
 }
 if (-not $crt -and $CiCheck) {   # (a build machine's toolset may have no redist folder: Windows' own copies do for a check)
     $crt = Get-Item (Join-Path $env:SystemRoot 'System32')

@@ -32,6 +32,7 @@ namespace ConsoleDesk
             addAndMakeVisible (top);   // (over the strips' top edge: they pass under it)
             addChildComponent (plugins);
             bench->onShowPlugins = [this] { showPlugins (true); };
+            bench->onCompactChanged = [this] { resized(); };   // (the top bar as wide as the strips' view now is)
         }
 
         void resized() override

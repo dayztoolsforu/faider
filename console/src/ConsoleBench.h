@@ -946,10 +946,17 @@ private:
         if (k == "lamp")   return bind.levelDb (ch, 0) > -40.0f ? 1 : 0;
         if (k == "vu")     return juce::roundToInt (bind.busReduction (ch) * 4.0f);
         if (k == "leds")   return bind.reductionLit (ch, item.id, item.litCount >= 0 ? item.litCount : (item.id == "compGr" ? 2 : 3));
-        if (k == "bars")
+        if (k == "bars")   // (what's drawn: each side's LEDs lit and the one held, on the standard chosen)
         {
-            const auto seg = [this, ch] (int side) { return (juce::int64) juce::jlimit (0, 16, (int) ((bind.levelDb (ch, side) + 48.0f) / 3.0f) + 1); };
-            return seg (0) | (seg (1) << 5);
+            const auto& st = Metering::standard();
+            juce::int64 state = Metering::currentStandard.load();
+            for (int side = 0; side < (item.single ? 1 : 2); ++side)
+            {
+                const float db = item.single ? juce::jmax (bind.meterDb (ch, 0), bind.meterDb (ch, 1)) : bind.meterDb (ch, side);
+                const int on = Metering::ledsLit (st, db);
+                state = (state << 12) | ((juce::int64) on << 6) | (juce::int64) heldPeak (ch * 2 + side, on);
+            }
+            return state;
         }
         if (k == "pads" && engine != nullptr)   // (the bank shown, and each pad's lamp and progress)
         {
@@ -1361,6 +1368,8 @@ public:
             return;
         compact = on;
         saveSpacers();
+        if (held.item != nullptr && draggable (*held.item))   // (a knob or fader mid-turn: its gesture ended, as mouse up would)
+            bind.gesture (held.ch, held.item->id, false);
         held = {};
         hovered = {};
         shownParts.clear();   // (every part's place moved: all drawn again)
@@ -1370,7 +1379,10 @@ public:
         if (auto* view = findParentComponentOfClass<juce::Viewport>())
             view->setViewPosition (view->getViewPositionX(), 0);
         repaint();
+        if (onCompactChanged)   // (the desk's new height may show or hide the view's scroll bar: the page lays out again)
+            onCompactChanged();
     }
+    std::function<void()> onCompactChanged;   // (set by the view)
 
     // The view gliding to a place (negative: that way it stays).
     void glideTo (float x, float y)
@@ -2354,20 +2366,36 @@ private:
     void reload()
     {
         layout = load (file);
+        // Every strip's layout has mixer.json's sections, in its order, of its heights, kept in COMPACT
+        // alike (the desk's height, the sidebar's SECTIONS and COMPACT go by mixer.json's); one that
+        // doesn't, or can't be read, is the one it falls back on.
+        auto fits = [this] (const Layout& l)
+        {
+            if (! l.error.isEmpty() || l.sections.size() != layout.sections.size())
+                return false;
+            for (size_t i = 0; i < l.sections.size(); ++i)
+            {
+                const auto& a = l.sections[i];
+                const auto& b = layout.sections[i];
+                if (a.name != b.name || a.compact != b.compact || std::abs (a.height - b.height) > 0.5f)
+                    return false;
+            }
+            return true;
+        };
         masterLayout = load (file.getSiblingFile ("master.json"));
         appLayout = load (file.getSiblingFile ("app.json"));
-        if (! appLayout.error.isEmpty() || appLayout.sections.size() != layout.sections.size())
+        if (! fits (appLayout))
             appLayout = layout;
         combinatorLayout = load (file.getSiblingFile ("combinator.json"));
-        if (! combinatorLayout.error.isEmpty() || combinatorLayout.sections.size() != layout.sections.size())
+        if (! fits (combinatorLayout))
             combinatorLayout = appLayout;
         padsLayout = load (file.getSiblingFile ("pads.json"));
-        if (! padsLayout.error.isEmpty() || padsLayout.sections.size() != layout.sections.size())
+        if (! fits (padsLayout))
             padsLayout = appLayout;
         tapeLayout = load (file.getSiblingFile ("tape.json"));
-        if (! tapeLayout.error.isEmpty() || tapeLayout.sections.size() != layout.sections.size())
+        if (! fits (tapeLayout))
             tapeLayout = appLayout;
-        if (! masterLayout.error.isEmpty() || masterLayout.sections.size() != layout.sections.size())
+        if (! fits (masterLayout))
             masterLayout = layout;
         shown = file.getLastModificationTime();
         resizeToFit();

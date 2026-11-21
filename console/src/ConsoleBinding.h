@@ -443,13 +443,16 @@ public:
 
     // The level meter's value on the selected standard (SETTINGS > Audio > Meter standard), in dB on
     // its own axis, measured by the engine where the meter point says. (Without an engine: a level
-    // a little under the scale's 0, to draw by.)
+    // a little under the scale's 0, to draw by. With one, a strip it hasn't now, as the desk
+    // catches up with a channel gone: silence.)
     float meterDb (int ch, int side) const
     {
         if (auto* m = master (ch))
             return Metering::toDb (side == 0 ? m->levels.meterL.load() : m->levels.meterR.load());
         if (auto* s = strip (ch))
             return Metering::toDb (side == 0 ? s->levels.meterL.load() : s->levels.meterR.load());
+        if (engine != nullptr)
+            return Metering::standard().floorDb - 20.0f;
         return Metering::standard().zeroDb - (side == 0 ? 3.0f : 6.0f);
     }
 

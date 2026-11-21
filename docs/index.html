@@ -277,7 +277,7 @@
     <article class="feature reveal">
       <div class="copy">
         <h2>Outputs that finish the mix</h2>
-        <p>Each output strip has a bus compressor, mix EQ, width, a limiter (LIMIT) and LUFS metering. Mix-minus feeds and stems are built for you from FIND.</p>
+        <p>Each output strip has a bus compressor, mix EQ, width, a limiter (LIMIT) and LUFS metering. Mix-minus feeds and stems are built for you from an output's right-click menu or FIND.</p>
       </div>
       <img class="tall" src="images/console/outputs.jpg" alt="Two output strips with bus compressors">
     </article>
@@ -292,6 +292,8 @@
       <li>App rules, so a program gets its own channel the moment it plays</li>
       <li>An in-game overlay, and a mini mixer that the tray icon opens; the tray menu's Session timeline goes back to an earlier mix</li>
       <li>PRE-FLIGHT checks the setup on start</li>
+      <li>Level meters of round LEDs on every strip and in the mini mixer, on the meter standard you choose: peak, true peak, RMS, VU, PPM, K-system or loudness</li>
+      <li>The interface in 13 languages, and the manual too</li>
     </ul>
   </section>
 
@@ -373,12 +375,12 @@
 </footer>
 
 <script id="shots-data" type="application/json">{"images/console/setup.jpg": "images/console/setup.jpg", "images/console/mixer.jpg": "images/console/mixer.jpg", "images/console/topbar.jpg": "images/console/topbar.jpg", "images/console/strip-header.jpg": "images/console/strip-header.jpg", "images/console/strip-input.jpg": "images/console/strip-input.jpg", "images/console/strip-dynamics.jpg": "images/console/strip-dynamics.jpg", "images/console/strip-filters.jpg": "images/console/strip-filters.jpg", "images/console/strip-eq.jpg": "images/console/strip-eq.jpg", "images/console/strip-fader.jpg": "images/console/strip-fader.jpg", "images/console/raw-strips.jpg": "images/console/raw-strips.jpg", "images/console/combinators.jpg": "images/console/combinators.jpg", "images/console/outputs.jpg": "images/console/outputs.jpg", "images/console/plugins.jpg": "images/console/plugins.jpg", "images/console/routing.jpg": "images/console/routing.jpg", "images/console/routing-selected.jpg": "images/console/routing-selected.jpg", "images/console/pads.jpg": "images/console/pads.jpg", "images/console/pad-editor.jpg": "images/console/pad-editor.jpg", "images/console/tape.jpg": "images/console/tape.jpg"}</script>
-<template id="lang-en" data-hero="{&quot;title&quot;: &quot;User Manual&quot;, &quot;version&quot;: &quot;Version 0.1.6 · Windows 10 (2004) or later&quot;, &quot;chrome&quot;: [&quot;Search the manual&quot;, &quot;e.g. combinator, crackle, hotkey&quot;, &quot;Contents&quot;, &quot;{n} chapters match&quot;, &quot;1 chapter matches&quot;, &quot;Nothing matches. Try another word.&quot;, &quot;The channel strip, to scale. Click a section.&quot;, &quot;Language&quot;, &quot;Enlarge&quot;]}"><div data-part="intro"><p>Faider is a live audio router and mixer for Windows, built around a large-format console.
+<template id="lang-en" data-hero="{&quot;title&quot;: &quot;User Manual&quot;, &quot;version&quot;: &quot;Version 0.2.0 · Windows 10 (2004) or later&quot;, &quot;chrome&quot;: [&quot;Search the manual&quot;, &quot;e.g. combinator, crackle, hotkey&quot;, &quot;Contents&quot;, &quot;{n} chapters match&quot;, &quot;1 chapter matches&quot;, &quot;Nothing matches. Try another word.&quot;, &quot;The channel strip, to scale. Click a section.&quot;, &quot;Language&quot;, &quot;Enlarge&quot;]}"><div data-part="intro"><p>Faider is a live audio router and mixer for Windows, built around a large-format console.
 It takes sound from your audio interface, your Windows devices and individual programs, runs it
 through channel strips, buses and outputs, and plays the result on any devices you choose: your
 headphones, your speakers, a stream, a virtual microphone for calls and games.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Contents</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Before you start</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>First-time setup</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Step 1: Install Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Step 2: Install VB-CABLE (optional)</a></li><li><a href="#step-3-start-faider">Step 3: Start Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Step 4: Answer SETUP's four questions</a></li><li><a href="#step-5-check-the-audio-is-running">Step 5: Check the audio is running</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Step 6: Hear yourself and let apps hear you</a></li><li><a href="#step-7-pro-for-the-whole-console">Step 7: PRO, for the whole console</a></li><li><a href="#step-8-run-pre-flight">Step 8: Run PRE-FLIGHT</a></li><li><a href="#step-9-finish">Step 9: Finish</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>First-time setup</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Step 1: Install Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Step 2: Install VB-CABLE (optional)</a></li><li><a href="#step-3-start-faider">Step 3: Start Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Step 4: Answer SETUP's four questions</a></li><li><a href="#step-5-check-the-audio-is-running">Step 5: Check the audio is running</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Step 6: Hear yourself and let apps hear you</a></li><li><a href="#step-7-the-whole-console-or-compact">Step 7: The whole console, or COMPACT</a></li><li><a href="#step-8-run-pre-flight">Step 8: Run PRE-FLIGHT</a></li><li><a href="#step-9-finish">Step 9: Finish</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>The window</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>How routing works</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">The path of a sound</a></li><li><a href="#outputs-are-devices">Outputs are devices</a></li><li><a href="#three-places-to-route">Three places to route</a></li><li><a href="#buses">Buses</a></li><li><a href="#combinators">Combinators</a></li><li><a href="#rules-that-keep-it-safe">Rules that keep it safe</a></li><li><a href="#clocking">Clocking</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>The console</a></li>
@@ -672,7 +674,7 @@ header show where it goes: one box per bus and output device, lit where it's rou
 Right-click an output for <span class="key">DEVICE...</span> (where it plays) and <span class="key">HEADPHONE EQ</span>. Right-click any strip for <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> and <span class="key">REMOVE</span>. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.</p>
-<h3 id="step-7-pro-for-the-whole-console">Step 7: PRO, for the whole console</h3>
+<h3 id="step-7-the-whole-console-or-compact">Step 7: The whole console, or COMPACT</h3>
 <p>The Mixer is the whole console: each channel's input, filters, dynamics and EQ, buses and
 combinators, plugins. For a smaller view, <span class="key">COMPACT</span> in the sidebar folds every strip to its name
 bar and fader section. Click it again for the whole strips (see <a href="#the-sidebar">The sidebar</a>).</p>
@@ -773,7 +775,7 @@ these cards:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Search every page, channel, scene, macro, pad and command by name</td>
+<td>Search every page, setting, channel, scene, macro, pad and command by name</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -1811,7 +1813,7 @@ row lit for a moment. A page whose name or keywords match ("hotkey", "shortcut",
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>The language of the interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or 简体中文, each in its own name. The first start follows Windows' display language if it's one of them, English if not. A change takes effect at the next start: <span class="key">RESTART NOW</span> restarts Faider at once, <span class="key">LATER</span> keeps it for then. The desk's keys, the event log and product names stay in English</td>
+<td>The language of the interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or 简体中文, each in its own name. The first start follows Windows' display language if it's one of them, English if not. Updated from a version before languages, it stays in English. A change takes effect at the next start: <span class="key">RESTART NOW</span> restarts Faider at once, <span class="key">LATER</span> keeps it for then. The desk's keys, the event log and product names stay in English</td>
 </tr>
 <tr>
 <td></td>
@@ -1861,7 +1863,7 @@ row lit for a moment. A page whose name or keywords match ("hotkey", "shortcut",
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example <code>Faider/0.1.5</code>); nothing is downloaded or installed. If a newer version is out, the tray says so, and <strong>Get Faider x.y.z...</strong> on the tray menu, <strong>GET FAIDER x.y.z</strong> in FIND or <strong>Get Faider x.y.z…</strong> here opens its page. Switch it off and Faider never asks.</td>
+<td>On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example <code>Faider/0.2.0</code>); nothing is downloaded or installed. If a newer version is out, the tray says so, and <strong>Get Faider x.y.z...</strong> on the tray menu, <strong>GET FAIDER x.y.z</strong> in FIND or <strong>Get Faider x.y.z…</strong> here opens its page. Switch it off and Faider never asks.</td>
 </tr>
 <tr>
 <td></td>
@@ -2077,11 +2079,11 @@ only one of them works. <strong>Fixed</strong> lists the keys that are always th
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>The mini mixer: a small window with a fader, meter and <span class="key">CUT</span> for each strip ticked <span class="key">IN THE MINI MIXER</span> on its right-click menu (each output's while none is). <span class="key">PIN</span> keeps it on top of everything. <span class="key">OPEN</span> returns to the main window</td>
+<td>The mini mixer: a small window with a fader, meter and <span class="key">CUT</span> for each strip ticked <span class="key">IN THE MINI MIXER</span> on its right-click menu (each output's while none is). Its meters are columns of round LEDs on SETTINGS &gt; Audio &gt; Meter standard, as on the desk. <span class="key">PIN</span> keeps it on top of everything. <span class="key">OPEN</span> returns to the main window</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert</td>
+<td>Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Boost Windows audio again... (when a boost has been undone), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert</td>
 </tr>
 </tbody>
 </table></div>
@@ -2153,7 +2155,7 @@ kind, and their routes go with them.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Make a push-to-talk key</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; your mic channel.</li>
 <li>Turn <span class="key">MOMENTARY</span> on and set a <span class="key">HOTKEY</span>. While you hold it the mic is live, and on release it
    is cut again. Start with the mic cut.</li>
@@ -2172,7 +2174,7 @@ kind, and their routes go with them.</p>
 <tbody>
 <tr>
 <td><strong>The overlay doesn't show</strong></td>
-<td>Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS &gt; HOTKEYS marks it in red and the event log says so: <span class="key">SHOW OVERLAY</span> in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads <span class="key">NO MIC CHANNELS</span> when there are none</td>
+<td>Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS &gt; Hotkeys marks it in red and the event log says so: <span class="key">SHOW OVERLAY</span> in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads <span class="key">NO MIC CHANNELS</span> when there are none</td>
 </tr>
 <tr>
 <td><strong>A MIDI controller does nothing</strong></td>
@@ -2537,13 +2539,13 @@ output again, and your real microphone as the default input, each for calls too.
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-es" data-hero="{&quot;title&quot;: &quot;Manual de usuario de Faider&quot;, &quot;version&quot;: &quot;Versión 0.1.6 · Windows 10 (2004) o posterior&quot;, &quot;chrome&quot;: [&quot;Buscar en el manual&quot;, &quot;p. ej. combinador, chasquidos, atajo&quot;, &quot;Contenido&quot;, &quot;{n} capítulos coinciden&quot;, &quot;1 capítulo coincide&quot;, &quot;No hay coincidencias. Prueba con otra palabra.&quot;, &quot;La tira de canal, a escala. Haz clic en una sección.&quot;, &quot;Idioma&quot;, &quot;Ampliar&quot;]}"><div data-part="intro"><p>Faider es un enrutador de audio y mezclador en directo para Windows, construido en torno a
+<template id="lang-es" data-hero="{&quot;title&quot;: &quot;Manual de usuario de Faider&quot;, &quot;version&quot;: &quot;Versión 0.2.0 · Windows 10 (2004) o posterior&quot;, &quot;chrome&quot;: [&quot;Buscar en el manual&quot;, &quot;p. ej. combinador, chasquidos, atajo&quot;, &quot;Contenido&quot;, &quot;{n} capítulos coinciden&quot;, &quot;1 capítulo coincide&quot;, &quot;No hay coincidencias. Prueba con otra palabra.&quot;, &quot;La tira de canal, a escala. Haz clic en una sección.&quot;, &quot;Idioma&quot;, &quot;Ampliar&quot;]}"><div data-part="intro"><p>Faider es un enrutador de audio y mezclador en directo para Windows, construido en torno a
 una consola de gran formato. Toma el sonido de tu interfaz de audio, de tus dispositivos de Windows
 y de cada programa, lo hace pasar por strips de canal, buses y salidas, y reproduce el resultado en
 los dispositivos que elijas: tus auriculares, tus altavoces, un stream, un micrófono virtual para
 llamadas y juegos.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Contenido</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Antes de empezar</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Primera configuración</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Paso 1: instalar Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Paso 2: instalar VB-CABLE (opcional)</a></li><li><a href="#step-3-start-faider">Paso 3: iniciar Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Paso 4: responder las cuatro preguntas de SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Paso 5: comprobar que el audio funciona</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Paso 6: oírte y dejar que las aplicaciones te oigan</a></li><li><a href="#step-7-pro-for-the-whole-console">Paso 7: PRO, para toda la consola</a></li><li><a href="#step-8-run-pre-flight">Paso 8: ejecutar PRE-FLIGHT</a></li><li><a href="#step-9-finish">Paso 9: terminar</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Primera configuración</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Paso 1: instalar Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Paso 2: instalar VB-CABLE (opcional)</a></li><li><a href="#step-3-start-faider">Paso 3: iniciar Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Paso 4: responder las cuatro preguntas de SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Paso 5: comprobar que el audio funciona</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Paso 6: oírte y dejar que las aplicaciones te oigan</a></li><li><a href="#step-7-the-whole-console-or-compact">Paso 7: Toda la consola, o COMPACT</a></li><li><a href="#step-8-run-pre-flight">Paso 8: ejecutar PRE-FLIGHT</a></li><li><a href="#step-9-finish">Paso 9: terminar</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>La ventana</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Cómo funciona el enrutamiento</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">El camino de un sonido</a></li><li><a href="#outputs-are-devices">Las salidas son dispositivos</a></li><li><a href="#three-places-to-route">Tres sitios donde enrutar</a></li><li><a href="#buses">Buses</a></li><li><a href="#combinators">Combinadores</a></li><li><a href="#rules-that-keep-it-safe">Reglas que lo mantienen seguro</a></li><li><a href="#clocking">Sincronización</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>La consola</a></li>
@@ -2845,7 +2847,7 @@ donde está enrutado (consulta <a href="#4-how-routing-works">4</a>).</p>
 tiene salida y se crea una salida en él. Haz clic derecho en una salida para <span class="key">DEVICE...</span> (dónde
 suena) y <span class="key">HEADPHONE EQ</span>. Haz clic derecho en cualquier strip para <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <strong>IN THE MINI
 MIXER</strong> y <span class="key">REMOVE</span>. Quitar el canal de un programa también quita su regla de aplicación, para que el canal no vuelva solo.</p>
-<h3 id="step-7-pro-for-the-whole-console">Paso 7: PRO, para toda la consola</h3>
+<h3 id="step-7-the-whole-console-or-compact">Paso 7: Toda la consola, o COMPACT</h3>
 <p>El Mixer es la consola entera: la entrada de cada canal, los filtros, la dinámica y el EQ, los buses
 y los combinadores, los plugins. Para una vista más pequeña, <span class="key">COMPACT</span> en la barra lateral pliega
 cada strip a su barra de nombre y su sección de fader. Vuelve a hacer clic para ver los strips
@@ -2948,7 +2950,7 @@ muestra el Mixer, la barra lateral también tiene estas tarjetas:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Busca por nombre en todas las páginas, canales, escenas, macros, pads y comandos</td>
+<td>Busca por nombre en todas las páginas, ajustes, canales, escenas, macros, pads y comandos</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -4018,7 +4020,7 @@ nombre, y abre su página con su fila iluminada un momento. Una página cuyo nom
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>El idioma de la interfaz: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, cada uno con su propio nombre. El primer inicio sigue el idioma de visualización de Windows si es uno de ellos; si no, inglés. Un cambio se aplica en el siguiente inicio: <span class="key">RESTART NOW</span> reinicia Faider en el momento, <span class="key">LATER</span> lo deja para entonces. Las teclas de la mesa, el registro de eventos y los nombres de productos siguen en inglés</td>
+<td>El idioma de la interfaz: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, cada uno con su propio nombre. El primer inicio sigue el idioma de visualización de Windows si es uno de ellos; si no, inglés. Al actualizar desde una versión anterior a los idiomas, sigue en inglés. Un cambio se aplica en el siguiente inicio: <span class="key">RESTART NOW</span> reinicia Faider en el momento, <span class="key">LATER</span> lo deja para entonces. Las teclas de la mesa, el registro de eventos y los nombres de productos siguen en inglés</td>
 </tr>
 <tr>
 <td></td>
@@ -4068,7 +4070,7 @@ nombre, y abre su página con su fila iluminada un momento. Una página cuyo nom
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Activado de forma predeterminada: como mucho una vez al día (medio minuto después de iniciarse, o cuando ha pasado un día mientras sigue abierto), Faider envía una única petición a GitHub para preguntar por su versión más reciente. La petición solo lleva el nombre y la versión de la aplicación (por ejemplo <code>Faider/0.1.5</code>); no se descarga ni se instala nada. Si hay una versión más nueva, la bandeja lo indica, y <strong>Get Faider x.y.z...</strong> en el menú de la bandeja, <strong>GET FAIDER x.y.z</strong> en FIND o <strong>Get Faider x.y.z…</strong> aquí abre su página. Desactívalo y Faider nunca pregunta.</td>
+<td>Activado de forma predeterminada: como mucho una vez al día (medio minuto después de iniciarse, o cuando ha pasado un día mientras sigue abierto), Faider envía una única petición a GitHub para preguntar por su versión más reciente. La petición solo lleva el nombre y la versión de la aplicación (por ejemplo <code>Faider/0.2.0</code>); no se descarga ni se instala nada. Si hay una versión más nueva, la bandeja lo indica, y <strong>Get Faider x.y.z...</strong> en el menú de la bandeja, <strong>GET FAIDER x.y.z</strong> en FIND o <strong>Get Faider x.y.z…</strong> aquí abre su página. Desactívalo y Faider nunca pregunta.</td>
 </tr>
 <tr>
 <td></td>
@@ -4286,11 +4288,11 @@ también funcionan en la consola (<a href="#5-the-console">5</a>).</p>
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>El minimezclador: una pequeña ventana con un fader, un medidor y <span class="key">CUT</span> para cada strip marcado <span class="key">IN THE MINI MIXER</span> en su menú de clic derecho (los de cada salida mientras no haya ninguno). <span class="key">PIN</span> la mantiene encima de todo. <span class="key">OPEN</span> vuelve a la ventana principal</td>
+<td>El minimezclador: una pequeña ventana con un fader, un medidor y <span class="key">CUT</span> para cada strip marcado <span class="key">IN THE MINI MIXER</span> en su menú de clic derecho (los de cada salida mientras no haya ninguno). Sus medidores son columnas de LEDs redondos según SETTINGS &gt; Audio &gt; Meter standard, como en la mesa. <span class="key">PIN</span> la mantiene encima de todo. <span class="key">OPEN</span> vuelve a la ventana principal</td>
 </tr>
 <tr>
 <td><strong>Bandeja</strong></td>
-<td>Haz clic en el icono para el minimezclador (se abre un momento después, cuando ya no ha llegado un segundo clic); doble clic para abrir la ventana, sin el minimezclador. Clic derecho: Show, recuperar escena, Session timeline, Get Faider x.y.z... (cuando hay una versión más nueva), Start with Windows, Save a problem report..., About, Quit. El icono parpadea en ámbar durante una alerta</td>
+<td>Haz clic en el icono para el minimezclador (se abre un momento después, cuando ya no ha llegado un segundo clic); doble clic para abrir la ventana, sin el minimezclador. Clic derecho: Show, recuperar escena, Session timeline, Get Faider x.y.z... (cuando hay una versión más nueva), Boost Windows audio again... (cuando se ha deshecho un boost), Start with Windows, Save a problem report..., About, Quit. El icono parpadea en ámbar durante una alerta</td>
 </tr>
 </tbody>
 </table></div>
@@ -4364,7 +4366,7 @@ salidas se mueven igual, cada uno entre los de su tipo, y sus rutas van con ello
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Crear una tecla push-to-talk</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; el canal de tu micro.</li>
 <li>Activa <span class="key">MOMENTARY</span> y fija un <span class="key">HOTKEY</span>. Mientras lo mantienes el micro está abierto, y al
    soltarlo vuelve a quedar en CUT. Empieza con el micro en CUT.</li>
@@ -4383,7 +4385,7 @@ salidas se mueven igual, cada uno entre los de su tipo, y sus rutas van con ello
 <tbody>
 <tr>
 <td><strong>El overlay no aparece</strong></td>
-<td>Ctrl+Mayús+O es un atajo de teclado para todo Windows. Si otra aplicación lo tiene, SETTINGS &gt; HOTKEYS lo marca en rojo y el registro de eventos lo dice: <span class="key">SHOW OVERLAY</span> en FIND abre el overlay sin la tecla. El overlay es una ventana que se mantiene encima, hecha para un juego en una ventana sin bordes, así que pon el juego en ventana sin bordes o en ventana. Solo enumera los canales de micrófono (entradas de la interfaz y dispositivos de Windows), y muestra <span class="key">NO MIC CHANNELS</span> cuando no hay ninguno</td>
+<td>Ctrl+Mayús+O es un atajo de teclado para todo Windows. Si otra aplicación lo tiene, SETTINGS &gt; Hotkeys lo marca en rojo y el registro de eventos lo dice: <span class="key">SHOW OVERLAY</span> en FIND abre el overlay sin la tecla. El overlay es una ventana que se mantiene encima, hecha para un juego en una ventana sin bordes, así que pon el juego en ventana sin bordes o en ventana. Solo enumera los canales de micrófono (entradas de la interfaz y dispositivos de Windows), y muestra <span class="key">NO MIC CHANNELS</span> cuando no hay ninguno</td>
 </tr>
 <tr>
 <td><strong>Un controlador MIDI no hace nada</strong></td>
@@ -4758,13 +4760,13 @@ las llamadas. O hazlo en <strong>Configuración &gt; Sistema &gt; Sonido</strong
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-fr" data-hero="{&quot;title&quot;: &quot;Manuel d&#x27;utilisation de Faider&quot;, &quot;version&quot;: &quot;Version 0.1.6 · Windows 10 (2004) ou version ultérieure&quot;, &quot;chrome&quot;: [&quot;Rechercher dans le manuel&quot;, &quot;ex. combinateur, craquements, raccourci&quot;, &quot;Sommaire&quot;, &quot;{n} chapitres correspondent&quot;, &quot;1 chapitre correspond&quot;, &quot;Aucun résultat. Essayez un autre mot.&quot;, &quot;La tranche, à l’échelle. Cliquez sur une section.&quot;, &quot;Langue&quot;, &quot;Agrandir&quot;]}"><div data-part="intro"><p>Faider est un routeur audio et une table de mixage en direct pour Windows, construits
+<template id="lang-fr" data-hero="{&quot;title&quot;: &quot;Manuel d&#x27;utilisation de Faider&quot;, &quot;version&quot;: &quot;Version 0.2.0 · Windows 10 (2004) ou version ultérieure&quot;, &quot;chrome&quot;: [&quot;Rechercher dans le manuel&quot;, &quot;ex. combinateur, craquements, raccourci&quot;, &quot;Sommaire&quot;, &quot;{n} chapitres correspondent&quot;, &quot;1 chapitre correspond&quot;, &quot;Aucun résultat. Essayez un autre mot.&quot;, &quot;La tranche, à l’échelle. Cliquez sur une section.&quot;, &quot;Langue&quot;, &quot;Agrandir&quot;]}"><div data-part="intro"><p>Faider est un routeur audio et une table de mixage en direct pour Windows, construits
 autour d'une grande console. Il prend le son de votre interface audio, de vos périphériques Windows
 et de chaque programme, le fait passer par des tranches de canal, des bus et des sorties, puis le
 joue sur les périphériques de votre choix : votre casque, vos enceintes, un stream, un microphone
 virtuel pour les appels et les jeux.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Sommaire</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Avant de commencer</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Première configuration</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Étape 1 : installer Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Étape 2 : installer VB-CABLE (facultatif)</a></li><li><a href="#step-3-start-faider">Étape 3 : démarrer Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Étape 4 : répondre aux quatre questions de SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Étape 5 : vérifier que l'audio fonctionne</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Étape 6 : vous entendre et laisser les applications vous entendre</a></li><li><a href="#step-7-pro-for-the-whole-console">Étape 7 : PRO, pour toute la console</a></li><li><a href="#step-8-run-pre-flight">Étape 8 : lancer PRE-FLIGHT</a></li><li><a href="#step-9-finish">Étape 9 : terminer</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Première configuration</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Étape 1 : installer Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Étape 2 : installer VB-CABLE (facultatif)</a></li><li><a href="#step-3-start-faider">Étape 3 : démarrer Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Étape 4 : répondre aux quatre questions de SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Étape 5 : vérifier que l'audio fonctionne</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Étape 6 : vous entendre et laisser les applications vous entendre</a></li><li><a href="#step-7-the-whole-console-or-compact">Étape 7 : Toute la console, ou COMPACT</a></li><li><a href="#step-8-run-pre-flight">Étape 8 : lancer PRE-FLIGHT</a></li><li><a href="#step-9-finish">Étape 9 : terminer</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>La fenêtre</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Comment fonctionne le routage</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Le chemin d'un son</a></li><li><a href="#outputs-are-devices">Les sorties sont des périphériques</a></li><li><a href="#three-places-to-route">Trois endroits pour router</a></li><li><a href="#buses">Bus</a></li><li><a href="#combinators">Combinateurs</a></li><li><a href="#rules-that-keep-it-safe">Les règles qui assurent la sécurité</a></li><li><a href="#clocking">Synchronisation</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>La console</a></li>
@@ -5074,7 +5076,7 @@ d'exécution qui sont <span class="key">NOT PLAYING YET</span>). Routez quelque 
 sortie et une sortie est créée dessus. Faites un clic droit sur une sortie pour <span class="key">DEVICE...</span> (l'endroit
 où elle joue) et <span class="key">HEADPHONE EQ</span>. Faites un clic droit sur n'importe quelle tranche pour <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> et <span class="key">REMOVE</span>. Retirer le canal d'un programme retire aussi sa règle d'application, de sorte que le canal ne revient pas tout seul.</p>
-<h3 id="step-7-pro-for-the-whole-console">Étape 7 : PRO, pour toute la console</h3>
+<h3 id="step-7-the-whole-console-or-compact">Étape 7 : Toute la console, ou COMPACT</h3>
 <p>Le Mixer est la console complète : l'entrée de chaque canal, les filtres, la dynamique et
 l'égaliseur, les bus et les combinateurs, les plugins. Pour une vue plus petite, <span class="key">COMPACT</span> dans la
 barre latérale replie chaque tranche sur sa barre de nom et sa section de fader. Cliquez à nouveau
@@ -5178,7 +5180,7 @@ affiché, la barre latérale a aussi ces cartes :</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Cherche par nom dans toutes les pages, canaux, scènes, macros, pads et commandes</td>
+<td>Cherche par nom dans toutes les pages, réglages, canaux, scènes, macros, pads et commandes</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -6264,7 +6266,7 @@ et ouvre sa page avec sa ligne allumée un instant. Une page dont le nom ou les 
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>La langue de l'interface : English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, chacune sous son propre nom. Au premier démarrage, elle suit la langue d'affichage de Windows si c'est l'une d'elles, sinon l'anglais. Un changement prend effet au démarrage suivant : <span class="key">RESTART NOW</span> redémarre Faider tout de suite, <span class="key">LATER</span> le garde pour ce moment-là. Les touches de la console, le journal des événements et les noms de produits restent en anglais</td>
+<td>La langue de l'interface : English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, chacune sous son propre nom. Au premier démarrage, elle suit la langue d'affichage de Windows si c'est l'une d'elles, sinon l'anglais. Après une mise à jour depuis une version d'avant les langues, elle reste en anglais. Un changement prend effet au démarrage suivant : <span class="key">RESTART NOW</span> redémarre Faider tout de suite, <span class="key">LATER</span> le garde pour ce moment-là. Les touches de la console, le journal des événements et les noms de produits restent en anglais</td>
 </tr>
 <tr>
 <td></td>
@@ -6314,7 +6316,7 @@ et ouvre sa page avec sa ligne allumée un instant. Une page dont le nom ou les 
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Activé par défaut : au plus une fois par jour (une demi-minute après le démarrage, ou quand un jour a passé alors qu'il reste ouvert), Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple <code>Faider/0.1.5</code>) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et <strong>Get Faider x.y.z...</strong> dans le menu de la zone de notification, <strong>GET FAIDER x.y.z</strong> dans FIND ou <strong>Get Faider x.y.z…</strong> ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien.</td>
+<td>Activé par défaut : au plus une fois par jour (une demi-minute après le démarrage, ou quand un jour a passé alors qu'il reste ouvert), Faider envoie une seule requête à GitHub pour demander sa version la plus récente. La requête ne contient que le nom et la version de l'application (par exemple <code>Faider/0.2.0</code>) ; rien n'est téléchargé ni installé. Si une version plus récente est sortie, la zone de notification vous le dit, et <strong>Get Faider x.y.z...</strong> dans le menu de la zone de notification, <strong>GET FAIDER x.y.z</strong> dans FIND ou <strong>Get Faider x.y.z…</strong> ici ouvre sa page. Désactivez-le et Faider ne demande jamais rien.</td>
 </tr>
 <tr>
 <td></td>
@@ -6532,11 +6534,11 @@ touches <strong>On the mixer</strong> fonctionnent aussi sur la console (<a href
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et <span class="key">CUT</span> pour chaque tranche cochée <span class="key">IN THE MINI MIXER</span> dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). <span class="key">PIN</span> la garde au premier plan de tout. <span class="key">OPEN</span> revient à la fenêtre principale</td>
+<td>Le mini-mixeur : une petite fenêtre avec un fader, un vumètre et <span class="key">CUT</span> pour chaque tranche cochée <span class="key">IN THE MINI MIXER</span> dans son menu clic droit (ceux de chaque sortie tant qu'aucune ne l'est). Ses vumètres sont des colonnes de LED rondes selon SETTINGS &gt; Audio &gt; Meter standard, comme sur la console. <span class="key">PIN</span> la garde au premier plan de tout. <span class="key">OPEN</span> revient à la fenêtre principale</td>
 </tr>
 <tr>
 <td><strong>Zone de notification</strong></td>
-<td>Cliquez sur l'icône pour le mini-mixeur (il s'ouvre un instant plus tard, une fois qu'aucun second clic n'a suivi) ; double-cliquez pour ouvrir la fenêtre, sans le mini-mixeur. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte</td>
+<td>Cliquez sur l'icône pour le mini-mixeur (il s'ouvre un instant plus tard, une fois qu'aucun second clic n'a suivi) ; double-cliquez pour ouvrir la fenêtre, sans le mini-mixeur. Clic droit : Show, rappel de scène, Session timeline, Get Faider x.y.z... (quand une version plus récente est sortie), Boost Windows audio again... (quand un boost a été annulé), Start with Windows, Save a problem report..., About, Quit. L'icône clignote en orange pendant une alerte</td>
 </tr>
 </tbody>
 </table></div>
@@ -6614,7 +6616,7 @@ liaisons les suivent.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Créer une touche push-to-talk</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; le canal de votre micro.</li>
 <li>Activez <span class="key">MOMENTARY</span> et réglez un <span class="key">HOTKEY</span>. Tant que vous le maintenez, le micro est ouvert, et
    au relâchement il se coupe de nouveau. Commencez avec le micro coupé.</li>
@@ -6633,7 +6635,7 @@ liaisons les suivent.</p>
 <tbody>
 <tr>
 <td><strong>L'overlay ne s'affiche pas</strong></td>
-<td>Ctrl+Maj+O est un raccourci clavier pour tout Windows. Si une autre application l'a, SETTINGS &gt; HOTKEYS le signale en rouge et le journal des événements le dit : <span class="key">SHOW OVERLAY</span> dans FIND ouvre l'overlay sans la touche. L'overlay est une fenêtre qui reste au premier plan, faite pour un jeu en fenêtre sans bordure : réglez donc le jeu en fenêtre sans bordure ou en mode fenêtré. Il ne liste que les canaux micro (entrées de l'interface et périphériques Windows), et affiche <span class="key">NO MIC CHANNELS</span> quand il n'y en a aucun</td>
+<td>Ctrl+Maj+O est un raccourci clavier pour tout Windows. Si une autre application l'a, SETTINGS &gt; Hotkeys le signale en rouge et le journal des événements le dit : <span class="key">SHOW OVERLAY</span> dans FIND ouvre l'overlay sans la touche. L'overlay est une fenêtre qui reste au premier plan, faite pour un jeu en fenêtre sans bordure : réglez donc le jeu en fenêtre sans bordure ou en mode fenêtré. Il ne liste que les canaux micro (entrées de l'interface et périphériques Windows), et affiche <span class="key">NO MIC CHANNELS</span> quand il n'y en a aucun</td>
 </tr>
 <tr>
 <td><strong>Un contrôleur MIDI ne fait rien</strong></td>
@@ -7013,12 +7015,12 @@ l'<a href="#step-2-install-vb-cable-optional">étape 2</a>.</p>
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-de" data-hero="{&quot;title&quot;: &quot;Benutzerhandbuch&quot;, &quot;version&quot;: &quot;Version 0.1.6 · Windows 10 (2004) oder neuer&quot;, &quot;chrome&quot;: [&quot;Im Handbuch suchen&quot;, &quot;z. B. Kombinator, Knacken, Tastenkürzel&quot;, &quot;Inhalt&quot;, &quot;{n} Kapitel passen&quot;, &quot;1 Kapitel passt&quot;, &quot;Keine Treffer. Versuch ein anderes Wort.&quot;, &quot;Der Kanalzug, maßstabsgetreu. Klicke auf einen Abschnitt.&quot;, &quot;Sprache&quot;, &quot;Vergrößern&quot;]}"><div data-part="intro"><p>Faider ist ein Live-Audio-Router und Mixer für Windows, aufgebaut wie ein Großformat-Mischpult.
+<template id="lang-de" data-hero="{&quot;title&quot;: &quot;Benutzerhandbuch&quot;, &quot;version&quot;: &quot;Version 0.2.0 · Windows 10 (2004) oder neuer&quot;, &quot;chrome&quot;: [&quot;Im Handbuch suchen&quot;, &quot;z. B. Kombinator, Knacken, Tastenkürzel&quot;, &quot;Inhalt&quot;, &quot;{n} Kapitel passen&quot;, &quot;1 Kapitel passt&quot;, &quot;Keine Treffer. Versuch ein anderes Wort.&quot;, &quot;Der Kanalzug, maßstabsgetreu. Klicke auf einen Abschnitt.&quot;, &quot;Sprache&quot;, &quot;Vergrößern&quot;]}"><div data-part="intro"><p>Faider ist ein Live-Audio-Router und Mixer für Windows, aufgebaut wie ein Großformat-Mischpult.
 Das Programm nimmt Klang von deinem Audio-Interface, deinen Windows-Geräten und einzelnen Programmen auf,
 schickt ihn durch Kanalzüge, Busse und Ausgänge und gibt das Ergebnis auf beliebigen Geräten aus: auf
 deinen Kopfhörern, deinen Lautsprechern, in einem Stream oder auf einem virtuellen Mikrofon für Anrufe und Spiele.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Inhalt</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Bevor du loslegst</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Ersteinrichtung</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Schritt 1: Faider installieren</a></li><li><a href="#step-2-install-vb-cable-optional">Schritt 2: VB-CABLE installieren (optional)</a></li><li><a href="#step-3-start-faider">Schritt 3: Faider starten</a></li><li><a href="#step-4-answer-setups-four-questions">Schritt 4: Die vier Fragen von SETUP beantworten</a></li><li><a href="#step-5-check-the-audio-is-running">Schritt 5: Prüfen, ob das Audio läuft</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Schritt 6: Dich selbst hören und Apps dich hören lassen</a></li><li><a href="#step-7-pro-for-the-whole-console">Schritt 7: PRO, für das ganze Pult</a></li><li><a href="#step-8-run-pre-flight">Schritt 8: PRE-FLIGHT ausführen</a></li><li><a href="#step-9-finish">Schritt 9: Abschluss</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Ersteinrichtung</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Schritt 1: Faider installieren</a></li><li><a href="#step-2-install-vb-cable-optional">Schritt 2: VB-CABLE installieren (optional)</a></li><li><a href="#step-3-start-faider">Schritt 3: Faider starten</a></li><li><a href="#step-4-answer-setups-four-questions">Schritt 4: Die vier Fragen von SETUP beantworten</a></li><li><a href="#step-5-check-the-audio-is-running">Schritt 5: Prüfen, ob das Audio läuft</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Schritt 6: Dich selbst hören und Apps dich hören lassen</a></li><li><a href="#step-7-the-whole-console-or-compact">Schritt 7: Das ganze Pult, oder COMPACT</a></li><li><a href="#step-8-run-pre-flight">Schritt 8: PRE-FLIGHT ausführen</a></li><li><a href="#step-9-finish">Schritt 9: Abschluss</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>Das Fenster</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>So funktioniert das Routing</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Der Weg eines Klangs</a></li><li><a href="#outputs-are-devices">Ausgänge sind Geräte</a></li><li><a href="#three-places-to-route">Drei Orte zum Routen</a></li><li><a href="#buses">Busse</a></li><li><a href="#combinators">Combinatoren</a></li><li><a href="#rules-that-keep-it-safe">Regeln, die es sicher halten</a></li><li><a href="#clocking">Takt</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>Das Pult</a></li>
@@ -7314,7 +7316,7 @@ Strips zeigen, wohin er geht: eine Box pro Bus und Ausgabegerät, leuchtend, wo 
 Klicke mit rechts auf einen Ausgang für <span class="key">DEVICE...</span> (wo er spielt) und <span class="key">HEADPHONE EQ</span>. Klicke mit rechts auf einen beliebigen Strip für <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> und <span class="key">REMOVE</span>. Wenn du den Kanal eines Programms entfernst, wird auch seine App-Regel entfernt, damit der Kanal
 nicht von selbst zurückkommt.</p>
-<h3 id="step-7-pro-for-the-whole-console">Schritt 7: PRO, für das ganze Pult</h3>
+<h3 id="step-7-the-whole-console-or-compact">Schritt 7: Das ganze Pult, oder COMPACT</h3>
 <p>Der Mixer ist das ganze Pult: Eingang, Filter, Dynamik und EQ jedes Kanals, Busse und Combinatoren,
 Plugins. Für eine kleinere Ansicht faltet <span class="key">COMPACT</span> in der Seitenleiste jeden Strip auf seine Namensleiste und
 seinen Fader-Bereich zusammen. Ein weiterer Klick bringt die ganzen Strips zurück (siehe <a href="#the-sidebar">Die Seitenleiste</a>).</p>
@@ -7415,7 +7417,7 @@ diese Karten:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Durchsucht jede Seite, jeden Kanal, jede Szene, jedes Makro, jedes Pad und jeden Befehl nach Namen</td>
+<td>Durchsucht jede Seite, jede Einstellung, jeden Kanal, jede Szene, jedes Makro, jedes Pad und jeden Befehl nach Namen</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -8448,7 +8450,7 @@ ihre Zeile kurz aufleuchtet. Eine Seite, deren Name oder Stichwörter passen (�
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>Die Sprache der Oberfläche: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, jede in ihrem eigenen Namen. Beim ersten Start folgt sie der Anzeigesprache von Windows, wenn es eine davon ist, sonst Englisch. Eine Änderung gilt ab dem nächsten Start: <span class="key">RESTART NOW</span> startet Faider sofort neu, <span class="key">LATER</span> hebt sie bis dahin auf. Die Tasten des Pults, das Ereignisprotokoll und Produktnamen bleiben Englisch</td>
+<td>Die Sprache der Oberfläche: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, jede in ihrem eigenen Namen. Beim ersten Start folgt sie der Anzeigesprache von Windows, wenn es eine davon ist, sonst Englisch. Nach einem Update von einer Version vor den Sprachen bleibt sie Englisch. Eine Änderung gilt ab dem nächsten Start: <span class="key">RESTART NOW</span> startet Faider sofort neu, <span class="key">LATER</span> hebt sie bis dahin auf. Die Tasten des Pults, das Ereignisprotokoll und Produktnamen bleiben Englisch</td>
 </tr>
 <tr>
 <td></td>
@@ -8498,7 +8500,7 @@ ihre Zeile kurz aufleuchtet. Eine Seite, deren Name oder Stichwörter passen (�
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Standardmäßig an: höchstens einmal am Tag (eine halbe Minute nach dem Start, oder wenn ein Tag vergangen ist, während es weiterläuft) sendet Faider eine einzige Anfrage an GitHub nach seiner neuesten Version. Die Anfrage enthält nur Namen und Version der App (zum Beispiel <code>Faider/0.1.5</code>); nichts wird heruntergeladen oder installiert. Gibt es eine neuere Version, sagt das Tray es dir, und <strong>Get Faider x.y.z...</strong> im Tray-Menü, <strong>GET FAIDER x.y.z</strong> in FIND oder <strong>Get Faider x.y.z…</strong> hier öffnet ihre Seite. Schaltest du es aus, fragt Faider nie.</td>
+<td>Standardmäßig an: höchstens einmal am Tag (eine halbe Minute nach dem Start, oder wenn ein Tag vergangen ist, während es weiterläuft) sendet Faider eine einzige Anfrage an GitHub nach seiner neuesten Version. Die Anfrage enthält nur Namen und Version der App (zum Beispiel <code>Faider/0.2.0</code>); nichts wird heruntergeladen oder installiert. Gibt es eine neuere Version, sagt das Tray es dir, und <strong>Get Faider x.y.z...</strong> im Tray-Menü, <strong>GET FAIDER x.y.z</strong> in FIND oder <strong>Get Faider x.y.z…</strong> hier öffnet ihre Seite. Schaltest du es aus, fragt Faider nie.</td>
 </tr>
 <tr>
 <td></td>
@@ -8716,11 +8718,11 @@ funktioniert. <strong>Fixed</strong> listet die Tasten, die immer gleich sind, u
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Der Mini-Mixer: ein kleines Fenster mit Fader, Pegelmesser und <span class="key">CUT</span> für jeden Strip, der in seinem Rechtsklick-Menü bei <span class="key">IN THE MINI MIXER</span> abgehakt ist (für jeden Ausgang, solange keiner es ist). <span class="key">PIN</span> hält ihn über allem. <span class="key">OPEN</span> führt zurück zum Hauptfenster</td>
+<td>Der Mini-Mixer: ein kleines Fenster mit Fader, Pegelmesser und <span class="key">CUT</span> für jeden Strip, der in seinem Rechtsklick-Menü bei <span class="key">IN THE MINI MIXER</span> abgehakt ist (für jeden Ausgang, solange keiner es ist). Seine Pegelmesser sind Säulen runder LEDs nach SETTINGS &gt; Audio &gt; Meter standard, wie auf dem Pult. <span class="key">PIN</span> hält ihn über allem. <span class="key">OPEN</span> führt zurück zum Hauptfenster</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>Klick auf das Symbol für den Mini-Mixer (er öffnet sich einen Moment später, wenn kein zweiter Klick gefolgt ist); Doppelklick öffnet das Fenster, ohne den Mini-Mixer. Rechtsklick: Show, Szenen-Abruf, Session timeline, Get Faider x.y.z... (wenn eine neuere Version da ist), Start with Windows, Save a problem report..., About, Quit. Das Symbol blinkt bei einem Alarm gelb</td>
+<td>Klick auf das Symbol für den Mini-Mixer (er öffnet sich einen Moment später, wenn kein zweiter Klick gefolgt ist); Doppelklick öffnet das Fenster, ohne den Mini-Mixer. Rechtsklick: Show, Szenen-Abruf, Session timeline, Get Faider x.y.z... (wenn eine neuere Version da ist), Boost Windows audio again... (wenn ein Boost rückgängig gemacht wurde), Start with Windows, Save a problem report..., About, Quit. Das Symbol blinkt bei einem Alarm gelb</td>
 </tr>
 </tbody>
 </table></div>
@@ -8791,7 +8793,7 @@ und ihre Routen gehen mit.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Eine Push-to-Talk-Taste machen</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; dein Mikrofonkanal.</li>
 <li>Schalte <span class="key">MOMENTARY</span> ein und setze einen <span class="key">HOTKEY</span>. Solange du ihn hältst, ist das Mikrofon live, und beim Loslassen
    steht es wieder auf CUT. Beginne mit dem Mikrofon auf CUT.</li>
@@ -8810,7 +8812,7 @@ und ihre Routen gehen mit.</p>
 <tbody>
 <tr>
 <td><strong>Das Overlay erscheint nicht</strong></td>
-<td>Ctrl+Shift+O ist ein Hotkey für ganz Windows. Hat eine andere App ihn, markiert SETTINGS &gt; HOTKEYS ihn rot, und das Ereignisprotokoll meldet es: <span class="key">SHOW OVERLAY</span> in FIND öffnet das Overlay ohne die Taste. Das Overlay ist ein Fenster, das im Vordergrund bleibt, gemacht für ein Spiel im randlosen Fenster; stelle das Spiel also auf randlos oder Fenstermodus. Es listet nur Mikrofonkanäle auf (Interface-Eingänge und Windows-Geräte) und zeigt <span class="key">NO MIC CHANNELS</span>, wenn es keine gibt</td>
+<td>Ctrl+Shift+O ist ein Hotkey für ganz Windows. Hat eine andere App ihn, markiert SETTINGS &gt; Hotkeys ihn rot, und das Ereignisprotokoll meldet es: <span class="key">SHOW OVERLAY</span> in FIND öffnet das Overlay ohne die Taste. Das Overlay ist ein Fenster, das im Vordergrund bleibt, gemacht für ein Spiel im randlosen Fenster; stelle das Spiel also auf randlos oder Fenstermodus. Es listet nur Mikrofonkanäle auf (Interface-Eingänge und Windows-Geräte) und zeigt <span class="key">NO MIC CHANNELS</span>, wenn es keine gibt</td>
 </tr>
 <tr>
 <td><strong>Ein MIDI-Controller tut nichts</strong></td>
@@ -9175,12 +9177,12 @@ Ausgabe ein und dein echtes Mikrofon als Standard-Eingabe, jeweils auch für Anr
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-it" data-hero="{&quot;title&quot;: &quot;Manuale d&#x27;uso di Faider&quot;, &quot;version&quot;: &quot;Versione 0.1.6 · Windows 10 (2004) o successivo&quot;, &quot;chrome&quot;: [&quot;Cerca nel manuale&quot;, &quot;es. combinatore, crepitii, scorciatoia&quot;, &quot;Indice&quot;, &quot;{n} capitoli corrispondono&quot;, &quot;1 capitolo corrisponde&quot;, &quot;Nessun risultato. Prova un’altra parola.&quot;, &quot;Il canale, in scala. Fai clic su una sezione.&quot;, &quot;Lingua&quot;, &quot;Ingrandisci&quot;]}"><div data-part="intro"><p>Faider è un router audio e mixer dal vivo per Windows, costruito attorno a una console di grande formato.
+<template id="lang-it" data-hero="{&quot;title&quot;: &quot;Manuale d&#x27;uso di Faider&quot;, &quot;version&quot;: &quot;Versione 0.2.0 · Windows 10 (2004) o successivo&quot;, &quot;chrome&quot;: [&quot;Cerca nel manuale&quot;, &quot;es. combinatore, crepitii, scorciatoia&quot;, &quot;Indice&quot;, &quot;{n} capitoli corrispondono&quot;, &quot;1 capitolo corrisponde&quot;, &quot;Nessun risultato. Prova un’altra parola.&quot;, &quot;Il canale, in scala. Fai clic su una sezione.&quot;, &quot;Lingua&quot;, &quot;Ingrandisci&quot;]}"><div data-part="intro"><p>Faider è un router audio e mixer dal vivo per Windows, costruito attorno a una console di grande formato.
 Prende il suono dalla tua interfaccia audio, dai tuoi dispositivi Windows e dai singoli programmi, lo fa
 passare attraverso strip di canale, bus e uscite, e lo riproduce sui dispositivi che scegli: le tue
 cuffie, i tuoi altoparlanti, uno streaming, un microfono virtuale per chiamate e giochi.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Indice</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Prima di iniziare</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Prima configurazione</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Passo 1: Installa Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Passo 2: Installa VB-CABLE (facoltativo)</a></li><li><a href="#step-3-start-faider">Passo 3: Avvia Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Passo 4: Rispondi alle quattro domande di SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Passo 5: Controlla che l'audio sia in funzione</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Passo 6: Ascoltati e fai sentire la tua voce alle app</a></li><li><a href="#step-7-pro-for-the-whole-console">Passo 7: PRO, per tutta la console</a></li><li><a href="#step-8-run-pre-flight">Passo 8: Esegui PRE-FLIGHT</a></li><li><a href="#step-9-finish">Passo 9: Fine</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Prima configurazione</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Passo 1: Installa Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Passo 2: Installa VB-CABLE (facoltativo)</a></li><li><a href="#step-3-start-faider">Passo 3: Avvia Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Passo 4: Rispondi alle quattro domande di SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Passo 5: Controlla che l'audio sia in funzione</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Passo 6: Ascoltati e fai sentire la tua voce alle app</a></li><li><a href="#step-7-the-whole-console-or-compact">Passo 7: Tutta la console, o COMPACT</a></li><li><a href="#step-8-run-pre-flight">Passo 8: Esegui PRE-FLIGHT</a></li><li><a href="#step-9-finish">Passo 9: Fine</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>La finestra</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Come funziona l'instradamento</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Il percorso di un suono</a></li><li><a href="#outputs-are-devices">Le uscite sono dispositivi</a></li><li><a href="#three-places-to-route">Tre posti da cui instradare</a></li><li><a href="#buses">Bus</a></li><li><a href="#combinators">Combinatori</a></li><li><a href="#rules-that-keep-it-safe">Regole che mantengono tutto sicuro</a></li><li><a href="#clocking">Clock</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>La console</a></li>
@@ -9483,7 +9485,7 @@ programmi in esecuzione che sono <span class="key">NOT PLAYING YET</span>). Inst
 un'uscita e su di esso viene creata un'uscita. Clic destro su un'uscita per <span class="key">DEVICE...</span> (dove
 suona) e <span class="key">HEADPHONE EQ</span>. Clic destro su qualsiasi strip per <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <strong>IN THE
 MINI MIXER</strong> e <span class="key">REMOVE</span>. Rimuovere il canale di un programma rimuove anche la sua regola app, così il canale non torna da solo.</p>
-<h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, per tutta la console</h3>
+<h3 id="step-7-the-whole-console-or-compact">Passo 7: Tutta la console, o COMPACT</h3>
 <p>Il Mixer è tutta la console: ingresso, filtri, dinamica ed EQ di ogni canale, bus e combinatori,
 plugin. Per una vista più piccola, <span class="key">COMPACT</span> nella barra laterale ripiega ogni strip sulla sua
 barra del nome e sulla sezione del fader. Fai di nuovo clic per le strip intere (vedi
@@ -9587,7 +9589,7 @@ si imposta in <strong>SETTINGS &gt; Audio &gt; Channel meter point</strong>.</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Cerca per nome in ogni pagina, canale, scena, macro, pad e comando</td>
+<td>Cerca per nome in ogni pagina, impostazione, canale, scena, macro, pad e comando</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -10634,7 +10636,7 @@ impostazione per nome, e apre la sua pagina con la sua riga illuminata per un mo
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>La lingua dell'interfaccia: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, ognuna con il proprio nome. Al primo avvio segue la lingua di visualizzazione di Windows se è una di queste, altrimenti l'inglese. Una modifica vale dall'avvio successivo: <span class="key">RESTART NOW</span> riavvia subito Faider, <span class="key">LATER</span> la tiene per allora. I tasti del banco, il registro eventi e i nomi dei prodotti restano in inglese</td>
+<td>La lingua dell'interfaccia: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, ognuna con il proprio nome. Al primo avvio segue la lingua di visualizzazione di Windows se è una di queste, altrimenti l'inglese. Dopo un aggiornamento da una versione precedente alle lingue, resta in inglese. Una modifica vale dall'avvio successivo: <span class="key">RESTART NOW</span> riavvia subito Faider, <span class="key">LATER</span> la tiene per allora. I tasti del banco, il registro eventi e i nomi dei prodotti restano in inglese</td>
 </tr>
 <tr>
 <td></td>
@@ -10684,7 +10686,7 @@ impostazione per nome, e apre la sua pagina con la sua riga illuminata per un mo
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Attivo per impostazione predefinita: al massimo una volta al giorno (mezzo minuto dopo l'avvio, o quando è passato un giorno mentre resta aperto), Faider invia una sola richiesta a GitHub chiedendo la sua versione più recente. La richiesta contiene solo il nome e la versione dell'app (per esempio <code>Faider/0.1.5</code>); non viene scaricato né installato nulla. Se è uscita una versione più nuova, l'area di notifica te lo dice, e <strong>Get Faider x.y.z...</strong> nel menu dell'area di notifica, <strong>GET FAIDER x.y.z</strong> in FIND o <strong>Get Faider x.y.z…</strong> qui apre la sua pagina. Spegnilo e Faider non chiede mai.</td>
+<td>Attivo per impostazione predefinita: al massimo una volta al giorno (mezzo minuto dopo l'avvio, o quando è passato un giorno mentre resta aperto), Faider invia una sola richiesta a GitHub chiedendo la sua versione più recente. La richiesta contiene solo il nome e la versione dell'app (per esempio <code>Faider/0.2.0</code>); non viene scaricato né installato nulla. Se è uscita una versione più nuova, l'area di notifica te lo dice, e <strong>Get Faider x.y.z...</strong> nel menu dell'area di notifica, <strong>GET FAIDER x.y.z</strong> in FIND o <strong>Get Faider x.y.z…</strong> qui apre la sua pagina. Spegnilo e Faider non chiede mai.</td>
 </tr>
 <tr>
 <td></td>
@@ -10900,11 +10902,11 @@ due. <strong>Fixed</strong> elenca i tasti che sono sempre gli stessi, e dove fu
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Il mini mixer: una piccola finestra con fader, meter e <span class="key">CUT</span> per ogni strip spuntata <span class="key">IN THE MINI MIXER</span> nel suo menu del clic destro (quelli di ogni uscita finché non ce n'è nessuna). <span class="key">PIN</span> la tiene sopra a tutto. <span class="key">OPEN</span> torna alla finestra principale</td>
+<td>Il mini mixer: una piccola finestra con fader, meter e <span class="key">CUT</span> per ogni strip spuntata <span class="key">IN THE MINI MIXER</span> nel suo menu del clic destro (quelli di ogni uscita finché non ce n'è nessuna). I suoi meter sono colonne di LED tondi secondo SETTINGS &gt; Audio &gt; Meter standard, come sul banco. <span class="key">PIN</span> la tiene sopra a tutto. <span class="key">OPEN</span> torna alla finestra principale</td>
 </tr>
 <tr>
 <td><strong>Area di notifica</strong></td>
-<td>Fai clic sull'icona per il mini mixer (si apre un attimo dopo, quando non è seguito un secondo clic); doppio clic per aprire la finestra, senza il mini mixer. Clic destro: Show, richiamo scene, Session timeline, Get Faider x.y.z... (quando è uscita una versione più nuova), Start with Windows, Save a problem report..., About, Quit. L'icona lampeggia in ambra durante un allarme</td>
+<td>Fai clic sull'icona per il mini mixer (si apre un attimo dopo, quando non è seguito un secondo clic); doppio clic per aprire la finestra, senza il mini mixer. Clic destro: Show, richiamo scene, Session timeline, Get Faider x.y.z... (quando è uscita una versione più nuova), Boost Windows audio again... (quando un boost è stato annullato), Start with Windows, Save a problem report..., About, Quit. L'icona lampeggia in ambra durante un allarme</td>
 </tr>
 </tbody>
 </table></div>
@@ -10977,7 +10979,7 @@ stesso modo, ognuno tra quelli del suo tipo, e le loro route vanno con loro.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Crea un tasto push-to-talk</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; il canale del tuo microfono.</li>
 <li>Attiva <span class="key">MOMENTARY</span> e imposta un <span class="key">HOTKEY</span>. Finché lo tieni premuto il microfono è aperto, e al
    rilascio torna in CUT. Parti con il microfono in CUT.</li>
@@ -10996,7 +10998,7 @@ stesso modo, ognuno tra quelli del suo tipo, e le loro route vanno con loro.</p>
 <tbody>
 <tr>
 <td><strong>L'overlay non compare</strong></td>
-<td>Ctrl+Shift+O è un tasto rapido per tutto Windows. Se un'altra app lo ha, SETTINGS &gt; HOTKEYS lo segna in rosso e il log degli eventi lo dice: <span class="key">SHOW OVERLAY</span> in FIND apre l'overlay senza il tasto. L'overlay è una finestra che resta in primo piano, fatta per un gioco in finestra senza bordi, quindi imposta il gioco in finestra senza bordi o in finestra. Elenca solo i canali microfono (ingressi dell'interfaccia e dispositivi Windows), e mostra <span class="key">NO MIC CHANNELS</span> quando non ce ne sono</td>
+<td>Ctrl+Shift+O è un tasto rapido per tutto Windows. Se un'altra app lo ha, SETTINGS &gt; Hotkeys lo segna in rosso e il log degli eventi lo dice: <span class="key">SHOW OVERLAY</span> in FIND apre l'overlay senza il tasto. L'overlay è una finestra che resta in primo piano, fatta per un gioco in finestra senza bordi, quindi imposta il gioco in finestra senza bordi o in finestra. Elenca solo i canali microfono (ingressi dell'interfaccia e dispositivi Windows), e mostra <span class="key">NO MIC CHANNELS</span> quando non ce ne sono</td>
 </tr>
 <tr>
 <td><strong>Un controller MIDI non fa nulla</strong></td>
@@ -11368,13 +11370,13 @@ per le chiamate. Oppure fallo in <strong>Impostazioni &gt; Sistema &gt; Audio</s
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-pt-BR" data-hero="{&quot;title&quot;: &quot;Manual do usuário do Faider&quot;, &quot;version&quot;: &quot;Versão 0.1.6 · Windows 10 (2004) ou posterior&quot;, &quot;chrome&quot;: [&quot;Pesquisar no manual&quot;, &quot;ex.: combinador, estalos, atalho&quot;, &quot;Sumário&quot;, &quot;{n} capítulos correspondem&quot;, &quot;1 capítulo corresponde&quot;, &quot;Nada encontrado. Tente outra palavra.&quot;, &quot;O canal, em escala. Clique em uma seção.&quot;, &quot;Idioma&quot;, &quot;Ampliar&quot;]}"><div data-part="intro"><p>O Faider é um roteador de áudio e mixer ao vivo para Windows, construído em torno de um
+<template id="lang-pt-BR" data-hero="{&quot;title&quot;: &quot;Manual do usuário do Faider&quot;, &quot;version&quot;: &quot;Versão 0.2.0 · Windows 10 (2004) ou posterior&quot;, &quot;chrome&quot;: [&quot;Pesquisar no manual&quot;, &quot;ex.: combinador, estalos, atalho&quot;, &quot;Sumário&quot;, &quot;{n} capítulos correspondem&quot;, &quot;1 capítulo corresponde&quot;, &quot;Nada encontrado. Tente outra palavra.&quot;, &quot;O canal, em escala. Clique em uma seção.&quot;, &quot;Idioma&quot;, &quot;Ampliar&quot;]}"><div data-part="intro"><p>O Faider é um roteador de áudio e mixer ao vivo para Windows, construído em torno de um
 console de grande formato. Ele pega o som da sua interface de áudio, dos seus dispositivos do
 Windows e de cada programa, passa tudo por strips de canal, buses e saídas, e toca o resultado nos
 dispositivos que você escolher: seus fones de ouvido, suas caixas de som, uma transmissão, um
 microfone virtual para chamadas e jogos.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Conteúdo</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Antes de começar</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Primeira configuração</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Passo 1: instalar o Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Passo 2: instalar o VB-CABLE (opcional)</a></li><li><a href="#step-3-start-faider">Passo 3: iniciar o Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Passo 4: responder às quatro perguntas do SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Passo 5: conferir se o áudio está funcionando</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Passo 6: se ouvir e deixar os apps ouvirem você</a></li><li><a href="#step-7-pro-for-the-whole-console">Passo 7: PRO, para o console inteiro</a></li><li><a href="#step-8-run-pre-flight">Passo 8: executar o PRE-FLIGHT</a></li><li><a href="#step-9-finish">Passo 9: concluir</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Primeira configuração</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Passo 1: instalar o Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Passo 2: instalar o VB-CABLE (opcional)</a></li><li><a href="#step-3-start-faider">Passo 3: iniciar o Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Passo 4: responder às quatro perguntas do SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Passo 5: conferir se o áudio está funcionando</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Passo 6: se ouvir e deixar os apps ouvirem você</a></li><li><a href="#step-7-the-whole-console-or-compact">Passo 7: O console inteiro, ou COMPACT</a></li><li><a href="#step-8-run-pre-flight">Passo 8: executar o PRE-FLIGHT</a></li><li><a href="#step-9-finish">Passo 9: concluir</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>A janela</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Como funciona o roteamento</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">O caminho de um som</a></li><li><a href="#outputs-are-devices">Saídas são dispositivos</a></li><li><a href="#three-places-to-route">Três lugares para rotear</a></li><li><a href="#buses">Buses</a></li><li><a href="#combinators">Combinadores</a></li><li><a href="#rules-that-keep-it-safe">Regras que mantêm tudo seguro</a></li><li><a href="#clocking">Sincronização</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>O console</a></li>
@@ -11674,7 +11676,7 @@ tem saída e uma saída é criada nele. Clique com o botão direito em uma saíd
 ela toca) e <span class="key">HEADPHONE EQ</span>. Clique com o botão direito em qualquer strip para <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> e <span class="key">REMOVE</span>. Remover o canal de um programa também remove a regra de app dele, para o canal não voltar
 sozinho.</p>
-<h3 id="step-7-pro-for-the-whole-console">Passo 7: PRO, para o console inteiro</h3>
+<h3 id="step-7-the-whole-console-or-compact">Passo 7: O console inteiro, ou COMPACT</h3>
 <p>O Mixer é o console inteiro: a entrada de cada canal, filtros, dinâmica e EQ, buses e
 combinadores, plugins. Para uma visão menor, <span class="key">COMPACT</span> na barra lateral recolhe cada strip à sua
 barra de nome e à sua seção de fader. Clique de novo para os strips inteiros (veja
@@ -11777,7 +11779,7 @@ aparecendo, a barra lateral também tem estes cartões:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Procura por nome em todas as páginas, canais, cenas, macros, pads e comandos</td>
+<td>Procura por nome em todas as páginas, configurações, canais, cenas, macros, pads e comandos</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -12835,7 +12837,7 @@ página dela com a linha acesa por um instante. Uma página cujo nome ou palavra
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>O idioma da interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, cada um com o próprio nome. A primeira inicialização segue o idioma de exibição do Windows se for um deles; se não, inglês. Uma mudança vale a partir da próxima inicialização: <span class="key">RESTART NOW</span> reinicia o Faider na hora, <span class="key">LATER</span> deixa para depois. As teclas da mesa, o log de eventos e os nomes de produtos continuam em inglês</td>
+<td>O idioma da interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, cada um com o próprio nome. A primeira inicialização segue o idioma de exibição do Windows se for um deles; se não, inglês. Atualizando de uma versão anterior aos idiomas, continua em inglês. Uma mudança vale a partir da próxima inicialização: <span class="key">RESTART NOW</span> reinicia o Faider na hora, <span class="key">LATER</span> deixa para depois. As teclas da mesa, o log de eventos e os nomes de produtos continuam em inglês</td>
 </tr>
 <tr>
 <td></td>
@@ -12885,7 +12887,7 @@ página dela com a linha acesa por um instante. Uma página cujo nome ou palavra
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Ligado por padrão: no máximo uma vez por dia (meio minuto depois de iniciar, ou quando passa um dia com ele aberto), o Faider envia uma requisição ao GitHub perguntando pela versão mais nova dele. A requisição leva só o nome e a versão do app (por exemplo <code>Faider/0.1.5</code>); nada é baixado ou instalado. Se houver uma versão mais nova, a bandeja avisa, e <strong>Get Faider x.y.z...</strong> no menu da bandeja, <strong>GET FAIDER x.y.z</strong> no FIND ou <strong>Get Faider x.y.z…</strong> aqui abre a página dela. Desligue e o Faider nunca pergunta.</td>
+<td>Ligado por padrão: no máximo uma vez por dia (meio minuto depois de iniciar, ou quando passa um dia com ele aberto), o Faider envia uma requisição ao GitHub perguntando pela versão mais nova dele. A requisição leva só o nome e a versão do app (por exemplo <code>Faider/0.2.0</code>); nada é baixado ou instalado. Se houver uma versão mais nova, a bandeja avisa, e <strong>Get Faider x.y.z...</strong> no menu da bandeja, <strong>GET FAIDER x.y.z</strong> no FIND ou <strong>Get Faider x.y.z…</strong> aqui abre a página dela. Desligue e o Faider nunca pergunta.</td>
 </tr>
 <tr>
 <td></td>
@@ -13101,11 +13103,11 @@ As teclas <strong>On the mixer</strong> dela também funcionam no console (<a hr
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>O mini mixer: uma pequena janela com um fader, um medidor e o <span class="key">CUT</span> de cada strip marcado <span class="key">IN THE MINI MIXER</span> no menu do botão direito (de cada saída, enquanto nenhum estiver). <span class="key">PIN</span> a mantém por cima de tudo. <span class="key">OPEN</span> volta para a janela principal</td>
+<td>O mini mixer: uma pequena janela com um fader, um medidor e o <span class="key">CUT</span> de cada strip marcado <span class="key">IN THE MINI MIXER</span> no menu do botão direito (de cada saída, enquanto nenhum estiver). Os medidores são colunas de LEDs redondos conforme SETTINGS &gt; Audio &gt; Meter standard, como na mesa. <span class="key">PIN</span> a mantém por cima de tudo. <span class="key">OPEN</span> volta para a janela principal</td>
 </tr>
 <tr>
 <td><strong>Bandeja</strong></td>
-<td>Clique no ícone para o mini mixer (ele abre um instante depois, quando não veio um segundo clique); clique duas vezes para abrir a janela, sem o mini mixer. Botão direito: Show, recuperar cena, Session timeline, Get Faider x.y.z... (quando há uma versão mais nova), Start with Windows, Save a problem report..., About, Quit. O ícone pisca em âmbar durante um alerta</td>
+<td>Clique no ícone para o mini mixer (ele abre um instante depois, quando não veio um segundo clique); clique duas vezes para abrir a janela, sem o mini mixer. Botão direito: Show, recuperar cena, Session timeline, Get Faider x.y.z... (quando há uma versão mais nova), Boost Windows audio again... (quando um boost foi desfeito), Start with Windows, Save a problem report..., About, Quit. O ícone pisca em âmbar durante um alerta</td>
 </tr>
 </tbody>
 </table></div>
@@ -13177,7 +13179,7 @@ jeito, cada um entre os do seu tipo, e as rotas deles vão junto.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Criar uma tecla push-to-talk</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; o canal do seu mic.</li>
 <li>Ligue <span class="key">MOMENTARY</span> e defina uma <span class="key">HOTKEY</span>. Enquanto você a segura o mic fica aberto, e ao soltar
    ele volta ao CUT. Comece com o mic em CUT.</li>
@@ -13196,7 +13198,7 @@ jeito, cada um entre os do seu tipo, e as rotas deles vão junto.</p>
 <tbody>
 <tr>
 <td><strong>O overlay não aparece</strong></td>
-<td>Ctrl+Shift+O é uma tecla de atalho para o Windows inteiro. Se outro app estiver com ela, SETTINGS &gt; HOTKEYS a marca em vermelho e o log de eventos avisa: <span class="key">SHOW OVERLAY</span> no FIND abre o overlay sem a tecla. O overlay é uma janela que fica por cima, feita para um jogo em janela sem bordas, então coloque o jogo em janela sem bordas ou em modo janela. Ele lista só os canais de microfone (entradas da interface e dispositivos do Windows), e mostra <span class="key">NO MIC CHANNELS</span> quando não há nenhum</td>
+<td>Ctrl+Shift+O é uma tecla de atalho para o Windows inteiro. Se outro app estiver com ela, SETTINGS &gt; Hotkeys a marca em vermelho e o log de eventos avisa: <span class="key">SHOW OVERLAY</span> no FIND abre o overlay sem a tecla. O overlay é uma janela que fica por cima, feita para um jogo em janela sem bordas, então coloque o jogo em janela sem bordas ou em modo janela. Ele lista só os canais de microfone (entradas da interface e dispositivos do Windows), e mostra <span class="key">NO MIC CHANNELS</span> quando não há nenhum</td>
 </tr>
 <tr>
 <td><strong>Um controlador MIDI não faz nada</strong></td>
@@ -13566,12 +13568,12 @@ em <strong>Configurações &gt; Sistema &gt; Som</strong>. Veja o <a href="#step
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-nl" data-hero="{&quot;title&quot;: &quot;Gebruikershandleiding&quot;, &quot;version&quot;: &quot;Versie 0.1.6 · Windows 10 (2004) of later&quot;, &quot;chrome&quot;: [&quot;Zoeken in de handleiding&quot;, &quot;bijv. combinator, gekraak, sneltoets&quot;, &quot;Inhoud&quot;, &quot;{n} hoofdstukken komen overeen&quot;, &quot;1 hoofdstuk komt overeen&quot;, &quot;Geen resultaten. Probeer een ander woord.&quot;, &quot;De kanaalstrip, op schaal. Klik op een sectie.&quot;, &quot;Taal&quot;, &quot;Vergroten&quot;]}"><div data-part="intro"><p>Faider is een live audiorouter en mixer voor Windows, opgebouwd rond een grote mengtafel.
+<template id="lang-nl" data-hero="{&quot;title&quot;: &quot;Gebruikershandleiding&quot;, &quot;version&quot;: &quot;Versie 0.2.0 · Windows 10 (2004) of later&quot;, &quot;chrome&quot;: [&quot;Zoeken in de handleiding&quot;, &quot;bijv. combinator, gekraak, sneltoets&quot;, &quot;Inhoud&quot;, &quot;{n} hoofdstukken komen overeen&quot;, &quot;1 hoofdstuk komt overeen&quot;, &quot;Geen resultaten. Probeer een ander woord.&quot;, &quot;De kanaalstrip, op schaal. Klik op een sectie.&quot;, &quot;Taal&quot;, &quot;Vergroten&quot;]}"><div data-part="intro"><p>Faider is een live audiorouter en mixer voor Windows, opgebouwd rond een grote mengtafel.
 Het haalt geluid van je audio-interface, je Windows-apparaten en afzonderlijke programma's, stuurt het
 door kanaalstrips, bussen en uitgangen en speelt het resultaat af op de apparaten die je kiest: je
 koptelefoon, je speakers, een stream, een virtuele microfoon voor gesprekken en games.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Inhoud</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Voordat je begint</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Eerste installatie</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Stap 1: Faider installeren</a></li><li><a href="#step-2-install-vb-cable-optional">Stap 2: VB-CABLE installeren (optioneel)</a></li><li><a href="#step-3-start-faider">Stap 3: Faider starten</a></li><li><a href="#step-4-answer-setups-four-questions">Stap 4: De vier vragen van SETUP beantwoorden</a></li><li><a href="#step-5-check-the-audio-is-running">Stap 5: Controleren of de audio draait</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Stap 6: Jezelf horen en apps jou laten horen</a></li><li><a href="#step-7-pro-for-the-whole-console">Stap 7: PRO, voor de hele console</a></li><li><a href="#step-8-run-pre-flight">Stap 8: PRE-FLIGHT uitvoeren</a></li><li><a href="#step-9-finish">Stap 9: Afronden</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Eerste installatie</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Stap 1: Faider installeren</a></li><li><a href="#step-2-install-vb-cable-optional">Stap 2: VB-CABLE installeren (optioneel)</a></li><li><a href="#step-3-start-faider">Stap 3: Faider starten</a></li><li><a href="#step-4-answer-setups-four-questions">Stap 4: De vier vragen van SETUP beantwoorden</a></li><li><a href="#step-5-check-the-audio-is-running">Stap 5: Controleren of de audio draait</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Stap 6: Jezelf horen en apps jou laten horen</a></li><li><a href="#step-7-the-whole-console-or-compact">Stap 7: De hele console, of COMPACT</a></li><li><a href="#step-8-run-pre-flight">Stap 8: PRE-FLIGHT uitvoeren</a></li><li><a href="#step-9-finish">Stap 9: Afronden</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>Het venster</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Hoe routing werkt</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">De weg van een geluid</a></li><li><a href="#outputs-are-devices">Uitgangen zijn apparaten</a></li><li><a href="#three-places-to-route">Drie plekken om te routeren</a></li><li><a href="#buses">Bussen</a></li><li><a href="#combinators">Combinators</a></li><li><a href="#rules-that-keep-it-safe">Regels die het veilig houden</a></li><li><a href="#clocking">Klokken</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>De console</a></li>
@@ -13866,7 +13868,7 @@ heen gerouteerd is (zie <a href="#4-how-routing-works">4</a>).</p>
 Rechtsklik op een uitgang voor <span class="key">DEVICE...</span> (waar hij speelt) en <span class="key">HEADPHONE EQ</span>. Rechtsklik op een strip voor <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> en <span class="key">REMOVE</span>. Als je het kanaal van een
 programma verwijdert, verdwijnt ook zijn app-regel, zodat het kanaal niet vanzelf terugkomt.</p>
-<h3 id="step-7-pro-for-the-whole-console">Stap 7: PRO, voor de hele console</h3>
+<h3 id="step-7-the-whole-console-or-compact">Stap 7: De hele console, of COMPACT</h3>
 <p>De Mixer is de hele console: de ingang, filters, dynamiek en EQ van elk kanaal, bussen en
 combinators, plugins. Voor een kleinere weergave vouwt <span class="key">COMPACT</span> in de zijbalk elke strip op tot
 zijn naambalk en fadersectie. Klik er nog eens op voor de hele strips (zie <a href="#the-sidebar">De zijbalk</a>).</p>
@@ -13967,7 +13969,7 @@ deze kaarten:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Zoekt op naam door elke pagina, elk kanaal, elke scène, macro, pad en opdracht</td>
+<td>Zoekt op naam door elke pagina, elke instelling, elk kanaal, elke scène, macro, pad en opdracht</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -15001,7 +15003,7 @@ even opgelicht. Een pagina waarvan de naam of trefwoorden overeenkomen ("hotkey"
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>De taal van de interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, elk in zijn eigen naam. De eerste start volgt de weergavetaal van Windows als het daar een van is, anders Engels. Een wijziging geldt vanaf de volgende start: <span class="key">RESTART NOW</span> start Faider meteen opnieuw, <span class="key">LATER</span> bewaart het tot dan. De toetsen van de desk, het gebeurtenislogboek en productnamen blijven Engels</td>
+<td>De taal van de interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, elk in zijn eigen naam. De eerste start volgt de weergavetaal van Windows als het daar een van is, anders Engels. Na een update vanaf een versie van vóór de talen blijft het Engels. Een wijziging geldt vanaf de volgende start: <span class="key">RESTART NOW</span> start Faider meteen opnieuw, <span class="key">LATER</span> bewaart het tot dan. De toetsen van de desk, het gebeurtenislogboek en productnamen blijven Engels</td>
 </tr>
 <tr>
 <td></td>
@@ -15051,7 +15053,7 @@ even opgelicht. Een pagina waarvan de naam of trefwoorden overeenkomen ("hotkey"
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Standaard aan: hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld <code>Faider/0.1.5</code>); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en <strong>Get Faider x.y.z...</strong> in het menu van het systeemvak, <strong>GET FAIDER x.y.z</strong> in FIND of <strong>Get Faider x.y.z…</strong> hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit.</td>
+<td>Standaard aan: hooguit één keer per dag (een halve minuut na het starten, of als er een dag voorbij is terwijl het blijft draaien) stuurt Faider één verzoek naar GitHub met de vraag naar zijn nieuwste release. Het verzoek bevat alleen de naam en versie van de app (bijvoorbeeld <code>Faider/0.2.0</code>); er wordt niets gedownload of geïnstalleerd. Is er een nieuwere versie, dan meldt het systeemvak dat, en <strong>Get Faider x.y.z...</strong> in het menu van het systeemvak, <strong>GET FAIDER x.y.z</strong> in FIND of <strong>Get Faider x.y.z…</strong> hier opent de pagina ervan. Zet het uit en Faider vraagt het nooit.</td>
 </tr>
 <tr>
 <td></td>
@@ -15268,11 +15270,11 @@ werken (<a href="#191-keyboard-shortcuts">19.1</a>). De toetsen onder <strong>On
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>De mini-mixer: een klein venster met een fader, meter en <span class="key">CUT</span> voor elke strip die <span class="key">IN THE MINI MIXER</span> aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). <span class="key">PIN</span> houdt hem bovenop alles. <span class="key">OPEN</span> brengt je terug naar het hoofdvenster</td>
+<td>De mini-mixer: een klein venster met een fader, meter en <span class="key">CUT</span> voor elke strip die <span class="key">IN THE MINI MIXER</span> aangevinkt heeft in zijn rechtsklikmenu (van elke uitgang zolang er geen is). De meters zijn kolommen ronde leds volgens SETTINGS &gt; Audio &gt; Meter standard, net als op de desk. <span class="key">PIN</span> houdt hem bovenop alles. <span class="key">OPEN</span> brengt je terug naar het hoofdvenster</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>Klik op het pictogram voor de mini-mixer (hij opent een ogenblik later, als er geen tweede klik is gevolgd); dubbelklik om het venster te openen, zonder de mini-mixer. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing</td>
+<td>Klik op het pictogram voor de mini-mixer (hij opent een ogenblik later, als er geen tweede klik is gevolgd); dubbelklik om het venster te openen, zonder de mini-mixer. Rechtsklik: Show, scène oproepen, Session timeline, Get Faider x.y.z... (als er een nieuwere versie is), Boost Windows audio again... (als een boost ongedaan is gemaakt), Start with Windows, Save a problem report..., About, Quit. Het pictogram knippert oranje bij een waarschuwing</td>
 </tr>
 </tbody>
 </table></div>
@@ -15343,7 +15345,7 @@ soort, en hun routes gaan mee.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Een push-to-talk-toets maken</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; je microfoonkanaal.</li>
 <li>Zet <span class="key">MOMENTARY</span> aan en stel een <span class="key">HOTKEY</span> in. Zolang je hem ingedrukt houdt, is de microfoon live, en bij het loslaten
    staat hij weer op CUT. Begin met de microfoon op CUT.</li>
@@ -15362,7 +15364,7 @@ soort, en hun routes gaan mee.</p>
 <tbody>
 <tr>
 <td><strong>De overlay verschijnt niet</strong></td>
-<td>Ctrl+Shift+O is een sneltoets voor heel Windows. Heeft een andere app hem, dan markeert SETTINGS &gt; HOTKEYS hem rood en meldt het gebeurtenissenlogboek het: <span class="key">SHOW OVERLAY</span> in FIND opent de overlay zonder de toets. De overlay is een venster dat bovenop blijft, gemaakt voor een game in een randloos venster, dus zet de game op randloos of in een venster. Hij toont alleen microfoonkanalen (interface-ingangen en Windows-apparaten), en meldt <span class="key">NO MIC CHANNELS</span> als die er niet zijn</td>
+<td>Ctrl+Shift+O is een sneltoets voor heel Windows. Heeft een andere app hem, dan markeert SETTINGS &gt; Hotkeys hem rood en meldt het gebeurtenissenlogboek het: <span class="key">SHOW OVERLAY</span> in FIND opent de overlay zonder de toets. De overlay is een venster dat bovenop blijft, gemaakt voor een game in een randloos venster, dus zet de game op randloos of in een venster. Hij toont alleen microfoonkanalen (interface-ingangen en Windows-apparaten), en meldt <span class="key">NO MIC CHANNELS</span> als die er niet zijn</td>
 </tr>
 <tr>
 <td><strong>Een MIDI-controller doet niets</strong></td>
@@ -15726,12 +15728,12 @@ uitvoer en je echte microfoon als standaard invoer, elk ook voor gesprekken. Of 
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-pl" data-hero="{&quot;title&quot;: &quot;Podręcznik użytkownika Faider&quot;, &quot;version&quot;: &quot;Wersja 0.1.6 · Windows 10 (2004) lub nowszy&quot;, &quot;chrome&quot;: [&quot;Szukaj w instrukcji&quot;, &quot;np. kombinator, trzaski, skrót&quot;, &quot;Spis treści&quot;, &quot;Pasujące rozdziały: {n}&quot;, &quot;Pasuje 1 rozdział&quot;, &quot;Brak wyników. Spróbuj innego słowa.&quot;, &quot;Tor kanału w skali. Kliknij sekcję.&quot;, &quot;Język&quot;, &quot;Powiększ&quot;]}"><div data-part="intro"><p>Faider to mikser i router audio na żywo dla Windows, zbudowany wokół dużej konsoli.
+<template id="lang-pl" data-hero="{&quot;title&quot;: &quot;Podręcznik użytkownika Faider&quot;, &quot;version&quot;: &quot;Wersja 0.2.0 · Windows 10 (2004) lub nowszy&quot;, &quot;chrome&quot;: [&quot;Szukaj w instrukcji&quot;, &quot;np. kombinator, trzaski, skrót&quot;, &quot;Spis treści&quot;, &quot;Pasujące rozdziały: {n}&quot;, &quot;Pasuje 1 rozdział&quot;, &quot;Brak wyników. Spróbuj innego słowa.&quot;, &quot;Tor kanału w skali. Kliknij sekcję.&quot;, &quot;Język&quot;, &quot;Powiększ&quot;]}"><div data-part="intro"><p>Faider to mikser i router audio na żywo dla Windows, zbudowany wokół dużej konsoli.
 Bierze dźwięk z twojego interfejsu audio, z urządzeń Windows i z poszczególnych programów, przepuszcza
 go przez paski kanałów, busy i wyjścia, a wynik odtwarza na wybranych urządzeniach: w słuchawkach,
 w głośnikach, w streamie, w wirtualnym mikrofonie do rozmów i gier.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Spis treści</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Zanim zaczniesz</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Pierwsza konfiguracja</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Krok 1: Zainstaluj Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Krok 2: Zainstaluj VB-CABLE (opcjonalnie)</a></li><li><a href="#step-3-start-faider">Krok 3: Uruchom Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Krok 4: Odpowiedz na cztery pytania SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Krok 5: Sprawdź, czy audio działa</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Krok 6: Usłysz siebie i pozwól aplikacjom usłyszeć ciebie</a></li><li><a href="#step-7-pro-for-the-whole-console">Krok 7: PRO, czyli cała konsola</a></li><li><a href="#step-8-run-pre-flight">Krok 8: Uruchom PRE-FLIGHT</a></li><li><a href="#step-9-finish">Krok 9: Koniec</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Pierwsza konfiguracja</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Krok 1: Zainstaluj Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Krok 2: Zainstaluj VB-CABLE (opcjonalnie)</a></li><li><a href="#step-3-start-faider">Krok 3: Uruchom Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Krok 4: Odpowiedz na cztery pytania SETUP</a></li><li><a href="#step-5-check-the-audio-is-running">Krok 5: Sprawdź, czy audio działa</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Krok 6: Usłysz siebie i pozwól aplikacjom usłyszeć ciebie</a></li><li><a href="#step-7-the-whole-console-or-compact">Krok 7: Cała konsola albo COMPACT</a></li><li><a href="#step-8-run-pre-flight">Krok 8: Uruchom PRE-FLIGHT</a></li><li><a href="#step-9-finish">Krok 9: Koniec</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>Okno</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Jak działa routing</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Droga dźwięku</a></li><li><a href="#outputs-are-devices">Wyjścia to urządzenia</a></li><li><a href="#three-places-to-route">Trzy miejsca do routingu</a></li><li><a href="#buses">Busy</a></li><li><a href="#combinators">Kombinatory</a></li><li><a href="#rules-that-keep-it-safe">Zasady, które chronią przed kłopotami</a></li><li><a href="#clocking">Zegar</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>Konsola</a></li>
@@ -16027,7 +16029,7 @@ jest skierowany (zobacz <a href="#4-how-routing-works">4</a>).</p>
 Prawy przycisk na wyjściu daje <span class="key">DEVICE...</span> (gdzie ono gra) i <span class="key">HEADPHONE EQ</span>. Prawy przycisk na dowolnym pasku daje <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> i <span class="key">REMOVE</span>. Usunięcie
 kanału programu usuwa też jego regułę aplikacji, więc kanał nie wraca sam.</p>
-<h3 id="step-7-pro-for-the-whole-console">Krok 7: PRO, czyli cała konsola</h3>
+<h3 id="step-7-the-whole-console-or-compact">Krok 7: Cała konsola albo COMPACT</h3>
 <p>Mixer to cała konsola: wejście, filtry, dynamika i EQ każdego kanału, busy i kombinatory, wtyczki.
 Dla mniejszego widoku <span class="key">COMPACT</span> na panelu bocznym składa każdy pasek do jego paska nazwy i sekcji
 suwaka. Kliknij go ponownie, żeby wróciły całe paski (zobacz <a href="#the-sidebar">Panel boczny</a>).</p>
@@ -16129,7 +16131,7 @@ karty:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Szuka po nazwie na każdej stronie, w kanałach, scenach, makrach, padach i poleceniach</td>
+<td>Szuka po nazwie na każdej stronie, w ustawieniach, kanałach, scenach, makrach, padach i poleceniach</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -17167,7 +17169,7 @@ jego stronę, na chwilę podświetlając jego wiersz. Strona, której nazwa lub 
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>Język interfejsu: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, każdy pod własną nazwą. Przy pierwszym uruchomieniu wybierany jest język wyświetlania Windows, jeśli jest jednym z nich, a jeśli nie, angielski. Zmiana działa od następnego uruchomienia: <span class="key">RESTART NOW</span> od razu uruchamia Faider ponownie, <span class="key">LATER</span> zostawia ją na później. Klawisze stołu, dziennik zdarzeń i nazwy produktów zostają po angielsku</td>
+<td>Język interfejsu: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, każdy pod własną nazwą. Przy pierwszym uruchomieniu wybierany jest język wyświetlania Windows, jeśli jest jednym z nich, a jeśli nie, angielski. Po aktualizacji z wersji sprzed języków zostaje angielski. Zmiana działa od następnego uruchomienia: <span class="key">RESTART NOW</span> od razu uruchamia Faider ponownie, <span class="key">LATER</span> zostawia ją na później. Klawisze stołu, dziennik zdarzeń i nazwy produktów zostają po angielsku</td>
 </tr>
 <tr>
 <td></td>
@@ -17217,7 +17219,7 @@ jego stronę, na chwilę podświetlając jego wiersz. Strona, której nazwa lub 
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Domyślnie włączone: najwyżej raz dziennie (pół minuty po starcie albo gdy minie doba, a Faider wciąż działa) Faider wysyła jedno zapytanie do GitHuba o swoje najnowsze wydanie. Zapytanie zawiera tylko nazwę i wersję aplikacji (na przykład <code>Faider/0.1.5</code>); nic nie jest pobierane ani instalowane. Jeśli jest nowsza wersja, zasobnik o tym mówi, a <strong>Get Faider x.y.z...</strong> w menu zasobnika, <strong>GET FAIDER x.y.z</strong> w FIND albo <strong>Get Faider x.y.z…</strong> tutaj otwiera jej stronę. Wyłącz to, a Faider nigdy nie pyta.</td>
+<td>Domyślnie włączone: najwyżej raz dziennie (pół minuty po starcie albo gdy minie doba, a Faider wciąż działa) Faider wysyła jedno zapytanie do GitHuba o swoje najnowsze wydanie. Zapytanie zawiera tylko nazwę i wersję aplikacji (na przykład <code>Faider/0.2.0</code>); nic nie jest pobierane ani instalowane. Jeśli jest nowsza wersja, zasobnik o tym mówi, a <strong>Get Faider x.y.z...</strong> w menu zasobnika, <strong>GET FAIDER x.y.z</strong> w FIND albo <strong>Get Faider x.y.z…</strong> tutaj otwiera jej stronę. Wyłącz to, a Faider nigdy nie pyta.</td>
 </tr>
 <tr>
 <td></td>
@@ -17431,11 +17433,11 @@ klawisze, które są zawsze takie same, i gdzie działają (<a href="#191-keyboa
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Mini mikser: małe okno z faderem, miernikiem i <span class="key">CUT</span> dla każdego paska z zaznaczonym <span class="key">IN THE MINI MIXER</span> w menu prawego przycisku (dla każdego wyjścia, gdy nie ma żadnego). <span class="key">PIN</span> trzyma je nad wszystkim. <span class="key">OPEN</span> wraca do głównego okna</td>
+<td>Mini mikser: małe okno z faderem, miernikiem i <span class="key">CUT</span> dla każdego paska z zaznaczonym <span class="key">IN THE MINI MIXER</span> w menu prawego przycisku (dla każdego wyjścia, gdy nie ma żadnego). Jego mierniki to kolumny okrągłych diod LED według SETTINGS &gt; Audio &gt; Meter standard, jak na stole. <span class="key">PIN</span> trzyma je nad wszystkim. <span class="key">OPEN</span> wraca do głównego okna</td>
 </tr>
 <tr>
 <td><strong>Zasobnik</strong></td>
-<td>Kliknij ikonę, żeby zobaczyć mini mikser (otwiera się chwilę później, gdy nie nastąpi drugie kliknięcie); kliknij dwukrotnie, żeby otworzyć okno, bez mini miksera. Prawy przycisk: Show, przywołanie sceny, Session timeline, Get Faider x.y.z... (gdy jest nowsza wersja), Start with Windows, Save a problem report..., About, Quit. Ikona miga na bursztynowo podczas alarmu</td>
+<td>Kliknij ikonę, żeby zobaczyć mini mikser (otwiera się chwilę później, gdy nie nastąpi drugie kliknięcie); kliknij dwukrotnie, żeby otworzyć okno, bez mini miksera. Prawy przycisk: Show, przywołanie sceny, Session timeline, Get Faider x.y.z... (gdy jest nowsza wersja), Boost Windows audio again... (gdy boost został cofnięty), Start with Windows, Save a problem report..., About, Quit. Ikona miga na bursztynowo podczas alarmu</td>
 </tr>
 </tbody>
 </table></div>
@@ -17506,7 +17508,7 @@ każde wśród swojego rodzaju, a ich trasy idą z nimi.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Zrób klawisz push-to-talk</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; kanał twojego mikrofonu.</li>
 <li>Włącz <span class="key">MOMENTARY</span> i ustaw <span class="key">HOTKEY</span>. Dopóki go trzymasz, mikrofon jest otwarty, a po puszczeniu
    znów jest na CUT. Zacznij z mikrofonem na CUT.</li>
@@ -17525,7 +17527,7 @@ każde wśród swojego rodzaju, a ich trasy idą z nimi.</p>
 <tbody>
 <tr>
 <td><strong>Nakładka się nie pokazuje</strong></td>
-<td>Ctrl+Shift+O to skrót klawiszowy dla całego Windows. Jeśli ma go inna aplikacja, SETTINGS &gt; HOTKEYS oznacza go na czerwono, a dziennik zdarzeń o tym mówi: <span class="key">SHOW OVERLAY</span> w FIND otwiera nakładkę bez klawisza. Nakładka to okno, które zostaje na wierzchu, zrobione dla gry w oknie bez ramek, więc ustaw grę na tryb bez ramek albo w oknie. Wylicza tylko kanały mikrofonów (wejścia interfejsu i urządzenia Windows), a gdy nie ma żadnego, pokazuje <span class="key">NO MIC CHANNELS</span></td>
+<td>Ctrl+Shift+O to skrót klawiszowy dla całego Windows. Jeśli ma go inna aplikacja, SETTINGS &gt; Hotkeys oznacza go na czerwono, a dziennik zdarzeń o tym mówi: <span class="key">SHOW OVERLAY</span> w FIND otwiera nakładkę bez klawisza. Nakładka to okno, które zostaje na wierzchu, zrobione dla gry w oknie bez ramek, więc ustaw grę na tryb bez ramek albo w oknie. Wylicza tylko kanały mikrofonów (wejścia interfejsu i urządzenia Windows), a gdy nie ma żadnego, pokazuje <span class="key">NO MIC CHANNELS</span></td>
 </tr>
 <tr>
 <td><strong>Kontroler MIDI nic nie robi</strong></td>
@@ -17890,12 +17892,12 @@ domyślne wyjście, a twój prawdziwy mikrofon jako domyślne wejście, każde t
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-sv" data-hero="{&quot;title&quot;: &quot;Användarhandbok&quot;, &quot;version&quot;: &quot;Version 0.1.6 · Windows 10 (2004) eller senare&quot;, &quot;chrome&quot;: [&quot;Sök i handboken&quot;, &quot;t.ex. kombinator, knaster, kortkommando&quot;, &quot;Innehåll&quot;, &quot;{n} kapitel matchar&quot;, &quot;1 kapitel matchar&quot;, &quot;Inga träffar. Prova ett annat ord.&quot;, &quot;Kanalremsan i skala. Klicka på en sektion.&quot;, &quot;Språk&quot;, &quot;Förstora&quot;]}"><div data-part="intro"><p>Faider är en liveljudrouter och mixer för Windows, byggd kring ett stort mixerbord.
+<template id="lang-sv" data-hero="{&quot;title&quot;: &quot;Användarhandbok&quot;, &quot;version&quot;: &quot;Version 0.2.0 · Windows 10 (2004) eller senare&quot;, &quot;chrome&quot;: [&quot;Sök i handboken&quot;, &quot;t.ex. kombinator, knaster, kortkommando&quot;, &quot;Innehåll&quot;, &quot;{n} kapitel matchar&quot;, &quot;1 kapitel matchar&quot;, &quot;Inga träffar. Prova ett annat ord.&quot;, &quot;Kanalremsan i skala. Klicka på en sektion.&quot;, &quot;Språk&quot;, &quot;Förstora&quot;]}"><div data-part="intro"><p>Faider är en liveljudrouter och mixer för Windows, byggd kring ett stort mixerbord.
 Den tar ljud från ditt ljudgränssnitt, dina Windows-enheter och enskilda program, skickar det
 genom kanalstrippar, bussar och utgångar och spelar upp resultatet på de enheter du väljer: dina
 hörlurar, dina högtalare, en stream, en virtuell mikrofon för samtal och spel.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">Innehåll</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Innan du börjar</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Första installationen</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Steg 1: Installera Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Steg 2: Installera VB-CABLE (valfritt)</a></li><li><a href="#step-3-start-faider">Steg 3: Starta Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Steg 4: Svara på SETUPs fyra frågor</a></li><li><a href="#step-5-check-the-audio-is-running">Steg 5: Kontrollera att ljudet går</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Steg 6: Hör dig själv och låt appar höra dig</a></li><li><a href="#step-7-pro-for-the-whole-console">Steg 7: PRO, för hela konsolen</a></li><li><a href="#step-8-run-pre-flight">Steg 8: Kör PRE-FLIGHT</a></li><li><a href="#step-9-finish">Steg 9: Klart</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>Första installationen</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Steg 1: Installera Faider</a></li><li><a href="#step-2-install-vb-cable-optional">Steg 2: Installera VB-CABLE (valfritt)</a></li><li><a href="#step-3-start-faider">Steg 3: Starta Faider</a></li><li><a href="#step-4-answer-setups-four-questions">Steg 4: Svara på SETUPs fyra frågor</a></li><li><a href="#step-5-check-the-audio-is-running">Steg 5: Kontrollera att ljudet går</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Steg 6: Hör dig själv och låt appar höra dig</a></li><li><a href="#step-7-the-whole-console-or-compact">Steg 7: Hela konsolen, eller COMPACT</a></li><li><a href="#step-8-run-pre-flight">Steg 8: Kör PRE-FLIGHT</a></li><li><a href="#step-9-finish">Steg 9: Klart</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>Fönstret</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Så fungerar routing</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Ett ljuds väg</a></li><li><a href="#outputs-are-devices">Utgångar är enheter</a></li><li><a href="#three-places-to-route">Tre ställen att routa på</a></li><li><a href="#buses">Bussar</a></li><li><a href="#combinators">Combinators</a></li><li><a href="#rules-that-keep-it-safe">Regler som håller det säkert</a></li><li><a href="#clocking">Klockor</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>Konsolen</a></li>
@@ -18189,7 +18191,7 @@ header visar vart den går: en ruta per buss och utgångsenhet, tänd där den �
 Högerklicka på en utgång för <span class="key">DEVICE...</span> (var den spelar) och <span class="key">HEADPHONE EQ</span>. Högerklicka på vilken strip som helst för <span class="key">RENAME...</span>,
 <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span> och <span class="key">REMOVE</span>. När du tar bort ett programs
 kanal försvinner också dess appregel, så kanalen kommer inte tillbaka av sig själv.</p>
-<h3 id="step-7-pro-for-the-whole-console">Steg 7: PRO, för hela konsolen</h3>
+<h3 id="step-7-the-whole-console-or-compact">Steg 7: Hela konsolen, eller COMPACT</h3>
 <p>Mixern är hela konsolen: varje kanals ingång, filter, dynamik och EQ, bussar och
 combinators, plugins. För en mindre vy fäller <span class="key">COMPACT</span> i sidofältet ihop varje strip till dess namnlist
 och fadersektion. Klicka igen för hela strippar (se <a href="#the-sidebar">Sidofältet</a>).</p>
@@ -18290,7 +18292,7 @@ de här korten:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Söker i varje sida, kanal, scen, makro, pad och kommando efter namn</td>
+<td>Söker i varje sida, inställning, kanal, scen, makro, pad och kommando efter namn</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -19327,7 +19329,7 @@ upplyst en stund. En sida vars namn eller nyckelord matchar ("hotkey", "shortcut
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>Gränssnittets språk: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, vart och ett med sitt eget namn. Första starten följer Windows visningsspråk om det är ett av dem, annars engelska. En ändring gäller från nästa start: <span class="key">RESTART NOW</span> startar om Faider direkt, <span class="key">LATER</span> sparar den till dess. Bordets tangenter, händelseloggen och produktnamn förblir engelska</td>
+<td>Gränssnittets språk: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, vart och ett med sitt eget namn. Första starten följer Windows visningsspråk om det är ett av dem, annars engelska. Uppdaterad från en version före språken förblir den engelsk. En ändring gäller från nästa start: <span class="key">RESTART NOW</span> startar om Faider direkt, <span class="key">LATER</span> sparar den till dess. Bordets tangenter, händelseloggen och produktnamn förblir engelska</td>
 </tr>
 <tr>
 <td></td>
@@ -19377,7 +19379,7 @@ upplyst en stund. En sida vars namn eller nyckelord matchar ("hotkey", "shortcut
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel <code>Faider/0.1.5</code>); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och <strong>Get Faider x.y.z...</strong> i menyn i aktivitetsfältet, <strong>GET FAIDER x.y.z</strong> i FIND eller <strong>Get Faider x.y.z…</strong> här öppnar dess sida. Stäng av det så frågar Faider aldrig.</td>
+<td>På som standard: högst en gång om dagen (en halv minut efter start, eller när ett dygn har gått medan det är igång) skickar Faider en förfrågan till GitHub om sin senaste release. Förfrågan innehåller bara appens namn och version (till exempel <code>Faider/0.2.0</code>); ingenting laddas ned eller installeras. Finns en nyare version säger aktivitetsfältet det, och <strong>Get Faider x.y.z...</strong> i menyn i aktivitetsfältet, <strong>GET FAIDER x.y.z</strong> i FIND eller <strong>Get Faider x.y.z…</strong> här öppnar dess sida. Stäng av det så frågar Faider aldrig.</td>
 </tr>
 <tr>
 <td></td>
@@ -19592,11 +19594,11 @@ fungerar också på konsolen (<a href="#5-the-console">5</a>).</p>
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Minimixern: ett litet fönster med en fader, mätare och <span class="key">CUT</span> för varje strip som har <span class="key">IN THE MINI MIXER</span> ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). <span class="key">PIN</span> håller det ovanpå allt. <span class="key">OPEN</span> tar dig tillbaka till huvudfönstret</td>
+<td>Minimixern: ett litet fönster med en fader, mätare och <span class="key">CUT</span> för varje strip som har <span class="key">IN THE MINI MIXER</span> ikryssat i sin högerklicksmeny (varje utgångs medan ingen har det). Mätarna är kolumner av runda lysdioder enligt SETTINGS &gt; Audio &gt; Meter standard, som på bordet. <span class="key">PIN</span> håller det ovanpå allt. <span class="key">OPEN</span> tar dig tillbaka till huvudfönstret</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm</td>
+<td>Klicka på ikonen för minimixern (den öppnas ett ögonblick senare, när inget andra klick har följt); dubbelklicka för att öppna fönstret, utan minimixern. Högerklick: Show, scenåterkallning, Session timeline, Get Faider x.y.z... (när en nyare version finns), Boost Windows audio again... (när en boost har tagits bort), Start with Windows, Save a problem report..., About, Quit. Ikonen blinkar gult vid ett larm</td>
 </tr>
 </tbody>
 </table></div>
@@ -19667,7 +19669,7 @@ sort, och deras rutter följer med.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Gör en push-to-talk-tangent</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; din mikrofonkanal.</li>
 <li>Slå på <span class="key">MOMENTARY</span> och ställ in ett <span class="key">HOTKEY</span>. Medan du håller den är mikrofonen live, och när du släpper
    hamnar den på CUT igen. Börja med mikrofonen på CUT.</li>
@@ -19686,7 +19688,7 @@ sort, och deras rutter följer med.</p>
 <tbody>
 <tr>
 <td><strong>Overlayen visas inte</strong></td>
-<td>Ctrl+Shift+O är ett kortkommando för hela Windows. Om en annan app har det markerar SETTINGS &gt; HOTKEYS det i rött och händelseloggen säger det: <span class="key">SHOW OVERLAY</span> i FIND öppnar overlayen utan tangenten. Overlayen är ett fönster som ligger kvar överst, gjort för ett spel i ett kantlöst fönster, så ställ in spelet på kantlöst eller fönsterläge. Den listar bara mikrofonkanaler (gränssnittets ingångar och Windows-enheter), och visar <span class="key">NO MIC CHANNELS</span> när det inte finns några</td>
+<td>Ctrl+Shift+O är ett kortkommando för hela Windows. Om en annan app har det markerar SETTINGS &gt; Hotkeys det i rött och händelseloggen säger det: <span class="key">SHOW OVERLAY</span> i FIND öppnar overlayen utan tangenten. Overlayen är ett fönster som ligger kvar överst, gjort för ett spel i ett kantlöst fönster, så ställ in spelet på kantlöst eller fönsterläge. Den listar bara mikrofonkanaler (gränssnittets ingångar och Windows-enheter), och visar <span class="key">NO MIC CHANNELS</span> när det inte finns några</td>
 </tr>
 <tr>
 <td><strong>En MIDI-kontroller gör ingenting</strong></td>
@@ -20050,12 +20052,12 @@ utdata igen, och din riktiga mikrofon som standardindata, var och en även för 
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-tr" data-hero="{&quot;title&quot;: &quot;Kullanım Kılavuzu&quot;, &quot;version&quot;: &quot;Sürüm 0.1.6 · Windows 10 (2004) veya üstü&quot;, &quot;chrome&quot;: [&quot;Kılavuzda ara&quot;, &quot;ör. kombinatör, cızırtı, kısayol&quot;, &quot;İçindekiler&quot;, &quot;{n} bölüm eşleşiyor&quot;, &quot;1 bölüm eşleşiyor&quot;, &quot;Sonuç yok. Başka bir kelime deneyin.&quot;, &quot;Kanal şeridi, ölçekli. Bir bölüme tıklayın.&quot;, &quot;Dil&quot;, &quot;Büyüt&quot;]}"><div data-part="intro"><p>Faider, büyük bir konsol etrafında kurulmuş, Windows için canlı bir ses yönlendiricisi ve
+<template id="lang-tr" data-hero="{&quot;title&quot;: &quot;Kullanım Kılavuzu&quot;, &quot;version&quot;: &quot;Sürüm 0.2.0 · Windows 10 (2004) veya üstü&quot;, &quot;chrome&quot;: [&quot;Kılavuzda ara&quot;, &quot;ör. kombinatör, cızırtı, kısayol&quot;, &quot;İçindekiler&quot;, &quot;{n} bölüm eşleşiyor&quot;, &quot;1 bölüm eşleşiyor&quot;, &quot;Sonuç yok. Başka bir kelime deneyin.&quot;, &quot;Kanal şeridi, ölçekli. Bir bölüme tıklayın.&quot;, &quot;Dil&quot;, &quot;Büyüt&quot;]}"><div data-part="intro"><p>Faider, büyük bir konsol etrafında kurulmuş, Windows için canlı bir ses yönlendiricisi ve
 mikserdir. Sesi ses arabiriminden, Windows aygıtlarından ve tek tek programlardan alır, kanal
 şeritlerinden, bus'lardan ve çıkışlardan geçirir ve sonucu seçtiğin aygıtlarda çalar: kulaklığın,
 hoparlörlerin, bir yayın, görüşmeler ve oyunlar için sanal bir mikrofon.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">İçindekiler</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>Başlamadan önce</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>İlk kurulum</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Adım 1: Faider'i kur</a></li><li><a href="#step-2-install-vb-cable-optional">Adım 2: VB-CABLE'ı kur (isteğe bağlı)</a></li><li><a href="#step-3-start-faider">Adım 3: Faider'i başlat</a></li><li><a href="#step-4-answer-setups-four-questions">Adım 4: SETUP'ın dört sorusunu yanıtla</a></li><li><a href="#step-5-check-the-audio-is-running">Adım 5: Sesin çalıştığını kontrol et</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Adım 6: Kendini duy ve uygulamaların seni duymasını sağla</a></li><li><a href="#step-7-pro-for-the-whole-console">Adım 7: PRO, konsolun tamamı için</a></li><li><a href="#step-8-run-pre-flight">Adım 8: PRE-FLIGHT'ı çalıştır</a></li><li><a href="#step-9-finish">Adım 9: Bitir</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>İlk kurulum</a><ul class="toc-sub"><li><a href="#step-1-install-faider">Adım 1: Faider'i kur</a></li><li><a href="#step-2-install-vb-cable-optional">Adım 2: VB-CABLE'ı kur (isteğe bağlı)</a></li><li><a href="#step-3-start-faider">Adım 3: Faider'i başlat</a></li><li><a href="#step-4-answer-setups-four-questions">Adım 4: SETUP'ın dört sorusunu yanıtla</a></li><li><a href="#step-5-check-the-audio-is-running">Adım 5: Sesin çalıştığını kontrol et</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">Adım 6: Kendini duy ve uygulamaların seni duymasını sağla</a></li><li><a href="#step-7-the-whole-console-or-compact">Adım 7: Konsolun tamamı ya da COMPACT</a></li><li><a href="#step-8-run-pre-flight">Adım 8: PRE-FLIGHT'ı çalıştır</a></li><li><a href="#step-9-finish">Adım 9: Bitir</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>Pencere</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>Yönlendirme nasıl çalışır</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">Bir sesin yolu</a></li><li><a href="#outputs-are-devices">Çıkışlar aygıttır</a></li><li><a href="#three-places-to-route">Yönlendirmenin üç yeri</a></li><li><a href="#buses">Bus'lar</a></li><li><a href="#combinators">Kombinatörler</a></li><li><a href="#rules-that-keep-it-safe">Her şeyi güvende tutan kurallar</a></li><li><a href="#clocking">Saat</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>Konsol</a></li>
@@ -20351,7 +20353,7 @@ listeler). Çıkışı olmayan bir aygıta bir şey yönlendirirsen o aygıtta b
 <span class="key">DEVICE...</span> (nerede çaldığı) ve <span class="key">HEADPHONE EQ</span> için bir çıkışa sağ tıkla. <span class="key">RENAME...</span>, <span class="key">COLOUR</span>,
 <span class="key">IN THE MINI MIXER</span> ve <span class="key">REMOVE</span> için herhangi bir şeride sağ tıkla. Bir programın kanalını kaldırmak uygulama kuralını da kaldırır, böylece kanal
 kendiliğinden geri gelmez.</p>
-<h3 id="step-7-pro-for-the-whole-console">Adım 7: PRO, konsolun tamamı için</h3>
+<h3 id="step-7-the-whole-console-or-compact">Adım 7: Konsolun tamamı ya da COMPACT</h3>
 <p>Mixer konsolun tamamıdır: her kanalın girişi, filtreleri, dinamikleri ve EQ'su, bus'lar ve
 kombinatörler, eklentiler. Daha küçük bir görünüm için kenar çubuğundaki <span class="key">COMPACT</span> her şeridi ad
 çubuğuna ve fader bölümüne indirir. Tam şeritler için yeniden tıkla (bkz. <a href="#the-sidebar">Kenar çubuğu</a>).</p>
@@ -20452,7 +20454,7 @@ bulunur:</p>
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>Her sayfayı, kanalı, sahneyi, makroyu, pad'i ve komutu ada göre arar</td>
+<td>Her sayfayı, ayarı, kanalı, sahneyi, makroyu, pad'i ve komutu ada göre arar</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -21491,7 +21493,7 @@ yanık olarak açar. Adı ya da anahtar sözcükleri eşleşen bir sayfa ("hotke
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>Arayüzün dili: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, her biri kendi adıyla. İlk açılışta, bunlardan biriyse Windows'un görüntüleme dili, değilse İngilizce kullanılır. Değişiklik bir sonraki açılışta geçerli olur: <span class="key">RESTART NOW</span> Faider'i hemen yeniden başlatır, <span class="key">LATER</span> o zamana bırakır. Masanın tuşları, olay günlüğü ve ürün adları İngilizce kalır</td>
+<td>Arayüzün dili: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文, her biri kendi adıyla. İlk açılışta, bunlardan biriyse Windows'un görüntüleme dili, değilse İngilizce kullanılır. Diller gelmeden önceki bir sürümden güncellenince İngilizce kalır. Değişiklik bir sonraki açılışta geçerli olur: <span class="key">RESTART NOW</span> Faider'i hemen yeniden başlatır, <span class="key">LATER</span> o zamana bırakır. Masanın tuşları, olay günlüğü ve ürün adları İngilizce kalır</td>
 </tr>
 <tr>
 <td></td>
@@ -21541,7 +21543,7 @@ yanık olarak açar. Adı ya da anahtar sözcükleri eşleşen bir sayfa ("hotke
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin <code>Faider/0.1.5</code>); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki <strong>Get Faider x.y.z...</strong>, FIND'daki <strong>GET FAIDER x.y.z</strong> ya da buradaki <strong>Get Faider x.y.z…</strong> sayfasını açar. Kapatırsan Faider asla sormaz.</td>
+<td>Varsayılan olarak açık: günde en fazla bir kez (başlangıçtan yarım dakika sonra ya da çalışmayı sürdürürken bir gün geçince), Faider en yeni sürümünü sormak için GitHub'a tek bir istek gönderir. İstek yalnızca uygulamanın adını ve sürümünü taşır (örneğin <code>Faider/0.2.0</code>); hiçbir şey indirilmez veya kurulmaz. Daha yeni bir sürüm çıkmışsa tepsi bunu söyler ve tepsi menüsündeki <strong>Get Faider x.y.z...</strong>, FIND'daki <strong>GET FAIDER x.y.z</strong> ya da buradaki <strong>Get Faider x.y.z…</strong> sayfasını açar. Kapatırsan Faider asla sormaz.</td>
 </tr>
 <tr>
 <td></td>
@@ -21757,11 +21759,11 @@ olan tuşları ve nerede çalıştıklarını listeler (<a href="#191-keyboard-s
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>Mini mikser: sağ tık menüsünde <span class="key">IN THE MINI MIXER</span> işaretli her şerit için bir fader, ölçer ve <span class="key">CUT</span> olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). <span class="key">PIN</span> onu her şeyin üstünde tutar. <span class="key">OPEN</span> ana pencereye döner</td>
+<td>Mini mikser: sağ tık menüsünde <span class="key">IN THE MINI MIXER</span> işaretli her şerit için bir fader, ölçer ve <span class="key">CUT</span> olan küçük bir pencere (hiçbiri işaretli değilken her çıkışınki). Ölçerleri, masadaki gibi SETTINGS &gt; Audio &gt; Meter standard'a göre yuvarlak LED sütunlarıdır. <span class="key">PIN</span> onu her şeyin üstünde tutar. <span class="key">OPEN</span> ana pencereye döner</td>
 </tr>
 <tr>
 <td><strong>Tepsi</strong></td>
-<td>Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner</td>
+<td>Mini mikser için simgeye tıkla (ikinci bir tık gelmediği anlaşılınca, bir an sonra açılır); pencereyi mini mikser olmadan açmak için çift tıkla. Sağ tık: Show, sahne geri çağırma, Session timeline, Get Faider x.y.z... (daha yeni bir sürüm çıktığında), Boost Windows audio again... (bir boost geri alındığında), Start with Windows, Save a problem report..., About, Quit. Simge bir uyarı sırasında kehribar yanıp söner</td>
 </tr>
 </tbody>
 </table></div>
@@ -21830,7 +21832,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider.</p>
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 Bir bas-konuş tuşu yap</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; mikrofon kanalın.</li>
 <li><span class="key">MOMENTARY</span>'yi aç ve bir <span class="key">HOTKEY</span> ata. Basılı tuttuğun sürece mikrofon açıktır, bırakınca
    yeniden CUT olur. Mikrofon CUT durumundayken başla.</li>
@@ -21849,7 +21851,7 @@ türü arasında taşınır ve yönlendirmeleri onlarla gider.</p>
 <tbody>
 <tr>
 <td><strong>Kaplama görünmüyor</strong></td>
-<td>Ctrl+Shift+O, Windows'un tamamı için geçerli bir kısayoldur. Başka bir uygulama onu tutuyorsa SETTINGS &gt; HOTKEYS onu kırmızıyla işaretler ve olay günlüğü bunu söyler: FIND'daki <span class="key">SHOW OVERLAY</span> kaplamayı tuş olmadan açar. Kaplama, üstte kalan bir penceredir ve kenarlıksız pencerede çalışan bir oyun için yapılmıştır; bu yüzden oyunu kenarlıksız ya da pencereli moda al. Yalnızca mikrofon kanallarını listeler (arabirim girişleri ve Windows aygıtları) ve hiç yoksa <span class="key">NO MIC CHANNELS</span> yazar</td>
+<td>Ctrl+Shift+O, Windows'un tamamı için geçerli bir kısayoldur. Başka bir uygulama onu tutuyorsa SETTINGS &gt; Hotkeys onu kırmızıyla işaretler ve olay günlüğü bunu söyler: FIND'daki <span class="key">SHOW OVERLAY</span> kaplamayı tuş olmadan açar. Kaplama, üstte kalan bir penceredir ve kenarlıksız pencerede çalışan bir oyun için yapılmıştır; bu yüzden oyunu kenarlıksız ya da pencereli moda al. Yalnızca mikrofon kanallarını listeler (arabirim girişleri ve Windows aygıtları) ve hiç yoksa <span class="key">NO MIC CHANNELS</span> yazar</td>
 </tr>
 <tr>
 <td><strong>Bir MIDI kontrol cihazı hiçbir şey yapmıyor</strong></td>
@@ -22219,10 +22221,10 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-ja" data-hero="{&quot;title&quot;: &quot;ユーザーマニュアル&quot;, &quot;version&quot;: &quot;バージョン 0.1.6 · Windows 10 (2004) 以降&quot;, &quot;chrome&quot;: [&quot;マニュアルを検索&quot;, &quot;例：コンビネーター、ノイズ、ホットキー&quot;, &quot;目次&quot;, &quot;{n} 章が一致&quot;, &quot;1 章が一致&quot;, &quot;一致するものがありません。別の語を試してください。&quot;, &quot;チャンネルストリップ（実寸比）。セクションをクリックしてください。&quot;, &quot;言語&quot;, &quot;拡大&quot;]}"><div data-part="intro"><p>Faider は、大型コンソールをモデルにした Windows 用のライブオーディオルーター兼ミキサーです。
+<template id="lang-ja" data-hero="{&quot;title&quot;: &quot;ユーザーマニュアル&quot;, &quot;version&quot;: &quot;バージョン 0.2.0 · Windows 10 (2004) 以降&quot;, &quot;chrome&quot;: [&quot;マニュアルを検索&quot;, &quot;例：コンビネーター、ノイズ、ホットキー&quot;, &quot;目次&quot;, &quot;{n} 章が一致&quot;, &quot;1 章が一致&quot;, &quot;一致するものがありません。別の語を試してください。&quot;, &quot;チャンネルストリップ（実寸比）。セクションをクリックしてください。&quot;, &quot;言語&quot;, &quot;拡大&quot;]}"><div data-part="intro"><p>Faider は、大型コンソールをモデルにした Windows 用のライブオーディオルーター兼ミキサーです。
 オーディオインターフェース、Windows のデバイス、個々のプログラムから音を受け取り、チャンネルストリップ、バス、出力に通して、選んだデバイスで再生します。ヘッドホン、スピーカー、配信、通話やゲーム用の仮想マイクなど、行き先は自由です。</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">目次</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>始める前に</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>初回セットアップ</a><ul class="toc-sub"><li><a href="#step-1-install-faider">ステップ 1: Faider をインストールする</a></li><li><a href="#step-2-install-vb-cable-optional">ステップ 2: VB-CABLE をインストールする(任意)</a></li><li><a href="#step-3-start-faider">ステップ 3: Faider を起動する</a></li><li><a href="#step-4-answer-setups-four-questions">ステップ 4: SETUP の 4 つの質問に答える</a></li><li><a href="#step-5-check-the-audio-is-running">ステップ 5: オーディオが動いているか確認する</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">ステップ 6: 自分の声を聞き、アプリにも聞かせる</a></li><li><a href="#step-7-pro-for-the-whole-console">ステップ 7: PRO で、コンソール全体を使う</a></li><li><a href="#step-8-run-pre-flight">ステップ 8: PRE-FLIGHT を実行する</a></li><li><a href="#step-9-finish">ステップ 9: 仕上げ</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>初回セットアップ</a><ul class="toc-sub"><li><a href="#step-1-install-faider">ステップ 1: Faider をインストールする</a></li><li><a href="#step-2-install-vb-cable-optional">ステップ 2: VB-CABLE をインストールする(任意)</a></li><li><a href="#step-3-start-faider">ステップ 3: Faider を起動する</a></li><li><a href="#step-4-answer-setups-four-questions">ステップ 4: SETUP の 4 つの質問に答える</a></li><li><a href="#step-5-check-the-audio-is-running">ステップ 5: オーディオが動いているか確認する</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">ステップ 6: 自分の声を聞き、アプリにも聞かせる</a></li><li><a href="#step-7-the-whole-console-or-compact">ステップ 7: コンソール全体と COMPACT</a></li><li><a href="#step-8-run-pre-flight">ステップ 8: PRE-FLIGHT を実行する</a></li><li><a href="#step-9-finish">ステップ 9: 仕上げ</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>ウィンドウ</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>ルーティングの仕組み</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">音の通り道</a></li><li><a href="#outputs-are-devices">出力はデバイス</a></li><li><a href="#three-places-to-route">ルーティングする 3 つの場所</a></li><li><a href="#buses">バス</a></li><li><a href="#combinators">コンバイネーター</a></li><li><a href="#rules-that-keep-it-safe">安全のためのルール</a></li><li><a href="#clocking">クロック</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>コンソール</a></li>
@@ -22469,7 +22471,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <p>プログラムが二重に聞こえるときは、<a href="#187-i-hear-something-twice-or-an-echo">18.7</a> を参照してください。</p>
 <p>サイドバーの <span class="key">ADD CHANNEL</span> と <span class="key">ADD APP</span> でチャンネルを追加します(<span class="key">ADD APP</span> には、実行中で <span class="key">NOT PLAYING YET</span> のプログラムも並びます)。出力のないデバイスに何かをルーティングすると、そのデバイスに出力が作られます。出力を右クリックすると、<span class="key">DEVICE...</span>(再生先)と <span class="key">HEADPHONE EQ</span> が使えます。どのストリップでも、右クリックすると <span class="key">RENAME...</span>、<span class="key">COLOUR</span>、<span class="key">IN THE MINI MIXER</span>、<span class="key">REMOVE</span> が使えます。プログラムのチャンネルを削除すると、そのアプリルールも削除されるので、チャンネルが自動で戻ることはありません。</p>
-<h3 id="step-7-pro-for-the-whole-console">ステップ 7: PRO で、コンソール全体を使う</h3>
+<h3 id="step-7-the-whole-console-or-compact">ステップ 7: コンソール全体と COMPACT</h3>
 <p>ミキサーはコンソール全体です。各チャンネルの入力、フィルター、ダイナミクス、EQ、バスとコンバイネーター、プラグインを操作できます。小さく表示したいときは、サイドバーの <span class="key">COMPACT</span> で、すべてのストリップを名前バーとフェーダー部だけに折りたたみます。もう一度クリックすると、元のストリップに戻ります(<a href="#the-sidebar">サイドバー</a> を参照)。</p>
 <p>マイクの音を整えるには、<a href="#171-hear-yourself-set-up-a-microphone">17.1</a> を参照してください。すべてのコントロールは <a href="#6-the-channel-strip-section-by-section">6</a> にあります。</p>
 <h3 id="step-8-run-pre-flight">ステップ 8: PRE-FLIGHT を実行する</h3>
@@ -22556,7 +22558,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>すべてのページ、チャンネル、シーン、マクロ、パッド、コマンドを名前で検索します</td>
+<td>すべてのページ、設定、チャンネル、シーン、マクロ、パッド、コマンドを名前で検索します</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -23475,7 +23477,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>インターフェースの言語: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(それぞれの言語での名前で表示)。初回起動時は、Windows の表示言語がこのいずれかならそれに従い、そうでなければ英語になります。変更は次回の起動から有効です。<span class="key">RESTART NOW</span> で Faider をすぐに再起動し、<span class="key">LATER</span> でそのときまで保留します。デスクのキー、イベントログ、製品名は英語のままです</td>
+<td>インターフェースの言語: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(それぞれの言語での名前で表示)。初回起動時は、Windows の表示言語がこのいずれかならそれに従い、そうでなければ英語になります。言語対応より前のバージョンから更新した場合は、英語のままです。変更は次回の起動から有効です。<span class="key">RESTART NOW</span> で Faider をすぐに再起動し、<span class="key">LATER</span> でそのときまで保留します。デスクのキー、イベントログ、製品名は英語のままです</td>
 </tr>
 <tr>
 <td></td>
@@ -23525,7 +23527,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>既定でオン: 多くても 1 日に 1 回(起動の 30 秒後、または起動したまま 1 日たったとき)、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: <code>Faider/0.1.5</code>)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの <strong>Get Faider x.y.z...</strong>、FIND の <strong>GET FAIDER x.y.z</strong>、またはここの <strong>Get Faider x.y.z…</strong> でそのページが開きます。オフにすると、Faider は一切尋ねません。</td>
+<td>既定でオン: 多くても 1 日に 1 回(起動の 30 秒後、または起動したまま 1 日たったとき)、Faider は最新リリースを尋ねるリクエストを GitHub に 1 つ送ります。リクエストに含まれるのはアプリの名前とバージョン(例: <code>Faider/0.2.0</code>)だけで、何もダウンロードもインストールもされません。新しいバージョンが出ていればトレイが知らせ、トレイメニューの <strong>Get Faider x.y.z...</strong>、FIND の <strong>GET FAIDER x.y.z</strong>、またはここの <strong>Get Faider x.y.z…</strong> でそのページが開きます。オフにすると、Faider は一切尋ねません。</td>
 </tr>
 <tr>
 <td></td>
@@ -23716,11 +23718,11 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>ミニミキサー: 右クリックメニューで <span class="key">IN THE MINI MIXER</span> にチェックした各ストリップのフェーダー、メーター、<span class="key">CUT</span> がある小さなウィンドウ(チェックしたものがなければ、各出力のもの)。<span class="key">PIN</span> で、すべての上に固定されます。<span class="key">OPEN</span> でメインウィンドウに戻ります</td>
+<td>ミニミキサー: 右クリックメニューで <span class="key">IN THE MINI MIXER</span> にチェックした各ストリップのフェーダー、メーター、<span class="key">CUT</span> がある小さなウィンドウ(チェックしたものがなければ、各出力のもの)。メーターはデスクと同じく丸い LED の列で、SETTINGS &gt; Audio &gt; Meter standard に従います。<span class="key">PIN</span> で、すべての上に固定されます。<span class="key">OPEN</span> でメインウィンドウに戻ります</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>アイコンをクリックするとミニミキサー(2 回目のクリックが続かないと分かった一瞬あとに開きます)、ダブルクリックするとウィンドウだけが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します</td>
+<td>アイコンをクリックするとミニミキサー(2 回目のクリックが続かないと分かった一瞬あとに開きます)、ダブルクリックするとウィンドウだけが開きます。右クリック: Show、シーンの呼び出し、Session timeline、Get Faider x.y.z...(新しいバージョンが出ているとき)、Boost Windows audio again...(ブーストが元に戻されたとき)、Start with Windows、Save a problem report...、About、Quit。警告中は、アイコンが琥珀色に点滅します</td>
 </tr>
 </tbody>
 </table></div>
@@ -23777,7 +23779,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 プッシュトゥトークのキーを作る</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>。</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>。</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; マイクのチャンネル。</li>
 <li><span class="key">MOMENTARY</span> をオンにし、<span class="key">HOTKEY</span> を設定します。押している間はマイクがオンになり、離すとまた CUT されます。マイクを CUT にした状態から始めてください。</li>
 </ol>
@@ -23795,7 +23797,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><strong>オーバーレイが表示されない</strong></td>
-<td>Ctrl+Shift+O は Windows 全体のホットキーです。他のアプリが使っている場合は、SETTINGS &gt; HOTKEYS が赤で示し、イベントログにも記録されます。FIND の <span class="key">SHOW OVERLAY</span> なら、キーなしでオーバーレイを開けます。オーバーレイは最前面に表示されるウィンドウで、ボーダーレスウィンドウのゲーム向けに作られています。ゲームをボーダーレスまたはウィンドウ表示にしてください。一覧に出るのはマイクのチャンネルだけ(インターフェースの入力と Windows のデバイス)で、1 つもないときは <span class="key">NO MIC CHANNELS</span> と表示されます</td>
+<td>Ctrl+Shift+O は Windows 全体のホットキーです。他のアプリが使っている場合は、SETTINGS &gt; Hotkeys が赤で示し、イベントログにも記録されます。FIND の <span class="key">SHOW OVERLAY</span> なら、キーなしでオーバーレイを開けます。オーバーレイは最前面に表示されるウィンドウで、ボーダーレスウィンドウのゲーム向けに作られています。ゲームをボーダーレスまたはウィンドウ表示にしてください。一覧に出るのはマイクのチャンネルだけ(インターフェースの入力と Windows のデバイス)で、1 つもないときは <span class="key">NO MIC CHANNELS</span> と表示されます</td>
 </tr>
 <tr>
 <td><span class="key">MIDI コントローラーが何もしない</span></td>
@@ -24121,10 +24123,10 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-ko" data-hero="{&quot;title&quot;: &quot;사용자 설명서&quot;, &quot;version&quot;: &quot;버전 0.1.6 · Windows 10 (2004) 이상&quot;, &quot;chrome&quot;: [&quot;설명서 검색&quot;, &quot;예: 컴비네이터, 잡음, 단축키&quot;, &quot;목차&quot;, &quot;{n}개 장이 일치합니다&quot;, &quot;1개 장이 일치합니다&quot;, &quot;일치하는 항목이 없습니다. 다른 단어를 입력해 보세요.&quot;, &quot;채널 스트립(실제 비율). 섹션을 클릭하세요.&quot;, &quot;언어&quot;, &quot;확대&quot;]}"><div data-part="intro"><p>Faider은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우터 겸 믹서입니다.
+<template id="lang-ko" data-hero="{&quot;title&quot;: &quot;사용자 설명서&quot;, &quot;version&quot;: &quot;버전 0.2.0 · Windows 10 (2004) 이상&quot;, &quot;chrome&quot;: [&quot;설명서 검색&quot;, &quot;예: 컴비네이터, 잡음, 단축키&quot;, &quot;목차&quot;, &quot;{n}개 장이 일치합니다&quot;, &quot;1개 장이 일치합니다&quot;, &quot;일치하는 항목이 없습니다. 다른 단어를 입력해 보세요.&quot;, &quot;채널 스트립(실제 비율). 섹션을 클릭하세요.&quot;, &quot;언어&quot;, &quot;확대&quot;]}"><div data-part="intro"><p>Faider은 대형 콘솔을 모델로 한 Windows용 라이브 오디오 라우터 겸 믹서입니다.
 오디오 인터페이스, Windows 장치, 개별 프로그램에서 소리를 받아 채널 스트립, 버스, 출력을 거친 뒤, 선택한 장치로 재생합니다. 헤드폰, 스피커, 방송, 통화와 게임용 가상 마이크 등 어디든 보낼 수 있습니다.</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">목차</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>시작하기 전에</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>처음 설정하기</a><ul class="toc-sub"><li><a href="#step-1-install-faider">1단계: Faider 설치</a></li><li><a href="#step-2-install-vb-cable-optional">2단계: VB-CABLE 설치(선택 사항)</a></li><li><a href="#step-3-start-faider">3단계: Faider 시작</a></li><li><a href="#step-4-answer-setups-four-questions">4단계: SETUP의 네 가지 질문에 답하기</a></li><li><a href="#step-5-check-the-audio-is-running">5단계: 오디오가 실행 중인지 확인</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">6단계: 내 소리 듣기, 앱이 내 소리 듣게 하기</a></li><li><a href="#step-7-pro-for-the-whole-console">7단계: PRO, 콘솔 전체 사용하기</a></li><li><a href="#step-8-run-pre-flight">8단계: PRE-FLIGHT 실행</a></li><li><a href="#step-9-finish">9단계: 마무리</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>처음 설정하기</a><ul class="toc-sub"><li><a href="#step-1-install-faider">1단계: Faider 설치</a></li><li><a href="#step-2-install-vb-cable-optional">2단계: VB-CABLE 설치(선택 사항)</a></li><li><a href="#step-3-start-faider">3단계: Faider 시작</a></li><li><a href="#step-4-answer-setups-four-questions">4단계: SETUP의 네 가지 질문에 답하기</a></li><li><a href="#step-5-check-the-audio-is-running">5단계: 오디오가 실행 중인지 확인</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">6단계: 내 소리 듣기, 앱이 내 소리 듣게 하기</a></li><li><a href="#step-7-the-whole-console-or-compact">7단계: 콘솔 전체와 COMPACT</a></li><li><a href="#step-8-run-pre-flight">8단계: PRE-FLIGHT 실행</a></li><li><a href="#step-9-finish">9단계: 마무리</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>창</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>라우팅 작동 방식</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">소리의 경로</a></li><li><a href="#outputs-are-devices">출력은 장치입니다</a></li><li><a href="#three-places-to-route">라우팅하는 세 곳</a></li><li><a href="#buses">버스</a></li><li><a href="#combinators">컴바이너</a></li><li><a href="#rules-that-keep-it-safe">안전을 지키는 규칙</a></li><li><a href="#clocking">클럭</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>콘솔</a></li>
@@ -24371,7 +24373,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <p>프로그램 소리가 두 번 들리면 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>을 참조하세요.</p>
 <p>사이드바의 <span class="key">ADD CHANNEL</span>과 <span class="key">ADD APP</span>은 채널을 추가합니다(<span class="key">ADD APP</span>에는 실행 중이지만 <span class="key">NOT PLAYING YET</span>인 프로그램도 나열됩니다). 출력이 없는 장치로 무언가를 라우팅하면 그 장치에 출력이 만들어집니다. 출력을 마우스 오른쪽 단추로 누르면 <span class="key">DEVICE...</span>(재생 위치)와 <span class="key">HEADPHONE EQ</span>를 쓸 수 있습니다. 어느 스트립이든 마우스 오른쪽 단추로 누르면 <span class="key">RENAME...</span>, <span class="key">COLOUR</span>, <span class="key">IN THE MINI MIXER</span>, <span class="key">REMOVE</span>를 쓸 수 있습니다. 프로그램의 채널을 삭제하면 그 앱 규칙도 삭제되므로 채널이 저절로 돌아오지 않습니다.</p>
-<h3 id="step-7-pro-for-the-whole-console">7단계: PRO, 콘솔 전체 사용하기</h3>
+<h3 id="step-7-the-whole-console-or-compact">7단계: 콘솔 전체와 COMPACT</h3>
 <p>믹서는 콘솔 전체입니다. 각 채널의 입력, 필터, 다이내믹스, EQ, 버스와 컴바이너, 플러그인을 다룹니다. 더 작게 보려면 사이드바의 <span class="key">COMPACT</span>로 모든 스트립을 이름 막대와 페이더 섹션만 남기고 접습니다. 다시 누르면 전체 스트립으로 돌아옵니다(<a href="#the-sidebar">사이드바</a> 참조).</p>
 <p>마이크 소리를 다듬으려면 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>을 참조하세요. 모든 컨트롤은 <a href="#6-the-channel-strip-section-by-section">6</a>에 있습니다.</p>
 <h3 id="step-8-run-pre-flight">8단계: PRE-FLIGHT 실행</h3>
@@ -24458,7 +24460,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>모든 페이지, 채널, 씬, 매크로, 패드, 명령을 이름으로 검색합니다</td>
+<td>모든 페이지, 설정, 채널, 씬, 매크로, 패드, 명령을 이름으로 검색합니다</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -25377,7 +25379,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>인터페이스의 언어: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(각 언어의 고유 이름으로 표시). 첫 실행 때는 Windows의 표시 언어가 이 중 하나이면 그것을 따르고, 아니면 영어입니다. 변경은 다음 실행부터 적용됩니다. <span class="key">RESTART NOW</span>는 Faider을 바로 다시 시작하고, <span class="key">LATER</span>는 그때까지 보류합니다. 데스크의 키, 이벤트 로그, 제품 이름은 영어로 남습니다</td>
+<td>인터페이스의 언어: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文(각 언어의 고유 이름으로 표시). 첫 실행 때는 Windows의 표시 언어가 이 중 하나이면 그것을 따르고, 아니면 영어입니다. 언어 기능 이전 버전에서 업데이트하면 영어로 남습니다. 변경은 다음 실행부터 적용됩니다. <span class="key">RESTART NOW</span>는 Faider을 바로 다시 시작하고, <span class="key">LATER</span>는 그때까지 보류합니다. 데스크의 키, 이벤트 로그, 제품 이름은 영어로 남습니다</td>
 </tr>
 <tr>
 <td></td>
@@ -25427,7 +25429,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>기본값은 켜짐: 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: <code>Faider/0.1.5</code>)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 <strong>Get Faider x.y.z...</strong>, FIND의 <strong>GET FAIDER x.y.z</strong>, 또는 여기의 <strong>Get Faider x.y.z…</strong>로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다.</td>
+<td>기본값은 켜짐: 하루에 많아야 한 번(시작하고 30초 뒤, 또는 켜 둔 채로 하루가 지났을 때), Faider은 최신 릴리스를 묻는 요청 하나를 GitHub에 보냅니다. 요청에는 앱 이름과 버전(예: <code>Faider/0.2.0</code>)만 담기며, 아무것도 다운로드하거나 설치하지 않습니다. 새 버전이 나와 있으면 트레이가 알려 주고, 트레이 메뉴의 <strong>Get Faider x.y.z...</strong>, FIND의 <strong>GET FAIDER x.y.z</strong>, 또는 여기의 <strong>Get Faider x.y.z…</strong>로 그 페이지가 열립니다. 끄면 Faider은 절대 묻지 않습니다.</td>
 </tr>
 <tr>
 <td></td>
@@ -25618,11 +25620,11 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>미니 믹서: 마우스 오른쪽 단추 메뉴에서 <span class="key">IN THE MINI MIXER</span>에 체크한 각 스트립의 페이더, 미터, <span class="key">CUT</span>이 있는 작은 창(체크한 것이 없으면 각 출력의 것). <span class="key">PIN</span>을 켜면 모든 것 위에 고정됩니다. <span class="key">OPEN</span>은 메인 창으로 돌아갑니다</td>
+<td>미니 믹서: 마우스 오른쪽 단추 메뉴에서 <span class="key">IN THE MINI MIXER</span>에 체크한 각 스트립의 페이더, 미터, <span class="key">CUT</span>이 있는 작은 창(체크한 것이 없으면 각 출력의 것). 미터는 데스크와 같이 둥근 LED 줄이며 SETTINGS &gt; Audio &gt; Meter standard를 따릅니다. <span class="key">PIN</span>을 켜면 모든 것 위에 고정됩니다. <span class="key">OPEN</span>은 메인 창으로 돌아갑니다</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>아이콘을 누르면 미니 믹서(두 번째 클릭이 이어지지 않으면 잠시 뒤에 열립니다), 더블클릭하면 미니 믹서 없이 창만 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다</td>
+<td>아이콘을 누르면 미니 믹서(두 번째 클릭이 이어지지 않으면 잠시 뒤에 열립니다), 더블클릭하면 미니 믹서 없이 창만 열립니다. 마우스 오른쪽 단추: Show, 씬 불러오기, Session timeline, Get Faider x.y.z...(새 버전이 나와 있을 때), Boost Windows audio again...(부스트가 풀렸을 때), Start with Windows, Save a problem report..., About, Quit. 경고 중에는 아이콘이 주황색으로 깜박입니다</td>
 </tr>
 </tbody>
 </table></div>
@@ -25679,7 +25681,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 푸시 투 토크 키 만들기</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>.</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>.</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; 마이크 채널.</li>
 <li><span class="key">MOMENTARY</span>를 켜고 <span class="key">HOTKEY</span>를 설정합니다. 누르고 있는 동안 마이크가 켜지고, 놓으면 다시 CUT됩니다. 마이크를 CUT한 상태로 시작하세요.</li>
 </ol>
@@ -25697,7 +25699,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><strong>오버레이가 나타나지 않음</strong></td>
-<td>Ctrl+Shift+O는 Windows 전체에 적용되는 단축키입니다. 다른 앱이 쓰고 있으면 SETTINGS &gt; HOTKEYS에 빨간색으로 표시되고 이벤트 로그에도 기록됩니다. FIND의 <span class="key">SHOW OVERLAY</span>로 키 없이 오버레이를 열 수 있습니다. 오버레이는 맨 위에 머무는 창이며 테두리 없는 창으로 실행되는 게임에 맞춰 만들어졌으므로, 게임을 테두리 없는 창 모드나 창 모드로 설정하세요. 마이크 채널(인터페이스 입력과 Windows 장치)만 나열하며, 하나도 없으면 <span class="key">NO MIC CHANNELS</span>라고 표시됩니다</td>
+<td>Ctrl+Shift+O는 Windows 전체에 적용되는 단축키입니다. 다른 앱이 쓰고 있으면 SETTINGS &gt; Hotkeys에 빨간색으로 표시되고 이벤트 로그에도 기록됩니다. FIND의 <span class="key">SHOW OVERLAY</span>로 키 없이 오버레이를 열 수 있습니다. 오버레이는 맨 위에 머무는 창이며 테두리 없는 창으로 실행되는 게임에 맞춰 만들어졌으므로, 게임을 테두리 없는 창 모드나 창 모드로 설정하세요. 마이크 채널(인터페이스 입력과 Windows 장치)만 나열하며, 하나도 없으면 <span class="key">NO MIC CHANNELS</span>라고 표시됩니다</td>
 </tr>
 <tr>
 <td><span class="key">MIDI 컨트롤러가 아무 동작도 하지 않음</span></td>
@@ -26023,10 +26025,10 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 </tbody>
 </table></div></section></div></template>
-<template id="lang-zh-Hans" data-hero="{&quot;title&quot;: &quot;用户手册&quot;, &quot;version&quot;: &quot;版本 0.1.6 · Windows 10 (2004) 或更高版本&quot;, &quot;chrome&quot;: [&quot;搜索手册&quot;, &quot;例如：组合器、爆音、快捷键&quot;, &quot;目录&quot;, &quot;{n} 章匹配&quot;, &quot;1 章匹配&quot;, &quot;没有匹配结果，请换个词试试。&quot;, &quot;通道条（按比例）。点击某一部分。&quot;, &quot;语言&quot;, &quot;放大&quot;]}"><div data-part="intro"><p>Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台为蓝本。
+<template id="lang-zh-Hans" data-hero="{&quot;title&quot;: &quot;用户手册&quot;, &quot;version&quot;: &quot;版本 0.2.0 · Windows 10 (2004) 或更高版本&quot;, &quot;chrome&quot;: [&quot;搜索手册&quot;, &quot;例如：组合器、爆音、快捷键&quot;, &quot;目录&quot;, &quot;{n} 章匹配&quot;, &quot;1 章匹配&quot;, &quot;没有匹配结果，请换个词试试。&quot;, &quot;通道条（按比例）。点击某一部分。&quot;, &quot;语言&quot;, &quot;放大&quot;]}"><div data-part="intro"><p>Faider 是一款 Windows 实时音频路由器兼调音台，以大型调音台为蓝本。
 它从你的音频接口、Windows 设备和各个程序获取声音，经过通道条、总线和输出处理，再从你选择的任何设备播放：耳机、音箱、直播，或是用于通话和游戏的虚拟麦克风。</p></div><nav data-part="toc"><li><a href="#contents"><span class="toc-num">目录</span></a></li>
 <li><a href="#1-before-you-start"><span class="toc-num">1</span>开始之前</a></li>
-<li><a href="#2-first-time-setup"><span class="toc-num">2</span>首次设置</a><ul class="toc-sub"><li><a href="#step-1-install-faider">步骤 1：安装 Faider</a></li><li><a href="#step-2-install-vb-cable-optional">步骤 2：安装 VB-CABLE(可选)</a></li><li><a href="#step-3-start-faider">步骤 3：启动 Faider</a></li><li><a href="#step-4-answer-setups-four-questions">步骤 4：回答 SETUP 的四个问题</a></li><li><a href="#step-5-check-the-audio-is-running">步骤 5：检查音频是否在运行</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">步骤 6：听到自己，也让应用听到你</a></li><li><a href="#step-7-pro-for-the-whole-console">步骤 7：PRO，整个调音台</a></li><li><a href="#step-8-run-pre-flight">步骤 8：运行 PRE-FLIGHT</a></li><li><a href="#step-9-finish">步骤 9：完成</a></li></ul></li>
+<li><a href="#2-first-time-setup"><span class="toc-num">2</span>首次设置</a><ul class="toc-sub"><li><a href="#step-1-install-faider">步骤 1：安装 Faider</a></li><li><a href="#step-2-install-vb-cable-optional">步骤 2：安装 VB-CABLE(可选)</a></li><li><a href="#step-3-start-faider">步骤 3：启动 Faider</a></li><li><a href="#step-4-answer-setups-four-questions">步骤 4：回答 SETUP 的四个问题</a></li><li><a href="#step-5-check-the-audio-is-running">步骤 5：检查音频是否在运行</a></li><li><a href="#step-6-hear-yourself-and-let-apps-hear-you">步骤 6：听到自己，也让应用听到你</a></li><li><a href="#step-7-the-whole-console-or-compact">步骤 7：整个调音台，或 COMPACT</a></li><li><a href="#step-8-run-pre-flight">步骤 8：运行 PRE-FLIGHT</a></li><li><a href="#step-9-finish">步骤 9：完成</a></li></ul></li>
 <li><a href="#3-the-window"><span class="toc-num">3</span>窗口</a></li>
 <li><a href="#4-how-routing-works"><span class="toc-num">4</span>路由的工作原理</a><ul class="toc-sub"><li><a href="#the-path-of-a-sound">声音的路径</a></li><li><a href="#outputs-are-devices">输出就是设备</a></li><li><a href="#three-places-to-route">三个路由的位置</a></li><li><a href="#buses">总线</a></li><li><a href="#combinators">组合器</a></li><li><a href="#rules-that-keep-it-safe">保证安全的规则</a></li><li><a href="#clocking">时钟</a></li></ul></li>
 <li><a href="#5-the-console"><span class="toc-num">5</span>调音台</a></li>
@@ -26273,7 +26275,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <p>如果你听到某个程序两遍，见 <a href="#187-i-hear-something-twice-or-an-echo">18.7</a>。</p>
 <p>侧边栏中的 <span class="key">ADD CHANNEL</span> 和 <span class="key">ADD APP</span> 添加通道(<span class="key">ADD APP</span> 还会列出正在运行但 <span class="key">NOT PLAYING YET</span> 的程序)。把某个声音路由到还没有输出的设备，就会在该设备上建立输出。右键点击输出可使用 <span class="key">DEVICE...</span>(它在哪里播放)和 <span class="key">HEADPHONE EQ</span>。右键点击任何通道条可使用 <span class="key">RENAME...</span>、<span class="key">COLOUR</span>、<span class="key">IN THE MINI MIXER</span> 和 <span class="key">REMOVE</span>。删除程序的通道也会删除它的应用规则，所以通道不会自己回来。</p>
-<h3 id="step-7-pro-for-the-whole-console">步骤 7：PRO，整个调音台</h3>
+<h3 id="step-7-the-whole-console-or-compact">步骤 7：整个调音台，或 COMPACT</h3>
 <p>调音台就是整个控制台：每个通道的输入、滤波器、动态和 EQ、总线和组合器、插件。想要更小的视图，侧边栏中的 <span class="key">COMPACT</span> 会把每条通道条折叠成只剩名称栏和推子部分。再点一次恢复完整的通道条(见<a href="#the-sidebar">侧边栏</a>)。</p>
 <p>要调整你的麦克风，见 <a href="#171-hear-yourself-set-up-a-microphone">17.1</a>。每个控件都在 <a href="#6-the-channel-strip-section-by-section">6</a> 中。</p>
 <h3 id="step-8-run-pre-flight">步骤 8：运行 PRE-FLIGHT</h3>
@@ -26360,7 +26362,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">FIND</span> (Ctrl+K)</td>
-<td>按名称搜索每个页面、通道、场景、宏、打击垫和命令</td>
+<td>按名称搜索每个页面、设置、通道、场景、宏、打击垫和命令</td>
 </tr>
 <tr>
 <td><span class="key">HISTORY</span> (Ctrl+H)</td>
@@ -27278,7 +27280,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>General</strong></td>
 <td><strong>Language</strong></td>
-<td>界面的语言：English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文，各以其本身的名称显示。首次启动时，如果 Windows 的显示语言是其中之一就跟随它，否则为英语。更改从下次启动起生效：<span class="key">RESTART NOW</span> 立即重启 Faider，<span class="key">LATER</span> 留到那时。调音台的按键、事件日志和产品名称保持英文</td>
+<td>界面的语言：English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe, 简体中文，各以其本身的名称显示。首次启动时，如果 Windows 的显示语言是其中之一就跟随它，否则为英语。从支持多语言之前的版本更新时，保持英语。更改从下次启动起生效：<span class="key">RESTART NOW</span> 立即重启 Faider，<span class="key">LATER</span> 留到那时。调音台的按键、事件日志和产品名称保持英文</td>
 </tr>
 <tr>
 <td></td>
@@ -27328,7 +27330,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tr>
 <td><strong>Updates &amp; about</strong></td>
 <td><strong>Check for updates</strong></td>
-<td>默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 <code>Faider/0.1.5</code>)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 <strong>Get Faider x.y.z...</strong>、FIND 中的 <strong>GET FAIDER x.y.z</strong> 或这里的 <strong>Get Faider x.y.z…</strong> 会打开它的页面。关闭后，Faider 从不询问。</td>
+<td>默认开启：每天最多一次(启动半分钟后，或在持续运行期间满一天时)，Faider 向 GitHub 发送一个请求，询问它的最新版本。该请求只带有应用的名称和版本(例如 <code>Faider/0.2.0</code>)；不会下载或安装任何东西。如果有新版本，托盘会告诉你，托盘菜单上的 <strong>Get Faider x.y.z...</strong>、FIND 中的 <strong>GET FAIDER x.y.z</strong> 或这里的 <strong>Get Faider x.y.z…</strong> 会打开它的页面。关闭后，Faider 从不询问。</td>
 </tr>
 <tr>
 <td></td>
@@ -27519,11 +27521,11 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </tr>
 <tr>
 <td><span class="key">MINI</span></td>
-<td>迷你调音台：一个小窗口，为右键菜单中勾选了 <span class="key">IN THE MINI MIXER</span> 的每个通道条提供推子、电平表和 <span class="key">CUT</span>(都没勾选时为每个输出提供)。<span class="key">PIN</span> 让它保持在所有窗口之上。<span class="key">OPEN</span> 返回主窗口</td>
+<td>迷你调音台：一个小窗口，为右键菜单中勾选了 <span class="key">IN THE MINI MIXER</span> 的每个通道条提供推子、电平表和 <span class="key">CUT</span>(都没勾选时为每个输出提供)。其电平表与调音台上一样是一列列圆形 LED，按 SETTINGS &gt; Audio &gt; Meter standard 显示。<span class="key">PIN</span> 让它保持在所有窗口之上。<span class="key">OPEN</span> 返回主窗口</td>
 </tr>
 <tr>
 <td><strong>Tray</strong></td>
-<td>点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色</td>
+<td>点击图标显示迷你调音台(稍等片刻、确认没有第二次点击后才打开)，双击只打开窗口。右键点击：Show、场景调用、Session timeline、Get Faider x.y.z...(有新版本时)、Boost Windows audio again...(提升被撤销时)、Start with Windows、Save a problem report...、About、Quit。出现警报时图标闪烁琥珀色</td>
 </tr>
 </tbody>
 </table></div>
@@ -27580,7 +27582,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 </ol>
 <h3 id="179-make-a-push-to-talk-key">17.9 制作按键通话键</h3>
 <ol>
-<li>SETTINGS &gt; MACROS &gt; <span class="key">+ NEW</span>。</li>
+<li>SETTINGS &gt; <strong>Macros</strong> &gt; <span class="key">+ NEW</span>。</li>
 <li><span class="key">+ ACTION</span> &gt; <span class="key">UNCUT</span> &gt; 你的麦克风通道。</li>
 <li>打开 <span class="key">MOMENTARY</span> 并设置一个 <span class="key">HOTKEY</span>。按住它时麦克风是开着的，松开后又会被 CUT。请从麦克风被 CUT 的状态开始。</li>
 </ol>
@@ -27598,7 +27600,7 @@ DEFAULTS</strong> satırı ya da FIND'da <span class="key">WINDOWS DEFAULTS</spa
 <tbody>
 <tr>
 <td><strong>悬浮层不显示</strong></td>
-<td>Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS &gt; HOTKEYS 会把它标为红色，事件日志也会说明：FIND 中的 <span class="key">SHOW OVERLAY</span> 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 <span class="key">NO MIC CHANNELS</span></td>
+<td>Ctrl+Shift+O 是整个 Windows 范围的快捷键。如果它被其他应用占用，SETTINGS &gt; Hotkeys 会把它标为红色，事件日志也会说明：FIND 中的 <span class="key">SHOW OVERLAY</span> 无需按键即可打开悬浮层。悬浮层是一个保持置顶的窗口，为无边框窗口中的游戏而设计，所以请把游戏设为无边框或窗口模式。它只列出麦克风通道(接口输入和 Windows 设备)，一个都没有时显示 <span class="key">NO MIC CHANNELS</span></td>
 </tr>
 <tr>
 <td><span class="key">MIDI 控制器没有反应</span></td>

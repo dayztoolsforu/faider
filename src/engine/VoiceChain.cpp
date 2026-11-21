@@ -219,7 +219,7 @@ void VoiceChain::prepareToPlay (double sampleRate, int maxBlock)
     for (auto* bank : { &keyHpGate, &keyLpGate, &keyHpComp, &keyLpComp })
         for (auto& f : *bank)
             f.reset();
-    for (auto* bank : { &highPass, &highPass2, &lowPass, &low, &mid, &mid2, &high, &sibilance, &splitHigh })
+    for (auto* bank : { &highPass, &highPass2, &lowPass, &low, &mid, &mid2, &high, &sibilance, &splitHigh, &splitHigh2, &splitLow, &splitLow2 })
         for (auto& f : *bank)
             f.reset();
     gateEnv = compEnv = deessEnv = compRmsSq = 0.0f;
@@ -300,7 +300,9 @@ void VoiceChain::updateFilters()
     if (changed ({ 13 }))
     {
         setBoth (sibilance, C::makeBandPass (rate, hz (now[13]), 2.0));
-        setBoth (splitHigh, C::makeHighPass (rate, hz (now[13]) * 0.7, 0.707));
+        const double split = hz (now[13]) * 0.7;
+        for (auto* f : { &splitHigh, &splitHigh2 }) setBoth (*f, C::makeHighPass (rate, split, 0.7071));
+        for (auto* f : { &splitLow, &splitLow2 })   setBoth (*f, C::makeLowPass (rate, split, 0.7071));
     }
     // The sidechain's filters (each detector its own, so each runs once a block).
     // (FLT DYN S-C: the channel's own filters are the sidechain's)
@@ -672,7 +674,8 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
         mark (markEq, afterEq);
         if (deessOn)
         {
-            // The sibilance band sets how far the highs (only) are pulled down.
+            // The sibilance band sets how far the highs (only) are pulled down: split at 0.7 of
+            // the frequency, the highs turned down, the bands added back together.
             const float side = juce::jmax (std::abs (sibilance[0].processSingleSampleRaw (x[0])), std::abs (sibilance[1].processSingleSampleRaw (x[1])));
             deessEnv += (side - deessEnv) * (side > deessEnv ? deessAttack : deessRelease);
             const float over = gainToDb (deessEnv) - deessThreshold;
@@ -680,7 +683,12 @@ void VoiceChain::runStages (juce::AudioBuffer<float>& buffer, unsigned stages)
             deessMost = juce::jmin (deessMost, reduction);
             const float keep = dbToGain (reduction);
             for (int c = 0; c < 2; ++c)
-                x[c] -= splitHigh[(size_t) c].processSingleSampleRaw (x[c]) * (1.0f - keep);
+            {
+                const auto ch = (size_t) c;
+                const float lows = splitLow2[ch].processSingleSampleRaw (splitLow[ch].processSingleSampleRaw (x[c]));
+                const float highs = splitHigh2[ch].processSingleSampleRaw (splitHigh[ch].processSingleSampleRaw (x[c]));
+                x[c] = lows + highs * keep;
+            }
         }
 
         mark (markDeess, afterDeess);

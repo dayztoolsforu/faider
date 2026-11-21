@@ -3,7 +3,8 @@
 //  2. it holds its gain through a pause (silence doesn't pump it up);
 //  3. it never goes past its range (a -40 dB voice with 6 dB of range gets +6 dB);
 //  4. the gate with RANGE at -INF closes to true silence;
-//  5. the dynamics' settings: old defaults, compressor INF:1 and MIX, gate HYSTERESIS and HOLD.
+//  5. the dynamics' settings: old defaults, compressor INF:1 and MIX, gate HYSTERESIS and HOLD;
+//  6. the de-esser pulls down loud sibilance only.
 // Prints PASS/FAIL per check; exits non-zero on failure.
 #include "../src/engine/VoiceChain.h"
 
@@ -480,6 +481,34 @@ int main()
                    + juce::String (filtered, 1) + " dB)");
         check (keyedShut < -100.0, "SIDECHAIN: keyed from a silent channel, the gate holds shut (" + juce::String (keyedShut, 1) + " dB)");
         check (listened < open - 25.0 && listened > -100.0, "SIDECHAIN: LISTEN plays the filtered key (" + juce::String (listened, 1) + " dB, the hum far down)");
+    }
+
+    {
+        // DE-ESS: a loud sibilant (7 kHz) is pulled down; the voice's body (300 Hz), quiet highs
+        // and a de-esser switched out are left alone; its screen reads the reduction.
+        auto through = [&phase] (bool on, double hz, double rmsDb, float* most = nullptr)
+        {
+            VoiceChain chain;
+            chain.prepareToPlay (rate, block);
+            chain.setAllStages (false);
+            set (chain, "deessOn", on ? 1.0f : 0.0f);
+            set (chain, "deessThreshold", -30.0f);
+            set (chain, "deessFreq", 6500.0f);
+            const double out = run (chain, 2.0, rmsDb, phase, nullptr, hz);
+            if (most != nullptr)
+                *most = chain.deessReduction.load();
+            return out - rmsDb;   // dB of change
+        };
+        float most = 0.0f;
+        const double sibilant = through (true, 7000.0, -10.0, &most);
+        const double body = through (true, 300.0, -10.0);
+        const double quiet = through (true, 7000.0, -50.0);
+        const double out = through (false, 7000.0, -10.0);
+        check (sibilant < -3.0, "DE-ESS: a loud 7 kHz sibilant pulled down (" + juce::String (sibilant, 1) + " dB)");
+        check (std::abs (body) < 0.5, "DE-ESS: the voice's body at 300 Hz untouched (" + juce::String (body, 2) + " dB)");
+        check (std::abs (quiet) < 0.5, "DE-ESS: a 7 kHz tone under the threshold untouched (" + juce::String (quiet, 2) + " dB)");
+        check (std::abs (out) < 0.1, "DE-ESS: switched out, nothing changes (" + juce::String (out, 2) + " dB)");
+        check (most < -3.0f && most >= -12.0f, "DE-ESS: its screen reads the reduction (" + juce::String (most, 1) + " dB, at most 12)");
     }
 
     std::cout << (failures == 0 ? "ALL PASSED" : "FAILURES: " + std::to_string (failures)) << "\n";

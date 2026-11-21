@@ -3,6 +3,13 @@
 What changed in each version of Faider, newest first. Downloads are on the
 [Releases](https://github.com/dayztoolsforu/faider/releases) page.
 
+## Unreleased
+
+**Fixed**
+- The de-esser takes the sibilance down by as much as it says: it splits the sound with a crossover
+  whose bands stay in phase, so 12 dB of reduction on its screen is about 9 dB off a loud "s" at 7 kHz
+  (it was nearer 1.5 dB).
+
 ## 0.2.0 (21 November 2026)
 
 **New**

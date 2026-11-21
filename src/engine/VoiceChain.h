@@ -111,6 +111,9 @@ private:
 
     double rate = 48000.0;
     std::array<juce::IIRFilter, 2> highPass, highPass2, lowPass, low, mid, mid2, high, sibilance, splitHigh;   // highPass2: 24 dB/oct's second half
+    // The de-esser's crossover (Linkwitz-Riley, 24 dB/oct): two Butterworth halves each way, so the
+    // bands stay in phase and turning the highs down takes them down by as much.
+    std::array<juce::IIRFilter, 2> splitHigh2, splitLow, splitLow2;
 
     // Noise reduction (audio thread): RNNoise at 48 kHz, the spectral reducer otherwise or when
     // chosen. Whichever runs is cleared when it comes in, so nothing stale plays out.

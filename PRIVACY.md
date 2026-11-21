@@ -24,7 +24,8 @@ These open in your web browser, and only when you press the key that says so. Th
 then handles your visit under its own policy.
 
 - **GET VB-CABLE** (PRE-FLIGHT, after install): `vb-audio.com`
-- **Get Faider x.y.z...** (tray menu, after an update check finds one): the release page on `github.com`
+- **Get Faider x.y.z...** (tray menu, SETTINGS > Updates & about or FIND, after an update check finds one): the release page on `github.com`
+- **Read policy** (SETTINGS > Updates & about): this policy on `github.com`
 - **SOUND SETTINGS**: Windows' own Sound settings, on your PC
 
 ## What Faider keeps on your PC
@@ -47,7 +48,7 @@ account) can read it.
 
 Only when you ask, and only these:
 
-- **Start with Windows** (tray menu) adds a value named `Faider` under
+- **Start with Windows** (SETTINGS > General, or the tray menu) adds a value named `Faider` under
   `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`, holding the path of
   Faider.exe. Switching it off removes it, and so does uninstalling.
 - **APPLY** on DEVICES' VB-CABLE bar, after you approve Windows' prompt, writes the cable's sample

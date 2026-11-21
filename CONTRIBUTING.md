@@ -50,7 +50,7 @@ One plain sentence that says what Faider does now, as a user or the next develop
 No prefix, no ticket number. Names on the desk are written as the desk writes them, in capitals.
 
 ```
-PORT... beside OSC in SETTINGS > CONTROL sets the port OSC listens on, 1024 to 65535, moving it at once if it's on, still for this PC only
+The desk's LED meters redraw as the chosen meter standard moves them and PEAK HOLD drops on time
 The uninstaller ends only a Faider running from its own folder, not another user's or a build's
 ```
 

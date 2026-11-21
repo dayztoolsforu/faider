@@ -211,7 +211,7 @@ Right-click an output for **DEVICE...** (where it plays) and **HEADPHONE EQ**. R
 **COLOUR**, **IN THE MINI MIXER** and **REMOVE**. Removing a
 program's channel also removes its app rule, so the channel doesn't come back by itself.
 
-### Step 7: PRO, for the whole console
+### Step 7: The whole console, or COMPACT
 
 The Mixer is the whole console: each channel's input, filters, dynamics and EQ, buses and
 combinators, plugins. For a smaller view, **COMPACT** in the sidebar folds every strip to its name
@@ -275,7 +275,7 @@ From the right:
 | Control | What it does |
 |---|---|
 | **+ 100% -** | Zoom. Steps between 100, 125 and 150%. Click the percentage for 100%. Ctrl + / Ctrl - / Ctrl 0 do the same |
-| **FIND** (Ctrl+K) | Search every page, channel, scene, macro, pad and command by name |
+| **FIND** (Ctrl+K) | Search every page, setting, channel, scene, macro, pad and command by name |
 | **HISTORY** (Ctrl+H) | Every change you've made. Pick one to go back to it |
 | **MINI** | The mini mixer: a small mixer window (the tray icon opens it too). **PIN** on it keeps it on top |
 | **Health light** | Green: audio is fine. Amber: the audio load is high or a device ran short recently. Red: an audible glitch in the last 10 seconds, or no audio running. The number is the audio load. Click it for DEVICES |
@@ -921,7 +921,7 @@ The **APP** pages:
 
 | Page | Setting | What it does |
 |---|---|---|
-| **General** | **Language** | The language of the interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or 简体中文, each in its own name. The first start follows Windows' display language if it's one of them, English if not. A change takes effect at the next start: **RESTART NOW** restarts Faider at once, **LATER** keeps it for then. The desk's keys, the event log and product names stay in English |
+| **General** | **Language** | The language of the interface: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Svenska, Türkçe or 简体中文, each in its own name. The first start follows Windows' display language if it's one of them, English if not. Updated from a version before languages, it stays in English. A change takes effect at the next start: **RESTART NOW** restarts Faider at once, **LATER** keeps it for then. The desk's keys, the event log and product names stay in English |
 | | **Start with Windows** | Opens Faider in the tray when you sign in |
 | | **Zoom** | **100%**, **125%**, **150%**, or **Custom…** for any size from 75 to 200%. Ctrl + and Ctrl - step between the first three |
 | | **Look** | The console's colours and typeface; its menu lists your looks and **Save as…** (see [Looks](#looks)) |
@@ -931,7 +931,7 @@ The **APP** pages:
 | **Startup & checks** | **Pre-flight on start** | PRE-FLIGHT a few seconds after start, shown only if something's wrong |
 | | **Pre-flight**, **Zero the desk** | **Run pre-flight** and **Check** run them now (see [18.1](#181-pre-flight)) |
 | | **Setup: build a mix** | **Run setup** asks SETUP's four questions again (see [2](#2-first-time-setup)): it adds what's missing and never removes anything |
-| **Updates & about** | **Check for updates** | On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.1.5`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or **Get Faider x.y.z…** here opens its page. Switch it off and Faider never asks. |
+| **Updates & about** | **Check for updates** | On by default: at most once a day (half a minute after start, or once a day has passed while it keeps running), Faider sends one request to GitHub asking for its newest release. The request carries only the app's name and version (for example `Faider/0.2.0`); nothing is downloaded or installed. If a newer version is out, the tray says so, and **Get Faider x.y.z...** on the tray menu, **GET FAIDER x.y.z** in FIND or **Get Faider x.y.z…** here opens its page. Switch it off and Faider never asks. |
 | | **Version** | The version running now. **Check now** (or **CHECK FOR UPDATES NOW** in FIND) asks at once and says when you're up to date |
 | | **About Faider** | Version and credits |
 | | **Privacy** | **Read policy** opens Faider's privacy policy on GitHub |
@@ -1032,8 +1032,8 @@ The **MIDI & OSC** page:
 | **MIDI MAP** (Ctrl+L) | Ctrl+L, or **Start mapping** in SETTINGS > MIDI & OSC, starts it; Esc ends it. Click a control on screen, then move a knob or key on your controller. Each strip's fader, pan, CUT, SOLO, power and routing keys can be mapped, as well as scenes, pads and the tape. The mouse wheel scrolls the desk while mapping (Shift+wheel up and down) |
 | **OSC** | Programs on this PC can send to port 9000, or the port set in **OSC port** (SETTINGS > MIDI & OSC; it never listens to the network): `/faider/input/NAME/fader -12` (dB), `/faider/output/NAME/mute 1`, `/faider/bus/NAME/pan -0.5`, `/faider/input/NAME/solo 1`, `/faider/scene NAME`, `/faider/macro/NAME 1` (0 releases it). Write spaces in names as `_`. Every address: [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md) |
 | **In-game overlay** (Ctrl+Shift+O) | Each mic channel's talking light, LIVE / CUT and level, plus up to four scene keys. Never takes focus from a game. Drag it anywhere |
-| **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). **PIN** keeps it on top of everything. **OPEN** returns to the main window |
-| **Tray** | Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
+| **MINI** | The mini mixer: a small window with a fader, meter and **CUT** for each strip ticked **IN THE MINI MIXER** on its right-click menu (each output's while none is). Its meters are columns of round LEDs on SETTINGS > Audio > Meter standard, as on the desk. **PIN** keeps it on top of everything. **OPEN** returns to the main window |
+| **Tray** | Click the icon for the mini mixer (it opens a moment later, once no second click has followed); double-click to open the window, without the mini mixer. Right-click: Show, scene recall, Session timeline, Get Faider x.y.z... (when a newer version is out), Boost Windows audio again... (when a boost has been undone), Start with Windows, Save a problem report..., About, Quit. The icon flashes amber during an alert |
 
 Faider always runs with your ordinary user rights, even when it's started from an
 administrator window. It restarts itself with ordinary rights, because the in-game overlay can't
@@ -1107,7 +1107,7 @@ kind, and their routes go with them.
 
 ### 17.9 Make a push-to-talk key
 
-1. SETTINGS > MACROS > **+ NEW**.
+1. SETTINGS > **Macros** > **+ NEW**.
 2. **+ ACTION** > **UNCUT** > your mic channel.
 3. Turn **MOMENTARY** on and set a **HOTKEY**. While you hold it the mic is live, and on release it
    is cut again. Start with the mic cut.
@@ -1120,7 +1120,7 @@ When the overlay, a MIDI controller or OSC doesn't respond:
 
 | Problem | Check |
 |---|---|
-| **The overlay doesn't show** | Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS > HOTKEYS marks it in red and the event log says so: **SHOW OVERLAY** in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads **NO MIC CHANNELS** when there are none |
+| **The overlay doesn't show** | Ctrl+Shift+O is a hotkey for the whole of Windows. If another app has it, SETTINGS > Hotkeys marks it in red and the event log says so: **SHOW OVERLAY** in FIND opens the overlay without the key. The overlay is a window that stays on top, made for a game in a borderless window, so set the game to borderless or windowed. It lists microphone channels only (interface inputs and Windows devices), and reads **NO MIC CHANNELS** when there are none |
 | **A MIDI controller does nothing** | Each MIDI input is off until you switch it on in SETTINGS > MIDI & OSC > **Inputs and bindings**. A controller plugged in after Faider started isn't opened by itself: press **REFRESH** there and switch its input off and on, or restart Faider. Move a control and **LAST** at the bottom of that list shows what arrived. A control does nothing until it's bound in **MIDI MAP** (Ctrl+L). Only control changes and notes are read: faders and pans follow a knob or fader, not a key, and keys switch CUT, SOLO and the like |
 | **OSC does nothing** | OSC is off until its switch is on (SETTINGS > MIDI & OSC). The sender has to use the port shown under it (9000 unless you changed it) and run on this PC: Faider listens on `127.0.0.1` only, so a phone or another PC can't reach it. If the port couldn't be opened (another program may have it), Faider says so and OSC stays off: type another in **OSC port** and click **Apply**. Then check the address: the strip's name, with `_` for spaces (see the [OSC reference](https://github.com/dayztoolsforu/faider/blob/main/docs/OSC.md)) |
 

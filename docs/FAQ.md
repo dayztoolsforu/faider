@@ -66,7 +66,7 @@ and the status snapshot in one .zip where you choose. Nothing is sent anywhere: 
 an [issue](https://github.com/dayztoolsforu/faider/issues) yourself.
 
 **The overlay doesn't show.**
-Ctrl+Shift+O may belong to another app (SETTINGS > HOTKEYS marks it in red): use **SHOW OVERLAY** in
+Ctrl+Shift+O may belong to another app (SETTINGS > Hotkeys marks it in red): use **SHOW OVERLAY** in
 FIND. The overlay is made for a game in a borderless window, so set the game to borderless or
 windowed.
 

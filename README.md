@@ -82,7 +82,8 @@ on a short screen. Click it again for the whole strips.
 - Route any channel to as many buses and outputs as you have (up to 8 of each). Routes that would feed back are refused
 - Buses as sub-mixes, or combinators that split a signal into parallel plugin paths
 - Outputs made on demand for each device. The output strips carry a bus compressor, mix EQ, width, a limiter (LIMIT) and LUFS metering
-- Mix-minus feeds and stems built from FIND (MIX-MINUS AND STEMS)
+- Mix-minus feeds and stems built from an output's right-click menu or FIND (MIX-MINUS AND STEMS...)
+- Level meters as columns of round LEDs on every strip and in the mini mixer, drawn to the meter standard you choose: peak, true peak, RMS, VU, PPM, K-system or momentary loudness
 
 **Tools**
 - Pads: four banks of sixteen, with trim, fades, choke groups, global hotkeys and macros
@@ -94,7 +95,7 @@ on a short screen. Click it again for the whole strips.
 - Scenes that glide, undo and redo for every mix change, named sessions and a session timeline
 - Macros fired by hotkeys, pads, the API or triggers (an app starts, a device connects, an output falls silent, a time of day)
 - MIDI mapping, and OSC from programs on the same PC
-- APP RULES (SETTINGS > Apps, or FIND) give a program its own channel the moment it starts playing
+- App rules (SETTINGS > Apps) give a program its own channel the moment it starts playing
 - SETTINGS: a page per subject down a sidebar, each setting with what it does under its name, and a search box; FIND (Ctrl+K) finds every setting by name
 - An in-game overlay, and a mini mixer that the tray icon opens; the tray menu's Session timeline goes back to an earlier mix
 

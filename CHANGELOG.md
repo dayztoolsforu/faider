@@ -11,6 +11,8 @@ What changed in each version of Faider, newest first. Downloads are on the
   简体中文, from the next start (**RESTART NOW** offers it at once). The first start follows Windows'
   display language when it's one of them. The desk's keys, the event log and product names stay
   in English.
+- Level meters are columns of round LEDs, on every strip and in the mini mixer, drawn to SETTINGS >
+  Audio > Meter standard: each standard has its own scale, colours and number of LEDs.
 - **COMPACT** in the Mixer's sidebar (and **COMPACT DESK** / **FULL DESK** in FIND) folds every
   strip to its name bar and fader, so the desk fits on a
   short screen. It is remembered.
@@ -57,7 +59,7 @@ What changed in each version of Faider, newest first. Downloads are on the
 
 **Removed**
 - The SIMPLE desk and the SIMPLE / PRO switch: the Mixer is always the whole console, and
-  **COMPACT** is its small view. SETUP stays (a first start, and **SETUP: BUILD A MIX** in FIND). A
+  **COMPACT** is its small view. SETUP stays (a first start, **Setup: build a mix** in SETTINGS > Startup & checks, and FIND). A
   mix or settings left on SIMPLE open on the whole console.
 
 **Fixed**
